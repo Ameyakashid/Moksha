@@ -226,6 +226,11 @@ func decide() -> Dictionary:
 			if rect.size.y<=18: continue
 			var edge: float=rect.position.x if direction>0 else rect.end.x
 			if (edge-pos.x)*direction>=-8 and (edge-pos.x)*direction<(105 if rect.size.y>60 else 60) and pos.y>rect.position.y+8: jump_needed=true
+		for hazard in d.get("hazards",[]):
+			var hazard_rect:Rect2=Rect2(hazard.at-hazard.size/2,hazard.size)
+			var hazard_edge:float=hazard_rect.position.x if direction>0 else hazard_rect.end.x
+			if pos.y>hazard_rect.position.y-20 and (hazard_edge-pos.x)*direction>=-5 and (hazard_edge-pos.x)*direction<55:
+				jump_needed=true
 		for gap in d.get("gaps",[]):
 			var edge: float=gap.x if direction>0 else gap.y
 			if (edge-pos.x)*direction>=-5 and (edge-pos.x)*direction<45: jump_needed=true

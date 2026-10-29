@@ -27,3 +27,9 @@ Godot4.6.3 loaded both authored level resources and enumerated14 districts. A st
 ## Remaining integration checks
 
 Check actual freight movement/reset, route target0 activation semantics, doors after death/reload, sonar-safe pulse routing, and real player traversal of every climb. Central runtime owns persistence, rewards, presentation, objective state and final narrative handling.
+
+## Corrected-damage final isolated acceptance
+
+On the frozen corrected runtime, all14 districts across levels4/5 passed at60Hz in both sight states (**28/28**), with live autonomous enemies and actual movement/combat/E/Q inputs after explicitly labeled initial district/sight fixtures. Start/end production-source hashes match, and the aggregate also verified those hashes against current files. Evidence: `campaign/route_tests_45/final/summary.json`; reproduce aggregation with `python campaign/route_tests_45/summarize.py`.
+
+These runs include the actual strike-only breakers, intact multi-launch freight latches, mandatory Keeper and Warden encounters, and entry into the real final-choice state. They do not prove uninterrupted campaign continuity, save/Continue, choice resolution, or human15–20-minute timing. Summed optimized isolated routes are approximately4.2–5.0minutes per level, not a measured human session. Earlier diagnostics before the incoming-health receiver fix are explicitly archived as invalid survival evidence.

@@ -10,7 +10,7 @@ def hashes():
  return {str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in ROOT.rglob('*') if p.is_file() and (p.suffix in {'.gd','.tscn','.tres','.gdshader'} or p.name=='project.godot') and not {'.git','.godot','qa_audit','evidence'}.intersection(p.relative_to(ROOT).parts)}
 before=hashes();reports=[]
 for hz in (60,120):
- for name in ('draft_audit','lifecycle_draft','sensory_draft','save_draft','door_physics','ui_dependencies'):
+ for name in ('draft_audit','lifecycle_draft','sensory_draft','save_draft','door_physics','ui_dependencies','incoming_health'):
   command=[BIN,'--headless','--path',str(ROOT),'--fixed-fps',str(hz),'--script',f'res://campaign/qa_audit/{name}.gd','--',f'--hz={hz}']
   started=time.monotonic()
   try:

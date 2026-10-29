@@ -5,6 +5,8 @@ import subprocess, os, json, hashlib, re, time, sys
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'simulation/evidence'
 OUT.mkdir(exist_ok=True)
+for relative in ("demo/evidence", "combat_pc/evidence"):
+    (ROOT/relative).mkdir(parents=True,exist_ok=True)
 env = dict(os.environ, XDG_DATA_HOME='/tmp/moksha-sim-data', XDG_CONFIG_HOME='/tmp/moksha-sim-config', XDG_CACHE_HOME='/tmp/moksha-sim-cache')
 base = [os.environ.get('GODOT_BIN','godot'), '--headless', '--path', str(ROOT)]
 stages = [('import', ['--editor', '--import', '--quit']), ('sandbox_boot', ['res://simulation/footing_sandbox.tscn', '--fixed-fps', '120', '--quit-after', '180'])]
@@ -29,12 +31,18 @@ baseline = source_hashes()
 results=[]
 for name,args in stages:
     start=time.monotonic()
-    run=subprocess.run(base+args,env=env,capture_output=True,text=True,timeout=180)
-    output=run.stdout+run.stderr
+    try:
+        run=subprocess.run(base+args,env=env,capture_output=True,text=True,timeout=int(os.environ.get('MOKSHA_STAGE_TIMEOUT','600')))
+        output=run.stdout+run.stderr
+        returncode=run.returncode
+    except subprocess.TimeoutExpired as exc:
+        rawout=exc.stdout or b''; rawerr=exc.stderr or b''
+        output=(rawout.decode(errors='replace') if isinstance(rawout,bytes) else rawout)+(rawerr.decode(errors='replace') if isinstance(rawerr,bytes) else rawerr)+'\nFAIL stage wall-time watchdog expired\n'
+        returncode=124
     (OUT/(name+'.log')).write_text(output)
     errors=[l for l in output.splitlines() if re.match(r'^(SCRIPT ERROR:|ERROR:|FAIL\b)',l)]
-    ok=run.returncode==0 and not errors
-    results.append(dict(name=name,passed=ok,exit_code=run.returncode,errors=errors,seconds=round(time.monotonic()-start,3)))
+    ok=returncode==0 and not errors
+    results.append(dict(name=name,passed=ok,exit_code=returncode,errors=errors,seconds=round(time.monotonic()-start,3)))
     print(name, 'PASS' if ok else 'FAIL',flush=True)
 archive=Path('/workspace/shared/MOKSHA-The-First-Ascent-v28-Expanded.zip')
 sha=hashlib.sha256(archive.read_bytes()).hexdigest() if archive.exists() else None

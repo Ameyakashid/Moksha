@@ -23,3 +23,9 @@ The floor is a recovery surface throughout. Required upper goals have fixed ladd
 ## Validation
 
 Godot4.6.3 loaded both new level resources:14 districts; unique IDs, valid references, supported objectives/enemies/route waypoints; **0 failures**. This confirms data and support geometry only. Full input-driven routing, freight handling, checkpoint persistence, final-choice execution, and measured level duration remain unverified. No timer padding or combat-stat changes were introduced.
+
+## Corrected-damage final isolated acceptance
+
+On the frozen corrected runtime, all14 districts across levels4/5 passed at60Hz in both sight states (**28/28**), with live autonomous enemies and actual movement/combat/E/Q inputs after explicitly labeled initial district/sight fixtures. Start/end production-source hashes match, and the aggregate also verified those hashes against current files. Evidence: `campaign/route_tests_45/final/summary.json`; reproduce aggregation with `python campaign/route_tests_45/summarize.py`.
+
+These runs include the actual strike-only breakers, intact multi-launch freight latches, mandatory Keeper and Warden encounters, and entry into the real final-choice state. They do not prove uninterrupted campaign continuity, save/Continue, choice resolution, or human15–20-minute timing. Summed optimized isolated routes are approximately4.2–5.0minutes per level, not a measured human session. Earlier diagnostics before the incoming-health receiver fix are explicitly archived as invalid survival evidence.

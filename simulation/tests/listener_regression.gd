@@ -131,7 +131,7 @@ func _listener_factory() -> void:
 			count += 1
 			check(actor.get_script().resource_path == "res://demo/components/shared_sentinel.gd" and actor.get_node("IntentDriver").tick_count > 0 and actor.get_node_or_null("StrikeHealth") == null, "real factory listener has one shared scheduler and one Health")
 			check(actor.health == 2 and actor.profile.run_speed == 112 and actor._windup == 0.46 and actor._damage == 12 and actor.archetype_profile != LISTENER_PROFILE, "real factory listener configuration and mission overrides")
-	check(count == 13, "all thirteen authored listener placements use shared production scene")
+	check(count == 21, "all twenty-one authored listener placements use shared production scene")
 	host.load_sector(0)
 	for actor in host.enemies: actor.ai_enabled = false
 	await frames(3)

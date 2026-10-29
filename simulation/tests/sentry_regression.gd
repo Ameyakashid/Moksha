@@ -335,7 +335,7 @@ func mission_factory() -> void:
 			if actor.kind!="sentry": continue
 			count+=1
 			check(actor.get_script().resource_path=="res://demo/components/shared_sentry.gd" and actor._damage==12 and actor.health==2,"authored sentry placement selects shared scene with mission damage12")
-	check(count==13,"all thirteen authored sentry placements migrated")
+	check(count==20,"all twenty authored sentry placements migrated")
 	host.load_sector(1)
 	for actor in host.enemies: actor.ai_enabled=false
 	await frames(3)

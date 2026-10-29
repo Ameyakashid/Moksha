@@ -80,3 +80,17 @@ marks noncombat goals complete and the relay on, verifies the district has no
 freight/all-guards requirement, and checks the live captain still seals the exit.
 Only real captain death may then open it, while unrelated guards remain alive.
 This setup must not be described as completing the district's objectives by play.
+
+The integrated regression also requires all four player receiver bindings to
+point to the current campaign Health adapter after every load. It verifies
+actual guarded captain receipts reduce Health60→57 and an actual authored
+quarantine sentry projectile reduces Health60→48 in both sight states. This
+caught a real host bug: replacing Health without rebinding receivers silently
+rejected incoming attacks. The runtime now rebinds the existing receivers.
+`guard_probe.log` preserves the failing observation and `guard_rebind_probe.log`
+the diagnostic rebind result; only `integrated_captains.gd` is acceptance evidence
+against the production fix (it performs no receiver rebind itself).
+
+Final integrated result: **198 checks / 8 captain encounters / zero failures at
+both 60 and 120 Hz**. Isolated composition result: **99 checks / 25 scenarios /
+zero failures at both rates**.
