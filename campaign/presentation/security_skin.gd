@@ -1,0 +1,36 @@
+extends Node2D
+## Fill-only underlay. Existing enemy root still paints every outline/telegraph.
+var actor: Node2D
+func _process(_dt: float) -> void:queue_redraw()
+func sample_geometry(milliseconds: float) -> Dictionary:
+	if not is_instance_valid(actor):return {}
+	return geometry(float(actor.facing),actor.velocity,actor.ai_state,milliseconds)
+static func geometry(f: float, velocity: Vector2, state: StringName, milliseconds: float) -> Dictionary:
+	var sway := sin(milliseconds*.018)*minf(absf(velocity.x)*.025,2.0)
+	var lean := clampf(velocity.x/95.0,-1,1)*2.0
+	var hand := Vector2(f*10,-20)
+	if state == &"windup":hand=Vector2(-f*9,-27)
+	if state == &"active":hand=Vector2(f*18,-22)
+	return {"head":Vector2(lean,-31),"left_foot":Vector2(-5-sway,0),"right_foot":Vector2(5+sway,0),"hand":hand,"shoulder":Vector2(f*4,-24)}
+func _draw() -> void:
+	if not is_instance_valid(actor) or actor.blind_mode:return
+	var fill := Color("394b56")
+	var plate := Color("657d85")
+	if actor.kind == "listener":plate=Color("7c6b96")
+	elif actor.kind in ["warden","captain_lancer"]:plate=Color("9a7957")
+	elif actor.kind == "captain_keeper":plate=Color("619180")
+	if actor.dead:
+		var alpha := clampf(1.0-actor._death_elapsed/.9,0,1)
+		draw_line(Vector2(-12,-3),Vector2(10,-3),Color(fill,alpha),5,true)
+		draw_circle(Vector2(13,-5),4,Color(plate,alpha),true,-1,true)
+		return
+	var g := sample_geometry(float(Time.get_ticks_msec()))
+	draw_line(Vector2(-3,-13),g.left_foot,fill,4.0,true)
+	draw_line(Vector2(3,-13),g.right_foot,fill,4.0,true)
+	draw_colored_polygon(PackedVector2Array([Vector2(-5,-25),Vector2(5,-25),Vector2(4,-13),Vector2(-4,-13)]),fill)
+	draw_colored_polygon(PackedVector2Array([Vector2(-4,-24),Vector2(4,-24),Vector2(3,-18),Vector2(-3,-18)]),plate)
+	draw_line(g.shoulder,g.hand,plate,3.5,true)
+	draw_circle(g.hand,1.8,Color("223139"),true,-1,true)
+	draw_circle(g.head,4.7,plate,true,-1,true)
+	draw_line(g.head+Vector2(-3,-1),g.head+Vector2(3,-1),Color("17242d"),2.5,true)
+	if actor.kind=="warden":draw_line(Vector2(-7,-26),Vector2(7,-26),plate,4,true)

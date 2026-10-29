@@ -67,3 +67,39 @@ It starts the real campaign with saves disabled, checks art ordering/old-backdro
 replacement, performs the actual sight-choice flow, checks immediate hidden
 architecture and terrain, reloads while blind, and starts a fresh sighted run.
 This verifies runtime state, not rendered pixels or human visibility perception.
+
+## Optional full-color actors (not a controller replacement)
+
+`actor_presentation.gd` is an optional Node adapter. After creating the real player
+and enemies, add the adapter and call `bind(player,enemies)`. On scene replacement
+free/clear the old adapter. Call `set_sight_enabled(not blind)` at load and sight
+changes. `set_debug_wireframe(true)` restores the approved original player paint
+and removes all colored underlays; false restores colored presentation. `clear()`
+restores the source Visual's prior visibility and removes its own children only.
+
+The existing player `Visual` **keeps its instance, script, event subscriptions,
+pose clocks and contact locking**. `operative_skin.gd` reads `get_pose()` every
+frame; it never sends motor input, changes transforms, or substitutes poses. It
+uses filled coat/limb shapes, copper reinforcements, grey hair/beard and an aged
+face silhouette on those exact bones. Inherited `_draw_weapon()` and
+`_draw_shield()` are unchanged. `body_echo.source_visual` remains the original
+pose source; the new colored view is not used as sightless proprioception.
+
+`security_skin.gd` adds filled armor *below* the original enemy Visual and its
+warning arcs, health strips, weapons, locked aim, Warden and captain tells. Its
+head/hand/feet formulas match the current sentinel/sentry views. It reads current
+shared-controller state (including read-only `ai_state`), never assigns it. The
+adapter fully hides these added fills when sight is sacrificed, even while the
+original sensory renderer selectively reveals events.
+
+The original generated character sheets were inspected. Their limited12-frame
+pose inventory cannot faithfully represent the established connected locomotion,
+wall/ladder support, rolls, charge, parry and chained attacks. They therefore remain
+reference/showroom assets, not a misleading sprite swap. New wardrobe is original
+code-native paint using their navy/copper/grey age cues, not commercial-game art.
+
+`tests/actor_skin_contract.gd` passes743 checks:130 pose/facing/phase samples, exact
+snapshot preservation including weapon/shield geometry, actual headless draw
+lifecycle without triangulation errors, stable source identity/no extra motor
+subscription, sight gating, debug toggles, enemy hand geometry and detach restore.
+This is structural/geometry verification, **not native rendered visual approval**.
