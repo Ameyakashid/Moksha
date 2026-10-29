@@ -40,6 +40,8 @@ Routing consoles begin **UNROUTED** and cycle **0 → 1 → 2 → 0**. Match the
 
 Ordinary guards may survive most district exits. Four captain seals require only their named captain, not every guard. Captains use two genuine new shared-controller policies: a long committed charge and a retreating long thrust. The final Warden retains its existing bracing, commitment and parry rules. There are no repeated-wave or elapsed-time progression gates.
 
+For a packaged Windows launch, save-file location and a simple real pacing worksheet, see `campaign/docs/LOCAL_PLAYTEST.md`.
+
 ## Builds, sight and checkpoints
 
 - Neutral: 60 health, ordinary run/damage.

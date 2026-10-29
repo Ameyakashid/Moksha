@@ -4,9 +4,9 @@ This record separates implementation, controlled input evidence, focused fixture
 
 ## Source and preservation
 
-Working campaign: `moksha-campaign`; development freeze commit `e94a5c6f7fa8ffa711ba1c13578b638ab3c45f84`. Final evidence files carry their exact source hashes; later documentation/test-result commits do not imply a different gameplay build.
+Working campaign: `moksha-campaign`; gameplay and Windows export freeze commit `4ea2c1102466aabd9d8cf93a01be24139970363d`. Final evidence files carry their exact source hashes; later documentation/test-result commits do not imply a different gameplay build.
 
-Original Oct23 Library project ZIP was recovered and preserved unchanged; SHA256 `1cef11710932d3a6079026d3b64ac82c50ee36308181606543bb4ddf601a835f`. Original `moksha/`, recovered baseline folder and project ZIP remain separate. A first local git commit preserves the recovered source. Independent comparison found1909 baseline files identical, none missing, before intentionally updating only the new project's entry/configuration and historical test reports. The approved player/controller and original simulation runtime files remain unchanged. One historical test inventory assertion was later corrected separately, as recorded below.
+Original Oct23 Library project ZIP was recovered and preserved unchanged; SHA256 `1cef11710932d3a6079026d3b64ac82c50ee36308181606543bb4ddf601a835f`. Original `moksha/`, recovered baseline folder and project ZIP remain separate. A first local git commit preserves the recovered source. Independent comparison found1909 baseline files identical, none missing, before intentionally updating only the new project's entry/configuration and historical test reports. The approved player/controller and original simulation runtime files remain unchanged. Two historical test inventory assertions were later corrected separately, as recorded below.
 
 ## Implemented inventory (not duration)
 
@@ -29,13 +29,30 @@ The optional campaign health adapter initially replaced the Health node without 
 
 ## Continuous and isolated route acceptance
 
-Post-fix isolated acceptance is complete:24/24 Level2–3 cases and28/28 Level4–5 cases at60Hz cover both sight states with live damage and ordinary production inputs. Reports and source manifests are under `campaign/route_tests/final/` and `campaign/route_tests_45/final/`. The complete-campaign matrix is still being completed. Do not infer a complete32-district run from isolated starts. Final reports will be added here only after actual normal title/start →district progression →four upgrade choices →real sight decision →final resolution succeeds with matching source hashes and no engine errors.
+Post-fix isolated acceptance is complete:24/24 Level2–3 cases and28/28 Level4–5 cases at60Hz cover both sight states with live damage and ordinary production inputs. Reports and source manifests are under `campaign/route_tests/final/` and `campaign/route_tests_45/final/`. Six continuous title-to-ending cases pass on gameplay freeze `4ea2c11`, independently reviewed in `campaign/qa_audit/continuous_independent_review_4ea2c11.json`. Each completes32 ordered districts,32 required-goal gate receipts,four actual upgrades,five level receipts and a real ending, with genuine incoming damage,zero deaths/errors/source drift. These are pre-native-polish receipts preserved under `campaign/tests/history/pre_visual_freeze_4ea2c11/`; a later UI/art revision must receive its own validation rather than inheriting these hashes.
+
+| Physics / lens / sight | Level1 /2 /3 /4 /5 active seconds | Total seconds |
+|---|---|---|
+| 60 neutral retained | 344.1 / 213.0 / 203.8 / 302.2 / 283.7 | 1346.83 |
+| 60 neutral traded | 344.1 / 164.6 / 185.8 / 258.4 / 247.8 | 1200.68 |
+| 120 neutral retained | 267.1 / 208.2 / 204.7 / 306.4 / 282.1 | 1268.50 |
+| 120 neutral traded | 265.5 / 162.2 / 186.4 / 268.4 / 245.7 | 1128.26 |
+| 60 strength retained | 306.7 / 211.4 / 209.1 / 313.4 / 297.3 | 1337.98 |
+| 60 agility retained | 370.8 / 169.3 / 198.6 / 299.5 / 263.8 | 1302.03 |
+
+These are layout-aware scripted bot times (including occasional navigation hesitation), not optimized minimums or human estimates. They do **not** verify15–20minutes per level or75–100minutes total.
 
 The route driver knows the map and AI. It sends raw production PC button frames and ordinary E/Q/choice/upgrade key events. It does not teleport during measured play, heal, force kills/goals, disable enemies or open gates. Isolated district/sight setup fixtures are explicitly labelled and separate from full-campaign evidence.
 
 ## Inherited historical-test mismatch
 
-The unchanged `simulation/tests/sentry_regression.gd` contains a hardcoded assertion that there are13 authored sentries. The recovered Oct23 demo has20 mappings. Independent execution on an untouched staged baseline reproduces the same sole failure:35scenarios/210checks, one inventory-count failure, while all20 individual shared-scene/damage/HP mapping checks pass. The raw failure is retained and classified as pre-existing assertion drift, not hidden as a pass. The working-copy assertion was subsequently corrected from13/thirteen to20/twenty, with no other GDScript changes or weakened checks; untouched-baseline failures remain preserved. The broader corrected foundation aggregate is still being completed.
+The unchanged `simulation/tests/sentry_regression.gd` contains a hardcoded assertion that there are13 authored sentries. The recovered Oct23 demo has20 mappings. Independent execution on an untouched staged baseline reproduces the same sole failure:35scenarios/210checks, one inventory-count failure, while all20 individual shared-scene/damage/HP mapping checks pass. The raw failure is retained and classified as pre-existing assertion drift, not hidden as a pass. The working-copy assertion was subsequently corrected from13/thirteen to20/twenty, with no other GDScript changes or weakened checks; untouched-baseline failures remain preserved. The corrected foundation aggregate now passes72/72 stages with zero source drift; its independent review is `campaign/qa_audit/foundation_independent_review.json`. A second analogous listener assertion13→21 was independently reproduced on the untouched baseline and narrowly corrected. The test runner also creates omitted report directories so a report write cannot terminate a test before quit.
+
+## Observer correction, not a gameplay change
+
+The first continuous120Hz traded-sight attempt repeatedly released an admitted west-facing ledge at Works because its navigator reversed steering during the catch. The preserved attempt is not accepted as a pass. A separate driver subclass finishes that exact catch with ordinary Up input; it changes no production state, controller, collision or health. An isolated120Hz traded district probe verified the correction; the corrected complete run subsequently passed independently. Previously accepted runs retain their original driver and source hashes.
+
+The first Strength run likewise timed out when its navigator repeatedly attempted an elevated jump designed for the ordinary speed. A separate Strength driver instead takes the already-authored fixed ladder at1340 in Stamping. Its isolated real-input check succeeded with genuine incoming damage; the complete Strength rerun subsequently passed as separate evidence. Neither correction changes movement, layout, health, enemies or objectives.
 
 ## Unverified qualities
 

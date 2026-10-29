@@ -1,0 +1,20 @@
+{
+  "checks": 73,
+  "execution": "All successful contacts use ordinary PC/NPC input, real emission and genuine reflection/return sweep.",
+  "failures": [],
+  "hz": 60,
+  "scenarios": [
+    "real PC braced reflected return 0.5",
+    "real PC braced reflected return 0.699999",
+    "real PC braced reflected return 0.7",
+    "real PC braced reflected return 0.78",
+    "real NPC braced reflected return 0.5",
+    "real NPC braced reflected return 0.699999",
+    "real NPC braced reflected return 0.7",
+    "real NPC braced reflected return 0.78",
+    "real outbound shot into PC braced windup",
+    "real outbound shot into NPC braced windup",
+    "real lethal reflected return while protected",
+    "real return uses isolated committed protection snapshot"
+  ]
+}

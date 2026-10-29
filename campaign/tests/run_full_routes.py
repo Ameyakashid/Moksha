@@ -11,7 +11,8 @@ def run_case(case):
  name=f'full_route_{hz}_neutral_'+('traded' if blind else 'retained')
  env=dict(os.environ,HOME='/tmp/moksha-full/home',XDG_DATA_HOME='/tmp/moksha-full/data',XDG_CONFIG_HOME='/tmp/moksha-full/config',XDG_CACHE_HOME='/tmp/moksha-full/cache')
  for key in ('HOME','XDG_DATA_HOME','XDG_CONFIG_HOME','XDG_CACHE_HOME'):Path(env[key]).mkdir(parents=True,exist_ok=True)
- cmd=[os.environ.get('GODOT_BIN','godot'),'--headless','--fixed-fps',str(hz),'--path',str(root),'--script','res://campaign/tests/full_campaign_route.gd','--',f'--hz={hz}']+(['--sacrifice'] if blind else [])
+ script='res://campaign/tests/full_campaign_route_120_sonar.gd' if hz==120 and blind else 'res://campaign/tests/full_campaign_route.gd'
+ cmd=[os.environ.get('GODOT_BIN','godot'),'--headless','--fixed-fps',str(hz),'--path',str(root),'--script',script,'--',f'--hz={hz}']+(['--sacrifice'] if blind else [])
  log=root/'campaign/tests'/f'{name}.log'
  output=log.with_suffix('.json')
  if output.exists():
@@ -26,10 +27,10 @@ def run_case(case):
  text=log.read_text();errors=[line for line in text.splitlines() if line.startswith(('ERROR:','SCRIPT ERROR:'))]
  report=json.loads(output.read_text()) if output.exists() else {}
  passed=returncode==0 and not errors and report.get('passed') is True and 'FULL_CAMPAIGN_RESULT ' in text
- result=dict(name=name,passed=passed,exit_code=returncode,engine_errors=errors,report=str(output.relative_to(root)),report_sha256=hashlib.sha256(output.read_bytes()).hexdigest() if output.exists() else None,wall_seconds=round(time.monotonic()-start,2),active_seconds=report.get('active_seconds'),failures=report.get('failures'))
+ result=dict(name=name,observer_script=script,passed=passed,exit_code=returncode,engine_errors=errors,report=str(output.relative_to(root)),report_sha256=hashlib.sha256(output.read_bytes()).hexdigest() if output.exists() else None,wall_seconds=round(time.monotonic()-start,2),active_seconds=report.get('active_seconds'),failures=report.get('failures'))
  print(name,passed,report.get('active_seconds'),report.get('failures'),flush=True)
  return result
 with ThreadPoolExecutor(max_workers=min(4,len(cases))) as pool:
  results=list(pool.map(run_case,cases))
-(root/'campaign/tests/full_route_matrix.json').write_text(json.dumps({'passed':all(r['passed'] for r in results),'cases':results,'human_duration_validated':False},indent=2)+'\n')
+(root/'campaign/tests'/('full_route_single_result.json' if args.single else 'full_route_matrix.json')).write_text(json.dumps({'passed':all(r['passed'] for r in results),'cases':results,'human_duration_validated':False},indent=2)+'\n')
 raise SystemExit(0 if all(r['passed'] for r in results) else 1)

@@ -1,0 +1,1094 @@
+{
+  "checks": [
+    {
+      "label": "same controller with one intent scheduler",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "single root Health and registered actual-body receiver",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "standalone sentry tuning",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "mission body/hurtbox masks preserved",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "no melee admission and all physical actors/cargo selected",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "explicit configurable owner-layer damage admission",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "authored NPC capability limits",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "standalone encounter overrides retain precedence",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "private per-instance authored and carrier data",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "policy starts genuine controller windup",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "full readable warning before release",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "real sweep reaches player Health",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "one canonical damage1 shot",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "authored windup and bounded active-tick quantization",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "single warning/release owner and no phantom melee noise",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "committed release noise uses actual muzzle",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "facade reports genuine completed result",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "composition and authored physical shot"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "guard"
+    },
+    {
+      "label": "real held shield receives bolt",
+      "passed": true,
+      "scenario": "guard"
+    },
+    {
+      "label": "unchanged shared 75 percent guard",
+      "passed": true,
+      "scenario": "guard"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "guard"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "reflection"
+    },
+    {
+      "label": "real bolt enters timed shield approach",
+      "passed": true,
+      "scenario": "reflection"
+    },
+    {
+      "label": "actual front shield physically reflects",
+      "passed": true,
+      "scenario": "reflection"
+    },
+    {
+      "label": "same carrier updates owner/identity exactly once",
+      "passed": true,
+      "scenario": "reflection"
+    },
+    {
+      "label": "old shooter eligible and current defender excluded",
+      "passed": true,
+      "scenario": "reflection"
+    },
+    {
+      "label": "returned sweep reaches original source",
+      "passed": true,
+      "scenario": "reflection"
+    },
+    {
+      "label": "return max(canonical damage,2) through one shared Health fact",
+      "passed": true,
+      "scenario": "reflection"
+    },
+    {
+      "label": "one Health-confirmed returned HIT",
+      "passed": true,
+      "scenario": "reflection"
+    },
+    {
+      "label": "lethal return one genuine DOWN",
+      "passed": true,
+      "scenario": "reflection"
+    },
+    {
+      "label": "same-life lethal receipt survives owned-shot retirement",
+      "passed": true,
+      "scenario": "reflection"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "reflection"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "mission reflection"
+    },
+    {
+      "label": "real bolt enters timed shield approach",
+      "passed": true,
+      "scenario": "mission reflection"
+    },
+    {
+      "label": "actual front shield physically reflects",
+      "passed": true,
+      "scenario": "mission reflection"
+    },
+    {
+      "label": "same carrier updates owner/identity exactly once",
+      "passed": true,
+      "scenario": "mission reflection"
+    },
+    {
+      "label": "old shooter eligible and current defender excluded",
+      "passed": true,
+      "scenario": "mission reflection"
+    },
+    {
+      "label": "returned sweep reaches original source",
+      "passed": true,
+      "scenario": "mission reflection"
+    },
+    {
+      "label": "return max(canonical damage,2) through one shared Health fact",
+      "passed": true,
+      "scenario": "mission reflection"
+    },
+    {
+      "label": "one Health-confirmed returned HIT",
+      "passed": true,
+      "scenario": "mission reflection"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "mission reflection"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "outbound physical peer interception sentinel"
+    },
+    {
+      "label": "peer collider stops shot without friendly damage",
+      "passed": true,
+      "scenario": "outbound physical peer interception sentinel"
+    },
+    {
+      "label": "truthful explicit filter receipt",
+      "passed": true,
+      "scenario": "outbound physical peer interception sentinel"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "outbound physical peer interception sentinel"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "outbound physical peer interception listener"
+    },
+    {
+      "label": "peer collider stops shot without friendly damage",
+      "passed": true,
+      "scenario": "outbound physical peer interception listener"
+    },
+    {
+      "label": "truthful explicit filter receipt",
+      "passed": true,
+      "scenario": "outbound physical peer interception listener"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "outbound physical peer interception listener"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "outbound physical peer interception warden"
+    },
+    {
+      "label": "peer collider stops shot without friendly damage",
+      "passed": true,
+      "scenario": "outbound physical peer interception warden"
+    },
+    {
+      "label": "truthful explicit filter receipt",
+      "passed": true,
+      "scenario": "outbound physical peer interception warden"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "outbound physical peer interception warden"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "reflected collision with another sentinel"
+    },
+    {
+      "label": "return physically consumed by the intervening actor",
+      "passed": true,
+      "scenario": "reflected collision with another sentinel"
+    },
+    {
+      "label": "PC-owned return damages the other registered NPC exactly12",
+      "passed": true,
+      "scenario": "reflected collision with another sentinel"
+    },
+    {
+      "label": "reflector does not self-hit",
+      "passed": true,
+      "scenario": "reflected collision with another sentinel"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "reflected collision with another sentinel"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "reflected collision with another listener"
+    },
+    {
+      "label": "return physically consumed by the intervening actor",
+      "passed": true,
+      "scenario": "reflected collision with another listener"
+    },
+    {
+      "label": "PC-owned return damages the other registered NPC exactly12",
+      "passed": true,
+      "scenario": "reflected collision with another listener"
+    },
+    {
+      "label": "reflector does not self-hit",
+      "passed": true,
+      "scenario": "reflected collision with another listener"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "reflected collision with another listener"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "reflected collision with another PC"
+    },
+    {
+      "label": "return physically consumed by the intervening actor",
+      "passed": true,
+      "scenario": "reflected collision with another PC"
+    },
+    {
+      "label": "other PC physically intercepts return without friendly damage",
+      "passed": true,
+      "scenario": "reflected collision with another PC"
+    },
+    {
+      "label": "reflector does not self-hit",
+      "passed": true,
+      "scenario": "reflected collision with another PC"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "reflected collision with another PC"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "reflected collision with another warden"
+    },
+    {
+      "label": "return physically consumed by the intervening actor",
+      "passed": true,
+      "scenario": "reflected collision with another warden"
+    },
+    {
+      "label": "PC-owned return damages the other registered NPC exactly12",
+      "passed": true,
+      "scenario": "reflected collision with another warden"
+    },
+    {
+      "label": "reflector does not self-hit",
+      "passed": true,
+      "scenario": "reflected collision with another warden"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "reflected collision with another warden"
+    },
+    {
+      "label": "actual terrain/cargo prevents actor damage",
+      "passed": true,
+      "scenario": "wall acquisition"
+    },
+    {
+      "label": "acquisition/release gate or flight sweep has correct release count",
+      "passed": true,
+      "scenario": "wall acquisition"
+    },
+    {
+      "label": "blocked release cannot publish phantom attack sound",
+      "passed": true,
+      "scenario": "wall acquisition"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "wall acquisition"
+    },
+    {
+      "label": "actual terrain/cargo prevents actor damage",
+      "passed": true,
+      "scenario": "cargo acquisition"
+    },
+    {
+      "label": "acquisition/release gate or flight sweep has correct release count",
+      "passed": true,
+      "scenario": "cargo acquisition"
+    },
+    {
+      "label": "blocked release cannot publish phantom attack sound",
+      "passed": true,
+      "scenario": "cargo acquisition"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "cargo acquisition"
+    },
+    {
+      "label": "actual terrain/cargo prevents actor damage",
+      "passed": true,
+      "scenario": "door windup"
+    },
+    {
+      "label": "acquisition/release gate or flight sweep has correct release count",
+      "passed": true,
+      "scenario": "door windup"
+    },
+    {
+      "label": "blocked release cannot publish phantom attack sound",
+      "passed": true,
+      "scenario": "door windup"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "door windup"
+    },
+    {
+      "label": "actual terrain/cargo prevents actor damage",
+      "passed": true,
+      "scenario": "cargo windup"
+    },
+    {
+      "label": "acquisition/release gate or flight sweep has correct release count",
+      "passed": true,
+      "scenario": "cargo windup"
+    },
+    {
+      "label": "blocked release cannot publish phantom attack sound",
+      "passed": true,
+      "scenario": "cargo windup"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "cargo windup"
+    },
+    {
+      "label": "actual terrain/cargo prevents actor damage",
+      "passed": true,
+      "scenario": "thin wall flight"
+    },
+    {
+      "label": "acquisition/release gate or flight sweep has correct release count",
+      "passed": true,
+      "scenario": "thin wall flight"
+    },
+    {
+      "label": "blocked release cannot publish phantom attack sound",
+      "passed": true,
+      "scenario": "thin wall flight"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "thin wall flight"
+    },
+    {
+      "label": "actual terrain/cargo prevents actor damage",
+      "passed": true,
+      "scenario": "falling cargo flight"
+    },
+    {
+      "label": "acquisition/release gate or flight sweep has correct release count",
+      "passed": true,
+      "scenario": "falling cargo flight"
+    },
+    {
+      "label": "blocked release cannot publish phantom attack sound",
+      "passed": true,
+      "scenario": "falling cargo flight"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "falling cargo flight"
+    },
+    {
+      "label": "presentation copy cannot mutate pending aim",
+      "passed": true,
+      "scenario": "locked world aim and late ordinary jump"
+    },
+    {
+      "label": "locked shot releases after target moves",
+      "passed": true,
+      "scenario": "locked world aim and late ordinary jump"
+    },
+    {
+      "label": "real muzzle aims at old world point",
+      "passed": true,
+      "scenario": "locked world aim and late ordinary jump"
+    },
+    {
+      "label": "ordinary motion evades and missed carrier expires",
+      "passed": true,
+      "scenario": "locked world aim and late ordinary jump"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "locked world aim and late ordinary jump"
+    },
+    {
+      "label": "ordinary player sword reaches actual sentry hurtbox",
+      "passed": true,
+      "scenario": "real sword cancels warning"
+    },
+    {
+      "label": "shared incoming strike/Health cancels pending release",
+      "passed": true,
+      "scenario": "real sword cancels warning"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "real sword cancels warning"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "ordinary roll uses the same receiver defense"
+    },
+    {
+      "label": "real projectile reaches ordinary rolling body",
+      "passed": true,
+      "scenario": "ordinary roll uses the same receiver defense"
+    },
+    {
+      "label": "existing controller decides physical roll evasion",
+      "passed": true,
+      "scenario": "ordinary roll uses the same receiver defense"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "ordinary roll uses the same receiver defense"
+    },
+    {
+      "label": "neutral decision input does not secretly cancel committed action",
+      "passed": true,
+      "scenario": "committed warning survives decision disable"
+    },
+    {
+      "label": "single committed carrier resolves normally",
+      "passed": true,
+      "scenario": "committed warning survives decision disable"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "committed warning survives decision disable"
+    },
+    {
+      "label": "real sword produces incoming recoil",
+      "passed": true,
+      "scenario": "real incoming strike carries sentry beyond support"
+    },
+    {
+      "label": "AI edge observation cannot clamp external momentum or invent support",
+      "passed": true,
+      "scenario": "real incoming strike carries sentry beyond support"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "real incoming strike carries sentry beyond support"
+    },
+    {
+      "label": "clear lane starts real warning before cargo setup",
+      "passed": true,
+      "scenario": "ordinary sword-charged production cargo interruption"
+    },
+    {
+      "label": "ordinary sword charges and launches real mission cargo into sentry",
+      "passed": true,
+      "scenario": "ordinary sword-charged production cargo interruption"
+    },
+    {
+      "label": "production shared cargo contact owns exactly one Health3 debit",
+      "passed": true,
+      "scenario": "ordinary sword-charged production cargo interruption"
+    },
+    {
+      "label": "physical cargo interrupts committed pending release",
+      "passed": true,
+      "scenario": "ordinary sword-charged production cargo interruption"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "ordinary sword-charged production cargo interruption"
+    },
+    {
+      "label": "launched lease has authored independent lifetime",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary windup reset"
+    },
+    {
+      "label": "resolved or retired flight leaves no hazard",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary windup reset"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary windup reset"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary flight reset"
+    },
+    {
+      "label": "launched lease has authored independent lifetime",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary flight reset"
+    },
+    {
+      "label": "resolved or retired flight leaves no hazard",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary flight reset"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary flight reset"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary flight death"
+    },
+    {
+      "label": "launched lease has authored independent lifetime",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary flight death"
+    },
+    {
+      "label": "resolved or retired flight leaves no hazard",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary flight death"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary flight death"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary source exit"
+    },
+    {
+      "label": "launched lease has authored independent lifetime",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary source exit"
+    },
+    {
+      "label": "resolved or retired flight leaves no hazard",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary source exit"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary source exit"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary emitter disable"
+    },
+    {
+      "label": "launched lease has authored independent lifetime",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary emitter disable"
+    },
+    {
+      "label": "resolved or retired flight leaves no hazard",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary emitter disable"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary emitter disable"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary nonlethal hurt"
+    },
+    {
+      "label": "launched lease has authored independent lifetime",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary nonlethal hurt"
+    },
+    {
+      "label": "resolved or retired flight leaves no hazard",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary nonlethal hurt"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary nonlethal hurt"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary AI disable"
+    },
+    {
+      "label": "launched lease has authored independent lifetime",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary AI disable"
+    },
+    {
+      "label": "resolved or retired flight leaves no hazard",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary AI disable"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary AI disable"
+    },
+    {
+      "label": "ordinary policy releases a physical carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary pause"
+    },
+    {
+      "label": "global pause freezes actual carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary pause"
+    },
+    {
+      "label": "launched lease has authored independent lifetime",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary pause"
+    },
+    {
+      "label": "resolved or retired flight leaves no hazard",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary pause"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "explicit lifecycle boundary pause"
+    },
+    {
+      "label": "ordinary retreat is sustained instead of alternating with aim-turn input",
+      "passed": true,
+      "scenario": "authored decision timing and close commitment"
+    },
+    {
+      "label": "close target receives commitment instead of endless retreat",
+      "passed": true,
+      "scenario": "authored decision timing and close commitment"
+    },
+    {
+      "label": "initial0.6 decision interval counted from activation life",
+      "passed": true,
+      "scenario": "authored decision timing and close commitment"
+    },
+    {
+      "label": "controller completes authored recovery",
+      "passed": true,
+      "scenario": "authored decision timing and close commitment"
+    },
+    {
+      "label": "sole controller recovery0.95",
+      "passed": true,
+      "scenario": "authored decision timing and close commitment"
+    },
+    {
+      "label": "post-recovery interval begins after recovery",
+      "passed": true,
+      "scenario": "authored decision timing and close commitment"
+    },
+    {
+      "label": "later ordinary decision rearms fresh shot",
+      "passed": true,
+      "scenario": "authored decision timing and close commitment"
+    },
+    {
+      "label": "post-recovery0.30 not decremented inside action",
+      "passed": true,
+      "scenario": "authored decision timing and close commitment"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "authored decision timing and close commitment"
+    },
+    {
+      "label": "real hearing evidence admitted",
+      "passed": true,
+      "scenario": "lane hold, hearing partition and view"
+    },
+    {
+      "label": "hearing memory does not invent ranged chase",
+      "passed": true,
+      "scenario": "lane hold, hearing partition and view"
+    },
+    {
+      "label": "legacy ranged peer ignored by explicit group",
+      "passed": true,
+      "scenario": "lane hold, hearing partition and view"
+    },
+    {
+      "label": "legacy peer partition also recognizes new sentry",
+      "passed": true,
+      "scenario": "lane hold, hearing partition and view"
+    },
+    {
+      "label": "cross-archetype hearing remains eligible",
+      "passed": true,
+      "scenario": "lane hold, hearing partition and view"
+    },
+    {
+      "label": "separate cyan ranged observer view",
+      "passed": true,
+      "scenario": "lane hold, hearing partition and view"
+    },
+    {
+      "label": "inherited blind/reveal host contract",
+      "passed": true,
+      "scenario": "lane hold, hearing partition and view"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "lane hold, hearing partition and view"
+    },
+    {
+      "label": "retreat brakes before real lip",
+      "passed": true,
+      "scenario": "ledge observation cannot override physical support"
+    },
+    {
+      "label": "removing support produces genuine gravity fall",
+      "passed": true,
+      "scenario": "ledge observation cannot override physical support"
+    },
+    {
+      "label": "scene disposal leaves no sibling carrier",
+      "passed": true,
+      "scenario": "ledge observation cannot override physical support"
+    },
+    {
+      "label": "factory PC receiver reuses current Health and existing scheduler",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "factory PC receiver reuses current Health and existing scheduler",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "factory PC receiver reuses current Health and existing scheduler",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "factory PC receiver reuses current Health and existing scheduler",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "factory PC receiver reuses current Health and existing scheduler",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "factory PC receiver reuses current Health and existing scheduler",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "factory PC receiver reuses current Health and existing scheduler",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "factory PC receiver reuses current Health and existing scheduler",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "authored sentry placement selects shared scene with mission damage12",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "factory PC receiver reuses current Health and existing scheduler",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "all twenty authored sentry placements migrated",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "real factory sentry acquires and releases on authored platform",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "factory player registered receiver handles real shield contact",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "factory canonical damage12 remains12 on reflected carrier",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "factory source defeated by real return",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "terminal Health clamp and mission defeat accounting exactly once",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "actual sector retry restores lives and retires old carriers",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    },
+    {
+      "label": "factory scene exit leaves no projectile",
+      "passed": true,
+      "scenario": "actual authored mission factory and reflected defeat"
+    }
+  ],
+  "failures": [],
+  "hz": 120,
+  "scenarios": [
+    "composition and authored physical shot",
+    "guard",
+    "reflection",
+    "mission reflection",
+    "outbound physical peer interception sentinel",
+    "outbound physical peer interception listener",
+    "outbound physical peer interception warden",
+    "reflected collision with another sentinel",
+    "reflected collision with another listener",
+    "reflected collision with another PC",
+    "reflected collision with another warden",
+    "wall acquisition",
+    "cargo acquisition",
+    "door windup",
+    "cargo windup",
+    "thin wall flight",
+    "falling cargo flight",
+    "locked world aim and late ordinary jump",
+    "real sword cancels warning",
+    "ordinary roll uses the same receiver defense",
+    "committed warning survives decision disable",
+    "real incoming strike carries sentry beyond support",
+    "ordinary sword-charged production cargo interruption",
+    "explicit lifecycle boundary windup reset",
+    "explicit lifecycle boundary flight reset",
+    "explicit lifecycle boundary flight death",
+    "explicit lifecycle boundary source exit",
+    "explicit lifecycle boundary emitter disable",
+    "explicit lifecycle boundary nonlethal hurt",
+    "explicit lifecycle boundary AI disable",
+    "explicit lifecycle boundary pause",
+    "authored decision timing and close commitment",
+    "lane hold, hearing partition and view",
+    "ledge observation cannot override physical support",
+    "actual authored mission factory and reflected defeat"
+  ],
+  "scope": "Production shared sentry/factory and real physical contacts; direct lifecycle and setup changes explicitly labelled; legacy ranged suite preserved separately."
+}

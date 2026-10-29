@@ -1,0 +1,1194 @@
+{
+  "checks": [
+    {
+      "label": "actual gravity crossing PC / fall reaches ordinary DefeatResponse",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing PC / one real safe-to-outside observation",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing PC / one exact current Health debit",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing PC / one damage/depletion/defeat chain",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing PC / same witness boundary at both samples",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing PC / synchronous guarded reservation released",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing PC / persistent outside does not repeat",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing sentinel / fall reaches ordinary DefeatResponse",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing sentinel / one real safe-to-outside observation",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing sentinel / one exact current Health debit",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing sentinel / one damage/depletion/defeat chain",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing sentinel / same witness boundary at both samples",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing sentinel / synchronous guarded reservation released",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing sentinel / persistent outside does not repeat",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing listener / fall reaches ordinary DefeatResponse",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing listener / one real safe-to-outside observation",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing listener / one exact current Health debit",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing listener / one damage/depletion/defeat chain",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing listener / same witness boundary at both samples",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing listener / synchronous guarded reservation released",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing listener / persistent outside does not repeat",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing sentry / fall reaches ordinary DefeatResponse",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing sentry / one real safe-to-outside observation",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing sentry / one exact current Health debit",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing sentry / one damage/depletion/defeat chain",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing sentry / same witness boundary at both samples",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing sentry / synchronous guarded reservation released",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing sentry / persistent outside does not repeat",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing warden / fall reaches ordinary DefeatResponse",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing warden / one real safe-to-outside observation",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing warden / one exact current Health debit",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing warden / one damage/depletion/defeat chain",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing warden / same witness boundary at both samples",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing warden / synchronous guarded reservation released",
+      "passed": true
+    },
+    {
+      "label": "actual gravity crossing warden / persistent outside does not repeat",
+      "passed": true
+    },
+    {
+      "label": "real fall during configured defense / guard / gravity crosses during real input action",
+      "passed": true
+    },
+    {
+      "label": "real fall during configured defense / guard / requested actual defense/protection was active at observation",
+      "passed": true
+    },
+    {
+      "label": "real fall during configured defense / guard / boundary cannot be guarded, rolled or braced",
+      "passed": true
+    },
+    {
+      "label": "real fall during configured defense / parry / gravity crosses during real input action",
+      "passed": true
+    },
+    {
+      "label": "real fall during configured defense / parry / requested actual defense/protection was active at observation",
+      "passed": true
+    },
+    {
+      "label": "real fall during configured defense / parry / boundary cannot be guarded, rolled or braced",
+      "passed": true
+    },
+    {
+      "label": "real fall during configured defense / roll / gravity crosses during real input action",
+      "passed": true
+    },
+    {
+      "label": "real fall during configured defense / roll / requested actual defense/protection was active at observation",
+      "passed": true
+    },
+    {
+      "label": "real fall during configured defense / roll / boundary cannot be guarded, rolled or braced",
+      "passed": true
+    },
+    {
+      "label": "real fall during configured defense / brace / gravity crosses during real input action",
+      "passed": true
+    },
+    {
+      "label": "real fall during configured defense / brace / requested actual defense/protection was active at observation",
+      "passed": true
+    },
+    {
+      "label": "real fall during configured defense / brace / boundary cannot be guarded, rolled or braced",
+      "passed": true
+    },
+    {
+      "label": "actual jump reenters safe side and crosses again / first fall lands beyond boundary after one debit",
+      "passed": true
+    },
+    {
+      "label": "actual jump reenters safe side and crosses again / ordinary jump genuinely returns witness to safe side",
+      "passed": true
+    },
+    {
+      "label": "actual jump reenters safe side and crosses again / later gravity makes a new real crossing",
+      "passed": true
+    },
+    {
+      "label": "actual jump reenters safe side and crosses again / exactly one fixed debit per physical outside episode",
+      "passed": true
+    },
+    {
+      "label": "fixed damage, persistent outside, explicit reset lifecycle / fixed amount follows ordinary Health",
+      "passed": true
+    },
+    {
+      "label": "fixed damage, persistent outside, explicit reset lifecycle / one attempt for outside episode",
+      "passed": true
+    },
+    {
+      "label": "fixed damage, persistent outside, explicit reset lifecycle / reset life has fresh actual crossing",
+      "passed": true
+    },
+    {
+      "label": "zero fixed damage genuine Health observation / zero damage is a valid resolved fact",
+      "passed": true
+    },
+    {
+      "label": "legitimate landing above boundary / solid landing never crosses boundary",
+      "passed": true
+    },
+    {
+      "label": "edge exactly safe; actual jump and return / exact boundary is safe",
+      "passed": true
+    },
+    {
+      "label": "edge exactly safe; actual jump and return / jump returns to edge without crossing",
+      "passed": true
+    },
+    {
+      "label": "transformed non-solid world constraint / actual fall crosses transformed half-plane",
+      "passed": true
+    },
+    {
+      "label": "labelled initial outside policy 0 / occupancy is explicitly not labelled crossing",
+      "passed": true
+    },
+    {
+      "label": "labelled initial outside policy 1 / outside spawn waits for inside observation",
+      "passed": true
+    },
+    {
+      "label": "receiver opt-out and explicit initial outside re-enable / disabled capability receives no fabricated outcome",
+      "passed": true
+    },
+    {
+      "label": "receiver opt-out and explicit initial outside re-enable / fresh eligible occupancy explicitly labelled",
+      "passed": true
+    },
+    {
+      "label": "outside episode survives receiver replacement / new receiver does not borrow a new outside episode",
+      "passed": true
+    },
+    {
+      "label": "require-inside-first rearmed by real jump / initial outside is harmless under explicit policy",
+      "passed": true
+    },
+    {
+      "label": "require-inside-first rearmed by real jump / ordinary jump enters safe half-plane",
+      "passed": true
+    },
+    {
+      "label": "require-inside-first rearmed by real jump / later real crossing uses normal Health/Defeat",
+      "passed": true
+    },
+    {
+      "label": "actual rigid fall passive / actual gravity retires rigid cargo",
+      "passed": true
+    },
+    {
+      "label": "actual rigid fall passive / all source/charge authority retired before destroyed callback",
+      "passed": true
+    },
+    {
+      "label": "actual rigid fall passive / one terminal boundary fact",
+      "passed": true
+    },
+    {
+      "label": "actual rigid fall passive / cleanup frees retired body",
+      "passed": true
+    },
+    {
+      "label": "actual rigid fall charged / actual gravity retires rigid cargo",
+      "passed": true
+    },
+    {
+      "label": "actual rigid fall charged / all source/charge authority retired before destroyed callback",
+      "passed": true
+    },
+    {
+      "label": "actual rigid fall charged / one terminal boundary fact",
+      "passed": true
+    },
+    {
+      "label": "actual rigid fall charged / cleanup frees retired body",
+      "passed": true
+    },
+    {
+      "label": "genuine pending rigid impact retired by later gravity boundary / donor actually falls across boundary",
+      "passed": true
+    },
+    {
+      "label": "genuine pending rigid impact retired by later gravity boundary / prior pending packet came from real solver contact",
+      "passed": true
+    },
+    {
+      "label": "genuine pending rigid impact retired by later gravity boundary / pending authority cleared before callback replay",
+      "passed": true
+    },
+    {
+      "label": "genuine pending rigid impact retired by later gravity boundary / retired donor cannot debit target or transfer charge",
+      "passed": true
+    },
+    {
+      "label": "genuine pending rigid charge retired by later gravity boundary / donor actually falls across boundary",
+      "passed": true
+    },
+    {
+      "label": "genuine pending rigid charge retired by later gravity boundary / prior pending packet came from real solver contact",
+      "passed": true
+    },
+    {
+      "label": "genuine pending rigid charge retired by later gravity boundary / pending authority cleared before callback replay",
+      "passed": true
+    },
+    {
+      "label": "genuine pending rigid charge retired by later gravity boundary / retired donor cannot debit target or transfer charge",
+      "passed": true
+    },
+    {
+      "label": "actual freight factory cargo retirement and replacement / real designated replacement factory opts into same capability",
+      "passed": true
+    },
+    {
+      "label": "actual freight factory cargo retirement and replacement / designated rigid body actually falls and retires",
+      "passed": true
+    },
+    {
+      "label": "actual freight factory cargo retirement and replacement / designated source emits one terminal observation",
+      "passed": true
+    },
+    {
+      "label": "actual freight factory cargo retirement and replacement / ordinary replacement API remains available after loss",
+      "passed": true
+    },
+    {
+      "label": "actual freight factory cargo retirement and replacement / replacement is a fresh live physical source",
+      "passed": true
+    },
+    {
+      "label": "mission current defeat observer lifecycle / reset_during_entry / actual fall reaches specified real defeat callback",
+      "passed": true
+    },
+    {
+      "label": "mission current defeat observer lifecycle / reset_during_entry / old defeat cannot pause/debit the fresh current life",
+      "passed": true
+    },
+    {
+      "label": "mission current defeat observer lifecycle / replace_before_mission_observer / actual fall reaches specified real defeat callback",
+      "passed": true
+    },
+    {
+      "label": "mission current defeat observer lifecycle / replace_before_mission_observer / old defeat cannot pause/debit the fresh current life",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / reset / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / reset / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / reset / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / health_reset / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / health_reset / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / health_reset / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / health_reset / same outside episode never retries retired/partial attempt",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / health_rebind / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / health_rebind / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / health_rebind / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / health_rebind / same outside episode never retries retired/partial attempt",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / health_replace / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / health_replace / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / health_replace / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / health_replace / same outside episode never retries retired/partial attempt",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / receiver_disable / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / receiver_disable / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / receiver_disable / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / receiver_disable / same outside episode never retries retired/partial attempt",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / receiver_rebind / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / receiver_rebind / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / receiver_rebind / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / receiver_rebind / same outside episode never retries retired/partial attempt",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_disable / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_disable / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_disable / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_disable / same outside episode never retries retired/partial attempt",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_physics_disable / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_physics_disable / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_physics_disable / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_physics_disable / same outside episode never retries retired/partial attempt",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_move / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_move / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_move / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_move / same outside episode never retries retired/partial attempt",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_aba / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_aba / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_aba / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_aba / same outside episode never retries retired/partial attempt",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / scope_aba / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / scope_aba / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / scope_aba / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / scope_aba / same outside episode never retries retired/partial attempt",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / receiver_path / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / receiver_path / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / receiver_path / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / receiver_path / same outside episode never retries retired/partial attempt",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_profile / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_profile / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_profile / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_profile / same outside episode never retries retired/partial attempt",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / pause / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / pause / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / pause / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / pause / same outside episode never retries retired/partial attempt",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_queue / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_queue / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_queue / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / target_queue / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_detach / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_detach / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / source_detach / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / target_detach / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / target_detach / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / target_detach / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / target_world / genuine crossing reaches earlier signal listener",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / target_world / retired scope cannot debit reset/rebound/retired context",
+      "passed": true
+    },
+    {
+      "label": "callback lifecycle before Health debit / target_world / retired reservation released",
+      "passed": true
+    },
+    {
+      "label": "exact sealed receipt rejects copied amount and replay / only exact immutable receipt debits",
+      "passed": true
+    },
+    {
+      "label": "exact sealed receipt rejects copied amount and replay / stripped guarded replay rejected after same-life Health reset",
+      "passed": true
+    },
+    {
+      "label": "exact sealed receipt rejects copied amount and replay / binding serial floor rejects stripped old guard after rebind",
+      "passed": true
+    },
+    {
+      "label": "exact sealed receipt rejects copied amount and replay / original cannot replay after consumed reservation",
+      "passed": true
+    },
+    {
+      "label": "nested ordinary accepted damage retires older guarded observation / later real damage owns changed Health state; old boundary retires",
+      "passed": true
+    },
+    {
+      "label": "nested ordinary accepted damage retires older guarded observation / no repeated partial effect",
+      "passed": true
+    },
+    {
+      "label": "post-debit nested Health reset suppresses stale resolution / only genuine current processed fact marks resolved",
+      "passed": true
+    },
+    {
+      "label": "post-debit nested Health reset suppresses stale resolution / already attempted episode retained after restored Health",
+      "passed": true
+    },
+    {
+      "label": "labelled locked-gap fixture / actual mission four factories / labeled composition starts locked with all four live foes",
+      "passed": true
+    },
+    {
+      "label": "labelled locked-gap fixture / actual mission four factories / real gravity + ordinary NPC defeat clears all four",
+      "passed": true
+    },
+    {
+      "label": "labelled locked-gap fixture / actual mission four factories / gate observer uses actual defeated facts, PC survives",
+      "passed": true
+    },
+    {
+      "label": "labelled mission boundary-gap composition / PC actual fall and retry / actual gap fall reaches common mission defeat",
+      "passed": true
+    },
+    {
+      "label": "labelled mission boundary-gap composition / PC actual fall and retry / mission pauses only after real Health and Defeat",
+      "passed": true
+    },
+    {
+      "label": "labelled mission boundary-gap composition / PC actual fall and retry / ordinary retry constructs fresh life",
+      "passed": true
+    }
+  ],
+  "execution": "Real production actors and rigid cargo, actual Godot gravity/physics; initial placement and direct lifecycle probes explicitly labelled. Witness origin, not shape overlap.",
+  "failures": [],
+  "hz": 60,
+  "scenarios": [
+    "actual gravity crossing PC",
+    "actual gravity crossing sentinel",
+    "actual gravity crossing listener",
+    "actual gravity crossing sentry",
+    "actual gravity crossing warden",
+    "real fall during configured defense / guard",
+    "real fall during configured defense / parry",
+    "real fall during configured defense / roll",
+    "real fall during configured defense / brace",
+    "actual jump reenters safe side and crosses again",
+    "fixed damage, persistent outside, explicit reset lifecycle",
+    "zero fixed damage genuine Health observation",
+    "legitimate landing above boundary",
+    "edge exactly safe; actual jump and return",
+    "transformed non-solid world constraint",
+    "labelled initial outside policy 0",
+    "labelled initial outside policy 1",
+    "receiver opt-out and explicit initial outside re-enable",
+    "outside episode survives receiver replacement",
+    "require-inside-first rearmed by real jump",
+    "actual rigid fall passive",
+    "actual rigid fall charged",
+    "genuine pending rigid impact retired by later gravity boundary",
+    "genuine pending rigid charge retired by later gravity boundary",
+    "actual freight factory cargo retirement and replacement",
+    "mission current defeat observer lifecycle / reset_during_entry",
+    "mission current defeat observer lifecycle / replace_before_mission_observer",
+    "callback lifecycle before Health debit / reset",
+    "callback lifecycle before Health debit / health_reset",
+    "callback lifecycle before Health debit / health_rebind",
+    "callback lifecycle before Health debit / health_replace",
+    "callback lifecycle before Health debit / receiver_disable",
+    "callback lifecycle before Health debit / receiver_rebind",
+    "callback lifecycle before Health debit / source_disable",
+    "callback lifecycle before Health debit / source_physics_disable",
+    "callback lifecycle before Health debit / source_move",
+    "callback lifecycle before Health debit / source_aba",
+    "callback lifecycle before Health debit / scope_aba",
+    "callback lifecycle before Health debit / receiver_path",
+    "callback lifecycle before Health debit / source_profile",
+    "callback lifecycle before Health debit / pause",
+    "callback lifecycle before Health debit / source_queue",
+    "callback lifecycle before Health debit / target_queue",
+    "callback lifecycle before Health debit / source_detach",
+    "callback lifecycle before Health debit / target_detach",
+    "callback lifecycle before Health debit / target_world",
+    "exact sealed receipt rejects copied amount and replay",
+    "nested ordinary accepted damage retires older guarded observation",
+    "post-debit nested Health reset suppresses stale resolution",
+    "labelled locked-gap fixture / actual mission four factories",
+    "labelled mission boundary-gap composition / PC actual fall and retry"
+  ],
+  "traces": [
+    {
+      "boundary": [
+        {
+          "amount": 60.0,
+          "crossed": true,
+          "effect": "actor_health",
+          "geometry_changed": false,
+          "host_id": 94673831537,
+          "initial_outside": false,
+          "life": 0,
+          "physics_frame": 24,
+          "point": "(100.0, 105.4167)",
+          "previous_point": "(100.0, 96.63194)",
+          "reason": "",
+          "resolved": true,
+          "serial": 1,
+          "source_id": 94623499917
+        }
+      ],
+      "health": [
+        {
+          "actor_id": 94673831537,
+          "after": 0.0,
+          "amount": 60.0,
+          "applied": 60.0,
+          "applied_recoil": 1,
+          "attack_interrupted": 0,
+          "attack_key": "94623499917:area:1",
+          "before": 60.0,
+          "braced": 0,
+          "generation": 0,
+          "guard_binding": 1,
+          "guard_change": 2,
+          "guard_health_id": 94757717644,
+          "guard_serial": 1,
+          "maximum": 60.0,
+          "outcome": "hurt",
+          "serial": 1
+        }
+      ],
+      "role": "PC"
+    },
+    {
+      "boundary": [
+        {
+          "amount": 3.0,
+          "crossed": true,
+          "effect": "actor_health",
+          "geometry_changed": false,
+          "host_id": 98364819255,
+          "initial_outside": false,
+          "life": 0,
+          "physics_frame": 58,
+          "point": "(100.0, 107.3334)",
+          "previous_point": "(100.0, 98.38891)",
+          "reason": "",
+          "resolved": true,
+          "serial": 1,
+          "source_id": 98314487596
+        }
+      ],
+      "health": [
+        {
+          "actor_id": 98364819255,
+          "after": 0.0,
+          "amount": 3.0,
+          "applied": 3.0,
+          "applied_recoil": 1,
+          "attack_interrupted": 0,
+          "attack_key": "98314487596:area:1",
+          "before": 3.0,
+          "braced": 0,
+          "generation": 0,
+          "guard_binding": 1,
+          "guard_change": 3,
+          "guard_health_id": 98448705284,
+          "guard_serial": 1,
+          "maximum": 3.0,
+          "outcome": "hurt",
+          "serial": 1
+        }
+      ],
+      "role": "sentinel"
+    },
+    {
+      "boundary": [
+        {
+          "amount": 2.0,
+          "crossed": true,
+          "effect": "actor_health",
+          "geometry_changed": false,
+          "host_id": 102206801744,
+          "initial_outside": false,
+          "life": 0,
+          "physics_frame": 92,
+          "point": "(100.0, 107.3334)",
+          "previous_point": "(100.0, 98.38891)",
+          "reason": "",
+          "resolved": true,
+          "serial": 1,
+          "source_id": 102156470055
+        }
+      ],
+      "health": [
+        {
+          "actor_id": 102206801744,
+          "after": 0.0,
+          "amount": 2.0,
+          "applied": 2.0,
+          "applied_recoil": 1,
+          "attack_interrupted": 0,
+          "attack_key": "102156470055:area:1",
+          "before": 2.0,
+          "braced": 0,
+          "generation": 0,
+          "guard_binding": 1,
+          "guard_change": 3,
+          "guard_health_id": 102290687816,
+          "guard_serial": 1,
+          "maximum": 2.0,
+          "outcome": "hurt",
+          "serial": 1
+        }
+      ],
+      "role": "listener"
+    },
+    {
+      "boundary": [
+        {
+          "amount": 2.0,
+          "crossed": true,
+          "effect": "actor_health",
+          "geometry_changed": false,
+          "host_id": 106048784179,
+          "initial_outside": false,
+          "life": 0,
+          "physics_frame": 126,
+          "point": "(100.0, 107.3334)",
+          "previous_point": "(100.0, 98.38891)",
+          "reason": "",
+          "resolved": true,
+          "serial": 1,
+          "source_id": 105998452572
+        }
+      ],
+      "health": [
+        {
+          "actor_id": 106048784179,
+          "after": 0.0,
+          "amount": 2.0,
+          "applied": 2.0,
+          "applied_recoil": 1,
+          "attack_interrupted": 0,
+          "attack_key": "105998452572:area:1",
+          "before": 2.0,
+          "braced": 0,
+          "generation": 0,
+          "guard_binding": 1,
+          "guard_change": 3,
+          "guard_health_id": 106132670284,
+          "guard_serial": 1,
+          "maximum": 2.0,
+          "outcome": "hurt",
+          "serial": 1
+        }
+      ],
+      "role": "sentry"
+    },
+    {
+      "boundary": [
+        {
+          "amount": 16.0,
+          "crossed": true,
+          "effect": "actor_health",
+          "geometry_changed": false,
+          "host_id": 110041761620,
+          "initial_outside": false,
+          "life": 0,
+          "physics_frame": 160,
+          "point": "(100.0, 107.3334)",
+          "previous_point": "(100.0, 98.38891)",
+          "reason": "",
+          "resolved": true,
+          "serial": 1,
+          "source_id": 109991429976
+        }
+      ],
+      "health": [
+        {
+          "actor_id": 110041761620,
+          "after": 0.0,
+          "amount": 16.0,
+          "applied": 16.0,
+          "applied_recoil": 1,
+          "attack_interrupted": 0,
+          "attack_key": "109991429976:area:1",
+          "before": 16.0,
+          "braced": 0,
+          "generation": 0,
+          "guard_binding": 1,
+          "guard_change": 3,
+          "guard_health_id": 110125647663,
+          "guard_serial": 1,
+          "maximum": 16.0,
+          "outcome": "hurt",
+          "serial": 1
+        }
+      ],
+      "role": "warden"
+    },
+    {
+      "before": {
+        "action": "locomotion",
+        "point": "(100.0, 105.4167)",
+        "protected": false,
+        "roll_invulnerable": false,
+        "shield": "hold",
+        "weapon": "idle"
+      },
+      "defense": "guard",
+      "health": [
+        {
+          "actor_id": 113900521298,
+          "after": 0.0,
+          "amount": 60.0,
+          "applied": 60.0,
+          "applied_recoil": 1,
+          "attack_interrupted": 0,
+          "attack_key": "113850189662:area:1",
+          "before": 60.0,
+          "braced": 0,
+          "generation": 0,
+          "guard_binding": 1,
+          "guard_change": 2,
+          "guard_health_id": 113984407398,
+          "guard_serial": 1,
+          "maximum": 60.0,
+          "outcome": "hurt",
+          "serial": 1
+        }
+      ],
+      "observation": [
+        {
+          "amount": 60.0,
+          "crossed": true,
+          "effect": "actor_health",
+          "geometry_changed": false,
+          "host_id": 113900521298,
+          "initial_outside": false,
+          "life": 0,
+          "physics_frame": 194,
+          "point": "(100.0, 105.4167)",
+          "previous_point": "(100.0, 96.63194)",
+          "reason": "",
+          "resolved": true,
+          "serial": 1,
+          "source_id": 113850189662
+        }
+      ]
+    },
+    {
+      "before": {
+        "action": "locomotion",
+        "point": "(100.0, 10.69445)",
+        "protected": false,
+        "roll_invulnerable": false,
+        "shield": "parry",
+        "weapon": "idle"
+      },
+      "defense": "parry",
+      "health": [
+        {
+          "actor_id": 116568098626,
+          "after": 0.0,
+          "amount": 60.0,
+          "applied": 60.0,
+          "applied_recoil": 1,
+          "attack_interrupted": 0,
+          "attack_key": "116517766965:area:1",
+          "before": 60.0,
+          "braced": 0,
+          "generation": 0,
+          "guard_binding": 1,
+          "guard_change": 2,
+          "guard_health_id": 116651984642,
+          "guard_serial": 1,
+          "maximum": 60.0,
+          "outcome": "hurt",
+          "serial": 1
+        }
+      ],
+      "observation": [
+        {
+          "amount": 60.0,
+          "crossed": true,
+          "effect": "actor_health",
+          "geometry_changed": false,
+          "host_id": 116568098626,
+          "initial_outside": false,
+          "life": 0,
+          "physics_frame": 204,
+          "point": "(100.0, 10.69445)",
+          "previous_point": "(100.0, 8.020834)",
+          "reason": "",
+          "resolved": true,
+          "serial": 1,
+          "source_id": 116517766965
+        }
+      ]
+    },
+    {
+      "before": {
+        "action": "roll",
+        "point": "(142.6629, 10.69444)",
+        "protected": false,
+        "roll_invulnerable": true,
+        "shield": "idle",
+        "weapon": "idle"
+      },
+      "defense": "roll",
+      "health": [
+        {
+          "actor_id": 117893498662,
+          "after": 0.0,
+          "amount": 60.0,
+          "applied": 60.0,
+          "applied_recoil": 1,
+          "attack_interrupted": 0,
+          "attack_key": "117843167050:area:1",
+          "before": 60.0,
+          "braced": 0,
+          "generation": 0,
+          "guard_binding": 1,
+          "guard_change": 2,
+          "guard_health_id": 117977384806,
+          "guard_serial": 1,
+          "maximum": 60.0,
+          "outcome": "hurt",
+          "serial": 1
+        }
+      ],
+      "observation": [
+        {
+          "amount": 60.0,
+          "crossed": true,
+          "effect": "actor_health",
+          "geometry_changed": false,
+          "host_id": 117893498662,
+          "initial_outside": false,
+          "life": 0,
+          "physics_frame": 214,
+          "point": "(142.6629, 10.69444)",
+          "previous_point": "(136.8902, 8.020833)",
+          "reason": "",
+          "resolved": true,
+          "serial": 1,
+          "source_id": 117843167050
+        }
+      ]
+    },
+    {
+      "before": {
+        "action": "locomotion",
+        "point": "(100.0, 107.3334)",
+        "protected": true,
+        "roll_invulnerable": false,
+        "shield": "idle",
+        "weapon": "windup"
+      },
+      "defense": "brace",
+      "health": [
+        {
+          "actor_id": 119218898692,
+          "after": 0.0,
+          "amount": 16.0,
+          "applied": 16.0,
+          "applied_recoil": 1,
+          "attack_interrupted": 1,
+          "attack_key": "119168567091:area:1",
+          "before": 16.0,
+          "braced": 0,
+          "generation": 0,
+          "guard_binding": 1,
+          "guard_change": 3,
+          "guard_health_id": 119302784770,
+          "guard_serial": 1,
+          "maximum": 16.0,
+          "outcome": "hurt",
+          "serial": 1
+        }
+      ],
+      "observation": [
+        {
+          "amount": 16.0,
+          "crossed": true,
+          "effect": "actor_health",
+          "geometry_changed": false,
+          "host_id": 119218898692,
+          "initial_outside": false,
+          "life": 0,
+          "physics_frame": 240,
+          "point": "(100.0, 107.3334)",
+          "previous_point": "(100.0, 98.38891)",
+          "reason": "",
+          "resolved": true,
+          "serial": 1,
+          "source_id": 119168567091
+        }
+      ]
+    },
+    {
+      "facts": [
+        {
+          "charge": 0.0,
+          "held": 1,
+          "pending": 0,
+          "pending_charge": 0,
+          "target_charge": 0.0,
+          "target_health": 60.0
+        }
+      ],
+      "pending_retirement": "impact"
+    },
+    {
+      "facts": [
+        {
+          "charge": 0.0,
+          "held": 1,
+          "pending": 0,
+          "pending_charge": 0,
+          "target_charge": 0.0,
+          "target_health": 0.0
+        }
+      ],
+      "pending_retirement": "charge"
+    }
+  ]
+}

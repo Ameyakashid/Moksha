@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "name": "full_route_60_neutral_retained",
+      "passed": true,
+      "report": "campaign/tests/full_route_60_neutral_retained.json",
+      "report_sha256": "ff537e52463ddfc72c9b2808e560e0d288facbe2821a827af435e872e6a10f1c",
+      "active_seconds": 1346.83333333244,
+      "engine_errors": [],
+      "current_source_mismatch": [],
+      "observer_script": "campaign/tests/full_campaign_route.gd"
+    },
+    {
+      "name": "full_route_60_neutral_traded",
+      "passed": true,
+      "report": "campaign/tests/full_route_60_neutral_traded.json",
+      "report_sha256": "6843bc6c584d66c85478bd2b15b41507bb4598ff2dc6facd9d2305289f533564",
+      "active_seconds": 1200.68333333257,
+      "engine_errors": [],
+      "current_source_mismatch": [],
+      "observer_script": "campaign/tests/full_campaign_route.gd"
+    },
+    {
+      "name": "full_route_120_neutral_retained",
+      "passed": true,
+      "report": "campaign/tests/full_route_120_neutral_retained.json",
+      "report_sha256": "b96e3ac2e1f8bc4f702472f8a321b07ec33ac0bb1c8db6b7064e77d8ab966baa",
+      "active_seconds": 1268.50000000235,
+      "engine_errors": [],
+      "current_source_mismatch": [],
+      "observer_script": "campaign/tests/full_campaign_route.gd"
+    },
+    {
+      "name": "full_route_120_neutral_traded",
+      "passed": true,
+      "report": "campaign/tests/full_route_120_neutral_traded.json",
+      "report_sha256": "bedda49b5e2ad7cf3dd05d890e06af1aac9feb8dfa27994523f0261f50afc261",
+      "active_seconds": 1128.25833333389,
+      "engine_errors": [],
+      "current_source_mismatch": [],
+      "observer_script": "campaign/tests/full_campaign_route_120_sonar.gd"
+    }
+  ],
+  "human_duration_validated": false
+}

@@ -1,0 +1,22 @@
+{
+  "checks": 103,
+  "failures": [],
+  "hz": 120,
+  "scenarios": [
+    "paired fresh independent starts and rejected live requests",
+    "interruption consumes a commitment; reset preserves lifetime serial",
+    "commit callback retirement / reset",
+    "commit callback retirement / chain",
+    "commit callback retirement / input",
+    "commit callback retirement / away_back",
+    "pending copied recovery and strict phase/identity validation",
+    "configuration isolation and malformed independent sequence",
+    "idle preview rejects invalid whole config and retires old retained copy",
+    "queued preview is not commit-time selection authority",
+    "Health synchronous receipt API / ordinary",
+    "Health synchronous receipt API / nested",
+    "Health synchronous receipt API / equal_reset",
+    "Health synchronous receipt API / rebind",
+    "Health synchronous receipt API / actor_reset"
+  ]
+}

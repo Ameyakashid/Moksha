@@ -1,0 +1,26 @@
+{
+  "classification": "pre-existing historical listener inventory assertion drift",
+  "expected_literal": 13,
+  "actual": 21,
+  "source_sha256": "43d1b830346cde9cf79d9c731e07b6a4724ae53c506f2cd099a633419231e607",
+  "reproductions": [
+    {
+      "hz": 60,
+      "checks": 189,
+      "passed": 188,
+      "failures": [
+        "actual mission factory composes every listener with private shared profile: all thirteen authored listener placements use shared production scene"
+      ],
+      "individual_mapping_checks": 21
+    },
+    {
+      "hz": 120,
+      "checks": 189,
+      "passed": 188,
+      "failures": [
+        "actual mission factory composes every listener with private shared profile: all thirteen authored listener placements use shared production scene"
+      ],
+      "individual_mapping_checks": 21
+    }
+  ]
+}

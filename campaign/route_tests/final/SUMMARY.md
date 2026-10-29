@@ -24,3 +24,7 @@ All reported accepted runs have no in-run source drift, no failures and matching
 The retained/traded timings above belong only to these knowledgeable isolated bots. They must not be multiplied into a human playtime claim or added together as evidence of a continuous campaign.
 
 Historical diagnostics, including the embedded Dispatch terminal failure and pre-health-rebind survival-invalidated results, remain under `../diagnostics/`.
+
+## Later test-only maintenance (2026-10-29)
+
+The 'matching current' statement above describes the accepted batch's capture time. After that batch, two **unexecuted historical fixture files** received narrow roster-count corrections: `simulation/tests/sentry_regression.gd`13→20 and `simulation/tests/listener_regression.gd`13→21, with matching wording. Independent untouched-baseline reproduction and exact diff review are recorded in `campaign/qa_audit/test_only_maintenance_manifest.json`. No production resource or this route's executing observer/ancestor changed. Raw accepted reports and their original broad manifests are preserved; the later clean continuous-campaign matrix and72-stage foundation use the corrected final source.

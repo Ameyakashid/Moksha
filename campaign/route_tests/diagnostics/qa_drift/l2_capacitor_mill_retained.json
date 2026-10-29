@@ -1,0 +1,2970 @@
+{
+  "bot_active_seconds": 33.7499999999994,
+  "district": "l2_capacitor_mill",
+  "events": [
+    {
+      "district": "l2_capacitor_mill",
+      "event": "isolated_start_fixture",
+      "not_full_campaign": true,
+      "sight_fixture": false
+    },
+    {
+      "axis_x": 1260.0,
+      "blockers": [
+        "[P: (1200.0, 245.0), S: (170.0, 55.0)]"
+      ],
+      "corridor": "[P: (1252.0, 95.98), S: (16.0, 204.0)]",
+      "event": "ladder_navigation_rejected",
+      "frame": 0,
+      "from": "[P: (0.0, 300.0), S: (2436.0, 80.0)]",
+      "reason": "standing_ascent_intersects_solid",
+      "sector": 8,
+      "to": "[P: (1080.0, 130.0), S: (360.0, 18.0)]"
+    },
+    {
+      "axis_x": 2140.0,
+      "blockers": [
+        "[P: (2050.0, 245.0), S: (180.0, 55.0)]"
+      ],
+      "corridor": "[P: (2132.0, -24.02), S: (16.0, 324.0)]",
+      "event": "ladder_navigation_rejected",
+      "frame": 0,
+      "from": "[P: (0.0, 300.0), S: (2436.0, 80.0)]",
+      "reason": "standing_ascent_intersects_solid",
+      "sector": 8,
+      "to": "[P: (1950.0, 10.0), S: (420.0, 18.0)]"
+    },
+    {
+      "axis_x": 3280.0,
+      "corridor": "[P: (3272.0, -114.02), S: (16.0, 304.0)]",
+      "event": "ladder_navigation_intermediate_boarding",
+      "frame": 0,
+      "from": "[P: (2950.0, 190.0), S: (400.0, 18.0)]",
+      "sector": 8,
+      "to": "[P: (3150.0, -80.0), S: (400.0, 18.0)]"
+    },
+    {
+      "axis_x": 1260.0,
+      "corridor": "[P: (1252.0, 95.98), S: (16.0, 149.0)]",
+      "event": "ladder_navigation_intermediate_boarding",
+      "frame": 0,
+      "from": "[P: (1200.0, 245.0), S: (170.0, 55.0)]",
+      "sector": 8,
+      "to": "[P: (1080.0, 130.0), S: (360.0, 18.0)]"
+    },
+    {
+      "axis_x": 2140.0,
+      "corridor": "[P: (2132.0, -24.02), S: (16.0, 269.0)]",
+      "event": "ladder_navigation_intermediate_boarding",
+      "frame": 0,
+      "from": "[P: (2050.0, 245.0), S: (180.0, 55.0)]",
+      "sector": 8,
+      "to": "[P: (1950.0, 10.0), S: (420.0, 18.0)]"
+    },
+    {
+      "active_seconds": 0.0,
+      "enemy_tuning": [
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "listener"
+        },
+        {
+          "damage": 12.0,
+          "health": 3.0,
+          "kind": "sentinel"
+        },
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "listener"
+        },
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "sentry"
+        },
+        {
+          "damage": 12.0,
+          "health": 3.0,
+          "kind": "sentinel"
+        },
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "listener"
+        },
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "sentry"
+        }
+      ],
+      "event": "sector_enter",
+      "health": 60.0,
+      "sector": 8,
+      "title": "02.2 / CAPACITOR MILL"
+    },
+    {
+      "event": "ledge_catch",
+      "frame": 131,
+      "payload": "{ \"anchor\": (536.0008, 217.1638), \"direction\": 1, \"position\": (527.9823, 231.0703), \"facing\": 1 }",
+      "position": "(527.9823, 231.0703)",
+      "sector": 8
+    },
+    {
+      "event": "pullup_begin",
+      "frame": 136,
+      "payload": "{ \"anchor\": (536.0008, 217.1638), \"position\": (526.8008, 231.0703), \"facing\": 1 }",
+      "position": "(526.8008, 231.0703)",
+      "sector": 8
+    },
+    {
+      "event": "ledge_step",
+      "frame": 147,
+      "payload": "{ \"anchor\": (536.0008, 217.1638), \"position\": (526.8008, 216.1638), \"facing\": 1 }",
+      "position": "(526.8008, 216.1638)",
+      "sector": 8
+    },
+    {
+      "event": "pullup_end",
+      "frame": 156,
+      "payload": "{ \"anchor\": (536.0008, 217.1638), \"grounded\": true, \"position\": (548.0008, 217.144), \"facing\": 1 }",
+      "position": "(548.0008, 217.144)",
+      "sector": 8
+    },
+    {
+      "event": "ledge_catch",
+      "frame": 666,
+      "payload": "{ \"anchor\": (650.0, 190.0), \"direction\": 1, \"position\": (637.3787, 212.1578), \"facing\": 1 }",
+      "position": "(637.3787, 212.1578)",
+      "sector": 8
+    },
+    {
+      "event": "pullup_begin",
+      "frame": 671,
+      "payload": "{ \"anchor\": (650.0, 190.0), \"position\": (640.8, 212.1578), \"facing\": 1 }",
+      "position": "(640.8, 212.1578)",
+      "sector": 8
+    },
+    {
+      "event": "ledge_step",
+      "frame": 682,
+      "payload": "{ \"anchor\": (650.0, 190.0), \"position\": (640.8, 189.0), \"facing\": 1 }",
+      "position": "(640.8, 189.0)",
+      "sector": 8
+    },
+    {
+      "event": "ledge_release",
+      "frame": 690,
+      "payload": "{ \"reason\": &\"input_release\", \"anchor\": (650.0, 190.0), \"position\": (660.4296, 189.0), \"facing\": 1 }",
+      "position": "(660.4296, 189.0)",
+      "sector": 8
+    },
+    {
+      "event": "climb_attached",
+      "frame": 1065,
+      "payload": "{ \"target_id\": 157571614534, \"type\": \"ladder\", \"top_entry\": false, \"position\": (1681.714, 299.98), \"facing\": -1 }",
+      "position": "(1681.714, 299.98)",
+      "sector": 8
+    },
+    {
+      "event": "climb_detached",
+      "frame": 1192,
+      "payload": "{ \"reason\": &\"top_exit\", \"target_id\": 157571614534, \"position\": (1670.0, 69.98), \"facing\": -1 }",
+      "position": "(1670.0, 69.98)",
+      "sector": 8
+    },
+    {
+      "axis_x": 1260.0,
+      "blockers": [
+        "[P: (1200.0, 245.0), S: (170.0, 55.0)]"
+      ],
+      "corridor": "[P: (1252.0, 95.98), S: (16.0, 204.0)]",
+      "event": "ladder_navigation_rejected",
+      "frame": 1388,
+      "from": "[P: (0.0, 300.0), S: (4100.0, 80.0)]",
+      "reason": "standing_ascent_intersects_solid",
+      "sector": 8,
+      "to": "[P: (1080.0, 130.0), S: (360.0, 18.0)]"
+    },
+    {
+      "axis_x": 2140.0,
+      "blockers": [
+        "[P: (2050.0, 245.0), S: (180.0, 55.0)]"
+      ],
+      "corridor": "[P: (2132.0, -24.02), S: (16.0, 324.0)]",
+      "event": "ladder_navigation_rejected",
+      "frame": 1388,
+      "from": "[P: (0.0, 300.0), S: (4100.0, 80.0)]",
+      "reason": "standing_ascent_intersects_solid",
+      "sector": 8,
+      "to": "[P: (1950.0, 10.0), S: (420.0, 18.0)]"
+    },
+    {
+      "axis_x": 3280.0,
+      "corridor": "[P: (3272.0, -114.02), S: (16.0, 304.0)]",
+      "event": "ladder_navigation_intermediate_boarding",
+      "frame": 1388,
+      "from": "[P: (2950.0, 190.0), S: (400.0, 18.0)]",
+      "sector": 8,
+      "to": "[P: (3150.0, -80.0), S: (400.0, 18.0)]"
+    },
+    {
+      "axis_x": 1260.0,
+      "corridor": "[P: (1252.0, 95.98), S: (16.0, 149.0)]",
+      "event": "ladder_navigation_intermediate_boarding",
+      "frame": 1388,
+      "from": "[P: (1200.0, 245.0), S: (170.0, 55.0)]",
+      "sector": 8,
+      "to": "[P: (1080.0, 130.0), S: (360.0, 18.0)]"
+    },
+    {
+      "axis_x": 2140.0,
+      "corridor": "[P: (2132.0, -24.02), S: (16.0, 269.0)]",
+      "event": "ladder_navigation_intermediate_boarding",
+      "frame": 1388,
+      "from": "[P: (2050.0, 245.0), S: (180.0, 55.0)]",
+      "sector": 8,
+      "to": "[P: (1950.0, 10.0), S: (420.0, 18.0)]"
+    },
+    {
+      "activated_relays": 0,
+      "active_seconds": 33.7333333333327,
+      "area_id": "l2_capacitor_mill",
+      "caches_so_far": 0,
+      "closed_shutters": 0,
+      "event": "sector_exit",
+      "freight": {
+
+      },
+      "health": 48.0,
+      "kills_so_far": 6,
+      "remaining_enemies": 1,
+      "sector": 8,
+      "title": "02.2 / CAPACITOR MILL"
+    }
+  ],
+  "explicit_start_and_sight_fixture": true,
+  "failures": [],
+  "full_campaign_evidence": false,
+  "goals_observed": {
+    "breaker": {
+      "frame": 708,
+      "kind": "route",
+      "position": "(625.4658, 268.5911)",
+      "setting": 2
+    },
+    "bus": {
+      "frame": 1388,
+      "kind": "install",
+      "position": "(2216.619, 9.98)",
+      "setting": -1
+    },
+    "coil": {
+      "frame": 382,
+      "kind": "recover",
+      "position": "(1275.456, 129.98)",
+      "setting": -1
+    }
+  },
+  "human_duration_validated": false,
+  "method": "Measured phase: raw ordinary buttons plus proximity E events. No teleport, damage/health/AI writes, forced goals or gate edits. Initial district and sight are explicit isolated fixtures.",
+  "passed": true,
+  "sight": false,
+  "source_drift": [
+    "res://campaign/qa_audit/incoming_health.gd"
+  ],
+  "source_hashes": {
+    "res://arcology_run.tscn": "42da2731fc622ff565966a434e78adf8468e18940ff6c0ae518175be480115dc",
+    "res://assets/characters/attack/00_anticipation.tres": "1aff1a8a47000a21c4dc51fac029213d7249d85238ab3cab4a1c7aefcf82c068",
+    "res://assets/characters/attack/01_launch.tres": "b21357045813928fade6834703113ac9a89fff71cafb1939591f217393271935",
+    "res://assets/characters/attack/02_contact.tres": "dd45e178b62ffb3c25b2736ccc5506cc54fa91fbf55098a476e6bed168e07320",
+    "res://assets/characters/attack/03_followthrough.tres": "070cf70c9d22424ce0b2a0ba2f71d8be225fa648a058f45bdcef8fdb2fa68f42",
+    "res://assets/characters/attack/04_recoil.tres": "1255df0e84acd44aa3485d87c6acaf7b42e4fac613c3eec3acce6017f07a3ca5",
+    "res://assets/characters/attack/05_recovery.tres": "a1fdda3a44bd0a9c235a1db25bc945081872bb4a2dd104055e744f299d45b2cd",
+    "res://assets/characters/attack/operative_attack_frames.tres": "f58ae999a58ae45b86a4cacf823a314a579aba2d61c60a7b6e1061a279406799",
+    "res://assets/characters/guard_art.tscn": "59eef0824d8e3f156c92c417d5cb1d20e70b260daf51579543d8b16e892b62b3",
+    "res://assets/characters/guard_frames.tres": "048ba2dfad5aa273d1f919c63f381622f6c8749c3af2f0dfcb9ce0ce65270a59",
+    "res://assets/characters/operative_art.tscn": "a7f58ce8363d5774e453011c90ad59f764715a38adc7c2c6865deb39092311f0",
+    "res://assets/characters/operative_frames.tres": "e3f4a862722462b681a56f6416ebe076cdba87678cdc3cb8fccbca87f7eb19a4",
+    "res://assets/decor/cable_bundle.tres": "8d00b1bcfe649bce42c6c898f7d4486b26a4b6c0c1f83174fde9e35f253becd3",
+    "res://assets/decor/cable_bundle.tscn": "2c40226d80fafade2b0cb1cf33161f3c1160b9ba545e00f723b2e18b82c10acf",
+    "res://assets/decor/exposed_pipe.tres": "1c6cd68112c7cfe1f6b5ab5972fe9bdae86803dc53a6f9c69e92437d66ccb72b",
+    "res://assets/decor/exposed_pipe.tscn": "7c1e63d75c15098a009266e8dfd8e1238d6b9afd24dafc67eb8069b56f02ee20",
+    "res://assets/decor/service_sign.tres": "bc6b61fed812c1a68f1bd7c3338512cf8a7f4f20971e0a6658d374a23c9d58ac",
+    "res://assets/decor/service_sign.tscn": "c38ed452a70c4fa3cdc58ddc0c1c5b14922199bbaf891ec2043bb99a9c584600",
+    "res://assets/decor/streetlamp.tres": "15b8d296af8baf840652c7348a65c4bf12662a892ae7b2126db3f1a6c4b81c29",
+    "res://assets/decor/streetlamp.tscn": "d146f504c3501509902e24a87e66b479b9f3ce82c510745d6110d664f5048566",
+    "res://assets/environment/city_background.tscn": "291b7f2bfdf95503ed7fdce8dea210f157dd9576efcc56995c6fd1c61ae79ee5",
+    "res://assets/environment/pavement_segment.tres": "d7ce7f7175c1c6d93952794a3f8564e54b8d13c781a91372c855a22e8bacc86f",
+    "res://assets/environment/pavement_segment.tscn": "ae02e6127870154660c1937d0a3e558cd964d95d9d454bc24363b8861f030d47",
+    "res://assets/environment/raised_ledge.tres": "b950e89d2783f9984ded76afce473778a0284f66de7c62e5962a5d9b26d56537",
+    "res://assets/environment/raised_ledge.tscn": "e267ca48b476d5c61dd7ab55616a739470544f1b3f7af82ef2cc81610827becb",
+    "res://assets/environment/storm_drain.tres": "829e2888b4ffdffb1e11519470e97618176d10b02c3bab9bc79eb02ae1255321",
+    "res://assets/environment/storm_drain.tscn": "0315988e7f116a4fe09fd84a218213defa4e9a0020921f8d22a29555667fc458",
+    "res://assets/environment/wall_panel.tres": "2120bee982aceb2be13e06945999f88dabe8d5dbc2c821ebf73be850d95fa448",
+    "res://assets/environment/wall_panel.tscn": "4505017a2500f921aaf18b2830649e18a86a7b492d2102a04ac9b29d6947a1aa",
+    "res://assets/props/cargo_crate.tres": "d3413efefdce58a0684da63463ff2f3d1cface533badcebc1f2e557f09f4061c",
+    "res://assets/props/cargo_crate.tscn": "335eb3caf0491170a27cfe9fdd3e64230a373e797430f55b800a4900cdc349ec",
+    "res://assets/props/coolant_drum.tres": "9fdc1f4f391c2a4824713b742a91000d2e63ae4e5038838cec28ab982722c1f9",
+    "res://assets/props/coolant_drum.tscn": "d44219dc38327d013b6197894c0309247b372697474da8497e556a370f3d2815",
+    "res://assets/props/fuel_canister.tres": "906d7e9c89485136239702c2e01e9c66593e9696e3e44bbc5db9f23167f1187c",
+    "res://assets/props/fuel_canister.tscn": "ee01656e72257799971663eb86a2ebf90f0dbb388ea60acd4e630fd6b78841d8",
+    "res://assets/props/utility_cabinet.tres": "5938cb9a95cc9f0d2492123b4e7774899281b7d84e214ac6be3ed0c4b439ece6",
+    "res://assets/props/utility_cabinet.tscn": "52ef2cdfb02852ae542654973ca1d12232837402dcf39d68cde13412124f9f17",
+    "res://campaign/assets/themes/01_rainline.tres": "33b0560c35420029920e028002646a0b6c8faccba85eeecf30711b2ac51c8cd2",
+    "res://campaign/assets/themes/02_foundry.tres": "7051bd5a6bd5885f742846ab801287c0c340d0c7cf96b20418525330a56dad9b",
+    "res://campaign/assets/themes/03_residences.tres": "ebff2229cf90474bb7286ca62395893b4ecb726566ee5a20eae90bed36b49d37",
+    "res://campaign/assets/themes/04_memory.tres": "c951ee5e26c41350be10bed82db579e242f513f686033f59386b1744136b2310",
+    "res://campaign/assets/themes/05_crown.tres": "19911be7e9890ece6f597a47ce6dbed8a0dad7220178fb0e59f29e67708e1400",
+    "res://campaign/campaign.tscn": "1ef401d441d8117fa591ecc81181a168c92a7ff53be260ee6c9389d3c6145809",
+    "res://campaign/district_entry.tscn": "64b448f70d118e70b6498b097abef1deec6edc39ccaf13439a1732565797222f",
+    "res://campaign/enemies/captain_policy.gd": "bf80719a34716cbad0b8fe5c8da12e474ee1216ec0a0738281aa62befd75c558",
+    "res://campaign/enemies/captain_view.gd": "7e0d764471c54fddbc052ba201bb64286722f5fb262792fa4ecb486aa3ea12f0",
+    "res://campaign/enemies/keeper.tscn": "2dd579aef4361a069fe59dbcb9eea9b325f29f424d0a68a90229434a0a7917c3",
+    "res://campaign/enemies/keeper_archetype.tres": "ac98e097f3b67bbf1a0f8826ca2d97b0ae3d40b1a7793f7be0fc0a16f808aac7",
+    "res://campaign/enemies/keeper_melee.tres": "b6a73ace7a5f89ab1e007624db6d98f15d4c24f61da0053d8559152d420752f2",
+    "res://campaign/enemies/lancer.tscn": "35eeb1ebe1c8d240466fa4ef5bfa59020091e91f841c99afcb71c4a635f784fc",
+    "res://campaign/enemies/lancer_archetype.tres": "d32aa34580d1df2542b294e9bd41d2ccd92570c94b64184dd0e24ad856718ea0",
+    "res://campaign/enemies/lancer_melee.tres": "322b1ef6285a7fe9d05af8dd814db53c94a1e40e0a10da4e824942327b1cd903",
+    "res://campaign/enemy_tests/captain_regression.gd": "454bab4a6d8c4b3e5bc66bbe17bbd10ce50ef39224eb131fab6e8d635db04e3f",
+    "res://campaign/enemy_tests/guard_probe.gd": "c816a76fb9b39b57662429b17165b089de9f1996e61efe43b3bfbebf1615d13b",
+    "res://campaign/enemy_tests/integrated_captains.gd": "bad16f94d0f0bcb07095af95c86393ca5c150ad48f860116af0bb4647da04a99",
+    "res://campaign/layouts/level_01.gd": "ab496a8c87b64b94bf397c3fa2820768a875965e03f3fb4ded50971812a2809d",
+    "res://campaign/layouts/level_02.gd": "f4472b5d07233b8e2c8e5f414f5d049aa34c0207d25337e05cecb662d11e8545",
+    "res://campaign/layouts/level_03.gd": "9f0172cc7c83a5285b801ad2d2d76ee48b77b0e34212db02d1b3e7dea5796f0e",
+    "res://campaign/layouts/level_04.gd": "fe484ce81ad740ba4630bb94abc3a4d9acb1bf950b9cc0160e8eb9623190707f",
+    "res://campaign/layouts/level_05.gd": "cc578d20c6ea8e197a2f104491bb1560c93ab698c7d3977a782288008f07936c",
+    "res://campaign/logic/breaker_contact.gd": "8e7123c0806a61cb757a3827dcdfd7778cf65257631af774f38014a1258174db",
+    "res://campaign/logic/build_health.gd": "855b9c8fcac7e9081fbc76fef5fc9cf0b11b0270c2760045f57de72bce1d4589",
+    "res://campaign/logic/campaign.gd": "511bec8adb50457b48847ffb49a9f05eecadac5b2c5dc54638bccf07900b965c",
+    "res://campaign/logic/campaign_data.gd": "32fc38fcc5d58a7d56e5201dbf0a94b048336ce968263e06fcca35cf53fed08b",
+    "res://campaign/logic/district_entry.gd": "0602bc0ab1b1d4b829688d4a3b01d8a30400081922bd7c52d50f33a5609671b7",
+    "res://campaign/logic/hazard.gd": "c57836cdb68cb8574e5aaa2405730a87b1131f5f9b54870d6a76f278f04684f6",
+    "res://campaign/logic/hazard.tscn": "872d340aebfc35900c4964f3b7c4665e1b48ba59e066808bf4c96e4e3458157f",
+    "res://campaign/logic/objective.gd": "60668134fbb5cc75c0cb9d87463a1994587240117162a29d2252540bc9fd00a4",
+    "res://campaign/logic/objective.tscn": "21eed39a0adea04af8e57f07aeb71981ccc97be97df49484972267021e2d6270",
+    "res://campaign/logic/objective_door.gd": "627fcb4fe14bac9a4f18ee70fa8fed6a21aac403c9c3f0bbf6b39cde202b6249",
+    "res://campaign/logic/objective_door.tscn": "6468cfe5ee4d4771979b33109cf43987c88390287f637f89c496c17275f77cd4",
+    "res://campaign/module_workbench.tscn": "c9bae357efb71d046cee660ccc29f690f59a5739d17f507c377e76eac44eb25e",
+    "res://campaign/presentation/actor_presentation.gd": "cba5baa21a9ec872f3951d666ffc219bcf9d1ada219f671845c84e6daa7a77b3",
+    "res://campaign/presentation/campaign_scenery.gd": "2bb1e33ee9df6a36687c503f13d307b3ad6a7e5004a7ccfb4dd99d384a234c25",
+    "res://campaign/presentation/campaign_scenery.tscn": "592801ce893098b31decbc6975717b7fbffb4e35b15c5f29c463c13cb6e6d2d4",
+    "res://campaign/presentation/campaign_theme.gd": "aba43b931629508a6f21dceb8f3cfa3caf16da2b3e66a38bd432bafc0fb359e2",
+    "res://campaign/presentation/operative_skin.gd": "e1485cd9922a37d2e249af369212f92291bf09f928cf5c5187095836efe4d70d",
+    "res://campaign/presentation/scenery_backdrop.gd": "aea5407a3c42064d5a18a664826a5751209a25a27280cf37eaa2368f33b27f3e",
+    "res://campaign/presentation/security_skin.gd": "c3f893058371b55ac212aeaac6caba77fdc20e2868e68b376589195f24138abf",
+    "res://campaign/presentation/showroom.gd": "50df0757c49b0acc4a20c4e710a1620a4923b8eb69dcfbc26813a4adea027981",
+    "res://campaign/presentation/showroom.tscn": "c9f6930105e2d018b8836817a5bcb7a407086f1b9c033d66a1e789a183ed85c2",
+    "res://campaign/presentation/terrain_skin.gd": "b83fec16425d73c0969ac6ae5e216494e181a3643eddc3e59613d3d9044408f6",
+    "res://campaign/presentation/tests/actor_skin_contract.gd": "caf74bbee5bb79ff30fe360f5b1621cd76fabc489b6c990fffd9b82c5d01ee47",
+    "res://campaign/presentation/tests/presentation_contract.gd": "a23604ca67dddbd59fb044ceb6f99d87d7b68707145ded778319ed32e6c16533",
+    "res://campaign/presentation/tests/runtime_sight_contract.gd": "24727d7ad90aa9d84b3d353cc1b72fa83daec68fa0bf026673dbd480a268693a",
+    "res://campaign/qa_audit/door_physics.gd": "cbe234ff88c5e4a287dc3682e18a99bfacd34297a94ba042ca366c396ac35170",
+    "res://campaign/qa_audit/draft_audit.gd": "c1b613d037ef5ca460db729f4b60c111f511f144da5fc3964ac9d6a43899c752",
+    "res://campaign/qa_audit/incoming_health.gd": "928a54d12812029a09cf8db707b31c6d4b01e6cfbf65044b2ace560b7a87a31e",
+    "res://campaign/qa_audit/inventory.gd": "3fe2cee9a7c14faee31bb1f122a4ff7bcc149aa1c3c4c0af1cb016ff1331c327",
+    "res://campaign/qa_audit/lifecycle_draft.gd": "3916352879a5fbbf7c65f13f406779915885fe4a153e75e7edc9c65cfc2b810f",
+    "res://campaign/qa_audit/save_draft.gd": "ba9189e31fdf7ea5e57ac223f8e3af7aa7aeb88a5727bb3695e8488fde05598e",
+    "res://campaign/qa_audit/sensory_draft.gd": "ec1de160e5c206b909dddc69d528b35cc306599c80a4a1197080121c02a2bb88",
+    "res://campaign/qa_audit/ui_dependencies.gd": "8d79f5ade9bde1660a824408a14c6ebc0acf87c68e2a76f6af283a5405c0c64e",
+    "res://campaign/route_tests/l23_route.gd": "cde81af5c9b0fd0beddabfd9fb4b7d0cca58d9f33ebe3c2aec760c3a6a1fbbf7",
+    "res://campaign/route_tests_45/input_probe.gd": "c6ae9caaf2f6d941c09b8b0b8c2bf11d38e542c3dcdbf1f8db55fb8d5fd4f17a",
+    "res://campaign/tests/breaker_input.gd": "e86a33f011f046f9b191d278ea9c357684f657e8fe6f422eb48e7215d6646e88",
+    "res://campaign/tests/campaign_smoke.gd": "9be2c355cd6b054eb0e5c32b814b47ef2cd348e9ec785225a805656734e00bbb",
+    "res://campaign/tests/full_campaign_route.gd": "17f219de0d2c30f62a6442e00c6d32b1db41f9c88c422edde885f467a84b8532",
+    "res://campaign/tests/layout_support.gd": "f1adda89fcf92e1093eb88c8d22e390e8e6ec671800b0b93675c301def3344e3",
+    "res://campaign/vendor/beehave/blackboard.gd": "9ac0abbc428393a8354ae31557ec58779e5861d2e9ec1122d9a4b4c07f971e1d",
+    "res://campaign/views/campaign_hud.gd": "b249bde5ceb6ac7a9692bf42f4cbc61f453d5311a8812641c84df9203018e313",
+    "res://campaign/views/objective_view.gd": "8b8e7189d5de9f8793cd26cc4d026fd699f5c730c9fefd4f3f1d081bf1cd8a48",
+    "res://combat_pc/air_response_review.gd": "ca4a64c7ef047c7d9838f8c6d17cfcd1d1417d69dd8271c34311d564efaeaa69",
+    "res://combat_pc/air_response_review.tscn": "3436b56f496c249276a8c6ff79042106fef74887923677d38306bf7f7656ebe5",
+    "res://combat_pc/combo_response_review.gd": "fda4b508e70f1e20a7f482a6542a880c1b63a3f7cf852dc815c996c7f7d613c7",
+    "res://combat_pc/combo_response_review.tscn": "77399f634db657c790c99aafee6ce4e620c6e64856c9248570f9207aa8f616da",
+    "res://combat_pc/components/attack_entry_facing_host.gd": "954acdc61aa6ea97c5b954090e9795d986ef6f1ac538927c475c6101b5dd29ec",
+    "res://combat_pc/components/attack_entry_facing_host.tscn": "d21327b789ab8d07594642a891e781e05ae64196942b3abc75b9cd9817162120",
+    "res://combat_pc/components/character_footsteps.gd": "1f2e506e43bc50668d63d26360185e41717591e4f08a4fd914fd9bc741def39e",
+    "res://combat_pc/components/character_footsteps.tscn": "2a0f079d9d12f927f8472cc067c200511e3ca3bd644e01d3eb007aadbd1b25ce",
+    "res://combat_pc/components/climbable.gd": "4ee5a79021c365598cb3c758f628a838571c2ad3c9a51fc7cedb4a418fc7b68e",
+    "res://combat_pc/components/climbable.tscn": "f272bec5dd84d5fd632dbdaf47dca35ee7a496ca0f0dbe0be2ca84992eaae928",
+    "res://combat_pc/components/contact_adapter.gd": "8b1bb344c195c2bbb4247e4213bff300fb96b0e894aaadbe797a3b786752f97a",
+    "res://combat_pc/components/defeat_response.gd": "5a4d4cfba65e77513e9b8ecd6e6a3eb65d3eb6631ac816b70579f4c885b36742",
+    "res://combat_pc/components/defeat_response.tscn": "c2ad893de7d0db2a1375bb8890f6934a0856853b6a617e076b46b5a40f323691",
+    "res://combat_pc/components/guard_prop_adapter.gd": "433e35369ed7574a349b1c11fe1194fa6c0b3b6fcf81629a0c2f000891bbb5e9",
+    "res://combat_pc/components/health_component.gd": "a24a01f6497ffbda15e510134c1a5fd613fb060f2f0b188621fb5021603a5dc3",
+    "res://combat_pc/components/health_component.tscn": "ed2aaa454a45227adb939a5b0778001ae5ce2dd765ec2a61e1bdcda47ea60947",
+    "res://combat_pc/components/noise_relay.gd": "c95079da13ac1e0528f917e59d4918a2e7b6b67e72da4128d6cd0194f5f874bb",
+    "res://combat_pc/components/noise_relay.tscn": "f31ce3167027022c47e33bb409db048811063b3dfc4cc9af96d11dae3e3ec299",
+    "res://combat_pc/components/physics_contact_noise.gd": "d6a69d4f47ed3db0987b62394479182c9a5852a7cd3c9353fbfdf9b158a9c012",
+    "res://combat_pc/components/physics_contact_noise.tscn": "782190a412814324fa4bf951e541966efcd8ebb774199bc575b074632ce9698d",
+    "res://combat_pc/components/shield_contact_adapter.gd": "edae8a74912a1b5f9515510fd62bffd942f7b9e2dcebab981123a57a22060b7f",
+    "res://combat_pc/components/strike_health.gd": "fdf3dd095bce22280cea6e0dd287b45bb030c57327a6c2826f60b190022d37fd",
+    "res://combat_pc/components/strike_health.tscn": "473a2c1fce5361b42b7708b35f85ffa893b3e99b258a79718f64b6ff6dbca4e5",
+    "res://combat_pc/components/strike_knockback.gd": "c72f2b5b9fef51d5b0c74f49ba52aa28ebef46a93aa47a02247c8d0138eb998d",
+    "res://combat_pc/components/strike_knockback.tscn": "52d8ec35284d72b32bf364f525efbcc163507aac46f3d3b64495c9a560c8a9f8",
+    "res://combat_pc/components/surface_pulse.gd": "ca948fbe41cfc8913c2f1f1f57901580f9138231ab0617888e1312eec6302993",
+    "res://combat_pc/components/surface_pulse.tscn": "bfdf88b2ca7aaf09b6ed61c1fd7ed39c9baef5864b0eec76ccb3e9ffde6198e8",
+    "res://combat_pc/components/tests/guard_component_smoke.gd": "cfbfd459eb54fa1df4ae021dfa845d41bb84c912e978706ee5b0d029d30fdbde",
+    "res://combat_pc/components/tests/guard_prop_contact_observer.gd": "4d5eb01f290f29b360354ae57e3326a04cd43f3a51236abd109913e1a37bc04b",
+    "res://combat_pc/components/tests/m11_facing_host_contract_smoke.gd": "a7df4d399b455a24d1b76995d63df4c79c2489c0d4a08ef11c542e69ec0d8ec9",
+    "res://combat_pc/components/tests/m11_facing_host_player_smoke.gd": "77a4de0da4b2d540aeb50ce5950eb639b0ffd5c114ea287f43ea117fdc0bfc5e",
+    "res://combat_pc/contact_noise_review.gd": "40b940e7a63822358ccc606223ff4b2b7afbccbb3fc24771755ac347cdacf76e",
+    "res://combat_pc/contact_noise_review.tscn": "df1a412bc603cd99b0b4977581e35810c51f27f569b955d8d995d54817078913",
+    "res://combat_pc/defeat_review.gd": "1c0b70dfd4d4e42cdfaad2a62b0f5f9a9a08aa17bbcd8b89cfdef5b3a7fed0c8",
+    "res://combat_pc/defeat_review.tscn": "190598eba6a32abd80c083ce85eab78111faaf2c8b3b3e6307baf54ffe510f47",
+    "res://combat_pc/fixtures/chain_target.gd": "f5ff7fcb45a21a58c4dbf008fa1f5cafddf5dbd3c03b64d9a12496a25081b39c",
+    "res://combat_pc/fixtures/chain_target.tscn": "259308a1e9680eb536f3067f4d81e3a37102efd1e1c60565af847b1a31d55b09",
+    "res://combat_pc/fixtures/contact_noise_prop.gd": "9b835a5ee961e524a2abf298cf21a406678165c8a40861aa604d3e2571803d76",
+    "res://combat_pc/fixtures/contact_noise_prop.tscn": "7fe596253ed0e26bdebf08056dc999e0f7ad33091656dbd2531875f54f8f5bc8",
+    "res://combat_pc/fixtures/contact_review_hud.gd": "a7b47dbd3f777c6a071e7fdc2b81e8f9aea4dcfc3cab534928295d15bb5c2b39",
+    "res://combat_pc/fixtures/contact_target.gd": "32c0709a4b5a70318aeb39a3bc681be11d86d83b7c34aa0ea8dc24f99dff92a7",
+    "res://combat_pc/fixtures/contact_target.tscn": "0d6cbf77a3d9ee854dbb2cc53c61cb7a7cbaf8d8462119bcbe9e5dd0dd6cefd7",
+    "res://combat_pc/fixtures/drop_stack.tscn": "c32b226f11c885e5c4909c93905ce77d7349f93e548e9fe9f89d45ee783fe0cc",
+    "res://combat_pc/fixtures/fall_course.tscn": "8ea03f4452a049baba01395e6baad896a13edf861d248680553ed3400add3526",
+    "res://combat_pc/fixtures/footstep_npc.tscn": "543c469335e5768e25d4a6bfb94345d30b1cfac93dc253a77cafda05ec8148ef",
+    "res://combat_pc/fixtures/footstep_npc_motor.gd": "141379c475eb323424eeedff6012bf3f649f183b90ca6288f6686a11e229e596",
+    "res://combat_pc/fixtures/geometry.tscn": "51db019161732799bee1a1482c13a131cd9bc862a5044f37bc444068d5243dbe",
+    "res://combat_pc/fixtures/guard_course.gd": "5e372a5415545bcc81eaf330efc607e93a4e98a6d306387b993994f52c59fd2e",
+    "res://combat_pc/fixtures/guard_course.tscn": "81a9da3bea34ec7e3d2b8e663d8fa1c4160495bc324cd8a672186bc9f768cacf",
+    "res://combat_pc/fixtures/guard_melee_fixture.gd": "c412d1aa3875281991230cf5a37ea4ef20147a599429b6363988d1e847f3ef69",
+    "res://combat_pc/fixtures/guard_melee_fixture.tscn": "12a001847bd3782cf6ed00695e2aac1388099aacc599d269ada08a0ffa708f67",
+    "res://combat_pc/fixtures/guard_projectile.gd": "81a24827896915710684fd61ddd180a3f9a3b6ce3fd8cfa487b3743c112d0cca",
+    "res://combat_pc/fixtures/guard_projectile_fixture.gd": "134385ef50758d0b7492cfc70a0f9f13ee6b8b895b23b2184df5b97201145028",
+    "res://combat_pc/fixtures/guard_projectile_fixture.tscn": "4a9443db7c65bb4eaf296b25d23866db59ea77c78145cdf8480ccd701608986e",
+    "res://combat_pc/fixtures/guard_prop_fixture.gd": "3ad3ea1663af002821d40b28c8e6ba39c9ec4b91bed1abcedbc3f6984531b59e",
+    "res://combat_pc/fixtures/guard_prop_fixture.tscn": "3f0beade9d40023c8468300c0b5f42514508d37b9ee81057d4dbf5d2587cb367",
+    "res://combat_pc/fixtures/health_target.gd": "26778cff4b35157b958222ffcd49f877dce7cf17e2d4c358d081988d316e564e",
+    "res://combat_pc/fixtures/health_target.tscn": "f1036d346dd43969cfa3756e95234a32d29d4318d27e3b9af42a673c46c49376",
+    "res://combat_pc/fixtures/knockback_target.gd": "7b79712a26acbff0f166fa7d254412ef77b2330f3bda46c2969e66e5949c4a55",
+    "res://combat_pc/fixtures/knockback_target.tscn": "cca274c7e6958e37eb00b1ca28fb8bc6364f6271bd4d849b5c81d6a5f4b2ecf1",
+    "res://combat_pc/fixtures/npc_footstep_wire.gd": "2607db42b55c6d096abe51d6efdf97132cee1dd17f7e8dbf216792cca1a74d26",
+    "res://combat_pc/fixtures/practice_pulse.gd": "a4aed9107abfe67455e8418c94c716ed99601e3f66dd8fb2adc9dbaac3de4275",
+    "res://combat_pc/fixtures/ramp.gd": "355c7746185f45003e0ff8118e206bee4cacefb8df6db085209c77ecc04a0282",
+    "res://combat_pc/fixtures/slope_course.gd": "57f09c50975079fe1945fd785701a81cdcae54eb375e2bd608174c879dac0123",
+    "res://combat_pc/fixtures/slope_course.tscn": "6dd06d3496ed02321dc6b6f58836bb32179e470dba1626acc3e019e12c7082cd",
+    "res://combat_pc/fixtures/test_surface.gd": "12776df9d8b3a8da83e1a3747bad4d730cb7e7a3a84cb814ab09dd9882ceb05d",
+    "res://combat_pc/fixtures/test_surface.tscn": "b549d88975271c99eb5a776f348b5d70ea07880cd9dd5db2baa2ee3c168bd016",
+    "res://combat_pc/fixtures/wall_course.tscn": "2551ed312e20f24f5b56159d0d45a1af90b8fd61c0cc61cee177d88f44551e43",
+    "res://combat_pc/ground_response_review.gd": "c583297eaa0a14a098cdd432362ae7b3ff33538e114f89dfe274919432191abb",
+    "res://combat_pc/ground_response_review.tscn": "39df9a2e9e89ccf524f981562d402edd49b47ee5472c08e0f9e5a1b5e5028621",
+    "res://combat_pc/health_review.gd": "b9ecfb7bac5194188554a0db172db550dfe0c1845a88f25f276b720e17bb740c",
+    "res://combat_pc/health_review.tscn": "4402a925a54af97cf68db848cdc62ca970a67e5805b72f6b752d8d4cc91f9012",
+    "res://combat_pc/knockback_review.gd": "87ca32c75bc9773075cb129ca45306a68af56acd25261c5e933fb37e9dd78cd6",
+    "res://combat_pc/knockback_review.tscn": "1d252057dd5d800c1e9a2ccee0339d1a2014972885ed6201bc4ab081d446ee24",
+    "res://combat_pc/lab.gd": "0f4ffa0264b81c58c09783df28810ea2f60273c8895a40a1aca15cf15331ffb8",
+    "res://combat_pc/lab.tscn": "f964e1cb617674fff606ba7151438eac15709b64d5b3c513715304b8a9d17d68",
+    "res://combat_pc/lab_hud.gd": "a64dd6817647fd0ed96d0076b48aad0d10f8f19233e43a3168c0808a63d01c21",
+    "res://combat_pc/lithe_animation_review.gd": "64a48d117642d2abf1989938a3ae9b06df7c15ec070de1dae3e15471698aa636",
+    "res://combat_pc/lithe_animation_review.tscn": "2cce3dd28921cc1433793ef10336935b58894675ccc23b295c87125c2e0f37b8",
+    "res://combat_pc/minimal_host.tscn": "991703c97c5ce5785f07cd3c55a157f9aa5e2bf2a08194513c3be6faac8ccc21",
+    "res://combat_pc/noise_review.gd": "d38348c5d6c0b3b1e58be163b3f2551a2f65621b5bf254bbb50ab1a2d45e9cf1",
+    "res://combat_pc/noise_review.tscn": "adb3b8aedcc11f3e0256de8658345a5566d486741351d412c3bac9b601fb7eb7",
+    "res://combat_pc/npc_footstep_review.gd": "edfff1a5cf62b96ff39d8ffd14bfd63f5e207bd837a8767b836c5fe0b5087e27",
+    "res://combat_pc/npc_footstep_review.tscn": "27fc1c805020ad463d2321a0f898d75c790d0330d33d584dd01571b59f6304d0",
+    "res://combat_pc/player.gd": "6cd582c819d5297096205754d30d7c7bbc25021822390117edc71378ecbe43ea",
+    "res://combat_pc/player.tscn": "66cdd188fbb7f495eb21399616ed14306283956306aa21384da5bdeb9bf59e06",
+    "res://combat_pc/resources/air_response_agile.tres": "750c7e98ca91d97c5a9c2c5def57848b9ea9f213191aa4e255552e1e46c3ce02",
+    "res://combat_pc/resources/air_response_profile.gd": "e31548e3749de5c92c113ddf4a1acd3e2617d550a27864afcb4d46026badf1ac",
+    "res://combat_pc/resources/combat_profile.gd": "e3a35c3c0774f4f9f1bd2fa1587d8b37523daba45c39d07c42afd1297280a81f",
+    "res://combat_pc/resources/combat_profile.tres": "38cacdc87b1d75a6ec6c9d472ce3e11d5d90ef4b138440f1236b37dd7a5c957c",
+    "res://combat_pc/resources/contact_noise_profile.gd": "b082e0fecd3e7603dd17416f867ba382f52f4d6eaaa5a9a6ad55f18bda291343",
+    "res://combat_pc/resources/contact_noise_profile.tres": "79debf85a3b071cee6b3bb0667c39362c5bbbcd18d9c54821e6ba76f69ac138f",
+    "res://combat_pc/resources/footstep_profile.gd": "68662a24f7d009d3417249f9c315966883991e44792429c90fa3b6f7cf4ba276",
+    "res://combat_pc/resources/footstep_profile.tres": "37ba26d92bf82c9a0137de3017ae67ea1eae7fd0d2cca348376f7d639d9d18b2",
+    "res://combat_pc/resources/ground_presentation_agile.tres": "a812c300d72abbff3d261e012c77b36d7238fa804fab791217eee417fc59826b",
+    "res://combat_pc/resources/ground_presentation_profile.gd": "604ce1c2d3a2504449dd64ff21c0aab6b79daf1d07642793a46c19b79eff4492",
+    "res://combat_pc/resources/ground_response_agile.tres": "34ccda410c53afe44d0d1a6f115be9305c1db58e901c081073f6b6cd72379f44",
+    "res://combat_pc/resources/ground_response_profile.gd": "ca86b8cf51854cffbf95e6eeb521b0235f61c94fd04c0012d4ea3bea4bb1f754",
+    "res://combat_pc/resources/held_charge.tres": "1e9dee88ebe29619375c3c769867518ec3f0f6930a4d73a07cb7b96b87cf8159",
+    "res://combat_pc/resources/held_repeat.tres": "3049a1df6d20ad854eba4c416fc07ead8f2c08d338437178b33f7b74f8aed519",
+    "res://combat_pc/resources/knockback_profile.gd": "c88458e4cca9c5d49820d5eee036027a3f7cf308c868f8640f980ce43e9ca44d",
+    "res://combat_pc/resources/knockback_profile.tres": "e2795b306e15f975b4a40417476da6b6c80b829ae8290c4caa41ee087c3d0786",
+    "res://combat_pc/resources/light_chain.tres": "cfc88474288bb73c2c0f2ea73c99b1273c0563b61d68c9090215f91463e882f0",
+    "res://combat_pc/resources/melee_chain.gd": "a5c85116f85881b6a9592f9a82d4f93c8112724cc568377ab550dbf15908ea0b",
+    "res://combat_pc/resources/melee_input_profile.gd": "5ca4bcd6268c7fd9337c0e3f2f1fb56fd44ebe340d29d52b23f90affa61b94ad",
+    "res://combat_pc/resources/melee_step.gd": "2f236aa76d35ff89f45c086da43c1a6a60f916a3a763fbfdca2e2565b4e73764",
+    "res://combat_pc/resources/movement_profile.gd": "e97b21c8ce11c04aa3451a265ea9567312f43fa47832eb6873686c9900dfdbb5",
+    "res://combat_pc/resources/movement_profile.tres": "507bc8fa5deccd23646bcf3d532758aeeca084c868989c6328fb060f587155e6",
+    "res://combat_pc/resources/responsive_chain.tres": "27a0952bb28576e5d790391da3393e5bf13cc9c6cc30255e4f64b705deb465e0",
+    "res://combat_pc/resources/shield_profile.gd": "81b1227af14124ee2b836d0a6bef9271bb0a2dfb84e2902756416e455d109d16",
+    "res://combat_pc/resources/shield_profile.tres": "66520bcd5d2f083e2b2723a6d5a2f3b1751372fb638621a794fbb23c25854e78",
+    "res://combat_pc/resources/surface_pulse_default.tres": "8e4bee0cb20912064dc3324f654936adb040e2e66896771370db572574e19957",
+    "res://combat_pc/surface_review.gd": "83f653676588a296eeadf448fc4e4abf69afe77e5d8ff540307c2f2874e48650",
+    "res://combat_pc/surface_review.tscn": "3d999bf4af3114d1321ff6fb6bf3aae2503322fc4896631c7ad822e5889af5eb",
+    "res://combat_pc/target_health_review.gd": "a8a608097eb5f6b616ff06e2d1e9ffec33edf32a8088c573e987c7fbcc0cc049",
+    "res://combat_pc/target_health_review.tscn": "b07997d64cb4be448e86bd935c3f315ffc7f678a30438f728f760824dc659846",
+    "res://combat_pc/tests/air_response_archive_compatibility.gd": "7fe2c53a89a169e036be2f347f829d9c5830fa5880b6cc31ce86a53d4e3deb1a",
+    "res://combat_pc/tests/air_response_defeat_compatibility.gd": "7301066dd5af977619afee792d29cdf78f047391a713de9beb0b82fa080aafe5",
+    "res://combat_pc/tests/air_response_ground_compatibility.gd": "b16ba1a302228da5956f5aaf9ed310adda2667ce3c09097677e2517a6c751041",
+    "res://combat_pc/tests/air_response_health_compatibility.gd": "09e043b9e8ce4b6560c8ff41a362d591d5394df01a00d9cf52b3c83a85ca43f9",
+    "res://combat_pc/tests/air_response_noise_compatibility.gd": "e7ad652bc747b39395e7e27d7aa6a4b827e1d502bd156ab187dbdd5a8a4b36bb",
+    "res://combat_pc/tests/air_response_owners.gd": "9b9dde54f2f3ecfbbe9ffd0e78f51b387400bc1581987743edc72f4b8eaba703",
+    "res://combat_pc/tests/air_response_regression.gd": "7411a6aec7b8366a6fb3c527321317b281485f3e0b37c4e0a05e0966490be6bc",
+    "res://combat_pc/tests/climb_regression.gd": "4ac1591fe2c7f8466aee7ab6a0ba330b746e6d2d5aff05be57aa000c760a74d0",
+    "res://combat_pc/tests/combat_regression.gd": "37d962c54289827bac40ab5661b4b67591750c9d3f85f0078eb87260a4513030",
+    "res://combat_pc/tests/combo_confirmation_probe.gd": "e8d36fec9b436987c5238a0f5e24ff58f01fab35a599c387ee649b028bbf13a8",
+    "res://combat_pc/tests/combo_fallback_switch_probe.gd": "ce1a09e58fc601bbfb064d89365a8041b465d7e4a1f0ab5be1f92b8981009b8b",
+    "res://combat_pc/tests/combo_regression.gd": "515e6b1baf93601ea535ab283c1fc51aa500881dd276654058ab881a4256485c",
+    "res://combat_pc/tests/combo_response_regression.gd": "baac4923b8fbcc1b1aa5f9a87cb1b7786bab202d01cc708b24226d531b532596",
+    "res://combat_pc/tests/combo_short_pause_probe.gd": "cee9b4a3d4e6374dbb022a6bd6c9476dbbabdada56144e561a51f43ac23f3608",
+    "res://combat_pc/tests/contact_noise_physics_probe.gd": "91173418fd955ec48f76f28e55c6bdcb7046322cf1b5fe3cc34a23024f3d8829",
+    "res://combat_pc/tests/contact_noise_physics_regression.gd": "4681353c4b1d7b8ae8d813883f15755fcd43a33ce677f71a91780bf3bbd90fe7",
+    "res://combat_pc/tests/defeat_health_compatibility.gd": "76dfb380316ca14987e9a93668cc627e896b145d99902dd6e54beb08920c05ce",
+    "res://combat_pc/tests/defeat_regression.gd": "0d61d6890bf2ccad6b8636462a3a14276311867afdd261f39bfb1f96d76dc3af",
+    "res://combat_pc/tests/entry_assist_regression.gd": "52417cbe52faaba4dec9fe339ed9f1d0bc73511e08fc7b73df989ac5ca9f724e",
+    "res://combat_pc/tests/ground_response_defeat_compatibility.gd": "756fbc18211a9e62f65eacf1641579006c454f8c4d4187e24c0593a04c1c584e",
+    "res://combat_pc/tests/ground_response_health_compatibility.gd": "47581c230b705cc592c412d2b98ab26c0d0fa3fae0da152db498bd904866694f",
+    "res://combat_pc/tests/ground_response_noise_compatibility.gd": "b4d0a20d8ee4b03f9a242864cc56988cabcd590857c184c4abc0b4f27e74ec19",
+    "res://combat_pc/tests/ground_response_regression.gd": "10faaf5ce26d3f67fbeee4074d996f61c1ba18c76c6f8bf3ea824d1364a3889d",
+    "res://combat_pc/tests/hard_landing_regression.gd": "5cbab081847874d72dd7c8d37d0dbdc42582d274021f822055ef693ecab9f361",
+    "res://combat_pc/tests/health_queue_free_probe.gd": "6457b06f26f0fa15e91b4f794ed24987f492b6ad7de8dd7d9b71a31e39dfcede",
+    "res://combat_pc/tests/health_regression.gd": "49324dc90b09c75f226e180ee9e5a3de7d24db1debbb4b0d0b39d87013726a0d",
+    "res://combat_pc/tests/health_shield_compatibility.gd": "b3242bd4d449394c8f77fc571378add5c8381960bf4e51715a80aa3d8ecbe0ca",
+    "res://combat_pc/tests/held_candidate_ca632f15/portable_validation/validate_host.gd": "145aa95e40f0a1bd42262f9fa7a846ea0cac3c0c0eeacf3e13078c19101b3b7c",
+    "res://combat_pc/tests/held_regression.gd": "bb9ae076bf1738af164f78f2a48674d8a1dc17a528b9e69dcb852f6f7539b4f9",
+    "res://combat_pc/tests/knockback_response_motor_probe.gd": "9a17faeedd78e5eaf1a56045a795f26c83bfa111383a11ae6d89ad4c27f13c13",
+    "res://combat_pc/tests/knockback_response_regression.gd": "070dbb888bb540ac7f16110431001f86e817f7d479abd271bfd2dfb3ed6339e5",
+    "res://combat_pc/tests/lithe_animation_regression.gd": "2fba0028f76cfbeaa4dd1c91815dd45f0778186785b71d1a070b250517824569",
+    "res://combat_pc/tests/lithe_pose_export.gd": "6cc536689b0497d09560aac814f262d53ca7e563b0f409311104f7c96484e5d4",
+    "res://combat_pc/tests/movement_regression.gd": "290f297c0d06c2783597f72c162e0278ce82578789085c2d88921ede051e5ca4",
+    "res://combat_pc/tests/noise_actor_lifecycle_probe.gd": "9ccd2d7baf76d6f5069e7c04b49bc100fcd27f0badc9cfa2b14031fd06a5452c",
+    "res://combat_pc/tests/noise_defeat_compatibility.gd": "2196b21ad23c3aa41d5672cfff7610e08af90e21778c67ead3035d3ea5c0227f",
+    "res://combat_pc/tests/noise_health_compatibility.gd": "7a338ae047ecb0c497c466993c8215df66da3b878574e96d5cfab8556b888f84",
+    "res://combat_pc/tests/noise_regression.gd": "9ef33d54150e6258c637d1c8174d030f908951358413200b32804b3338e3ee2c",
+    "res://combat_pc/tests/npc_footstep_driver.gd": "23081951a7b4464cc815b5776b4170454a811a39a6898d99363c16d2f875afba",
+    "res://combat_pc/tests/npc_footstep_late_air_probe.gd": "97be7c355c7a3ba5ff7affe16aa5acf520cb77e384d431151dc4dc2b788faaa5",
+    "res://combat_pc/tests/npc_footstep_regression.gd": "5b2a7d942ccce65b3b1de2648e6657a51dc0d86ee157365d31fcf333694b89d1",
+    "res://combat_pc/tests/shield_regression.gd": "575918904e7f52006f4eff0f42bd1805e6579d2021dacb5b3c15d8bda0d7261a",
+    "res://combat_pc/tests/soft_slope_probe_player.gd": "e2ba5ad8d442ada025ba463055daa90636d89368e982943751a296bc2ca633d0",
+    "res://combat_pc/tests/soft_slope_regression.gd": "f9c574437ffe396d22e9ad0b5f83fb83cd768db2e28b3e8232055039237708d1",
+    "res://combat_pc/tests/surface_regression.gd": "ee9560290364ae6841a71935a9b5fb2fae924a12c9300c7907fdab2efa039b43",
+    "res://combat_pc/tests/target_health_api_source.gd": "b9b5c985c78cc1efe55f581a56939a0d7e11b7c4622a2632cf441cb924e1fc20",
+    "res://combat_pc/tests/target_health_regression.gd": "5813ab5b4da979e63e8588e5e3b4d30260cb2dad17d21e7abaf69eb14d360a93",
+    "res://combat_pc/tests/target_health_review_smoke.gd": "d8ff9674bf3aef042df5edf00a6ecc52597f48d3b195c0a9fdaab3769d70c7ed",
+    "res://combat_pc/tests/traversal_regression.gd": "2ced3aa21cadf7cd4414360d4ecc3d8d29c7115a1315ead638b45d494cc24ff8",
+    "res://combat_pc/tests/wall_regression.gd": "52f6a5d25565fb4b4212cb23411f2356424139c915c059a2e6974127ad7c2e1d",
+    "res://combat_pc/visuals/charge_keys.gd": "9e696cace6b8dde780f01a70e69ae6a3ff38ddb698ad1e492d2dc22af8baacc8",
+    "res://combat_pc/visuals/charge_pose.gd": "e7468d0d38c51e10d84f8802953d64c3f3cadebf58b702228bfc3383b2659385",
+    "res://combat_pc/visuals/climb_keys.gd": "a1cb3f9d4ae4ca4fabdd6cd6fb0f3a3a93fa06c71e6e968b35738db08b5cb34b",
+    "res://combat_pc/visuals/climb_pose.gd": "446de17d84b277c1ae540d194a868bd4d28c996d9c308672beab03e21fbf333b",
+    "res://combat_pc/visuals/combat_keys.gd": "8428323a846f4d3a7f861aa4998c9c55a7ca658a50252468caf726724ed9923e",
+    "res://combat_pc/visuals/combat_pose.gd": "1d62a3646bca4efe14d2de79f3b09be4bc2b9488c39ec23fdd6f81771ac34f61",
+    "res://combat_pc/visuals/combo_keys.gd": "41748db36cd580ccdeb11fb0e3a65c8def4d40560cb366f6662c431c8db911e4",
+    "res://combat_pc/visuals/combo_pose.gd": "080b393496ead43f9604e6b700dad9619705a205bc3883ce1564c6a9ef51291c",
+    "res://combat_pc/visuals/defeat_pose.gd": "74427952a134896b729f93e40c2441d03d215c21d3b47bb339859b2a19a5df97",
+    "res://combat_pc/visuals/descent_keys.gd": "91d636f519b10798c065dd39fecc3acafd16e38a1c5d7f52f6c61f66cf826657",
+    "res://combat_pc/visuals/descent_pose.gd": "671a1590ab598050d98613cc9efc69b9b6f5be64f7ddceee10a70e3291f988b3",
+    "res://combat_pc/visuals/landing_keys.gd": "63ee37208ac8d27d368ef1d97bb6db820c11fa953192cf1d57add31c1944fb4e",
+    "res://combat_pc/visuals/landing_pose.gd": "04eab34b7ea4590a0f1cc610df8d6d82869fee2c8fb36e31df4efed541d689f8",
+    "res://combat_pc/visuals/lithe_pose.gd": "470c7a5cb4d8358968a8a07c7c15dada5eb264108c2d604b6469fbde51ff9020",
+    "res://combat_pc/visuals/lithe_wireframe.gd": "98fbefc448c36e9a1777f4f1cac96dd0201d6e2621b1607a04d05e09f3eb3d8a",
+    "res://combat_pc/visuals/shield_keys.gd": "6bbf9e2cbe1dddfceef1d3fcf31770eecddb6fedd28d30edd1c2f38dc856e347",
+    "res://combat_pc/visuals/shield_pose.gd": "a0fb1cd58c6f88f9eef2bd9f87dabde34bad04bd236aad6704ab5a4c333f87db",
+    "res://combat_pc/visuals/slope_pose.gd": "dcb3d7310df599752ccc9f6aba05046bba23a4b31e84f0786f6d428babdb6587",
+    "res://combat_pc/visuals/tests/charge_motor_visual_smoke.gd": "b83fa90ab2444f0df43052c621aa7e548da6097a0a7510bc97f42b992f48207f",
+    "res://combat_pc/visuals/tests/charge_visual_regression.gd": "003ecfbec2bdb59497b54837b36b5bbb4b3cd4cb931cccfacfa6b64dc6160709",
+    "res://combat_pc/visuals/tests/climb_visual_regression.gd": "d6e9efa8f74b43ecc265bc17b1815b7969253beb617eb144add9a529915373c9",
+    "res://combat_pc/visuals/tests/combat_visual_regression.gd": "0c0024e49ad700df0780a592faeee2bcb6f9178f87ca62cff0bec9d52706e79c",
+    "res://combat_pc/visuals/tests/combo_facing_motor_check.gd": "d3b1092593cb6ee70b42818ce42098903d645dcaacd93b2d9026c94b938b1e44",
+    "res://combat_pc/visuals/tests/combo_motor_visual_smoke.gd": "39f6a9e2096ed2fab9a04eefe5dcbc2a396dd389ffc9e17040507970db2b3ab9",
+    "res://combat_pc/visuals/tests/combo_visual_regression.gd": "c3174c572e9345fc140b366183e037192c17dd484b9a620c862b4a2ac4488397",
+    "res://combat_pc/visuals/tests/descent_visual_regression.gd": "5548c38930a1cb0843101750670dd0f3b28ed5a98ed50a80ccb4dd5161bfd8b6",
+    "res://combat_pc/visuals/tests/ground_response_visual_baseline.gd": "daf60db2b6d4155ace6b94fe78f1c6b3417a21d762662dd99b3bfae937edd5f9",
+    "res://combat_pc/visuals/tests/ground_response_visual_regression.gd": "73dfba42aa952f55815374532d3cff3ee113e211f1408ce23aaa695fcad7875f",
+    "res://combat_pc/visuals/tests/landing_motor_visual_smoke.gd": "d1a3d82f2147efb1f7be5cf50ed881214fa684d14591354af0eebc949c34a68e",
+    "res://combat_pc/visuals/tests/landing_visual_regression.gd": "7c88f799b0733f5e365f21e506a1273d880df021e56726df2d8fe77d108210b9",
+    "res://combat_pc/visuals/tests/shield_motor_visual_smoke.gd": "479684afa44c1117e1a53fc0461d2e9414f92bc0b8f0bba8822aae0de7dd49f5",
+    "res://combat_pc/visuals/tests/shield_visual_regression.gd": "4ff993a8a0a2f0bd0a9ed65c6de57342a28301bc6d7ae240aad978933fd63994",
+    "res://combat_pc/visuals/tests/slope_motor_visual_smoke.gd": "189bfaf8eeab77d655107120c190bb298ed39410d10c55486a39b4d54fa17548",
+    "res://combat_pc/visuals/tests/slope_special_pose_audit.gd": "549c932fe6be563a295dfa550dfa8e2c25fc661a34cc4db102987c4a03c35a36",
+    "res://combat_pc/visuals/tests/slope_visual_probe.gd": "560b5af1ae48036545ef6c9e2cfebfdf2e79e77c132f8cacb3170c56d3308199",
+    "res://combat_pc/visuals/tests/slope_visual_regression.gd": "e2054c696dcc2713f9804048d7b39309b0e1f17f22915b848946d3ee60395508",
+    "res://combat_pc/visuals/tests/visual_regression.gd": "e7bfcd4073c94e93c5779cba5a9e478c93eaa5eee6e95c39eb66ea866a60e1c0",
+    "res://combat_pc/visuals/tests/wall_visual_regression.gd": "9932584516d73c1e2cb256d5f4c6d8ba532e9eb9d7eaa24fb4c55f059133e51c",
+    "res://combat_pc/visuals/wall_keys.gd": "1b94d567bafbfb71115800de3965107c0c0213d64bc40faa435195b803085cd0",
+    "res://combat_pc/visuals/wall_pose.gd": "d83e4280c04b56d0ecaaa27a2588df87b3d6197b2b5e95d409ad2c4a93fd5129",
+    "res://combat_pc/visuals/wireframe.gd": "2ec42a86dd5a30c2132fe7ac3ada521fcb458a3354d8acd92c999992dcfcd319",
+    "res://combat_pc/visuals/wireframe_keys.gd": "a9a5d86e8a0785ee07508bf39ea4e43eb2a1edb41c9928d15bb82575b226290c",
+    "res://combat_pc/visuals/wireframe_pose.gd": "0b1cf2f577a051f79cfbfe9c2d2963fc07f8c2537fe6675f1ba2beff6fddc74f",
+    "res://demo/areas/cistern_journey.gd": "079919498c716074a912cb36feeaeb724eeaf06f98a8def3a993ebdde52507d8",
+    "res://demo/areas/exchange_circulation.gd": "08f6acd7d6548beddb82ddc9b0e28d85a78e3b7a992e2072171c1282e9a6f1d5",
+    "res://demo/areas/freight_journey.gd": "957873a361a5f2ec40f9540300d934d9c7529f12fb6d0b8aeabdb459458418ba",
+    "res://demo/areas/freight_lock.gd": "ca8f6478ea4b5ab48ca043632c788c3ee004b785245f8d59ae26a928d7533dd1",
+    "res://demo/areas/quarantine_intake.gd": "3032205e8dbfe72fb7263905d302e38d3900149fbda58633cd499566a1637b81",
+    "res://demo/areas/rainline_neighbourhood.gd": "5a31af081eb006de7c5ed8eb277e77525ae5bb601c2ecf0ad21742e3fea0f6a1",
+    "res://demo/areas/relay_works.gd": "d8d21bc0cc11c6f89a29cb0946eed98cf62397c837ab019ec243f65a6a8355f0",
+    "res://demo/areas/upper_residential_crossing.gd": "99ceb3e4183b85e036a51a17b308c1638c8c773c894f8a9290a0ee13f6ff2ce3",
+    "res://demo/areas/warden_loops.gd": "5d2335586102f9f6d1566efe28746dd0cc328a79b277e18b49e8cd4480c3d957",
+    "res://demo/components/checkpoint_codec.gd": "14782be3a4510680d51899ca4b5d208bbd3ce344084ac20930222a0f23d6f588",
+    "res://demo/components/enemy.gd": "5a375422c4af9b6c5ab52f26bcae86d532bb079dff942d1d65efbf5e420a087f",
+    "res://demo/components/enemy.tscn": "d47bcf061ef5f7545d8f1bf8d054805c7b07f513b8f4f54c50bfd33bfd96d2d6",
+    "res://demo/components/freight_cradle.gd": "abbca8ecb69554b09289273bfb21c3ef789561a81f2cd3f9fb95c72d5173ffb8",
+    "res://demo/components/freight_receiver.gd": "a86406967b12c52389479753604a8be08af2caf784a535d7a99a66ab3a8570c1",
+    "res://demo/components/mission_hud.gd": "0b1d0feaf8f43d902273cff2871bcef45b6e4658631d66396233095cec61b606",
+    "res://demo/components/mission_lift.gd": "2f5590f826d2d6a2a162188cb7ac79c0670f64ab8a5daf204b0247f918af8b69",
+    "res://demo/components/mission_noise_relay.gd": "4b9f88ad18ca4d83b559e3f4d773686f9532e7613d127c6a74a99097128a914f",
+    "res://demo/components/mission_prop.gd": "69caad65cb41843114537ad4c3278a5fe5e5ed2365c24069491e3806adfb8a31",
+    "res://demo/components/mission_room.gd": "0d7898f0aa9b780717c3e4acda77c67d08818f19f147372337f29e52812fddf4",
+    "res://demo/components/mission_sonar.gd": "44cc08ad19b7716de1d58ca1aba6604b64f46519df9594c1c2198e48ee1b3642",
+    "res://demo/components/opening_scene.gd": "1c0c8a549a4b5f0ef06099a80774e2ff1b761f60c3c382e893315f652260efd3",
+    "res://demo/components/proprioception.gd": "1366bad58f83345b1555ea3104c1489a9a5af0fe6629e58deaab5e107be4847e",
+    "res://demo/components/ranged_enemy.gd": "503d7ea36ab85edc590765247cea4ec8971e8dbf04c1ca525c072baf6d52eaff",
+    "res://demo/components/ranged_enemy.tscn": "5accfceb90d82212f2e026377e36782b380d80c51a4cf98a1ac18d5c04e2d73d",
+    "res://demo/components/ranged_projectile.gd": "97f5f388fbd852466fd5a5c5ce0a36467f724bb357b0feb1b68ff01b2d5f57bf",
+    "res://demo/components/ranged_projectile.tscn": "6f35ca5d95bef6c962c59811fb83b7fb41cf0754438145fd687e95ae9b745260",
+    "res://demo/components/relay_shutter.gd": "4c54a922ab0905e978272764570ae542d2bf3b93d5c7ac2f5bfbb7ede9e7bdad",
+    "res://demo/components/sentinel_policy.gd": "cbf16a831c43b66695959f91898003309861b5781e249ae87f8ed53acc348680",
+    "res://demo/components/sentinel_view.gd": "c45a9612ac2604c9854878ea4cd05ffd597a9d79db475b73627548fdd668c927",
+    "res://demo/components/sentry_policy.gd": "adcaaca1c3960079541f0685ba159185707d08566e67a6e55c558e1516448fbc",
+    "res://demo/components/sentry_view.gd": "fa5303f74dec792fed14027df0c3511dad2367f53111dfe650bc30bd250580a4",
+    "res://demo/components/shared_sentinel.gd": "285ae2fc7d95074d9a2d3962ec72cce72a7de129b6af6f76db3daa275933e978",
+    "res://demo/components/shared_sentinel.tscn": "e9e587b2d6cb98f14efc675d1cf4cc33e06051768fd49035e52158e8d62b6736",
+    "res://demo/components/shared_sentry.gd": "dd9d48f85234503d3e14d300c1471c773bdba5ad40de4f8a39175a3d94d31da5",
+    "res://demo/components/shared_sentry.tscn": "3c3298a46b37a9cafa10a2e363711be45d4f0f3880877fad6e5e83d15a62dc5b",
+    "res://demo/components/shared_warden.gd": "af89913b5d225825217ee5a5e4a15eba1df1152cfd27218e7385347eace383bf",
+    "res://demo/components/shared_warden.tscn": "40b3f98552a26d219f9dcf84c0258071c33559e409c54353e3cb4d7f7d727d35",
+    "res://demo/components/warden.gd": "c5d6899ab00b448a638b31f9386da6495bf690f084b71e01ab1edfcd830baa4f",
+    "res://demo/components/warden.tscn": "9d90e49799172c57f0067e2b63ce1f93212a1546540ec5823eb6fb5de69d5d42",
+    "res://demo/components/warden_view.gd": "f0a7a27fa34cee1a129b2baac24b1b13865a9de8c3fda97ed505e05183bb4406",
+    "res://demo/mission.gd": "7d60745fa9a0ed65c09ff9d6123021d53dede9523569c5c8cc983083cebbc317",
+    "res://demo/mission.tscn": "5a56ce982e48e86aa090796ecddb67e21112a91fbfed59e4656daf0fcfb0d740",
+    "res://demo/mission_data.gd": "78e946178e684e465272375ad778de612f5abd637c640a39153f1725acf586a8",
+    "res://demo/resources/actor_material.tres": "03eaeeb94283870fd534182e1e7193ad7f763852a552c87fa5089a968799d83a",
+    "res://demo/resources/listener_archetype.tres": "36426b5c7045a9a1d395524afc1861f738f466153447cdb8a735debeb79a178e",
+    "res://demo/resources/melee_archetype.gd": "c9babe1d77fb60cd792632fdf9b910b6a6a552e0c32e79bb1a0a1afcdec2e973",
+    "res://demo/resources/player_contact.tres": "9add13eb11486b070206913d0d06ce1a92666bcb2ac407638897c4e784231827",
+    "res://demo/resources/sentinel_capabilities.tres": "efadd915c47224e39ed884a62b8462b1eb228b22be7393ebd219d9e0e9560971",
+    "res://demo/resources/sentinel_combat.tres": "6cb92a55f453f1cae6a914a5937dab87d57879ffdd4a2b944ac696f947721f9b",
+    "res://demo/resources/sentinel_contact.tres": "fd8fc4e20ca7f3d12d2c37d3344d6bfe15e66bde3503bacae0a03d282e2ab3c7",
+    "res://demo/resources/sentinel_melee.tres": "53add4f380649f983c0001ed77130ff7b6e9b87204107951dd02fb15ae8c41f4",
+    "res://demo/resources/sentinel_movement.tres": "4a55b561b4635d07b3291d0a09bb28fc42f6f3f2854986d24bb09b1698d223e4",
+    "res://demo/resources/sentry_archetype.tres": "e41498df49f1fcd961a004838e744a60345f2cff0bea9a44b96214b84a389287",
+    "res://demo/resources/sentry_projectile.tres": "95ea2c23de648b240f1c20dde45c061a408d47c5c70a6009eca0551358867738",
+    "res://demo/resources/warden_archetype.tres": "81e0672b26fef904dc71c5ef3ec5d1f4f68f9a8a752d7dbdd9e1f938c0f268fd",
+    "res://demo/resources/warden_melee.tres": "b26c78bc8f4dcb02af4f5563b8c1189671b8a65e924fb04aa100b0711c6524b9",
+    "res://demo/tests/campaign_identity.gd": "6407f5265c314634a50c7585876831e26f7d92a4efbd5cc880eb1108de0f1307",
+    "res://demo/tests/cistern_journey_recovery.gd": "b03440706070d05d8d7f1183c52b423e20f7d9e0d121337850710745d4a02477",
+    "res://demo/tests/cistern_journey_review.gd": "9529b3117be8e7934442cebdf9f8605ab96fb9cd98b309e606f149c3d9b35c4c",
+    "res://demo/tests/cistern_journey_review.tscn": "6e2f5895bebee62c90caf9b14f9866b674b3e1c6a66a65166aed50a8121c0d29",
+    "res://demo/tests/cistern_journey_route.gd": "6815bdcc23568ca01853226e74f945e5501acc4afb6351c51ef521ac1f135b2b",
+    "res://demo/tests/enemy_regression.gd": "a8785e444b2dea385ddb1837927271e09a6a106fcdb0e88862044ded1d7d9d2f",
+    "res://demo/tests/exchange_review.gd": "717c6318874159e2ebdd39afb02274c3c3d4d112febf5ce12cda7373a939cc75",
+    "res://demo/tests/exchange_review.tscn": "d42fb8da74ac45ecb9218973866f65349b640df6bad61e4f18d0264f74c58ae6",
+    "res://demo/tests/exchange_right_recovery_bot.gd": "3f7d61b6958e5b25d23bdb376106ab517fa467113fb091720b660e313a410ddd",
+    "res://demo/tests/exchange_route_bot.gd": "24e9b3cbe3313426559912708fb7447401eced1691df333c0c9f6901e1f2ab52",
+    "res://demo/tests/expanded_integration_regression.gd": "a77a5be106ee02266192360cabc1a9719e18f62a32da9fe6ad5e141c46a12f35",
+    "res://demo/tests/expanded_mission_recovery_audit.gd": "033737215b570682655b2a833b98efe061a15c117180d7d21eca2610619e7d74",
+    "res://demo/tests/expanded_mission_route_bot.gd": "8892e4cb6405e086feec27f7038fbd8e62614c00d388206071d3ac4a96e64f01",
+    "res://demo/tests/expanded_native_review.gd": "8769a5d2dc96f4ad2631ce8401997d24b0577aa46ca94c8f5b83fd463fe49c86",
+    "res://demo/tests/expanded_native_review.tscn": "458ad3fbfe77b24ac4af52e910eaedb6c4f77a93b4b9fd4d87e9b57b4b4dbc90",
+    "res://demo/tests/freight_component_probe.gd": "a7e456548ba5bd65de96942cd73b4711cdf0cbf2d2a858fd928095cd9a0862da",
+    "res://demo/tests/freight_component_regression.gd": "5ec67140fb0b6cf8be03b7a2be59db912f9c0627eae92b8461b48435aa89640d",
+    "res://demo/tests/freight_host_contracts.gd": "e4e144c02c58965b31b36015385ac3060c16c13024b6756276057544370a6ddd",
+    "res://demo/tests/freight_journey_recovery.gd": "8f0d85d7834835618fe7a93632f79b8bf8aeb86c1e129b4523909f68b71fb5fb",
+    "res://demo/tests/freight_journey_review.gd": "a7f55c8843a36a1b44f76f4946a0f75baa4c533dd44dd0ca2eccee57d02bb5fc",
+    "res://demo/tests/freight_journey_review.tscn": "f371fdb74766dcd638a5f694e1a0392c946905408ab7e88c16df1b51d2568b86",
+    "res://demo/tests/freight_journey_route.gd": "a3db5dd61a62927cc44cb5c478771a0ef4c2f57d221c16a161c4a72586178e21",
+    "res://demo/tests/freight_lock_review.gd": "be013e36927c2504fbd0f7fcbadd9759284408b3d7315ffc5695cf7dac9459a0",
+    "res://demo/tests/freight_lock_review.tscn": "5b5f004d8fc8e3ec53e47bb098b808f0361be2aca2baf107221a256c438d8509",
+    "res://demo/tests/freight_transport_trial.gd": "be13531b2ffa293e8be9989deb8f0e15a7a51a1ea25483fe2d51532ef985e270",
+    "res://demo/tests/freight_transport_trial_room.gd": "1e3a556b88ad4b61f38479bb95729800918e023238bfcdce55f5f828db164c49",
+    "res://demo/tests/freight_transport_trial_room.tscn": "72e575be3422b8c2244d722c868a4c6feac7c25920ded38faaaedd5ae44df9bf",
+    "res://demo/tests/freight_visual_review.gd": "29bc4ad9abcb7ea13e7bf34a484c7021b024e5dea5f22246acaab34fe5479517",
+    "res://demo/tests/freight_visual_review.tscn": "fc014a778f1fc46c9a2c6c6c540c5eb5072577615733a0dd38cb3d5661bfe8fa",
+    "res://demo/tests/intake_review.gd": "a3c8e0e2ff80c8d21def0037697ccbbb692ee82646f199a78e4dcbcbea42d92f",
+    "res://demo/tests/intake_review.tscn": "6fc3e73b48308b721e18a644ed115cc020c89b4a16cf5c98935e7c8e679b9d52",
+    "res://demo/tests/intake_route_bot.gd": "a8ed9efd58c3384b20c2bcf48379e8065ec4b280b42d04906a0e1e7e1a1df0c3",
+    "res://demo/tests/lift_pause_probe.gd": "2185b7e091bacc91e36dacae1eab79166bd9bfe97976fe08d3f534a020cafaba",
+    "res://demo/tests/lift_regression.gd": "e7bce2e8b751eb1df028379254d508fde97d66bb81317f3aa989aa98a444eadd",
+    "res://demo/tests/mission_contracts.gd": "f318996b38111aee08b9913f1144d8d42510601ea6cdb22545c228f70996be75",
+    "res://demo/tests/mission_performance.gd": "301e56252aeec8366038df6148b003611b5e9601a9c6d20d5de4b65c597a4575",
+    "res://demo/tests/mission_performance.tscn": "38aab53d0513a6fa05421e96eed3a3fefb325d011ea16eef1122e6c9e365621a",
+    "res://demo/tests/mission_route_baseline_bot.gd": "d992bb76d088cb63db0918c1b69a0db2a02dbac77c32361c7f8f1a8f9fcdd53d",
+    "res://demo/tests/mission_route_bot.gd": "ee7e3b6a2afa8cfaf2c8f66eed75bed913f14d61621a9602de2b3840415a84a2",
+    "res://demo/tests/mission_route_lifecycle.gd": "6646dbd671771a655ba3955d0db387392c8e8d22999bbed5bd081a40433794e8",
+    "res://demo/tests/mission_smoke.gd": "3732b0c389f3e45d1a49c42dc408b84c0f22ee4ed8348bc896e9fd6c841a695d",
+    "res://demo/tests/mission_visual_review.gd": "74a21a718f30b2250471a1710a2ceb385203aceb5fc765dc1e832a868c5c252e",
+    "res://demo/tests/mission_visual_review.tscn": "ba77850ccc43b2b03c01ba1e0745c3db8c58968ef1610623c00bb83b6f6f401f",
+    "res://demo/tests/opening_regression.gd": "f291bd9e4fc731392673f3fece4eba32c575ca0e6f19d0a9aea82126c67f5575",
+    "res://demo/tests/opening_review.gd": "27107d4f8276230de139cacafad1ed1ec648d2a842b9756b19f97833306ccae9",
+    "res://demo/tests/opening_review.tscn": "a34e21dc0101a1333ced520806491c92778b6abce4ea08102da0e357929c2ea9",
+    "res://demo/tests/profile_render.gd": "fda70f54695ba32d3568dc0ef58eb1c4302508ddc42d0f2be7b2c096eb548b88",
+    "res://demo/tests/profile_render.tscn": "8b8d2d3e66de3100d83f80b1a4d16be53884bf035ce091e9eb0bdb0187a8f128",
+    "res://demo/tests/profile_sonar.gd": "09ce0353f962b0cfc5f8ad24d7c02a2789258c4f05f00d9241771d497a9f5543",
+    "res://demo/tests/rainline_review.gd": "cd880c51669003f21224103da13eae4d38a75fcd1acb08515c54995024006c64",
+    "res://demo/tests/rainline_review.tscn": "7607fca69a1d85c1306610ee1d4a54fb3eb526af40b144cc241fe2e3a3e182e2",
+    "res://demo/tests/rainline_route_bot.gd": "37a09788151b1f4c37e3ce322b8de76ec92af708c97afe25b37e6df9aacdeac1",
+    "res://demo/tests/ranged_regression.gd": "ef58f6818ce11aae2a7ce68ef5c5e88c775985ca6bbff26cee118e1568483353",
+    "res://demo/tests/relay_clarity_review.gd": "ada1f65112fa4e1b8554c3e94c447947761aad5c0195e00abfbb5dc529ead7d3",
+    "res://demo/tests/relay_clarity_review.tscn": "38072ef46b15011f78b055cd54fd767260d0487fbce243943f2dc1e24e9f08ed",
+    "res://demo/tests/relay_recovery_review.gd": "07d18746fefcd55189eb581360b3c0b1fbb9af70ea61eb399a9151a8d75f8b9b",
+    "res://demo/tests/relay_recovery_review.tscn": "5fa597f42008a35b40738340944f571b0a66a75ff4a7541d20aeb89c863bf075",
+    "res://demo/tests/relay_shutter_regression.gd": "a1abd2ee3da72b318233d273df742dc476dd63bdbb44d6d7c21a3e78f5d29897",
+    "res://demo/tests/relay_works_contracts.gd": "60d788e34ee51ff82efbf22c79b27a84077a09d29e0da6e6409182e1abcdcc99",
+    "res://demo/tests/relay_works_review.gd": "2c07ee66d89d6801c099981366d36d2113b003798cbac6be77736726e97a0b0d",
+    "res://demo/tests/relay_works_review.tscn": "c39c5d635693543fd47cee196d60d043044006ce515754dce75cc8b56090aaed",
+    "res://demo/tests/relay_works_route_bot.gd": "4116014dbf7ae79a2754d371cd9a27759cbcf88eab21dd3086eaa992979b5584",
+    "res://demo/tests/relay_works_route_pause_probe.gd": "1867e293571ddc881f16567377e1e6f0331d271ab2fe1017bbbf955329e7d68f",
+    "res://demo/tests/residential_crossing_review.gd": "c984eff353f7196eaff6dfa16b25b45e0f6718dbdcd29522b60b1fe2c9b0abc5",
+    "res://demo/tests/residential_crossing_review.tscn": "99b1f657f5194ebbbe477a3b5cf0d199a58f952826ef2ca8d8977fe78c75e70e",
+    "res://demo/tests/residential_crossing_route.gd": "91c14633f668a0514742b9c1258857090b0f3103b1d34395da43372704e864db",
+    "res://demo/tests/residential_full_campaign_route.gd": "457e942badc72c6df1e8ca6f4e98b5d4bbf178941ba03b5c9da14fb398310895",
+    "res://demo/tests/residential_hold_right_control.gd": "66dc28e69ff72d8fa90af2c7b494107934d64ddab24096a4b1658eb4184fa6d9",
+    "res://demo/tests/residential_threshold_return.gd": "998ff6322657be867c90e9f68dcc5cb98d45d55ea405a25cb723b209043d26bb",
+    "res://demo/tests/review_mission_integration.gd": "c8269c1580ce558bbd105b2d571687bd813536874d68779af46eed202ebb8945",
+    "res://demo/tests/sonar_optimization_regression.gd": "3510ec548b10970e938fcc042e78cfc0c4252674af724a4e116fabd86d66048b",
+    "res://demo/tests/warden_displaced_review.gd": "bddc1e3118d38c03f9be97371e729e936b529c969af18c8ecee6ee6dab50daf5",
+    "res://demo/tests/warden_displaced_review.tscn": "ccfe7be450be3ba3275fb6b2dd3e1cd427260d75fc326175e8eab6362f0ae471",
+    "res://demo/tests/warden_displaced_route_bot.gd": "07a2c0628a45eb13434b3475547213b119fd2c2749e332be9241c6096212de1f",
+    "res://demo/tests/warden_geometry_probe.gd": "039cd4e43ea7c28ba1647184df92b5230f65893fbc7a6908f5c32bc3fe1887ba",
+    "res://demo/tests/warden_loop_recovery_bot.gd": "2be708a47635300a06edcbca055239febf19e72ab45dab64c415a1e7a93450b3",
+    "res://demo/tests/warden_loops_review.gd": "c8522f58b214d949a79d0361e60794809edd44a92dc7296761e3126b43daa6c4",
+    "res://demo/tests/warden_loops_review.tscn": "cc237a6de65875a293a437ce6896e89013f49e65129d2ecd799d9adf6ba7b233",
+    "res://demo/tests/warden_order_route_bot.gd": "36f1a6881ad7da65f74a08e862e4f45b8f96153c1bdd7e58ef6c8336df64e819",
+    "res://demo/tests/warden_regression.gd": "f98537936d2eddf9f65f57f573691a969f6129a47219fc31f71eab4e7e0e9f03",
+    "res://demo/tests/warden_right_displaced_review.gd": "c6cdc9c4d6c726eb8cae46d0879b0d2089750fb8a993cf78057bedc7dacccf0b",
+    "res://demo/tests/warden_right_displaced_review.tscn": "f81d9c173dd5a9a4dcfa7c4295e39ecea9d0c4a6b7d4697f068e95175d2c3a31",
+    "res://demo/tests/warden_right_displaced_route_bot.gd": "517f86b27498ad14e413bf1aeb825bcd6f9d83f397cab06fa381c1ddabf3645c",
+    "res://demo/tests/works_district_review.gd": "a1d3826b9dd65ffba333f245748d0065746fad74ba70deac92caf26ea7a9c6f1",
+    "res://demo/tests/works_district_review.tscn": "5569e08bc0efb456a558b1b4c6691cdf611418bd43e28e8cff5293d6ca23223a",
+    "res://demo/tests/works_district_route.gd": "b30a2a31ed75e72459f8e5e8768aa26ad31aece25338a3accb0dafede7d2a8e4",
+    "res://demo/tests/works_full_campaign_route.gd": "999de8aa3c5e85bfb51afb6fb850d47e0a9b1aa92d3cf773643c57ea8d5dc7bb",
+    "res://demo/views/body_echo_view.gd": "8fa68c6531b29ee23337c513f818e4e5fa5f53d3a866d901c07c7e63812d1262",
+    "res://demo/views/exchange_station_appearance.gd": "ad15e860493ed88f4520a9212961da14c8ead3eeddddc8818cb42f0ceee72328",
+    "res://demo/views/exchange_station_view.gd": "46d5908dc62a2a5dc3ddf1a19b7dd3ad635ef7068ae84223251ca0ac13387f21",
+    "res://demo/views/favela_appearance.gd": "ba97d87a778b20281ba975b804f94dd5c63d4ad3c3bd37504cc4b60fd1fca335",
+    "res://demo/views/favela_backdrop.gd": "3e39b73421a43cb1b816f900aaadbaf409e9f34579d9483df4b505980eca9a30",
+    "res://demo/views/favela_backdrop.tscn": "c4e65074a8e27fc88b3e1493232c738f16b211f2f1eb4d5a22e625a9ffb320d3",
+    "res://demo/views/favela_building.tscn": "1aca04a4fde6a206e316a0bb9ae8f3152d0bcac7cbd0029321e1f4382bafc21f",
+    "res://demo/views/favela_cable.tscn": "0388c9252978d73b9cade0fab56741d764803c19c202271dd6a692d09fa667b4",
+    "res://demo/views/favela_piece.gd": "234714ab40e490383770a0fe144a242230ac3c9af17270651474a400a97bc9a6",
+    "res://demo/views/favela_profile.gd": "852939705b1288f5118ee8e0845be2ec9759cde1415759bfbddbe97d360d08d3",
+    "res://demo/views/favela_review.gd": "632dee92b4200089fe327e106aef93a394d758e69fc4cb70ee3fc7ce8627787e",
+    "res://demo/views/favela_review.tscn": "f61270ec01fc9f08c73534b20d053504d7187d1a8b5adfafb5cff6736f61fb02",
+    "res://demo/views/favela_rooftop.tscn": "2a4e9f658da2f40b65dddc4c91d0b5a7501283ed71bb9a4e69ab79791ce93858",
+    "res://demo/views/field_cache_appearance.gd": "e93479b091aa2c7d009a056b2802c058047fadfea8fae8ea8a78c1283198339c",
+    "res://demo/views/field_cache_view.gd": "98cc2e18e2b1d5c90cdb3feb75870d4da7da9b1f484f8d103e3aad1922d11697",
+    "res://demo/views/floor_appearance.gd": "c5f28d2f81ab053a40cd434f04d9cf8c9d4f32ce0c99c35ad162dd2759e0fd9a",
+    "res://demo/views/floor_view.gd": "bdbec8c7b34482188f4fdb55f3ee4bf7bc1d37eb2fc9803d523228c4abd0eb34",
+    "res://demo/views/floor_view.tscn": "863b57d834a9b06bb1247d6b73166d372966afc47c9ea54e3407a2ad82b39bff",
+    "res://demo/views/hud_appearance.gd": "bcaf20c8c9592f16d682576cdd67502e419d4a605517ad6bc758c4c429913a54",
+    "res://demo/views/hud_view.gd": "3640fb0fa2c1838ba2f14c34a633a6678c0caef2a7d361db45debfab2b75df38",
+    "res://demo/views/onward_marker_appearance.gd": "28000c681344ab87ad2391e07c29f2358e16ad2a53a96f7fd23fe0bdc874a941",
+    "res://demo/views/onward_marker_view.gd": "1addd0ff4f6a42974ed91054ce7abf5fd99d918d178d8ea3c57d5f35ac59e227",
+    "res://demo/views/platform_appearance.gd": "a84bff3af8cea2ec65dddd7542381245b89f9324e22bb61afa3aa882b408c18c",
+    "res://demo/views/platform_view.gd": "1c62eac0f56cf03477081dea22b9d44e2810a7c94c74a37825521f023212bb83",
+    "res://demo/views/platform_view.tscn": "91bc1fdf522d96d86816a959a36456eae3b8131f58b087df824398db54abbfd1",
+    "res://demo/views/relay_marker_appearance.gd": "00687ff76710fc769b22838badac14912035238bfd8acd8f667f4429d40011fb",
+    "res://demo/views/relay_marker_view.gd": "218870337c3545babd8fb0b4bbae52469e84289abc4619107637cdf9c6b97189",
+    "res://demo/views/room_backdrop.gd": "af0fb7dd855b307a6244bdbf6d37609320165f641d0cf629368e453e0e5f5cd1",
+    "res://demo/views/room_backdrop.tscn": "953d9b0f323f795f60b6b59ea4bd450bc779814734d8bb5045accf5f8ec71e84",
+    "res://demo/views/room_backdrop_profile.gd": "dc58ebacc37b286f0dad4af6fe218d148fac5b43eb2a235e507b8107783820a9",
+    "res://demo/views/sign_appearance.gd": "b5d51a2e835d6f7ddde8b27341e97fac51344865409539c5b0c7156ff2d4b753",
+    "res://enemy.gd": "967099b095236fce559219e85b43eb23b8ff7f8da83c522267dc4cc07903a510",
+    "res://hud.gd": "ed103e44cb3a549f14a495c1d3a7057851f78533e8d25767b77d2e402d722680",
+    "res://main.gd": "b0c7c4e4d9d4bd26266815b61c3c9edaccc32961e8a9ecb9266bb2352aa6493c",
+    "res://main.tscn": "68170bf7b7f140fa1d2fdd571575ffc262328849983ef85a1b9d7ddd5da5c584",
+    "res://movement/actors/npc.tscn": "7551f9589823528b802ff45299787ba4ac23f3af5885567bc3995c2383f1a73f",
+    "res://movement/actors/player.tscn": "e35f2a44d8b0c8c583c0b85c61128d628f9d882cde59098709a9bd9d6debf457",
+    "res://movement/components/movement_motor.gd": "149e8eddeab852f44aa141924ddb75d86c0a66846dfe47c27241a4c9b422b1fb",
+    "res://movement/components/npc_intent.gd": "c2ef4009a4c20c7573a82db349757762533193aa467292478ee95035c472bf42",
+    "res://movement/components/player_intent.gd": "e024e4418f2873e72020405ce7d82635778a69dec4220ec5092d01718de9ca1b",
+    "res://movement/components/wireframe.gd": "f7aff459ccb305ebcb314534d34cd77ab06d9ecc7a679f28a54ead77eaf6c11a",
+    "res://movement/geometry/test_surface.gd": "357bc73f0c4ceca9d41b08c8f3ae64f9480e2407abc2881f5767bd929dcca7b3",
+    "res://movement/geometry/test_surface.tscn": "8be0384803ac701c4128e38a4d4629ef2357e3c9e7e00833968bff79c7fcc50c",
+    "res://movement/lab.gd": "6d01e812a1c468eff55d249fb885dbaa882d2a75b9c44cc00d8c07f642cfb927",
+    "res://movement/lab_hud.gd": "6e4180129d06ac31ee018bc6d060f498ffc5d291620ccf497b58791be605c272",
+    "res://movement/movement_lab.tscn": "6d5cddd1724ad0d8df442c74163f449eb4f44b9ccbedb3dface7cdaf99a51106",
+    "res://movement/resources/movement_tuning.gd": "e1fe740595203dfc8e89a63054449931a744d77ea8bcbd10485b1a0411bc80c8",
+    "res://movement/resources/npc.tres": "c94d355ea322eb5abc3a8bcd0f8e404635a0bf4f43a44a82ef366a3673405a86",
+    "res://movement/resources/player.tres": "b47f62483b8a493d24eb0f1069e783fa76a52ba2afa0afb3c9daf8f8970a0516",
+    "res://movement/tests/lab_contracts.gd": "65031c115e13d57c87e65343259aed738de98bd70f5f1c630a6993026d5eb540",
+    "res://movement/tests/motor_regression.gd": "50a53e24a6d37a837c859923dc3b916e6a714553677443b1b510ac70731ba17d",
+    "res://movement/tests/npc_regression.gd": "b4dea18bb920b61b4ed8784ea08e7df3b37b1be1ca13e8a218cddbef9628d5ea",
+    "res://player.gd": "06920f08d91bc423e2def96115bd403bda420db1ef1d121fc2310d4fa92dc5a7",
+    "res://prop.gd": "8b0b1e06d6c76da455585318fecf02bc08e92e6917c2bf83a30f6cc72576cef0",
+    "res://resources/graphics/attack_pose_profile.gd": "bc5c4a2b4afa6293f9a9f8c578481431629ea57aa576f06add33048d2022d604",
+    "res://resources/graphics/operative_attack.tres": "e5c035cc371cca87774c96ef6bb1846c4ba0e6da24dfd28e54e2a722192037a8",
+    "res://resources/sensory/sonar_default.tres": "410a7e1b69e33b3a23470234cb6ae7b8e7adafbbd321d0a274bedfc8eeaf2a69",
+    "res://resources/sensory/sonar_tuning.gd": "a7c1388edf56f0c8ea442f35722f58119034639ff16cef1821e4178eebd6a015",
+    "res://resources/tuning/barrel_default.tres": "34c4c712c86bf17cbca428cc6bfae3f2e0d9e735576b3be1a59add1169e19824",
+    "res://resources/tuning/canister_default.tres": "be17203b0b92a280fb0e66424c181f1a3e4144070fcabf117bb150a186525087",
+    "res://resources/tuning/crate_default.tres": "fb3a1593ace7198081cc4524056c146f22e0bb90f60870716a9133dab804b2b2",
+    "res://resources/tuning/enemy_default.tres": "32c0bbf142ffff84528ea45690c2919d789319436d7e36f8e50074c4988d3986",
+    "res://resources/tuning/enemy_elite.tres": "0166bab9075ea1103ff38c4067ad9578d058cee1bfe003669a89ab15e7502b1d",
+    "res://resources/tuning/enemy_tuning.gd": "4e4c66cbef77bc2b9d3c1d1998eb2e5bc389128c0ee249e8d3c56da66210e2fa",
+    "res://resources/tuning/player_default.tres": "1347cf78875aced0076fbb80e8e94cb3022cbddae9f0b68292776eb17424ac40",
+    "res://resources/tuning/player_tuning.gd": "c924982eab61856e7bba37cc5b7c30b405a59ff5fb9836596e4d186dcdf9ba5a",
+    "res://resources/tuning/prop_tuning.gd": "105d7cb32cbac3928064f5fe6efc1fa15c89840fa43c8b5353adc6e2f4a402bf",
+    "res://resources/tuning/strike_default.tres": "07c18d3351d47efb6206c43f5695b6398f5113158028e137fb7f22f4f2514cd8",
+    "res://resources/tuning/strike_tuning.gd": "82d5b55ec6d320d3857c40b6a2ad58a7ca840db7b06f8ecc53e42edfd393ee95",
+    "res://sandbox/actors/npc.tscn": "3394959f05781664185413c4a25e45a6c24e293bccb01e679136b04989995337",
+    "res://sandbox/actors/player.tscn": "7f69cad69018ff68c0fee706769638411260df0a51efe459b13d8989111b6ba0",
+    "res://sandbox/assembly.tscn": "70416df70a4d2368e03ad6600d4d9494d181c88080b38ba788c8b19a1d81e92d",
+    "res://sandbox/freight_link.gd": "6eb29ff0b5db29625c75edc03f27c4c5ac972a384aa6cf028c25efece722606f",
+    "res://sandbox/station_controls.gd": "29eeb90490719ddcc7e139ed7088eed244b3cacbe9e30a27106f8a06dcf14c86",
+    "res://sandbox/station_overlay.tscn": "e448dd7b80a56dbac2b1c849145b96042c9008c21fc4d24d138b39589f151df9",
+    "res://sandbox/stations/combat.tscn": "e89f8229ee3af8d2cd695d0fbb2767a20bec41bbe27935d9d500d90530dc09eb",
+    "res://sandbox/stations/freight.tscn": "7b364ff827273cc25c4a9a9d61007e436c4ad49dc3928d9d9c0a545f4c72a5cc",
+    "res://sandbox/stations/traversal.tscn": "acf485c926680a04eb18eb22b7767d2343b0e68daaa5150b11058deffc9566f7",
+    "res://sandbox/tests/assembly_regression.gd": "9a2657cd4492488a491a04442481d989628ec62b4d714b3548a4f8c0640b052a",
+    "res://sandbox/tests/cargo_contact_regression.gd": "3f299e2f594a0f6dfa00432fb320fb7048f6bfac139cf9585575ec316ba4edc8",
+    "res://sandbox/tests/navigation_regression.gd": "dea6e1ded36a486d50fae4347c6a1654408ac8ba611b219386d11045f0c7bbec",
+    "res://scenes/actors/elite_enemy.tscn": "d0f52a59af04ba7b727b7dcc6504d69c95d3cf23434b3e8552c6784b162e89da",
+    "res://scenes/actors/enemy.tscn": "758ceba81de08b003b4256bd5b3cf94f68d597d33a4640fc9f560a0955b91a7a",
+    "res://scenes/actors/player.tscn": "9ece8137c67aeb6df653eafde2632623ef3a8e9fb50fc212620c974c375d8a3f",
+    "res://scenes/environment/architecture.tscn": "df4c81085f3b65f8aa50cb2dde3fed8607d930dc4ea5e5fc2a11b1d1651f7721",
+    "res://scenes/environment/platform.tscn": "efa9fe6f9d2fc7a8731ee00859af2811cb118e6876aeeb39727223067e3fd739",
+    "res://scenes/environment/world_sign.tscn": "2720ad1181fd89a1b83f94bb3ecfce4dba77e0ee67a8bed7c2ddbafd076e0829",
+    "res://scenes/interactables/ascent_barrier.tscn": "1c24a4c8b942badc763726b12abec0c823f724f3ee45f4d51c19f97def84358f",
+    "res://scenes/interactables/gate.tscn": "d7f7c97ba100dae3497519fc8be7e82c0b4d7eda8e6373fa544e06846f6aaa3f",
+    "res://scenes/interactables/sacrifice_station.tscn": "0a98f037ddff58fceef0443948e5bc791ee10c590b7d559264e1985b95a018ce",
+    "res://scenes/levels/arcology_one.tscn": "c1894c913abab270559108d5a1b0ce87b318611d12344abe0af65f38d92a30bd",
+    "res://scenes/levels/city_prologue.tscn": "b5679fbf7cb7158d3adc6b2cd93e41200d7067c013b6f9828a26c17e9fd1f7a6",
+    "res://scenes/props/barrel.tscn": "382246ec1e3664e06d6d6acc552c2cd26618cd3ccf86c7607ca9d2d1629bd388",
+    "res://scenes/props/canister.tscn": "8c9513c3b6d2bb1855aeba4c07770a16c729b8a78bde7b56755aa1a9491d01b2",
+    "res://scenes/props/crate.tscn": "101fd39e09262261ce16ab93ba60a4dd0eb681c0e090919d177c13b3edf4258d",
+    "res://scenes/sensory/sonar_view.tscn": "4edfdf6b222d37969ab78461d35a7b159aac64488d877c778280e5b7d5c682e1",
+    "res://scenes/ui/hud.tscn": "a6e06666d903cf0c1178ce702314ac971601bff85415dec463635a8842535d5b",
+    "res://scripts/components/strike_component.gd": "5accecb3a76ba50c849c6f93d52b01a503dbdd0f9c53966307b2130022d10d53",
+    "res://scripts/graphics/actor_graphics.gd": "d47517979c6325c95d48f18367195fd83eb8408c0d3fd01a603240d437097d2c",
+    "res://scripts/graphics/metal_baton.gd": "72f75eab181d597522ad51c5b2ad4b671a952d97ccd58986a4c955e12a0145f2",
+    "res://scripts/sensory/noise_bus.gd": "c461c3615d72dd825a3d14076b0c39b0307503328e5fa5966bed5a9becbbed4b",
+    "res://scripts/sensory/sonar_canvas.gd": "c6e1df86fde3183ae8ffbd4cbff855ade2b330cf96e02276626a530e99362cc4",
+    "res://scripts/sensory/sonar_geometry.gd": "c23316493b49724e6e74d2b0df23fb6a1e5ffb3bb6758d2bf08cc99b0e3a05b8",
+    "res://scripts/sensory/sonar_view.gd": "71392ea1c30095aa82583324894df6382efa7ba34ce927155bb354a1cf87606f",
+    "res://scripts/systems/audio_director.gd": "b0a9be1a1e6bf3f3b8493d7054d8674fe81cd0a13fe716949e3fdb2b1de72946",
+    "res://scripts/systems/visual_effects.gd": "6fd59932aaaf63a42ad17f286193c1465492ef995d1e7752141f249cd2d4adb3",
+    "res://scripts/world/architecture.gd": "1d76e9af1c6ecda4ea47f1ae5fbbd0314746ef6197daedee55f1a7e63e2a1944",
+    "res://scripts/world/ascent_barrier.gd": "7e7e52e4e4c86e159fccf8497b60bedb1c616549ddfd151b29bc2b2091494249",
+    "res://scripts/world/gate_visual.gd": "eaa6d5e9773519f7c195f19046e64ae5dea9174dd63abfcbbc0ef4e8e257a6d5",
+    "res://scripts/world/level.gd": "9cd3aad9202ed0fb627d9ff79126c37bb5eda73c714d6248e9593e922ffb2dd8",
+    "res://scripts/world/platform.gd": "579d389bed5ea83dd91023a96e332af5ae36c66990d12b8ad5305959de7856e6",
+    "res://scripts/world/sacrifice_station.gd": "d4818cd2621180885acc5766b8d3c7d91c78cc259de1870e2717985aefbc4eb7",
+    "res://scripts/world/world_sign.gd": "9e234dfdf0fe4cfbc68c985a457ebe397d0288f0652844c66429613b13eac0f3",
+    "res://simulation/actor_cargo_review.gd": "40d11729ba4b5ef5b694e433dc4150d66b1e760378e15f1cf9d6e24f742e52d0",
+    "res://simulation/actor_cargo_review.tscn": "894fd7f98700b8329ea24e1177cfaed504a8f4bce4750ca6ae53f93b297d65e6",
+    "res://simulation/actors/impact_npc.tscn": "d82fef36c2f3e459a094ae5e6972f92def4997dc622f60dd07a9fa592c4fb2e7",
+    "res://simulation/actors/impact_player.tscn": "3b09f2ed7b20f6316178dade6769a2d037d1fa3a74c6c2b72a888a01d74f9c7b",
+    "res://simulation/actors/shared_actor.tscn": "371ff981dd9da53d2322e538b7d4d326eea43e6f842d0d47e9cee167684d4e6f",
+    "res://simulation/actors/shared_ranged_actor.tscn": "24f0a47238495caf397a06c5c06403df2adfa24e60d21ece3dd96f01847142b3",
+    "res://simulation/body_echo_pixels.tscn": "1ae9ef4c8e7aeefc0f5be00e59f9eab9543808fb94732e458a6d8f64b7a97f80",
+    "res://simulation/boundary_review.gd": "29a78a58be3f3754f3804aee7c72c61af787ce3a88c9f719d20573db634058f4",
+    "res://simulation/boundary_review.tscn": "9132b4d6f50e137799d194905e81b6bd790fcbb6ea4210cb23abdc67c8138a05",
+    "res://simulation/bracing_sandbox.gd": "f4483aadabe8b76a2797d24d7f8d99ee8b0f028c678374d0724e409f24eb3ded",
+    "res://simulation/bracing_sandbox.tscn": "2ea6a725fa7dda937a2a563955fdb16e7c2a8416e4bee0f11999f04eacfda989",
+    "res://simulation/components/actor_contact_config.gd": "ba5342c7c14c67ae8d62063a2f1d884c5ec4474c160c1e4ef7410d5414bbfa1e",
+    "res://simulation/components/actor_intent_driver.gd": "7269b9461d1093eaf788b7ffae7eb8e682f5736566d9d5004504ff96cd6d8a2a",
+    "res://simulation/components/ai_hearing_filter.gd": "4e939b5be7bfcfaf35dea49803743311e439bacc0197f5520b2d349da0182334",
+    "res://simulation/components/boundary_hazard.gd": "f5e6bf57fc653d4e6b38747bd9e044a4b9ee554fb62d629f8f45adca3a088d95",
+    "res://simulation/components/boundary_hazard.tscn": "401a6ebca5b8ec338a610da12c070918736c1d4b3cb816d0648cc02313f29cac",
+    "res://simulation/components/boundary_receiver.gd": "8736622647497f8f5d52e8e591d36f8cf86f4ee53d103c7e78c0ac5fee0ff2c5",
+    "res://simulation/components/boundary_receiver.tscn": "65dd3d98fd8d9ed9a048b5731f80a6b2cdb74d5953ab2329d0c8427d9fca6ffd",
+    "res://simulation/components/boundary_scope.gd": "fe09691e7332eace08fdc76eb86100b4255c9bddc59e4f9c38f4d95302d597f0",
+    "res://simulation/components/hearing_query.gd": "20831ca22a9e18cd600a20e9db47a851b7e71b416cb534df2eb10e430ed044a2",
+    "res://simulation/components/hearing_sensor.gd": "d271369fa22d2ddeddfc2d8a547aa26d339d8e549b38bfcfc9db57a48f83bf02",
+    "res://simulation/components/hearing_sensor.tscn": "0129580fb2db682958003a8a594e287f3af0c70548444af6b90b70485c7bc685",
+    "res://simulation/components/incoming_strike_receiver.gd": "071a8fa77f3d831d1210ca4863541b58244bb46548625eddfde691683b90de67",
+    "res://simulation/components/incoming_strike_receiver.tscn": "21e676ccbf434ccf28f973160b5a8691535d4a6f8e8ceeb72c88c0fff0715afa",
+    "res://simulation/components/melee_intent_policy.gd": "602129316a728db0e075514ee309d19aa5fdfc546e18473e38cc4c2cee239752",
+    "res://simulation/components/npc_input_source.gd": "42a60f827404008e957e19938643683a298b476ecaafaddefb10070b8f4ffc96",
+    "res://simulation/components/patrol_intent_policy.gd": "782fc5d82645b0da5d2865a93c7a1e1171872ce0742051ae00dd6e933ab5b46c",
+    "res://simulation/components/physical_cargo.gd": "50b6f0f35558cda3b3064546a2acd014af51ab7ce7ad0050f7a34e4ee5790249",
+    "res://simulation/components/physical_cargo.tscn": "83cfef48a35f08feb5142e9c72aba750eb4ad9082b207a3fcdb4e0664d6a5465",
+    "res://simulation/components/physical_impact_receiver.gd": "2d2113cdeaa5dbbb2797331e6db4e41ff3a100509e1e2f2ec2f9a47f303932f3",
+    "res://simulation/components/physical_impact_receiver.tscn": "9add8b79fe5df31be03549f49068e6b02c59d2883b23de952813fe2a87e9e7f0",
+    "res://simulation/components/player_input_source.gd": "849127248722ea32cf3ece30d7cafbb8f35b89a0b794f79d6e39052bffa0fdb6",
+    "res://simulation/components/projectile_aim.gd": "79dbd72413b22f40f8ab26c86ae94356b5c782fe98c63ad4c86e077695ed6caa",
+    "res://simulation/components/projectile_emitter.gd": "62c312cf578496c16f23416c10af8a84c599e0662266016c0d3addcbd1d3dc86",
+    "res://simulation/components/projectile_intent_policy.gd": "03c375679068429a9b56ae5ee1a924bbd854a6ce65380900500efb0ef9778750",
+    "res://simulation/components/projectile_receiver.gd": "92700875684751eb49da1b60b4ae423c03dbc11d7b9516cb7ac87d955f6302fa",
+    "res://simulation/components/shared_projectile.gd": "882b638ada95fb83e09e0d7143ebbc3fcce596d676acd5879f091b611f0dbb3b",
+    "res://simulation/components/shield_counter_receiver.gd": "9790b551a949101cfc40a1d686eef3848f90740901872d848bc1746267126dfb",
+    "res://simulation/components/shield_counter_receiver.tscn": "f3ff91b4b581a999c529360a9749ba1164bb5e91be7c2389d3f1260851d42b38",
+    "res://simulation/components/terrain_probe.gd": "252e281314ea1152aeb54c55797a3be10e2a3acab8c3183ebf668166a85c7982",
+    "res://simulation/evidence/intake_choice_20261020/check_scope.gd": "b461b5a8ef438ab273cd04238d55dfcbe0e4459da9228d7fe93136c634dc1a72",
+    "res://simulation/evidence/intake_choice_20261020/dump_sectors.gd": "42003dd976e76b8f29b71e871e82e3bfacff05edb30e0e94cf6a71f617e26025",
+    "res://simulation/evidence/intake_choice_20261020/intake_lifecycle.gd": "6d8215deb6abe210f7d1ac09bb0eb1180a6fdcb44379ce567de1153feafce6cc",
+    "res://simulation/exchange_station_pixels.tscn": "62c0dc2f1f0cab1aaaa75d1c9026d5c830615318f78ccfc0afe7285609a70021",
+    "res://simulation/exchange_station_review.gd": "a55d9e5440e36f0962089d8cc552694206e8c736bbe1c4951989616e690970cd",
+    "res://simulation/exchange_station_review.tscn": "ef96c387e60f5d410066472afd4ea1672bb51cb2dd127a51313e1266b1a0796e",
+    "res://simulation/field_cache_pixels.tscn": "337295037ec6b0871129bfe5aa3fd01b5dfa413f5982cff70c44fa0cadbe1f0b",
+    "res://simulation/field_cache_review.gd": "fd6bfcad8ca11baff8885b763f35b3961872965ce413f15e9c003657fdb2ff76",
+    "res://simulation/field_cache_review.tscn": "4102e7420817426bbc17f91b919876c189836076abd1fb6c131d1ba2b990ee2e",
+    "res://simulation/floor_segment_pixels.tscn": "5f2fe615d352494898a4c68db4eb614308d0ea0731f64455bb2924a0fa44fa8c",
+    "res://simulation/floor_segment_review.gd": "47d12afc3d9d34ab3955af18e0c0a6cfff2c38c929b16ebd697ca7954e2f29ab",
+    "res://simulation/floor_segment_review.tscn": "7772aedddd58f7b424c091e7e4346a2ac98a9a47b66ced2b6f246be02c5d1514",
+    "res://simulation/footing_sandbox.gd": "cef818485997749381c495dcfb763ed47692872feceb1eb206e2a5753bd56f92",
+    "res://simulation/footing_sandbox.tscn": "4ce3008a50f283a0b5958547ae5f906d13c1a90b9b65c1a4448059bbf19f188f",
+    "res://simulation/gym.gd": "21a64d968ccf41ea8fac303974d4252b71b5058a7ca7fc8f99d1e9e8f154ee8d",
+    "res://simulation/gym.tscn": "1c38ad7c14cb72823a8495b2561ef31856ef512b53d8015b33384dd14551ce7e",
+    "res://simulation/hearing_sandbox.gd": "90ae8b897f8c3003d69daeffbc14b5a84b7b4f514f8a95d239ea67c3c6ef4c9d",
+    "res://simulation/hearing_sandbox.tscn": "f7be8334ec60b5c16102b51d070e58a9991177263ba94739b21ca9aed84135b7",
+    "res://simulation/hud_pixels.tscn": "60a2dbfd05f53349d01d7a4a1b0877714cdb2ba7eaeb982acffe64e0847ae2ff",
+    "res://simulation/impact_sandbox.gd": "08e7cb166b624a445da71d812ebba1127d3773ef5f7787dd261c5238226cb55b",
+    "res://simulation/impact_sandbox.tscn": "3b5424bf5285e7d49ecca7cf0667aa071ade9c87be0af495156faff8ee091db2",
+    "res://simulation/movement_sandbox.gd": "99d7969a9d4a714f2bd06af5dcb33e30ba216c51814d335cdf044f40fbe0f5df",
+    "res://simulation/movement_sandbox.tscn": "9fa12681dadbbe9193ff81ecd140ec0a17f7b77871ffe2aa10edd9ee078cdd6a",
+    "res://simulation/onward_marker_pixels.tscn": "2b6250e52cdda20d1e885ab5642422b1b6991e67154ca5ff5540c4b352cb6bca",
+    "res://simulation/onward_marker_review.gd": "d201354bb43885d206a0053220aaba518fa6db0e72c2ab5f6f606fac07eb9908",
+    "res://simulation/onward_marker_review.tscn": "2fc77859285ad943343d9c24f9e77e30054cd0eaf3e59294213bed66056abf40",
+    "res://simulation/projectile_sandbox.gd": "e0bb4e12b1bf4c67188fb6318186aeb7987ca96b293819a448f20dce3c9b23f4",
+    "res://simulation/projectile_sandbox.tscn": "3198750efcd8198aa46ac2a24bb315ea14da45bf9d07ad2a0f1b162c5bfd4f37",
+    "res://simulation/relay_marker_pixels.tscn": "9ee2287007ece9c911099ab43f4b6f68d2f2e3bf8a113c6a480c5ee69ce0f75b",
+    "res://simulation/relay_marker_review.gd": "5b5077a0071aa7d59e636be8a84197a6ff56676a14a465840fa8cc08703ef422",
+    "res://simulation/relay_marker_review.tscn": "a5b64e6deab28afa091c9b570eda35661e0fec76ec22c223bb255ed545df7c8f",
+    "res://simulation/resources/actor_capabilities.gd": "af872aa2ed1208f3f1b3b0e68af00f93ae75b18d32e0ff28779370291d3f5a27",
+    "res://simulation/resources/actor_contact_profile.gd": "be2727f1d2dc1261b27fee52c14bc9f7e0db23b97a3837ff248675905b5936e5",
+    "res://simulation/resources/actor_material_profile.gd": "b40c7012419930e1e1029c0972c484caf61c1c3be509f6bbe2aaf770c65eda5d",
+    "res://simulation/resources/boundary_profile.gd": "9ebd00c09c6397fea165db40eeeabadd7e6e184b63e52e8ba12f4248c67d86e2",
+    "res://simulation/resources/bracing_chain.tres": "530e92e096954e3e4121f2376293c6b351947736c970fac0b62199b7d3bfa0aa",
+    "res://simulation/resources/hearing_profile.gd": "5f2cd3f407ea8d1873ff8a6a92c0ef78e675f4719f1eda8f11e9cacbc7b83be0",
+    "res://simulation/resources/physical_impact_profile.gd": "8dbc1266b18311f4a4170c2954751f5c2b9ac011f2c2ff91929f437d76b1e63b",
+    "res://simulation/resources/projectile_chain.tres": "97dcf2c593c62021eb6b36d4847123ee090cff2adc3ea27527543a627608e72f",
+    "res://simulation/resources/projectile_input.tres": "3c5f3acef46daaf1e424150bf4edb7d88ca3768983d23f659e76c291dfbf71b5",
+    "res://simulation/resources/projectile_profile.gd": "b0db605bfab612435043c29ca2c56e080dd63cd2397c8de0149b6ad11cabdaf6",
+    "res://simulation/resources/terrain_probe_default.tres": "14a9762d8da025f8b1b6210f459942cc6cc59ad37e7e36c1c729bf52f1013e33",
+    "res://simulation/resources/terrain_probe_profile.gd": "f3d2074a8012780ae5ec4c1f5f74b28fb4c77eb34a06c4ee90422298ca307323",
+    "res://simulation/room_backdrop_pixels.tscn": "7707a37003e3d312258053cd7d0ee1b06846e0ef8a4dc2caf949ac8db7b1146d",
+    "res://simulation/room_backdrop_review.gd": "66bf411e0cf01bcab588b7f84383e0cfb9e682c92ba34959233354d1ac40c174",
+    "res://simulation/room_backdrop_review.tscn": "ee6ac7fec108fec0a4ba3c0bf74bcdb8dd0fa235096fc8d44ae3f6fa2a3b7ac7",
+    "res://simulation/sentry_review.gd": "a678324da819da5d1231e415cdf0c2012e33bcd1922570b27c232968912fb487",
+    "res://simulation/sentry_review.tscn": "2739b300fee2a2f7031ccb5990157ab17b6287080e589ce3f24d525f6880f082",
+    "res://simulation/static_platform_pixels.tscn": "7f33b6df26fe9bc983bc07843ad7a8666c996100e09f9ec13d531ac35223e965",
+    "res://simulation/static_platform_review.gd": "fcba1f4714a4aa56c9ac4abf9d9df166afc80a67e4653a0810616384727a6cd1",
+    "res://simulation/static_platform_review.tscn": "b91225f4582e0e6e6da8ef202b9d1089d5d761000f5ee3c1124d6e922f7a6532",
+    "res://simulation/strike_sandbox.gd": "161434b7c03df62327e58eb7b15ad25f660b7ddb478e7d121a0ac2911ba963e5",
+    "res://simulation/strike_sandbox.tscn": "5a6fbc62f373311ce51e049e7ea73cc693464e7f9e3c2d507fd5372a8e35cd59",
+    "res://simulation/tests/actor_cargo_baseline.gd": "4cf5665f7175f43cbec3fd30dcf5749eab1a6abcea5dbfd80d7986dd1fa3573e",
+    "res://simulation/tests/actor_cargo_carrier.gd": "93b629dc79f9b969e5b89bcc2a809ad42714793cf441981351309288c8cb2a9f",
+    "res://simulation/tests/actor_cargo_defense_regression.gd": "ca802eac9e8fd9ef7779249eff7b791f495ef7acb66ecac6d36533855b2f4cbb",
+    "res://simulation/tests/actor_cargo_regression.gd": "c64dbb5c4f6f61dad2df2014eff8497cf6e12352a984ea35a04b7ee5dde4538a",
+    "res://simulation/tests/actor_cargo_request_regression.gd": "52744e5719e2648e5de57128a54563ad4ef97032c3e7376e50db193fffc2f580",
+    "res://simulation/tests/actor_cargo_rigid_probe.gd": "43b3c24ff06a92886287f5f51815570de32cb87d1f7230b709dd208b88a82cdb",
+    "res://simulation/tests/actor_cargo_strike_probe.gd": "8cb85d6817a9c2ca52e116fb25e2cfc576012b434e3588d82f755de2b431b87e",
+    "res://simulation/tests/actor_cargo_transport_probe.gd": "4e23e5ce7c63e0a5446538463454a9857a1dce8c8f24a286d85d7529572931f9",
+    "res://simulation/tests/attack_plan_regression.gd": "d7512612495f74bba6eb472adae4eb5501b8207ec0c8c597757820ffbacb31ca",
+    "res://simulation/tests/body_echo_pixels.gd": "d49fa170ac79594e86ff4fc5e5a914ecef792d5c642b6b334c00853cc921d8ea",
+    "res://simulation/tests/boundary_pending_cargo.gd": "1ed8579ea653aaf8a674e66b756d4fd1bdea43b00685222a5325fa97a321d903",
+    "res://simulation/tests/boundary_probe_receiver.gd": "d3a66eeab1b524168d23c79fe978dfdf2975eb8e4d58b798bdd0c03601ad51d0",
+    "res://simulation/tests/boundary_regression.gd": "882b66b0ff977fc7306e963fe5224bf30d531670d145b6b56bceb0a23b8350c5",
+    "res://simulation/tests/campaign_rules_checkpoint.gd": "1af1feedd4ae3ee55ee825bd7fdaaeef13f8995fc8fee4a7cc013e29ee00a7f3",
+    "res://simulation/tests/campaign_rules_cistern_lifecycle.gd": "6f968855235d7c71391c72a01008fe41bd19ca2e801fd8fa3b691e8a7a137f3e",
+    "res://simulation/tests/campaign_rules_diagonal_lift.gd": "cab0ec6ba43e7b1ecde8c4ed67f5cc0b0f7906302c8832de1bbf6c6bc23e8e95",
+    "res://simulation/tests/campaign_rules_exchange_lifecycle.gd": "465ed1d4dc2abc4958d0b7775da5a0334f29629cf3865267e0597f26ad23f2c9",
+    "res://simulation/tests/campaign_rules_freight_lifecycle.gd": "8943d85ce638bb635ca53fd8a5514462d28177bf52696f22f6ce3adb55220299",
+    "res://simulation/tests/campaign_rules_hud_legacy_enumeration.gd": "a1de6d3990a9b9f3b143e2ef4d2c326835af8397cbc1a8b737c75d40031ccc35",
+    "res://simulation/tests/campaign_rules_placement.gd": "4c964a29b9f49c753f921f7705cc018b1d75e79f661f0c62ea3ff55fcd8a6455",
+    "res://simulation/tests/campaign_rules_rainline_contract.gd": "335724cf4f1f5306819f884f5a764855f4fc635894dd5b61e30b0be073efae12",
+    "res://simulation/tests/campaign_rules_rainline_lifecycle.gd": "f0b14a403a2420a81071915e37f8d788b2e31b7cc7300d06ea77e0ece255884b",
+    "res://simulation/tests/campaign_rules_residential_identity.gd": "641820db4b950c7d4a8a3ad6a58a30b69cc68323a34c97f913194a9323e22a4a",
+    "res://simulation/tests/campaign_rules_residential_lifecycle.gd": "f55ebf8f724152daa0bf25dcb018e0ab82198a0f717cc4df609166fdb2df9b64",
+    "res://simulation/tests/campaign_rules_shifted_fixtures.gd": "d329b0f741b71351e955e3048ab1bb79844fc4d8afa30dd1b959eb80f4cfbff0",
+    "res://simulation/tests/campaign_rules_warden_projectile.gd": "9c09584031224af74f566df820aabb3045b7da29482f233725d288bce596551e",
+    "res://simulation/tests/campaign_rules_works_lifecycle.gd": "ab4e0b51d991be86889151b189d18cd7c36dddb16436cb9a3217ac02ede17799",
+    "res://simulation/tests/counter_capture_probe.gd": "42d31da541be505f646f31c0415c560ab98901933103012cdd2ba1386126c3eb",
+    "res://simulation/tests/exchange_station_oracle_preflight.gd": "ace6c1c36b2dfe2eed6d26602fced907ecac0ffc485f36293ec626f5edbf1aed",
+    "res://simulation/tests/exchange_station_pixel_regression.gd": "bf8d3bb077216eda40c2aeb803f280c386536d77400cd3a70664ae759248eece",
+    "res://simulation/tests/exchange_station_regression.gd": "38e68dc36c4ac4e594a24bfe0ae763b79fddcabbf67c5541b884798e9ef43898",
+    "res://simulation/tests/exchange_station_support.gd": "ce7a7adb44aa717aa9ef8ae1bf4b14f362c0a71ae4b300fca9dee3accd5092ff",
+    "res://simulation/tests/favela_regression.gd": "80151612e5ac9bfe855c5b03597eab5b46ba227823929bd4ee48b115a3c8008f",
+    "res://simulation/tests/field_cache_oracle_preflight.gd": "6094505c07543855078dabce09338ccee7abb815034ef36fd43f41f35e2a78c6",
+    "res://simulation/tests/field_cache_pixel_regression.gd": "5d661e99997947261fe9bd5050becabdda2107fbfefb4a2b156908bb495c53d4",
+    "res://simulation/tests/field_cache_regression.gd": "80b907cd7f838fb406358a909b4b6b167366ec90c20ab7e635ff2d59bab8ca30",
+    "res://simulation/tests/field_cache_support.gd": "1718c5f1582d35a4759a90206a3304c540aa22d4c7e25c24280b63a4e5b4ef0b",
+    "res://simulation/tests/floor_segment_pixel_regression.gd": "e81630632355d2fec9c9eded6ffff642032b5ef72eb2c9127fe2c6320762ba53",
+    "res://simulation/tests/floor_segment_regression.gd": "0fd7923f20df201fbf68096b423486bbfb2792d657810648c5e25f2910d200fb",
+    "res://simulation/tests/floor_segment_route_regression.gd": "f5449565db29d687994f3bb258c8b153caff4fe0ab65015c95037ee6fd45c1f4",
+    "res://simulation/tests/floor_segment_support.gd": "de3513cdb2044153f216925bfb417747cf7510a990c9d92c6d13b9f25dda5f54",
+    "res://simulation/tests/footing_regression.gd": "ed23f59116a52df3f40069a28768a2e7a187bbf8d27e544a0c80b6098c6ce184",
+    "res://simulation/tests/gym_lifecycle.gd": "a043b75a3c3a65112fd0aa5d8d012d640c80d7e0dac2f37c4886862d75d2b484",
+    "res://simulation/tests/hearing_regression.gd": "78403592c6617f32cca93b8f2b3502b6d5e38d9ba9e98c568f34a82bf3dd4ee7",
+    "res://simulation/tests/hud_freight_lock_review_oracle.gd": "e708357877f2d9a8cace2c88cd3ee46470f4b568ca6bd890fbf451f850b6f130",
+    "res://simulation/tests/hud_input_flow.gd": "2b1bff58a7d27083ff5eb4c6165bba582717e2268bb36ff63cdfc3668c7c6aff",
+    "res://simulation/tests/hud_legacy_oracle.gd": "3f841d8ca578868ed5c757d976649993314a25625f2e745f51f4d36407e73805",
+    "res://simulation/tests/hud_pixels.gd": "123afdea7a175875b7116dfbe245f3562f97bdba617493dfc26a3907d81ef7a3",
+    "res://simulation/tests/hud_regression.gd": "533484d16ecbc86083919dd1a2dc48ed036637209e40e3ae42f03a1a0723b854",
+    "res://simulation/tests/hud_relay_works_review_oracle.gd": "966b762446e18b98fc3b27ac1c4a53b04bd49041611e79554a3ce69529cdc7d9",
+    "res://simulation/tests/hurt_projectile_regression.gd": "35416bf87118c216d4c7312fd0f10e112aa20bd0c7a8168416039749529756af",
+    "res://simulation/tests/hurt_response_regression.gd": "c8e70ab8b7570452e1b1427ed5528c6743177633bd0c731bd7c68fb750d73a93",
+    "res://simulation/tests/impact_callback_npc.gd": "1375855ef6370c2fa85c06c824d9c6f960460afde1301866637fa20d48800246",
+    "res://simulation/tests/impact_intercept_cargo.gd": "80bc5910e7e923176b8a79a56ea96c531c9dc6c6e92f9e1d4f846e9967287eae",
+    "res://simulation/tests/impact_query_cargo.gd": "dca20d9ff2b22e7328686879e4e40c1a360fa167b83d896ff0a350b64d0db3bb",
+    "res://simulation/tests/incoming_strike_regression.gd": "934beacdb7b48064b42d2e09b5eb6b74d528fc0b91ad92a5e8af5d914734bf88",
+    "res://simulation/tests/listener_regression.gd": "43d1b830346cde9cf79d9c731e07b6a4724ae53c506f2cd099a633419231e607",
+    "res://simulation/tests/mission_cargo_interceptor.gd": "ab1081386bd616a87f8ccb28965fdd1ae8f4901820de56f8a829055be6246dc9",
+    "res://simulation/tests/mission_cargo_regression.gd": "fe0b5e22c1a4051a9a952b23f2457bf88e737ebc1c1d8c39be337bf2a8601604",
+    "res://simulation/tests/onward_marker_oracle_preflight.gd": "281933ae4eda156bc83ebd2a6612dc98ea10029644a1e5095c713146103ee40e",
+    "res://simulation/tests/onward_marker_pixel_regression.gd": "c915f5300d9a4f7e9af3a860d21c5293f9b755611db57146cb3ae92bdca0fb44",
+    "res://simulation/tests/onward_marker_regression.gd": "298825d243aea303f091d4d2fcb194472ee8b8059dc038067d1374b0d3783ee6",
+    "res://simulation/tests/onward_marker_support.gd": "20bf157b91cc012edb113e6e50cd6bf7291cb3bb18c150ddf4e1abd75ae48c1d",
+    "res://simulation/tests/physical_impact_regression.gd": "f53bcae39ee0d02a22f366aff0c2c19c400a203ebffa7e2304d5b6f6eaf2f060",
+    "res://simulation/tests/physical_scene_pixels.gd": "b17470861268a3b4530e56be4f8bf1fae0968678252c61b101f7a2a645620f03",
+    "res://simulation/tests/physical_scene_regression.gd": "3737cdca7de30bf88555338ce2297402cf1a625a6146bad1aa44d8277e420af1",
+    "res://simulation/tests/projectile_regression.gd": "b5bae61365fc85684fa1e5565aca116cc119a64bfe0d8f4e03c8afb9397bd075",
+    "res://simulation/tests/relay_marker_oracle_preflight.gd": "35fb0fe32a1deeab22952174b39a89335da04e9d52083d454002ee574370d479",
+    "res://simulation/tests/relay_marker_pixel_regression.gd": "b4d53fb3965b1316c8b3f3aa47826574949972bbb5e2b25216ba66fc6bef5464",
+    "res://simulation/tests/relay_marker_regression.gd": "0d7e1dbb6c2907dbe818a9d86c4fcc642c9af83f5fc58caa54cdcc6e7f6374ca",
+    "res://simulation/tests/relay_marker_route_regression.gd": "dfbe36e161247b836bfbb025b13177dba845c557e5eee4166d4d885540e050ca",
+    "res://simulation/tests/relay_marker_support.gd": "bba3d8e80d5966b7e5d234668e431f23329297b31c66f5ce5bd90c721f133fed",
+    "res://simulation/tests/room_backdrop_pixel_regression.gd": "79b1583ba3cfaf4623552468519716b26d559ef60cdcde928d412979eedbc7e8",
+    "res://simulation/tests/room_backdrop_regression.gd": "3cc59aeb1f2b8d0ab9fb63a88831a36d4ee42c3cbda8debc29237b66453ce934",
+    "res://simulation/tests/room_backdrop_support.gd": "824473af9304760a71b93f471de5387fe89b59d9897e0eea3c25b2f483c0e85a",
+    "res://simulation/tests/sentinel_regression.gd": "872cf5229485a0bafff17eb258c067d77977ac6fce8aebf381d19dcc3c9a78ed",
+    "res://simulation/tests/sentry_regression.gd": "ffab1846dc57be723e759bcb5bf48d3ddb97192cebf7c94aca38b673f0b895e6",
+    "res://simulation/tests/shared_actor_regression.gd": "38b6dff3a76aa7b8e33364994fc05c5e7f2e20a678e8b69aeb5dec32514ac36d",
+    "res://simulation/tests/shield_counter_regression.gd": "9373b632291898b3ebfa522f19919dab54341245097a9dd8a3d875ab54fc4fc8",
+    "res://simulation/tests/sleep_support_regression.gd": "cab62e0ebea880d3862e0d29a6f440cebc2eff6aa7b7d3ede3a62a0848aba114",
+    "res://simulation/tests/standalone_composition.gd": "e142f36c1eddf6f973e6b23ea9061514988e4722ea278f9595e254df169de961",
+    "res://simulation/tests/static_platform_pixel_regression.gd": "aef3b187a85072e8c59294167cba6f3a94bda44e7eede0be358d20540e43a37e",
+    "res://simulation/tests/static_platform_regression.gd": "f20ae4c744c6e6aab24fd57428cf8cd54f84055a0643f6c7922c88f9c1326501",
+    "res://simulation/tests/static_platform_support.gd": "990d4c544aec76e2c20c9b7dea7cbe137f8f7433a03666448cf2ff3d52aba9e8",
+    "res://simulation/tests/strike_capture_probe.gd": "ef5b87fa9941427a9681fffecb983a66ea7eaac23daff3820d8e0142afc254c5",
+    "res://simulation/tests/support_geometry_regression.gd": "c9beaeb7b1d18382ea3c9aaf3e02ea76865bcfed15d4cb88e185ba7ab414c5ab",
+    "res://simulation/tests/warden_factory_regression.gd": "6ea8c4605c0ae025ebb507567e05016fdf170a85dd30ccddf0fdfe727fca47e3",
+    "res://simulation/tests/warden_projectile_regression.gd": "6383e33496983fe721faee0ae9c1639da29cb7a545c6f7028a64facce7232926",
+    "res://simulation/tests/warden_regression.gd": "1505390ac2d6024ddc7a073f746599c6f9da5771b93abcad2ef09820b958e6de",
+    "res://simulation/tests/world_sign_pixel_regression.gd": "b223850e4d4b4d43c13189181faa3f96a0330d679e470b85126e19398d325307",
+    "res://simulation/tests/world_sign_regression.gd": "833976a3e9444be2f3d2b2eb1636d4d486f6d11e61a4bc7639440fe641ca115a",
+    "res://simulation/tests/world_sign_support.gd": "6a8186ddf0cf84fd434112af3ac49f3ac95bbcea5d79f5869ee1ffa8c96be28c",
+    "res://simulation/ui/body_echo.gd": "4adf92abf7f198494f0aac4b2b5694747a408f337e3eb7abb55828bca59a1378",
+    "res://simulation/ui/body_echo.tscn": "95d892d0b9a4249b2a1b520de9a03d1b254e3c0a31e34d7fa08967f4e7d47f13",
+    "res://simulation/ui/mission_hud.gd": "170ac565c653ed893a7b5cb697b6acb9cc957b6ab8869d0cb36daeba64e456ad",
+    "res://simulation/ui/mission_hud.tscn": "5861f87ca7f055e724e5daaf860e657396a3e710a0a7bbe5c77a9f3ac68b8802",
+    "res://simulation/warden_review.gd": "e785a8c7b449cbbba66d156a3b360980a09384396209273fc54f820703ea1b78",
+    "res://simulation/warden_review.tscn": "e365c43ef06faffc835b63a036efa3fc1503401c755fbe94acd125efa4853e31",
+    "res://simulation/world/exchange_station.gd": "0c5ee5492abaa663876c7e145f40c70ef99da6f5959f4be86c785727f4051432",
+    "res://simulation/world/exchange_station.tscn": "8c2ac71fbeb22d7d5670b09a4dcccb84fc15772aa8227a4f04b018350e450db5",
+    "res://simulation/world/field_cache.gd": "cb18960fd8fe81977445d563e78c0aa0cbb9367730c5c940a534083201a5dbd5",
+    "res://simulation/world/field_cache.tscn": "f50bdc4401e41d93f6a13755ffdd2b1565a30c6fd1194587d5de5a49fd296c9b",
+    "res://simulation/world/floor_segment.gd": "a7d0691fc9773c56671a42260cdd7f388313920353ec2e6e5b774eccaf4f92b7",
+    "res://simulation/world/floor_segment.tscn": "a011a3ad6d72df8afe328c2680f35ae13a1adaad932ba1db721a9edb796ec9d8",
+    "res://simulation/world/freight_cradle.tscn": "1f9e13dfbe46b25fd9648bc117abc7555d8e6acdbbdd90e922b95ddb972aad36",
+    "res://simulation/world/freight_receiver.tscn": "b52716d9f0480606589829bc48814b820190cefb1821ee31637bac59a632ea2f",
+    "res://simulation/world/mission_cargo.tscn": "c20a48a952b96571f390f78c11528230cba84c26c7ba8dde13712a70b35a00d4",
+    "res://simulation/world/mission_ladder.gd": "8d81a93c998ffeb913add4d66994a0f2dea4933b244e28ae3eec1076584663f5",
+    "res://simulation/world/mission_ladder.tscn": "cbab0838a740164ede02c4397619ab87c27fa535d5565da2b89e7581c9ce2b59",
+    "res://simulation/world/moving_lift.tscn": "8f4e6159af9b6f3b15acb1dc7b833b0c12f8e3edac9b1b0400017336dac80df2",
+    "res://simulation/world/onward_marker.gd": "b3bab3a6d4acc340b80f5aaacde0699485206bf091a3a4870afdd139f0f8b831",
+    "res://simulation/world/onward_marker.tscn": "7a360172059c26746022a1541bbb3fa9c4ac317a1a0ba51fe345144ffb80ab08",
+    "res://simulation/world/relay_marker.gd": "8d7f7d88f95b1b151adfb78338cf196186c88dee39ea670ac6ab3e15b660d9d9",
+    "res://simulation/world/relay_marker.tscn": "cc419754cfd7b97d08f4b7babfbff8afa6ace45fd39b63cbe8c1f5a21b9fa052",
+    "res://simulation/world/relay_shutter.tscn": "2354a975ef156a7b24e6a5360896c4c38f038e6534e807c0a8eb2543de216e15",
+    "res://simulation/world/static_platform.gd": "e1a5724f8a4d50ee1dc6d4d662d33fa45dd7b788cdc3f422ed3be5f17f4721cf",
+    "res://simulation/world/static_platform.tscn": "7fd43b76f9902c77c2183ca9ee75ce13fe6f14ab34a4a08e0240b00766a6bc0d",
+    "res://simulation/world/world_sign.gd": "684752f7b9c8bbc8f7e148edb5e5220cc688046c06a624537b206fcf936f5212",
+    "res://simulation/world/world_sign.tscn": "39e9807907af1d256d453c28f8790abcc847f689fcaaf992a4cb0ac185e9b586",
+    "res://simulation/world_sign_pixels.tscn": "726e2a2ea869d5882e0e05257a814d5fdfe047ada0d4ef96b1f28de49f6df16b",
+    "res://simulation/world_sign_review.gd": "f908afd550c177c039c3033e7108868415877ae1fc76c42bc0dd411d087e9e95",
+    "res://simulation/world_sign_review.tscn": "b085da1c53a1e0f5a75cf89e2b4afb4a2c29ec7a6a8d07bcf80d79aae145e931",
+    "res://tests/actors_compile.gd": "684e3726e5315f956d62f6b262042055048d762d92cfc1d8bf7a2e71154c65c5",
+    "res://tests/actors_regression.gd": "348e84ca791c9d1f65cfb36577969fac5f7e291f632365bb432f571079a863e1",
+    "res://tests/attack_pose_regression.gd": "fbd543c0ded34c18f62dc451c91c3a1eaccc0b4ff655cbc2b4d529625cd15841",
+    "res://tests/attack_showroom.gd": "5590303dd0b2c2d49d7c156c66bc270835f35668b8f09fe414e6cbb736ee7425",
+    "res://tests/attack_showroom.tscn": "cadb6c24934e2da386a2b422d22deb8821b2c11959559f1e1eec1d0dd40b73aa",
+    "res://tests/blind_feedback_regression.gd": "c70aa25f5cfdac0908c53eab0ae88a72bdda84b9a64a60d34858b6ba2cffd04e",
+    "res://tests/flow_regression.gd": "8fb64087970b24558d4a5c3f43bf6b3a724ea6f5bcc908ec674e8323fa7d1383",
+    "res://tests/flow_scene_contracts.gd": "83bc87bf77a5e4bdce77d9a22403a0c7aac1408235556caa190b365f8891a6b0",
+    "res://tests/graphics_regression.gd": "4a9bdfe92e4fd738f7bb0cabc9c8435567e284ef0b31ca1243badc99c90aad51",
+    "res://tests/levels_props_settle.gd": "2ab5bbe54129a95a0b9b769837d3d77cda79849de559c4195039fec75df1b1e9",
+    "res://tests/levels_validate.gd": "ff3845ae393f5f85b4cedda264ed63207c90a17516d930bae5f2cc68d9246a14",
+    "res://tests/native_feedback_capture.gd": "9f2aa86e68c022d3fd82d4cf8ac98d0b09c63ef6553b3b7db5dd0af14e8ffce1",
+    "res://tests/native_feedback_run.tscn": "0f50fe14a34da3a1b4c5ea7bf417ea02cde8bb4aa4c0f3a40b0865d1d0bfe501",
+    "res://tests/polish_route_regression.gd": "87be40309ebec21c2bf392987fa840434954501d8f52c2076ddccd2478c60a1f",
+    "res://tests/polish_sensory_regression.gd": "2ddd6b70b046ef26b2b2785a04c7cd9f5d51a36ac10f033636ca47b79ee4b921",
+    "res://tests/sonar_regression.gd": "88faf1dc1a5184943d59657fbbbbd3558964fbf1f58d7a6e53ccaf218f739c99"
+  },
+  "trace": [
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(860.0, 190.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(1360.0, 130.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1830.0, 300.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 10.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2790.0, 130.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3090.0, 300.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 245.0)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 0,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 5,
+        "ladder": false,
+        "next": 4,
+        "objective": "gate",
+        "steering": "(678.0, 190.0)",
+        "support": 0
+      },
+      "position": "(75.0, 300.0)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(907.3577, 189.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(1418.087, 129.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(1789.435, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2824.671, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3137.361, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 60,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 5,
+        "ladder": false,
+        "next": 4,
+        "objective": "gate",
+        "steering": "(678.0, 190.0)",
+        "support": 0
+      },
+      "position": "(289.7331, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "air_jump",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(901.5417, 189.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(1418.087, 129.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(1789.435, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2793.6, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3131.545, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 120,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 5,
+        "ladder": false,
+        "next": 4,
+        "objective": "gate",
+        "steering": "(678.0, 190.0)",
+        "support": 0
+      },
+      "position": "(490.6154, 191.162)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 50.58335)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "air_jump",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(832.3049, 189.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 3.0,
+          "position": "(1418.087, 129.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(1789.435, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2758.341, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3083.381, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 180,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 5,
+        "ladder": false,
+        "next": 4,
+        "objective": "gate",
+        "steering": "(678.0, 190.0)",
+        "support": 3
+      },
+      "position": "(622.9847, 139.5217)",
+      "raw_input": {
+        "jump": true,
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, -276.6666)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1393.406, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1789.435, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2723.082, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3035.217, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 240,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 5,
+        "ladder": false,
+        "next": 5,
+        "objective": "gate",
+        "steering": "(985.0, 130.0)",
+        "support": 4
+      },
+      "position": "(768.4669, 189.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(163.5, 0.0)",
+      "waypoint": 0,
+      "weapon": "recovery"
+    },
+    {
+      "action": "jump",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1417.919, 129.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(1789.435, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2755.815, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3055.482, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 300,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 5,
+        "ladder": false,
+        "next": 5,
+        "objective": "gate",
+        "steering": "(1108.0, 130.0)",
+        "support": 4
+      },
+      "position": "(980.1074, 143.23)",
+      "raw_input": {
+        "jump": true,
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, -163.3333)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1393.824, 129.98)",
+          "state": "chase"
+        },
+        {
+          "health": 2.0,
+          "position": "(1789.435, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2791.074, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3103.646, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 360,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 5,
+        "next": 5,
+        "objective": "gate",
+        "steering": "(1320.0, 129.98)",
+        "support": 5
+      },
+      "position": "(1196.273, 129.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 0.85,
+          "position": "(1407.134, 129.98)",
+          "state": "stagger"
+        },
+        {
+          "health": 2.0,
+          "position": "(1789.435, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2826.333, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3151.811, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 420,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(1407.134, 129.98)",
+        "goal_surface": 5,
+        "next": 5,
+        "objective": "enemy",
+        "steering": "(1407.134, 129.98)",
+        "support": 5
+      },
+      "position": "(1344.051, 129.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(111.8333, 0.0)",
+      "waypoint": 0,
+      "weapon": "windup"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1751.387, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2791.735, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3117.096, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 480,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 0,
+        "ladder": false,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(1175.0, 300.0)",
+        "support": 11
+      },
+      "position": "(1249.113, 244.98)",
+      "raw_input": {
+        "left": 1.0
+      },
+      "sector": 8,
+      "velocity": "(-218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1639.392, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2756.476, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3068.932, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 540,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(620.0, 300.0)",
+        "support": 0
+      },
+      "position": "(1039.748, 299.98)",
+      "raw_input": {
+        "left": 1.0
+      },
+      "sector": 8,
+      "velocity": "(-218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1723.638, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2722.218, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3021.768, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 600,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(620.0, 300.0)",
+        "support": 0
+      },
+      "position": "(821.7496, 299.98)",
+      "raw_input": {
+        "left": 1.0
+      },
+      "sector": 8,
+      "velocity": "(-218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "air_jump",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1770.953, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2757.476, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3069.932, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 660,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(680.0, 300.0)",
+        "support": 0
+      },
+      "position": "(619.362, 233.4133)",
+      "raw_input": {
+        "jump": true,
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(13.99999, -276.6666)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1770.953, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2792.735, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3118.096, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 720,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": true,
+        "next": 6,
+        "objective": "gate",
+        "steering": "(1670.0, 70.0)",
+        "support": 0
+      },
+      "position": "(643.1711, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1770.953, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2825.129, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3150.811, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 780,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": true,
+        "next": 6,
+        "objective": "gate",
+        "steering": "(1670.0, 70.0)",
+        "support": 0
+      },
+      "position": "(861.1692, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1770.953, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2789.871, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3102.646, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 840,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": true,
+        "next": 6,
+        "objective": "gate",
+        "steering": "(1670.0, 70.0)",
+        "support": 0
+      },
+      "position": "(1079.167, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "air_jump",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1770.953, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2754.612, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3054.482, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 900,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": true,
+        "next": 6,
+        "objective": "gate",
+        "steering": "(1670.0, 70.0)",
+        "support": 0
+      },
+      "position": "(1244.825, 193.0522)",
+      "raw_input": {
+        "jump": true,
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, -93.33331)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1770.953, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2723.879, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3036.217, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 960,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": true,
+        "next": 6,
+        "objective": "gate",
+        "steering": "(1670.0, 70.0)",
+        "support": 0
+      },
+      "position": "(1415.985, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1734.771, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2759.138, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3084.381, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1020,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": true,
+        "next": 6,
+        "objective": "gate",
+        "steering": "(1670.0, 70.0)",
+        "support": 0
+      },
+      "position": "(1633.983, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "climb",
+      "action_phase": "ascend",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2794.396, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3132.545, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1080,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": true,
+        "next": 6,
+        "objective": "gate",
+        "steering": "(1670.0, 10.0)",
+        "support": 0
+      },
+      "position": "(1670.0, 285.8967)",
+      "raw_input": {
+        "up": 1.0
+      },
+      "sector": 8,
+      "velocity": "(0.0, -115.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "climb",
+      "action_phase": "ascend",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2823.265, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3136.361, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1140,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": true,
+        "next": 6,
+        "objective": "gate",
+        "steering": "(1670.0, 10.0)",
+        "support": 0
+      },
+      "position": "(1670.0, 170.8967)",
+      "raw_input": {
+        "up": 1.0
+      },
+      "sector": 8,
+      "velocity": "(0.0, -115.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(2230.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2788.006, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3088.197, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1200,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": false,
+        "next": 7,
+        "objective": "gate",
+        "steering": "(1855.0, 10.0)",
+        "support": 6
+      },
+      "position": "(1692.167, 69.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "jump",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(2229.903, 9.98)",
+          "state": "windup"
+        },
+        {
+          "health": 3.0,
+          "position": "(2752.747, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3040.033, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1260,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": false,
+        "next": 7,
+        "objective": "gate",
+        "steering": "(1978.0, 10.0)",
+        "support": 6
+      },
+      "position": "(1852.408, 16.89668)",
+      "raw_input": {
+        "jump": true,
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, -108.3333)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(2229.903, 9.98)",
+          "state": "recover"
+        },
+        {
+          "health": 3.0,
+          "position": "(2725.54, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3050.666, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1320,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 7,
+        "next": 7,
+        "objective": "gate",
+        "steering": "(2260.0, 9.98)",
+        "support": 7
+      },
+      "position": "(2069.474, 9.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2436.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (3766.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 1.0,
+          "position": "(2242.858, 9.98)",
+          "state": "stagger"
+        },
+        {
+          "health": 3.0,
+          "position": "(2760.799, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3098.83, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1380,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 48.0,
+      "navigation": {
+        "goal": "(2242.858, 9.98)",
+        "goal_surface": 7,
+        "next": 7,
+        "objective": "enemy",
+        "steering": "(2242.858, 9.98)",
+        "support": 7
+      },
+      "position": "(2202.902, 9.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(70.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "active"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(2796.058, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3146.994, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1440,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 48.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(4055.0, 300.0)",
+        "support": 0
+      },
+      "position": "(2339.796, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(2821.4, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3121.912, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1500,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 48.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(4055.0, 300.0)",
+        "support": 0
+      },
+      "position": "(2499.435, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(2754.979, 129.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3073.748, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1560,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 48.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(4055.0, 300.0)",
+        "support": 0
+      },
+      "position": "(2697.732, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(2746.449, 129.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3004.503, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1620,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 48.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(4055.0, 300.0)",
+        "support": 0
+      },
+      "position": "(2896.029, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(2827.937, 129.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 244.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1680,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 48.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(4055.0, 300.0)",
+        "support": 0
+      },
+      "position": "(3070.802, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(2828.276, 129.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3519.903, 244.98)",
+          "state": "recover"
+        }
+      ],
+      "frame": 1740,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 48.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(4055.0, 300.0)",
+        "support": 0
+      },
+      "position": "(3288.815, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "air_jump",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(2821.224, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3528.604, 244.98)",
+          "state": "aim"
+        }
+      ],
+      "frame": 1800,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 48.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(4055.0, 300.0)",
+        "support": 0
+      },
+      "position": "(3485.687, 194.6078)",
+      "raw_input": {
+        "jump": true,
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(109.0, -111.6666)",
+      "waypoint": 0,
+      "weapon": "windup"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(2785.965, 129.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 0.2,
+          "position": "(3473.336, 244.98)",
+          "state": "aim"
+        }
+      ],
+      "frame": 1860,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 48.0,
+      "navigation": {
+        "goal": "(3473.336, 244.98)",
+        "goal_surface": 8,
+        "next": 8,
+        "objective": "enemy",
+        "steering": "(3473.336, 244.98)",
+        "support": 8
+      },
+      "position": "(3507.585, 244.98)",
+      "raw_input": {
+        "left": 1.0
+      },
+      "sector": 8,
+      "velocity": "(-109.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "windup"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(2750.706, 129.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1920,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 48.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 0,
+        "ladder": false,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(3685.0, 300.0)",
+        "support": 8
+      },
+      "position": "(3661.986, 244.9995)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(2728.2, 129.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1980,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 48.0,
+      "navigation": {
+        "goal": "(4055.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(4055.0, 300.0)",
+        "support": 0
+      },
+      "position": "(3833.156, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 8,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    }
+  ]
+}

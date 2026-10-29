@@ -1,0 +1,28 @@
+{
+  "passed": false,
+  "cases": [
+    {
+      "lens": "strength",
+      "passed": false,
+      "exit_code": 1,
+      "errors": [],
+      "failures": [
+        "District timed out: l2_stamping_galleries"
+      ],
+      "active_seconds": 882.299999999526,
+      "report": "campaign/tests/full_route_60_strength_retained.json",
+      "sha256": "bb0db4e657bdf9759d04f4e3734b63e0243d4d2964b0f390353886f55e16cffb"
+    },
+    {
+      "lens": "agility",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "failures": [],
+      "active_seconds": 1302.03333333248,
+      "report": "campaign/tests/full_route_60_agility_retained.json",
+      "sha256": "be4bf4d54a2ba72ebd4fcf19c1c2dc818e91755c97cdedd75e527f51945f9922"
+    }
+  ],
+  "human_duration_validated": false
+}

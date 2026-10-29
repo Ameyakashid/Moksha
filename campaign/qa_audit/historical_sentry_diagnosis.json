@@ -1,0 +1,32 @@
+{
+  "classification": "pre-existing historical sentry inventory assertion drift; original test remains unchanged",
+  "expected_literal": 13,
+  "observed_authored_sentries": 20,
+  "reproductions": [
+    {
+      "hz": 60,
+      "checks": 210,
+      "passed": 209,
+      "failures": [
+        "actual authored mission factory and reflected defeat: all thirteen authored sentry placements migrated"
+      ],
+      "mapped_sentries": 20,
+      "all_mapping_checks_passed": true
+    },
+    {
+      "hz": 120,
+      "checks": 210,
+      "passed": 209,
+      "failures": [
+        "actual authored mission factory and reflected defeat: all thirteen authored sentry placements migrated"
+      ],
+      "mapped_sentries": 20,
+      "all_mapping_checks_passed": true
+    }
+  ],
+  "unchanged_sha256": {
+    "simulation/tests/sentry_regression.gd": "ffab1846dc57be723e759bcb5bf48d3ddb97192cebf7c94aca38b673f0b895e6",
+    "demo/mission.gd": "7d60745fa9a0ed65c09ff9d6123021d53dede9523569c5c8cc983083cebbc317",
+    "demo/mission_data.gd": "78e946178e684e465272375ad778de612f5abd637c640a39153f1725acf586a8"
+  }
+}

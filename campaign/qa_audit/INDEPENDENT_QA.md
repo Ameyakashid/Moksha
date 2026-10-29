@@ -34,3 +34,40 @@ Earlier `draft_*` logs include real defects subsequently fixed. `sensory_draft.l
 ## Remaining independent acceptance boundaries
 
 Continuous title-to-ending input routes, final native visual/audio review, packaging verification and unfamiliar-human pacing are separate. Never concatenate isolated district times, count input-tool latency, or apply a bot-to-human multiplier. **15–20 minutes per level / 75–100 minutes total remains a design target unless independently supported by human play evidence.**
+
+## Authorized historical test maintenance after the targeted matrix
+
+Final source checkpoint `4ea2c1102466aabd9d8cf93a01be24139970363d` corrects only the two obsolete inventory literals/labels in inherited GDScript tests: sentry 13→20 and listener 13→21. The listener failure was likewise independently reproduced on the untouched baseline copy at both rates (188/189 pass, all 21 individual listener mappings correct). No other assertions were weakened. Original failing evidence is retained.
+
+The foundation Python harness now ensures missing report directories exist and records wall-watchdog expiration as failure while continuing; its configurable default watchdog is 600 seconds. This does not change simulated gameplay time or pass criteria. The prior freight hang was independently reproduced as `store_string` on null after opening a report in a missing directory, not poor physics performance. See `baseline_freight_missing_directory.log`.
+
+`test_only_maintenance_manifest.json` shows these are the only post-matrix GDScript changes. Production bytes tested by the 1,454-check matrix remain identical. Corrected full aggregate and clean continuous playthroughs are reported separately; this note does not preempt their outcomes.
+
+## Corrected inherited aggregate — independently closed
+
+The final `simulation/evidence/foundation_report.json` records **72/72 passed**, all exit codes zero, no engine diagnostics and **zero source drift**. The preserved v28 archive hash is also verified. `foundation_independent_review.json` pins that report's SHA-256 and records this independent review. The two narrow inventory assertion corrections and report-directory repair above are included; original failed/timeout evidence remains preserved.
+
+This broad aggregate verifies inherited physics/combat/cargo/boundary/mission contracts and scene boots. It does not replace the new campaign's continuous title-to-ending input routes, native visual review or human pacing evidence.
+
+## Exported-pack health verification
+
+The unchanged incoming-channel harness also passed **157 assertions against the actual Windows PCK**, executed by Linux Godot from an empty directory (no source-tree resource fallback). All 32 districts/retry/Continue bind the current Health store; real melee/projectile/cargo/gravity contacts debit it correctly. The PCK extracted from the delivery ZIP is byte-identical to the tested PCK (`0a1f7950fa0e8a36a0e121d084175391e26156dd50a17ad7acb874384f46b40b`). See `packed_health_independent_review.json` for ZIP/log hashes. This closes the stale-export risk; it is **not** native Windows EXE execution, visual readability or audio-mix validation.
+
+## Six continuous campaigns — production checkpoint 4ea2c11
+
+`continuous_independent_review_4ea2c11.json` independently verifies **six complete title-to-ending runs**:
+
+| Physics rate | Starting lens | Sight | Optimized active seconds |
+|---|---|---|---:|
+| 60 Hz | Neutral | Retained | 1346.8333 |
+| 60 Hz | Neutral | Traded | 1200.6833 |
+| 120 Hz | Neutral | Retained | 1268.5000 |
+| 120 Hz | Neutral | Traded | 1128.2583 |
+| 60 Hz | Strength | Retained | 1337.9833 |
+| 60 Hz | Agility | Retained | 1302.0333 |
+
+Each has 32 correctly ordered district metrics and open-gate receipts with every required objective complete, five level receipts, four genuine upgrade choices, actual incoming damage, correct sight choice, zero deaths, empty failures/source drift and no engine errors. Report hashes are pinned. Production hashes match checkpoint 4ea2c11.
+
+Two failed observer attempts remain preserved: 120 Hz traded repeatedly released an admitted Works ledge, and Strength attempted an unsuitable graph jump. Dedicated observers use ordinary Up through that real ledge and the existing Stamping ladder respectively. They do not change production physics, position, health, goals or gates. Both corrected cases subsequently completed the entire campaign; isolated success was not substituted for full completion.
+
+These roughly 18.8–22.4-minute **layout-aware automated** runs are not human-duration estimates. No bot multiplier is justified. This establishes finite five-level campaign completion, not the 75–100-minute human target. Any subsequent production/presentation revision needs separately scoped evidence; these reports must not be silently relabelled as tests of newer bytes.

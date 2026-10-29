@@ -1,0 +1,19 @@
+{
+  "targeted_matrix_still_production_applicable": true,
+  "post_matrix_changes": [
+    {
+      "path": "simulation/tests/listener_regression.gd",
+      "tested_sha256": "43d1b830346cde9cf79d9c731e07b6a4724ae53c506f2cd099a633419231e607",
+      "current_sha256": "6cda4b4248282797a1a875d1947f7e794d86e15434e87d9b1a2485e259f183bf"
+    },
+    {
+      "path": "simulation/tests/sentry_regression.gd",
+      "tested_sha256": "ffab1846dc57be723e759bcb5bf48d3ddb97192cebf7c94aca38b673f0b895e6",
+      "current_sha256": "3f1fc40964fc3719ad73e9faf112b1d5fb801a7a62ab28f6348617e719eb4854"
+    }
+  ],
+  "sentry_test_maintenance": "Only literal expected13\u219220 and label thirteen\u2192twenty, matching independent baseline actual20 placements. No other sentry checks changed.",
+  "foundation_runner_maintenance": "Configurable stage wall watchdog default180\u2192600sec; timeout now recorded as failed exit124 and aggregate continues. No gameplay inputs, simulated clocks, assertions or pass criteria weakened. It also ensures omitted empty report directories exist before legacy test scripts write reports.",
+  "listener_test_maintenance": "Only expected13\u219221 and corresponding label; independently reproduced baseline188/189 pass at60/120 with21 individually verified authored listeners.",
+  "final_source_commit": "4ea2c1102466aabd9d8cf93a01be24139970363d"
+}

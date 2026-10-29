@@ -1,30 +1,23 @@
-# Shared production charged-cargo simulation checkpoint
+# Five Ascents delivery
 
-Open `simulation/gym.tscn` in Godot 4.6.3 and press F6 for the reusable gym.
-The five independent stages cover footing, hearing, physical cargo impact, shared
-actor movement and actual-contact shared melee/counter. The same actor/controller
-accepts player input and NPC intentions. The default mission now uses this shared
-composition for ordinary sentinels and all thirteen listener placements, with
-authored differences in a private per-instance profile. See
-`simulation/SENTINEL_CONTRACT.md` and `simulation/LISTENER_CONTRACT.md`.
-Mission crates/freight now use shared real-contact, charged-only admission. The
-player is deliberately cargo-vulnerable, and crate-to-crate collisions can transfer
-charge without synthetic launches. Existing guard/roll and Warden bracing remain
-capability responses. See `simulation/MISSION_CARGO_CONTRACT.md`.
-See `simulation/README.md` and `simulation/VERIFICATION.md` for tests and remaining gaps.
-The prior mission entry is still F5; its historical delivery description follows.
+## Playable Windows package
 
-# MOKSHA — The First Ascent delivery
+`MOKSHA-Windows-x64-4ea2c11.zip` contains a real64-bit Windows release export from gameplay/source commit `4ea2c1102466aabd9d8cf93a01be24139970363d`. Extract the whole archive and run `MOKSHA-Windows/Run-MOKSHA.cmd` or `MOKSHA.exe`; keep the PCK beside it. Engine templates were verified against official release hashes; engine/project/font/Beehave licenses are included. Exported-pack smoke passed on Linux/headless. Native Windows execution/pixels were not verified.
 
-Open `project.godot` in Godot 4.6.3 and press F5. No external assets or add-ons are required.
+Later source commits may add final reports and documentation; gameplay bytes must remain identical to the Windows build commit. Exact archive hashes live in the final delivery manifest, not this descriptive file.
 
-- `README.md`: controls, finite mission, sight trade and honest scope/duration limits.
-- `demo/`: complete mission host, seven areas and ending, local checkpoints, enemies, lifts, route-changing relay shutters, physical cargo receiver/cradle and sensory adapters.
-- `combat_pc/visuals/lithe_*`: detachable connected-body animation improvement; the approved controller and old view remain available.
-- `demo/docs/VERIFICATION.md`: checked results, native review, actual automated route timing and remaining limits.
-- `demo/evidence/`: compact JSON results and actual native Godot screenshots. Review-state captures are not represented as playthrough evidence.
-- `demo/tests/`: deterministic component checks, route bot, lifecycle checks and native review/profile fixtures.
-- `docs/V26_ARCHIVE.md`: previous README, retained as historical documentation. Its historical F5 entries are superseded by `demo/mission.tscn`.
-- Original scenes/components/assets remain for separate reuse; no proprietary Dead Cells assets are included.
+## Source project
 
-This is a shorter complete demo, not a thirty-minute validated play session or the full proposed multi-floor game. Godot editor/import caches, previous ZIP deliveries and large transient traces are excluded from the source archive.
+The source ZIP contains the editable Godot4.6.3 project,32 districts across five levels, separate gameplay/art/layout modules, reusable scenes and editor workbench, original preserved demo, tests, current verification evidence, licenses and a compact git history bundle. It excludes `.godot`, the live `.git` directory, temporary caches and the large export-template downloads.
+
+- Root `README.md`: controls, levels, builds, checkpoint semantics.
+- `campaign/docs/EDITOR_WORKFLOW.md`: modular scene/layout authoring.
+- `campaign/docs/LOCAL_PLAYTEST.md`: local launch, save folder and honest real pacing notes.
+- `campaign/docs/VERIFICATION.md`: exact acceptance categories and limits.
+- `campaign/docs/REUSE.md`: actual external code reuse and licensing, distinguished from researched-only tools.
+- `campaign/tests/`, `campaign/qa_audit/`, `campaign/enemy_tests/`, `campaign/route_tests/final/`, `campaign/route_tests_45/final/`: focused and input-route evidence. Historical failures remain labelled separately.
+- `simulation/evidence/foundation_report.json`: corrected72-stage inherited aggregate.
+
+Requested15–20minutes per level remains **unverified human duration**. Bot times are reported without a multiplier. No result claims native visual/game-feel or audible-mix approval.
+
+The original Oct23 delivery notes are preserved in `docs/OCT23_DELIVERY_CONTENTS.md`; they describe the older demo, not this entry scene.

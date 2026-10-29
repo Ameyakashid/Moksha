@@ -1,0 +1,993 @@
+{
+  "archetype": "listener",
+  "checks": [
+    {
+      "label": "facade inherits authoritative combat controller",
+      "passed": true,
+      "scenario": "production composition and shared physical contact"
+    },
+    {
+      "label": "sole intent scheduler ticks",
+      "passed": true,
+      "scenario": "production composition and shared physical contact"
+    },
+    {
+      "label": "explicit no-friendly-fire contact configuration",
+      "passed": true,
+      "scenario": "production composition and shared physical contact"
+    },
+    {
+      "label": "mission groups replace PC role membership",
+      "passed": true,
+      "scenario": "production composition and shared physical contact"
+    },
+    {
+      "label": "listener tuning with explicit health3 and mission damage12 overrides",
+      "passed": true,
+      "scenario": "production composition and shared physical contact"
+    },
+    {
+      "label": "stock PC actual sweep hits migrated sentinel",
+      "passed": true,
+      "scenario": "production composition and shared physical contact"
+    },
+    {
+      "label": "one physical hit debits Health and controller applies recoil",
+      "passed": true,
+      "scenario": "production composition and shared physical contact"
+    },
+    {
+      "label": "one Health-confirmed semantic HIT bus event",
+      "passed": true,
+      "scenario": "production composition and shared physical contact"
+    },
+    {
+      "label": "HIT preserves authored actor-response origin and loudness",
+      "passed": true,
+      "scenario": "production composition and shared physical contact"
+    },
+    {
+      "label": "autonomous observations request genuine controller windup",
+      "passed": true,
+      "scenario": "sentinel actual incoming hurt"
+    },
+    {
+      "label": "one committed warning with real source",
+      "passed": true,
+      "scenario": "sentinel actual incoming hurt"
+    },
+    {
+      "label": "warning retains committed actor origin and authored loudness",
+      "passed": true,
+      "scenario": "sentinel actual incoming hurt"
+    },
+    {
+      "label": "physical active overlap produces completed defender receipt",
+      "passed": true,
+      "scenario": "sentinel actual incoming hurt"
+    },
+    {
+      "label": "existing controller adjudicates expected defense",
+      "passed": true,
+      "scenario": "sentinel actual incoming hurt"
+    },
+    {
+      "label": "mission damage12 and 75 percent guard retained",
+      "passed": true,
+      "scenario": "sentinel actual incoming hurt"
+    },
+    {
+      "label": "one semantic active event, no generic duplicate",
+      "passed": true,
+      "scenario": "sentinel actual incoming hurt"
+    },
+    {
+      "label": "strike preserves real shared strike-center origin and authored loudness",
+      "passed": true,
+      "scenario": "sentinel actual incoming hurt"
+    },
+    {
+      "label": "active samples do not double-hit or create ghost strike",
+      "passed": true,
+      "scenario": "sentinel actual incoming hurt"
+    },
+    {
+      "label": "autonomous observations request genuine controller windup",
+      "passed": true,
+      "scenario": "sentinel actual incoming guard"
+    },
+    {
+      "label": "one committed warning with real source",
+      "passed": true,
+      "scenario": "sentinel actual incoming guard"
+    },
+    {
+      "label": "warning retains committed actor origin and authored loudness",
+      "passed": true,
+      "scenario": "sentinel actual incoming guard"
+    },
+    {
+      "label": "physical active overlap produces completed defender receipt",
+      "passed": true,
+      "scenario": "sentinel actual incoming guard"
+    },
+    {
+      "label": "existing controller adjudicates expected defense",
+      "passed": true,
+      "scenario": "sentinel actual incoming guard"
+    },
+    {
+      "label": "mission damage12 and 75 percent guard retained",
+      "passed": true,
+      "scenario": "sentinel actual incoming guard"
+    },
+    {
+      "label": "one semantic active event, no generic duplicate",
+      "passed": true,
+      "scenario": "sentinel actual incoming guard"
+    },
+    {
+      "label": "strike preserves real shared strike-center origin and authored loudness",
+      "passed": true,
+      "scenario": "sentinel actual incoming guard"
+    },
+    {
+      "label": "active samples do not double-hit or create ghost strike",
+      "passed": true,
+      "scenario": "sentinel actual incoming guard"
+    },
+    {
+      "label": "autonomous observations request genuine controller windup",
+      "passed": true,
+      "scenario": "sentinel actual incoming parry"
+    },
+    {
+      "label": "one committed warning with real source",
+      "passed": true,
+      "scenario": "sentinel actual incoming parry"
+    },
+    {
+      "label": "warning retains committed actor origin and authored loudness",
+      "passed": true,
+      "scenario": "sentinel actual incoming parry"
+    },
+    {
+      "label": "physical active overlap produces completed defender receipt",
+      "passed": true,
+      "scenario": "sentinel actual incoming parry"
+    },
+    {
+      "label": "existing controller adjudicates expected defense",
+      "passed": true,
+      "scenario": "sentinel actual incoming parry"
+    },
+    {
+      "label": "mission damage12 and 75 percent guard retained",
+      "passed": true,
+      "scenario": "sentinel actual incoming parry"
+    },
+    {
+      "label": "one semantic active event, no generic duplicate",
+      "passed": true,
+      "scenario": "sentinel actual incoming parry"
+    },
+    {
+      "label": "strike preserves real shared strike-center origin and authored loudness",
+      "passed": true,
+      "scenario": "sentinel actual incoming parry"
+    },
+    {
+      "label": "actual counter ray confirms exactly once",
+      "passed": true,
+      "scenario": "sentinel actual incoming parry"
+    },
+    {
+      "label": "counter Health loss bounded by remaining life",
+      "passed": true,
+      "scenario": "sentinel actual incoming parry"
+    },
+    {
+      "label": "counter recoil cancels source sweep and stale confirmation",
+      "passed": true,
+      "scenario": "sentinel actual incoming parry"
+    },
+    {
+      "label": "mission facade retains completed confirmed-counter parry only",
+      "passed": true,
+      "scenario": "sentinel actual incoming parry"
+    },
+    {
+      "label": "active samples do not double-hit or create ghost strike",
+      "passed": true,
+      "scenario": "sentinel actual incoming parry"
+    },
+    {
+      "label": "autonomous observations request genuine controller windup",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "one committed warning with real source",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "warning retains committed actor origin and authored loudness",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "physical active overlap produces completed defender receipt",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "existing controller adjudicates expected defense",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "mission damage12 and 75 percent guard retained",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "one semantic active event, no generic duplicate",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "strike preserves real shared strike-center origin and authored loudness",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "actual counter ray confirms exactly once",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "counter Health loss bounded by remaining life",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "counter recoil cancels source sweep and stale confirmation",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "mission facade retains completed confirmed-counter parry only",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "terminal cleanup removes collision and scheduling after receipt",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "one genuine HIT and DOWN",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "reset restores physical composition and health",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "reset keeps lifetime attack serial and clears diagnostics",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "active samples do not double-hit or create ghost strike",
+      "passed": true,
+      "scenario": "sentinel actual incoming lethal_parry"
+    },
+    {
+      "label": "actual wall blocks AI sight",
+      "passed": true,
+      "scenario": "solid wall blocks actual AI sight"
+    },
+    {
+      "label": "distant player causes neither attack request nor fallback damage",
+      "passed": true,
+      "scenario": "out-of-detection range cannot invent target contact"
+    },
+    {
+      "label": "rear production strike reaches real PC receiver",
+      "passed": true,
+      "scenario": "actual rear strike bypasses held front guard"
+    },
+    {
+      "label": "existing directional shield rejects rear block and debits mission12",
+      "passed": true,
+      "scenario": "actual rear strike bypasses held front guard"
+    },
+    {
+      "label": "ordinary roll escapes latched physical strike",
+      "passed": true,
+      "scenario": "escaped target and latched facing"
+    },
+    {
+      "label": "no receiver means no fallback fabricated hit",
+      "passed": true,
+      "scenario": "missing mission receiver cannot be invented"
+    },
+    {
+      "label": "raw sword launch reaches sentinel through real rigid contact",
+      "passed": true,
+      "scenario": "real raw PC launch then stock-crate contact"
+    },
+    {
+      "label": "stock prop launch dedupes one legacy shim Health debit",
+      "passed": true,
+      "scenario": "real raw PC launch then stock-crate contact"
+    },
+    {
+      "label": "legacy prop response remains controller and Health owned",
+      "passed": true,
+      "scenario": "real raw PC launch then stock-crate contact"
+    },
+    {
+      "label": "intent patrol brakes before real edge",
+      "passed": true,
+      "scenario": "support removal and edge observation"
+    },
+    {
+      "label": "shared gravity falls when actual support disappears",
+      "passed": true,
+      "scenario": "support removal and edge observation"
+    },
+    {
+      "label": "decision disable does not secretly cancel committed controller action",
+      "passed": true,
+      "scenario": "committed action survives ai disable; gravity continues"
+    },
+    {
+      "label": "shared sentinel peer filter retains legacy equivalence 0",
+      "passed": true,
+      "scenario": "hearing peers are explicit configuration"
+    },
+    {
+      "label": "legacy peer filter hears migrated sentinel as before 0",
+      "passed": true,
+      "scenario": "hearing peers are explicit configuration"
+    },
+    {
+      "label": "legacy own peer source ignored 0",
+      "passed": true,
+      "scenario": "hearing peers are explicit configuration"
+    },
+    {
+      "label": "shared sentinel peer filter retains legacy equivalence 1",
+      "passed": true,
+      "scenario": "hearing peers are explicit configuration"
+    },
+    {
+      "label": "legacy peer filter hears migrated sentinel as before 1",
+      "passed": true,
+      "scenario": "hearing peers are explicit configuration"
+    },
+    {
+      "label": "legacy own peer source ignored 1",
+      "passed": true,
+      "scenario": "hearing peers are explicit configuration"
+    },
+    {
+      "label": "shared sentinel peer filter retains legacy equivalence 2",
+      "passed": true,
+      "scenario": "hearing peers are explicit configuration"
+    },
+    {
+      "label": "legacy peer filter hears migrated sentinel as before 2",
+      "passed": true,
+      "scenario": "hearing peers are explicit configuration"
+    },
+    {
+      "label": "legacy own peer source ignored 2",
+      "passed": true,
+      "scenario": "hearing peers are explicit configuration"
+    },
+    {
+      "label": "shared hearing receipt drives ordinary investigation input",
+      "passed": true,
+      "scenario": "hearing peers are explicit configuration"
+    },
+    {
+      "label": "stale terminal cleanup cannot disable reset life",
+      "passed": true,
+      "scenario": "same-stack defeat reset fences deferred cleanup"
+    },
+    {
+      "label": "old signal cannot install new-life or retired intention",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires reset"
+    },
+    {
+      "label": "later genuine evidence remains usable after retirement",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires reset"
+    },
+    {
+      "label": "old signal cannot install new-life or retired intention",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires configure"
+    },
+    {
+      "label": "later genuine evidence remains usable after retirement",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires configure"
+    },
+    {
+      "label": "old signal cannot install new-life or retired intention",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires pause"
+    },
+    {
+      "label": "later genuine evidence remains usable after retirement",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires pause"
+    },
+    {
+      "label": "old signal cannot install new-life or retired intention",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires pause_resume"
+    },
+    {
+      "label": "later genuine evidence remains usable after retirement",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires pause_resume"
+    },
+    {
+      "label": "old signal cannot install new-life or retired intention",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires disable_enable"
+    },
+    {
+      "label": "later genuine evidence remains usable after retirement",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires disable_enable"
+    },
+    {
+      "label": "old signal cannot install new-life or retired intention",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires sensor_unbind"
+    },
+    {
+      "label": "later genuine evidence remains usable after retirement",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires sensor_unbind"
+    },
+    {
+      "label": "old signal cannot install new-life or retired intention",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires sensor_rebind"
+    },
+    {
+      "label": "later genuine evidence remains usable after retirement",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires sensor_rebind"
+    },
+    {
+      "label": "old signal cannot install new-life or retired intention",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires always_pause_resume"
+    },
+    {
+      "label": "later genuine evidence remains usable after retirement",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires always_pause_resume"
+    },
+    {
+      "label": "old signal cannot install new-life or retired intention",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires sensor_disabled"
+    },
+    {
+      "label": "later genuine evidence remains usable after retirement",
+      "passed": true,
+      "scenario": "earlier real-hearing callback retires sensor_disabled"
+    },
+    {
+      "label": "actual incoming contact resolves with no configured bus",
+      "passed": true,
+      "scenario": "no-bus semantic signal remains single committed event"
+    },
+    {
+      "label": "inherited requested and committed signals expose one semantic HIT",
+      "passed": true,
+      "scenario": "no-bus semantic signal remains single committed event"
+    },
+    {
+      "label": "unbound relay does not fall back to global bus",
+      "passed": true,
+      "scenario": "no-bus semantic signal remains single committed event"
+    },
+    {
+      "label": "F5 mission factory actually instantiates migrated sentinel",
+      "passed": true,
+      "scenario": "actual mission factory, shared damage and room-clear lifecycle"
+    },
+    {
+      "label": "mission PC adds only incoming bridge to existing scheduler and Health",
+      "passed": true,
+      "scenario": "actual mission factory, shared damage and room-clear lifecycle"
+    },
+    {
+      "label": "actual production PC attacks actual production sentinel",
+      "passed": true,
+      "scenario": "actual mission factory, shared damage and room-clear lifecycle"
+    },
+    {
+      "label": "real sentinel Health debit reaches production sonar",
+      "passed": true,
+      "scenario": "actual mission factory, shared damage and room-clear lifecycle"
+    },
+    {
+      "label": "one genuine depletion updates mission kill count",
+      "passed": true,
+      "scenario": "actual mission factory, shared damage and room-clear lifecycle"
+    },
+    {
+      "label": "dead compatibility call cannot duplicate room clear",
+      "passed": true,
+      "scenario": "actual mission factory, shared damage and room-clear lifecycle"
+    },
+    {
+      "label": "sector transitions retain shared sentinel factory",
+      "passed": true,
+      "scenario": "actual mission factory, shared damage and room-clear lifecycle"
+    },
+    {
+      "label": "locked room begins closed with live actors",
+      "passed": true,
+      "scenario": "actual mission factory, shared damage and room-clear lifecycle"
+    },
+    {
+      "label": "one defeat per actor permits the real room-clear gate",
+      "passed": true,
+      "scenario": "actual mission factory, shared damage and room-clear lifecycle"
+    },
+    {
+      "label": "retry restores encounters, gate and existing player Health",
+      "passed": true,
+      "scenario": "actual mission factory, shared damage and room-clear lifecycle"
+    },
+    {
+      "label": "unoverridden listener capacity is2",
+      "passed": true,
+      "scenario": "listener defaults, private profiles and explicit override precedence"
+    },
+    {
+      "label": "authored listener sight and memory",
+      "passed": true,
+      "scenario": "listener defaults, private profiles and explicit override precedence"
+    },
+    {
+      "label": "lavender and ear view configuration",
+      "passed": true,
+      "scenario": "listener defaults, private profiles and explicit override precedence"
+    },
+    {
+      "label": "production hearing defaults remain legacy foot-origin radius without attenuation",
+      "passed": true,
+      "scenario": "listener defaults, private profiles and explicit override precedence"
+    },
+    {
+      "label": "existing explicit overrides win over archetype defaults",
+      "passed": true,
+      "scenario": "listener defaults, private profiles and explicit override precedence"
+    },
+    {
+      "label": "same scene retains original sentinel defaults",
+      "passed": true,
+      "scenario": "listener defaults, private profiles and explicit override precedence"
+    },
+    {
+      "label": "all mutable actor and authored profiles are private",
+      "passed": true,
+      "scenario": "listener defaults, private profiles and explicit override precedence"
+    },
+    {
+      "label": "one actor edit cannot change sibling or resource defaults",
+      "passed": true,
+      "scenario": "listener defaults, private profiles and explicit override precedence"
+    },
+    {
+      "label": "actual target body obeys strict86 cap",
+      "passed": true,
+      "scenario": "actual listener sight boundary 85.9"
+    },
+    {
+      "label": "actual target body obeys strict86 cap",
+      "passed": true,
+      "scenario": "actual listener sight boundary 86.0"
+    },
+    {
+      "label": "actual target body obeys strict86 cap",
+      "passed": true,
+      "scenario": "actual listener sight boundary 86.1"
+    },
+    {
+      "label": "configured detection60 is not replaced by listener cap86",
+      "passed": true,
+      "scenario": "listener lower detection range remains additional limit"
+    },
+    {
+      "label": "occluded visible-range target cannot override admitted sound",
+      "passed": true,
+      "scenario": "listener real wall blocks sight then remembered sound chooses direction"
+    },
+    {
+      "label": "clear real sight takes priority over opposing remembered sound",
+      "passed": true,
+      "scenario": "listener real wall blocks sight then remembered sound chooses direction"
+    },
+    {
+      "label": "accepted event installs authored3.2 seconds",
+      "passed": true,
+      "scenario": "listener retained noise lasts3.2 and expires through ordinary clock"
+    },
+    {
+      "label": "memory remains beyond sentinel1.8 without new event",
+      "passed": true,
+      "scenario": "listener retained noise lasts3.2 and expires through ordinary clock"
+    },
+    {
+      "label": "listener memory naturally expires to patrol",
+      "passed": true,
+      "scenario": "listener retained noise lasts3.2 and expires through ordinary clock"
+    },
+    {
+      "label": "real sensor admits inclusive actual340 boundary",
+      "passed": true,
+      "scenario": "listener actual sensor range and configurable real-wall attenuation"
+    },
+    {
+      "label": "real sensor rejects origin beyond range",
+      "passed": true,
+      "scenario": "listener actual sensor range and configurable real-wall attenuation"
+    },
+    {
+      "label": "actual wall reduces optional radius to85 and rejects100 distance",
+      "passed": true,
+      "scenario": "listener actual sensor range and configurable real-wall attenuation"
+    },
+    {
+      "label": "optional occluded80 event remains audible with real blocked receipt",
+      "passed": true,
+      "scenario": "listener actual sensor range and configurable real-wall attenuation"
+    },
+    {
+      "label": "removing physical blocker restores unattenuated hearing",
+      "passed": true,
+      "scenario": "listener actual sensor range and configurable real-wall attenuation"
+    },
+    {
+      "label": "gravity and real floor collision emit contact sound",
+      "passed": true,
+      "scenario": "actual falling crate contact causes listener investigation"
+    },
+    {
+      "label": "listener receives genuine physical source and unchanged contact origin",
+      "passed": true,
+      "scenario": "actual falling crate contact causes listener investigation"
+    },
+    {
+      "label": "physical sound observation leads to ordinary leftward motion",
+      "passed": true,
+      "scenario": "actual falling crate contact causes listener investigation"
+    },
+    {
+      "label": "ordinary listener attack produces genuine PC contact beside peer",
+      "passed": true,
+      "scenario": "listener strike cannot newly damage an overlapping melee peer"
+    },
+    {
+      "label": "actual same-sweep peer receives no friendly-fire damage",
+      "passed": true,
+      "scenario": "listener strike cannot newly damage an overlapping melee peer"
+    },
+    {
+      "label": "raw PC strike genuinely debits listener before edge",
+      "passed": true,
+      "scenario": "real PC contact can knock listener beyond unsupported edge"
+    },
+    {
+      "label": "controller recoil carries listener off real support despite AI edge preference",
+      "passed": true,
+      "scenario": "real PC contact can knock listener beyond unsupported edge"
+    },
+    {
+      "label": "gravity determines fall and single strike retains bounded Health",
+      "passed": true,
+      "scenario": "real PC contact can knock listener beyond unsupported edge"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener has one shared scheduler and one Health",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real factory listener configuration and mission overrides",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "all twenty-one authored listener placements use shared production scene",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "initial room exposes real production listener",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real mission PC sword contacts real factory listener",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "real listener Health receipt reaches mission HIT sonar",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "one listener defeat reaches actual mission kill and DOWN pipeline",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    },
+    {
+      "label": "room reload restores listener configured life",
+      "passed": true,
+      "scenario": "actual mission factory composes every listener with private shared profile"
+    }
+  ],
+  "failures": [],
+  "hz": 120,
+  "scenarios": [
+    "production composition and shared physical contact",
+    "sentinel actual incoming hurt",
+    "sentinel actual incoming guard",
+    "sentinel actual incoming parry",
+    "sentinel actual incoming lethal_parry",
+    "solid wall blocks actual AI sight",
+    "out-of-detection range cannot invent target contact",
+    "actual rear strike bypasses held front guard",
+    "escaped target and latched facing",
+    "missing mission receiver cannot be invented",
+    "real raw PC launch then stock-crate contact",
+    "support removal and edge observation",
+    "committed action survives ai disable; gravity continues",
+    "hearing peers are explicit configuration",
+    "same-stack defeat reset fences deferred cleanup",
+    "earlier real-hearing callback retires reset",
+    "earlier real-hearing callback retires configure",
+    "earlier real-hearing callback retires pause",
+    "earlier real-hearing callback retires pause_resume",
+    "earlier real-hearing callback retires disable_enable",
+    "earlier real-hearing callback retires sensor_unbind",
+    "earlier real-hearing callback retires sensor_rebind",
+    "earlier real-hearing callback retires always_pause_resume",
+    "earlier real-hearing callback retires sensor_disabled",
+    "no-bus semantic signal remains single committed event",
+    "actual mission factory, shared damage and room-clear lifecycle",
+    "listener defaults, private profiles and explicit override precedence",
+    "actual listener sight boundary 85.9",
+    "actual listener sight boundary 86.0",
+    "actual listener sight boundary 86.1",
+    "listener lower detection range remains additional limit",
+    "listener real wall blocks sight then remembered sound chooses direction",
+    "listener retained noise lasts3.2 and expires through ordinary clock",
+    "listener actual sensor range and configurable real-wall attenuation",
+    "actual falling crate contact causes listener investigation",
+    "listener strike cannot newly damage an overlapping melee peer",
+    "real PC contact can knock listener beyond unsupported edge",
+    "actual mission factory composes every listener with private shared profile"
+  ],
+  "scope": "Production shared sentinel and mission composition, actual controller contacts/sounds/physics; explicit lifecycle probes labeled."
+}

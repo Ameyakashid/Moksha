@@ -1,0 +1,905 @@
+{
+  "suite": "L2/L3 final isolated production-input routes after health receiver rebinding",
+  "passed": true,
+  "coverage": "12 districts x retained/traded sight at60Hz",
+  "expected_runs": 24,
+  "actual_runs": 24,
+  "human_duration_validated": false,
+  "full_campaign_validated": false,
+  "failures": [],
+  "method": "Explicit initial district/sight fixture, then ordinary raw movement/combat and idle-dispatched E/Q key events. No measured-phase teleport, health, goal, gate, enemy-state or collision writes.",
+  "actual_damage_context": "All reports use rebound incoming health receivers. Minimum sampled health is a diagnostic sample, not an exhaustive damage receipt or end-health claim.",
+  "source_manifests": [
+    "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68"
+  ],
+  "results": [
+    {
+      "district": "l2_capacitor_mill",
+      "sight": "retained",
+      "passed": true,
+      "bot_active_seconds": 33.7499999999994,
+      "minimum_sampled_health": 48.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l2_capacitor_mill_retained.json",
+      "goals": {
+        "breaker": {
+          "frame": 708,
+          "kind": "route",
+          "position": "(625.4658, 268.5911)",
+          "setting": 2
+        },
+        "bus": {
+          "frame": 1388,
+          "kind": "install",
+          "position": "(2216.619, 9.98)",
+          "setting": -1
+        },
+        "coil": {
+          "frame": 382,
+          "kind": "recover",
+          "position": "(1275.456, 129.98)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l2_capacitor_mill",
+      "sight": "traded",
+      "passed": true,
+      "bot_active_seconds": 28.4166666666663,
+      "minimum_sampled_health": 40.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l2_capacitor_mill_traded.json",
+      "goals": {
+        "breaker": {
+          "frame": 554,
+          "kind": "route",
+          "position": "(625.4658, 268.5911)",
+          "setting": 2
+        },
+        "bus": {
+          "frame": 1184,
+          "kind": "install",
+          "position": "(2215.045, 9.98)",
+          "setting": -1
+        },
+        "coil": {
+          "frame": 327,
+          "kind": "recover",
+          "position": "(1279.984, 129.98)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l2_exchange",
+      "sight": "retained",
+      "passed": true,
+      "bot_active_seconds": 26.7666666666664,
+      "minimum_sampled_health": 48.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l2_exchange_retained.json",
+      "goals": {
+        "access": {
+          "frame": 1572,
+          "kind": "install",
+          "position": "(2365.851, 174.98)",
+          "setting": -1
+        },
+        "safety": {
+          "frame": 1154,
+          "kind": "recover",
+          "position": "(1080.588, 220.0967)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l2_exchange",
+      "sight": "traded",
+      "passed": true,
+      "bot_active_seconds": 22.95,
+      "minimum_sampled_health": 48.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l2_exchange_traded.json",
+      "goals": {
+        "access": {
+          "frame": 1349,
+          "kind": "install",
+          "position": "(2367.254, 174.98)",
+          "setting": -1
+        },
+        "safety": {
+          "frame": 957,
+          "kind": "recover",
+          "position": "(1060.612, 229.6245)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l2_freight",
+      "sight": "retained",
+      "passed": true,
+      "bot_active_seconds": 30.5833333333329,
+      "minimum_sampled_health": 60.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l2_freight_retained.json",
+      "goals": {
+        "release": {
+          "frame": 1299,
+          "kind": "install",
+          "position": "(2670.033, 255.694)",
+          "setting": -1
+        },
+        "ticket": {
+          "frame": 312,
+          "kind": "recover",
+          "position": "(796.5734, 63.9314)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l2_freight",
+      "sight": "traded",
+      "passed": true,
+      "bot_active_seconds": 29.3166666666663,
+      "minimum_sampled_health": 60.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l2_freight_traded.json",
+      "goals": {
+        "release": {
+          "frame": 1291,
+          "kind": "install",
+          "position": "(2675.241, 258.7495)",
+          "setting": -1
+        },
+        "ticket": {
+          "frame": 285,
+          "kind": "recover",
+          "position": "(779.033, 63.93141)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l2_stamping_galleries",
+      "sight": "retained",
+      "passed": true,
+      "bot_active_seconds": 33.6499999999994,
+      "minimum_sampled_health": 40.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l2_stamping_galleries_retained.json",
+      "goals": {
+        "certify": {
+          "frame": 1617,
+          "kind": "install",
+          "position": "(3083.605, 189.98)",
+          "setting": -1
+        },
+        "counterweight": {
+          "frame": 21,
+          "kind": "plate",
+          "position": "(148.0333, 299.98)",
+          "setting": -1
+        },
+        "die": {
+          "frame": 772,
+          "kind": "recover",
+          "position": "(1396.263, 99.98)",
+          "setting": -1
+        },
+        "stamp": {
+          "frame": 1229,
+          "kind": "route",
+          "position": "(2078.659, 9.98)",
+          "setting": 1
+        }
+      }
+    },
+    {
+      "district": "l2_stamping_galleries",
+      "sight": "traded",
+      "passed": true,
+      "bot_active_seconds": 25.5166666666665,
+      "minimum_sampled_health": 57.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l2_stamping_galleries_traded.json",
+      "goals": {
+        "certify": {
+          "frame": 1061,
+          "kind": "install",
+          "position": "(3084.923, 189.98)",
+          "setting": -1
+        },
+        "counterweight": {
+          "frame": 21,
+          "kind": "plate",
+          "position": "(164.7499, 299.98)",
+          "setting": -1
+        },
+        "die": {
+          "frame": 524,
+          "kind": "recover",
+          "position": "(1399.689, 99.98)",
+          "setting": -1
+        },
+        "stamp": {
+          "frame": 752,
+          "kind": "route",
+          "position": "(2070.641, 9.98)",
+          "setting": 1
+        }
+      }
+    },
+    {
+      "district": "l2_thermal_foundry",
+      "sight": "retained",
+      "passed": true,
+      "bot_active_seconds": 56.7999999999981,
+      "minimum_sampled_health": 36.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l2_thermal_foundry_retained.json",
+      "goals": {
+        "ceramic": {
+          "frame": 622,
+          "kind": "recover",
+          "position": "(1330.0, -23.93662)",
+          "setting": -1
+        },
+        "coolant": {
+          "frame": 2932,
+          "kind": "install",
+          "position": "(3096.853, 119.98)",
+          "setting": -1
+        },
+        "feed": {
+          "frame": 2624,
+          "kind": "route",
+          "position": "(3624.864, 179.98)",
+          "setting": 1
+        },
+        "return": {
+          "frame": 1944,
+          "kind": "breaker",
+          "position": "(2012.195, 59.98)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l2_thermal_foundry",
+      "sight": "traded",
+      "passed": true,
+      "bot_active_seconds": 34.7833333333326,
+      "minimum_sampled_health": 52.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l2_thermal_foundry_traded.json",
+      "goals": {
+        "ceramic": {
+          "frame": 545,
+          "kind": "recover",
+          "position": "(1330.0, -23.93662)",
+          "setting": -1
+        },
+        "coolant": {
+          "frame": 1659,
+          "kind": "install",
+          "position": "(3098.206, 119.98)",
+          "setting": -1
+        },
+        "feed": {
+          "frame": 1376,
+          "kind": "route",
+          "position": "(3616.148, 179.98)",
+          "setting": 1
+        },
+        "return": {
+          "frame": 774,
+          "kind": "breaker",
+          "position": "(2015.767, 59.98)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l2_union_dispatch",
+      "sight": "retained",
+      "passed": true,
+      "bot_active_seconds": 31.0666666666662,
+      "minimum_sampled_health": 36.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l2_union_dispatch_retained.json",
+      "goals": {
+        "broadcast": {
+          "frame": 1106,
+          "kind": "install",
+          "position": "(2662.518, 109.98)",
+          "setting": -1
+        },
+        "channel": {
+          "frame": 905,
+          "kind": "route",
+          "position": "(2110.39, 39.98)",
+          "setting": 2
+        },
+        "handoff": {
+          "frame": 1579,
+          "kind": "terminal",
+          "position": "(3750.002, 255.694)",
+          "setting": -1
+        },
+        "manifest": {
+          "frame": 690,
+          "kind": "recover",
+          "position": "(1580.0, -45.43664)",
+          "setting": -1
+        },
+        "pod": {
+          "frame": 1322,
+          "kind": "rescue",
+          "position": "(3255.466, 179.98)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l2_union_dispatch",
+      "sight": "traded",
+      "passed": true,
+      "bot_active_seconds": 25.8499999999998,
+      "minimum_sampled_health": 36.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l2_union_dispatch_traded.json",
+      "goals": {
+        "broadcast": {
+          "frame": 964,
+          "kind": "install",
+          "position": "(2662.726, 109.98)",
+          "setting": -1
+        },
+        "channel": {
+          "frame": 788,
+          "kind": "route",
+          "position": "(2114.745, 39.98)",
+          "setting": 2
+        },
+        "handoff": {
+          "frame": 1542,
+          "kind": "terminal",
+          "position": "(3755.21, 258.7495)",
+          "setting": -1
+        },
+        "manifest": {
+          "frame": 598,
+          "kind": "recover",
+          "position": "(1580.0, -45.43664)",
+          "setting": -1
+        },
+        "pod": {
+          "frame": 1180,
+          "kind": "rescue",
+          "position": "(3256.326, 179.98)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l3_cistern",
+      "sight": "retained",
+      "passed": true,
+      "bot_active_seconds": 40.9666666666656,
+      "minimum_sampled_health": 60.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l3_cistern_retained.json",
+      "goals": {
+        "permit": {
+          "frame": 2456,
+          "kind": "install",
+          "position": "(3501.704, -716.3089)",
+          "setting": -1
+        },
+        "survey": {
+          "frame": 1281,
+          "kind": "recover",
+          "position": "(1370.712, 108.5911)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l3_cistern",
+      "sight": "traded",
+      "passed": true,
+      "bot_active_seconds": 37.1833333333325,
+      "minimum_sampled_health": 60.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l3_cistern_traded.json",
+      "goals": {
+        "permit": {
+          "frame": 2165,
+          "kind": "install",
+          "position": "(3486.222, -719.6811)",
+          "setting": -1
+        },
+        "survey": {
+          "frame": 1120,
+          "kind": "recover",
+          "position": "(1366.936, 108.5911)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l3_drainage_commons",
+      "sight": "retained",
+      "passed": true,
+      "bot_active_seconds": 43.6333333333321,
+      "minimum_sampled_health": 29.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l3_drainage_commons_retained.json",
+      "goals": {
+        "east": {
+          "frame": 1220,
+          "kind": "route",
+          "position": "(2927.608, 89.98)",
+          "setting": 2
+        },
+        "handoff": {
+          "frame": 2526,
+          "kind": "terminal",
+          "position": "(4005.543, 244.98)",
+          "setting": -1
+        },
+        "link": {
+          "frame": 1712,
+          "kind": "install",
+          "position": "(2175.643, 9.98)",
+          "setting": -1
+        },
+        "map": {
+          "frame": 665,
+          "kind": "recover",
+          "position": "(1570.0, -53.93667)",
+          "setting": -1
+        },
+        "west": {
+          "frame": 708,
+          "kind": "breaker",
+          "position": "(1655.172, 89.98)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l3_drainage_commons",
+      "sight": "traded",
+      "passed": true,
+      "bot_active_seconds": 37.0999999999992,
+      "minimum_sampled_health": 57.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l3_drainage_commons_traded.json",
+      "goals": {
+        "east": {
+          "frame": 1114,
+          "kind": "route",
+          "position": "(2916.275, 89.98)",
+          "setting": 2
+        },
+        "handoff": {
+          "frame": 2148,
+          "kind": "terminal",
+          "position": "(4006.006, 244.98)",
+          "setting": -1
+        },
+        "link": {
+          "frame": 1542,
+          "kind": "install",
+          "position": "(2178.047, 9.98)",
+          "setting": -1
+        },
+        "map": {
+          "frame": 627,
+          "kind": "recover",
+          "position": "(1570.0, -53.93667)",
+          "setting": -1
+        },
+        "west": {
+          "frame": 672,
+          "kind": "breaker",
+          "position": "(1680.432, 89.98)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l3_homes",
+      "sight": "retained",
+      "passed": true,
+      "bot_active_seconds": 37.0999999999992,
+      "minimum_sampled_health": 60.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l3_homes_retained.json",
+      "goals": {
+        "list": {
+          "frame": 627,
+          "kind": "recover",
+          "position": "(1806.887, -30.02)",
+          "setting": -1
+        },
+        "roofs": {
+          "frame": 1703,
+          "kind": "terminal",
+          "position": "(4406.911, -30.02)",
+          "setting": -1
+        },
+        "shelter": {
+          "frame": 986,
+          "kind": "rescue",
+          "position": "(2940.884, 265.4592)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l3_homes",
+      "sight": "traded",
+      "passed": true,
+      "bot_active_seconds": 28.5666666666663,
+      "minimum_sampled_health": 48.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l3_homes_traded.json",
+      "goals": {
+        "list": {
+          "frame": 541,
+          "kind": "recover",
+          "position": "(1809.27, -30.02)",
+          "setting": -1
+        },
+        "roofs": {
+          "frame": 1480,
+          "kind": "terminal",
+          "position": "(4408.325, -30.02)",
+          "setting": -1
+        },
+        "shelter": {
+          "frame": 856,
+          "kind": "rescue",
+          "position": "(2954.329, 278.4592)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l3_inundated_market",
+      "sight": "retained",
+      "passed": true,
+      "bot_active_seconds": 28.433333333333,
+      "minimum_sampled_health": 60.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l3_inundated_market_retained.json",
+      "goals": {
+        "bridge": {
+          "frame": 1198,
+          "kind": "install",
+          "position": "(2765.08, 109.98)",
+          "setting": -1
+        },
+        "family": {
+          "frame": 1437,
+          "kind": "rescue",
+          "position": "(3404.429, 179.98)",
+          "setting": -1
+        },
+        "isolate": {
+          "frame": 1019,
+          "kind": "route",
+          "position": "(2181.154, 39.98)",
+          "setting": 2
+        },
+        "key": {
+          "frame": 661,
+          "kind": "recover",
+          "position": "(1460.0, -43.51997)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l3_inundated_market",
+      "sight": "traded",
+      "passed": true,
+      "bot_active_seconds": 26.6833333333331,
+      "minimum_sampled_health": 48.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l3_inundated_market_traded.json",
+      "goals": {
+        "bridge": {
+          "frame": 1133,
+          "kind": "install",
+          "position": "(2766.567, 109.98)",
+          "setting": -1
+        },
+        "family": {
+          "frame": 1365,
+          "kind": "rescue",
+          "position": "(3404.901, 179.98)",
+          "setting": -1
+        },
+        "isolate": {
+          "frame": 963,
+          "kind": "route",
+          "position": "(2184.172, 39.98)",
+          "setting": 2
+        },
+        "key": {
+          "frame": 646,
+          "kind": "recover",
+          "position": "(1460.0, -43.51997)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l3_refuge_terraces",
+      "sight": "retained",
+      "passed": true,
+      "bot_active_seconds": 30.9666666666662,
+      "minimum_sampled_health": 48.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l3_refuge_terraces_retained.json",
+      "goals": {
+        "open": {
+          "frame": 1411,
+          "kind": "install",
+          "position": "(3188.151, 69.98)",
+          "setting": -1
+        },
+        "residents": {
+          "frame": 1646,
+          "kind": "rescue",
+          "position": "(3846.164, 129.98)",
+          "setting": -1
+        },
+        "roof": {
+          "frame": 1205,
+          "kind": "route",
+          "position": "(2666.714, 9.98)",
+          "setting": 2
+        },
+        "winch": {
+          "frame": 655,
+          "kind": "recover",
+          "position": "(1490.0, -13.93662)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l3_refuge_terraces",
+      "sight": "traded",
+      "passed": true,
+      "bot_active_seconds": 29.3666666666663,
+      "minimum_sampled_health": 48.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l3_refuge_terraces_traded.json",
+      "goals": {
+        "open": {
+          "frame": 1375,
+          "kind": "install",
+          "position": "(3186.586, 69.98)",
+          "setting": -1
+        },
+        "residents": {
+          "frame": 1587,
+          "kind": "rescue",
+          "position": "(3850.238, 129.98)",
+          "setting": -1
+        },
+        "roof": {
+          "frame": 1178,
+          "kind": "route",
+          "position": "(2677.538, 9.98)",
+          "setting": 2
+        },
+        "winch": {
+          "frame": 642,
+          "kind": "recover",
+          "position": "(1490.0, -13.93662)",
+          "setting": -1
+        }
+      }
+    },
+    {
+      "district": "l3_water_clinic",
+      "sight": "retained",
+      "passed": true,
+      "bot_active_seconds": 40.5166666666656,
+      "minimum_sampled_health": 44.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l3_water_clinic_retained.json",
+      "goals": {
+        "assay": {
+          "frame": 1341,
+          "kind": "recover",
+          "position": "(2800.0, -33.51995)",
+          "setting": -1
+        },
+        "bench": {
+          "frame": 21,
+          "kind": "plate",
+          "position": "(148.0333, 299.98)",
+          "setting": -1
+        },
+        "clean": {
+          "frame": 2092,
+          "kind": "install",
+          "position": "(3310.0, 221.2301)",
+          "setting": -1
+        },
+        "filter": {
+          "frame": 660,
+          "kind": "recover",
+          "position": "(1540.0, -33.51995)",
+          "setting": -1
+        },
+        "patients": {
+          "frame": 2284,
+          "kind": "rescue",
+          "position": "(3906.919, 239.98)",
+          "setting": -1
+        },
+        "purge": {
+          "frame": 1681,
+          "kind": "route",
+          "position": "(2207.904, 59.98)",
+          "setting": 1
+        }
+      }
+    },
+    {
+      "district": "l3_water_clinic",
+      "sight": "traded",
+      "passed": true,
+      "bot_active_seconds": 35.0499999999993,
+      "minimum_sampled_health": 44.0,
+      "source_count": 798,
+      "source_manifest_sha256": "15bb707f703352b18690a1381610f78419307e2946133c5beb9b681d55dcfe68",
+      "current_source_mismatches": [],
+      "in_run_source_drift": [],
+      "failures": [],
+      "evidence": "campaign/route_tests/final/l3_water_clinic_traded.json",
+      "goals": {
+        "assay": {
+          "frame": 1164,
+          "kind": "recover",
+          "position": "(2800.0, -33.51995)",
+          "setting": -1
+        },
+        "bench": {
+          "frame": 21,
+          "kind": "plate",
+          "position": "(164.7499, 299.98)",
+          "setting": -1
+        },
+        "clean": {
+          "frame": 1814,
+          "kind": "install",
+          "position": "(3310.0, 221.2301)",
+          "setting": -1
+        },
+        "filter": {
+          "frame": 614,
+          "kind": "recover",
+          "position": "(1540.0, -33.51995)",
+          "setting": -1
+        },
+        "patients": {
+          "frame": 1980,
+          "kind": "rescue",
+          "position": "(3906.25, 239.98)",
+          "setting": -1
+        },
+        "purge": {
+          "frame": 1470,
+          "kind": "route",
+          "position": "(2216.965, 59.98)",
+          "setting": 1
+        }
+      }
+    }
+  ]
+}
