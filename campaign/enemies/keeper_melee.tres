@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="MokshaMeleeChainProfile" load_steps=4 format=3]
+[ext_resource type="Script" path="res://combat_pc/resources/melee_chain.gd" id="1"]
+[ext_resource type="Script" path="res://combat_pc/resources/melee_step.gd" id="2"]
+[sub_resource type="Resource" id="Strike"]
+script = ExtResource("2")
+step_label = "Keeper thrust"
+pose_id = &"keeper_thrust"
+next_step = -1
+windup_seconds = 0.68
+active_seconds = 0.16
+recovery_seconds = 0.95
+windup_move_scale = 0.0
+recovery_move_scale = 0.0
+active_ground_speed = 0.0
+allow_turn_windup = false
+allow_turn_active = false
+allow_turn_recovery = false
+windup_cancels = PackedStringArray()
+active_cancels = PackedStringArray()
+recovery_cancels = PackedStringArray()
+strike_size = Vector2(78, 22)
+strike_center_offset = Vector2(43, -22)
+strike_origin_offset = Vector2(0, -22)
+damage = 1.0
+impulse = Vector2(130, -65)
+loudness = 1.0
+[resource]
+script = ExtResource("1")
+chain_id = &"keeper_thrust"
+steps = Array[ExtResource("2")]([SubResource("Strike")])

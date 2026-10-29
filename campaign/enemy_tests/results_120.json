@@ -1,0 +1,529 @@
+{
+  "checks": [
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "lancer blind=false hurt"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "lancer blind=false hurt"
+    },
+    {
+      "label": "physical sweep reaches actual player receiver",
+      "passed": true,
+      "scenario": "lancer blind=false hurt"
+    },
+    {
+      "label": "stock defense adjudicates hurt",
+      "passed": true,
+      "scenario": "lancer blind=false hurt"
+    },
+    {
+      "label": "bounded swing cannot repeat damage",
+      "passed": true,
+      "scenario": "lancer blind=false hurt"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "lancer blind=false guard"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "lancer blind=false guard"
+    },
+    {
+      "label": "physical sweep reaches actual player receiver",
+      "passed": true,
+      "scenario": "lancer blind=false guard"
+    },
+    {
+      "label": "stock defense adjudicates guard",
+      "passed": true,
+      "scenario": "lancer blind=false guard"
+    },
+    {
+      "label": "bounded swing cannot repeat damage",
+      "passed": true,
+      "scenario": "lancer blind=false guard"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "lancer blind=false parry"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "lancer blind=false parry"
+    },
+    {
+      "label": "physical sweep reaches actual player receiver",
+      "passed": true,
+      "scenario": "lancer blind=false parry"
+    },
+    {
+      "label": "stock defense adjudicates parry",
+      "passed": true,
+      "scenario": "lancer blind=false parry"
+    },
+    {
+      "label": "real counter kills once",
+      "passed": true,
+      "scenario": "lancer blind=false parry"
+    },
+    {
+      "label": "dead body removed",
+      "passed": true,
+      "scenario": "lancer blind=false parry"
+    },
+    {
+      "label": "reset restores life without reusing attack ID",
+      "passed": true,
+      "scenario": "lancer blind=false parry"
+    },
+    {
+      "label": "bounded swing cannot repeat damage",
+      "passed": true,
+      "scenario": "lancer blind=false parry"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "lancer blind=false roll"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "lancer blind=false roll"
+    },
+    {
+      "label": "ordinary roll escapes locked attack",
+      "passed": true,
+      "scenario": "lancer blind=false roll"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "lancer blind=true hurt"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "lancer blind=true hurt"
+    },
+    {
+      "label": "physical sweep reaches actual player receiver",
+      "passed": true,
+      "scenario": "lancer blind=true hurt"
+    },
+    {
+      "label": "stock defense adjudicates hurt",
+      "passed": true,
+      "scenario": "lancer blind=true hurt"
+    },
+    {
+      "label": "bounded swing cannot repeat damage",
+      "passed": true,
+      "scenario": "lancer blind=true hurt"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "lancer blind=true guard"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "lancer blind=true guard"
+    },
+    {
+      "label": "physical sweep reaches actual player receiver",
+      "passed": true,
+      "scenario": "lancer blind=true guard"
+    },
+    {
+      "label": "stock defense adjudicates guard",
+      "passed": true,
+      "scenario": "lancer blind=true guard"
+    },
+    {
+      "label": "bounded swing cannot repeat damage",
+      "passed": true,
+      "scenario": "lancer blind=true guard"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "lancer blind=true parry"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "lancer blind=true parry"
+    },
+    {
+      "label": "physical sweep reaches actual player receiver",
+      "passed": true,
+      "scenario": "lancer blind=true parry"
+    },
+    {
+      "label": "stock defense adjudicates parry",
+      "passed": true,
+      "scenario": "lancer blind=true parry"
+    },
+    {
+      "label": "real counter kills once",
+      "passed": true,
+      "scenario": "lancer blind=true parry"
+    },
+    {
+      "label": "dead body removed",
+      "passed": true,
+      "scenario": "lancer blind=true parry"
+    },
+    {
+      "label": "reset restores life without reusing attack ID",
+      "passed": true,
+      "scenario": "lancer blind=true parry"
+    },
+    {
+      "label": "bounded swing cannot repeat damage",
+      "passed": true,
+      "scenario": "lancer blind=true parry"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "lancer blind=true roll"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "lancer blind=true roll"
+    },
+    {
+      "label": "ordinary roll escapes locked attack",
+      "passed": true,
+      "scenario": "lancer blind=true roll"
+    },
+    {
+      "label": "real player J sweep damages captain",
+      "passed": true,
+      "scenario": "lancer player sword and interruption"
+    },
+    {
+      "label": "normal hit interrupts commitment",
+      "passed": true,
+      "scenario": "lancer player sword and interruption"
+    },
+    {
+      "label": "wall blocks AI and damage",
+      "passed": true,
+      "scenario": "lancer solid terrain occludes sight"
+    },
+    {
+      "label": "paused shared controller neither travels nor attacks",
+      "passed": true,
+      "scenario": "lancer pause freezes action"
+    },
+    {
+      "label": "resume completes real commitment",
+      "passed": true,
+      "scenario": "lancer pause freezes action"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "keeper blind=false hurt"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "keeper blind=false hurt"
+    },
+    {
+      "label": "physical sweep reaches actual player receiver",
+      "passed": true,
+      "scenario": "keeper blind=false hurt"
+    },
+    {
+      "label": "stock defense adjudicates hurt",
+      "passed": true,
+      "scenario": "keeper blind=false hurt"
+    },
+    {
+      "label": "bounded swing cannot repeat damage",
+      "passed": true,
+      "scenario": "keeper blind=false hurt"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "keeper blind=false guard"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "keeper blind=false guard"
+    },
+    {
+      "label": "physical sweep reaches actual player receiver",
+      "passed": true,
+      "scenario": "keeper blind=false guard"
+    },
+    {
+      "label": "stock defense adjudicates guard",
+      "passed": true,
+      "scenario": "keeper blind=false guard"
+    },
+    {
+      "label": "bounded swing cannot repeat damage",
+      "passed": true,
+      "scenario": "keeper blind=false guard"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "keeper blind=false parry"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "keeper blind=false parry"
+    },
+    {
+      "label": "physical sweep reaches actual player receiver",
+      "passed": true,
+      "scenario": "keeper blind=false parry"
+    },
+    {
+      "label": "stock defense adjudicates parry",
+      "passed": true,
+      "scenario": "keeper blind=false parry"
+    },
+    {
+      "label": "real counter kills once",
+      "passed": true,
+      "scenario": "keeper blind=false parry"
+    },
+    {
+      "label": "dead body removed",
+      "passed": true,
+      "scenario": "keeper blind=false parry"
+    },
+    {
+      "label": "reset restores life without reusing attack ID",
+      "passed": true,
+      "scenario": "keeper blind=false parry"
+    },
+    {
+      "label": "bounded swing cannot repeat damage",
+      "passed": true,
+      "scenario": "keeper blind=false parry"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "keeper blind=false roll"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "keeper blind=false roll"
+    },
+    {
+      "label": "ordinary roll escapes locked attack",
+      "passed": true,
+      "scenario": "keeper blind=false roll"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "keeper blind=true hurt"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "keeper blind=true hurt"
+    },
+    {
+      "label": "physical sweep reaches actual player receiver",
+      "passed": true,
+      "scenario": "keeper blind=true hurt"
+    },
+    {
+      "label": "stock defense adjudicates hurt",
+      "passed": true,
+      "scenario": "keeper blind=true hurt"
+    },
+    {
+      "label": "bounded swing cannot repeat damage",
+      "passed": true,
+      "scenario": "keeper blind=true hurt"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "keeper blind=true guard"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "keeper blind=true guard"
+    },
+    {
+      "label": "physical sweep reaches actual player receiver",
+      "passed": true,
+      "scenario": "keeper blind=true guard"
+    },
+    {
+      "label": "stock defense adjudicates guard",
+      "passed": true,
+      "scenario": "keeper blind=true guard"
+    },
+    {
+      "label": "bounded swing cannot repeat damage",
+      "passed": true,
+      "scenario": "keeper blind=true guard"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "keeper blind=true parry"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "keeper blind=true parry"
+    },
+    {
+      "label": "physical sweep reaches actual player receiver",
+      "passed": true,
+      "scenario": "keeper blind=true parry"
+    },
+    {
+      "label": "stock defense adjudicates parry",
+      "passed": true,
+      "scenario": "keeper blind=true parry"
+    },
+    {
+      "label": "real counter kills once",
+      "passed": true,
+      "scenario": "keeper blind=true parry"
+    },
+    {
+      "label": "dead body removed",
+      "passed": true,
+      "scenario": "keeper blind=true parry"
+    },
+    {
+      "label": "reset restores life without reusing attack ID",
+      "passed": true,
+      "scenario": "keeper blind=true parry"
+    },
+    {
+      "label": "bounded swing cannot repeat damage",
+      "passed": true,
+      "scenario": "keeper blind=true parry"
+    },
+    {
+      "label": "AI requests shared committed windup",
+      "passed": true,
+      "scenario": "keeper blind=true roll"
+    },
+    {
+      "label": "one physical-origin warning in either sight state",
+      "passed": true,
+      "scenario": "keeper blind=true roll"
+    },
+    {
+      "label": "ordinary roll escapes locked attack",
+      "passed": true,
+      "scenario": "keeper blind=true roll"
+    },
+    {
+      "label": "real player J sweep damages captain",
+      "passed": true,
+      "scenario": "keeper player sword and interruption"
+    },
+    {
+      "label": "normal hit interrupts commitment",
+      "passed": true,
+      "scenario": "keeper player sword and interruption"
+    },
+    {
+      "label": "wall blocks AI and damage",
+      "passed": true,
+      "scenario": "keeper solid terrain occludes sight"
+    },
+    {
+      "label": "paused shared controller neither travels nor attacks",
+      "passed": true,
+      "scenario": "keeper pause freezes action"
+    },
+    {
+      "label": "resume completes real commitment",
+      "passed": true,
+      "scenario": "keeper pause freezes action"
+    },
+    {
+      "label": "charge begins outside ordinary melee range",
+      "passed": true,
+      "scenario": "lancer full supported travel"
+    },
+    {
+      "label": "traveling strike reaches target physically",
+      "passed": true,
+      "scenario": "lancer full supported travel"
+    },
+    {
+      "label": "charge is actual bounded travel not enlarged damage rectangle",
+      "passed": true,
+      "scenario": "lancer full supported travel"
+    },
+    {
+      "label": "new wall stops body and occludes attack",
+      "passed": true,
+      "scenario": "lancer moving door stops committed charge"
+    },
+    {
+      "label": "unsafe entire dash lane is refused rather than falling",
+      "passed": true,
+      "scenario": "lancer edge admission"
+    }
+  ],
+  "failures": [],
+  "hz": 120,
+  "scenarios": [
+    "lancer blind=false hurt",
+    "lancer blind=false guard",
+    "lancer blind=false parry",
+    "lancer blind=false roll",
+    "lancer blind=true hurt",
+    "lancer blind=true guard",
+    "lancer blind=true parry",
+    "lancer blind=true roll",
+    "lancer player sword and interruption",
+    "lancer solid terrain occludes sight",
+    "lancer pause freezes action",
+    "keeper blind=false hurt",
+    "keeper blind=false guard",
+    "keeper blind=false parry",
+    "keeper blind=false roll",
+    "keeper blind=true hurt",
+    "keeper blind=true guard",
+    "keeper blind=true parry",
+    "keeper blind=true roll",
+    "keeper player sword and interruption",
+    "keeper solid terrain occludes sight",
+    "keeper pause freezes action",
+    "lancer full supported travel",
+    "lancer moving door stops committed charge",
+    "lancer edge admission"
+  ],
+  "scope": "Actual shared controller physics; no visual verification"
+}

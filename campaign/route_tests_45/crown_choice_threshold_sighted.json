@@ -1,0 +1,640 @@
+{
+  "active_seconds": 26.5333333333331,
+  "area": "crown_choice_threshold",
+  "blind_fixture": false,
+  "completed_objectives": [
+    "independent_exit",
+    "testimony",
+    "manual_threshold"
+  ],
+  "events": [
+    {
+      "closed_rectangles": [],
+      "event": "shutter_navigation_rebuild",
+      "frame": 0,
+      "sector": 32,
+      "states": ""
+    },
+    {
+      "active_seconds": 0.0,
+      "enemy_tuning": [],
+      "event": "sector_enter",
+      "health": 60.0,
+      "sector": 32,
+      "title": "05.7 / A CHOICE WITHOUT AN ORDER"
+    },
+    {
+      "event": "climb_attached",
+      "frame": 283,
+      "payload": "{ \"target_id\": 152521672485, \"type\": \"ladder\", \"top_entry\": false, \"position\": (1099.963, 299.98), \"facing\": 1 }",
+      "position": "(1099.963, 299.98)",
+      "sector": 32
+    },
+    {
+      "event": "climb_detached",
+      "frame": 375,
+      "payload": "{ \"reason\": &\"top_exit\", \"target_id\": 152521672485, \"position\": (1110.0, 134.98), \"facing\": 1 }",
+      "position": "(1110.0, 134.98)",
+      "sector": 32
+    },
+    {
+      "event": "objective_completed",
+      "frame": 393,
+      "id": "independent_exit",
+      "position": "(1161.0, 134.98)"
+    },
+    {
+      "event": "climb_attached",
+      "frame": 855,
+      "payload": "{ \"target_id\": 152823662391, \"type\": \"ladder\", \"top_entry\": false, \"position\": (2808.278, 299.98), \"facing\": 1 }",
+      "position": "(2808.278, 299.98)",
+      "sector": 32
+    },
+    {
+      "event": "climb_detached",
+      "frame": 977,
+      "payload": "{ \"reason\": &\"top_exit\", \"target_id\": 152823662391, \"position\": (2820.0, 79.16171), \"facing\": 1 }",
+      "position": "(2820.0, 79.16171)",
+      "sector": 32
+    },
+    {
+      "event": "objective_completed",
+      "frame": 993,
+      "id": "testimony",
+      "position": "(2860.103, 79.98)"
+    },
+    {
+      "event": "objective_completed",
+      "frame": 1154,
+      "id": "manual_threshold",
+      "position": "(2383.372, 134.98)"
+    },
+    {
+      "activated_relays": 0,
+      "active_seconds": 26.4166666666664,
+      "area_id": "crown_choice_threshold",
+      "caches_so_far": 0,
+      "closed_shutters": 0,
+      "event": "sector_exit",
+      "freight": {
+
+      },
+      "health": 60.0,
+      "kills_so_far": 0,
+      "remaining_enemies": 0,
+      "sector": 32,
+      "title": "05.7 / A CHOICE WITHOUT AN ORDER"
+    },
+    {
+      "activated_relays": 0,
+      "active_seconds": 26.4333333333331,
+      "area_id": "crown_choice_threshold",
+      "caches_so_far": 0,
+      "closed_shutters": 0,
+      "event": "sector_exit",
+      "freight": {
+
+      },
+      "health": 60.0,
+      "kills_so_far": 0,
+      "remaining_enemies": 0,
+      "sector": 32,
+      "title": "05.7 / A CHOICE WITHOUT AN ORDER"
+    },
+    {
+      "activated_relays": 0,
+      "active_seconds": 26.4499999999998,
+      "area_id": "crown_choice_threshold",
+      "caches_so_far": 0,
+      "closed_shutters": 0,
+      "event": "sector_exit",
+      "freight": {
+
+      },
+      "health": 60.0,
+      "kills_so_far": 0,
+      "remaining_enemies": 0,
+      "sector": 32,
+      "title": "05.7 / A CHOICE WITHOUT AN ORDER"
+    },
+    {
+      "activated_relays": 0,
+      "active_seconds": 26.4666666666664,
+      "area_id": "crown_choice_threshold",
+      "caches_so_far": 0,
+      "closed_shutters": 0,
+      "event": "sector_exit",
+      "freight": {
+
+      },
+      "health": 60.0,
+      "kills_so_far": 0,
+      "remaining_enemies": 0,
+      "sector": 32,
+      "title": "05.7 / A CHOICE WITHOUT AN ORDER"
+    },
+    {
+      "activated_relays": 0,
+      "active_seconds": 26.4833333333331,
+      "area_id": "crown_choice_threshold",
+      "caches_so_far": 0,
+      "closed_shutters": 0,
+      "event": "sector_exit",
+      "freight": {
+
+      },
+      "health": 60.0,
+      "kills_so_far": 0,
+      "remaining_enemies": 0,
+      "sector": 32,
+      "title": "05.7 / A CHOICE WITHOUT AN ORDER"
+    },
+    {
+      "activated_relays": 0,
+      "active_seconds": 26.4999999999998,
+      "area_id": "crown_choice_threshold",
+      "caches_so_far": 0,
+      "closed_shutters": 0,
+      "event": "sector_exit",
+      "freight": {
+
+      },
+      "health": 60.0,
+      "kills_so_far": 0,
+      "remaining_enemies": 0,
+      "sector": 32,
+      "title": "05.7 / A CHOICE WITHOUT AN ORDER"
+    },
+    {
+      "activated_relays": 0,
+      "active_seconds": 26.5166666666664,
+      "area_id": "crown_choice_threshold",
+      "caches_so_far": 0,
+      "closed_shutters": 0,
+      "event": "sector_exit",
+      "freight": {
+
+      },
+      "health": 60.0,
+      "kills_so_far": 0,
+      "remaining_enemies": 0,
+      "sector": 32,
+      "title": "05.7 / A CHOICE WITHOUT AN ORDER"
+    },
+    {
+      "activated_relays": 0,
+      "active_seconds": 26.5333333333331,
+      "area_id": "crown_choice_threshold",
+      "caches_so_far": 0,
+      "closed_shutters": 0,
+      "event": "sector_exit",
+      "freight": {
+
+      },
+      "health": 60.0,
+      "kills_so_far": 0,
+      "remaining_enemies": 0,
+      "sector": 32,
+      "title": "05.7 / A CHOICE WITHOUT AN ORDER"
+    }
+  ],
+  "failures": [],
+  "frames": 1593,
+  "human_duration_validated": false,
+  "method": "Isolated initial district/sight fixture; thereafter raw input_override + idle-dispatched physical keys, autonomous enemies live, no player/enemy/goal/health/collision writes.",
+  "passed": true,
+  "state": "final_choice",
+  "trace": [
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [],
+      "frame": 0,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(1200.0, 135.0)",
+        "goal_surface": 2,
+        "ladder": true,
+        "next": 2,
+        "objective": "campaign goal independent_exit",
+        "steering": "(1110.0, 135.0)",
+        "support": 0
+      },
+      "position": "(75.0, 300.0)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 32,
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [],
+      "frame": 120,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(1200.0, 135.0)",
+        "goal_surface": 2,
+        "ladder": true,
+        "next": 2,
+        "objective": "campaign goal independent_exit",
+        "steering": "(1110.0, 135.0)",
+        "support": 0
+      },
+      "position": "(507.7348, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 32,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [],
+      "frame": 240,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(1200.0, 135.0)",
+        "goal_surface": 2,
+        "ladder": true,
+        "next": 2,
+        "objective": "campaign goal independent_exit",
+        "steering": "(1110.0, 135.0)",
+        "support": 0
+      },
+      "position": "(943.731, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 32,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "climb",
+      "action_phase": "top_exit",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [],
+      "frame": 360,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(1200.0, 135.0)",
+        "goal_surface": 2,
+        "ladder": true,
+        "next": 2,
+        "objective": "campaign goal independent_exit",
+        "steering": "(1110.0, 135.0)",
+        "support": 0
+      },
+      "position": "(1110.0, 165.1466)",
+      "raw_input": {
+        "up": 1.0
+      },
+      "sector": 32,
+      "velocity": "(0.0, -115.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [],
+      "frame": 480,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(2900.0, 80.0)",
+        "goal_surface": 5,
+        "ladder": true,
+        "next": 5,
+        "objective": "campaign goal testimony",
+        "steering": "(2820.0, 80.0)",
+        "support": 0
+      },
+      "position": "(1445.739, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 32,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "air_jump",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [],
+      "frame": 600,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(2900.0, 80.0)",
+        "goal_surface": 5,
+        "ladder": true,
+        "next": 5,
+        "objective": "campaign goal testimony",
+        "steering": "(2820.0, 80.0)",
+        "support": 0
+      },
+      "position": "(1881.735, 279.7495)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 32,
+      "velocity": "(218.0, 485.9999)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [],
+      "frame": 720,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(2900.0, 80.0)",
+        "goal_surface": 5,
+        "ladder": true,
+        "next": 5,
+        "objective": "campaign goal testimony",
+        "steering": "(2820.0, 80.0)",
+        "support": 0
+      },
+      "position": "(2317.749, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 32,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [],
+      "frame": 840,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(2900.0, 80.0)",
+        "goal_surface": 5,
+        "ladder": true,
+        "next": 5,
+        "objective": "campaign goal testimony",
+        "steering": "(2820.0, 80.0)",
+        "support": 0
+      },
+      "position": "(2753.774, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 32,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "climb",
+      "action_phase": "ascend",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [],
+      "frame": 960,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(2900.0, 80.0)",
+        "goal_surface": 5,
+        "ladder": true,
+        "next": 5,
+        "objective": "campaign goal testimony",
+        "steering": "(2820.0, 80.0)",
+        "support": 0
+      },
+      "position": "(2820.0, 113.3966)",
+      "raw_input": {
+        "up": 1.0
+      },
+      "sector": 32,
+      "velocity": "(0.0, -115.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "air_jump",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [],
+      "frame": 1080,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(2340.0, 135.0)",
+        "goal_surface": 4,
+        "ladder": false,
+        "next": 4,
+        "objective": "campaign goal manual_threshold",
+        "steering": "(2482.0, 135.0)",
+        "support": 5
+      },
+      "position": "(2606.855, -5.947765)",
+      "raw_input": {
+        "jump": true,
+        "left": 1.0
+      },
+      "sector": 32,
+      "velocity": "(-218.0, -240.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [],
+      "frame": 1200,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(3955.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(3955.0, 300.0)",
+        "support": 0
+      },
+      "position": "(2494.204, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 32,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [],
+      "frame": 1320,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(3955.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(3955.0, 300.0)",
+        "support": 0
+      },
+      "position": "(2930.229, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 32,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [],
+      "frame": 1440,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(3955.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(3955.0, 300.0)",
+        "support": 0
+      },
+      "position": "(3366.254, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 32,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [],
+      "frame": 1560,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(3955.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(3955.0, 300.0)",
+        "support": 0
+      },
+      "position": "(3802.28, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 32,
+      "velocity": "(218.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    }
+  ]
+}

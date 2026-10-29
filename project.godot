@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="MOKSHA | The First Ascent"
-config/description="A complete First Ascent mission. Optional sight trade, physical sound, six substantial areas and a secured-lift ending."
-run/main_scene="res://demo/mission.tscn"
+config/name="MOKSHA — Five Ascents"
+config/description="Five modular levels: city prologue and four floors. Optional sight trade, physical combat and cargo, branching objectives, persistent builds and an explicit campaign resolution. Duration target unvalidated."
+run/main_scene="res://campaign/campaign.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 
 [autoload]

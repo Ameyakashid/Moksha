@@ -1,0 +1,2578 @@
+{
+  "bot_active_seconds": 36.8999999999992,
+  "district": "l3_drainage_commons",
+  "events": [
+    {
+      "district": "l3_drainage_commons",
+      "event": "isolated_start_fixture",
+      "not_full_campaign": true,
+      "sight_fixture": true
+    },
+    {
+      "active_seconds": 0.0,
+      "enemy_tuning": [
+        {
+          "damage": 12.0,
+          "health": 3.0,
+          "kind": "sentinel"
+        },
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "listener"
+        },
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "sentry"
+        },
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "listener"
+        },
+        {
+          "damage": 12.0,
+          "health": 3.0,
+          "kind": "sentinel"
+        },
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "sentry"
+        },
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "listener"
+        },
+        {
+          "damage": 12.0,
+          "health": 8.0,
+          "kind": "captain_lancer"
+        }
+      ],
+      "event": "sector_enter",
+      "health": 60.0,
+      "sector": 18,
+      "title": "03.6 / DRAINAGE COMMONS"
+    },
+    {
+      "event": "ledge_catch",
+      "frame": 69,
+      "payload": "{ \"anchor\": (400.0, 245.0), \"direction\": 1, \"position\": (387.292, 255.9522), \"facing\": 1 }",
+      "position": "(387.292, 255.9522)",
+      "sector": 18
+    },
+    {
+      "event": "pullup_begin",
+      "frame": 74,
+      "payload": "{ \"anchor\": (400.0, 245.0), \"position\": (390.8, 255.9522), \"facing\": 1 }",
+      "position": "(390.8, 255.9522)",
+      "sector": 18
+    },
+    {
+      "event": "ledge_step",
+      "frame": 85,
+      "payload": "{ \"anchor\": (400.0, 245.0), \"position\": (390.8, 244.0), \"facing\": 1 }",
+      "position": "(390.8, 244.0)",
+      "sector": 18
+    },
+    {
+      "event": "pullup_end",
+      "frame": 94,
+      "payload": "{ \"anchor\": (400.0, 245.0), \"grounded\": true, \"position\": (412.0, 244.98), \"facing\": 1 }",
+      "position": "(412.0, 244.98)",
+      "sector": 18
+    },
+    {
+      "event": "climb_attached",
+      "frame": 399,
+      "payload": "{ \"target_id\": 156195882799, \"type\": \"ladder\", \"top_entry\": false, \"position\": (1528.684, 299.98), \"facing\": 1 }",
+      "position": "(1528.684, 299.98)",
+      "sector": 18
+    },
+    {
+      "event": "climb_detached",
+      "frame": 516,
+      "payload": "{ \"reason\": &\"top_exit\", \"target_id\": 156195882799, \"position\": (1540.0, 89.5714), \"facing\": 1 }",
+      "position": "(1540.0, 89.5714)",
+      "sector": 18
+    },
+    {
+      "event": "climb_attached",
+      "frame": 575,
+      "payload": "{ \"target_id\": 156598536007, \"type\": \"ladder\", \"top_entry\": false, \"position\": (1559.436, 89.98), \"facing\": 1 }",
+      "position": "(1559.436, 89.98)",
+      "sector": 18
+    },
+    {
+      "event": "climb_detached",
+      "frame": 657,
+      "payload": "{ \"reason\": &\"horizontal_release\", \"target_id\": 156598536007, \"position\": (1570.0, -53.93667), \"facing\": 1 }",
+      "position": "(1570.0, -53.93667)",
+      "sector": 18
+    },
+    {
+      "event": "climb_attached",
+      "frame": 988,
+      "payload": "{ \"target_id\": 156397209403, \"type\": \"ladder\", \"top_entry\": false, \"position\": (2792.399, 299.98), \"facing\": 1 }",
+      "position": "(2792.399, 299.98)",
+      "sector": 18
+    },
+    {
+      "event": "climb_detached",
+      "frame": 1103,
+      "payload": "{ \"reason\": &\"top_exit\", \"target_id\": 156397209403, \"position\": (2800.0, 89.5714), \"facing\": 1 }",
+      "position": "(2800.0, 89.5714)",
+      "sector": 18
+    },
+    {
+      "event": "climb_attached",
+      "frame": 1370,
+      "payload": "{ \"target_id\": 156296546101, \"type\": \"ladder\", \"top_entry\": false, \"position\": (2168.121, 299.98), \"facing\": -1 }",
+      "position": "(2168.121, 299.98)",
+      "sector": 18
+    },
+    {
+      "event": "climb_detached",
+      "frame": 1526,
+      "payload": "{ \"reason\": &\"top_exit\", \"target_id\": 156296546101, \"position\": (2160.121, 9.98), \"facing\": -1 }",
+      "position": "(2160.121, 9.98)",
+      "sector": 18
+    },
+    {
+      "activated_relays": 0,
+      "active_seconds": 36.8999999999992,
+      "area_id": "l3_drainage_commons",
+      "caches_so_far": 0,
+      "closed_shutters": 0,
+      "event": "sector_exit",
+      "freight": {
+
+      },
+      "health": 60.0,
+      "kills_so_far": 6,
+      "remaining_enemies": 2,
+      "sector": 18,
+      "title": "03.6 / DRAINAGE COMMONS"
+    }
+  ],
+  "explicit_start_and_sight_fixture": true,
+  "failures": [],
+  "full_campaign_evidence": false,
+  "goals_observed": {
+    "east": {
+      "frame": 1144,
+      "kind": "route",
+      "position": "(2933.621, 89.98)",
+      "setting": 2
+    },
+    "handoff": {
+      "frame": 2136,
+      "kind": "terminal",
+      "position": "(4006.773, 244.98)",
+      "setting": -1
+    },
+    "link": {
+      "frame": 1584,
+      "kind": "install",
+      "position": "(2178.168, 9.98)",
+      "setting": -1
+    },
+    "map": {
+      "frame": 657,
+      "kind": "recover",
+      "position": "(1570.0, -53.93667)",
+      "setting": -1
+    },
+    "west": {
+      "frame": 702,
+      "kind": "breaker",
+      "position": "(1680.432, 89.98)",
+      "setting": -1
+    }
+  },
+  "human_duration_validated": false,
+  "method": "Measured phase: raw ordinary buttons plus proximity E events. No teleport, damage/health/AI writes, forced goals or gate edits. Initial district and sight are explicit isolated fixtures.",
+  "passed": true,
+  "sight": true,
+  "source_drift": [
+    "res://campaign/route_tests/l23_route.gd"
+  ],
+  "source_hashes": {
+    "res://campaign/layouts/level_01.gd": "ab496a8c87b64b94bf397c3fa2820768a875965e03f3fb4ded50971812a2809d",
+    "res://campaign/layouts/level_02.gd": "ef80da15a4ef37679edb9688981a611387712d986a5a8092c06ea3bb27d94612",
+    "res://campaign/layouts/level_03.gd": "9f0172cc7c83a5285b801ad2d2d76ee48b77b0e34212db02d1b3e7dea5796f0e",
+    "res://campaign/layouts/level_04.gd": "fe484ce81ad740ba4630bb94abc3a4d9acb1bf950b9cc0160e8eb9623190707f",
+    "res://campaign/layouts/level_05.gd": "cc578d20c6ea8e197a2f104491bb1560c93ab698c7d3977a782288008f07936c",
+    "res://campaign/logic/breaker_contact.gd": "8e7123c0806a61cb757a3827dcdfd7778cf65257631af774f38014a1258174db",
+    "res://campaign/logic/build_health.gd": "855b9c8fcac7e9081fbc76fef5fc9cf0b11b0270c2760045f57de72bce1d4589",
+    "res://campaign/logic/campaign.gd": "3ea1ff9c2f8b4c145c68ceaf9cfae512101004151feab8900f5f13bc858ee5e1",
+    "res://campaign/logic/campaign_data.gd": "32fc38fcc5d58a7d56e5201dbf0a94b048336ce968263e06fcca35cf53fed08b",
+    "res://campaign/logic/district_entry.gd": "0602bc0ab1b1d4b829688d4a3b01d8a30400081922bd7c52d50f33a5609671b7",
+    "res://campaign/logic/hazard.gd": "c57836cdb68cb8574e5aaa2405730a87b1131f5f9b54870d6a76f278f04684f6",
+    "res://campaign/logic/objective.gd": "60668134fbb5cc75c0cb9d87463a1994587240117162a29d2252540bc9fd00a4",
+    "res://campaign/logic/objective_door.gd": "627fcb4fe14bac9a4f18ee70fa8fed6a21aac403c9c3f0bbf6b39cde202b6249",
+    "res://campaign/route_tests/l23_route.gd": "1bc730129f53ec646daae9d5d7ae9e39be546be856997cd5ac1a1bedc3b02074"
+  },
+  "trace": [
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1050.0, 170.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1690.0, 90.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2080.0, 10.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2520.0, 300.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2960.0, 90.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 170.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3990.0, 245.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3730.0, 300.0)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 0,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 10,
+        "ladder": true,
+        "next": 5,
+        "objective": "gate",
+        "steering": "(1540.0, 90.0)",
+        "support": 0
+      },
+      "position": "(75.0, 300.0)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1084.671, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1745.497, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2080.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2567.361, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3037.221, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4037.361, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3762.986, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 60,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 10,
+        "ladder": true,
+        "next": 5,
+        "objective": "gate",
+        "steering": "(1540.0, 90.0)",
+        "support": 0
+      },
+      "position": "(341.8754, 299.98)",
+      "raw_input": {
+        "jump": true,
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(272.5, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1116.579, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1745.497, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2080.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2561.545, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3030.757, 89.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4031.545, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3796.531, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 120,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 10,
+        "ladder": false,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(645.0, 300.0)",
+        "support": 3
+      },
+      "position": "(517.9951, 244.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1077.425, 169.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(1745.497, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2080.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2513.381, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3027.675, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3983.381, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3766.458, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 180,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 10,
+        "ladder": true,
+        "next": 5,
+        "objective": "gate",
+        "steering": "(1540.0, 90.0)",
+        "support": 0
+      },
+      "position": "(661.467, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(49.50001, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(995.4246, 169.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(1745.497, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2080.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2465.217, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3038.433, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3935.217, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3732.914, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 240,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 10,
+        "ladder": true,
+        "next": 5,
+        "objective": "gate",
+        "steering": "(1540.0, 90.0)",
+        "support": 0
+      },
+      "position": "(860.6073, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(965.6253, 169.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(1745.497, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2080.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2485.482, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3038.433, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3955.482, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3699.369, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 300,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 10,
+        "ladder": true,
+        "next": 5,
+        "objective": "gate",
+        "steering": "(1540.0, 90.0)",
+        "support": 0
+      },
+      "position": "(1112.683, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1047.625, 169.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(1745.497, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2080.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2533.646, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3038.433, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4003.646, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3665.824, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 360,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 10,
+        "ladder": true,
+        "next": 5,
+        "objective": "gate",
+        "steering": "(1540.0, 90.0)",
+        "support": 0
+      },
+      "position": "(1364.751, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "climb",
+      "action_phase": "ascend",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1123.985, 169.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(1709.316, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2080.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2581.811, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3020.216, 89.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4051.811, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3691.423, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 420,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(1561.206, 89.98)",
+        "goal_surface": 10,
+        "ladder": true,
+        "next": 5,
+        "objective": "enemy",
+        "steering": "(1540.0, 89.98)",
+        "support": 0
+      },
+      "position": "(1540.0, 274.3968)",
+      "raw_input": {
+        "up": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.0, -115.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "climb",
+      "action_phase": "ascend",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1093.427, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1597.321, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(2080.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2547.096, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3037.677, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4017.096, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3724.968, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 480,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(1561.206, 89.98)",
+        "goal_surface": 10,
+        "ladder": true,
+        "next": 5,
+        "objective": "enemy",
+        "steering": "(1540.0, 89.98)",
+        "support": 0
+      },
+      "position": "(1540.0, 159.3966)",
+      "raw_input": {
+        "up": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.0, -115.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1058.168, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1561.206, 89.98)",
+          "state": "active"
+        },
+        {
+          "health": 2.0,
+          "position": "(2080.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2498.932, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3037.677, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3968.932, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3758.513, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 540,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(1561.206, 89.98)",
+        "goal_surface": 5,
+        "next": 5,
+        "objective": "enemy",
+        "steering": "(1561.206, 89.98)",
+        "support": 5
+      },
+      "position": "(1540.0, 89.98)",
+      "raw_input": {
+        "shield": true
+      },
+      "sector": 18,
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "climb",
+      "action_phase": "ascend",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1022.91, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2080.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2451.768, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3037.677, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3921.768, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3792.058, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 600,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 10,
+        "ladder": true,
+        "next": 10,
+        "objective": "gate",
+        "steering": "(1570.0, -100.0)",
+        "support": 5
+      },
+      "position": "(1570.0, 54.81335)",
+      "raw_input": {
+        "up": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.0, -115.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(987.6508, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2080.0, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2499.932, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3037.677, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3969.932, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3770.931, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 660,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 5,
+        "next": 5,
+        "objective": "gate",
+        "steering": "(1650.0, 90.0)",
+        "support": 5
+      },
+      "position": "(1573.517, -52.79084)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(124.6667, 45.83333)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1010.981, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2079.903, 9.98)",
+          "state": "windup"
+        },
+        {
+          "health": 2.0,
+          "position": "(2548.096, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3012.408, 89.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4018.096, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3737.386, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 720,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": false,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(1845.0, 300.0)",
+        "support": 5
+      },
+      "position": "(1686.21, 127.6536)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(92.0, 329.1667)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1046.24, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2079.903, 9.98)",
+          "state": "aim"
+        },
+        {
+          "health": 2.0,
+          "position": "(2580.811, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3037.509, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4050.811, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3703.841, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 780,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": true,
+        "next": 7,
+        "objective": "gate",
+        "steering": "(2800.0, 90.0)",
+        "support": 0
+      },
+      "position": "(1944.039, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(272.5, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1081.499, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2079.903, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2532.646, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3037.509, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4002.646, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3670.296, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 840,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": true,
+        "next": 7,
+        "objective": "gate",
+        "steering": "(2800.0, 90.0)",
+        "support": 0
+      },
+      "position": "(2216.55, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(272.5, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1116.758, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2079.903, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 1.0,
+          "position": "(2478.584, 299.98)",
+          "state": "stagger"
+        },
+        {
+          "health": 3.0,
+          "position": "(3037.509, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3954.482, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3686.951, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 900,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(2478.584, 299.98)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "enemy",
+        "steering": "(2478.584, 299.98)",
+        "support": 0
+      },
+      "position": "(2438.207, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(122.625, 0.0)",
+      "waypoint": 0,
+      "weapon": "windup"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1085.2, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2079.903, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3037.509, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3936.217, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3720.496, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 960,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": true,
+        "next": 7,
+        "objective": "gate",
+        "steering": "(2800.0, 90.0)",
+        "support": 0
+      },
+      "position": "(2665.224, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(272.5, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "climb",
+      "action_phase": "ascend",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1049.941, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2079.903, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2989.02, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3984.381, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3754.041, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1020,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": true,
+        "next": 7,
+        "objective": "gate",
+        "steering": "(2800.0, 90.0)",
+        "support": 0
+      },
+      "position": "(2800.0, 249.4802)",
+      "raw_input": {
+        "up": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.0, -115.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "climb",
+      "action_phase": "ascend",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1014.682, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2079.903, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(3030.287, 89.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4032.545, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3787.585, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1080,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 7,
+        "ladder": true,
+        "next": 7,
+        "objective": "gate",
+        "steering": "(2800.0, 90.0)",
+        "support": 0
+      },
+      "position": "(2800.0, 134.4799)",
+      "raw_input": {
+        "up": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.0, -115.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(983.9496, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2079.903, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2964.313, 89.43556)",
+          "state": "stagger"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4036.361, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3775.404, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1140,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(2964.313, 89.43556)",
+        "goal_surface": 7,
+        "next": 7,
+        "objective": "enemy",
+        "steering": "(2964.313, 89.43556)",
+        "support": 7
+      },
+      "position": "(2927.746, 89.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(70.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "active"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1019.208, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2079.903, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3988.197, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3741.859, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1200,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 6,
+        "ladder": false,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(2575.0, 300.0)",
+        "support": 7
+      },
+      "position": "(2940.257, 194.2161)",
+      "raw_input": {
+        "left": 1.0
+      },
+      "sector": 18,
+      "velocity": "(-272.5, 535.4166)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1054.467, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2079.903, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3940.033, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3708.314, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1260,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 6,
+        "ladder": true,
+        "next": 6,
+        "objective": "gate",
+        "steering": "(2160.0, 10.0)",
+        "support": 0
+      },
+      "position": "(2667.74, 299.98)",
+      "raw_input": {
+        "left": 1.0
+      },
+      "sector": 18,
+      "velocity": "(-272.5, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1089.726, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2079.903, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3950.666, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3674.769, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1320,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 6,
+        "ladder": true,
+        "next": 6,
+        "objective": "gate",
+        "steering": "(2160.0, 10.0)",
+        "support": 0
+      },
+      "position": "(2395.221, 299.98)",
+      "raw_input": {
+        "left": 1.0
+      },
+      "sector": 18,
+      "velocity": "(-272.5, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "climb",
+      "action_phase": "ascend",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1112.232, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2079.903, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3998.83, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3682.478, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1380,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(2080.0, 9.98)",
+        "goal_surface": 6,
+        "ladder": true,
+        "next": 6,
+        "objective": "enemy",
+        "steering": "(2160.121, 9.98)",
+        "support": 0
+      },
+      "position": "(2160.121, 291.6467)",
+      "raw_input": {
+        "up": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.0, -115.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "climb",
+      "action_phase": "ascend",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1076.973, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2079.903, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4046.994, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3716.023, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1440,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(2080.0, 9.98)",
+        "goal_surface": 6,
+        "ladder": true,
+        "next": 6,
+        "objective": "enemy",
+        "steering": "(2160.121, 9.98)",
+        "support": 0
+      },
+      "position": "(2160.121, 176.6467)",
+      "raw_input": {
+        "up": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.0, -115.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "climb",
+      "action_phase": "ascend",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1041.714, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2079.903, 9.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4021.912, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3749.568, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1500,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(2080.0, 9.98)",
+        "goal_surface": 6,
+        "ladder": true,
+        "next": 6,
+        "objective": "enemy",
+        "steering": "(2160.121, 9.98)",
+        "support": 0
+      },
+      "position": "(2160.121, 61.64662)",
+      "raw_input": {
+        "up": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.0, -115.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (3166.0, 0.0), S: (28.0, 300.0)]",
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1006.455, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3973.748, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3783.113, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1560,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 6,
+        "next": 6,
+        "objective": "gate",
+        "steering": "(2220.0, 9.98)",
+        "support": 6
+      },
+      "position": "(2094.849, 9.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(-55.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "active"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(992.1766, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3925.584, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3779.876, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1620,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 8,
+        "ladder": false,
+        "next": 8,
+        "objective": "gate",
+        "steering": "(3898.0, 245.0)",
+        "support": 0
+      },
+      "position": "(2304.226, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(272.5, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1027.435, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3965.115, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3746.332, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1680,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 8,
+        "ladder": false,
+        "next": 8,
+        "objective": "gate",
+        "steering": "(3898.0, 245.0)",
+        "support": 0
+      },
+      "position": "(2576.745, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(272.5, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1062.694, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4013.279, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3712.787, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1740,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 8,
+        "ladder": false,
+        "next": 8,
+        "objective": "gate",
+        "steering": "(3898.0, 245.0)",
+        "support": 0
+      },
+      "position": "(2849.265, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(272.5, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1097.953, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4055.627, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3679.242, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1800,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 8,
+        "ladder": false,
+        "next": 8,
+        "objective": "gate",
+        "steering": "(3898.0, 245.0)",
+        "support": 0
+      },
+      "position": "(3067.947, 299.9797)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1104.005, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(4007.463, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3678.005, 299.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 1860,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 8,
+        "ladder": false,
+        "next": 8,
+        "objective": "gate",
+        "steering": "(3898.0, 245.0)",
+        "support": 0
+      },
+      "position": "(3305.019, 299.9797)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.132507, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1068.746, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3959.299, 244.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 8.0,
+          "position": "(3643.309, 299.98)",
+          "state": "chase"
+        }
+      ],
+      "frame": 1920,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(3643.309, 299.98)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "enemy",
+        "steering": "(3643.309, 299.98)",
+        "support": 0
+      },
+      "position": "(3557.09, 299.9797)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(0.124054, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1033.487, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3891.344, 244.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 3.85,
+          "position": "(3687.536, 299.98)",
+          "state": "chase"
+        }
+      ],
+      "frame": 1980,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(3687.536, 299.98)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "enemy",
+        "steering": "(3687.536, 299.98)",
+        "support": 0
+      },
+      "position": "(3649.556, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(136.25, 0.0)",
+      "waypoint": 0,
+      "weapon": "recovery"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(998.2284, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3891.344, 244.98)",
+          "state": "investigate"
+        }
+      ],
+      "frame": 2040,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 8,
+        "ladder": false,
+        "next": 8,
+        "objective": "gate",
+        "steering": "(3898.0, 245.0)",
+        "support": 0
+      },
+      "position": "(3730.782, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(136.25, 0.0)",
+      "waypoint": 0,
+      "weapon": "recovery"
+    },
+    {
+      "action": "air_jump",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (4246.0, 0.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1000.404, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 1.0,
+          "position": "(3915.059, 244.98)",
+          "state": "chase"
+        }
+      ],
+      "frame": 2100,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 8,
+        "ladder": false,
+        "next": 8,
+        "objective": "gate",
+        "steering": "(3922.759, 245.0)",
+        "support": 0
+      },
+      "position": "(3922.759, 192.0689)",
+      "raw_input": {
+
+      },
+      "sector": 18,
+      "velocity": "(148.8333, 27.66669)",
+      "waypoint": 0,
+      "weapon": "recovery"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "climb_needs_neutral": false,
+      "closed_shutters": [],
+      "enemies": [
+        {
+          "health": 3.0,
+          "position": "(1035.662, 169.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(3520.0, 169.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 2160,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 60.0,
+      "navigation": {
+        "goal": "(4355.0, 300.0)",
+        "goal_surface": 0,
+        "ladder": false,
+        "next": 0,
+        "objective": "gate",
+        "steering": "(4165.0, 300.0)",
+        "support": 7
+      },
+      "position": "(4115.781, 244.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 18,
+      "velocity": "(272.5, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    }
+  ]
+}

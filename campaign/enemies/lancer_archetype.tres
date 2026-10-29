@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://demo/resources/melee_archetype.gd" id="1"]
+[resource]
+script = ExtResource("1")
+health_capacity = 3.0
+movement_speed = 78.0
+windup_seconds = 0.78
+recovery_seconds = 1.05
+tint = Color(0.95, 0.65, 0.32, 1)

@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3]
+[ext_resource type="PackedScene" path="res://simulation/world/static_platform.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://simulation/world/mission_ladder.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://campaign/logic/objective.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://campaign/logic/objective_door.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://campaign/logic/hazard.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://simulation/world/moving_lift.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://simulation/world/freight_receiver.tscn" id="7"]
+[node name="PlaceableCampaignModules" type="Node2D"]
+[node name="SolidSupport" parent="." instance=ExtResource("1")]
+position=Vector2(320,320)
+platform_size=Vector2(640,40)
+[node name="OneWayLanding" parent="." instance=ExtResource("1")]
+position=Vector2(420,180)
+platform_size=Vector2(180,18)
+one_way_collision=true
+[node name="RecoveryLadder" parent="." instance=ExtResource("2")]
+position=Vector2(400,300)
+height=120.0
+[node name="PowerCell" parent="." instance=ExtResource("3")]
+position=Vector2(200,300)
+objective_id="cell"
+label="Portable cell"
+kind="recover"
+[node name="Installation" parent="." instance=ExtResource("3")]
+position=Vector2(430,171)
+objective_id="generator"
+label="Reserve generator"
+kind="install"
+required_ids=Array[String](["cell"])
+[node name="PhysicalDoor" parent="." instance=ExtResource("4")]
+position=Vector2(540,235)
+door_size=Vector2(24,130)
+required_ids=Array[String](["generator"])
+[node name="TelegraphedRail" parent="." instance=ExtResource("5")]
+position=Vector2(300,294)
+hazard_size=Vector2(80,12)
+[node name="MovingLift" parent="." instance=ExtResource("6")]
+position=Vector2(700,280)
+travel=Vector2(0,-120)
+[node name="PhysicalCargoReceiver" parent="." instance=ExtResource("7")]
+position=Vector2(850,270)

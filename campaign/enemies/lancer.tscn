@@ -1,0 +1,16 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="PackedScene" path="res://demo/components/shared_sentinel.tscn" id="1"]
+[ext_resource type="Resource" path="res://campaign/enemies/lancer_melee.tres" id="2"]
+[ext_resource type="Resource" path="res://campaign/enemies/lancer_archetype.tres" id="3"]
+[ext_resource type="Script" path="res://campaign/enemies/captain_policy.gd" id="4"]
+[ext_resource type="Script" path="res://campaign/enemies/captain_view.gd" id="5"]
+[node name="LancerCaptain" instance=ExtResource("1")]
+kind = "captain_lancer"
+melee_chain = ExtResource("2")
+archetype_profile = ExtResource("3")
+detection_range = 270.0
+[node name="SentinelPolicy" parent="."]
+script = ExtResource("4")
+pattern = "lancer"
+[node name="Visual" parent="." index="1"]
+script = ExtResource("5")
