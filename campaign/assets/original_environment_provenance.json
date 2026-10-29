@@ -1,0 +1,28 @@
+{
+  "created_utc": "2026-10-02",
+  "method": "OpenAI built-in image_gen.imagegen",
+  "prompt_file": "art_sources/environment/prompts-v1.json",
+  "atlas": {
+    "original": "art_sources/environment/urban-kit-original-v1.png",
+    "runtime": "assets/environment/urban-kit-atlas-v1.png",
+    "sha256": "fe0655811c60dc3d11665b78592c22b7ce7e083e5bb093e76b692d9878b09d41",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "transparent_background_requested": true
+  },
+  "background": {
+    "original": "art_sources/environment/city-background-original-v1.png",
+    "runtime": "assets/environment/city-background-v1.png",
+    "sha256": "f44ff41d4d443c6f5fb2012899ad8fe43abce07e142b1ea2782e51ffb5ff0aa5",
+    "dimensions": [
+      1672,
+      941
+    ],
+    "transparent_background_requested": false
+  },
+  "postprocessing": "None. Runtime PNGs are byte-for-byte copies of originals. Sprite extraction uses exact Godot AtlasTexture regions only; no alpha removal, repainting or raster resizing.",
+  "design_basis": "docs/MOKSHA-source.md and parent task brief, side-on human exterior before powers; original mechanical/architectural designs."
+}
