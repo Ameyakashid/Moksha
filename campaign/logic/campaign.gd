@@ -11,11 +11,13 @@ var completed_goals:Dictionary={}
 var rewards:Dictionary={}
 var lens:="neutral"
 var upgrades:Array[String]=[]
+var journal_page:=0
 var level_seconds:Dictionary={}
 var level_receipts:Array[Dictionary]=[]
 var campaign_ending:=""
 var art:Node2D
 var actor_paint:Node
+var object_paint:Node
 var debug_wireframe:=false
 var map_open:=false
 var _loading_campaign:=false
@@ -32,7 +34,7 @@ func start_new(skip_intro:=false)->void:
 	super.start_new(skip_intro)
 func load_sector(index:int)->void:
 	_loading_campaign=true
-	goals.clear();completed_goals.clear();art=null;actor_paint=null
+	goals.clear();completed_goals.clear();art=null;actor_paint=null;object_paint=null
 	if is_instance_valid(blackboard):blackboard.set_value("objectives",{})
 	super.load_sector(index)
 	# Swap only the optional health quantity adapter; the actor stays unchanged.
@@ -76,6 +78,8 @@ func load_sector(index:int)->void:
 		art.set_sight_enabled(not blind)
 	actor_paint=Node.new();actor_paint.set_script(preload("res://campaign/presentation/actor_presentation.gd"));room.add_child(actor_paint)
 	actor_paint.bind(player,enemies);actor_paint.set_sight_enabled(not blind);actor_paint.set_debug_wireframe(debug_wireframe)
+	object_paint=Node.new();object_paint.set_script(preload("res://campaign/presentation/object_presentation.gd"));room.add_child(object_paint)
+	object_paint.bind(room);object_paint.set_sight_enabled(not blind);object_paint.set_debug_wireframe(debug_wireframe)
 	_apply_build()
 	_loading_campaign=false
 	_update_gate()
@@ -126,6 +130,7 @@ func _physics_process(dt:float)->void:
 		art.set_sight_enabled(not blind)
 		if art.has_method("update_view"):art.update_view(camera.position,Vector2(640,360))
 	if is_instance_valid(actor_paint):actor_paint.set_sight_enabled(not blind)
+	if is_instance_valid(object_paint):object_paint.set_sight_enabled(not blind)
 	for goal in goals:
 		if is_instance_valid(goal):goal.get_node("Presentation").visible=not blind
 func _update_gate()->void:
@@ -138,7 +143,7 @@ func interact()->void:
 	if state!="playing" or _pending_sector>=0 or _pending_retry:return
 	for goal in goals:
 		if _near(goal.global_position,52) and (not goal.completed or goal.kind=="route"):
-			if not goal.interact():announce("Requires: "+", ".join(goal.required_ids) if not goal.available else "Strike the circuit breaker [J]" if goal.kind=="breaker" else "Move a physical cargo onto the pressure plate",3)
+			if not goal.interact():announce("Requires: "+", ".join(goal.required_ids.map(func(id):return _objective_label(id))) if not goal.available else "Strike the circuit breaker [J]" if goal.kind=="breaker" else "Move a physical cargo onto the pressure plate",3)
 			return
 	var d:Dictionary=sectors[sector]
 	var at_exit:=_near(Vector2(float(d.width)-45,float(d.get("gate_y",300))),65)
@@ -160,19 +165,23 @@ func choose_sight(accept:bool)->void:
 	_apply_build()
 	if is_instance_valid(art):art.set_sight_enabled(not blind)
 	if is_instance_valid(actor_paint):actor_paint.set_sight_enabled(not blind)
+	if is_instance_valid(object_paint):object_paint.set_sight_enabled(not blind)
 func _unhandled_key_input(event:InputEvent)->void:
 	if not event is InputEventKey or not event.pressed or event.echo:return
-	var key:int=event.physical_keycode
+	var key:int=event.physical_keycode if event.physical_keycode!=0 else event.keycode
 	if _pending_sector>=0 or _pending_retry:return
 	if state=="title" and key in [KEY_1,KEY_2,KEY_3]:
 		lens={KEY_1:"neutral",KEY_2:"strength",KEY_3:"agility"}[key];return
 	if key==KEY_F8:
 		debug_wireframe=not debug_wireframe
 		if is_instance_valid(actor_paint):actor_paint.set_debug_wireframe(debug_wireframe)
+		if is_instance_valid(object_paint):object_paint.set_debug_wireframe(debug_wireframe)
 		return
 	if state=="playing" and key==KEY_TAB:
-		state="journal";get_tree().paused=true;return
+		journal_page=0;state="journal";get_tree().paused=true;return
 	if state=="journal":
+		if key in [KEY_LEFT,KEY_A]:journal_page=maxi(0,journal_page-1);return
+		if key in [KEY_RIGHT,KEY_D]:journal_page=mini(maxi(0,ceili(_journal_rows().size()/5.0)-1),journal_page+1);return
 		if key in [KEY_TAB,KEY_ESCAPE]:state="playing";get_tree().paused=false
 		return
 	if state=="upgrade":
@@ -237,18 +246,23 @@ func continue_run()->void:
 func _hud_snapshot()->Dictionary:
 	var snapshot:Dictionary=super._hud_snapshot()
 	if state=="title":
-		snapshot.merge({"panel_override":true,"panel_title":"MOKSHA / FIVE ASCENTS","panel_body":"A city and four floors. One old operative.\n\nChoose a starting lens: 1 Neutral / 2 Strength / 3 Agility\nCURRENT: "+lens.to_upper()+"\nStrength: +40% strikes,75 health,-6% run\nAgility: +12% run,50 health. Neutral:60 health.\n\n15–20 minutes per level is a design target, not verified playtime.","panel_footer":"ENTER New campaign"+("   C Continue" if continue_available else "")})
+		snapshot.merge({"panel_override":true,"panel_title":"MOKSHA / FIVE ASCENTS","panel_body":"A city and four floors. One old operative.\n\nChoose a starting lens: 1 Neutral / 2 Strength / 3 Agility\nCURRENT: "+lens.to_upper()+"\nStrength: +40% strikes,75 health,-6% run\nAgility: +12% run,50 health. Neutral:60 health.\n\nOpen civilian routes. Reach the Crown. Decide who holds its keys.","panel_footer":"ENTER New campaign"+("   C Continue" if continue_available else "")})
 	elif state=="upgrade":
 		snapshot.merge({"panel_override":true,"panel_title":"LEVEL SECURED / SPECIALIZE","panel_body":"The onward elevator is yours. Choose a persistent upgrade.\n\nJ  FORCE: +25% base strike damage\nK  AGILITY: +10% base run speed\nL  VITALITY: +15 maximum health\n\nUpgrades stack additively and survive checkpoints.","panel_footer":"J / K / L  Choose and ascend"})
 	elif state=="final_choice":
 		snapshot.merge({"panel_override":true,"panel_title":"THE COMMAND NETWORK IS YOURS","panel_body":"The Warden is down. Evacuation channels remain live.\nThe monopoly has lost its command of the tower.\n\nJ  Publish its records to every district.\nK  Transfer control to the district custodians.\n\nNeither choice deletes your progress or sacrifices civilians.","panel_footer":"J  PUBLIC RECORD    K  LOCAL CUSTODY"})
 	elif state=="complete":
-		snapshot.merge({"panel_override":true,"panel_title":"MOKSHA / THE FIVE ASCENTS","panel_body":("The records are public. No single voice can erase them." if campaign_ending=="public_record" else "The districts hold their own keys. No central lock remains.")+"\nEvacuation lights carry on below. You lower your weapon.\nThe old operative leaves the tower to its people.\n\nFive levels complete · active time %d:%02d\n%d deaths · %d defeated · %s lens\nThe measured clock is this run, not a promised human duration."%[int(elapsed)/60,int(elapsed)%60,deaths,kills,lens],"panel_footer":"N / ENTER  Title · new run keeps this result"})
+		snapshot.merge({"panel_override":true,"panel_title":"MOKSHA / THE FIVE ASCENTS","panel_body":("The records are public. No single voice can erase them." if campaign_ending=="public_record" else "The districts hold their own keys. No central lock remains.")+"\nEvacuation lights carry on below. You lower your weapon.\nThe old operative leaves the tower to its people.\n\nFive levels complete · active time %d:%02d\n%d deaths · %d defeated · %s lens"%[int(elapsed)/60,int(elapsed)%60,deaths,kills,lens],"panel_footer":"N / ENTER  Title · new run keeps this result"})
+	elif state=="paused":
+		snapshot.merge({"panel_override":true,"panel_title":"PAUSED","panel_body":"A/D or arrows  Move     Space / C  Jump, then air jump\nJ  Fresh-tap strike combo     K  Raise / hold shield\nShift  Roll     S + Space  Drop / dive\nW / S  Climb ladders     Q  Sound tap\nE  Interact     TAB  Field journal     M  Mute\n\nR resets this district's objectives, guards and cargo.\nYour build, sight choice and archives are kept.","panel_footer":"ESC Resume    R Reset district    N Title"})
 	elif state=="journal":
-		var lines:="LEVEL %d / %s\n%s\n\n"%[sectors[sector].level,sectors[sector].get("level_name",""),sectors[sector].title]
-		for goal in goals:lines+=("✓ " if goal.completed else "○ ")+goal.label+(" (optional)" if goal.optional else "")+"\n"
-		lines+="\nBuild: "+lens+" / "+", ".join(upgrades)+"\nAll progress gates are objectives, never elapsed time."
-		snapshot.merge({"panel_override":true,"panel_title":"FIELD JOURNAL","panel_body":lines,"panel_footer":"TAB / ESC  Return"})
+		var rows:=_journal_rows()
+		var pages:=maxi(1,ceili(rows.size()/5.0))
+		journal_page=clampi(journal_page,0,pages-1)
+		var lines:="%s · Page %d/%d\n\n"%[sectors[sector].title,journal_page+1,pages]
+		for i in range(journal_page*5,mini(rows.size(),journal_page*5+5)):lines+=rows[i]+"\n"
+		lines+="\nNext: "+_journal_next_step()+"\nBuild: "+lens+(" / "+", ".join(upgrades) if not upgrades.is_empty() else "")
+		snapshot.merge({"panel_override":true,"panel_title":"FIELD JOURNAL","panel_body":lines,"panel_footer":"A / D or arrows Pages    TAB / ESC Return"})
 	elif state=="playing":
 		snapshot.sector_title="L%d · %s"%[sectors[sector].level,sectors[sector].title]
 		for goal in goals:
@@ -256,5 +270,38 @@ func _hud_snapshot()->Dictionary:
 		if sectors[sector].get("captain_required",false) and enemies.any(func(enemy):return is_instance_valid(enemy) and not enemy.dead and str(enemy.kind).begins_with("captain_")):
 			snapshot.objective="Captain holds the seal · evade commitment, punish recovery"
 		for goal in goals:
-			if _near(goal.global_position,60):snapshot.prompt=("[J] "+goal.label) if goal.kind=="breaker" else ("[E] "+goal.label) if goal.kind!="plate" else "Move a cargo onto the marked plate";break
+			if _near(goal.global_position,60):
+				var missing:Array[String]=[]
+				for id in goal.required_ids:
+					if not goal_done(id):missing.append(_objective_label(id))
+				if goal.completed and goal.kind!="route":snapshot.prompt="COMPLETE · "+goal.label
+				elif not missing.is_empty():snapshot.prompt="Requires: "+", ".join(missing)
+				else:snapshot.prompt=("[J] "+goal.label) if goal.kind=="breaker" else ("[E] "+goal.label) if goal.kind!="plate" else "Move a cargo onto the marked plate"
+				break
 	return snapshot
+
+func _journal_rows()->Array[String]:
+	var rows:Array[String]=[]
+	var d:Dictionary=sectors[sector]
+	for i in _relay_points().size():rows.append(("✓ " if relay_states.has(i) else "○ ")+"Activate relay %d [E]"%(i+1))
+	if d.has("freight"):rows.append(("✓ " if room.freight_receiver.is_latched else "○ ")+"Seat intact freight in receiver [J launch]")
+	for goal in goals:rows.append(("✓ " if goal.completed else "○ ")+goal.label+(" (optional)" if goal.optional else ""))
+	if d.get("captain_required",false):
+		var alive:=enemies.any(func(enemy):return is_instance_valid(enemy) and not enemy.dead and str(enemy.kind).begins_with("captain_"))
+		rows.append(("○ " if alive else "✓ ")+"Defeat the captain holding the exit seal")
+	elif d.get("lock",false):rows.append(("✓ " if remaining_enemies()==0 else "○ ")+"Release security seal: %d threats remain"%remaining_enemies())
+	rows.append(("✓ " if room.gate_open else "○ ")+"Open the onward passage")
+	return rows
+func _journal_next_step()->String:
+	if room.gate_open:return "Use the onward door [E]."
+	for goal in goals:
+		if not goal.optional and not goal.completed and goal.required_ids.all(func(id):return goal_done(id)):
+			return goal.label+(" [J]" if goal.kind=="breaker" else " [E]")
+	if sectors[sector].has("freight") and not room.freight_receiver.is_latched:return "Strike freight toward its receiver; E at cradle replaces it."
+	if not relay_on and not _relay_points().is_empty():return "Find an unlit relay and activate it [E]."
+	return "Evade the sealed exit's defenders, then punish recovery."
+
+func _objective_label(id:String)->String:
+	for goal in goals:
+		if goal.objective_id==id:return goal.label
+	return id

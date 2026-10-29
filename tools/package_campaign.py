@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Package only after the final full-route/build/foundation receipts pass."""
 from pathlib import Path
-import hashlib,json,subprocess,zipfile,time
+import hashlib,json,subprocess,zipfile,time,argparse
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT.parent/'moksha-campaign-delivery'
-GAMEPLAY='4ea2c1102466aabd9d8cf93a01be24139970363d'
+parser=argparse.ArgumentParser();parser.add_argument('--gameplay-commit',required=True);args=parser.parse_args()
+GAMEPLAY=subprocess.check_output(['git','rev-parse',args.gameplay_commit],cwd=ROOT,text=True).strip()
 def sha(path):
  h=hashlib.sha256()
  with path.open('rb') as stream:
@@ -49,7 +50,7 @@ with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
  z.write(bundle,'MOKSHA/history/MOKSHA-source-history.bundle')
  z.writestr('MOKSHA/DELIVERY_MANIFEST.json',json.dumps(manifest,indent=2)+'\n')
 with zipfile.ZipFile(archive) as z:assert z.testzip() is None
-windows=OUT/'MOKSHA-Windows-x64-4ea2c11.zip'
+windows=OUT/f'MOKSHA-Windows-x64-{GAMEPLAY[:7]}.zip'
 result={'source_zip':str(archive),'source_bytes':archive.stat().st_size,'source_sha256':sha(archive),'source_commit':commit,'gameplay_commit':GAMEPLAY,'history_bundle':str(bundle),'history_sha256':sha(bundle),'windows_zip':str(windows),'windows_bytes':windows.stat().st_size,'windows_sha256':sha(windows),'fresh_extraction_verified':False}
 (OUT/'MOKSHA-delivery-manifest.json').write_text(json.dumps(result,indent=2)+'\n')
 print(json.dumps(result,indent=2))

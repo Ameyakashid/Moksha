@@ -1,0 +1,172 @@
+{
+	"checks": [
+		{
+			"label": "enemy warning uses shared sensory schema",
+			"passed": true
+		},
+		{
+			"label": "enemy warning yields directional threat",
+			"passed": true
+		},
+		{
+			"label": "enemy warning uses telegraph audio",
+			"passed": true
+		},
+		{
+			"label": "enemy damage produces true HIT confirmation",
+			"passed": true
+		},
+		{
+			"label": "enemy damage uses hit audio",
+			"passed": true
+		},
+		{
+			"label": "enemy defeat produces true DOWN confirmation",
+			"passed": true
+		},
+		{
+			"label": "later enemy damage retires stale warning",
+			"passed": true
+		},
+		{
+			"label": "gate contour matches rendered bounds",
+			"passed": true
+		},
+		{
+			"label": "gate local bounds remain exact under transformed room parent",
+			"passed": true
+		},
+		{
+			"label": "cache contour matches rendered bounds",
+			"passed": true
+		},
+		{
+			"label": "uncollected cache exists in sonar geometry",
+			"passed": true
+		},
+		{
+			"label": "cache pickup records archive",
+			"passed": true
+		},
+		{
+			"label": "picked cache is immediately absent from sonar",
+			"passed": true
+		},
+		{
+			"label": "archive pickup persists immediately",
+			"passed": true
+		},
+		{
+			"label": "title and continue retain collected archive",
+			"passed": true
+		},
+		{
+			"label": "title and continue retain current kill statistics",
+			"passed": true
+		},
+		{
+			"label": "collected cache stays absent after room reload",
+			"passed": true
+		},
+		{
+			"label": "relay contour matches rendered bounds",
+			"passed": true
+		},
+		{
+			"label": "relay local bounds remain exact under transformed room parent",
+			"passed": true
+		},
+		{
+			"label": "station contour matches rendered bounds",
+			"passed": true
+		},
+		{
+			"label": "station local bounds remain exact under transformed room parent",
+			"passed": true
+		},
+		{
+			"label": "physical PC active phase commits strike event",
+			"passed": true
+		},
+		{
+			"label": "one PC strike becomes one normalized attack",
+			"passed": true
+		},
+		{
+			"label": "physical PC strike uses swing audio",
+			"passed": true
+		},
+		{
+			"label": "normalization preserves immutable PC strike origin",
+			"passed": true
+		},
+		{
+			"label": "one real enemy strike debits player health 60 to 48",
+			"passed": true
+		},
+		{
+			"label": "one actual hurt was committed by PC",
+			"passed": true
+		},
+		{
+			"label": "one true hurt produces one damage pulse without duplicate",
+			"passed": true
+		},
+		{
+			"label": "true player damage uses hurt audio",
+			"passed": true
+		},
+		{
+			"label": "damage pulse keeps PC committed origin instead of fabricated offset",
+			"passed": true
+		},
+		{
+			"label": "physical recovery landing uses impact audio",
+			"passed": true
+		},
+		{
+			"label": "pause freezes launched rigid prop",
+			"passed": true
+		},
+		{
+			"label": "pause freezes physical player",
+			"passed": true
+		},
+		{
+			"label": "pause freezes room and active-play clocks",
+			"passed": true
+		},
+		{
+			"label": "pause freezes sonar fade and event intake",
+			"passed": true
+		}
+	],
+	"diagnostics": {
+		"physical_hit": [
+			{
+				"audio": "hurt",
+				"kind": "player_damage",
+				"loudness": 1.0,
+				"origin": "(700.0, 299.98)"
+			},
+			{
+				"audio": "prop",
+				"kind": "landing",
+				"loudness": 0.35,
+				"origin": "(694.5834, 299.98)"
+			}
+		],
+		"physical_swing": [
+			{
+				"audio": "swing",
+				"kind": "attack",
+				"loudness": 1.0,
+				"origin": "(100.0, 279.98)"
+			}
+		]
+	},
+	"engine": "4.6.3-stable (official)",
+	"failures": [],
+	"physics_hz": 60,
+	"scope": "Headless integration review. PC attack/hurt/landing and pause use real physics callbacks; enemy warning uses ordinary input; enemy damage schema, cache interactions and marker bounds use explicitly direct boundary probes. No rendered/manual full-route claim."
+}

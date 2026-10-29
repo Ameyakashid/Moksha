@@ -68,7 +68,7 @@ static func _coolant() -> Dictionary:
 
 static func _warden() -> Dictionary:
 	return {"id":"crown_last_warden","title":"05.6 / THE LAST AUTHORITY","subtitle":"Outer watch • command dais • maintenance escape loops","width":4200,"top":-460,"theme":"interior","boss_name":"CROWN WARDEN","lock":true,"station":Vector2(240,300),
-	"text":"WARDEN: Someone must hold this command.\nOPERATIVE: Holding a command is not the same as choosing it.\nThe final guard waits at the command dais; the maintenance loops remain open.","hint":"One final Warden, not a wave gauntlet. Break sightlines on the solid plinths, approach sentries from the service galleries, and use both recovery ladders.",
+	"text":"WARDEN: Someone must hold this command.\nOPERATIVE: Holding a command is not the same as choosing it.\nThe final guard waits at the command dais; the maintenance loops remain open.","hint":"This security seal requires the Warden and all five watch guards defeated. Open the dais interlock too. Use solid plinths for cover and both recovery ladders.",
 	"platforms":[Rect2(420,135,380,18),Rect2(940,80,400,18),Rect2(1460,135,360,18),Rect2(1900,245,180,55),Rect2(2170,190,320,18),Rect2(2540,120,32,130),Rect2(2660,135,300,18),Rect2(3060,245,180,55),Rect2(3300,190,340,18),Rect2(2110,-40,330,18),Rect2(2700,-40,330,18),Rect2(3730,135,270,18)],
 	"ladders":[[540,300,165],[1100,300,220],[1580,300,165],[2270,300,110],[2350,190,230],[2810,300,165],[2910,135,175],[3470,300,110],[3850,300,165]],
 	"enemies":[[710,"listener",135],[1210,"sentinel",80],[1730,"sentry",135],[2320,"sentry",190],[2770,"warden",300],[3410,"sentry",190]],"props":[[500,300],[1020,80],[1520,135],[2230,190],[2720,-40],[3200,300]],

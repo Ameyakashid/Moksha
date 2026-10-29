@@ -7,7 +7,7 @@ static func sectors()->Array[Dictionary]:
 	var intake:Dictionary=preload("res://demo/areas/quarantine_intake.gd").sector().duplicate(true)
 	intake.title="QUARANTINE / TWO WAYS THROUGH";intake.level=1;intake.level_name="CITY WITHOUT A MASTER"
 	intake.captains=[{"kind":"captain_lancer","at":Vector2(2000,300)}];intake.captain_required=true
-	intake.text+="\nThe lancer holds the crossing seal. Dodge its committed charge."
+	intake.text="Restore the crossing relay, then defeat the lancer holding its seal.\nOther patrols can be bypassed. Dodge the lancer's committed charge.\nThe upper maintenance route and ground lane meet at the crossing."
 	intake.route=[Vector2(1430,230),Vector2(1540,0),Vector2(2355,-280)]
 	return [market,_clinic(),_tram(),_archives(),_evacuation(),intake]
 static func _clinic()->Dictionary:
@@ -31,7 +31,7 @@ static func _tram()->Dictionary:
 	"objectives":[{"id":"schematic","label":"Recover depot circuit map","kind":"recover","at":Vector2(1710,50)},{"id":"auxiliary","label":"Route tram auxiliary current","kind":"route","target":2,"at":Vector2(3410,-145),"requires":["schematic"]},{"id":"brake","label":"Break the welded tram brake","kind":"breaker","at":Vector2(6250,50),"requires":["auxiliary"]}],
 	"objective_doors":[{"at":Vector2(5900,210),"size":Vector2(24,180),"requires":["auxiliary"]}],
 	"hazards":[{"at":Vector2(2460,294),"size":Vector2(100,12),"period":3.4},{"at":Vector2(4780,294),"size":Vector2(100,12),"period":3.9,"phase":1.0}],
-	"cache":Vector2(3990,-210),"archive":"TRAM RECORD / The city used to run on timetables. Now every departure requires permission from above.","signs":[[Vector2(500,135),"SERVICE CATWALK ^ / ELECTRIFIED TRACK >"],[Vector2(3260,-190),"AUXILIARY TARGET: CIRCUIT 2"],[Vector2(6100,5),"BRAKE CABIN [E]"]],
+	"cache":Vector2(3990,-210),"archive":"TRAM RECORD / The city used to run on timetables. Now every departure requires permission from above.","signs":[[Vector2(500,135),"SERVICE CATWALK ^ / ELECTRIFIED TRACK >"],[Vector2(3260,-190),"AUXILIARY TARGET: CIRCUIT 2"],[Vector2(6100,5),"BRAKE HOUSING"]],
 	"route":[Vector2(1700,50),Vector2(3400,-145),Vector2(6250,50),Vector2(7155,300)]}
 static func _archives()->Dictionary:
 	return {"id":"city_records","level":1,"level_name":"CITY WITHOUT A MASTER","title":"RECORDS UNDER THE RAIN","subtitle":"Old squad archive · channel crossing · roof antenna","width":5600,"top":-500,"theme":"city",
@@ -45,12 +45,12 @@ static func _archives()->Dictionary:
 	"route":[Vector2(2320,230),Vector2(4270,-275),Vector2(5555,300)]}
 static func _evacuation()->Dictionary:
 	return {"id":"city_evac_spine","level":1,"level_name":"CITY WITHOUT A MASTER","title":"THE EVACUATION SPINE","subtitle":"Switchback terraces · refuge control · checkpoint approach","width":6800,"top":-460,"theme":"city",
-	"text":"Before you enter the tower, give the city a way out.\nRecover the shelter keys, then open both separated refuge pods.\nThe patrols can keep their posts. They cannot close these doors again.","hint":"Two evacuation branches share a fixed street return. The shortcut opens after the first rescue.",
+	"text":"Before you enter the tower, give the city a way out.\nRecover the shelter keys, then open the eastern refuge.\nThe western refuge is an optional rescue and shortcut.\nThe patrols can keep their posts. They cannot close these doors again.","hint":"East refuge is required. The optional west rescue grants vitality and opens the shortcut.",
 	"platforms":[Rect2(320,245,180,55),Rect2(580,180,300,18),Rect2(1040,115,320,18),Rect2(1520,50,350,18),Rect2(2030,-15,350,18),Rect2(2540,-80,350,18),Rect2(3050,-145,350,18),Rect2(3560,-210,360,18),Rect2(4100,-145,360,18),Rect2(4640,-80,360,18),Rect2(5180,-15,360,18),Rect2(5720,50,360,18),Rect2(6260,115,360,18),Rect2(1920,245,200,55),Rect2(3980,240,200,60)],
 	"ladders":[[720,300,120],[1710,300,250],[2710,300,380],[3230,300,445],[3750,300,510],[4270,300,445],[5370,300,315],[6400,300,185]],
 	"enemies":[[970,"sentinel",300],[1350,"sentry",115],[2110,"listener",300],[2350,"sentinel",-15],[2830,"sentry",-80],[3500,"listener",300],[3800,"sentinel",-210],[4450,"sentry",300],[4900,"listener",-80],[5500,"sentinel",300],[5980,"sentry",50],[6500,"listener",115]],
 	"props":[[840,300],[1690,50],[2430,300],[3120,-145],[4090,300],[4750,-80],[5840,50]],
 	"objectives":[{"id":"keys","label":"Recover municipal shelter keys","kind":"recover","at":Vector2(3220,-145)},{"id":"west","label":"Open western refuge","kind":"rescue","at":Vector2(1700,50),"requires":["keys"],"optional":true,"reward":"vitality"},{"id":"east","label":"Open eastern refuge","kind":"rescue","at":Vector2(6400,115),"requires":["keys"]},{"id":"runner","label":"Recover runner's augment","kind":"recover","at":Vector2(3770,-210),"optional":true,"reward":"agility"}],
 	"objective_doors":[{"at":Vector2(4000,190),"size":Vector2(24,220),"requires":["west"]}],
-	"cache":Vector2(5370,-15),"archive":"REFUGE / You hear a child asking whether the old man is a soldier. Nobody answers. The doors open anyway.","signs":[[Vector2(1540,5),"WEST REFUGE"],[Vector2(3070,-190),"SHELTER KEYS"],[Vector2(6230,70),"EAST REFUGE"]],
+	"cache":Vector2(5370,-15),"archive":"REFUGE / You hear a child asking whether the old man is a soldier. Nobody answers. The doors open anyway.","signs":[[Vector2(1540,5),"OPTIONAL WEST REFUGE"],[Vector2(3070,-190),"SHELTER KEYS"],[Vector2(6230,70),"EAST REFUGE"]],
 	"route":[Vector2(3230,-145),Vector2(1700,50),Vector2(6400,115),Vector2(6755,300)]}

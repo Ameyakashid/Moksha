@@ -1,12 +1,24 @@
 extends Node2D
+const Caption=preload("res://campaign/views/objective_caption.gd")
+const Cabinet=preload("res://assets/props/utility_cabinet.tres")
+func _ready() -> void:
+	# Machine and caption paint must never cover actor/combat silhouettes.
+	z_index=-1
+	var caption:=Node2D.new();caption.name="Caption";caption.set_script(Caption);caption.z_index=4;add_child(caption)
 func _process(_dt: float) -> void: queue_redraw()
 func _draw() -> void:
 	var o = get_parent()
-	var c := Color("67e0be") if o.completed else Color("ffc278") if o.available else Color("677985")
+	var c := Color("67e0be") if o.completed else Color("ffc278") if o.available else Color("bac7cd")
 	if o.kind == "breaker":
-		draw_style_box(_panel(c),Rect2(-18,-42,36,42))
-		draw_line(Vector2(-11,-34),Vector2(11,-8),c,3)
-		draw_line(Vector2(11,-34),Vector2(-11,-8),c,3)
+		draw_texture_rect(Cabinet,Rect2(-18,-42,36,42),false,Color(.7,.78,.8,1))
+		if not o.completed:
+			var cover:=PackedVector2Array([Vector2(-12,-34),Vector2(9,-34),Vector2(13,-30),Vector2(13,-11),Vector2(9,-7),Vector2(-9,-7),Vector2(-13,-11),Vector2(-13,-30)])
+			draw_colored_polygon(cover,Color("3a4850"))
+			cover.append(cover[0]);draw_polyline(cover,Color("9a7b58"),1,true)
+			for bolt in [Vector2(-9,-30),Vector2(9,-30),Vector2(-9,-11),Vector2(9,-11)]:draw_circle(bolt,1.2,Color("b28a5d"),true,-1,true)
+			for y in [-25,-21,-17]:draw_line(Vector2(-7,y),Vector2(7,y),Color("586975"),1.4,true)
+		else:draw_rect(Rect2(-10,-31,20,19),Color("101e25"))
+		draw_rect(Rect2(-10,-4,20,2),c)
 	elif o.kind == "plate":
 		draw_rect(Rect2(-38,-5,76,5),c)
 		draw_line(Vector2(-32,-8),Vector2(32,-8),c,2)
@@ -19,13 +31,11 @@ func _draw() -> void:
 		draw_circle(Vector2(0,-20),13,c,false,2)
 		draw_rect(Rect2(-5,-29,10,18),c)
 	else:
-		draw_style_box(_panel(c),Rect2(-18,-42,36,42))
+		draw_texture_rect(Cabinet,Rect2(-18,-42,36,42),false,Color(.8,.86,.9,1))
 		draw_rect(Rect2(-12,-35,24,19),Color("102b36"))
 		if o.kind == "route":
 			for i in 3: draw_circle(Vector2(-8+i*8,-25),2,c if o.setting==i else Color("364c59"))
 		else: draw_line(Vector2(-9,-26),Vector2(9,-26),c,2)
-	var caption: String = o.label + (" ✓" if o.completed else " [PROP]" if o.kind=="plate" else " [J]" if o.kind=="breaker" else " [E]")
-	draw_string(ThemeDB.fallback_font,Vector2(-60,-74 if o.kind=="rescue" else -54),caption,HORIZONTAL_ALIGNMENT_LEFT,-1,10,c)
-	if o.kind=="route": draw_string(ThemeDB.fallback_font,Vector2(-50,-66),("UNROUTED / TARGET %d"%o.target) if o.setting<0 else ("CIRCUIT %d / TARGET %d" %[o.setting,o.target]),HORIZONTAL_ALIGNMENT_LEFT,-1,9,c)
 func _panel(c:Color)->StyleBoxFlat:
 	var p:=StyleBoxFlat.new();p.bg_color=Color("122632");p.border_color=c;p.set_border_width_all(2);p.set_corner_radius_all(3);return p
+

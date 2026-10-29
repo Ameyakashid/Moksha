@@ -1,0 +1,8 @@
+Staged visual-only patch, awaiting native before/after review.
+Copy campaign/presentation/object_presentation.gd and ladder_skin.gd into QA.
+Host integration in QA only:
+- after room/player/enemies/props created, add Node with object_presentation.gd as room child
+- call bind(room), set_sight_enabled(not blind), set_debug_wireframe(debug_wireframe)
+- synchronize sight/debug alongside actor_paint in load/tick/choice/F8
+- room ownership frees adapter on sector change; clear() restores original paint
+No controller, physics, sprite transform, charge tint, or sonar modifications.

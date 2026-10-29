@@ -1,12 +1,12 @@
 extends "res://demo/views/hud_view.gd"
 ## Paint-only campaign panel. Wrap measured glyph widths rather than clipping lore/UI.
-func panel_lines(text:String,size:int)->Array[String]:
+func panel_lines(text:String,size:int,width:=528.0)->Array[String]:
 	var result:Array[String]=[]
 	for paragraph in text.split("\n"):
 		var line:=""
 		for word in paragraph.split(" "):
 			var next:=word if line.is_empty() else line+" "+word
-			if not line.is_empty() and ThemeDB.fallback_font.get_string_size(next,HORIZONTAL_ALIGNMENT_LEFT,-1,size).x>528:
+			if not line.is_empty() and ThemeDB.fallback_font.get_string_size(next,HORIZONTAL_ALIGNMENT_LEFT,-1,size).x>width:
 				result.append(line);line=word
 			else:line=next
 		result.append(line)
@@ -25,6 +25,16 @@ func _panel(c:Node2D,title:String,body:String,footer:String)->void:
 	c.draw_line(Vector2(54,283),Vector2(586,283),Color("354e58"),1)
 	_text(c,footer,Vector2(54,307),11,Color("b6d6d2"))
 func _text(c:Node2D,text:String,p:Vector2,size:=10,color:=Color("d8e7e6"))->void:
+	if text=="J combo   K guard/parry   Shift roll   Q tap   E use   R retry   Esc pause":
+		text="J strike  K shield  Shift roll  Q tap  E use  TAB journal  R reset district  ESC pause"
+	if p==Vector2(23,62) and size==10:
+		var prose_size:=size
+		var prose_lines:=panel_lines(text.replace("\n"," "),prose_size,594)
+		while prose_lines.size()>3 and prose_size>8:
+			prose_size-=1;prose_lines=panel_lines(text.replace("\n"," "),prose_size,594)
+		for line in prose_lines:
+			c.draw_string(ThemeDB.fallback_font,p,line,HORIZONTAL_ALIGNMENT_LEFT,-1,prose_size,color);p.y+=prose_size+5
+		return
 	for source_line in text.split("\n"):
 		var line:String=source_line
 		var width:=626.0-p.x
