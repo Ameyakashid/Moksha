@@ -60,3 +60,10 @@ advertises headless **dummy-only** rendering, and the executor has no DISPLAY,
 Xvfb, GPU device or Vulkan ICD. The separate cloud browser cannot supply a display
 to this filesystem. No emulated image is presented as a native game screenshot.
 Use the actual showroom on a supported Godot display for visual QA and F12 output.
+
+Actual campaign integration regression also passes:
+`godot --headless --path . --script res://campaign/presentation/tests/runtime_sight_contract.gd`.
+It starts the real campaign with saves disabled, checks art ordering/old-backdrop
+replacement, performs the actual sight-choice flow, checks immediate hidden
+architecture and terrain, reloads while blind, and starts a fresh sighted run.
+This verifies runtime state, not rendered pixels or human visibility perception.
