@@ -103,3 +103,10 @@ snapshot preservation including weapon/shield geometry, actual headless draw
 lifecycle without triangulation errors, stable source identity/no extra motor
 subscription, sight gating, debug toggles, enemy hand geometry and detach restore.
 This is structural/geometry verification, **not native rendered visual approval**.
+
+The campaign host now exposes **F8** to switch colored actors/original wireframe.
+The integrated `runtime_sight_contract.gd` additionally passes actual adapter
+attachment, debug switch, immediate colored-player/enemy concealment on trade,
+blind district rebuild, old-adapter disposal, blind retry and fresh-run restoration.
+District rebuild is tested through the host's loader; this is not a claim that the
+test played through or validated the district's objective/combat progression.
