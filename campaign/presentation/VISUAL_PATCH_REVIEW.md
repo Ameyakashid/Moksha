@@ -50,3 +50,28 @@ checks remain green. These checks do not substitute for native visual readabilit
 
 No production gameplay file is edited by this patch directory. Host integration,
 final native capture review, refreeze and export remain separate release steps.
+
+## Final native review outcome
+
+Actual native frames `final-fixture-l2.png`, `final-fixture-l3.png` and
+`final-fixture-l4.png` now show the intended furnace, cistern and server-room
+motifs, with a material Exchange terminal. `final-upper-cistern-corrected.png`
+confirms the upper camera still has layered tank/window bands and the full locked
+objective caption stays inside the viewport, above the shutter.
+`final-guard-caption-regression.png` confirms NPC/attack warning paint remains
+in front of the industrial breaker cover. These are scoped visual improvements,
+not a claim that every frame of the whole campaign was inspected.
+
+The objective machine now paints at z−1, below actors; its separate caption child
+paints at relative z4 (world z3). Caption placement converts through the actual
+canvas transform and inverse, first culling the actual objective anchor outside
+the viewport plus16px, then shifting only visible-object text within8px side
+margins. This prevents both edge clipping and offscreen-label piles. The complete
+caption subtree remains inside the authoritative blind-hidden Presentation tree.
+`tests/objective_paint_contract.gd` passes149 draw/state/layer checks, including
+left/right edges, offscreen anchors, three camera offsets, zoom0.5/1/2 and blind
+concealment. Original collider/objective progression state remains unchanged.
+
+The earlier pre-review “native screenshot unavailable” notes are historical;
+these later captures were obtained through the supported native cloud-computer
+review route. Windows execution remains separately untested.

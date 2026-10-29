@@ -2,12 +2,12 @@
 
 ## Windows
 
-1. Extract **all** files from `MOKSHA-Windows-x64-4ea2c11.zip`.
+1. Extract **all** files from `MOKSHA-Windows-x64-9e22722.zip`.
 2. Open its `MOKSHA-Windows` folder.
 3. Run **`Run-MOKSHA.cmd`** or **`MOKSHA.exe`**. Keep `MOKSHA.pck` beside the EXE. No Godot editor installation is needed for this export.
 4. Choose1 Neutral,2 Strength or3 Agility; Enter starts a new campaign. C continues a checkpoint.
 
-The executable was exported from verified official Godot4.6.3 templates. It is not code-signed; do not disable antivirus/security controls to run it. The package contains checksums, engine/project licenses and build notes. The export and its actual packed content were tested on Linux/headless; native Windows execution and rendered pixels were not available in this executor.
+The executable was exported from verified official Godot4.6.3 templates. It is not code-signed; do not disable antivirus/security controls to run it. The package contains checksums, engine/project licenses and build notes. The export and its actual packed content were tested on Linux/headless; native Windows execution remains unverified. Separately, representative source scenes and real inputs were reviewed in native Godot on the supported cloud desktop, with recorded screenshots; that is not a full human playthrough.
 
 Full-color environment/operative/security presentation is enabled by default. F8 toggles the original wireframe debug view without changing rules. See the root README for the complete controls. Quick essentials: A/D move; Space jump/air jump; J strike; K parry/guard; Shift roll; W/S ladder; E use; Q sound; Tab journal; Esc pause.
 

@@ -21,14 +21,14 @@ On the title, **1** Neutral, **2** Strength, **3** Agility selects a starting le
 | Drop through thin support / aerial dive | S + Space |
 | Sound tap: maps actual nearby contours | Q |
 | Use nearby item, routing console, install, rescue pod, relay or exit | E |
-| Field journal / return | Tab |
+| Field journal / return; journal pages | Tab; A/D or arrows |
 | Retry district | R |
 | Pause / resume | Esc |
 | Mute | M |
 | Original wireframe presentation toggle (no rule changes) | F8 |
 | Screenshot when a real renderer is available | F12 |
 
-Routing consoles begin **UNROUTED** and cycle **0 → 1 → 2 → 0**. Match the engraved target; dependencies must be complete. **Cross-braced breaker housings require real J strikes, not E.** Pressure plates accept physical cargo; they are optional so a broken prop cannot deadlock the campaign. Freight receivers require the intact marked cargo to land and settle from real movement/contact; E at its cradle replaces lost cargo without healing or resetting enemies.
+Routing consoles begin **UNROUTED** and cycle **0 → 1 → 2 → 0**. Match the engraved target; dependencies must be complete. **Marked breaker housings require real J strikes, not E.** Pressure plates accept physical cargo; they are optional so a broken prop cannot deadlock the campaign. Freight receivers require the intact marked cargo to land and settle from real movement/contact; E at its cradle replaces lost cargo without healing or resetting enemies.
 
 ## The five levels
 
@@ -69,6 +69,6 @@ The original Oct23 demo is still playable at `demo/mission.tscn`; its historical
 
 ## Evidence and limits
 
-See `campaign/docs/VERIFICATION.md` for current tests and exact source identity. Headless contracts, isolated chapter input routes, complete input campaigns and native visuals are different evidence categories. Native pixel/feel review and audible mix review require the user's local renderer/audio device; the current executor cannot start its display server. Human first-play timing is unverified.
+See `campaign/docs/VERIFICATION.md` for current tests and exact source identity. Headless contracts, isolated chapter input routes, complete input campaigns and native visuals are different evidence categories. Actual native Godot screenshots and bounded manual-input review cover representative areas in all five levels, panels, combat telegraphs and blind concealment; visual defects were fixed and re-rendered. Direct scene fixtures are labelled separately from complete input runs. Full native campaign traversal, audible mix, Windows hardware behavior and first-play human timing remain unverified.
 
 Original MOKSHA assets are reused separately from gameplay. Actual MIT Beehave blackboard code is wired into campaign objective/build context with its license and pinned source recorded in `campaign/vendor/beehave/`. No proprietary game/decompiled commercial art or code is included; REA is tooling, not a license to copy a commercial game. See `campaign/docs/REUSE.md`.

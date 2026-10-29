@@ -28,3 +28,8 @@ Historical diagnostics, including the embedded Dispatch terminal failure and pre
 ## Later test-only maintenance (2026-10-29)
 
 The 'matching current' statement above describes the accepted batch's capture time. After that batch, two **unexecuted historical fixture files** received narrow roster-count corrections: `simulation/tests/sentry_regression.gd`13→20 and `simulation/tests/listener_regression.gd`13→21, with matching wording. Independent untouched-baseline reproduction and exact diff review are recorded in `campaign/qa_audit/test_only_maintenance_manifest.json`. No production resource or this route's executing observer/ancestor changed. Raw accepted reports and their original broad manifests are preserved; the later clean continuous-campaign matrix and72-stage foundation use the corrected final source.
+
+
+## Later rendered-review revision
+
+This directory preserves acceptance of the earlier post-damage-fix source snapshot. The final9e22722 build subsequently changes presentation, panel input/guidance and authored text; these older hashes are not claimed to match that revision. Current full32-district route results are `campaign/tests/full_route_matrix.json` and `build_lens_matrix.json`, with exact source hashes in each report. Do not rerun this historical summary and interpret later-source mismatch as a physics regression, or relabel the old records as current.

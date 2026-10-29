@@ -286,7 +286,7 @@
 			"passed": true
 		},
 		{
-			"detail": "{ \"deaths\": [1, 1], \"elapsed\": [2.29999999999999, 2.26666666666666], \"metrics\": [[{ \"blind\": true, \"health\": 53.0, \"seconds\": 12.5, &\"sector\": 2 }], [{ \"blind\": true, \"health\": 53.0, \"seconds\": 12.5, \"sector\": 2.0 }]] }",
+			"detail": "{ \"deaths\": [1, 1], \"elapsed\": [2.43333333333333, 2.4], \"metrics\": [[{ \"blind\": true, \"health\": 53.0, \"seconds\": 12.5, &\"sector\": 2 }], [{ \"blind\": true, \"health\": 53.0, \"seconds\": 12.5, \"sector\": 2.0 }]] }",
 			"label": "Continue preserves run totals and sector metric records",
 			"passed": true
 		},
@@ -387,8 +387,14 @@
 		},
 		{
 			"kind": "prop_impact",
-			"loudness": 1.30638745625814,
-			"origin": "(2162.21, 272.6138)",
+			"loudness": 1.20028254191081,
+			"origin": "(2136.677, 273.7098)",
+			"source_id": 208557574317
+		},
+		{
+			"kind": "prop_impact",
+			"loudness": 0.707488377888997,
+			"origin": "(2183.83, 271.6725)",
 			"source_id": 208557574317
 		},
 		{
@@ -407,49 +413,49 @@
 			"kind": "prop_impact",
 			"loudness": 2.0,
 			"origin": "(2200.0, 300.0)",
-			"source_id": 405488535624
+			"source_id": 419128412232
 		},
 		{
 			"kind": "prop_impact",
 			"loudness": 1.4,
 			"origin": "(450.0, 280.0)",
-			"source_id": 409733170885
+			"source_id": 423373047493
 		},
 		{
 			"kind": "prop_impact",
 			"loudness": 0.8,
 			"origin": "(1500.0, 205.0)",
-			"source_id": 415756191779
+			"source_id": 429396068387
 		},
 		{
 			"kind": "prop_impact",
 			"loudness": 1.4,
 			"origin": "(3440.0, -450.0)",
-			"source_id": 409733170885
+			"source_id": 423373047493
 		},
 		{
 			"kind": "prop_impact",
 			"loudness": 0.8,
 			"origin": "(3800.0, -340.0)",
-			"source_id": 415806523308
+			"source_id": 429446399916
 		},
 		{
 			"kind": "prop_impact",
 			"loudness": 1.4,
 			"origin": "(5520.0, -260.0)",
-			"source_id": 409733170885
+			"source_id": 423373047493
 		},
 		{
 			"kind": "prop_impact",
 			"loudness": 0.8,
 			"origin": "(5800.0, 205.0)",
-			"source_id": 415856854915
+			"source_id": 429496731523
 		},
 		{
 			"kind": "weapon_tap",
 			"loudness": 0.8,
 			"origin": "(2580.0, -150.0)",
-			"source_id": 409733170885
+			"source_id": 423373047493
 		}
 	],
 	"failures": [],

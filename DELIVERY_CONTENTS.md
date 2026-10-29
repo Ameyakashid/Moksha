@@ -2,7 +2,7 @@
 
 ## Playable Windows package
 
-`MOKSHA-Windows-x64-4ea2c11.zip` contains a real64-bit Windows release export from gameplay/source commit `4ea2c1102466aabd9d8cf93a01be24139970363d`. Extract the whole archive and run `MOKSHA-Windows/Run-MOKSHA.cmd` or `MOKSHA.exe`; keep the PCK beside it. Engine templates were verified against official release hashes; engine/project/font/Beehave licenses are included. Exported-pack smoke passed on Linux/headless. Native Windows execution/pixels were not verified.
+`MOKSHA-Windows-x64-9e22722.zip` contains a real64-bit Windows release export from gameplay/source commit `9e22722ebc5835bec0aed003ea71de47463fc324`. Extract the whole archive and run `MOKSHA-Windows/Run-MOKSHA.cmd` or `MOKSHA.exe`; keep the PCK beside it. Engine templates were verified against official release hashes; engine/project/font/Beehave licenses are included. Exported-pack smoke passed on Linux/headless. Native Windows execution/pixels were not verified.
 
 Later source commits may add final reports and documentation; gameplay bytes must remain identical to the Windows build commit. Exact archive hashes live in the final delivery manifest, not this descriptive file.
 
@@ -18,6 +18,6 @@ The source ZIP contains the editable Godot4.6.3 project,32 districts across five
 - `campaign/tests/`, `campaign/qa_audit/`, `campaign/enemy_tests/`, `campaign/route_tests/final/`, `campaign/route_tests_45/final/`: focused and input-route evidence. Historical failures remain labelled separately.
 - `simulation/evidence/foundation_report.json`: corrected72-stage inherited aggregate.
 
-Requested15–20minutes per level remains **unverified human duration**. Bot times are reported without a multiplier. No result claims native visual/game-feel or audible-mix approval.
+Requested15–20minutes per level remains **unverified human duration**. Bot times are reported without a multiplier. Bounded native rendered/manual-input review is documented with45 captured screenshots; it is not complete human campaign testing or audible-mix approval.
 
 The original Oct23 delivery notes are preserved in `docs/OCT23_DELIVERY_CONTENTS.md`; they describe the older demo, not this entry scene.

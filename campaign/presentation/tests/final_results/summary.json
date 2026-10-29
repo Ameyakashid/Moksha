@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "name": "presentation_contract",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "script_sha256": "a23604ca67dddbd59fb044ceb6f99d87d7b68707145ded778319ed32e6c16533",
+      "tail": [
+        "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+        "",
+        "PRESENTATION_CONTRACT_PASS: 5 themes, gaps, exact surfaces, blind/reconfigure, no physics"
+      ]
+    },
+    {
+      "name": "actor_skin_contract",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "script_sha256": "caf74bbee5bb79ff30fe360f5b1621cd76fabc489b6c990fffd9b82c5d01ee47",
+      "tail": [
+        "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+        "",
+        "ACTOR_SKIN_CONTRACT_PASS: 743 pose/telegraph/visibility/lifecycle checks"
+      ]
+    },
+    {
+      "name": "object_skin_contract",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "script_sha256": "91b9369bbb059425406103e57f78679a70d57ecd8fb19c6506bd45fb7ae7c56f",
+      "tail": [
+        "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+        "",
+        "OBJECT_SKIN_CONTRACT_PASS: 19 checks"
+      ]
+    },
+    {
+      "name": "objective_paint_contract",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "script_sha256": "7685540fb92286b34cfc6d143b4b54af15da44b937304a7d12f61edeb0a59e2d",
+      "tail": [
+        "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+        "",
+        "OBJECTIVE_PAINT_CONTRACT_PASS: 149 draw/state/layer checks"
+      ]
+    },
+    {
+      "name": "runtime_sight_contract",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "script_sha256": "24727d7ad90aa9d84b3d353cc1b72fa83daec68fa0bf026673dbd480a268693a",
+      "tail": [
+        "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+        "",
+        "RUNTIME_SIGHT_CONTRACT_PASS: sighted, debug, sacrifice, immediate tree hide, district change, retry, new run"
+      ]
+    }
+  ],
+  "gameplay_commit": "9e22722ebc5835bec0aed003ea71de47463fc324"
+}

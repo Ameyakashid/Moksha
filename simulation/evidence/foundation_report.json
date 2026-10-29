@@ -126,19 +126,25 @@
     "campaign/logic/objective.gd": "60668134fbb5cc75c0cb9d87463a1994587240117162a29d2252540bc9fd00a4",
     "campaign/logic/breaker_contact.gd": "8e7123c0806a61cb757a3827dcdfd7778cf65257631af774f38014a1258174db",
     "campaign/logic/objective.tscn": "21eed39a0adea04af8e57f07aeb71981ccc97be97df49484972267021e2d6270",
-    "campaign/logic/campaign.gd": "511bec8adb50457b48847ffb49a9f05eecadac5b2c5dc54638bccf07900b965c",
+    "campaign/logic/campaign.gd": "6abd12ef08361f4ff92f5ee1830dfe983b85fda65482cdb2aa8681405afae0fd",
     "campaign/logic/objective_door.tscn": "6468cfe5ee4d4771979b33109cf43987c88390287f637f89c496c17275f77cd4",
     "campaign/route_tests_45/input_probe.gd": "c6ae9caaf2f6d941c09b8b0b8c2bf11d38e542c3dcdbf1f8db55fb8d5fd4f17a",
+    "campaign/tests/prose_bounds.gd": "669fd8530b675d3b4ba4b53867b0d8c97af6874d99b07c5368e420c63c497636",
+    "campaign/tests/ui_player_guidance.gd": "af7fd0cd475881264e221f0037f81ef90549f647c4a308b9a4ec3ba6bb6e5ea1",
     "campaign/tests/campaign_smoke.gd": "9be2c355cd6b054eb0e5c32b814b47ef2cd348e9ec785225a805656734e00bbb",
+    "campaign/tests/journal_visual_bounds.gd": "b8533ce0104a49948b2cd569b61cc47b975f79522724eed9a119aff404880c18",
     "campaign/tests/full_campaign_route.gd": "17f219de0d2c30f62a6442e00c6d32b1db41f9c88c422edde885f467a84b8532",
     "campaign/tests/breaker_input.gd": "e86a33f011f046f9b191d278ea9c357684f657e8fe6f422eb48e7215d6646e88",
+    "campaign/tests/full_campaign_strength_route.gd": "83e5d2b04e4a89ffd9e7fdb67d1206c943fd6233fb937c8a5275c24379846f1d",
     "campaign/tests/layout_support.gd": "f1adda89fcf92e1093eb88c8d22e390e8e6ec671800b0b93675c301def3344e3",
-    "campaign/layouts/level_03.gd": "9f0172cc7c83a5285b801ad2d2d76ee48b77b0e34212db02d1b3e7dea5796f0e",
-    "campaign/layouts/level_05.gd": "cc578d20c6ea8e197a2f104491bb1560c93ab698c7d3977a782288008f07936c",
-    "campaign/layouts/level_01.gd": "ab496a8c87b64b94bf397c3fa2820768a875965e03f3fb4ded50971812a2809d",
+    "campaign/tests/full_campaign_route_120_sonar.gd": "7748c86ebeaa6239540fdf3118c89fff232a492f803130681e454e6a19211309",
+    "campaign/layouts/level_03.gd": "2a0b515c08d6bd6487994c335c91df8c6e58298671795bb0833598ed74852c97",
+    "campaign/layouts/level_05.gd": "01a3f16004e6374a2e3999a8129b4912d1904f8fcc7d162e1406546b3c3abaad",
+    "campaign/layouts/level_01.gd": "d6341d57e633c0bc2c7edbb4376aaaf250fa4d0cc60e7094b798666c9085c882",
     "campaign/layouts/level_04.gd": "fe484ce81ad740ba4630bb94abc3a4d9acb1bf950b9cc0160e8eb9623190707f",
-    "campaign/layouts/level_02.gd": "f4472b5d07233b8e2c8e5f414f5d049aa34c0207d25337e05cecb662d11e8545",
+    "campaign/layouts/level_02.gd": "73227da1ab2081a5960ffe5df3a0f1dddd00e4b677f7d2c1175dd48029f2582a",
     "campaign/qa_audit/save_draft.gd": "ba9189e31fdf7ea5e57ac223f8e3af7aa7aeb88a5727bb3695e8488fde05598e",
+    "campaign/qa_audit/object_paint_integration.gd": "b8bf0049847ebee955c30c425f0204c5b1c8c49f82ab910f18e81e0a4d9d9bba",
     "campaign/qa_audit/sensory_draft.gd": "ec1de160e5c206b909dddc69d528b35cc306599c80a4a1197080121c02a2bb88",
     "campaign/qa_audit/incoming_health.gd": "9e09487a225882edb80a5f2705b8ecd372be9467979df724075c7ccb69f37c04",
     "campaign/qa_audit/draft_audit.gd": "c1b613d037ef5ca460db729f4b60c111f511f144da5fc3964ac9d6a43899c752",
@@ -154,25 +160,38 @@
     "campaign/enemies/keeper.tscn": "2dd579aef4361a069fe59dbcb9eea9b325f29f424d0a68a90229434a0a7917c3",
     "campaign/enemies/keeper_archetype.tres": "ac98e097f3b67bbf1a0f8826ca2d97b0ae3d40b1a7793f7be0fc0a16f808aac7",
     "campaign/enemies/keeper_melee.tres": "b6a73ace7a5f89ab1e007624db6d98f15d4c24f61da0053d8559152d420752f2",
+    "campaign/presentation/object_presentation.gd": "e90445c8109ceedb25360b96cd23ac814eb59ca13f9cc5edd220e3e1a2b3cdda",
     "campaign/presentation/actor_presentation.gd": "cba5baa21a9ec872f3951d666ffc219bcf9d1ada219f671845c84e6daa7a77b3",
     "campaign/presentation/showroom.tscn": "c9f6930105e2d018b8836817a5bcb7a407086f1b9c033d66a1e789a183ed85c2",
     "campaign/presentation/showroom.gd": "50df0757c49b0acc4a20c4e710a1620a4923b8eb69dcfbc26813a4adea027981",
     "campaign/presentation/operative_skin.gd": "e1485cd9922a37d2e249af369212f92291bf09f928cf5c5187095836efe4d70d",
+    "campaign/presentation/ladder_skin.gd": "fe68d9b2d32b21d0f362455f91915a5d3981113dd6a59a3721a93840200fe3ba",
     "campaign/presentation/campaign_scenery.gd": "2bb1e33ee9df6a36687c503f13d307b3ad6a7e5004a7ccfb4dd99d384a234c25",
     "campaign/presentation/campaign_scenery.tscn": "592801ce893098b31decbc6975717b7fbffb4e35b15c5f29c463c13cb6e6d2d4",
     "campaign/presentation/terrain_skin.gd": "b83fec16425d73c0969ac6ae5e216494e181a3643eddc3e59613d3d9044408f6",
+    "campaign/presentation/station_skin.gd": "10edfcdbf5e50b89a9a4e0d262f81ed977a7444824c776243804fed6c7e45d93",
     "campaign/presentation/campaign_theme.gd": "aba43b931629508a6f21dceb8f3cfa3caf16da2b3e66a38bd432bafc0fb359e2",
-    "campaign/presentation/scenery_backdrop.gd": "aea5407a3c42064d5a18a664826a5751209a25a27280cf37eaa2368f33b27f3e",
-    "campaign/presentation/security_skin.gd": "c3f893058371b55ac212aeaac6caba77fdc20e2868e68b376589195f24138abf",
-    "campaign/views/objective_view.gd": "8b8e7189d5de9f8793cd26cc4d026fd699f5c730c9fefd4f3f1d081bf1cd8a48",
-    "campaign/views/campaign_hud.gd": "b249bde5ceb6ac7a9692bf42f4cbc61f453d5311a8812641c84df9203018e313",
+    "campaign/presentation/scenery_backdrop.gd": "e564f1eb1896534dc05b3d093b481485416e2335c2e872372df63ba5b5e39691",
+    "campaign/presentation/security_skin.gd": "a8b467c0683ac11b531e89b3778a43373720aae422115c11cc6d791947e4a0dc",
+    "campaign/views/objective_view.gd": "7069bb08c80993e89379218f248346f48d23a499dbd5fc429114f79b13ee7176",
+    "campaign/views/objective_caption.gd": "210b9b86cbdfb3bd1d15b50bf1e124ebbd5624a39ba543d29c1ca678b0256ba8",
+    "campaign/views/campaign_hud.gd": "8bc964521987df38b9f6b72d598e864caf7761c26cf0537aabdce2f851fefc37",
     "campaign/enemy_tests/guard_probe.gd": "c816a76fb9b39b57662429b17165b089de9f1996e61efe43b3bfbebf1615d13b",
     "campaign/enemy_tests/integrated_captains.gd": "bad16f94d0f0bcb07095af95c86393ca5c150ad48f860116af0bb4647da04a99",
     "campaign/enemy_tests/captain_regression.gd": "454bab4a6d8c4b3e5bc66bbe17bbd10ce50ef39224eb131fab6e8d635db04e3f",
+    "campaign/route_tests/stamping_strength_probe.gd": "52689d9b4c8aa36f93d9d864355bb62b01cea020bc1f46d7cd832ea93c355e21",
+    "campaign/route_tests/works_120_sonar_probe.gd": "b3b6a5c7de627c3da14955c0c9adc93f1345efa6ad1dbd379f65f95f848ae98f",
     "campaign/route_tests/l23_route.gd": "cde81af5c9b0fd0beddabfd9fb4b7d0cca58d9f33ebe3c2aec760c3a6a1fbbf7",
+    "campaign/tests/native_visual_fixture/panels.gd": "22f14961a3306716d637efddd7bb5728b69f94fd7590a3fbbafd0681109e15c8",
+    "campaign/tests/native_visual_fixture/ending.tscn": "0807f6d6845f03f0e9d1184a57403bd1dcbf32195f9fac8dbf13abc55d423834",
+    "campaign/tests/native_visual_fixture/dense_journal.tscn": "4918b13af5121e09ba5f674a71c1ad200c28797028d98dde181eff18f45b23bf",
+    "campaign/tests/native_visual_fixture/final_choice.tscn": "18b08a789aee64ecf74a17fddc8289efb8d41a58e47c1dda17b672789907531b",
+    "campaign/tests/native_visual_fixture/panels.tscn": "14fe1376221442399373d123dace048974800b3723dfd61a7e3c64abafaf7a84",
     "campaign/presentation/tests/presentation_contract.gd": "a23604ca67dddbd59fb044ceb6f99d87d7b68707145ded778319ed32e6c16533",
     "campaign/presentation/tests/runtime_sight_contract.gd": "24727d7ad90aa9d84b3d353cc1b72fa83daec68fa0bf026673dbd480a268693a",
+    "campaign/presentation/tests/objective_paint_contract.gd": "7685540fb92286b34cfc6d143b4b54af15da44b937304a7d12f61edeb0a59e2d",
     "campaign/presentation/tests/actor_skin_contract.gd": "caf74bbee5bb79ff30fe360f5b1621cd76fabc489b6c990fffd9b82c5d01ee47",
+    "campaign/presentation/tests/object_skin_contract.gd": "91b9369bbb059425406103e57f78679a70d57ecd8fb19c6506bd45fb7ae7c56f",
     "campaign/vendor/beehave/blackboard.gd": "9ac0abbc428393a8354ae31557ec58779e5861d2e9ec1122d9a4b4c07f971e1d",
     "campaign/assets/themes/01_rainline.tres": "33b0560c35420029920e028002646a0b6c8faccba85eeecf30711b2ac51c8cd2",
     "campaign/assets/themes/05_crown.tres": "19911be7e9890ece6f597a47ce6dbed8a0dad7220178fb0e59f29e67708e1400",
@@ -807,504 +826,504 @@
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 5.592
+      "seconds": 8.436
     },
     {
       "name": "sandbox_boot",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 0.999
+      "seconds": 1.7
     },
     {
       "name": "gym_lifecycle",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.857
+      "seconds": 3.089
     },
     {
       "name": "hearing_sandbox_boot",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.215
+      "seconds": 1.106
     },
     {
       "name": "movement_sandbox_boot",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.21
+      "seconds": 2.389
     },
     {
       "name": "impact_sandbox_boot",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.217
+      "seconds": 1.425
     },
     {
       "name": "strike_sandbox_boot",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.208
+      "seconds": 3.228
     },
     {
       "name": "boundary_review_boot",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.961
+      "seconds": 3.562
     },
     {
       "name": "actor_cargo_review_boot",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 4.011
+      "seconds": 4.738
     },
     {
       "name": "warden_review_boot",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 3.452
+      "seconds": 5.547
     },
     {
       "name": "sentry_review_boot",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 2.89
+      "seconds": 4.531
     },
     {
       "name": "bracing_sandbox_boot",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.308
+      "seconds": 2.222
     },
     {
       "name": "projectile_sandbox_boot",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.401
+      "seconds": 2.062
     },
     {
       "name": "boundary_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 3.514
+      "seconds": 5.283
     },
     {
       "name": "actor_cargo_request_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 5.5
+      "seconds": 7.904
     },
     {
       "name": "actor_cargo_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 12.487
+      "seconds": 15.487
     },
     {
       "name": "actor_cargo_defense_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 3.543
+      "seconds": 4.725
     },
     {
       "name": "warden_attack_plan_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.483
+      "seconds": 1.877
     },
     {
       "name": "shared_warden_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 7.432
+      "seconds": 10.103
     },
     {
       "name": "warden_projectile_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 2.798
+      "seconds": 3.806
     },
     {
       "name": "warden_factory_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 7.098
+      "seconds": 9.007
     },
     {
       "name": "hurt_response_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 6.544
+      "seconds": 9.231
     },
     {
       "name": "hurt_projectile_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 4.083
+      "seconds": 5.157
     },
     {
       "name": "sentry_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 10.679
+      "seconds": 15.19
     },
     {
       "name": "projectile_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 9.568
+      "seconds": 14.146
     },
     {
       "name": "mission_cargo_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 4.36
+      "seconds": 6.476
     },
     {
       "name": "freight_component_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 5.393
+      "seconds": 9.691
     },
     {
       "name": "freight_host_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.473
+      "seconds": 2.103
     },
     {
       "name": "listener_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 4.724
+      "seconds": 8.814
     },
     {
       "name": "sentinel_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 3.602
+      "seconds": 5.791
     },
     {
       "name": "mission_contracts_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.559
+      "seconds": 2.802
     },
     {
       "name": "mission_integration_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 2.973
+      "seconds": 4.081
     },
     {
       "name": "counter_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 7.614
+      "seconds": 10.816
     },
     {
       "name": "strike_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 6.034
+      "seconds": 9.197
     },
     {
       "name": "shared_actor_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 4.111
+      "seconds": 5.395
     },
     {
       "name": "impact_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 3.699
+      "seconds": 6.727
     },
     {
       "name": "footing_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.007
+      "seconds": 1.776
     },
     {
       "name": "hearing_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 0.916
+      "seconds": 1.342
     },
     {
       "name": "enemy_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.38
+      "seconds": 2.481
     },
     {
       "name": "ranged_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 2.587
+      "seconds": 5.183
     },
     {
       "name": "warden_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 3.34
+      "seconds": 4.779
     },
     {
       "name": "expanded_integration_60",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 2.279
+      "seconds": 3.008
     },
     {
       "name": "boundary_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 3.987
+      "seconds": 5.921
     },
     {
       "name": "actor_cargo_request_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 7.056
+      "seconds": 12.938
     },
     {
       "name": "actor_cargo_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 18.691
+      "seconds": 30.918
     },
     {
       "name": "actor_cargo_defense_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 4.947
+      "seconds": 7.493
     },
     {
       "name": "warden_attack_plan_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.576
+      "seconds": 2.528
     },
     {
       "name": "shared_warden_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 12.355
+      "seconds": 20.361
     },
     {
       "name": "warden_projectile_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 3.993
+      "seconds": 5.662
     },
     {
       "name": "warden_factory_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 10.24
+      "seconds": 14.04
     },
     {
       "name": "hurt_response_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 8.944
+      "seconds": 11.938
     },
     {
       "name": "hurt_projectile_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 6.407
+      "seconds": 8.903
     },
     {
       "name": "sentry_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 18.59
+      "seconds": 28.904
     },
     {
       "name": "projectile_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 17.297
+      "seconds": 26.189
     },
     {
       "name": "mission_cargo_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 5.747
+      "seconds": 9.602
     },
     {
       "name": "freight_component_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 9.006
+      "seconds": 13.009
     },
     {
       "name": "freight_host_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.877
+      "seconds": 2.291
     },
     {
       "name": "listener_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 8.192
+      "seconds": 11.608
     },
     {
       "name": "sentinel_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 5.792
+      "seconds": 10.194
     },
     {
       "name": "mission_contracts_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.941
+      "seconds": 2.719
     },
     {
       "name": "mission_integration_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 4.653
+      "seconds": 7.692
     },
     {
       "name": "counter_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 10.961
+      "seconds": 18.112
     },
     {
       "name": "strike_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 9.657
+      "seconds": 14.392
     },
     {
       "name": "shared_actor_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 6.496
+      "seconds": 10.086
     },
     {
       "name": "impact_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 6.399
+      "seconds": 8.62
     },
     {
       "name": "footing_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.196
+      "seconds": 1.682
     },
     {
       "name": "hearing_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 0.827
+      "seconds": 1.396
     },
     {
       "name": "enemy_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 2.226
+      "seconds": 3.816
     },
     {
       "name": "ranged_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 4.924
+      "seconds": 10.435
     },
     {
       "name": "warden_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 5.48
+      "seconds": 10.13
     },
     {
       "name": "expanded_integration_120",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 3.066
+      "seconds": 5.561
     },
     {
       "name": "movement_npc",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "seconds": 1.204
+      "seconds": 2.179
     }
   ],
   "v28_sha256": "153fd2824303354b1f70dea66c7ba91b27bc204da9c16a05f9b1a27a29955937",

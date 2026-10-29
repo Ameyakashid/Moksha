@@ -19,3 +19,8 @@ Isolated district success is not full-campaign continuity, new-game, upgrade, sa
 Observed recoverable bot issues: a loose crate blocked ladder alignment (solved with actual J to clear it); generic path search looped through the Three Crews shortcut (use fixed machine waypoints); one-shot freight policy repeatedly reset stationary cargo (escort and relaunch it physically). These observer fixes do not teleport or change the game.
 
 `python campaign/route_tests_45/summarize.py` requires exactly28 current60Hz sighted/blind reports, rejects start/end drift, and compares every recorded source hash against current files. A passing summary still does not substitute for the separate continuous campaign suite.
+
+
+## Later rendered-review revision
+
+This directory preserves acceptance of the earlier post-damage-fix source snapshot. The final9e22722 build subsequently changes presentation, panel input/guidance and authored text; these older hashes are not claimed to match that revision. Current full32-district route results are `campaign/tests/full_route_matrix.json` and `build_lens_matrix.json`, with exact source hashes in each report. Do not rerun this historical summary and interpret later-source mismatch as a physics regression, or relabel the old records as current.

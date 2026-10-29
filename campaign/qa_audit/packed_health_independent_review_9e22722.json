@@ -1,0 +1,34 @@
+{
+  "source_commit": "9e22722ebc5835bec0aed003ea71de47463fc324",
+  "pck_sha256": "2f2d8396b89f06f3ac051ab9d3061af575c1558747f07f5b8ac1ad6a744b96df",
+  "zip_pck_sha256": "2f2d8396b89f06f3ac051ab9d3061af575c1558747f07f5b8ac1ad6a744b96df",
+  "zip_sha256": "88ef3a4ea5a7379135207fb6fb308dd38e06cb0fddd086825ffdc92ba8b77541",
+  "audits": {
+    "smoke": {
+      "exit_code": 0,
+      "passed": true,
+      "log": "/workspace/scratch/fd16273ade4b/moksha-campaign-delivery/final-packed-audit-9e22722/smoke.log",
+      "pass_lines": 0
+    },
+    "incoming_health_60": {
+      "exit_code": 0,
+      "passed": true,
+      "log": "/workspace/scratch/fd16273ade4b/moksha-campaign-delivery/final-packed-audit-9e22722/incoming_health_60.log",
+      "pass_lines": 157
+    },
+    "captain_contacts_60": {
+      "exit_code": 0,
+      "passed": true,
+      "log": "/workspace/scratch/fd16273ade4b/moksha-campaign-delivery/final-packed-audit-9e22722/captain_contacts_60.log",
+      "pass_lines": 146
+    }
+  },
+  "independent_log_errors": {
+    "smoke": [],
+    "incoming_health_60": [],
+    "captain_contacts_60": []
+  },
+  "native_script_mismatches": [],
+  "windows_executed": false,
+  "passed": true
+}
