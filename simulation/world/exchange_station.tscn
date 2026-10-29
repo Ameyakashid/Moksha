@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="Script" path="res://simulation/world/exchange_station.gd" id="1"]
+[ext_resource type="Script" path="res://demo/views/exchange_station_view.gd" id="2"]
+[ext_resource type="Script" path="res://demo/views/exchange_station_appearance.gd" id="3"]
+[sub_resource type="Resource" id="Appearance"]
+resource_local_to_scene = true
+script = ExtResource("3")
+[sub_resource type="RectangleShape2D" id="ContourShape"]
+resource_local_to_scene = true
+size = Vector2(32, 42)
+[node name="ExchangeStation" type="Node2D"]
+script = ExtResource("1")
+appearance = SubResource("Appearance")
+[node name="View" type="Node2D" parent="."]
+script = ExtResource("2")
+[node name="StationContour" type="StaticBody2D" parent="."]
+position = Vector2(0, -21)
+collision_layer = 0
+collision_mask = 0
+[node name="Shape" type="CollisionShape2D" parent="StationContour"]
+shape = SubResource("ContourShape")

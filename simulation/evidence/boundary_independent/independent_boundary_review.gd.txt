@@ -1,0 +1,170 @@
+extends "res://simulation/tests/boundary_regression.gd"
+
+func _run() -> void:
+	await independent_predebit()
+	await independent_receipts()
+	await ordinary_nested_order()
+	await bounded_reservations()
+	await bounded_history()
+	await inbound_charge_retirement()
+	await cargo_pending_retirement()
+	await mission_defeat_callbacks()
+	await stale_mission_call()
+	await retired_packet_replay()
+	await world_swap_retirement()
+	paused=false
+	if is_instance_valid(world):world.queue_free();await frames(3)
+	var report={"hz":hz,"engine":Engine.get_version_info().string,"scenarios":scenarios,"checks":checks,"failures":failures,"traces":traces,"scope":"Independent callback/admission probes; reused genuine solver-pending and real mission callback fixture helpers. Direct mutation is explicitly an API lifecycle probe, not fall evidence."}
+	FileAccess.open("/tmp/moksha_boundary_independent/independent_%d.json"%hz,FileAccess.WRITE).store_string(JSON.stringify(report,"  ")+"\n")
+	print("INDEPENDENT BOUNDARY %d Hz: %d scenarios, %d checks, %d failures"%[hz,scenarios.size(),checks.size(),failures.size()])
+	for failure in failures:printerr(failure)
+	quit(0 if failures.is_empty() else 1)
+
+func independent_predebit() -> void:
+	for mode in ["health_reset","health_rebind","source_queue","source_physics_disable","source_transform_aba","source_profile_aba","pause_aba","receiver_transform_aba","receiver_path_aba","receiver_replacement","scope_aba"]:
+		await begin("independent predebit lifecycle "+mode)
+		if mode=="scope_aba":
+			world.set_script(preload("res://simulation/components/boundary_scope.gd"));world.set_notify_local_transform(true);hazard._connect_scopes()
+		spawn_actor();health.unbind_actor()
+		var oldhealth=health;var oldreceiver=actor.get_node("BoundaryReceiver");var once=[false]
+		actor.damage_resolved.connect(func(receipt):
+			if once[0] or not receipt.has("guard_health_id"):return
+			once[0]=true
+			match mode:
+				"health_reset":health.reset_to_full()
+				"health_rebind":health.bind_actor(actor)
+				"source_queue":hazard.queue_free()
+				"source_physics_disable":hazard.set_physics_process(false)
+				"source_transform_aba":var saved=hazard.transform;hazard.position.x+=5;hazard.transform=saved
+				"source_profile_aba":var saved=hazard.profile.damage;hazard.profile.damage+=1;hazard.profile.damage=saved
+				"pause_aba":paused=true;paused=false
+				"receiver_transform_aba":var saved=oldreceiver.transform;oldreceiver.position.x+=3;oldreceiver.transform=saved
+				"receiver_path_aba":var saved=oldreceiver.health_path;oldreceiver.health_path=NodePath("../Other");oldreceiver.health_path=saved
+				"receiver_replacement":
+					oldreceiver.unbind();actor.remove_child(oldreceiver);oldreceiver.queue_free();actor.add_child(RECEIVER.instantiate())
+				"scope_aba":var saved=world.transform;world.position.x+=4;world.transform=saved
+		)
+		health.bind_actor(actor)
+		check(await until(func():return once[0]),"actual gravity reached earlier subscriber")
+		check(oldhealth.current_health==60 and processed.is_empty() and not actor.is_defeated(),"retired boundary did not debit or defeat")
+		check(oldhealth._guarded_debits.is_empty(),"reservation fully released")
+		if is_instance_valid(hazard):
+			hazard.set_physics_process(true);await frames(5)
+			check(observed.size()==1,"outside attempt did not rearm")
+
+func independent_receipts() -> void:
+	for mode in ["original_nested","altered_copy","equal_copy","stripped_copy"]:
+		await begin("independent sealed receipt "+mode)
+		hazard.profile.damage_mode=MokshaBoundaryProfile.Damage.FIXED;hazard.profile.damage=5
+		spawn_actor();health.unbind_actor();var once=[false];var saved=[]
+		actor.damage_resolved.connect(func(receipt):
+			if once[0] or not receipt.has("guard_health_id"):return
+			once[0]=true;saved.append(receipt)
+			var replay=receipt if mode=="original_nested" else receipt.duplicate()
+			if mode=="altered_copy":replay.amount=999
+			if mode=="stripped_copy":
+				for field in MokshaHealthComponent.GUARDED_FIELDS:replay.erase(field)
+				replay.amount=999
+			actor.damage_resolved.emit(replay))
+		health.bind_actor(actor)
+		check(await until(func():return observed.size()==1),"actual gravity delivered boundary")
+		check(health.current_health==55 and processed.size()==1 and observed[0].resolved,"exactly one canonical 5-point debit")
+		var stripped=saved[0].duplicate()
+		for field in MokshaHealthComponent.GUARDED_FIELDS:stripped.erase(field)
+		actor.damage_resolved.emit(saved[0]);actor.damage_resolved.emit(stripped)
+		check(health.current_health==55 and processed.size()==1,"original and stripped post-scope replay rejected")
+		health.reset_to_full();actor.damage_resolved.emit(stripped)
+		check(health.current_health==60,"same-life Health reset preserves guarded tombstone")
+		health.bind_actor(actor);actor.damage_resolved.emit(stripped)
+		check(health.current_health==60,"rebind floor rejects older stripped admission")
+
+func ordinary_nested_order() -> void:
+	await begin("independent ordinary nested N+1 before N")
+	hazard.enabled=false;spawn_actor();health.unbind_actor();var once=[false]
+	actor.damage_resolved.connect(func(_receipt):
+		if once[0]:return
+		once[0]=true;actor.receive_attack({"amount":3.0,"impulse":Vector2.ZERO,"stun_seconds":0.0,"hitpause":0.0,"rollable":false}))
+	health.bind_actor(actor)
+	actor.receive_attack({"amount":2.0,"impulse":Vector2.ZERO,"stun_seconds":0.0,"hitpause":0.0,"rollable":false})
+	check(health.current_health==55 and processed.size()==2,"both ordinary admissions debit")
+	check(processed.size()==2 and processed[0].amount==3 and processed[1].amount==2 and processed[0].serial>processed[1].serial,"nested ordering remains N+1 then N")
+
+func bounded_reservations() -> void:
+	await begin("independent guarded reservation limit and expiration API")
+	spawn_actor();var receiver=actor.get_node("BoundaryReceiver");var tokens=[]
+	for i in 17:tokens.append(health.reserve_guarded_debit(receiver,hazard,world,actor.damage_generation(),actor.damage_admission_sequence()+1))
+	check(health._guarded_debits.size()==16 and tokens[16].is_empty(),"17th reservation fails closed at16")
+	for token in tokens:health.release_guarded_debit(token)
+	check(health._guarded_debits.is_empty(),"explicit releases clean table")
+	var old=health.reserve_guarded_debit(receiver,hazard,world,actor.damage_generation(),actor.damage_admission_sequence()+1)
+	await frames(1)
+	check(not health.guarded_debit_is_current(old),"prior-frame reservation expired")
+	var fresh=health.reserve_guarded_debit(receiver,hazard,world,actor.damage_generation(),actor.damage_admission_sequence()+1)
+	check(health._guarded_debits.size()==1 and not fresh.is_empty(),"next reservation prunes expired state")
+	health.release_guarded_debit(fresh)
+
+func bounded_history() -> void:
+	await begin("independent guarded history capacity API probe")
+	hazard.profile.damage_mode=MokshaBoundaryProfile.Damage.FIXED;hazard.profile.damage=0
+	spawn_actor();driver.set_physics_process(false)
+	for i in 129:
+		actor.position=Vector2(100,0);hazard._physics_process(1.0/hz)
+		actor.position=Vector2(100,120);hazard._physics_process(1.0/hz)
+		actor.receive_attack({"amount":0.0,"impulse":Vector2.ZERO,"stun_seconds":0.0,"hitpause":0.0,"rollable":false})
+	check(health._guard_history.size()==128,"history stays within128 disjoint ranges")
+	check(observed.size()==129 and observed.filter(func(r):return r.resolved).size()==128,"129th disjoint boundary admission fails closed")
+	check(health._guarded_debits.is_empty(),"capacity failure leaves no reservation")
+	actor.receive_attack({"amount":7.0,"impulse":Vector2.ZERO,"stun_seconds":0.0,"hitpause":0.0,"rollable":false})
+	check(health.current_health==53,"ordinary damage still works at boundary capacity")
+	actor.reset_actor(Vector2(100,0),1);hazard._physics_process(1.0/hz)
+	actor.position=Vector2(100,120);hazard._physics_process(1.0/hz)
+	check(health._guard_history.size()==1 and observed.back().resolved,"new actor life resets guarded capacity")
+
+func inbound_charge_retirement() -> void:
+	await begin("independent real pending charge into retired target",180.0)
+	var target=spawn_cargo(Vector2(100,60))
+	var donor=CRATE.instantiate();donor.set_script(preload("res://simulation/tests/boundary_pending_cargo.gd"));donor.position=Vector2(145,60);donor.collision_mask=43
+	donor.tuning=donor.tuning.duplicate(true);donor.tuning.hard_impacts_to_break=100;donor.tuning.launch_lift=0;donor.tuning.launch_spin_range=Vector2.ZERO
+	world.add_child(donor);donor.get_node("BoundaryReceiver").enabled=false;donor.launch(-1)
+	var facts=[]
+	target.destroyed.connect(func(who):
+		var held=donor.held_charges.size();donor.release_held();donor.release_held()
+		facts.append({"held":held,"charge":who.charge,"alive":who.alive,"transfers":donor.charge_transfers}))
+	check(await until(func():return not facts.is_empty(),3.0),"target fell and retired through actual gravity")
+	check(not facts.is_empty() and facts[0].held>0,"donor held genuine pre-retirement solver packet")
+	check(not facts.is_empty() and facts[0].charge==0 and not facts[0].alive and facts[0].transfers==0,"repeated pending delivery cannot recharge retired target")
+
+func stale_mission_call() -> void:
+	await begin("independent old mission defeat callback after room replacement")
+	hazard.enabled=false
+	var host=preload("res://demo/mission.tscn").instantiate();host.save_enabled=false;world.add_child(host);host.start_new(true)
+	var old_actor=weakref(host.player);var old_response=weakref(host.player.get_node("DefeatResponse"))
+	host.load_sector(1);host._on_player_defeat(old_actor,old_response)
+	check(host.state=="playing" and host.deaths==0 and not paused and host.health.current_health==60,"freed previous room cannot defeat current mission player")
+	host.queue_free();await frames(3)
+
+func retired_packet_replay() -> void:
+	await begin("independent retired public packet replay")
+	hazard.profile.damage_mode=MokshaBoundaryProfile.Damage.FIXED;hazard.profile.damage=5
+	spawn_actor();var old=actor.get_node("BoundaryReceiver");old.unbind();actor.remove_child(old);old.free()
+	var receiver=Node2D.new();receiver.set_script(preload("res://independent_capture_receiver.gd"));receiver.name="BoundaryReceiver";actor.add_child(receiver)
+	check(await until(func():return observed.size()==1),"actual gravity produced captured canonical packet")
+	var saved: Dictionary=receiver.saved_packet
+	var closed: Dictionary=receiver.receive_boundary(saved)
+	var copied: Dictionary=receiver.receive_boundary(saved.duplicate(true))
+	check(not closed.resolved and not copied.resolved and health.current_health==55,"closed original and copied packet rejected")
+	hazard.queue_free();await frames(3)
+	var freed_source: Dictionary=receiver.receive_boundary(saved)
+	check(not freed_source.resolved and health.current_health==55,"packet with freed source rejects without runtime error")
+
+func world_swap_retirement() -> void:
+	await begin("independent real-fall world ABA retirement")
+	var viewport=SubViewport.new();viewport.world_2d=World2D.new();root.add_child(viewport);world.reparent(viewport)
+	spawn_actor();health.unbind_actor();var once=[false]
+	actor.damage_resolved.connect(func(receipt):
+		if once[0] or not receipt.has("guard_health_id"):return
+		once[0]=true;var original=viewport.world_2d;viewport.world_2d=World2D.new();viewport.world_2d=original)
+	health.bind_actor(actor)
+	check(await until(func():return once[0]),"real fall reaches world-swap callback")
+	check(health.current_health==60 and not actor.is_defeated() and processed.is_empty(),"world ABA retires without Health debit")
+	viewport.queue_free();await frames(3)

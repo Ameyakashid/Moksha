@@ -1,0 +1,9 @@
+extends "res://simulation/components/projectile_emitter.gd"
+var contact_callback: Callable
+func lease_is_current(carrier: Node, lease: Dictionary) -> bool:
+	var current := super.lease_is_current(carrier,lease)
+	if current and not carrier._sweep_contact_scope.is_empty() and contact_callback.is_valid():
+		var callback := contact_callback
+		contact_callback=Callable()
+		callback.call()
+	return current

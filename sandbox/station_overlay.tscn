@@ -1,0 +1,16 @@
+[gd_scene format=3]
+[node name="Overlay" type="CanvasLayer"]
+layer=40
+[node name="Title" type="Label" parent="."]
+offset_left=14.0
+offset_top=8.0
+theme_override_font_sizes/font_size=16
+text="MODULE BENCH"
+[node name="Description" type="Label" parent="."]
+offset_left=14.0
+offset_top=32.0
+theme_override_font_sizes/font_size=11
+[node name="Status" type="Label" parent="."]
+offset_left=14.0
+offset_top=75.0
+theme_override_font_sizes/font_size=11

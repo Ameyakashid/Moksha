@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MokshaAttackPoseProfile" load_steps=3 format=3]
+[ext_resource type="Script" path="res://resources/graphics/attack_pose_profile.gd" id="1"]
+[ext_resource type="SpriteFrames" path="res://assets/characters/attack/operative_attack_frames.tres" id="2"]
+[resource]
+script = ExtResource("1")
+frames = ExtResource("2")
+animation = &"attack"
+hand_anchors = Array[Vector2]([Vector2(-81,-351),Vector2(97,-308),Vector2(201,-304),Vector2(159,-218),Vector2(-1,-224),Vector2(112,-258)])
+foot_origin = Vector2(448,493)
+source_scale = 0.7142857143
+contact_frame = 2
+recovery_frame = 4

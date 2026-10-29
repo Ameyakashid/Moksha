@@ -1,0 +1,23 @@
+extends "res://simulation/tests/review_projectile_adversity.gd"
+func _run()->void:
+	for operation in ["receiver_disable","receiver_unbind","body_disabled","shape_replace","shield_adapter_disable"]:
+		await _begin(operation,"raw","raw",180)
+		emissions=[];resolutions=[];retirements=[]
+		var adapter:Node=right.get_node("ShieldContactAdapter")
+		right.shield_effect_requested.disconnect(adapter.resolve_effect)
+		right.shield_effect_requested.connect(func(_actor,_packet):
+			match operation:
+				"receiver_disable":right.get_node("ProjectileReceiver").enabled=false
+				"receiver_unbind":right.get_node("ProjectileReceiver").unbind()
+				"body_disabled":right.get_node("BodyShape").disabled=true
+				"shape_replace":right.get_node("BodyShape").shape=right.get_node("BodyShape").shape.duplicate()
+				"shield_adapter_disable":adapter.enabled=false
+		)
+		right.shield_effect_requested.connect(adapter.resolve_effect)
+		await _attack(left)
+		await _frames(ceili(hz*1.27))
+		_request(right,{"shield":true})
+		await _frames(ceili(hz*2.5))
+		print("REFLECTSCOPE ",operation," LEFT ",_health(left)," RIGHT ",_health(right)," RESOLVED ",resolutions," RETIRED ",retirements)
+		await _end()
+	quit()

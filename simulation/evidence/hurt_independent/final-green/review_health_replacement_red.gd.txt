@@ -1,0 +1,39 @@
+extends "res://simulation/tests/incoming_strike_regression.gd"
+## Independent regression: real melee contact starts hurt, then a new Health
+## binding is installed before the old operation emits its damage receipt.
+const HealthScene = preload("res://combat_pc/components/health_component.tscn")
+var replacements: Array[Node] = []
+var details: Array[Dictionary] = []
+func _run() -> void:
+	for operation in ["replace", "rebind_same"]:
+		await _begin("existing hurt_started / " + operation, "NPC", "PC")
+		var called: Array[bool] = []
+		var original: Node = right.get_node("Health")
+		var generation: int = right.damage_generation()
+		right.movement_event.connect(func(kind, _payload):
+			if kind != &"hurt_started" or not called.is_empty(): return
+			called.append(true)
+			if operation == "replace":
+				original.unbind_actor()
+				right.remove_child(original)
+				original.queue_free()
+				var replacement: Node = HealthScene.instantiate()
+				replacement.maximum_health = 30.0
+				right.add_child(replacement)
+				replacements.append(replacement)
+			else:
+				original.unbind_actor()
+				original.bind_actor(right)
+				replacements.append(original)
+		)
+		await _attack(left)
+		_check(await _until(func(): return not called.is_empty()), "real melee reaches hurt_started")
+		var replacement: Node = replacements.back()
+		_check(right.damage_generation() == generation, "actor generation remains unchanged")
+		_check(replacement.current_health == 30.0, "new Health binding cannot receive the already in-flight contact")
+		details.append({"operation": operation, "current_health": replacement.current_health, "expected": 30.0, "generation": generation, "current_generation": right.damage_generation(), "attack_serial": left.attack_serial, "hurt_action": String(right.main_action)})
+		await _end()
+	var report := {"hz": hz, "checks": checks, "failures": failures, "details": details, "execution": "Independent real input-driven melee contact against frozen Sentry archive; no direct damage/Health writes."}
+	FileAccess.open("res://simulation/evidence/review_health_replacement_red_%d.json" % hz, FileAccess.WRITE).store_string(JSON.stringify(report, "  "))
+	print(JSON.stringify(report))
+	quit(0 if failures.is_empty() else 1)

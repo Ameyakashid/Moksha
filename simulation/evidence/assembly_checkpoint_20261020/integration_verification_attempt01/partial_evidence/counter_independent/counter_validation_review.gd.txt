@@ -1,0 +1,37 @@
+extends "res://simulation/tests/shield_counter_regression.gd"
+func _run() -> void:
+	for operation in ["source_physics","source_reset","adapter_toggle","always_pause","receiver_toggle","target_reset"]:
+		for invocation in range(1,17):
+			await _begin("validation callback %s #%d" % [operation,invocation],"NPC","PC")
+			var old := _counter(left)
+			old.unbind();left.remove_child(old);old.queue_free()
+			var probe := Counter.instantiate()
+			probe.set_script(load("res://simulation/tests/counter_validation_probe.gd"))
+			left.add_child(probe)
+			probe.counter_resolved.connect(func(receipt): counters.append(receipt.duplicate(true)))
+			probe.retire_on=invocation
+			var before_health: Array[float]=[]
+			var before_receipts: Array[int]=[]
+			if operation=="always_pause": left.process_mode=Node.PROCESS_MODE_ALWAYS;right.process_mode=Node.PROCESS_MODE_ALWAYS
+			probe.after_validation=func():
+				before_health.append(_health(left))
+				before_receipts.append(counters.size())
+				match operation:
+					"source_physics": right.set_physics_process(false)
+					"source_reset": right.reset_actor(right.position,-1)
+					"adapter_toggle": right.get_node("ShieldContactAdapter").enabled=false;right.get_node("ShieldContactAdapter").enabled=true
+					"always_pause": paused=true;paused=false
+					"receiver_toggle": probe.enabled=false;probe.enabled=true
+					"target_reset": left.reset_actor(left.position,1)
+			await _frames(3)
+			await _parry(left,right)
+			if not before_health.is_empty():
+				_check(_health(left)==(30 if operation=="target_reset" else before_health[0]),"validation retirement prevents dispatch; postcommit debit remains a fact")
+				_check(counters.size()==before_receipts[0],"validation retirement suppresses new stale diagnostics without erasing prior receipts")
+				_check(right.get_node("ShieldContactAdapter").confirmed_counters==0,"validation retirement suppresses later effect confirmation")
+				print("VALIDATION ",operation," #",invocation," calls=",probe.validation_calls," health_before=",before_health," health_after=",_health(left)," counters=",counters.size())
+			await _end()
+	print("VALIDATION REVIEW: ",checks," checks, ",failures.size()," failures")
+	for failure in failures: printerr(failure)
+	FileAccess.open("/tmp/moksha-counter-review/validation_%d.json" % hz,FileAccess.WRITE).store_string(JSON.stringify({"hz":hz,"scenarios":scenarios,"checks":checks,"failures":failures},"  "))
+	quit(0 if failures.is_empty() else 1)

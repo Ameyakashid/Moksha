@@ -1,0 +1,503 @@
+extends Node2D
+## Mission-level composition only. The preserved PC owns movement and combat;
+## detachable enemies, health, noise and sensory services own their domains.
+const Data = preload("res://demo/mission_data.gd")
+const PlayerScene = preload("res://combat_pc/player.tscn")
+const RoomScript = preload("res://demo/components/mission_room.gd")
+const HealthScene = preload("res://combat_pc/components/health_component.tscn")
+const DefeatScene = preload("res://combat_pc/components/defeat_response.tscn")
+const RelayScene = preload("res://combat_pc/components/noise_relay.tscn")
+const SAVE := "user://first_ascent_expanded_checkpoint.json"
+var sectors: Array[Dictionary] = Data.sectors()
+var sector := 0
+var room: Node2D
+var player: CharacterBody2D
+var health: Node
+var sonar: CanvasLayer
+var audio: Node
+var camera: Camera2D
+var hud: Node2D
+var bus: Node
+var state := "title"
+var blind := false
+var traded_here := false
+var relay_on := false
+var relay_states: Array[int] = []
+var enemies: Array[Node] = []
+var caches: Array[int] = []
+var kills := 0
+var deaths := 0
+var elapsed := 0.0
+var sector_elapsed := 0.0
+var notice := ""
+var notice_left := 0.0
+var chapter_left := 0.0
+var tap_cooldown := 0.0
+var intro_time := 0.0
+var intro_caught := false
+var archive_text := ""
+var input_override: Variant = null
+var metrics: Array[Dictionary] = []
+var save_enabled := true
+var continue_available := false
+var _pending_sector := -1
+var _pending_retry := false
+var _base_speed := 218.0
+var _base_roll: Array[float] = []
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	bus = get_node("/root/NoiseBus")
+	bus.noise_emitted.connect(_on_noise)
+	camera = Camera2D.new()
+	camera.position = Vector2(320,180)
+	add_child(camera)
+	sonar = CanvasLayer.new()
+	sonar.set_script(preload("res://demo/components/mission_sonar.gd"))
+	sonar.tuning = preload("res://resources/sensory/sonar_default.tres").duplicate(true)
+	add_child(sonar)
+	sonar.tuning.draw_proprioception = false
+	var body_layer := CanvasLayer.new()
+	body_layer.layer = 21
+	add_child(body_layer)
+	var body_echo := Node2D.new()
+	body_echo.set_script(preload("res://demo/components/proprioception.gd"))
+	body_echo.host = self
+	body_layer.add_child(body_echo)
+	audio = Node.new()
+	audio.set_script(preload("res://scripts/systems/audio_director.gd"))
+	audio.process_mode = Node.PROCESS_MODE_PAUSABLE
+	add_child(audio)
+	var layer := CanvasLayer.new()
+	layer.layer = 40
+	add_child(layer)
+	hud = Node2D.new()
+	hud.set_script(preload("res://demo/components/mission_hud.gd"))
+	hud.host = self
+	layer.add_child(hud)
+	continue_available = _valid_save()
+	get_tree().paused = true
+
+func start_new(skip_intro := false) -> void:
+	blind = false
+	sector = 0
+	caches.clear()
+	kills = 0
+	deaths = 0
+	elapsed = 0
+	metrics.clear()
+	load_sector(0)
+	if not skip_intro:
+		state = "intro"
+		intro_time = 0
+		intro_caught = false
+		get_tree().paused = true
+
+func load_sector(index: int) -> void:
+	get_tree().paused = false
+	if is_instance_valid(room):
+		sonar.bind_level(null,null)
+		room.free()
+	enemies.clear()
+	bus.clear_history()
+	sector = clampi(index,0,sectors.size()-1)
+	sector_elapsed = 0
+	relay_on = false
+	relay_states.clear()
+	traded_here = blind
+	room = Node2D.new()
+	room.set_script(RoomScript)
+	room.process_mode = Node.PROCESS_MODE_PAUSABLE
+	add_child(room)
+	room.build(sectors[sector])
+	room.set_cache_found(caches.has(sector))
+	player = PlayerScene.instantiate()
+	player.name = "Player"
+	player.automatic_physics = false
+	player.profile = preload("res://combat_pc/resources/air_response_agile.tres").duplicate(true)
+	player.combat_profile = preload("res://combat_pc/resources/combat_profile.tres").duplicate(true)
+	player.melee_chain = preload("res://combat_pc/resources/responsive_chain.tres")
+	# View remains optional and can be swapped without affecting any contact.
+	var lithe = load("res://combat_pc/visuals/lithe_wireframe.gd") if ResourceLoader.exists("res://combat_pc/visuals/lithe_wireframe.gd") else null
+	if lithe != null: player.get_node("Visual").set_script(lithe)
+	player.get_node("Visual").ground_presentation = preload("res://combat_pc/resources/ground_presentation_agile.tres")
+	health = HealthScene.instantiate()
+	health.name = "Health"
+	health.maximum_health = 60.0
+	player.add_child(health)
+	var defeat = DefeatScene.instantiate()
+	defeat.name = "DefeatResponse"
+	player.add_child(defeat)
+	var relay = RelayScene.instantiate()
+	relay.name = "NoiseRelay"
+	relay.set_script(preload("res://demo/components/mission_noise_relay.gd"))
+	player.add_child(relay)
+	var incoming = preload("res://simulation/components/incoming_strike_receiver.tscn").instantiate()
+	incoming.counterable = true
+	player.get_node("BodyShape").add_child(incoming)
+	var contact_config := Node.new()
+	contact_config.name = "ContactConfig"
+	contact_config.set_script(preload("res://simulation/components/actor_contact_config.gd"))
+	contact_config.profile = preload("res://demo/resources/player_contact.tres")
+	player.add_child(contact_config)
+	var impact = preload("res://simulation/components/physical_impact_receiver.tscn").instantiate()
+	player.add_child(impact)
+	var projectile_receiver := Node.new()
+	projectile_receiver.name = "ProjectileReceiver"
+	projectile_receiver.set_script(preload("res://simulation/components/projectile_receiver.gd"))
+	projectile_receiver.accepted_source_layers = 32
+	player.add_child(projectile_receiver)
+	room.add_child(player)
+	relay.bind(player,bus)
+	player.reset_actor(sectors[sector].get("spawn",Vector2(75,300)),1)
+	_base_speed = player.profile.run_speed
+	_base_roll = [player.combat_profile.roll_start_speed,player.combat_profile.roll_end_speed,player.combat_profile.roll_exit_speed_limit]
+	_apply_trade()
+	health.depleted.connect(_on_defeat)
+	for spec in sectors[sector].enemies:
+		var scene_path := "res://demo/components/enemy.tscn"
+		if str(spec[1]) in ["sentinel", "listener"]: scene_path = "res://demo/components/shared_sentinel.tscn"
+		elif str(spec[1]) == "sentry": scene_path = "res://demo/components/shared_sentry.tscn"
+		elif str(spec[1]) == "warden": scene_path = "res://demo/components/shared_warden.tscn"
+		var scene = load(scene_path)
+		if scene == null: continue
+		var enemy = scene.instantiate()
+		enemy.kind = str(spec[1])
+		if enemy.kind == "listener": enemy.archetype_profile = preload("res://demo/resources/listener_archetype.tres")
+		enemy.attack_damage_override = 18.0 if enemy.kind == "warden" else 12.0
+		if enemy.kind == "warden": enemy.max_health = 16.0
+		enemy.room_left = 40
+		enemy.room_right = float(sectors[sector].width)-50
+		enemy.position = Vector2(float(spec[0]),float(spec[2]) if spec.size()>2 else room.surface_y(float(spec[0])))
+		room.add_child(enemy)
+		enemy.configure(player,bus)
+		enemy.defeated.connect(_on_enemy_defeated)
+		enemies.append(enemy)
+	for x in sectors[sector].props:
+		var prop = preload("res://scenes/props/crate.tscn").instantiate()
+		prop.set_script(preload("res://demo/components/mission_prop.gd"))
+		prop.collision_mask = 43
+		var prop_x := float(x[0]) if x is Array else float(x)
+		var prop_y: float = float(x[1]) if x is Array else room.surface_y(prop_x)
+		prop.position = Vector2(prop_x,prop_y-15)
+		room.add_child(prop)
+	sonar.bind_level(room,player)
+	sonar.set_blind(blind)
+	sonar.preview_when_sighted = true
+	sonar.process_mode = Node.PROCESS_MODE_PAUSABLE
+	camera.position = Vector2(320,180)
+	state = "playing"
+	chapter_left = 6.0
+	notice_left = 0
+	tap_cooldown = 0
+	_update_gate()
+	_save_checkpoint()
+
+func _apply_trade() -> void:
+	var scale := 1.25 if blind else 1.0
+	player.profile.run_speed = _base_speed*scale
+	player.combat_profile.roll_start_speed = _base_roll[0]*scale
+	player.combat_profile.roll_end_speed = _base_roll[1]*scale
+	player.combat_profile.roll_exit_speed_limit = _base_roll[2]*scale
+	sonar.tuning.base_range = 440.0 if blind else 370.0
+	sonar.tuning.trail_seconds = 0.67 if blind else 0.53
+
+func _physics_process(dt: float) -> void:
+	if _pending_sector >= 0:
+		var next := _pending_sector
+		_pending_sector = -1
+		load_sector(next)
+	if _pending_retry:
+		_pending_retry = false
+		load_sector(sector)
+	if state != "playing": return
+	elapsed += dt
+	sector_elapsed += dt
+	tap_cooldown = maxf(0,tap_cooldown-dt)
+	notice_left = maxf(0,notice_left-dt)
+	chapter_left = maxf(0,chapter_left-dt)
+	player.physics_tick(dt,input_override)
+	if player.position.y > 420:
+		_on_defeat()
+	camera.position.x = clampf(player.position.x+player.velocity.x*0.13,320,float(sectors[sector].width)-320)
+	camera.position.y = clampf(player.position.y-105,float(sectors[sector].get("top",-100))+180,180)
+	_update_gate()
+
+func _process(dt: float) -> void:
+	if state == "intro":
+		intro_time += dt
+		if intro_time > 1.15 and not intro_caught:
+			intro_caught = true
+			audio.play_sound("hit",-8,0.85)
+		if intro_time >= 3.7:
+			state = "playing"
+			get_tree().paused = false
+	if is_instance_valid(hud): hud.queue_redraw()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not event is InputEventKey or not event.pressed or event.echo: return
+	var key: int = event.physical_keycode
+	if key == KEY_M:
+		audio.toggle_mute()
+		return
+	if key == KEY_F12 and DisplayServer.get_name() != "headless":
+		get_viewport().get_texture().get_image().save_png("user://first_ascent_%d.png" % Time.get_ticks_msec())
+		return
+	match state:
+		"title":
+			if key == KEY_ENTER: start_new()
+			elif key == KEY_C and continue_available: continue_run()
+		"intro":
+			if key in [KEY_ENTER,KEY_SPACE,KEY_ESCAPE]:
+				state = "playing"
+				get_tree().paused = false
+		"playing":
+			if key == KEY_ESCAPE:
+				state = "paused"
+				get_tree().paused = true
+			elif key == KEY_Q: tap_weapon()
+			elif key == KEY_E: interact()
+			elif key == KEY_R: _pending_retry = true
+		"archive":
+			if key in [KEY_E,KEY_ESCAPE,KEY_ENTER]:
+				state="playing"
+				get_tree().paused=false
+		"choice":
+			if key == KEY_J: choose_sight(true)
+			elif key in [KEY_K,KEY_ESCAPE]: choose_sight(false)
+		"paused":
+			if key == KEY_ESCAPE:
+				state = "playing"
+				get_tree().paused = false
+			elif key == KEY_R:
+				_pending_retry = true
+			elif key == KEY_N: show_title()
+		"dead":
+			if key in [KEY_R,KEY_ENTER]: _pending_retry = true
+			elif key == KEY_N: show_title()
+		"complete":
+			if key in [KEY_N,KEY_ENTER]: show_title()
+
+func tap_weapon() -> void:
+	if state != "playing" or tap_cooldown > 0: return
+	tap_cooldown = 0.36
+	bus.emit_noise(player.global_position+Vector2(player.facing*12,-17),&"weapon_tap",1.0,player)
+
+func interact() -> void:
+	if state != "playing": return
+	var d: Dictionary = sectors[sector]
+	if d.has("freight") and _near(d.freight.cradle,60):
+		if room.freight_receiver.is_latched:
+			announce("FREIGHT SEATED · passage unlocked",2)
+		else:
+			room.freight_cradle.replace_cargo()
+			sonar.refresh_geometry()
+			announce("CARGO REPLACED · stand left and strike J toward the receiver",3)
+		return
+	var relay_points := _relay_points()
+	for relay_index in relay_points.size():
+		if _near(relay_points[relay_index]) and not relay_states.has(relay_index):
+			relay_states.append(relay_index)
+			room.activated_relays = relay_states.duplicate()
+			relay_on = relay_states.size() == relay_points.size()
+			room.relay_on = relay_on
+			bus.emit_noise(relay_points[relay_index]-Vector2(0,20),&"prop_impact",1.4,room)
+			announce("RELAY ONLINE · %d / %d active" % [relay_states.size(),relay_points.size()],3)
+			_update_gate()
+			return
+	if d.has("station") and _near(d.station) and not blind:
+		state = "choice"
+		get_tree().paused = true
+		return
+	if d.has("cache") and _near(d.cache) and not caches.has(sector):
+		caches.append(sector)
+		room.set_cache_found(true)
+		sonar.refresh_geometry()
+		_save_checkpoint()
+		health.reset_to_full()
+		bus.emit_noise(d.cache-Vector2(0,10),&"weapon_tap",0.8,room)
+		announce("FIELD CACHE · health restored · archive %d / %d" % [caches.size(),_cache_total()],4)
+		archive_text = d.get("archive","A field record recovered.")
+		state="archive"
+		get_tree().paused=true
+		return
+	if _near(Vector2(float(d.width)-45,float(d.get("gate_y",300))),65):
+		if not room.gate_open:
+			announce("Seat freight in the receiver first" if d.has("freight") and not room.freight_receiver.is_latched else "Restore the remaining relay circuits" if not _relay_points().is_empty() and not relay_on else "Security seal · defeat the remaining guards",3)
+			return
+		metrics.append({"sector":sector,"seconds":snappedf(sector_elapsed,0.01),"blind":blind,"health":health.current_health})
+		if d.get("ending",false): complete_run()
+		else: _pending_sector = sector+1
+	else: announce("E: use a nearby relay, cache, station or onward door",2)
+
+func _cache_total() -> int:
+	var total:=0
+	for area in sectors:
+		if area.has("cache"): total+=1
+	return total
+
+func _relay_points() -> Array:
+	var d: Dictionary = sectors[sector]
+	return d.get("relays",[d.relay] if d.has("relay") else [])
+
+func _near(point: Vector2, radius := 45.0) -> bool:
+	return player.global_position.distance_to(point) < radius
+
+func choose_sight(accept: bool) -> void:
+	if state != "choice": return
+	if accept:
+		blind = true
+		traded_here = true
+		_apply_trade()
+		health.reset_to_full()
+		sonar.set_blind(true)
+	state = "playing"
+	get_tree().paused = false
+	if accept:
+		bus.emit_noise(player.global_position-Vector2(0,16),&"prop_impact",1.8,player)
+		announce("SIGHT TRADED · +25% run / roll · Q reveals the way",5)
+		_save_checkpoint()
+	else: announce("SIGHT RETAINED · the onward route remains open",3)
+
+func _update_gate() -> void:
+	var d: Dictionary = sectors[sector]
+	room.gate_open = (not d.has("freight") or room.freight_receiver.is_latched) and (_relay_points().is_empty() or relay_on) and (not d.get("lock",false) or remaining_enemies()==0)
+
+func remaining_enemies() -> int:
+	var count := 0
+	for enemy in enemies:
+		if is_instance_valid(enemy) and not enemy.dead: count += 1
+	return count
+
+func _on_enemy_defeated(_enemy: Node) -> void:
+	kills += 1
+	_update_gate()
+
+func _on_defeat() -> void:
+	if state != "playing": return
+	deaths += 1
+	state = "dead"
+	get_tree().paused = true
+
+func _on_noise(origin: Vector2, kind: StringName, _loudness: float, source: Node) -> void:
+	if not is_instance_valid(room) or not is_instance_valid(source) or not room.is_ancestor_of(source) and source != room: return
+	var key := "step"
+	match kind:
+		&"weapon_tap": key="tap"
+		&"enemy_windup": key="guard_draw"
+		&"enemy_damage", &"enemy_death", &"parry", &"guard": key="hit"
+		&"player_damage": key="hurt"
+		&"attack", &"swing", &"enemy_attack": key="swing"
+		&"prop_impact", &"prop_break", &"prop_launch", &"landing": key="prop"
+		&"jump", &"air_jump": key="jump"
+		&"roll": key="dash"
+	audio.play_at(key,origin,-16 if key=="step" else -10,1.0)
+
+func announce(text: String, seconds := 3.0) -> void:
+	notice = text
+	notice_left = seconds
+
+func show_title() -> void:
+	if is_instance_valid(room): _save_checkpoint()
+	state = "title"
+	get_tree().paused = true
+	sonar.set_blind(false)
+	continue_available = _valid_save()
+
+func complete_run() -> void:
+	state = "complete"
+	get_tree().paused = true
+	sonar.set_blind(false)
+	audio.play_sound("win",-8,1)
+	if save_enabled:
+		var file = FileAccess.open("user://first_ascent_expanded_results.json",FileAccess.WRITE)
+		if file: file.store_string(JSON.stringify({"seconds":elapsed,"deaths":deaths,"kills":kills,"caches":caches.size(),"blind":blind,"sectors":metrics},"\t"))
+
+func _valid_save() -> bool:
+	if not FileAccess.file_exists(SAVE): return false
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
+	return parsed is Dictionary and parsed.get("version",0)==3 and parsed.get("sector",-1)>=0 and parsed.get("sector",99)<sectors.size()
+
+func _save_checkpoint() -> void:
+	if not save_enabled: return
+	var file = FileAccess.open(SAVE,FileAccess.WRITE)
+	if file:
+		file.store_string(JSON.stringify({"version":3,"metrics":metrics,"sector":sector,"blind":blind,"caches":caches,"kills":kills,"deaths":deaths,"seconds":elapsed}))
+		continue_available = true
+
+func continue_run() -> void:
+	if not _valid_save(): return
+	var saved: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
+	blind = bool(saved.get("blind",false))
+	caches.clear()
+	for entry in saved.get("caches",[]):
+		if entry is float or entry is int: caches.append(int(entry))
+	kills = int(saved.get("kills",0))
+	deaths = int(saved.get("deaths",0))
+	elapsed = maxf(0,float(saved.get("seconds",0)))
+	metrics.clear()
+	for row in saved.get("metrics",[]):
+		if row is Dictionary and row.has("sector") and row.has("seconds"): metrics.append(row)
+	load_sector(int(saved.sector))
+
+func _text(c: Node2D, text: String, p: Vector2, size := 10, color := Color("d8e7e6")) -> void:
+	for line in text.split("\n"):
+		c.draw_string(ThemeDB.fallback_font,p,line,HORIZONTAL_ALIGNMENT_LEFT,-1,size,color)
+		p.y += size+5
+
+func _panel(c: Node2D, title: String, body: String, footer: String) -> void:
+	c.draw_rect(Rect2(0,0,640,360),Color(0.015,0.03,0.045,0.94))
+	c.draw_line(Vector2(54,77),Vector2(586,77),Color("567e85"),1)
+	_text(c,title,Vector2(54,62),23,Color("e8d8bb"))
+	_text(c,body,Vector2(54,112),12)
+	c.draw_line(Vector2(54,283),Vector2(586,283),Color("354e58"),1)
+	_text(c,footer,Vector2(54,307),11,Color("b6d6d2"))
+
+func render_hud(c: Node2D) -> void:
+	if state=="title":
+		_panel(c,"MOKSHA / THE FIRST ASCENT","A washed-up operative. A sealed arcology.\nOne door to open. A sense you can choose to leave behind.\n\nA complete wireframe mission built on the v26 combat foundation.\n7 authored areas + finale · optional sight trade · checkpoint retries", "ENTER  New mission"+("     C  Continue checkpoint" if continue_available else ""))
+		_text(c,"A/D move  ·  Space jump  ·  J combo  ·  K guard/parry  ·  Shift roll",Vector2(54,337),9,Color("77939b"))
+		return
+	if state=="intro":
+		_panel(c,"04:17 / CITY FRINGE","A spear cuts through the rain.\nYour hand remembers before you do.","ENTER / SPACE  Skip opening")
+		preload("res://demo/components/opening_scene.gd").draw(c,intro_time)
+		return
+	if not is_instance_valid(player): return
+	# Quiet fixed HUD remains accessible while the world is blacked out.
+	c.draw_rect(Rect2(0,0,640,39),Color(0.015,0.025,0.04,0.93))
+	_text(c,sectors[sector].title,Vector2(15,15),10,Color("e3d0b0"))
+	_text(c,"SIGHT TRADED / +25% SPEED" if blind else "SIGHT INTACT",Vector2(15,29),8,Color("85b8bd"))
+	c.draw_rect(Rect2(382,12,98,5),Color("273b45"))
+	c.draw_rect(Rect2(382,12,98*health.current_health/health.capacity,5),Color("c6e1d1"))
+	_text(c,"%d/%d" % [health.current_health,health.capacity],Vector2(489,18),9)
+	_text(c,"%02d:%02d" % [int(elapsed)/60,int(elapsed)%60],Vector2(581,18),10)
+	var objective := "Reach the onward door [E]"
+	if sectors[sector].has("freight") and not room.freight_receiver.is_latched: objective="Seat freight: J launch / E replace"
+	elif not _relay_points().is_empty() and not relay_on: objective="Activate relays: %d / %d [E]" % [relay_states.size(),_relay_points().size()]
+	elif sectors[sector].get("lock",false) and remaining_enemies()>0: objective="Security seal: %d guards remain" % remaining_enemies()
+	elif sectors[sector].get("ending",false): objective="Enter the lift [E]"
+	_text(c,objective,Vector2(382,31),8,Color("a4c6cd"))
+	c.draw_rect(Rect2(0,339,640,21),Color(0.015,0.025,0.04,0.93))
+	_text(c,"J combo   K guard/parry   Shift roll   Q tap   E use   R retry   Esc pause",Vector2(15,352),9,Color("9db6be"))
+	if chapter_left>0:
+		c.draw_rect(Rect2(12,45,616,79),Color(0.015,0.025,0.04,0.88))
+		_text(c,sectors[sector].text,Vector2(23,62),10)
+		_text(c,sectors[sector].hint,Vector2(23,114),8,Color("e1c89f"))
+	if notice_left>0:
+		c.draw_rect(Rect2(12,304,616,29),Color(0.015,0.025,0.04,0.94))
+		_text(c,notice,Vector2(23,323),10,Color("ead9b5"))
+	elif state=="playing":
+		var prompt := ""
+		var d: Dictionary = sectors[sector]
+		if d.has("freight") and _near(d.freight.cradle,60): prompt="[E] Replace lost cargo · [J] strike from left" if not room.freight_receiver.is_latched else "FREIGHT SEATED · passage open"
+		elif d.has("station") and _near(d.station) and not blind: prompt="[E] THE EXCHANGE · choose whether to trade sight"
+		elif _relay_points().any(func(p): return _near(p)) and not relay_on: prompt="[E] Activate relay"
+		elif d.has("cache") and _near(d.cache) and not caches.has(sector): prompt="[E] Field cache · restore health / collect archive"
+		elif _near(Vector2(float(d.width)-45,float(d.get("gate_y",300))),65): prompt="[E] Continue" if room.gate_open else "DOOR SEALED · complete the objective"
+		if not prompt.is_empty(): _text(c,prompt,Vector2(22,325),10,Color("f0ddb9"))
+	match state:
+		"archive": _panel(c,"FIELD ARCHIVE / %d OF %d" % [caches.size(),_cache_total()],archive_text+"\n\nHealth restored. This archive remains collected on retry.","E / Enter / Esc  Return to the mission")
+		"choice": _panel(c,"THE EXCHANGE","Give up sight for the rest of this mission?\n\n+25% run and roll speed. Stronger, longer sound traces.\nTerrain and enemies disappear when sound fades.\nQ taps your baton. Footsteps, combat and props also reveal.\nYour health is restored. Retrying preserves the trade.","J  Trade sight     K / Esc  Keep sight")
+		"paused": _panel(c,"PAUSED","A/D or arrows   Move\nSpace / C   Jump, then air jump\nJ   Fresh-tap three-strike combo     K   Raise / hold shield\nShift   Roll     S + Space   Drop / dive\nW / S   Climb ladders\nQ   Sound tap     E   Interact     M   Mute", "Esc Resume   R Restart area / reset "+("cargo" if sectors[sector].has("freight") else "relays")+"   N Title")
+		"dead": _panel(c,"THE ASCENT CAN WAIT","You fell. This sector can be tried again.\n\nThe current checkpoint restores health and resets guards, relays, shutters and cargo.\nYour sight choice and collected archives remain.","R / Enter  Retry checkpoint     N  Title")
+		"complete": _panel(c,"LIFT SECURED / DEMO COMPLETE","The city falls quiet beneath you.\nThe first door is open.\n\nActive play: %02d:%02d     Defeats: %d     Guards: %d\nArchives: %d / %d     Sight: %s\n\nThis completes The First Ascent, not the full tower story." % [int(elapsed)/60,int(elapsed)%60,deaths,kills,caches.size(),_cache_total(),"traded" if blind else "kept"],"Enter / N  Return to title")

@@ -1,0 +1,216 @@
+extends "res://simulation/components/boundary_scope.gd"
+## Placeable world composition and original architectural wireframe dressing.
+const BackdropScene = preload("res://demo/views/room_backdrop.tscn")
+const BackdropProfile = preload("res://demo/views/room_backdrop_profile.gd")
+const PlatformScene = preload("res://simulation/world/static_platform.tscn")
+const PlatformAppearance = preload("res://demo/views/platform_appearance.gd")
+const FloorScene = preload("res://simulation/world/floor_segment.tscn")
+const FloorAppearance = preload("res://demo/views/floor_appearance.gd")
+const SignScene = preload("res://simulation/world/world_sign.tscn")
+const OnwardScene = preload("res://simulation/world/onward_marker.tscn")
+const ExchangeScene = preload("res://simulation/world/exchange_station.tscn")
+const CacheScene = preload("res://simulation/world/field_cache.tscn")
+const RelayScene = preload("res://simulation/world/relay_marker.tscn")
+# Paint-index order is plural relays then the singular key; physical traversal
+# retains the original station, singular relay, cache, plural relays slots.
+var relay_markers: Array[Node2D] = []
+var field_cache: Node2D
+var exchange_station: Node2D
+var onward_marker: Node2D
+var backdrop: Node2D
+var data: Dictionary
+var floor_rects: Array[Rect2] = []
+var relay_on := false:
+	set(value):
+		relay_on = value
+		_sync_relay_views()
+var cache_found := false:
+	set(value):
+		cache_found = value
+		if is_instance_valid(field_cache): field_cache.is_found = value
+var gate_open := false:
+	set(value):
+		gate_open = value
+		if is_instance_valid(onward_marker): onward_marker.is_open = value
+var time := 0.0
+var activated_relays: Array[int] = []:
+	set(value):
+		activated_relays = value
+		_sync_relay_views()
+var shutters: Array[Node] = []
+var freight_receiver: Node2D
+var freight_cradle: Node2D
+var freight_shutter: Node2D
+func build(config: Dictionary) -> void:
+	data = config
+	var appearance := BackdropProfile.new()
+	var ceiling := float(data.get("top", -100))
+	appearance.room_bounds = Rect2(0, ceiling, float(data.width), 300.0-ceiling)
+	appearance.theme = str(data.theme)
+	# Optional presentation scene; every backdrop uses the same paint-only contract.
+	var backdrop_scene: PackedScene = data.get("backdrop_scene", BackdropScene)
+	backdrop = backdrop_scene.instantiate()
+	backdrop.profile = appearance
+	backdrop.automatic_animation = false
+	backdrop.set_animation_time(time)
+	backdrop.z_index = -8
+	add_child(backdrop)
+	var boundary := preload("res://simulation/components/boundary_hazard.tscn").instantiate()
+	boundary.position.y = float(data.get("boundary_y", 420.0))
+	add_child(boundary)
+	var cursor := 0.0
+	for gap in data.get("gaps",[]):
+		floor_rects.append(Rect2(cursor,300,gap.x-cursor,80))
+		cursor = gap.y
+	floor_rects.append(Rect2(cursor,300,float(data.width)-cursor,80))
+	for r in floor_rects:
+		var floor_segment = FloorScene.instantiate()
+		floor_segment.position = r.get_center()
+		floor_segment.segment_size = r.size
+		floor_segment.hatch_reference_x = r.position.x
+		floor_segment.show_behind_parent = true
+		var floor_paint := FloorAppearance.new()
+		if data.theme == "city":
+			floor_paint.outline = Color("897c70")
+			floor_paint.hatch = Color("28303a")
+		floor_segment.appearance = floor_paint
+		floor_segment.z_index = -7
+		add_child(floor_segment)
+	for r in data.platforms:
+		var platform = PlatformScene.instantiate()
+		platform.position = r.get_center()
+		platform.platform_size = r.size
+		platform.one_way_collision = r.size.y <= 18
+		platform.show_behind_parent = true
+		var paint := PlatformAppearance.new()
+		if data.theme == "city":
+			paint.outline = Color("897c70")
+			paint.brace = Color("28303a")
+		platform.appearance = paint
+		platform.z_index = -7
+		add_child(platform)
+	# Behind the mission foreground, after floor/platform paint in authored order.
+	for sign_data in data.get("signs",[]):
+		var sign_view = SignScene.instantiate()
+		sign_view.position = sign_data[0]
+		sign_view.raster_reference = sign_data[0]
+		sign_view.text = sign_data[1]
+		sign_view.show_behind_parent = true
+		sign_view.z_index = -6
+		add_child(sign_view)
+	var top := float(data.get("top",-100))-80
+	_solid(Rect2(-20,top,20,400-top),false)
+	_solid(Rect2(float(data.width),top,20,400-top),false)
+	for item in data.get("ladders",[]):
+		var ladder = preload("res://simulation/world/mission_ladder.tscn").instantiate()
+		ladder.position = Vector2(item[0],item[1])
+		ladder.height = item[2]
+		add_child(ladder)
+	for item in data.get("lifts",[]):
+		var lift = preload("res://simulation/world/moving_lift.tscn").instantiate()
+		lift.position=item[0]
+		lift.travel=item[1]
+		lift.period=item[2]
+		add_child(lift)
+	for item in data.get("shutters",[]):
+		var shutter = preload("res://simulation/world/relay_shutter.tscn").instantiate()
+		shutter.position=item[0]
+		shutter.shutter_size=item[1]
+		shutter.relay_index=item[2]
+		add_child(shutter)
+		shutters.append(shutter)
+	if data.has("freight"):
+		var freight:Dictionary=data.freight
+		freight_receiver=preload("res://simulation/world/freight_receiver.tscn").instantiate()
+		freight_receiver.position=freight.receiver
+		add_child(freight_receiver)
+		freight_cradle=preload("res://simulation/world/freight_cradle.tscn").instantiate()
+		freight_cradle.auto_spawn=false
+		freight_cradle.position=freight.cradle
+		add_child(freight_cradle)
+		freight_cradle.bind_receiver(freight_receiver)
+		freight_cradle.replace_cargo()
+		freight_shutter=preload("res://simulation/world/relay_shutter.tscn").instantiate()
+		freight_shutter.position=freight.shutter[0]
+		freight_shutter.shutter_size=freight.shutter[1]
+		add_child(freight_shutter)
+	relay_markers.resize(data.get("relays",[]).size())
+	if data.has("relay"): relay_markers.append(null)
+	for key in ["station","relay","cache"]:
+		if not data.has(key): continue
+		if key == "station":
+			exchange_station = ExchangeScene.instantiate()
+			exchange_station.position = data.station
+			exchange_station.raster_reference = data.station
+			exchange_station.show_behind_parent = true
+			exchange_station.z_index = -4
+			add_child(exchange_station)
+		elif key == "relay": _relay_marker(data.relay, relay_markers.size()-1, -2)
+		else:
+			field_cache = CacheScene.instantiate()
+			field_cache.position = data.cache
+			field_cache.raster_reference = data.cache
+			field_cache.is_found = cache_found
+			field_cache.show_behind_parent = true
+			field_cache.z_index = -1
+			add_child(field_cache)
+	for index in data.get("relays",[]).size():
+		_relay_marker(data.relays[index], index, -3)
+	onward_marker = OnwardScene.instantiate()
+	onward_marker.position = Vector2(float(data.width)-45,float(data.get("gate_y",300)))
+	onward_marker.raster_reference = onward_marker.position
+	onward_marker.is_open = gate_open
+	onward_marker.ending = bool(data.get("ending",false))
+	onward_marker.show_behind_parent = true
+	onward_marker.z_index = -5
+	add_child(onward_marker)
+	queue_redraw()
+func _solid(rect: Rect2, oneway: bool) -> void:
+	var body := StaticBody2D.new()
+	body.position = rect.get_center()
+	body.collision_layer = 1
+	body.collision_mask = 0
+	var shape := CollisionShape2D.new()
+	var box := RectangleShape2D.new()
+	box.size = rect.size
+	shape.shape = box
+	shape.one_way_collision = oneway
+	body.add_child(shape)
+	add_child(body)
+func _relay_marker(at: Vector2, paint_index: int, depth: int) -> void:
+	var marker = RelayScene.instantiate()
+	marker.position = at
+	marker.raster_reference = at
+	marker.is_active = relay_on or activated_relays.has(paint_index)
+	marker.show_behind_parent = true
+	marker.z_index = depth
+	relay_markers[paint_index] = marker
+	add_child(marker)
+func _sync_relay_views() -> void:
+	# Array append/erase/clear and aliased edits do not invoke its property setter.
+	# The room's regular draw clock and manual snapshots also synchronize it.
+	for index in relay_markers.size():
+		var marker := relay_markers[index]
+		if is_instance_valid(marker):
+			var active := relay_on or activated_relays.has(index)
+			if marker.is_active != active: marker.is_active = active
+func set_cache_found(found: bool) -> void:
+	cache_found = found
+	queue_redraw()
+func surface_y(x: float) -> float:
+	var y := 300.0
+	for r in data.platforms:
+		if x >= r.position.x+12 and x <= r.end.x-12: y = minf(y,r.position.y)
+	return y
+func _process(dt: float) -> void:
+	_sync_relay_views()
+	time += dt
+	if is_instance_valid(backdrop): backdrop.set_animation_time(time)
+	if is_instance_valid(freight_shutter):
+		freight_shutter.set_open(freight_receiver.is_latched)
+	for shutter in shutters:
+		shutter.set_open(activated_relays.has(shutter.relay_index))
+	queue_redraw()
+func _draw() -> void:
+	# Manual redraw retains the earlier mutable relay-array synchronization.
+	_sync_relay_views()

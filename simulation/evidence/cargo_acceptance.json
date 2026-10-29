@@ -1,0 +1,146 @@
+{
+  "passed": true,
+  "engine": "Godot4.6.3 stable 7d41c59c4",
+  "scope": "Bounded shared production charged-cargo admission; intentional PC vulnerability and physical cargo chains; no ranged/Warden controller migration",
+  "source_count": 525,
+  "all_final_sources_match": true,
+  "source_manifest": "cargo_final_gates.json",
+  "foundation_stages": 42,
+  "stock_stages": 10,
+  "historical_stages": 19,
+  "cargo": {
+    "60": {
+      "scenarios": 30,
+      "checks": 157,
+      "failures": []
+    },
+    "120": {
+      "scenarios": 30,
+      "checks": 157,
+      "failures": []
+    }
+  },
+  "physical_checks_per_rate": 225,
+  "freight_checks_per_rate": {
+    "component": 186,
+    "host": 12
+  },
+  "routes": [
+    {
+      "hz": 60,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 176.783333333366,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 60,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 167.166666666692,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 165.81666666668,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 159.375000000019,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    }
+  ],
+  "independent": {
+    "approved_snapshot_verified": true,
+    "reviewed_source_hashes": {
+      "prop.gd": "89bd4f26af5cc47dd24cea3a9cef8139b533289f96fed6475ec44bf7e5113973",
+      "combat_pc/player.gd": "741aca03d8fca5bd89d15b14ebfc67e55979ba5bc0c6e8a8b0a656179d33d431",
+      "simulation/components/physical_cargo.gd": "916752a85d0d18f35560e0b8f6314296a6fca5d5ea2fdf5eedb85ec5c9ca5d35",
+      "simulation/components/physical_impact_receiver.gd": "2d2113cdeaa5dbbb2797331e6db4e41ff3a100509e1e2f2ec2f9a47f303932f3",
+      "simulation/resources/physical_impact_profile.gd": "8dbc1266b18311f4a4170c2954751f5c2b9ac011f2c2ff91929f437d76b1e63b",
+      "demo/components/mission_prop.gd": "7236a25768de50c8592f760c638627e81381330ab4df3392020e3999afb05688",
+      "demo/mission.gd": "8bc828b21a2cf68a2f2e8f6c1141af6cfd914e396673d09a6cf4bfb402640e7c",
+      "demo/components/freight_cradle.gd": "ae88c10f5164eebe93eaaf7808b9fca5993e8940a5ec80b96ef6fc9e94f68242",
+      "demo/components/enemy.tscn": "d47bcf061ef5f7545d8f1bf8d054805c7b07f513b8f4f54c50bfd33bfd96d2d6",
+      "simulation/actors/impact_npc.tscn": "d82fef36c2f3e459a094ae5e6972f92def4997dc622f60dd07a9fa592c4fb2e7",
+      "simulation/tests/mission_cargo_regression.gd": "e4da188eb3de3c573dbb2b9c93b77f62b3ba013e24b4d712ec97cc27d8c75dc1",
+      "simulation/tests/mission_cargo_interceptor.gd": "ab1081386bd616a87f8ccb28965fdd1ae8f4901820de56f8a829055be6246dc9",
+      "simulation/tests/physical_impact_regression.gd": "f53bcae39ee0d02a22f366aff0c2c19c400a203ebffa7e2304d5b6f6eaf2f060"
+    },
+    "tests": [
+      {
+        "suite": "boundaries",
+        "hz": 60,
+        "checks": 83,
+        "failures": 0,
+        "runtime_errors": []
+      },
+      {
+        "suite": "boundaries",
+        "hz": 120,
+        "checks": 83,
+        "failures": 0,
+        "runtime_errors": []
+      },
+      {
+        "suite": "mission",
+        "hz": 60,
+        "checks": 157,
+        "failures": 0,
+        "runtime_errors": []
+      },
+      {
+        "suite": "mission",
+        "hz": 120,
+        "checks": 157,
+        "failures": 0,
+        "runtime_errors": []
+      },
+      {
+        "suite": "physical",
+        "hz": 60,
+        "checks": 225,
+        "failures": 0,
+        "runtime_errors": []
+      },
+      {
+        "suite": "physical",
+        "hz": 120,
+        "checks": 225,
+        "failures": 0,
+        "runtime_errors": []
+      }
+    ],
+    "absent_authority_rejection": "false, no engine/script errors",
+    "source_hashes_stable_before_after": true,
+    "independent_checks_total": 930,
+    "open_production_findings": []
+  },
+  "native": {
+    "review": "native_mission_cargo_review.md",
+    "capture_manifest": "native_mission_cargo_capture_hashes.json",
+    "claims": "Ordinary native movement/jump/strike displaced and rotated cargo; no definite charged actor-hit, chain, guard/roll or freight attribution",
+    "coverage_limited": true
+  },
+  "initial_failure_evidence": "cargo_initial_gate/",
+  "source_delta": "cargo_source_delta.json",
+  "historical_reports_unchanged": 206,
+  "prior_archives_unchanged": 9
+}

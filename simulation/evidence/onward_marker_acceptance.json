@@ -1,0 +1,2288 @@
+{
+  "passed": true,
+  "source_count": 652,
+  "source_manifest": "simulation/evidence/onward_marker_frozen_sources.json",
+  "source_manifest_sha256": "f2ca758ddc0fc6cf5eccdd285a9e23dfeb0ddb48310a6f090a3073a18ec9251e",
+  "aggregate_groups": 31,
+  "foundation_stages": 72,
+  "native_exact_comparisons": 150,
+  "native_rendered_reuse_checks": 12,
+  "prior_live_production_correspondence": {
+    "simulation/world/onward_marker.gd": "b3bab3a6d4acc340b80f5aaacde0699485206bf091a3a4870afdd139f0f8b831",
+    "simulation/world/onward_marker.tscn": "7a360172059c26746022a1541bbb3fa9c4ac317a1a0ba51fe345144ffb80ab08",
+    "demo/views/onward_marker_view.gd": "1addd0ff4f6a42974ed91054ce7abf5fd99d918d178d8ea3c57d5f35ac59e227",
+    "demo/views/onward_marker_appearance.gd": "28000c681344ab87ad2391e07c29f2358e16ad2a53a96f7fd23fe0bdc874a941",
+    "demo/components/mission_room.gd": "ba9a8d42411f6c8a65bb9d0e372ad783c87b1c9431cf5e65f50abbd4f60fbee9"
+  },
+  "routes": "simulation/evidence/onward_marker_gates/simulation/evidence/route_summary.json",
+  "preservation": "simulation/evidence/onward_marker_preservation.json",
+  "final_native_review": "simulation/evidence/onward_marker_final_native_review.md",
+  "prior_live_review": "simulation/evidence/onward_marker_prior_native/onward_marker_native_review.md",
+  "retained_failure_notes": [
+    "Initial native blocked by inferred Variant type in test-only generated style oracle; fixed through shared explicitly typed generator and added preflight. Initial screenshots and old source freeze retained.",
+    "First aggregate failed only the old direct-child GateContour lookup in both integration rates. Approved hierarchy-aware exact-bounds observation and transformed-room check preserve its invariant. Full failed aggregate, old test and freeze retained."
+  ],
+  "evidence_files": {
+    "simulation/evidence/onward_marker_anchor_root_transform_04_current.png.import": {
+      "sha256": "44423abef47a4faf1f508548b83e96e0f82acb6e2d9ed16394961853a1e05c44",
+      "bytes": 1062
+    },
+    "simulation/evidence/onward_marker_style_reference_02_legacy.png.import": {
+      "sha256": "2e49b3ff1425b040b2c766e5c7d6266b93f24d780f5a62e041a0b765319a53ee",
+      "bytes": 1041
+    },
+    "simulation/evidence/onward_marker_live_hidden.jpg": {
+      "sha256": "47ffb43bf08d1595c542162bf5ffdfdc6ff6598b30f97decc25b4b3a8437a854",
+      "bytes": 138342
+    },
+    "simulation/evidence/onward_marker_anchor_moved_01_legacy.png.import": {
+      "sha256": "5810295c1c5ab8bc43c46bf31a78fe9b77f9441d5261977ae680b2fc458f3db9",
+      "bytes": 1032
+    },
+    "simulation/evidence/onward_marker_overlap_city_true_legacy.png.import": {
+      "sha256": "e09a132c15df59494c49258a5de65f8f2d4687cfc6b50de6674804c1d77951e8",
+      "bytes": 1037
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_00_current.png.import": {
+      "sha256": "423110444504e70f977e769bac3cd440dc3af4939b1c6380c26defe589f562e2",
+      "bytes": 1059
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_04_legacy.png.import": {
+      "sha256": "ffc32f05f9866d05f8e0246f06a8e8ac455bbbc0c5c68aff2f278b89e3df4f4a",
+      "bytes": 1056
+    },
+    "simulation/evidence/onward_marker_focused_room06_true_legacy.png": {
+      "sha256": "612f712183379cf11613a8c4f70eb8f0500986f95e4d80614c34c5db2b29b458",
+      "bytes": 1639
+    },
+    "simulation/evidence/onward_marker_migrated_60_review_mission_integration_120hz.json": {
+      "sha256": "09a6b360877867347878fb9e797acbae5d3efa4f47acd1cc9faf6131dc31e247",
+      "bytes": 3454
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_03_legacy.png": {
+      "sha256": "fca5b5559b954d4f1101268ff8b1fec5be676ebc74c09a45f30990c75ab9cc21",
+      "bytes": 1935
+    },
+    "simulation/evidence/onward_marker_overlap_city_true_current.png": {
+      "sha256": "64d05cbcac61f7bc8e24ec25caceec136581a9e72152c1859582574b605303b8",
+      "bytes": 8534
+    },
+    "simulation/evidence/onward_marker_stock_runner.log": {
+      "sha256": "4b1fa4f56dd3791a506d26cce93fb47e602ef1626a5320c3b3043b8e69b2d2d7",
+      "bytes": 933
+    },
+    "simulation/evidence/onward_marker_room01_blackout_pulse_legacy.png": {
+      "sha256": "d5015d96f7b9c144fa730ad053ae966a45eb6802ec35f29f8f9fd6c76d59f90d",
+      "bytes": 18426
+    },
+    "simulation/evidence/onward_marker_oracle_preflight.json": {
+      "sha256": "b1e6991783a5dd10bca59c4f2a30defb8cd68ec15ad62bb07ebd28f8bc16f92a",
+      "bytes": 614
+    },
+    "simulation/evidence/onward_marker_migrated_120_review_mission_integration_60hz.json": {
+      "sha256": "33a3d8a4cc175db04efb90dfc42097949f592673700c97d46a92234452ddade4",
+      "bytes": 3556
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_05_legacy.png.import": {
+      "sha256": "2602f5d256b1b55ec9e9ba42d037d07306f781b39c78bcf34db2c764e499db3a",
+      "bytes": 1059
+    },
+    "simulation/evidence/onward_marker_anchor_moved_00_legacy.png": {
+      "sha256": "7fac9fcc0a685b20bb84ebe48efe347a32ec45b241d90b533b61b34c20721c2d",
+      "bytes": 2204
+    },
+    "simulation/evidence/onward_marker_room06_active_t0p0_legacy.png": {
+      "sha256": "c7b8a3c49f612a366755135ca9bd5530d4b866de1a2558e538d68979551569ca",
+      "bytes": 53519
+    },
+    "simulation/evidence/onward_marker_room04_active_t0p0_legacy.png": {
+      "sha256": "07b7352581374fe310b2cd9793fd7eeb54b6517e48e1a8685583b35d542ac760",
+      "bytes": 27631
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_02_current.png.import": {
+      "sha256": "0c2757242f28232009237821c32e1777488117b0296433ff8baad81106b947d3",
+      "bytes": 1058
+    },
+    "simulation/evidence/onward_marker_live_hidden.jpg.import": {
+      "sha256": "9b1b7eba8938b8cf01ff08a4f0093a29f9572fdf8ef43e47076d90b8969427ce",
+      "bytes": 998
+    },
+    "simulation/evidence/onward_marker_development_parse.log": {
+      "sha256": "52d5164e4791b97eedc63bfad3b04382bcb8492055c41d323a507cbe3d85df71",
+      "bytes": 1554
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_01_current.png": {
+      "sha256": "f66296daae065412646a0b23b55e0ed240d3f73e6e839a32af7c09a68e67dd29",
+      "bytes": 1600
+    },
+    "simulation/evidence/onward_marker_room03_active_t0p0_legacy.png": {
+      "sha256": "23b9ebf85759024be42fdbeb511b41a5669a7af2c3707b543d36943db5472c1b",
+      "bytes": 18469
+    },
+    "simulation/evidence/onward_marker_room04_initial_t0p0_legacy.png.import": {
+      "sha256": "09e5d5762f157eb8eab253ac39c0736d7c7da7029258060ab1b3e517b1d7abf5",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_prior_platform_120_runner.log": {
+      "sha256": "e711d47b52e3be3817ff0664ed453b18c09c49eb0f860a696614a3325037cf7d",
+      "bytes": 254
+    },
+    "simulation/evidence/onward_marker_room06_initial_t0p0_legacy.png": {
+      "sha256": "2ca400f5e3ca90ff7f5f086e10343f1e4916194c07190500245b75933f8d35aa",
+      "bytes": 53574
+    },
+    "simulation/evidence/onward_marker_focused_room06_true_current.png.import": {
+      "sha256": "64de434134ccc30a4569204512629ef54e0c15976b99a72e27842bd4883c0d8c",
+      "bytes": 1046
+    },
+    "simulation/evidence/onward_marker_room08_active_t0p0_current.png.import": {
+      "sha256": "38ebeb3190d862a1f3ff12e705061de90aa6390b8ecbb34e9746d1c4a7080346",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_room08_initial_t0p0_current.png": {
+      "sha256": "926f04dabecc0017f1d98c393074561daef170da0a9c90d35b994bfa3b2f651a",
+      "bytes": 5264
+    },
+    "simulation/evidence/onward_marker_prior_sign_60_runner.log": {
+      "sha256": "c3ce7dbeda2c132bc3bd89da600c62b4bf4bb141f7f2123286534a8c8624b240",
+      "bytes": 156
+    },
+    "simulation/evidence/onward_marker_style_reference_07_legacy.png": {
+      "sha256": "e0be2d9b62981e6e13ac363354c4b8f5ad185faad8bb1b278b9c9bb727f19b3b",
+      "bytes": 3271
+    },
+    "simulation/evidence/onward_marker_prior_sign_120_runner.log": {
+      "sha256": "22f35bc015b0e91479d5e64bb787206cae71e049eb0c94ec2791bf8024751414",
+      "bytes": 157
+    },
+    "simulation/evidence/onward_marker_overlap_interior_false_current.png": {
+      "sha256": "02b74f459960c2cd6a358936c3593659f6c5916462e4782233f0d2d5982ba31b",
+      "bytes": 7159
+    },
+    "simulation/evidence/onward_marker_focused_room04_false_legacy.png.import": {
+      "sha256": "3e75e648e4147e149221fa787ffa7291b4969a27c03bbf6f847aea6e040d5c4d",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_overlap_city_true_current.png.import": {
+      "sha256": "34c0b73aba6cacc151f69769518ef58d3519465161596d2b24186132278edd91",
+      "bytes": 1041
+    },
+    "simulation/evidence/onward_marker_room07_active_t0p0_legacy.png.import": {
+      "sha256": "b93023715079a88447e9012b8afbfa4014e53e855392dee1c8c41df215630e17",
+      "bytes": 1041
+    },
+    "simulation/evidence/onward_marker_room01_active_t0p0_legacy.png.import": {
+      "sha256": "4fcfd79b4697715f7e98e52906a2862536d9f0b420dfe344a0926f1b07d177f7",
+      "bytes": 1041
+    },
+    "simulation/evidence/onward_marker_live_red.jpg": {
+      "sha256": "4e7cd32a3ad677134f02f12693e23721df20fac57c8840d2d36d524116f66cbc",
+      "bytes": 141111
+    },
+    "simulation/evidence/onward_marker_style_reference_06_legacy.png.import": {
+      "sha256": "5a0fda6963913b4d01faad15f0a89382624a693219f375aad1e04ea3ff5b3075",
+      "bytes": 1040
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_03_current.png.import": {
+      "sha256": "3aa293f5f00a5368c77b848b48c9632d789db9a654cf974f4add1978bac57744",
+      "bytes": 1059
+    },
+    "simulation/evidence/onward_marker_focused_room08_true_legacy.png": {
+      "sha256": "e69215b8d533b3a8369144c4e252175ff22f82cd6fe881469ad44c5e0b63436b",
+      "bytes": 1113
+    },
+    "simulation/evidence/onward_marker_room04_active_t0p0_current.png": {
+      "sha256": "07b7352581374fe310b2cd9793fd7eeb54b6517e48e1a8685583b35d542ac760",
+      "bytes": 27631
+    },
+    "simulation/evidence/onward_marker_initial_diagnostics.jpg": {
+      "sha256": "c664c594beb2b46e4fc9c3ad674e9915ac5a4ac8cc0044ecee86453307d0dbb4",
+      "bytes": 193267
+    },
+    "simulation/evidence/onward_marker_focused_room01_true_legacy.png": {
+      "sha256": "ee54c3e50d3bc24cb53d3f16b6e00b235e910da85fc701a5fc092f87193b6980",
+      "bytes": 1680
+    },
+    "simulation/evidence/onward_marker_room02_active_t0p0_current.png": {
+      "sha256": "0df93b7eebad041e6ab15a66e205a9f2ef81c561a2f5320affc00afb1a7fe6b7",
+      "bytes": 19973
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_04_current.png": {
+      "sha256": "9bc494355b51c1feefc190743168f93980cb6550dacae37cbb0fb1a54b55a75b",
+      "bytes": 2403
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_04_current.png": {
+      "sha256": "7f041e4847d7aec606a3defe73d8122b7e6e4330d0c2566a818f3c83a2410a0d",
+      "bytes": 2638
+    },
+    "simulation/evidence/onward_marker_style_reference_05_current.png": {
+      "sha256": "d4728e058e481349cc7be8e6fd8c25de4851987cc8c00fa588fd6dc1732de85f",
+      "bytes": 2843
+    },
+    "simulation/evidence/onward_marker_focused_room03_false_legacy.png.import": {
+      "sha256": "74cb8633fa61d41d3fe1ac975cec51d4a596004ef691b8a243c977ede9d7c4bb",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_overlap_city_false_current.png": {
+      "sha256": "2c8f955c6cf2eef8bcd2e388a03d7e05d20c262a8aacac7c57e42880dc1c4cd0",
+      "bytes": 8538
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_05_current.png.import": {
+      "sha256": "c1de3e79e24289e12e043687116447b0753cd6f208e551882d6e7f806cff4181",
+      "bytes": 1059
+    },
+    "simulation/evidence/onward_marker_style_reference_07_current.png.import": {
+      "sha256": "ee87268e2fe86501269a2498940cc03f354f8386d0fad06eef4bae22eb11b44d",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_room08_initial_t0p0_current.png.import": {
+      "sha256": "195a94d8cad5c1f29225baf4481d8e506fc3e8f7c39abfd2f01125c1c872f147",
+      "bytes": 1045
+    },
+    "simulation/evidence/onward_marker_route_policy_120_runner.log": {
+      "sha256": "327ae98dc6e2f312558ba5ee2627a20d83f9f15a26c559d21afafc6b463e48af",
+      "bytes": 116
+    },
+    "simulation/evidence/onward_marker_room03_initial_t0p0_current.png": {
+      "sha256": "ef24760880c79a4e8d8f7c9bbb712485146d5719d5b3d90e949696edbc636dce",
+      "bytes": 18551
+    },
+    "simulation/evidence/onward_marker_anchor_moved_03_current.png": {
+      "sha256": "f5d2ad576035be49291efe4d0239bbed3b6f81c8699d6346f9595d1bc766f084",
+      "bytes": 1918
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_01_current.png.import": {
+      "sha256": "37c1f50fa4f5d085c6068270f23aa105b9a884689e49e664bf53a694a413c60d",
+      "bytes": 1062
+    },
+    "simulation/evidence/onward_marker_anchor_moved_07_legacy.png.import": {
+      "sha256": "ddd6f214d56e22fcb037f797381ef63e18d961feca45dfdb4824bae3254b85df",
+      "bytes": 1032
+    },
+    "simulation/evidence/onward_marker_held_120_runner.log": {
+      "sha256": "9664b980b96418cff677f500377ad59ea44e8edcaf0c23d5fc3e9eba17f71902",
+      "bytes": 130
+    },
+    "simulation/evidence/onward_marker_room06_active_t0p0_current.png": {
+      "sha256": "c7b8a3c49f612a366755135ca9bd5530d4b866de1a2558e538d68979551569ca",
+      "bytes": 53519
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_05_current.png": {
+      "sha256": "c7c18db10838138f864db5cf0845deb1a76dccc11697322896ef432aa3c0dd2a",
+      "bytes": 1743
+    },
+    "simulation/evidence/onward_marker_anchor_moved_04_current.png.import": {
+      "sha256": "3c2603fc2024b0c4c363ad26775f0101b00cbaaad21376522b8ab88430f85ef0",
+      "bytes": 1035
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_02_legacy.png": {
+      "sha256": "78e193d9496cc3948616f7d98d626563fbaa0c1e2e85b20b76a67948c6a67e3d",
+      "bytes": 2648
+    },
+    "simulation/evidence/onward_marker_focused_room06_false_legacy.png.import": {
+      "sha256": "14667a792781643e1c070a1121996c272e5a299a757863b537c1ea267ae91c8d",
+      "bytes": 1046
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_02_legacy.png.import": {
+      "sha256": "53a38d5d94151759439e1d3fc18e50a693e49bfcff442f6d54a4b365bb4db5a0",
+      "bytes": 1056
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_00_legacy.png.import": {
+      "sha256": "b5f92d42e7dff2bf3a6af6fddc39af747667879de68b5badcab57dabce6d6741",
+      "bytes": 1056
+    },
+    "simulation/evidence/onward_marker_style_reference_09_legacy.png": {
+      "sha256": "cddc8ef1af9f1585a20c9ab82daa59a093e5844c39a99d478204d9626672caf4",
+      "bytes": 2795
+    },
+    "simulation/evidence/onward_marker_prior_platform_60_runner.log": {
+      "sha256": "ec9eeec68492aeecded0c176b990d24842f914109797003e688d793d87f1fbb7",
+      "bytes": 255
+    },
+    "simulation/evidence/onward_marker_showcase_boot_runner.log": {
+      "sha256": "a9912b85473f126d3f4f63ec824170c828df3473a292f866dde86cafda5b66da",
+      "bytes": 73
+    },
+    "simulation/evidence/onward_marker_style_reference_01_current.png.import": {
+      "sha256": "eec62d68fb613353a71a0364a728259c753e1dff639549f9d684935903dffa8a",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_room01_blackout_quiet_legacy.png": {
+      "sha256": "1d38711bb6446806c02eea3b5a3e74b459db3ed35ad0c3ae27e741f5ec103483",
+      "bytes": 9152
+    },
+    "simulation/evidence/onward_marker_focused_room03_false_current.png.import": {
+      "sha256": "96bbaa80750e3fa8246a04e603ae52714170fc70938ce8c008dd50b8d1d3562a",
+      "bytes": 1050
+    },
+    "simulation/evidence/onward_marker_anchor_moved_02_legacy.png.import": {
+      "sha256": "13e415e49594c01aa6ab4705225bc63cc91f83ee82cfd4a76128d5a484bde92c",
+      "bytes": 1032
+    },
+    "simulation/evidence/onward_marker_style_reference_08_current.png.import": {
+      "sha256": "b08832ab8bec30fe83927cee316f6753e2c4bfd631d3505fec5f7aaa1a6dade5",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_anchor_moved_01_current.png.import": {
+      "sha256": "d3d2a1fa115581dd488a6ee334b38962c7a2d08c4dc33387cb2d97b73821e7ff",
+      "bytes": 1035
+    },
+    "simulation/evidence/onward_marker_style_reference_04_legacy.png.import": {
+      "sha256": "c09bb12f0339ddb65455030a3f3cfa338fbd87ca50940640119b415163d4d15d",
+      "bytes": 1041
+    },
+    "simulation/evidence/onward_marker_room06_initial_t0p0_current.png.import": {
+      "sha256": "61970ce03182e7c522d2ed4e03660ff606d242c2501f57499fed1d9fbfa42df1",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_onward_marker_120_runner.log": {
+      "sha256": "5fab4e6d3f2b64898fc253b65cc64ce2ac9e5ca65e7208d52c4fc513fd2ac2a1",
+      "bytes": 269
+    },
+    "simulation/evidence/onward_marker_migrated_preservation.log": {
+      "sha256": "691b348c3c722b42f6e6b62e73eb1c6cee1a9098c6db8f1b7128b380bc702b1f",
+      "bytes": 694
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_06_legacy.png.import": {
+      "sha256": "39abcd5be508e993f9fee92564b2d46185e6faa54558f48f36d25942338a44d6",
+      "bytes": 1055
+    },
+    "simulation/evidence/onward_marker_overlap_interior_false_current.png.import": {
+      "sha256": "4fb41405f3565fe05fc2e2538c012cb723efee7a05a1016ab33857f06176713b",
+      "bytes": 1056
+    },
+    "simulation/evidence/onward_marker_room05_active_t0p0_legacy.png.import": {
+      "sha256": "7f4a26538066b0cb2e291c31371151f08166249b6529dd9db3474ade79e6b320",
+      "bytes": 1040
+    },
+    "simulation/evidence/onward_marker_focused_room02_false_legacy.png": {
+      "sha256": "f93d5740249dd3186be65c1c3895df3296821d18beae31af1e21b2e4c0ed7cd6",
+      "bytes": 1464
+    },
+    "simulation/evidence/onward_marker_live_label.jpg.import": {
+      "sha256": "722675cd54f4bdda802aa3a57f39c31357041660e1f59dcccf7a1338224ef222",
+      "bytes": 996
+    },
+    "simulation/evidence/onward_marker_prior_backdrop_120_runner.log": {
+      "sha256": "38eb27159d5d08b03e3b32d58244e82635877544b4ca36b6acc1783da568f106",
+      "bytes": 112
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_04_legacy.png.import": {
+      "sha256": "a72fa92beb230a8ae8697411a7cdcefa7c839cdf2fe87931a3bc9a2656a1ade2",
+      "bytes": 1059
+    },
+    "simulation/evidence/onward_marker_room05_active_t0p0_legacy.png": {
+      "sha256": "6acd87f63a8ce200821abbf61d06816ddfb4ebcdd4b9392ac06d43a2dea771c5",
+      "bytes": 22519
+    },
+    "simulation/evidence/onward_marker_initial_parser_error.jpg.import": {
+      "sha256": "f95d2563a838bd9fa7d677c77154a4c1f16034d06d628f005fb10eadea2e0bfe",
+      "bytes": 1026
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_06_legacy.png.import": {
+      "sha256": "f3f601e720ab6f8dcde94492b665089ab32d7a3a6b231ebe8f96bf0293676ce1",
+      "bytes": 1059
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_03_legacy.png.import": {
+      "sha256": "c85fd7b9752b6a26760d74e9fe76b35419f696023487a5ad562a5098649aaca8",
+      "bytes": 1059
+    },
+    "simulation/evidence/onward_marker_room07_initial_t0p0_current.png.import": {
+      "sha256": "8936f63f949616b5692e5c69ab69f63699e770aa253c5e72e461cd8bdefef034",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_room06_active_t0p0_legacy.png.import": {
+      "sha256": "6b37baac46dcdddb4b43a9e5563aad12ae5b14168a1a323fd95f8781f9a48cf1",
+      "bytes": 1041
+    },
+    "simulation/evidence/onward_marker_focused_room06_true_legacy.png.import": {
+      "sha256": "33d7b3756220540db3a3147b010ce7751978baa802b3d9dca01250d4e82014c0",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_room01_blackout_pulse_current.png.import": {
+      "sha256": "c00d31ed9603a85a4943c609371d74cc65fce428bf97f779db3ad88cadf88366",
+      "bytes": 1053
+    },
+    "simulation/evidence/onward_marker_pixels_diagnostics.jpg": {
+      "sha256": "040fdcad5334697f0c79b7743ceb2da934024a2a4dfe924ebc3887bd1ebb2e99",
+      "bytes": 179539
+    },
+    "simulation/evidence/onward_marker_style_reference_04_legacy.png": {
+      "sha256": "7d228ee2c996fa9fceba0b250184a340cb7e40af6894e903f4f8f0372e8d423a",
+      "bytes": 2781
+    },
+    "simulation/evidence/onward_marker_initial_native_blocked.md": {
+      "sha256": "9fea5ee193ba94cd9984bf9ceb01a7009c1db5a5f9d7a95683236e31d1a9c824",
+      "bytes": 1805
+    },
+    "simulation/evidence/onward_marker_preservation.json": {
+      "sha256": "691b348c3c722b42f6e6b62e73eb1c6cee1a9098c6db8f1b7128b380bc702b1f",
+      "bytes": 694
+    },
+    "simulation/evidence/onward_marker_focused_room02_false_legacy.png.import": {
+      "sha256": "5dd1ff57894abd57aa14a6bf648068de508991c6e3c6911f2415be983be6acc8",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_focused_room05_true_current.png.import": {
+      "sha256": "abf23bb0417f82fa8838f08be204218ff9d67ac3eccb02eecef2ff1a35add296",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_focused_120_runner.log": {
+      "sha256": "8a44d116501848bb3b1d4c19400e7154ca191dd57c7467f2feeddb22855a6ca5",
+      "bytes": 110
+    },
+    "simulation/evidence/onward_marker_room03_active_t0p0_current.png.import": {
+      "sha256": "1c99ee62e21d880efa677f8e3e8aa7abd78d0a076dbc057c1dcc8f12561bf228",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_room01_initial_t0p0_current.png": {
+      "sha256": "2cdf156b7714ebfe0c918d96fe65b5f7f9ce693301a33e3c813616a407634d01",
+      "bytes": 16541
+    },
+    "simulation/evidence/onward_marker_style_reference_07_current.png": {
+      "sha256": "e0be2d9b62981e6e13ac363354c4b8f5ad185faad8bb1b278b9c9bb727f19b3b",
+      "bytes": 3271
+    },
+    "simulation/evidence/onward_marker_anchor_moved_05_legacy.png": {
+      "sha256": "3523ebd20a132bc58276ccd5e59456b0e1c6e4a426857c1223b6aff24cd67a26",
+      "bytes": 1898
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_01_current.png": {
+      "sha256": "56ca02b9eb02da9712f8fa2594f660c66613728cf2d1aa164a56fb2dda94f37b",
+      "bytes": 2020
+    },
+    "simulation/evidence/onward_marker_defeat_regression_60_runner.log": {
+      "sha256": "160cdb4551ae562bcea77c72f326e1f83a495aca505cd00da2e607855cf324f5",
+      "bytes": 127
+    },
+    "simulation/evidence/onward_marker_development_review.log": {
+      "sha256": "a9912b85473f126d3f4f63ec824170c828df3473a292f866dde86cafda5b66da",
+      "bytes": 73
+    },
+    "simulation/evidence/onward_marker_migrated_60_review_mission_integration_60hz.json": {
+      "sha256": "33a3d8a4cc175db04efb90dfc42097949f592673700c97d46a92234452ddade4",
+      "bytes": 3556
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_00_legacy.png.import": {
+      "sha256": "85059dd6dcf2fd08d0a386cd978209e5e0616c9bf9df51e63f91c80a0852bddd",
+      "bytes": 1059
+    },
+    "simulation/evidence/onward_marker_style_reference_03_current.png": {
+      "sha256": "52f91ce20a61feb7ccfc34a6f3f11eeaeabd7c951a469d6678a731d4aaa62753",
+      "bytes": 2130
+    },
+    "simulation/evidence/onward_marker_room08_initial_t0p0_legacy.png.import": {
+      "sha256": "379e211605f864a86afb9f785c55bbb30e1c85117f9bb14128889f9b919fb793",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_07_legacy.png.import": {
+      "sha256": "aa80b148bb5e52f6dd9cfc218d3b329165d835a9cf5d23e1a9b9566815292b25",
+      "bytes": 1056
+    },
+    "simulation/evidence/onward_marker_style_reference_09_current.png.import": {
+      "sha256": "a7097b33c8ba71527b16789ea267cd5b7095e001411b1bdbff1c8232ec509165",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_live_diagnostics.jpg": {
+      "sha256": "97a158f9beccd057d8beb94c74d2de95c604a4aeac561faa4d2065ed32383d07",
+      "bytes": 126588
+    },
+    "simulation/evidence/onward_marker_defeat_health_compatibility_120_runner.log": {
+      "sha256": "e6e04d318c32b6cddde83aa2969f3ff21f47c4bae98b79f9d6b78d59b9beb270",
+      "bytes": 145
+    },
+    "simulation/evidence/onward_marker_style_reference_05_legacy.png": {
+      "sha256": "d4728e058e481349cc7be8e6fd8c25de4851987cc8c00fa588fd6dc1732de85f",
+      "bytes": 2843
+    },
+    "simulation/evidence/onward_marker_anchor_moved_00_current.png": {
+      "sha256": "7fac9fcc0a685b20bb84ebe48efe347a32ec45b241d90b533b61b34c20721c2d",
+      "bytes": 2204
+    },
+    "simulation/evidence/onward_marker_style_reference_08_legacy.png.import": {
+      "sha256": "322c38ce07f5644083680c00abdb5c5963731aff064e33926efeb5b4c11bc893",
+      "bytes": 1041
+    },
+    "simulation/evidence/onward_marker_room04_initial_t0p0_current.png.import": {
+      "sha256": "ecdf21c64ce4c0e9fecd4ab666e06c2ffd0a595445cbd2097ac08288e27077cb",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_room08_initial_t0p0_legacy.png": {
+      "sha256": "926f04dabecc0017f1d98c393074561daef170da0a9c90d35b994bfa3b2f651a",
+      "bytes": 5264
+    },
+    "simulation/evidence/onward_marker_defeat_regression_120_runner.log": {
+      "sha256": "7d569b05d2528cef2b529f4c1fb6d032a42acf94ad780c04e3fe372e164a9766",
+      "bytes": 128
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_07_current.png.import": {
+      "sha256": "9687e89ad585a1184a1e68478f00f22b4841a1ca7f7e7eb3ff2ee7b72fe5bca8",
+      "bytes": 1062
+    },
+    "simulation/evidence/onward_marker_final_native_diagnostics.jpg.import": {
+      "sha256": "8c4deb4b7b783000a5eedd0dbc4a311f431edf6c8fc8735a89a098554f056c75",
+      "bytes": 1038
+    },
+    "simulation/evidence/onward_marker_final_native_review.md": {
+      "sha256": "70ab860e7a039ce068936cb949d9d95e44da09d90d7c540d258201f09078c290",
+      "bytes": 2737
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_02_legacy.png.import": {
+      "sha256": "8306792431d6392f8685a57970e543d73f0912a8f97a9a622a0e16672c08bc83",
+      "bytes": 1058
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_07_current.png": {
+      "sha256": "aee99caedcc6316fbac0ff0e27d15e4394c74d0bf0dd378b9a3a6acdb30fbc79",
+      "bytes": 1731
+    },
+    "simulation/evidence/onward_marker_anchor_moved_07_legacy.png": {
+      "sha256": "c82c6b245f23a890633c06e5def5e5b7f5894f1bd798ec376be6de02d5aaa845",
+      "bytes": 1881
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_05_legacy.png": {
+      "sha256": "b7877663bc30206e5ce0c32e634ac458374cf43a4ce679632dbbc8ffed865292",
+      "bytes": 1951
+    },
+    "simulation/evidence/onward_marker_focused_room08_false_legacy.png.import": {
+      "sha256": "3e869e2f06d23b0b8dc38c9521c902f3d78c13f7f14d215878b4dca2473766b6",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_prior_platform_showcase_runner.log": {
+      "sha256": "a9912b85473f126d3f4f63ec824170c828df3473a292f866dde86cafda5b66da",
+      "bytes": 73
+    },
+    "simulation/evidence/onward_marker_focused_room06_false_current.png.import": {
+      "sha256": "0514b4c2a31680bb5ec33d26c0841f3b35e2fa698a03de3ad17defd3376acbbf",
+      "bytes": 1049
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_03_current.png": {
+      "sha256": "9f961da3a864ba6639b87c5aa520a16f738ae775fa313a1461c5febbdbb0a6bd",
+      "bytes": 1746
+    },
+    "simulation/evidence/onward_marker_room06_initial_t0p0_current.png": {
+      "sha256": "2ca400f5e3ca90ff7f5f086e10343f1e4916194c07190500245b75933f8d35aa",
+      "bytes": 53574
+    },
+    "simulation/evidence/onward_marker_focused_room04_true_legacy.png": {
+      "sha256": "0185e5398809dfed4fed33894f6538c7da8e134911738faaf3db5c89c440b9f6",
+      "bytes": 1669
+    },
+    "simulation/evidence/onward_marker_style_reference_01_current.png": {
+      "sha256": "9cb4faff968d346770d1c38d5dce4f085176006b4e52e6c0ffd62e62e75d8972",
+      "bytes": 2330
+    },
+    "simulation/evidence/onward_marker_health_shield_compatibility_120_runner.log": {
+      "sha256": "b7ef4ae40714f0984244f106f56b9dd2abac45ceec1394f8462f9acb7e6e340f",
+      "bytes": 201
+    },
+    "simulation/evidence/onward_marker_overlap_interior_true_current.png": {
+      "sha256": "1682abe059f3d30cac43865d2d697430bf389ff0c12df3e2c40340cd9dc6cf51",
+      "bytes": 7192
+    },
+    "simulation/evidence/onward_marker_room01_blackout_quiet_current.png": {
+      "sha256": "1d38711bb6446806c02eea3b5a3e74b459db3ed35ad0c3ae27e741f5ec103483",
+      "bytes": 9152
+    },
+    "simulation/evidence/onward_marker_room01_active_t0p0_current.png.import": {
+      "sha256": "3467fdb6f01e8f1b0b0847df9445f669d5f0272697539caa852a96e90afb83d5",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_stopped.jpg.import": {
+      "sha256": "d07da43f6389bb674cb809ae865450181dfdc24eef858303578a29b6c9e7c7b2",
+      "bytes": 987
+    },
+    "simulation/evidence/onward_marker_corrected_60.log": {
+      "sha256": "39d83a1d911df4872d5a8a696721dc6e422d2178c3079e23aa576b72136ddf09",
+      "bytes": 268
+    },
+    "simulation/evidence/onward_marker_focused_room05_true_legacy.png.import": {
+      "sha256": "50805a9398922bd725377a8e90d9742cdfcc774f17bd0b138b81c6114dccb6d2",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_anchor_moved_04_legacy.png": {
+      "sha256": "7cd7e9124cab92d416c3b73b3dfbcb7b6478d0101497c3da0b546f1b5934cf36",
+      "bytes": 2583
+    },
+    "simulation/evidence/onward_marker_anchor_moved_03_legacy.png.import": {
+      "sha256": "50ad134fce5f74e5883ccff28e929b8a1b9445ad47b97599813f7baebd289abd",
+      "bytes": 1032
+    },
+    "simulation/evidence/onward_marker_room01_initial_t0p0_legacy.png": {
+      "sha256": "2cdf156b7714ebfe0c918d96fe65b5f7f9ce693301a33e3c813616a407634d01",
+      "bytes": 16541
+    },
+    "simulation/evidence/onward_marker_overlap_interior_true_legacy.png.import": {
+      "sha256": "32a1349dce1397092ca70eb7548a9b3cae159ef4c709c81bb0ad4d80aad59098",
+      "bytes": 1049
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_03_legacy.png": {
+      "sha256": "9f961da3a864ba6639b87c5aa520a16f738ae775fa313a1461c5febbdbb0a6bd",
+      "bytes": 1746
+    },
+    "simulation/evidence/onward_marker_prior_backdrop_60_runner.log": {
+      "sha256": "3ad512df1764d0929db8bf8c8bdce810b4237a97f3b5641bfe2193d33061823a",
+      "bytes": 111
+    },
+    "simulation/evidence/onward_marker_style_reference_02_current.png.import": {
+      "sha256": "6ab5a265285ee20a08ece3ed812f9bfd9433211f37ff708ad2b3283cc6090c73",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_route_policy_60_runner.log": {
+      "sha256": "327ae98dc6e2f312558ba5ee2627a20d83f9f15a26c559d21afafc6b463e48af",
+      "bytes": 116
+    },
+    "simulation/evidence/onward_marker_focused_room03_true_current.png.import": {
+      "sha256": "d7e88dadb901ca0c2eea181f5fcfb48678a8a76d0cf36b5a9233d7b4d5689e2e",
+      "bytes": 1046
+    },
+    "simulation/evidence/onward_marker_room02_initial_t0p0_legacy.png.import": {
+      "sha256": "0958ac45385fc0213cc17039aa0027d0ede70eccbfaf2419f47858af4eb7f03c",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_01_current.png.import": {
+      "sha256": "b0b505e1334dbda2bd9d41c4555e7bac94b636396c55bb07eec14b8bf2e0ca8e",
+      "bytes": 1059
+    },
+    "simulation/evidence/onward_marker_oracle_preflight.log": {
+      "sha256": "4e788df3f76ff0f152d5f56d125bcedaab791c4f5f534c5e555f8a387ec10d2b",
+      "bytes": 634
+    },
+    "simulation/evidence/onward_marker_focused_room01_false_legacy.png": {
+      "sha256": "11631dad4c16e8acc9c5a6c44a00d3c27df5677015bd32dda6c1bd219c9ac70f",
+      "bytes": 1659
+    },
+    "simulation/evidence/onward_marker_focused_room01_true_current.png.import": {
+      "sha256": "4b33beb351eb59bc5761fc8d8ea97f22a867db87214d3f608e0777e61de3a20a",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_room04_active_t0p0_legacy.png.import": {
+      "sha256": "24af3e3de2ea22e5ce938acc1bff47649ec0a8e3863dc2362f2fda6c84210a5e",
+      "bytes": 1041
+    },
+    "simulation/evidence/onward_marker_anchor_moved_06_legacy.png.import": {
+      "sha256": "36ff79f98b918bad3b865331864f4dbf76c48f4fc63cc627482975f8107c252b",
+      "bytes": 1031
+    },
+    "simulation/evidence/onward_marker_style_reference_03_legacy.png.import": {
+      "sha256": "d6103c642c9190351e64ee86ad5ae743b623099ae107f4cdaf21f8e4923bc091",
+      "bytes": 1040
+    },
+    "simulation/evidence/onward_marker_development_60.log": {
+      "sha256": "39d83a1d911df4872d5a8a696721dc6e422d2178c3079e23aa576b72136ddf09",
+      "bytes": 268
+    },
+    "simulation/evidence/onward_marker_focused_room01_false_legacy.png.import": {
+      "sha256": "794d4989195c338bb10fc8a21aa6b9a4848cb14f2f5ee720a5e7a72153ca548a",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_corrected_120.log": {
+      "sha256": "5fab4e6d3f2b64898fc253b65cc64ce2ac9e5ca65e7208d52c4fc513fd2ac2a1",
+      "bytes": 269
+    },
+    "simulation/evidence/onward_marker_room01_active_t0p0_current.png": {
+      "sha256": "7d01ff683073da5fc7c5a0b0d859736138267532033bbc20e3022794fd462ebe",
+      "bytes": 16608
+    },
+    "simulation/evidence/onward_marker_health_regression_60_runner.log": {
+      "sha256": "fad3a94dcc8e349afe22f46a066c91a925bf2b503e8a069a8cb6c25c3b45f6c7",
+      "bytes": 127
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_01_legacy.png.import": {
+      "sha256": "b5caf2b87110629a8f161d249e55afbe586a35fb77f6e638f89177d79d35bc3a",
+      "bytes": 1059
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_05_current.png": {
+      "sha256": "b7877663bc30206e5ce0c32e634ac458374cf43a4ce679632dbbc8ffed865292",
+      "bytes": 1951
+    },
+    "simulation/evidence/onward_marker_60hz.json": {
+      "sha256": "8e7604bae42c18b0e8a72edec46100491a14cf7b2a87cbafd193ca47f561dc42",
+      "bytes": 199
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_07_legacy.png.import": {
+      "sha256": "b314ae54c2d1424e7a76e10520a50f596f67fa27a7267f1ef94508f29d204287",
+      "bytes": 1059
+    },
+    "simulation/evidence/onward_marker_anchor_moved_02_current.png": {
+      "sha256": "d49af9cae0bc09dbe0a34372722a87d3f7a3258ec885578e243ea65be5057589",
+      "bytes": 2606
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_02_current.png.import": {
+      "sha256": "cc61e96f1d9afd4728b4d9b48603c5175597b205a8846716ad1744c3b1a30a1f",
+      "bytes": 1062
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_00_current.png.import": {
+      "sha256": "f94b1377ac4492dc17cf08c9c72449b7db5da55f58e9ff43bfc3df7ae0268769",
+      "bytes": 1062
+    },
+    "simulation/evidence/onward_marker_room03_initial_t0p0_current.png.import": {
+      "sha256": "d139cb6869a5542961fd389c2d0a1b6f763609f2f884cc276bdd006bbdabc52e",
+      "bytes": 1046
+    },
+    "simulation/evidence/onward_marker_focused_room04_false_current.png.import": {
+      "sha256": "218488ef5f5f89076fbf14666d9eb7844af794130c76caa129a1957099eafdc0",
+      "bytes": 1050
+    },
+    "simulation/evidence/onward_marker_style_reference_06_current.png": {
+      "sha256": "51b5e0293b8b58cb47fa4ceb6f9f6e3626e968b37b2238394160237e57842fbf",
+      "bytes": 2493
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_05_legacy.png.import": {
+      "sha256": "30cf66e4484d547750d1ba4c7c187f9710c4b747c6ffb7e0255e514da89c9a5c",
+      "bytes": 1055
+    },
+    "simulation/evidence/onward_marker_aggregate_runner.log": {
+      "sha256": "23f039ff426adb4fc6f3f1b1c2945e48e321d729576451511cb1d4c2819a694b",
+      "bytes": 3961
+    },
+    "simulation/evidence/onward_marker_focused_room04_true_current.png.import": {
+      "sha256": "f2b7a94102cbe92db4c6d2afbfe98f1234f39837fb7f827c38d23ea595827c1f",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_defeat_health_compatibility_60_runner.log": {
+      "sha256": "f9ed0dca68e0ed5f0efd7504d30c545df7f2af8af8364e00f2e73109eb7d98d3",
+      "bytes": 144
+    },
+    "simulation/evidence/onward_marker_focused_room01_false_current.png.import": {
+      "sha256": "61c21227c3dde006cbfd4456a5989d4b0b75d746c68959fb2ed8d63ce9c7db5d",
+      "bytes": 1049
+    },
+    "simulation/evidence/onward_marker_focused_room06_false_current.png": {
+      "sha256": "e6f2078f94b071a749652ac3d9e09f83390fe92abe99ace87f23eaad718ce2be",
+      "bytes": 1679
+    },
+    "simulation/evidence/onward_marker_focused_room07_true_current.png": {
+      "sha256": "187f2fa027ee3de56b467856eb026bb29938e3b37f2348ee1d95d955663a57ff",
+      "bytes": 1666
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_06_current.png.import": {
+      "sha256": "10a9c19da7233c6b27618b985c5970a772318f449bcce9f6b3c7524d815f2819",
+      "bytes": 1058
+    },
+    "simulation/evidence/onward_marker_room08_active_t0p0_current.png": {
+      "sha256": "d9ae376ae96cdf96ffe437d929f8f160afa5bd34dc616c68b2239ee31d79d4f9",
+      "bytes": 5286
+    },
+    "simulation/evidence/onward_marker_onward_marker_showcase_runner.log": {
+      "sha256": "a9912b85473f126d3f4f63ec824170c828df3473a292f866dde86cafda5b66da",
+      "bytes": 73
+    },
+    "simulation/evidence/onward_marker_room02_active_t0p0_current.png.import": {
+      "sha256": "7f6eb6a8a35238703b190069e8d19eb55ac25020dde25bc0340891ad006ee10d",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_style_reference_08_current.png": {
+      "sha256": "93623106864c39fa3d09cac9448d3c91e815129fbd24672f6467c44efbbd022e",
+      "bytes": 3251
+    },
+    "simulation/evidence/onward_marker_style_reference_01_legacy.png": {
+      "sha256": "9cb4faff968d346770d1c38d5dce4f085176006b4e52e6c0ffd62e62e75d8972",
+      "bytes": 2330
+    },
+    "simulation/evidence/onward_marker_isolated.log": {
+      "sha256": "c607dc969a4860f0ae1b485458d6b3f0aa9f86cea872142b20fca106bbcaf7bf",
+      "bytes": 101
+    },
+    "simulation/evidence/onward_marker_anchor_moved_05_current.png": {
+      "sha256": "3523ebd20a132bc58276ccd5e59456b0e1c6e4a426857c1223b6aff24cd67a26",
+      "bytes": 1898
+    },
+    "simulation/evidence/onward_marker_overlap_city_false_current.png.import": {
+      "sha256": "5ce4ee560c25ed3d6121b7ce1ff68d224f587ca418f5e2a638c1371684017039",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_migrated_120_review_mission_integration_120hz.json": {
+      "sha256": "fb339425cb067af12d67e2a07d97fa799a6f845e0cd536032fca54ecb97418b1",
+      "bytes": 3557
+    },
+    "simulation/evidence/onward_marker_focused_room01_true_legacy.png.import": {
+      "sha256": "0045c7c79ef9aa76a30793890b54a1b6ca94fb3c74db1874d483624ce95b8dde",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_anchor_moved_02_legacy.png": {
+      "sha256": "d49af9cae0bc09dbe0a34372722a87d3f7a3258ec885578e243ea65be5057589",
+      "bytes": 2606
+    },
+    "simulation/evidence/onward_marker_onward_marker_60_runner.log": {
+      "sha256": "39d83a1d911df4872d5a8a696721dc6e422d2178c3079e23aa576b72136ddf09",
+      "bytes": 268
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_00_legacy.png": {
+      "sha256": "da04330fc8daaf57c559fee7a7a812abb3f99270b1b10369da7a83aaa3ab1e6f",
+      "bytes": 2648
+    },
+    "simulation/evidence/onward_marker_focused_room08_false_current.png.import": {
+      "sha256": "c5d70100d271f4f4dfdf573069b8c5d0116bd3ecc1b20d77f9b52ff1a466321e",
+      "bytes": 1050
+    },
+    "simulation/evidence/onward_marker_room02_active_t0p0_legacy.png.import": {
+      "sha256": "dd5d72a3c7851d0319698eae9a149352f695fbfee2eb69b9f0ca95917a67ca29",
+      "bytes": 1040
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_07_legacy.png": {
+      "sha256": "aee99caedcc6316fbac0ff0e27d15e4394c74d0bf0dd378b9a3a6acdb30fbc79",
+      "bytes": 1731
+    },
+    "simulation/evidence/onward_marker_live_label.jpg": {
+      "sha256": "da9e46e2a9e7b31fb26eb10ac89a8632609bbc6a8c012a9fd49432bf9d0c20e2",
+      "bytes": 140340
+    },
+    "simulation/evidence/onward_marker_room03_active_t0p0_legacy.png.import": {
+      "sha256": "5229064778fa3008cb08b410346f2d391fbd4445a49ce3a81e6fbc2015695508",
+      "bytes": 1041
+    },
+    "simulation/evidence/onward_marker_frozen_sources.json": {
+      "sha256": "f2ca758ddc0fc6cf5eccdd285a9e23dfeb0ddb48310a6f090a3073a18ec9251e",
+      "bytes": 72432
+    },
+    "simulation/evidence/onward_marker_focused_room08_false_legacy.png": {
+      "sha256": "7c0cfb72c9b1e0c983c776b6ac48e908326c004faa7e27ee8119b7f0027cfe3a",
+      "bytes": 1116
+    },
+    "simulation/evidence/onward_marker_room08_active_t0p0_legacy.png.import": {
+      "sha256": "17318a93a259cb9040af2d58424e9a721fecc1959d7ce8ebc6dbc7e5dfc4dc3a",
+      "bytes": 1040
+    },
+    "simulation/evidence/onward_marker_room02_initial_t0p0_current.png": {
+      "sha256": "94c62d4d654b253e57b3a140cf1d879ed43b3ea74a81e47b6db531fedf57b87a",
+      "bytes": 20068
+    },
+    "simulation/evidence/onward_marker_live_amber.jpg": {
+      "sha256": "f3564e8dff3cb0730b0e38d9b08e1cc8b672c9f22f2ba4d74ae10aedb70b02b5",
+      "bytes": 140802
+    },
+    "simulation/evidence/onward_marker_room07_active_t0p0_legacy.png": {
+      "sha256": "b84adf1c59ff0800cdaf6d410b47843d2421ffa4d4de3fc4af0e19fb744bf03b",
+      "bytes": 11312
+    },
+    "simulation/evidence/onward_marker_room06_initial_t0p0_legacy.png.import": {
+      "sha256": "140ea1979513294817a87671e3ef16d2189d7b2785300147c7c10367c90d597a",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_anchor_moved_07_current.png.import": {
+      "sha256": "437d7b0b85a59017532f8731ba710d63d40759ae1e986987b480a8420ad6a584",
+      "bytes": 1035
+    },
+    "simulation/evidence/onward_marker_room04_active_t0p0_current.png.import": {
+      "sha256": "4afce8f8d8d014e136e34cb7965102ff195c5d5c681ec1cd2915dd660849a10f",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_room01_blackout_quiet_legacy.png.import": {
+      "sha256": "d672a031392901fc2dad1f8fb40dcad8d504f171b2a40d0612ebec5fa7ee054e",
+      "bytes": 1050
+    },
+    "simulation/evidence/onward_marker_room07_initial_t0p0_current.png": {
+      "sha256": "725798a23b87baa620b4f2da515eb26e8b8fa74187dda07b8bc439e09a5910d8",
+      "bytes": 11285
+    },
+    "simulation/evidence/onward_marker_overlap_city_false_legacy.png": {
+      "sha256": "2c8f955c6cf2eef8bcd2e388a03d7e05d20c262a8aacac7c57e42880dc1c4cd0",
+      "bytes": 8538
+    },
+    "simulation/evidence/onward_marker_focused_room07_false_current.png.import": {
+      "sha256": "82f1530ae78311f92126a68f2d42c58e20dea039a1cdc52aeaa7e11e3016d03f",
+      "bytes": 1050
+    },
+    "simulation/evidence/onward_marker_oracle_preflight_runner.log": {
+      "sha256": "4e788df3f76ff0f152d5f56d125bcedaab791c4f5f534c5e555f8a387ec10d2b",
+      "bytes": 634
+    },
+    "simulation/evidence/onward_marker_focused_room05_false_current.png.import": {
+      "sha256": "f1e3a32f3c5fc3e2da5a7db7f3271502c69d6f1260c0e57d6ada1456a960e416",
+      "bytes": 1049
+    },
+    "simulation/evidence/onward_marker_live_red.jpg.import": {
+      "sha256": "00e898c0aa1f0e171bc69195003792595d5b05c3a312f16ca21fe7679ad2b414",
+      "bytes": 990
+    },
+    "simulation/evidence/onward_marker_live_reset.jpg": {
+      "sha256": "54f5a74ba4e1244923691e0e357dfc52f24172b14c63e1288307bc179459d103",
+      "bytes": 141341
+    },
+    "simulation/evidence/onward_marker_isolated_asset_runner.log": {
+      "sha256": "c9c9d29f7352548c2b65d873c4fa8a2acf99b548e342aa1745af2c70455f947c",
+      "bytes": 693
+    },
+    "simulation/evidence/onward_marker_anchor_moved_06_current.png.import": {
+      "sha256": "dfb2859bcf1c9bb0c211c3518c135370a4f8f285780f9e8bbc1847ac324bd10f",
+      "bytes": 1035
+    },
+    "simulation/evidence/onward_marker_style_reference_03_legacy.png": {
+      "sha256": "52f91ce20a61feb7ccfc34a6f3f11eeaeabd7c951a469d6678a731d4aaa62753",
+      "bytes": 2130
+    },
+    "simulation/evidence/onward_marker_120hz.json": {
+      "sha256": "ce36777f407086567928ae992823ec676482b9161bc9f1d790b0f6fb9055f629",
+      "bytes": 200
+    },
+    "simulation/evidence/onward_marker_final_native_complete.jpg": {
+      "sha256": "c6ea587d3bd567a455fd190c44bc552fa6533c12a925458a7a9ec49e16f092a8",
+      "bytes": 98810
+    },
+    "simulation/evidence/onward_marker_focused_room02_true_current.png.import": {
+      "sha256": "079bff2cb8e3aa10b388c34e7555e673393bd8cfe3dbc5f066aa65ec56800519",
+      "bytes": 1046
+    },
+    "simulation/evidence/onward_marker_style_reference_08_legacy.png": {
+      "sha256": "93623106864c39fa3d09cac9448d3c91e815129fbd24672f6467c44efbbd022e",
+      "bytes": 3251
+    },
+    "simulation/evidence/onward_marker_native_review.md": {
+      "sha256": "7e2bafb00b6644c119c5f1aaa00dd63f6e45f4144313a58fd7e6bf8c9fd3b64b",
+      "bytes": 3546
+    },
+    "simulation/evidence/onward_marker_anchor_moved_05_current.png.import": {
+      "sha256": "3df290b6e89c671b4c5490a2b3361d78d8cf5b9e405bbc96dec57eb0be67a73a",
+      "bytes": 1035
+    },
+    "simulation/evidence/onward_marker_room01_initial_t0p0_legacy.png.import": {
+      "sha256": "8880bfbb9c54800dbc105a105f1b43a1af4bf0616ebb9931c168cc106b252855",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_style_reference_06_current.png.import": {
+      "sha256": "817163983e10a1ef8f31396660448918ed0612ce1dcc9c37d52a498aba01598b",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_style_reference_01_legacy.png.import": {
+      "sha256": "309b38ac5144916a74bcb88de5d108408aa912c7d61a107aab898a722af58ca2",
+      "bytes": 1041
+    },
+    "simulation/evidence/onward_marker_health_regression_120_runner.log": {
+      "sha256": "c5bc99ee54a1df867420b0408a6cb8f0d59a60b81b19732c26816466f577d39c",
+      "bytes": 128
+    },
+    "simulation/evidence/onward_marker_focused_room06_false_legacy.png": {
+      "sha256": "e6f2078f94b071a749652ac3d9e09f83390fe92abe99ace87f23eaad718ce2be",
+      "bytes": 1679
+    },
+    "simulation/evidence/onward_marker_health_shield_compatibility_60_runner.log": {
+      "sha256": "d7c8aae5b4ede9a1b198451062bfd27ef7c1cd2641e3a228ebe52ed04df6e5bd",
+      "bytes": 200
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_02_current.png": {
+      "sha256": "78e193d9496cc3948616f7d98d626563fbaa0c1e2e85b20b76a67948c6a67e3d",
+      "bytes": 2648
+    },
+    "simulation/evidence/onward_marker_final_native_diagnostics.jpg": {
+      "sha256": "a223b87648ed98ec1088045554d3ecc44d27b076eb9b442e9be7dafdd464dd38",
+      "bytes": 179454
+    },
+    "simulation/evidence/onward_marker_anchor_moved_03_current.png.import": {
+      "sha256": "333686efb262f5e106c795f51d6168f4124172c2c55129eb0c3df338101d50ab",
+      "bytes": 1034
+    },
+    "simulation/evidence/onward_marker_style_reference_07_legacy.png.import": {
+      "sha256": "52e09cd0e8b4af901573acbda3c369d3d42af2e5bcdadf3f09922debff135a82",
+      "bytes": 1040
+    },
+    "simulation/evidence/onward_marker_anchor_moved_03_legacy.png": {
+      "sha256": "f5d2ad576035be49291efe4d0239bbed3b6f81c8699d6346f9595d1bc766f084",
+      "bytes": 1918
+    },
+    "simulation/evidence/onward_marker_focused_room06_true_current.png": {
+      "sha256": "612f712183379cf11613a8c4f70eb8f0500986f95e4d80614c34c5db2b29b458",
+      "bytes": 1639
+    },
+    "simulation/evidence/onward_marker_focused_room08_true_legacy.png.import": {
+      "sha256": "aef8f3d27244e5120247c08016421c40b24a2a85f44ede919a0c06cb834d37af",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_final_native_complete.jpg.import": {
+      "sha256": "93236d79300f66ab15545e34532f1d88736df4f0927d536e24451d0b5ff1f3ff",
+      "bytes": 1029
+    },
+    "simulation/evidence/onward_marker_room01_active_t0p0_legacy.png": {
+      "sha256": "7d01ff683073da5fc7c5a0b0d859736138267532033bbc20e3022794fd462ebe",
+      "bytes": 16608
+    },
+    "simulation/evidence/onward_marker_focused_room04_true_legacy.png.import": {
+      "sha256": "95cf1694c11a030a36194c0172cfaae85de1b7a9ce8875159dbd66df63442e84",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_room05_initial_t0p0_current.png.import": {
+      "sha256": "92f733facffa6b3bf9fed2dd044dd24e289ddcf0be3149d307ce82d6c23b2daf",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_focused_room07_false_legacy.png": {
+      "sha256": "6f09e93a698c187170c6329f66ee833a7e45cbb806bf3e05bc77d17ad9385580",
+      "bytes": 1700
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_04_legacy.png": {
+      "sha256": "9bc494355b51c1feefc190743168f93980cb6550dacae37cbb0fb1a54b55a75b",
+      "bytes": 2403
+    },
+    "simulation/evidence/onward_marker_initial_partial_output.jpg.import": {
+      "sha256": "3c2eb6caf35221105f68cd3d026bc2fccb39ec6764e155e52b6197300fa6bcb9",
+      "bytes": 1032
+    },
+    "simulation/evidence/onward_marker_focused_room08_false_current.png": {
+      "sha256": "7c0cfb72c9b1e0c983c776b6ac48e908326c004faa7e27ee8119b7f0027cfe3a",
+      "bytes": 1116
+    },
+    "simulation/evidence/onward_marker_room05_active_t0p0_current.png.import": {
+      "sha256": "b28cd7a5f6bcacf6336ac745a623efcbacb4c0c4dff1f8e4fcb960365bad96a3",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_style_reference_00_current.png.import": {
+      "sha256": "4f23cf0c32d60fc9a24ce87d21971b2fbcfbaf6c9446750970a8037272b9d513",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_02_legacy.png": {
+      "sha256": "ece090f072cbff9e92b89e023e36f15e73ef792ba942e2df8c78ea4628af4dcb",
+      "bytes": 2397
+    },
+    "simulation/evidence/onward_marker_room04_initial_t0p0_current.png": {
+      "sha256": "3e145c0ab4cb4906a6934a01fd1af8ef57ef8d93c3995c94e3a78d28a925034f",
+      "bytes": 27614
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_05_legacy.png": {
+      "sha256": "c7c18db10838138f864db5cf0845deb1a76dccc11697322896ef432aa3c0dd2a",
+      "bytes": 1743
+    },
+    "simulation/evidence/onward_marker_room05_initial_t0p0_legacy.png": {
+      "sha256": "de25bd0bb928433f97def4a0c3b6f418a83a6b64ce0c7eb0e79881bb817a394d",
+      "bytes": 22610
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_00_current.png": {
+      "sha256": "188a474152dbba4c9c22b76457119a3873bcd841fc089f6c3a90e5d556f4fcc7",
+      "bytes": 2239
+    },
+    "simulation/evidence/onward_marker_final_native_stopped.jpg.import": {
+      "sha256": "e2801ee09c17bb33cb1c5cf850394bc6d3838b9f6cb90df7e05f9d4e6f990503",
+      "bytes": 1026
+    },
+    "simulation/evidence/onward_marker_anchor_moved_06_legacy.png": {
+      "sha256": "92339486fb06c7437d39c4c41e21efa956414fc51eff2739268ff7e42f7fbd55",
+      "bytes": 2588
+    },
+    "simulation/evidence/onward_marker_room01_blackout_pulse_current.png": {
+      "sha256": "d5015d96f7b9c144fa730ad053ae966a45eb6802ec35f29f8f9fd6c76d59f90d",
+      "bytes": 18426
+    },
+    "simulation/evidence/onward_marker_anchor_moved_01_legacy.png": {
+      "sha256": "8c96735c04939ee3f9b58cf56a19f92bdd71b6d8be53ddd921e3db1ff5b58808",
+      "bytes": 1594
+    },
+    "simulation/evidence/onward_marker_focused_room05_true_current.png": {
+      "sha256": "09489602dc47e788787dbd9951288dfceed2b8faf567d12f95e236af299a1903",
+      "bytes": 1463
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_03_legacy.png.import": {
+      "sha256": "fdbb5de50dcdd3e82bf681faf75c5d5c56e6eacb8a3a90e68d3f277106ec5ffa",
+      "bytes": 1055
+    },
+    "simulation/evidence/onward_marker_live_initial.jpg": {
+      "sha256": "54f5a74ba4e1244923691e0e357dfc52f24172b14c63e1288307bc179459d103",
+      "bytes": 141341
+    },
+    "simulation/evidence/onward_marker_room02_initial_t0p0_current.png.import": {
+      "sha256": "56beacf60206affe6f2cbbb924c13449b3319cece296f9da96f694f57bd7b3bb",
+      "bytes": 1046
+    },
+    "simulation/evidence/onward_marker_room01_initial_t0p0_current.png.import": {
+      "sha256": "0516236152518c62092f0fd1fdda3fc5ac7fe76fcf4d58d78ee3de47acaf8e6c",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_06_current.png": {
+      "sha256": "a005724d0f62346aa2f6b3b40e708890e9d69d59c34cd09cf169c74e9284313a",
+      "bytes": 2601
+    },
+    "simulation/evidence/onward_marker_pixels_complete.jpg": {
+      "sha256": "c6ea587d3bd567a455fd190c44bc552fa6533c12a925458a7a9ec49e16f092a8",
+      "bytes": 98810
+    },
+    "simulation/evidence/onward_marker_focused_room07_true_legacy.png": {
+      "sha256": "187f2fa027ee3de56b467856eb026bb29938e3b37f2348ee1d95d955663a57ff",
+      "bytes": 1666
+    },
+    "simulation/evidence/onward_marker_room06_active_t0p0_current.png.import": {
+      "sha256": "ee5bc86d27d715c53bb6a78d874b966f6cfb4ae1d74c0ed069dca24609b387db",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_room03_active_t0p0_current.png": {
+      "sha256": "23b9ebf85759024be42fdbeb511b41a5669a7af2c3707b543d36943db5472c1b",
+      "bytes": 18469
+    },
+    "simulation/evidence/onward_marker_migrated_120_review_mission_integration.json": {
+      "sha256": "fb339425cb067af12d67e2a07d97fa799a6f845e0cd536032fca54ecb97418b1",
+      "bytes": 3557
+    },
+    "simulation/evidence/onward_marker_focused_room08_true_current.png.import": {
+      "sha256": "467cff0ba0a0004b804b43df220cc036700243a7579cd08a4e180877852151e8",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_focused_room05_false_legacy.png.import": {
+      "sha256": "bdf8733b4024b7bfb8f4df6eeddc696e14051e840a183b7949a17501a08fa590",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_anchor_moved_02_current.png.import": {
+      "sha256": "4379173ac42bb67c8d1c5a5aafc81a77184ab481a65ecd64d190b1a72eae5a05",
+      "bytes": 1034
+    },
+    "simulation/evidence/onward_marker_room05_initial_t0p0_current.png": {
+      "sha256": "de25bd0bb928433f97def4a0c3b6f418a83a6b64ce0c7eb0e79881bb817a394d",
+      "bytes": 22610
+    },
+    "simulation/evidence/onward_marker_isolated.json": {
+      "sha256": "c9c9d29f7352548c2b65d873c4fa8a2acf99b548e342aa1745af2c70455f947c",
+      "bytes": 693
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_04_current.png.import": {
+      "sha256": "2117bda99ded48ab2228f9bb9e6bcc5eaaaee3b76102a1aecd31d8ee7ceed8c9",
+      "bytes": 1058
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_06_legacy.png": {
+      "sha256": "f89edd09bf5e111b62c54b40b8485d1ceede14161014d62c66c071c5d4492f62",
+      "bytes": 2365
+    },
+    "simulation/evidence/onward_marker_focused_room08_true_current.png": {
+      "sha256": "e69215b8d533b3a8369144c4e252175ff22f82cd6fe881469ad44c5e0b63436b",
+      "bytes": 1113
+    },
+    "simulation/evidence/onward_marker_focused_room05_true_legacy.png": {
+      "sha256": "09489602dc47e788787dbd9951288dfceed2b8faf567d12f95e236af299a1903",
+      "bytes": 1463
+    },
+    "simulation/evidence/onward_marker_final_gates.json": {
+      "sha256": "e7d34de201eb91eda21f862e9a50261fa1921b131e12a85cd1b94894abd09c4a",
+      "bytes": 77385
+    },
+    "simulation/evidence/onward_marker_room01_blackout_pulse_legacy.png.import": {
+      "sha256": "4fe172859d8916880c5b35c075637f0de77f3f91ef79818169c82c3af4365b62",
+      "bytes": 1050
+    },
+    "simulation/evidence/onward_marker_room05_initial_t0p0_legacy.png.import": {
+      "sha256": "088bce8b1a61ee9791f5feb57a866c26a6559a3c3ec5a965e8976146643af40f",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_00_legacy.png": {
+      "sha256": "188a474152dbba4c9c22b76457119a3873bcd841fc089f6c3a90e5d556f4fcc7",
+      "bytes": 2239
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_01_legacy.png": {
+      "sha256": "56ca02b9eb02da9712f8fa2594f660c66613728cf2d1aa164a56fb2dda94f37b",
+      "bytes": 2020
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_07_current.png": {
+      "sha256": "ea896c84b8536bd70eec5fbe5253874840f99583d5a0737b62ed1e80e3e1c962",
+      "bytes": 1899
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_00_current.png": {
+      "sha256": "da04330fc8daaf57c559fee7a7a812abb3f99270b1b10369da7a83aaa3ab1e6f",
+      "bytes": 2648
+    },
+    "simulation/evidence/onward_marker_focused_room07_false_current.png": {
+      "sha256": "6f09e93a698c187170c6329f66ee833a7e45cbb806bf3e05bc77d17ad9385580",
+      "bytes": 1700
+    },
+    "simulation/evidence/onward_marker_style_reference_00_legacy.png.import": {
+      "sha256": "da9360ad69bff902f5dcc3d0232420ebb0d9eb71b0ca7aced9a03fa4f07f8bab",
+      "bytes": 1040
+    },
+    "simulation/evidence/onward_marker_style_reference_04_current.png.import": {
+      "sha256": "8addd8c5fd05e123ec7bae5a46588ef07ae5adc5ceb86f5194de98b462aea654",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_room07_active_t0p0_current.png": {
+      "sha256": "b84adf1c59ff0800cdaf6d410b47843d2421ffa4d4de3fc4af0e19fb744bf03b",
+      "bytes": 11312
+    },
+    "simulation/evidence/onward_marker_anchor_moved_07_current.png": {
+      "sha256": "c82c6b245f23a890633c06e5def5e5b7f5894f1bd798ec376be6de02d5aaa845",
+      "bytes": 1881
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_01_legacy.png": {
+      "sha256": "f66296daae065412646a0b23b55e0ed240d3f73e6e839a32af7c09a68e67dd29",
+      "bytes": 1600
+    },
+    "simulation/evidence/onward_marker_migrated_integration_120.log": {
+      "sha256": "cc7147408da54aa1bf755e3808e51d5926e198d033fb37685051b00ded7b3e2f",
+      "bytes": 120
+    },
+    "simulation/evidence/onward_marker_overlap_city_false_legacy.png.import": {
+      "sha256": "020aae59e88bd4f73376960552ae83312e3724e0eb74aa4d289fae9f001d4c29",
+      "bytes": 1041
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_07_legacy.png": {
+      "sha256": "ea896c84b8536bd70eec5fbe5253874840f99583d5a0737b62ed1e80e3e1c962",
+      "bytes": 1899
+    },
+    "simulation/evidence/onward_marker_development_120.log": {
+      "sha256": "5fab4e6d3f2b64898fc253b65cc64ce2ac9e5ca65e7208d52c4fc513fd2ac2a1",
+      "bytes": 269
+    },
+    "simulation/evidence/onward_marker_focused_room02_false_current.png": {
+      "sha256": "f93d5740249dd3186be65c1c3895df3296821d18beae31af1e21b2e4c0ed7cd6",
+      "bytes": 1464
+    },
+    "simulation/evidence/onward_marker_style_reference_00_legacy.png": {
+      "sha256": "f924874b9e31fe571781166852b7f28e827a8cfe8ff25193f9f6758ffbb09b4d",
+      "bytes": 1890
+    },
+    "simulation/evidence/onward_marker_style_reference_09_legacy.png.import": {
+      "sha256": "a40037dc20640dc9f5dcf5bea45900f0e44b22fcbd64a36226fc00a7ca7a3334",
+      "bytes": 1041
+    },
+    "simulation/evidence/onward_marker_focused_room03_true_legacy.png": {
+      "sha256": "6ed26af1d061137682ec07ec38d1f96df1ee1549eeeaf236173201416731871a",
+      "bytes": 1608
+    },
+    "simulation/evidence/onward_marker_focused_room05_false_legacy.png": {
+      "sha256": "e562df0f79915a2e63e0a52b3293fc2858e3a9e068b483fa10c204013837ddec",
+      "bytes": 1502
+    },
+    "simulation/evidence/onward_marker_style_reference_06_legacy.png": {
+      "sha256": "51b5e0293b8b58cb47fa4ceb6f9f6e3626e968b37b2238394160237e57842fbf",
+      "bytes": 2493
+    },
+    "simulation/evidence/onward_marker_overlap_interior_true_legacy.png": {
+      "sha256": "1682abe059f3d30cac43865d2d697430bf389ff0c12df3e2c40340cd9dc6cf51",
+      "bytes": 7192
+    },
+    "simulation/evidence/onward_marker_style_reference_09_current.png": {
+      "sha256": "cddc8ef1af9f1585a20c9ab82daa59a093e5844c39a99d478204d9626672caf4",
+      "bytes": 2795
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_06_current.png": {
+      "sha256": "f89edd09bf5e111b62c54b40b8485d1ceede14161014d62c66c071c5d4492f62",
+      "bytes": 2365
+    },
+    "simulation/evidence/onward_marker_focused_room03_true_current.png": {
+      "sha256": "6ed26af1d061137682ec07ec38d1f96df1ee1549eeeaf236173201416731871a",
+      "bytes": 1608
+    },
+    "simulation/evidence/onward_marker_style_reference_03_current.png.import": {
+      "sha256": "82140e6761cff39f1a0b583a892d0c9c05302862804d427cd756fe452af1405d",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_live_amber.jpg.import": {
+      "sha256": "67478f628cd65c08c4062892c1d66b1dabb97585c76dc57c984074924bd3d3e7",
+      "bytes": 996
+    },
+    "simulation/evidence/onward_marker_room02_active_t0p0_legacy.png": {
+      "sha256": "0df93b7eebad041e6ab15a66e205a9f2ef81c561a2f5320affc00afb1a7fe6b7",
+      "bytes": 19973
+    },
+    "simulation/evidence/onward_marker_held_60_runner.log": {
+      "sha256": "ed5ed285b5804ed11ceca8a77bd2a6c5270a515a435d78be7407852917526266",
+      "bytes": 129
+    },
+    "simulation/evidence/onward_marker_focused_room02_true_current.png": {
+      "sha256": "b9825bbd44f63a714ed3c4289d6d69c0990065800ec0bfcb6c2f50bec4899114",
+      "bytes": 1433
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_07_current.png.import": {
+      "sha256": "229b09a19fc25a4d5e174adbb370e1c321c8e374ecaee4d64a3374c570706352",
+      "bytes": 1058
+    },
+    "simulation/evidence/onward_marker_focused_room02_true_legacy.png.import": {
+      "sha256": "1bb713a70567619971ec89246bf9da96cf73b4b43328bdc275a563fea45c116b",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_migrated_integration_60.log": {
+      "sha256": "6d1e1ddd94eeb42303b570abd8e91b1679dad7991e8d9d04f2796f3fc23ad78d",
+      "bytes": 119
+    },
+    "simulation/evidence/onward_marker_anchor_moved_05_legacy.png.import": {
+      "sha256": "009dbd8b889bdf4886d423b87298bfac0e74fc4974a5eecb5eeb5da18fe593a6",
+      "bytes": 1031
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_04_legacy.png": {
+      "sha256": "7f041e4847d7aec606a3defe73d8122b7e6e4330d0c2566a818f3c83a2410a0d",
+      "bytes": 2638
+    },
+    "simulation/evidence/onward_marker_focused_room02_false_current.png.import": {
+      "sha256": "97a8e9a60eba8a753c39ece29e8446b7ad409bee1e580becac5ad4ba736de066",
+      "bytes": 1050
+    },
+    "simulation/evidence/onward_marker_focused_room03_false_legacy.png": {
+      "sha256": "66308ff6f6a4ad254f1ae3ab7edcf06341d61b130529a72cf9d306aa8cb842af",
+      "bytes": 1651
+    },
+    "simulation/evidence/onward_marker_focused_room04_true_current.png": {
+      "sha256": "0185e5398809dfed4fed33894f6538c7da8e134911738faaf3db5c89c440b9f6",
+      "bytes": 1669
+    },
+    "simulation/evidence/onward_marker_native_pixels.json": {
+      "sha256": "e2d5e94608b291de8faf18a817d41cdf18059431c73d4f3b5913944a95ea087c",
+      "bytes": 141436
+    },
+    "simulation/evidence/onward_marker_overlap_city_true_legacy.png": {
+      "sha256": "64d05cbcac61f7bc8e24ec25caceec136581a9e72152c1859582574b605303b8",
+      "bytes": 8534
+    },
+    "simulation/evidence/onward_marker_style_reference_02_current.png": {
+      "sha256": "73abf4d074899fd10d38710aef720e1787b2c6abf67b47a3f86f6aaefc2a4c33",
+      "bytes": 2578
+    },
+    "simulation/evidence/onward_marker_initial_diagnostics.jpg.import": {
+      "sha256": "f5cf104db01a9ea8fd5fbc8414ad226563dbf64c5be82fc84106dc56b99cc8a7",
+      "bytes": 1023
+    },
+    "simulation/evidence/onward_marker_anchor_moved_01_current.png": {
+      "sha256": "8c96735c04939ee3f9b58cf56a19f92bdd71b6d8be53ddd921e3db1ff5b58808",
+      "bytes": 1594
+    },
+    "simulation/evidence/onward_marker_focused_room01_false_current.png": {
+      "sha256": "11631dad4c16e8acc9c5a6c44a00d3c27df5677015bd32dda6c1bd219c9ac70f",
+      "bytes": 1659
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_06_legacy.png": {
+      "sha256": "a005724d0f62346aa2f6b3b40e708890e9d69d59c34cd09cf169c74e9284313a",
+      "bytes": 2601
+    },
+    "simulation/evidence/onward_marker_anchor_moved_04_current.png": {
+      "sha256": "7cd7e9124cab92d416c3b73b3dfbcb7b6478d0101497c3da0b546f1b5934cf36",
+      "bytes": 2583
+    },
+    "simulation/evidence/onward_marker_room07_initial_t0p0_legacy.png": {
+      "sha256": "725798a23b87baa620b4f2da515eb26e8b8fa74187dda07b8bc439e09a5910d8",
+      "bytes": 11285
+    },
+    "simulation/evidence/onward_marker_focused_room01_true_current.png": {
+      "sha256": "ee54c3e50d3bc24cb53d3f16b6e00b235e910da85fc701a5fc092f87193b6980",
+      "bytes": 1680
+    },
+    "simulation/evidence/onward_marker_migrated_60_review_mission_integration.json": {
+      "sha256": "33a3d8a4cc175db04efb90dfc42097949f592673700c97d46a92234452ddade4",
+      "bytes": 3556
+    },
+    "simulation/evidence/onward_marker_room03_initial_t0p0_legacy.png.import": {
+      "sha256": "750a136a77eb3de2776fc7fdb38fb9a44fc5dc42cd54520904167593aab401d4",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_initial_parser_error.jpg": {
+      "sha256": "8f93d83205c77ccd475d264b92bd49db3bf116bbeba2c97237fa5853416d380a",
+      "bytes": 139568
+    },
+    "simulation/evidence/onward_marker_pixels_diagnostics.jpg.import": {
+      "sha256": "395efe69cbdce0bc8d638cba3307d72d33410c821a15940911070b31fbb4eeca",
+      "bytes": 1020
+    },
+    "simulation/evidence/onward_marker_live_open.jpg": {
+      "sha256": "8ca2b7bb64cf77b9ab29fef8896a282415ef1da2f8ac76a9d76bf2f45e48b691",
+      "bytes": 140836
+    },
+    "simulation/evidence/onward_marker_room01_blackout_quiet_current.png.import": {
+      "sha256": "6f1b7caaa7af8433253e17514ba59a783395f24a0af541eb70500185a27e8b71",
+      "bytes": 1052
+    },
+    "simulation/evidence/onward_marker_focused_room02_true_legacy.png": {
+      "sha256": "b9825bbd44f63a714ed3c4289d6d69c0990065800ec0bfcb6c2f50bec4899114",
+      "bytes": 1433
+    },
+    "simulation/evidence/onward_marker_focused_room03_false_current.png": {
+      "sha256": "66308ff6f6a4ad254f1ae3ab7edcf06341d61b130529a72cf9d306aa8cb842af",
+      "bytes": 1651
+    },
+    "simulation/evidence/onward_marker_final_native_stopped.jpg": {
+      "sha256": "b70e88cabc9d3ed403ae0ceb6d5983dd4fb09ef39af284a2f8c78db91e17606d",
+      "bytes": 147974
+    },
+    "simulation/evidence/onward_marker_room08_active_t0p0_legacy.png": {
+      "sha256": "d9ae376ae96cdf96ffe437d929f8f160afa5bd34dc616c68b2239ee31d79d4f9",
+      "bytes": 5286
+    },
+    "simulation/evidence/onward_marker_overlap_interior_true_current.png.import": {
+      "sha256": "406199df57419ff3a694997dd853f2549968340360482684820e2928386f08de",
+      "bytes": 1053
+    },
+    "simulation/evidence/onward_marker_live_open.jpg.import": {
+      "sha256": "c6e4354284d26f43cd18598864db3a30ab058b487dc146040fdac404f96be3f7",
+      "bytes": 993
+    },
+    "simulation/evidence/onward_marker_style_reference_05_current.png.import": {
+      "sha256": "5ea36bd7b8dbbe7bc84fab7252258579ba9ff3eb9ebe6ed595c0f703fc59338f",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_focused_room07_true_current.png.import": {
+      "sha256": "e0b7f18f4919239a17f3c0b31631d0bc1b3527e11d6e12cc1d1c2edfead728a2",
+      "bytes": 1046
+    },
+    "simulation/evidence/onward_marker_development_preservation.log": {
+      "sha256": "7d87a2e679e62de890c559f470158226ae963f2bf438177629b2e045ce77ea55",
+      "bytes": 598
+    },
+    "simulation/evidence/onward_marker_room03_initial_t0p0_legacy.png": {
+      "sha256": "ef24760880c79a4e8d8f7c9bbb712485146d5719d5b3d90e949696edbc636dce",
+      "bytes": 18551
+    },
+    "simulation/evidence/onward_marker_focused_room07_true_legacy.png.import": {
+      "sha256": "10daf072e1cdca01f7a33a15d19188711062e0d058961390cabaf87535699bd3",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_01_legacy.png.import": {
+      "sha256": "ce99f9728c40013151a70ea5aabd0e2cdc589b1910ffe4c10dd84ad912a08550",
+      "bytes": 1056
+    },
+    "simulation/evidence/onward_marker_style_reference_05_legacy.png.import": {
+      "sha256": "a6cf296e5f7059761385314cf23fabb940325a85d5f150171e14b62e35b2998a",
+      "bytes": 1040
+    },
+    "simulation/evidence/onward_marker_live_diagnostics.jpg.import": {
+      "sha256": "2c5ff6eefa2be3202aace4f85ede054b122419fc1be7b5b1cfac5d8b1db27be4",
+      "bytes": 1014
+    },
+    "simulation/evidence/onward_marker_style_reference_04_current.png": {
+      "sha256": "7d228ee2c996fa9fceba0b250184a340cb7e40af6894e903f4f8f0372e8d423a",
+      "bytes": 2781
+    },
+    "simulation/evidence/onward_marker_style_reference_00_current.png": {
+      "sha256": "f924874b9e31fe571781166852b7f28e827a8cfe8ff25193f9f6758ffbb09b4d",
+      "bytes": 1890
+    },
+    "simulation/evidence/onward_marker_focused_room03_true_legacy.png.import": {
+      "sha256": "f6c202285711c0c4c61e761b5c206fbbb4ec06f8588b4e3d9ba84c15a95d4fa4",
+      "bytes": 1043
+    },
+    "simulation/evidence/onward_marker_routes_runner.log": {
+      "sha256": "6af1569fb72f40d5e37ac342ba6d849d19c62b43a11fc6e6754a0e04748c70dc",
+      "bytes": 826
+    },
+    "simulation/evidence/onward_marker_focused_room05_false_current.png": {
+      "sha256": "e562df0f79915a2e63e0a52b3293fc2858e3a9e068b483fa10c204013837ddec",
+      "bytes": 1502
+    },
+    "simulation/evidence/onward_marker_room07_initial_t0p0_legacy.png.import": {
+      "sha256": "b83553d95ce38d7cad4791fa4831cdf3d7348675b6a43498d0cfc96edfecfd82",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_historical_runner.log": {
+      "sha256": "e730781a6f16b306c1c8909c4fc399f8a34125d35795f7ab4e2358f1c0fd0660",
+      "bytes": 665
+    },
+    "simulation/evidence/onward_marker_room07_active_t0p0_current.png.import": {
+      "sha256": "a01ec4ac0febf57a7df9eec082146cfeee5a14a2bf79684058c382b005078fff",
+      "bytes": 1044
+    },
+    "simulation/evidence/onward_marker_pixels_complete.jpg.import": {
+      "sha256": "fefc258bdae4bf4d5e6d3999943ce9dd9205b46776f965d552a2b669d82c014c",
+      "bytes": 1011
+    },
+    "simulation/evidence/onward_marker_style_reference_02_legacy.png": {
+      "sha256": "73abf4d074899fd10d38710aef720e1787b2c6abf67b47a3f86f6aaefc2a4c33",
+      "bytes": 2578
+    },
+    "simulation/evidence/onward_marker_overlap_interior_false_legacy.png": {
+      "sha256": "02b74f459960c2cd6a358936c3593659f6c5916462e4782233f0d2d5982ba31b",
+      "bytes": 7159
+    },
+    "simulation/evidence/onward_marker_focused_room07_false_legacy.png.import": {
+      "sha256": "f9605cbd83a67ee6fda5400c259e4a3d7ef09e424cccb1eca98dfa8c14f125fe",
+      "bytes": 1046
+    },
+    "simulation/evidence/onward_marker_focused_room04_false_current.png": {
+      "sha256": "3202ee75dfdff6c2d6db85175b5baa5619bf7c54a2872a2e55177d13ee702aca",
+      "bytes": 1707
+    },
+    "simulation/evidence/onward_marker_anchor_decomposition_03_current.png": {
+      "sha256": "fca5b5559b954d4f1101268ff8b1fec5be676ebc74c09a45f30990c75ab9cc21",
+      "bytes": 1935
+    },
+    "simulation/evidence/onward_marker_live_initial.jpg.import": {
+      "sha256": "1c99d746d7d3c34446d40cedda37efc6cb8348866fe8275aef028fe1ac4642a0",
+      "bytes": 1002
+    },
+    "simulation/evidence/onward_marker_anchor_moved_00_legacy.png.import": {
+      "sha256": "e0344f4ee368c08f9b7ebced7a0c9de54c6ec2a3789cf37e8a741333931f832e",
+      "bytes": 1032
+    },
+    "simulation/evidence/onward_marker_anchor_moved_06_current.png": {
+      "sha256": "92339486fb06c7437d39c4c41e21efa956414fc51eff2739268ff7e42f7fbd55",
+      "bytes": 2588
+    },
+    "simulation/evidence/onward_marker_focused_room04_false_legacy.png": {
+      "sha256": "3202ee75dfdff6c2d6db85175b5baa5619bf7c54a2872a2e55177d13ee702aca",
+      "bytes": 1707
+    },
+    "simulation/evidence/onward_marker_live_reset.jpg.import": {
+      "sha256": "6365e22082a246ed4fd7509859ec8197bb4491b39c2ae60cb7bcd7077f59719a",
+      "bytes": 996
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_02_current.png": {
+      "sha256": "ece090f072cbff9e92b89e023e36f15e73ef792ba942e2df8c78ea4628af4dcb",
+      "bytes": 2397
+    },
+    "simulation/evidence/onward_marker_room05_active_t0p0_current.png": {
+      "sha256": "6acd87f63a8ce200821abbf61d06816ddfb4ebcdd4b9392ac06d43a2dea771c5",
+      "bytes": 22519
+    },
+    "simulation/evidence/onward_marker_room04_initial_t0p0_legacy.png": {
+      "sha256": "3e145c0ab4cb4906a6934a01fd1af8ef57ef8d93c3995c94e3a78d28a925034f",
+      "bytes": 27614
+    },
+    "simulation/evidence/onward_marker_foundation_runner.log": {
+      "sha256": "bea359df210e0517268d45fb2d9d2f029b551cc092932151134a0a5ea4218871",
+      "bytes": 1557
+    },
+    "simulation/evidence/onward_marker_stopped.jpg": {
+      "sha256": "326d2a341c3121937b29a2a0590654a25b06f8375982f41a6304e616b8b7428c",
+      "bytes": 123046
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_06_current.png.import": {
+      "sha256": "5dab39cd0b5fa5f8fec1771868914ee89c229cd892ebcbbf14e1fc3379b4cca7",
+      "bytes": 1062
+    },
+    "simulation/evidence/onward_marker_initial_partial_output.jpg": {
+      "sha256": "9b98a630a920cf88804cf53840e9a1748fe88ce3d0fc15e147d749590e624bfe",
+      "bytes": 155839
+    },
+    "simulation/evidence/onward_marker_anchor_moved_04_legacy.png.import": {
+      "sha256": "559226c38e029bc9be384f65307329318c21a82fe1e71e1ecc3aed3e4c1ac8ae",
+      "bytes": 1031
+    },
+    "simulation/evidence/onward_marker_focused_60_runner.log": {
+      "sha256": "313b6c843d16088fa00081a09569b0abbb53bc81fc989e7d4c60fc2e5830ea67",
+      "bytes": 110
+    },
+    "simulation/evidence/onward_marker_anchor_moved_00_current.png.import": {
+      "sha256": "42e4b8c56d8999701403a0f1ba2a66cd1a55fb7b20c602d3235055676ab15ad5",
+      "bytes": 1034
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_05_current.png.import": {
+      "sha256": "7e15effdb679320c3da99ebed4930666bfe705f86f08f504ab50b70eb0617791",
+      "bytes": 1061
+    },
+    "simulation/evidence/onward_marker_room02_initial_t0p0_legacy.png": {
+      "sha256": "94c62d4d654b253e57b3a140cf1d879ed43b3ea74a81e47b6db531fedf57b87a",
+      "bytes": 20068
+    },
+    "simulation/evidence/onward_marker_anchor_root_transform_03_current.png.import": {
+      "sha256": "f77f42479cd7503b6e02b92887fe266b4e6617cf52c3412ff6009392ccf57ad7",
+      "bytes": 1062
+    },
+    "simulation/evidence/onward_marker_overlap_interior_false_legacy.png.import": {
+      "sha256": "a9eb50c6112bc8d838f2f79e76d70f556e7041aaa8e478c8b2784ae744aede55",
+      "bytes": 1053
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_hidden.jpg": {
+      "sha256": "47ffb43bf08d1595c542162bf5ffdfdc6ff6598b30f97decc25b4b3a8437a854",
+      "bytes": 138342
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_hidden.jpg.import": {
+      "sha256": "7c3d541cd3f4fe905a9bd8b33ebe3a1f2318772b27a979ca386536f2a13398f4",
+      "bytes": 1026
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_red.jpg": {
+      "sha256": "4e7cd32a3ad677134f02f12693e23721df20fac57c8840d2d36d524116f66cbc",
+      "bytes": 141111
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_label.jpg.import": {
+      "sha256": "1ecf4a461339c0faa0b605a85eb25dd3d48d08a266b24a73dd32a757b6ad956d",
+      "bytes": 1023
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_pixels_diagnostics.jpg": {
+      "sha256": "040fdcad5334697f0c79b7743ceb2da934024a2a4dfe924ebc3887bd1ebb2e99",
+      "bytes": 179539
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_diagnostics.jpg": {
+      "sha256": "97a158f9beccd057d8beb94c74d2de95c604a4aeac561faa4d2065ed32383d07",
+      "bytes": 126588
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_stopped.jpg.import": {
+      "sha256": "3de8927ee64f41409efaa62b41ca0496c1ab075db3b9c177a652b7b62ab46eca",
+      "bytes": 1014
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_label.jpg": {
+      "sha256": "da9e46e2a9e7b31fb26eb10ac89a8632609bbc6a8c012a9fd49432bf9d0c20e2",
+      "bytes": 140340
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_amber.jpg": {
+      "sha256": "f3564e8dff3cb0730b0e38d9b08e1cc8b672c9f22f2ba4d74ae10aedb70b02b5",
+      "bytes": 140802
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_red.jpg.import": {
+      "sha256": "4471600dfc76f6c608c18710f37bceddbf0bbf01652e68f72ac71b0330746436",
+      "bytes": 1017
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_reset.jpg": {
+      "sha256": "54f5a74ba4e1244923691e0e357dfc52f24172b14c63e1288307bc179459d103",
+      "bytes": 141341
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_native_review.md": {
+      "sha256": "7e2bafb00b6644c119c5f1aaa00dd63f6e45f4144313a58fd7e6bf8c9fd3b64b",
+      "bytes": 3546
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_initial.jpg": {
+      "sha256": "54f5a74ba4e1244923691e0e357dfc52f24172b14c63e1288307bc179459d103",
+      "bytes": 141341
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_pixels_complete.jpg": {
+      "sha256": "c6ea587d3bd567a455fd190c44bc552fa6533c12a925458a7a9ec49e16f092a8",
+      "bytes": 98810
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_amber.jpg.import": {
+      "sha256": "d40f1f0b2c27d0ed13ce3fbce4f0d64b7d5c8a0c171d2830449a8b947faa9e34",
+      "bytes": 1023
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_native_pixels.json": {
+      "sha256": "61e8ccc054c1c8098653b734d105d55de245e0b2c50a5705bb15d99ae1379cd5",
+      "bytes": 141436
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_pixels_diagnostics.jpg.import": {
+      "sha256": "61803a3487ff9bb4a5c32a2938a562f1d4471ef99f058752756cafd0d156fa4b",
+      "bytes": 1047
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_open.jpg": {
+      "sha256": "8ca2b7bb64cf77b9ab29fef8896a282415ef1da2f8ac76a9d76bf2f45e48b691",
+      "bytes": 140836
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_open.jpg.import": {
+      "sha256": "96c3478eed343b7d7ae2a69f0a73dd583203d44c595a1fb0022ef1c59e46b364",
+      "bytes": 1020
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_diagnostics.jpg.import": {
+      "sha256": "e43ac9c56b7f35b3e216c6743310f34c621b2caec650a850f43784f1c576593d",
+      "bytes": 1041
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_pixels_complete.jpg.import": {
+      "sha256": "5eb30a19129a205af239bd4549028d387316278ef76640ce87c033c272d0fb6a",
+      "bytes": 1038
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_initial.jpg.import": {
+      "sha256": "5b6fb79ce2c79476191ed9bbcb8c6882cb1cf29c0ff52a053c404f7215469ea8",
+      "bytes": 1028
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_live_reset.jpg.import": {
+      "sha256": "46589156926dd52b9de1241efaae5562d4ac4a3f3298eaff0da190eeead79fa0",
+      "bytes": 1023
+    },
+    "simulation/evidence/onward_marker_prior_native/onward_marker_stopped.jpg": {
+      "sha256": "326d2a341c3121937b29a2a0590654a25b06f8375982f41a6304e616b8b7428c",
+      "bytes": 123046
+    },
+    "simulation/evidence/onward_marker_initial_failure/frozen_sources.json": {
+      "sha256": "f80c9b352910d26c83a5717b15626e98ee28a2fd57933cda0eee2aade7d12b8d",
+      "bytes": 72308
+    },
+    "simulation/evidence/onward_marker_initial_failure/support.gd.txt": {
+      "sha256": "d465cee626e8bb8016fbfd4055da541ba77fe0bd15cc7b3afdf93d6231e5337c",
+      "bytes": 3198
+    },
+    "simulation/evidence/onward_marker_initial_failure/pixel_regression.gd.txt": {
+      "sha256": "c920eaff23239b9fa9038872056f9d0149d8cc1e4f67fd31f2de78056507ada0",
+      "bytes": 16892
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_aggregate_runner.log": {
+      "sha256": "fccaed501ed87ce23208e1e29a142a31d46894fc323cb77e5251a54599f93df9",
+      "bytes": 3866
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_frozen_sources.json": {
+      "sha256": "727e84d60e3c324596605fc5e9b2bd68c0cbe6b31eb7289bae250c7ff5849210",
+      "bytes": 72432
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_final_gates.json": {
+      "sha256": "de505fae80510794a75973f262707ead4206341243f8cc4887e60132efc4d03e",
+      "bytes": 77386
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/review_mission_integration.gd.txt": {
+      "sha256": "dd1508056a3a88994d73338df7c8ad3ee2269fa764680b2fedca0e2b8815821e",
+      "bytes": 9767
+    },
+    "simulation/evidence/onward_marker_baseline/mission_room.gd.txt": {
+      "sha256": "9fb81a44f514b92c8221e9df450e5750516128d267031ac59f582fb95911dc55",
+      "bytes": 8528
+    },
+    "simulation/evidence/onward_marker_gates/tests/flow_all_report.json": {
+      "sha256": "a0560162db83dd0c1cd71555ed066285e981c86de08157ac79fc55cdd42a29dd",
+      "bytes": 47497
+    },
+    "simulation/evidence/onward_marker_gates/tests/flow_all_blind_feedback_regression.log": {
+      "sha256": "1f5af0826cbbb326375d318a9b5fe11c1b376e51ef871b776658d8f8dc3dbf16",
+      "bytes": 4324
+    },
+    "simulation/evidence/onward_marker_gates/tests/flow_all_sonar_regression.log": {
+      "sha256": "64869111eae891889ec1c220b39b97ee1b1211168dd9dd1698726f9e78cc4114",
+      "bytes": 1025
+    },
+    "simulation/evidence/onward_marker_gates/tests/sonar_report.json": {
+      "sha256": "f5c87316ddaff04a1a4484086b40e373c06097343f08577f07cc70b872e242b4",
+      "bytes": 1097
+    },
+    "simulation/evidence/onward_marker_gates/tests/flow_all_import.log": {
+      "sha256": "edf72b8e6f18f533c6633226f5c0e1a588fa722db9a92ca373fd1b48db95ae49",
+      "bytes": 24995
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/expanded_mission_route_60hz_retained.log": {
+      "sha256": "a07e4e91f4619845aa3579410fd164e14e59be599acce92bdbe139d5bd48ba57",
+      "bytes": 23086
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/mission_integration_60.log": {
+      "sha256": "6d1e1ddd94eeb42303b570abd8e91b1679dad7991e8d9d04f2796f3fc23ad78d",
+      "bytes": 119
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/import.log": {
+      "sha256": "7ac4d3a2f734424f70d9fe95df6beae9ff306a1f27e64e4920081564a82ab9fd",
+      "bytes": 26381
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/expanded_mission_route_120hz_retained.json": {
+      "sha256": "a6b9153be6c28832f3edcb9cbddb5e998e557a23ea10d499356fa976fc11b71e",
+      "bytes": 324149
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/mission_contracts_120.log": {
+      "sha256": "7a1861ebe3348944390ecd759c20da618d06f3502002a78ea94295cdb96b0135",
+      "bytes": 114
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/sentry_120.json": {
+      "sha256": "c7ecbadd998f82699789e537ad957d2617502003de280f228d96d66b316a88d1",
+      "bytes": 33592
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/mission_cargo_120.log": {
+      "sha256": "cb091b55f9e8646bb937c9d0805f53f7de40ff134e3f99f3c48268a4d3e28222",
+      "bytes": 132
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/warden_factory_120.json": {
+      "sha256": "b26f51dd17d983350304f37f4de28689b521d7ba0f0db07e369781a3d8ad2897",
+      "bytes": 259704
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/warden_factory_60.json": {
+      "sha256": "6706ec111f289184a3772f00bfc93c1ae2b606d2be892bc16298386ea7b02e24",
+      "bytes": 148663
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/reviewer_request_120.json": {
+      "sha256": "d32a623734d6861def740d92326d738a5ef7076f294e57f6283cfca37acccf01",
+      "bytes": 608573
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/expanded_mission_route_60hz_retained.json": {
+      "sha256": "4a2879d9182696f7224bd11ff7aa994fb0eb2ea1b7ecb635a8d4c7a1d0ea6553",
+      "bytes": 320367
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/expanded_mission_route_60hz_sacrificed.json": {
+      "sha256": "5bd50c9e3c5fda4536ef1e014f93d998735ac7df1515f3f4dc5298186860143e",
+      "bytes": 324476
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/actor_cargo_defense_60.json": {
+      "sha256": "88864f9e9e5d52e58cc949c52d6ea0bc9cca810597cf8a991a58ef5be940b809",
+      "bytes": 17974
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/counter_stock_combo_120.json": {
+      "sha256": "3f888b9781b896b1d706b173d53907d70591560bb2cdae521d15c0833ef3082f",
+      "bytes": 5906
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/expanded_mission_route_60hz_sacrificed.log": {
+      "sha256": "ac8cbf4116569c119bbb2ea378582a6f5de81494c57c91064a19c8998f8d7716",
+      "bytes": 25273
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/reviewer_request_60.json": {
+      "sha256": "f9f9e73384e8a74c675fd2d166f51226e7215e263997c2a1d92e54c5cbb68ebc",
+      "bytes": 251377
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/route_summary.json": {
+      "sha256": "11d0cbf1835104433ee0422a56e4a22832ba9cea922eaad72ea69f8f2c7717a2",
+      "bytes": 66224
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/actor_cargo_120.json": {
+      "sha256": "8f2a0e92d8ffa977d7cd83eeefc28e49207fe110389537e8f1927093c105bcac",
+      "bytes": 1018889
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/cargo_120.json": {
+      "sha256": "4b768aa7f5abb16bd32085adcabad21c0b5d0e38f2fe681f8770ea2a3ec85a8e",
+      "bytes": 29212
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/counter_stock_combo_60.json": {
+      "sha256": "15ec61ecf5e9106d36d15143e1fc5da5f505e580e275bc2dea4d595dadfcbb09",
+      "bytes": 5905
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/counter_stock_shield_60.json": {
+      "sha256": "ff9c07bdf0ca1a08a9c50ceb336f569b01f0643e52d246220d967d5045a9d2c2",
+      "bytes": 6196
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/boundary_60.json": {
+      "sha256": "c7ceaebf78d7e69585ca82aee9cffbe84533e006a7adbb29a13d7a66b4f0defc",
+      "bytes": 39804
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/mission_contracts_60.log": {
+      "sha256": "7a1861ebe3348944390ecd759c20da618d06f3502002a78ea94295cdb96b0135",
+      "bytes": 114
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/counter_stock_combat_120.json": {
+      "sha256": "d650e289c5fb3bdfb42025c4eadad2d686744f78b321a8077b03cf4138067c32",
+      "bytes": 1945
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/counter_stock_guard_component_smoke_120.log": {
+      "sha256": "b4185785800877c056f2dd9b504b8814e4fcbf330d512b9c4dd5b6c7696bbd93",
+      "bytes": 4147
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/expanded_mission_route_120hz_sacrificed.log": {
+      "sha256": "662469d8bf5016d8344851ed96102e6e49eda33281ead161518ec673f2aa76e0",
+      "bytes": 25598
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/actor_cargo_60.json": {
+      "sha256": "ebbace9c0f382d1b5289b0f37f62ab4b0c4a7f2a722cb1d8adc90c34cf9ccf6e",
+      "bytes": 558200
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/boundary_120.json": {
+      "sha256": "8633dcc9418a9e185a9664631937171b7dc2dc97857311774156f2846f01548e",
+      "bytes": 39806
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/actor_cargo_defense_120.json": {
+      "sha256": "d623470120874d1be54d550f2a93405c34f78f5d23c6536afad9a4bb8b923381",
+      "bytes": 19672
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/mission_integration_120.log": {
+      "sha256": "cc7147408da54aa1bf755e3808e51d5926e198d033fb37685051b00ded7b3e2f",
+      "bytes": 120
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/expanded_mission_route_120hz_retained.log": {
+      "sha256": "71b52f01576bab6c00f2cfdbb56e8476c3749904465e131eaf2c5a787e790c34",
+      "bytes": 23988
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/counter_stock_health_120.json": {
+      "sha256": "d0847d8cf9a240cf44ca56d575536acc4f22010797d7b901ed1d2d85f9294808",
+      "bytes": 822
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/counter_stock_guard_component_smoke_60.log": {
+      "sha256": "a7552717ccd6657fba5022fe6aed89ac4420cebd69b3f312bc6177b25ebde0ff",
+      "bytes": 4150
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/gym_lifecycle.log": {
+      "sha256": "86e723bbe836120d42efc61744995b8abbca8fc40ab685d56899c05b47e5c1e7",
+      "bytes": 110
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/expanded_mission_route_120hz_sacrificed.json": {
+      "sha256": "e4d0e214d0ef838fef9677ec2cd800101e136dfb111cc3b405e7a0eea8960484",
+      "bytes": 332259
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/counter_stock_combat_60.json": {
+      "sha256": "d88c4763577d05490bfe85f03fcf53e4dda36c46257f4eff1c05536febabad80",
+      "bytes": 1944
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/counter_stock_health_60.json": {
+      "sha256": "8dd2e8e97b3c4f2778d08ae3210e0d66ac060d6912328df94849ba355bbea76e",
+      "bytes": 821
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/shared_warden_60hz.json": {
+      "sha256": "f86d10ac0f78c3954b91d3842193b782cc78b5560d813390d8292103566defef",
+      "bytes": 3765
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/foundation_report.json": {
+      "sha256": "f9eafc483f65cb935600ee2f62e8864aedb16bd4d02d3bc887aa0a3cccfea0d4",
+      "bytes": 75150
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/warden_factory_60.log": {
+      "sha256": "31738ffc8cbdcb1b54b062357712e77b72bfd6e7bad2a3f5dbd6554e6554918c",
+      "bytes": 672
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/cargo_60.json": {
+      "sha256": "aeae5db37a950328fe5c9384f08de3881ec4e43492ae977700cbd995fe1b8028",
+      "bytes": 29211
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/sentry_60.json": {
+      "sha256": "612c8ecfd8ab0ae5f9b9007184f29a833b42cbfab844af1962196d5411c8088e",
+      "bytes": 33591
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/mission_cargo_60.log": {
+      "sha256": "f019e1998d5d04a632762e2a8d62d9933f32836adfee2660d5a3db3c26d7cbd4",
+      "bytes": 131
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/counter_stock_shield_120.json": {
+      "sha256": "5f6d703fec2cbdb4eb7023ba2aa3e92dfe867c51daa84718c451577c78789d49",
+      "bytes": 6197
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/shared_warden_120hz.json": {
+      "sha256": "ed7956c34f953a46a7904a4e91de4364255ae47c50c0865db7468a3c83f21141",
+      "bytes": 3777
+    },
+    "simulation/evidence/onward_marker_gates/simulation/evidence/counter_compatibility.json": {
+      "sha256": "5f6276d409c06696e3c73c3b391b59207a86f25cacc3e3ef074d1be00b5fd787",
+      "bytes": 66723
+    },
+    "simulation/evidence/onward_marker_gates/combat_pc/tests/health_results_120hz.json": {
+      "sha256": "b2f53e874f32db22f2972e45510689a436914c030fe521e89d466c5ad63483be",
+      "bytes": 38945
+    },
+    "simulation/evidence/onward_marker_gates/combat_pc/tests/held_results_120hz.json": {
+      "sha256": "269af70b919729b32edf1f129438b51f54744939337577d5d47f0bf42c08e28d",
+      "bytes": 186824289
+    },
+    "simulation/evidence/onward_marker_gates/combat_pc/tests/defeat_results_60hz.json": {
+      "sha256": "66d81e8bc78c06556ef2e835b9f9ec904e37cae3ca526c25144a4a0cdeb80ab1",
+      "bytes": 38475
+    },
+    "simulation/evidence/onward_marker_gates/combat_pc/tests/health_shield_compatibility_120hz.json": {
+      "sha256": "0da8bf99f03e595c122a38a63c2719874c26f033d510bf5728a7e9b806d1e77e",
+      "bytes": 98971
+    },
+    "simulation/evidence/onward_marker_gates/combat_pc/tests/held_results_60hz.json": {
+      "sha256": "5b49f9a2dea7b50f4d8c9b220efc1f864306259e016f99dfa90a69c3f2aaecae",
+      "bytes": 96944939
+    },
+    "simulation/evidence/onward_marker_gates/combat_pc/tests/defeat_results_120hz.json": {
+      "sha256": "9cf38f3bec956803f54a06edf1c76cd7a50be5e5caaf0b5353ad249b1ddec829",
+      "bytes": 38512
+    },
+    "simulation/evidence/onward_marker_gates/combat_pc/tests/health_results_60hz.json": {
+      "sha256": "fe2a65c800df2ce240c19092017a526e6d56dd039375f44ef064d02d6b25dfe3",
+      "bytes": 38944
+    },
+    "simulation/evidence/onward_marker_gates/combat_pc/tests/defeat_health_compatibility_120hz.json": {
+      "sha256": "159e871110a49b86ad21298d42c392425e93521fcb63de2b3aa5e7fe405c76da",
+      "bytes": 38998
+    },
+    "simulation/evidence/onward_marker_gates/combat_pc/tests/health_shield_compatibility_60hz.json": {
+      "sha256": "d03c89c509ed8cd58f9ed84e12aa710407a46b918acc6e39ed8b80b78679271f",
+      "bytes": 83949
+    },
+    "simulation/evidence/onward_marker_gates/combat_pc/tests/defeat_health_compatibility_60hz.json": {
+      "sha256": "bac7e0eaf8f507a4262bb33192d0cb27dca4a690b3326b6d319ef152dc0ee670",
+      "bytes": 38997
+    },
+    "simulation/evidence/onward_marker_gates/demo/evidence/mission_contracts.json": {
+      "sha256": "fa6c2e402574d6c5b8ab8e55a47f9576219348b4dba092a90e93bb1964d209cb",
+      "bytes": 116
+    },
+    "simulation/evidence/onward_marker_gates/demo/evidence/expanded_integration_60hz.json": {
+      "sha256": "eb69f68c4d0c670d649679e4e30222b78ddd51209d580afbe61aa4770c7e1bcb",
+      "bytes": 11711
+    },
+    "simulation/evidence/onward_marker_gates/demo/evidence/freight_component_60hz.json": {
+      "sha256": "9dc9b01e20e3e975991205df962784b8aa0518442815f3ea5ed05a3a7e54d106",
+      "bytes": 39478
+    },
+    "simulation/evidence/onward_marker_gates/demo/evidence/review_mission_integration_60hz.json": {
+      "sha256": "33a3d8a4cc175db04efb90dfc42097949f592673700c97d46a92234452ddade4",
+      "bytes": 3556
+    },
+    "simulation/evidence/onward_marker_gates/demo/evidence/review_mission_integration.json": {
+      "sha256": "fb339425cb067af12d67e2a07d97fa799a6f845e0cd536032fca54ecb97418b1",
+      "bytes": 3557
+    },
+    "simulation/evidence/onward_marker_gates/demo/evidence/freight_component_120hz.json": {
+      "sha256": "d4cfa95bc0ef4195fc3496d63dc08cabc962b3b4e47476f7550a92629dd5400a",
+      "bytes": 39529
+    },
+    "simulation/evidence/onward_marker_gates/demo/evidence/expanded_integration_120hz.json": {
+      "sha256": "a5e0665ac71b88885bced790564f93b177a94af9a32c265b39f5d46f7000c264",
+      "bytes": 11724
+    },
+    "simulation/evidence/onward_marker_gates/demo/evidence/review_mission_integration_120hz.json": {
+      "sha256": "fb339425cb067af12d67e2a07d97fa799a6f845e0cd536032fca54ecb97418b1",
+      "bytes": 3557
+    },
+    "simulation/evidence/onward_marker_gates/demo/tests/ranged_results_60hz.json": {
+      "sha256": "563f69e4a9718f7d9c49c7e9dd7885f8ea0d84305c86dfa0468e492adb0edcbb",
+      "bytes": 2013
+    },
+    "simulation/evidence/onward_marker_gates/demo/tests/warden_results_60hz.json": {
+      "sha256": "ac62895ad93eb9ece7e24aba86d68854f5471c298c0c41e6eabb191289e50a5b",
+      "bytes": 2083
+    },
+    "simulation/evidence/onward_marker_gates/demo/tests/enemy_results_120hz.json": {
+      "sha256": "acfc752efc0f42cdb289adab29c89e5d4b52e626da00c6e0ddc356a86708ef66",
+      "bytes": 1569
+    },
+    "simulation/evidence/onward_marker_gates/demo/tests/warden_results_120hz.json": {
+      "sha256": "ee9763d9889666c799b53c4d7ddbaff932f0462bcdd0efc668f73945cd2c086d",
+      "bytes": 2084
+    },
+    "simulation/evidence/onward_marker_gates/demo/tests/ranged_results_120hz.json": {
+      "sha256": "48cdb371735a3eb2d7dd6ea234bfcf92b9d67ba55ee391a7c41d444c13634c8a",
+      "bytes": 2014
+    },
+    "simulation/evidence/onward_marker_gates/demo/tests/enemy_results_60hz.json": {
+      "sha256": "40658a18a6ce04d6f9a08b32cf6689a5538f21d4de24ce2e2ca8971733179a6b",
+      "bytes": 1568
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/tests/flow_all_report.json": {
+      "sha256": "090f6709de77566c34a6784c3efe7b82964ca0fb7a98e5d7160cc157f1b704f0",
+      "bytes": 47494
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/tests/flow_all_blind_feedback_regression.log": {
+      "sha256": "202b421eb55ba382760a7bb2939a1becc03bc07d9bbfdd3d967eb3dd7b1dcdab",
+      "bytes": 4324
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/tests/flow_all_sonar_regression.log": {
+      "sha256": "94e3bf5c958297e6309f9b903324f71dbc8fee9d94604f39e861b939dcd89409",
+      "bytes": 1025
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/tests/sonar_report.json": {
+      "sha256": "d341a9193fbc8d61fcaa632d1bcbc4419b997d0226971e0f2870377523c88bc2",
+      "bytes": 1097
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/tests/flow_all_import.log": {
+      "sha256": "edf72b8e6f18f533c6633226f5c0e1a588fa722db9a92ca373fd1b48db95ae49",
+      "bytes": 24995
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/expanded_mission_route_60hz_retained.log": {
+      "sha256": "b537e463501585334de41583efbcd44f7ac6ab9892a2300c87e58cbe3efc5ed8",
+      "bytes": 23726
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/mission_integration_60.log": {
+      "sha256": "1ddcb29fbff8fe5d0ac05ddd765a56f9880f8e8cd680803116a46f99f12a781c",
+      "bytes": 405
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/import.log": {
+      "sha256": "2627882d7d01a1465f1b7d7f7f1863ee071f8dabcee372527e3a9aac6f401dfe",
+      "bytes": 28186
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/expanded_mission_route_120hz_retained.json": {
+      "sha256": "41503e639f1e2484335b72a61f32e2ae2c3e160e11eae3c54405f79c6330f760",
+      "bytes": 326199
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/mission_contracts_120.log": {
+      "sha256": "7a1861ebe3348944390ecd759c20da618d06f3502002a78ea94295cdb96b0135",
+      "bytes": 114
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/sentry_120.json": {
+      "sha256": "c7ecbadd998f82699789e537ad957d2617502003de280f228d96d66b316a88d1",
+      "bytes": 33592
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/mission_cargo_120.log": {
+      "sha256": "cb091b55f9e8646bb937c9d0805f53f7de40ff134e3f99f3c48268a4d3e28222",
+      "bytes": 132
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/warden_factory_120.json": {
+      "sha256": "b26f51dd17d983350304f37f4de28689b521d7ba0f0db07e369781a3d8ad2897",
+      "bytes": 259704
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/warden_factory_60.json": {
+      "sha256": "6706ec111f289184a3772f00bfc93c1ae2b606d2be892bc16298386ea7b02e24",
+      "bytes": 148663
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/reviewer_request_120.json": {
+      "sha256": "d32a623734d6861def740d92326d738a5ef7076f294e57f6283cfca37acccf01",
+      "bytes": 608573
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/expanded_mission_route_60hz_retained.json": {
+      "sha256": "61e00623c58f4c85ff5fcad2a8c795e264f343042c4ae5a8bbc43107e61964f3",
+      "bytes": 326382
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/expanded_mission_route_60hz_sacrificed.json": {
+      "sha256": "cddbcba40cb7de6d4d5ba617c04aa1476e6498c3df5a68bcf340c361c2da3d81",
+      "bytes": 321139
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/actor_cargo_defense_60.json": {
+      "sha256": "88864f9e9e5d52e58cc949c52d6ea0bc9cca810597cf8a991a58ef5be940b809",
+      "bytes": 17974
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/counter_stock_combo_120.json": {
+      "sha256": "3f888b9781b896b1d706b173d53907d70591560bb2cdae521d15c0833ef3082f",
+      "bytes": 5906
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/expanded_mission_route_60hz_sacrificed.log": {
+      "sha256": "2dfa62bbdc3514bbb308a9cdf3da98fe274707d67aed3a5fdc0246282904496a",
+      "bytes": 25165
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/reviewer_request_60.json": {
+      "sha256": "f9f9e73384e8a74c675fd2d166f51226e7215e263997c2a1d92e54c5cbb68ebc",
+      "bytes": 251377
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/route_summary.json": {
+      "sha256": "487a30cdeb27734b9aee6224a7644148f527338dc50bf61d28c8bd8d6b60d69f",
+      "bytes": 66224
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/actor_cargo_120.json": {
+      "sha256": "8f2a0e92d8ffa977d7cd83eeefc28e49207fe110389537e8f1927093c105bcac",
+      "bytes": 1018889
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/cargo_120.json": {
+      "sha256": "4b768aa7f5abb16bd32085adcabad21c0b5d0e38f2fe681f8770ea2a3ec85a8e",
+      "bytes": 29212
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/counter_stock_combo_60.json": {
+      "sha256": "15ec61ecf5e9106d36d15143e1fc5da5f505e580e275bc2dea4d595dadfcbb09",
+      "bytes": 5905
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/counter_stock_shield_60.json": {
+      "sha256": "ff9c07bdf0ca1a08a9c50ceb336f569b01f0643e52d246220d967d5045a9d2c2",
+      "bytes": 6196
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/boundary_60.json": {
+      "sha256": "c7ceaebf78d7e69585ca82aee9cffbe84533e006a7adbb29a13d7a66b4f0defc",
+      "bytes": 39804
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/mission_contracts_60.log": {
+      "sha256": "7a1861ebe3348944390ecd759c20da618d06f3502002a78ea94295cdb96b0135",
+      "bytes": 114
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/counter_stock_combat_120.json": {
+      "sha256": "d650e289c5fb3bdfb42025c4eadad2d686744f78b321a8077b03cf4138067c32",
+      "bytes": 1945
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/counter_stock_guard_component_smoke_120.log": {
+      "sha256": "b4185785800877c056f2dd9b504b8814e4fcbf330d512b9c4dd5b6c7696bbd93",
+      "bytes": 4147
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/expanded_mission_route_120hz_sacrificed.log": {
+      "sha256": "f55a7895d2df9e1d0ccc9406f2670e6693eb3b36bdbad3da18e64784380005dc",
+      "bytes": 25599
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/actor_cargo_60.json": {
+      "sha256": "ebbace9c0f382d1b5289b0f37f62ab4b0c4a7f2a722cb1d8adc90c34cf9ccf6e",
+      "bytes": 558200
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/boundary_120.json": {
+      "sha256": "8633dcc9418a9e185a9664631937171b7dc2dc97857311774156f2846f01548e",
+      "bytes": 39806
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/actor_cargo_defense_120.json": {
+      "sha256": "d623470120874d1be54d550f2a93405c34f78f5d23c6536afad9a4bb8b923381",
+      "bytes": 19672
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/mission_integration_120.log": {
+      "sha256": "2c358dfbccb93cb4ef887a97ff2be5d9f988b271df8bdadffe07f8eba9209263",
+      "bytes": 406
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/expanded_mission_route_120hz_retained.log": {
+      "sha256": "8920f769d54042d038df2f86c05f2cff5add342acaf0a2c6444ab6dcafb31c7a",
+      "bytes": 23804
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/counter_stock_health_120.json": {
+      "sha256": "d0847d8cf9a240cf44ca56d575536acc4f22010797d7b901ed1d2d85f9294808",
+      "bytes": 822
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/counter_stock_guard_component_smoke_60.log": {
+      "sha256": "a7552717ccd6657fba5022fe6aed89ac4420cebd69b3f312bc6177b25ebde0ff",
+      "bytes": 4150
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/gym_lifecycle.log": {
+      "sha256": "86e723bbe836120d42efc61744995b8abbca8fc40ab685d56899c05b47e5c1e7",
+      "bytes": 110
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/expanded_mission_route_120hz_sacrificed.json": {
+      "sha256": "31dbe48ebf4c16bad87b0c923ff40cd810600ac8f6d483f7f13331747b278484",
+      "bytes": 331386
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/counter_stock_combat_60.json": {
+      "sha256": "d88c4763577d05490bfe85f03fcf53e4dda36c46257f4eff1c05536febabad80",
+      "bytes": 1944
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/counter_stock_health_60.json": {
+      "sha256": "8dd2e8e97b3c4f2778d08ae3210e0d66ac060d6912328df94849ba355bbea76e",
+      "bytes": 821
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/shared_warden_60hz.json": {
+      "sha256": "f86d10ac0f78c3954b91d3842193b782cc78b5560d813390d8292103566defef",
+      "bytes": 3765
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/foundation_report.json": {
+      "sha256": "9d964deb2a6d789ddc28166201ab48481134773026a444ae176c4f057cfbd8e3",
+      "bytes": 75276
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/warden_factory_60.log": {
+      "sha256": "31738ffc8cbdcb1b54b062357712e77b72bfd6e7bad2a3f5dbd6554e6554918c",
+      "bytes": 672
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/cargo_60.json": {
+      "sha256": "aeae5db37a950328fe5c9384f08de3881ec4e43492ae977700cbd995fe1b8028",
+      "bytes": 29211
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/sentry_60.json": {
+      "sha256": "612c8ecfd8ab0ae5f9b9007184f29a833b42cbfab844af1962196d5411c8088e",
+      "bytes": 33591
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/mission_cargo_60.log": {
+      "sha256": "f019e1998d5d04a632762e2a8d62d9933f32836adfee2660d5a3db3c26d7cbd4",
+      "bytes": 131
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/counter_stock_shield_120.json": {
+      "sha256": "5f6d703fec2cbdb4eb7023ba2aa3e92dfe867c51daa84718c451577c78789d49",
+      "bytes": 6197
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/shared_warden_120hz.json": {
+      "sha256": "ed7956c34f953a46a7904a4e91de4364255ae47c50c0865db7468a3c83f21141",
+      "bytes": 3777
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/simulation/evidence/counter_compatibility.json": {
+      "sha256": "2cf357d91ea1540da3244ecef8f0597e3d2ba08001aea7df485fb9aecbb55fa0",
+      "bytes": 66723
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/combat_pc/tests/health_results_120hz.json": {
+      "sha256": "5dfcd0caa3386bede48485f082c39c98263017f81e165831b4d1c6408b8ad092",
+      "bytes": 38945
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/combat_pc/tests/held_results_120hz.json": {
+      "sha256": "ceb1b5547660739804abf6612250aac536b47137dfaeb53588d79ede000ca13f",
+      "bytes": 186824289
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/combat_pc/tests/defeat_results_60hz.json": {
+      "sha256": "1eb571b4a2692417d2c697b6b95d9c635bac61849ed61f1635129ad55e3d7c24",
+      "bytes": 38475
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/combat_pc/tests/health_shield_compatibility_120hz.json": {
+      "sha256": "a90b4b607a4117f9dc49e5cfc6d33851fad3876101c15ea6ded4584c7c93d1b3",
+      "bytes": 98971
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/combat_pc/tests/held_results_60hz.json": {
+      "sha256": "3c340492641a7923b362c0d7db3304875e7e4e597e9cd0ba41d918b98f30701a",
+      "bytes": 96944939
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/combat_pc/tests/defeat_results_120hz.json": {
+      "sha256": "4cdad2c8770cdedf685c6716ce41d358890c8bb0d09a638434b565f48b7f3cc9",
+      "bytes": 38512
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/combat_pc/tests/health_results_60hz.json": {
+      "sha256": "ba89ba74d84d5bb533eb0a631077bd16dea7839709b115e26ffd1ae98ae821e3",
+      "bytes": 38944
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/combat_pc/tests/defeat_health_compatibility_120hz.json": {
+      "sha256": "4e16ad6566e85d1a3db9b7847b83fd349b2b3ada9fa0f99c135530522916a50d",
+      "bytes": 38998
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/combat_pc/tests/health_shield_compatibility_60hz.json": {
+      "sha256": "da24a78f1f531945c2b4ad4bbd60cebfd9f49f25fe27d700fbafaaeb891b50b6",
+      "bytes": 83949
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/combat_pc/tests/defeat_health_compatibility_60hz.json": {
+      "sha256": "861daa8054400f9e2547ac29cb715c8885eeff917e5302aa9a69af312bff9b42",
+      "bytes": 38997
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/demo/evidence/mission_contracts.json": {
+      "sha256": "fa6c2e402574d6c5b8ab8e55a47f9576219348b4dba092a90e93bb1964d209cb",
+      "bytes": 116
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/demo/evidence/expanded_integration_60hz.json": {
+      "sha256": "3aea633ebee0684265edc5b8a08449c60a2c48a7e4d900e9f750fb9b1f6c2743",
+      "bytes": 11591
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/demo/evidence/freight_component_60hz.json": {
+      "sha256": "9dc9b01e20e3e975991205df962784b8aa0518442815f3ea5ed05a3a7e54d106",
+      "bytes": 39478
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/demo/evidence/review_mission_integration_60hz.json": {
+      "sha256": "68ee587b5ed3f94ac726a783af2bebce3db2b61826c844e2ce37affe1f9c3137",
+      "bytes": 3497
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/demo/evidence/review_mission_integration.json": {
+      "sha256": "1103d19a9eb9b1f4198a2f0aeeb5c9cd1d8c6a52fa7cc737d9c731082e4e1c55",
+      "bytes": 3498
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/demo/evidence/freight_component_120hz.json": {
+      "sha256": "d4cfa95bc0ef4195fc3496d63dc08cabc962b3b4e47476f7550a92629dd5400a",
+      "bytes": 39529
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/demo/evidence/expanded_integration_120hz.json": {
+      "sha256": "ba09318d42e9a3491f629b73925200a90c3207ce183d89172b3854fde4d6abbb",
+      "bytes": 11712
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/demo/evidence/review_mission_integration_120hz.json": {
+      "sha256": "1103d19a9eb9b1f4198a2f0aeeb5c9cd1d8c6a52fa7cc737d9c731082e4e1c55",
+      "bytes": 3498
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/demo/tests/ranged_results_60hz.json": {
+      "sha256": "563f69e4a9718f7d9c49c7e9dd7885f8ea0d84305c86dfa0468e492adb0edcbb",
+      "bytes": 2013
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/demo/tests/warden_results_60hz.json": {
+      "sha256": "ac62895ad93eb9ece7e24aba86d68854f5471c298c0c41e6eabb191289e50a5b",
+      "bytes": 2083
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/demo/tests/enemy_results_120hz.json": {
+      "sha256": "acfc752efc0f42cdb289adab29c89e5d4b52e626da00c6e0ddc356a86708ef66",
+      "bytes": 1569
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/demo/tests/warden_results_120hz.json": {
+      "sha256": "ee9763d9889666c799b53c4d7ddbaff932f0462bcdd0efc668f73945cd2c086d",
+      "bytes": 2084
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/demo/tests/ranged_results_120hz.json": {
+      "sha256": "48cdb371735a3eb2d7dd6ea234bfcf92b9d67ba55ee391a7c41d444c13634c8a",
+      "bytes": 2014
+    },
+    "simulation/evidence/onward_marker_failed_aggregate/onward_marker_gates/demo/tests/enemy_results_60hz.json": {
+      "sha256": "40658a18a6ce04d6f9a08b32cf6689a5538f21d4de24ce2e2ca8971733179a6b",
+      "bytes": 1568
+    }
+  },
+  "scope": "Placeable nonblocking onward/LIFT marker and unchanged actual sonar contour. Mission orchestration unchanged. No level growth, physical gate or automatic completion added."
+}

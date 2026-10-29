@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="Script" path="res://simulation/impact_sandbox.gd" id="1"]
+[ext_resource type="PackedScene" path="res://simulation/actors/impact_player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://simulation/actors/impact_npc.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://movement/geometry/test_surface.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://simulation/components/physical_cargo.tscn" id="5"]
+[node name="ImpactSandbox" type="Node2D"]
+script = ExtResource("1")
+[node name="Floor" parent="." instance=ExtResource("4")]
+position = Vector2(20,320)
+points = PackedVector2Array(0,0,600,0,600,25,0,25)
+label = "Real cargo / shared impact admission / configured response"
+[node name="Player" parent="." instance=ExtResource("2")]
+position = Vector2(120,320)
+[node name="Enemy" parent="." instance=ExtResource("3")]
+position = Vector2(500,320)
+ai_enabled = false
+[node name="PlayerDrop" parent="." instance=ExtResource("5")]
+position = Vector2(120,100)
+[node name="EnemyDrop" parent="." instance=ExtResource("5")]
+position = Vector2(500,100)
+[node name="Cargo" parent="." instance=ExtResource("5")]
+position = Vector2(330,300)
+[node name="HUD" type="CanvasLayer" parent="."]
+[node name="Instructions" type="Label" parent="HUD"]
+offset_left = 12.0
+offset_top = 8.0
+theme_override_font_sizes/font_size = 12
+text = "PHYSICAL IMPACT | A/D move, Space jump, J launch cargo, K guard, R reset, Esc gym\nBoth falling crates use the same contact rule. Move, guard, or let gravity act."
+[node name="Status" type="Label" parent="HUD"]
+offset_left = 12.0
+offset_top = 45.0
+theme_override_font_sizes/font_size = 12
+[node name="Limit" type="Label" parent="HUD"]
+offset_left = 12.0
+offset_top = 345.0
+theme_override_font_sizes/font_size = 10
+text = "Guard is frontal; overhead cargo can hurt. NPC has no shield capability. Parry does not reflect cargo."

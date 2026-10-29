@@ -1,0 +1,17 @@
+extends "res://simulation/components/projectile_receiver.gd"
+var capture_callback: Callable
+var current_callback: Callable
+func capture_projectile_generation() -> Dictionary:
+	var token := super.capture_projectile_generation()
+	if capture_callback.is_valid():
+		var callback := capture_callback
+		capture_callback = Callable()
+		callback.call()
+	return token
+func projectile_generation_is_current(token: Dictionary) -> bool:
+	var current := super.projectile_generation_is_current(token)
+	if current and current_callback.is_valid():
+		var callback := current_callback
+		current_callback = Callable()
+		callback.call()
+	return current

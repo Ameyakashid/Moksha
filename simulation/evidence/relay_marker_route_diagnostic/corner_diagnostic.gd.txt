@@ -1,0 +1,38 @@
+extends SceneTree
+class Raw extends Node:
+ var raw := {}
+ func sample_raw(_actor: Node, _dt: float) -> Dictionary:return raw.duplicate(true)
+ func reset_intent() -> void:raw.clear()
+var records:Array=[]
+func _initialize():Engine.physics_ticks_per_second=60;run.call_deferred()
+func observe(actor:Node2D)->Dictionary:
+ var hit:=KinematicCollision2D.new()
+ var touches:bool=actor.test_move(actor.global_transform,Vector2.DOWN*actor.profile.floor_probe,hit,actor.profile.collision_margin)
+ var d:={"position":str(actor.position),"velocity":str(actor.velocity),"grounded":actor.grounded,"action":str(actor.main_action),"phase":str(actor.action_phase),"support_valid":is_instance_valid(actor._support),"probe_hit":touches,"floor_normal":str(actor._floor_contact_normal)}
+ if touches:d.merge({"normal":str(hit.get_normal()),"walkable":actor._floor_normal(hit.get_normal()),"collider":str(hit.get_collider().name),"contact":str(hit.get_position()),"travel":str(hit.get_travel())})
+ return d
+func run():
+ for mode in ["static","cargo"]:
+  var world:=Node2D.new();root.add_child(world)
+  var floor=preload("res://simulation/world/static_platform.tscn").instantiate();floor.position=Vector2(1496,276);floor.platform_size=Vector2(160,12);world.add_child(floor)
+  var obstacle:Node2D
+  if mode=="static":
+   obstacle=preload("res://simulation/world/static_platform.tscn").instantiate();obstacle.position=Vector2(1445.53,256.2433);obstacle.platform_size=Vector2(28,28);world.add_child(obstacle)
+  else:
+   obstacle=preload("res://scenes/props/crate.tscn").instantiate();obstacle.set_script(preload("res://demo/components/mission_prop.gd"));obstacle.collision_mask=43;obstacle.position=Vector2(1445.53,255);world.add_child(obstacle)
+   for frame in range(60):await physics_frame;await process_frame
+  var actor=preload("res://simulation/actors/shared_actor.tscn").instantiate();actor.profile=preload("res://combat_pc/resources/air_response_agile.tres").duplicate(true);actor.get_node("ContactConfig").profile=preload("res://demo/resources/player_contact.tres");actor.position=Vector2(1466.495,220)
+  var source:=Raw.new();source.name="InputSource";actor.add_child(source);world.add_child(actor)
+  var trace:Array=[]
+  for frame in range(90):
+   await physics_frame;await process_frame
+   if frame%15==0:trace.append(observe(actor))
+  var before:=observe(actor)
+  source.raw={"right":1.0}
+  for frame in range(6):await physics_frame;await process_frame
+  source.raw={}
+  for frame in range(60):await physics_frame;await process_frame
+  records.append({"mode":mode,"obstacle_position":str(obstacle.position),"obstacle_rotation":obstacle.rotation,"before":before,"after":observe(actor),"neutral_trace":trace,"intervention":"six ordinary right-input physics frames, then neutral"})
+  world.free();await process_frame
+ var report={"scope":"Initially placed collider and actor fixture; ordinary falling/neutral/right input only; no measured state or transform overrides.","records":records}
+ FileAccess.open("res://corner_diagnostic.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"));print(JSON.stringify(report));quit()

@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://movement/actors/npc.tscn" id="1"]
+[ext_resource type="Script" path="res://combat_pc/fixtures/footstep_npc_motor.gd" id="2"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/character_footsteps.tscn" id="3"]
+[ext_resource type="Script" path="res://combat_pc/fixtures/npc_footstep_wire.gd" id="4"]
+
+[node name="FootstepNPC" instance=ExtResource("1")]
+script = ExtResource("2")
+
+[node name="Intent" parent="." index="1"]
+process_mode = 4
+active = false
+
+[node name="Wireframe" parent="." index="2"]
+script = ExtResource("4")
+
+[node name="Footsteps" parent="." instance=ExtResource("3")]

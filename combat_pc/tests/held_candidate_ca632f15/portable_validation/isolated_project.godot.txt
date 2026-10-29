@@ -1,0 +1,8 @@
+config_version=5
+[application]
+config/name="MOKSHA isolated PC input modes"
+run/main_scene="res://combat_pc/minimal_host.tscn"
+[physics]
+common/physics_ticks_per_second=120
+[rendering]
+renderer/rendering_method="gl_compatibility"

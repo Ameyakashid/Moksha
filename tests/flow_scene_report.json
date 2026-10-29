@@ -1,0 +1,140 @@
+{
+  "checks": [
+    {
+      "check": "playable level directory contains exactly two scenes",
+      "pass": true
+    },
+    {
+      "check": "load reusable level res://scenes/levels/city_prologue.tscn",
+      "pass": true
+    },
+    {
+      "check": "level exports are available in editor CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "level owns placed player, terrain and exit CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "player remains a reusable scene instance CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "enemy and physical prop scenes retain tuning resources CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "terrain uses reusable physical platform scenes CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "platform width override updates collider CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "one-way override updates collider CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "edited instance packs CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "edited instance saves CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "level export survives editor-style save/reload CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "platform override survives save/reload CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "one-way override survives save/reload CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "per-instance tuning survives save/reload CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "per-instance tuning does not mutate baseline CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "fresh scene keeps default tuning and geometry CityPrologue",
+      "pass": true
+    },
+    {
+      "check": "load reusable level res://scenes/levels/arcology_one.tscn",
+      "pass": true
+    },
+    {
+      "check": "level exports are available in editor ArcologyOne",
+      "pass": true
+    },
+    {
+      "check": "level owns placed player, terrain and exit ArcologyOne",
+      "pass": true
+    },
+    {
+      "check": "player remains a reusable scene instance ArcologyOne",
+      "pass": true
+    },
+    {
+      "check": "enemy and physical prop scenes retain tuning resources ArcologyOne",
+      "pass": true
+    },
+    {
+      "check": "terrain uses reusable physical platform scenes ArcologyOne",
+      "pass": true
+    },
+    {
+      "check": "platform width override updates collider ArcologyOne",
+      "pass": true
+    },
+    {
+      "check": "one-way override updates collider ArcologyOne",
+      "pass": true
+    },
+    {
+      "check": "edited instance packs ArcologyOne",
+      "pass": true
+    },
+    {
+      "check": "edited instance saves ArcologyOne",
+      "pass": true
+    },
+    {
+      "check": "level export survives editor-style save/reload ArcologyOne",
+      "pass": true
+    },
+    {
+      "check": "platform override survives save/reload ArcologyOne",
+      "pass": true
+    },
+    {
+      "check": "one-way override survives save/reload ArcologyOne",
+      "pass": true
+    },
+    {
+      "check": "per-instance tuning survives save/reload ArcologyOne",
+      "pass": true
+    },
+    {
+      "check": "per-instance tuning does not mutate baseline ArcologyOne",
+      "pass": true
+    },
+    {
+      "check": "fresh scene keeps default tuning and geometry ArcologyOne",
+      "pass": true
+    }
+  ],
+  "engine": "4.6.3-stable (official)",
+  "failed": 0,
+  "passed": 33,
+  "scope": "Headless instantiation plus editor-style PackedScene save/reload, not native editor UI"
+}

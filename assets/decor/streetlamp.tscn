@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/decor/streetlamp.tres" id="1_art"]
+
+[node name="Streetlamp" type="Node2D"]
+metadata/art_only = true
+metadata/nominal_size = Vector2(40, 96)
+metadata/origin_kind = "bottom_center"
+metadata/source_pivot = Vector2(71.0, 326)
+
+[node name="Art" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-21.84615385, -97.80000000)
+scale = Vector2(0.30769231, 0.30000000)
+texture = ExtResource("1_art")
+centered = false

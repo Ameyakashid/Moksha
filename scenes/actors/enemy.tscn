@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_enemy"]
+[ext_resource type="Resource" path="res://resources/tuning/enemy_default.tres" id="2_tuning"]
+[ext_resource type="Script" path="res://scripts/graphics/actor_graphics.gd" id="3_graphics"]
+[ext_resource type="SpriteFrames" path="res://assets/characters/guard_frames.tres" id="4_frames"]
+
+[sub_resource type="CapsuleShape2D" id="Shape_enemy"]
+radius = 7.0
+height = 40.0
+
+[sub_resource type="StyleBoxFlat" id="Health_background"]
+bg_color = Color(0.094, 0.125, 0.184, 1)
+
+[sub_resource type="StyleBoxFlat" id="Health_fill"]
+bg_color = Color(0.941, 0.502, 0.533, 1)
+
+[node name="Enemy" type="CharacterBody2D" groups=["actors", "enemies"]]
+z_index = 6
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_enemy")
+tuning = ExtResource("2_tuning")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20)
+shape = SubResource("Shape_enemy")
+
+[node name="Graphics" type="Node2D" parent="."]
+script = ExtResource("3_graphics")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Graphics"]
+texture_filter = 1
+scale = Vector2(0.167, 0.167)
+sprite_frames = ExtResource("4_frames")
+animation = &"idle"
+autoplay = "idle"
+centered = false
+offset = Vector2(-320, -352)
+
+[node name="HealthBar" type="ProgressBar" parent="Graphics"]
+visible = false
+offset_left = -13.0
+offset_top = -58.0
+offset_right = 13.0
+offset_bottom = -55.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("Health_background")
+theme_override_styles/fill = SubResource("Health_fill")
+max_value = 3.0
+value = 3.0
+show_percentage = false
+
+[node name="Telegraph" type="Label" parent="Graphics"]
+visible = false
+offset_left = -7.0
+offset_top = -76.0
+offset_right = 7.0
+offset_bottom = -59.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.863, 0.545, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.08, 0.15, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 16
+text = "!"
+horizontal_alignment = 1

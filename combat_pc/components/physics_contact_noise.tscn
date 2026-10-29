@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://combat_pc/components/physics_contact_noise.gd" id="1"]
+[ext_resource type="Resource" path="res://combat_pc/resources/contact_noise_profile.tres" id="2"]
+
+[node name="PhysicsContactNoise" type="Node"]
+script = ExtResource("1")
+profile = ExtResource("2")

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MokshaMovementTuning" load_steps=2 format=3]
+[ext_resource type="Script" path="res://movement/resources/movement_tuning.gd" id="1"]
+[resource]
+script = ExtResource("1")
+run_speed = 175.0
+instant_ground_response = false
+instant_air_steering = false
+acceleration = 2600.0
+braking = 4000.0
+reversal_acceleration = 5600.0
+max_jumps = 1
+air_dashes = 0

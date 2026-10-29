@@ -1,0 +1,38 @@
+extends "res://simulation/tests/shield_counter_regression.gd"
+func _run() -> void:
+	for operation in ["target_reset","receiver_toggle","health_unbind","source_reset","source_physics","source_adapter","always_pause"]:
+		await _begin("completed parry receipt validator / "+operation,"NPC","PC")
+		var counter := _counter(right);counter.unbind()
+		var old := _receiver(right);old.unbind();old.get_parent().remove_child(old);old.queue_free()
+		var receiver := ReceiverScene.instantiate()
+		receiver.set_script(load("res://simulation/tests/counter_incoming_validation_probe.gd"))
+		right.get_node("BodyShape").add_child(receiver)
+		receiver.counterable=true
+		counter.bind(right)
+		receiver.strike_resolved.connect(func(receipt): receipts.append(receipt.duplicate(true)))
+		var fired: Array[bool]=[]
+		if operation=="always_pause": left.process_mode=Node.PROCESS_MODE_ALWAYS;right.process_mode=Node.PROCESS_MODE_ALWAYS
+		# Retire only when completed outgoing counter is already observed and
+		# observation-only helper validates defender's incoming receiver.
+		receiver.retire_on=1
+		receiver.after_validation=func():
+			if counters.is_empty(): receiver.retire_on=receiver.validation_calls+1;return
+			fired.append(true)
+			match operation:
+				"target_reset": right.reset_actor(right.position,-1)
+				"receiver_toggle": receiver.enabled=false;receiver.enabled=true
+				"health_unbind": right.get_node("Health").unbind_actor()
+				"source_reset": left.reset_actor(left.position,1)
+				"source_physics": left.set_physics_process(false)
+				"source_adapter": left.get_node("ContactAdapter").bind_actor(null)
+				"always_pause": paused=true;paused=false
+		await _frames(3)
+		await _parry(left,right)
+		_check(fired==[true] and counters.size()==1,"callback occurs after actual committed counter")
+		_check(receipts.is_empty(),"retired source/target/bridge prevents old parry diagnostic")
+		print("PARRY_RECEIPT ",operation," fired=",fired," counters=",counters.size()," receipts=",receipts.size())
+		await _end()
+	print("PARRY RECEIPT REVIEW: ",checks," checks, ",failures.size()," failures")
+	for failure in failures: printerr(failure)
+	FileAccess.open("/tmp/moksha-counter-review/parry_receipt_%d.json" % hz,FileAccess.WRITE).store_string(JSON.stringify({"hz":hz,"scenarios":scenarios,"checks":checks,"failures":failures},"  "))
+	quit(0 if failures.is_empty() else 1)

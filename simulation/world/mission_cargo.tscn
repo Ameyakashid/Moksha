@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/props/crate.tscn" id="1"]
+[ext_resource type="Script" path="res://demo/components/mission_prop.gd" id="2"]
+
+[node name="MissionCargo" instance=ExtResource("1")]
+collision_mask = 43
+script = ExtResource("2")

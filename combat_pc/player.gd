@@ -1,0 +1,4514 @@
+class_name MokshaCombatPlayer
+extends CharacterBody2D
+## Original MOKSHA combat player: movement plus coupled roll/melee actions.
+## Dead Cells evidence informs capability boundaries and forgiving traversal
+## intent. Algorithms, arbitration, numerical tuning and poses are authored.
+## No other game's controller, numerical profile or state hierarchy is imported.
+
+signal movement_event(name: StringName, payload: Dictionary)
+signal noise_requested(world_position: Vector2, kind: StringName, loudness: float, source: Node)
+## Optional scalar-only receipt after the existing synchronous noise callback.
+signal noise_committed(event: Dictionary)
+signal action_changed(previous: StringName, current: StringName)
+signal strike_sample(actor: Node2D, snapshot: Dictionary)
+signal shield_effect_requested(actor: Node2D, request: Dictionary)
+## Optional observers run after the existing defense/effect pipeline completes.
+signal damage_resolved(receipt: Dictionary)
+
+const DEFAULT_CAPABILITIES = {
+	"uses_inputs": true, "can_wall_grab": true, "can_jump_through_up": true,
+	"small_hitbox": false, "can_shield": true, "can_drop_through": true, "can_dive": true, "can_climb": true, "interruptible_by": ["*"]
+}
+const DEFAULT_WEAPON_PERMISSIONS = {
+	"can_move": true, "can_turn": true, "can_jump": true, "can_roll": true, "can_attack": true, "can_shield": true, "can_drop_through": true, "can_dive": true, "can_climb": true, "can_wall_traverse": true, "move_scale": 1.0
+}
+@export var profile: MokshaMovementProfile = preload("res://combat_pc/resources/movement_profile.tres")
+@export var combat_profile: MokshaCombatProfile = preload("res://combat_pc/resources/combat_profile.tres")
+@export var shield_profile: MokshaShieldProfile = preload("res://combat_pc/resources/shield_profile.tres")
+@export var allow_shield := true
+@export var melee_chain: MokshaMeleeChainProfile = null:
+	set(value):
+		if melee_chain == value: return
+		melee_chain = value
+		_melee_configuration_epoch += 1
+		_reset_fresh_start_sequence()
+@export var melee_input_profile: MokshaMeleeInputProfile = null:
+	set(value):
+		if melee_input_profile == value: return
+		melee_input_profile = value
+		_melee_configuration_epoch += 1
+		_reset_fresh_start_sequence()
+@export var enable_attack_entry_assist := false:
+	set(value):
+		if enable_attack_entry_assist == value: return
+		enable_attack_entry_assist = value
+		_entry_assist_provider_epoch += 1
+@export var automatic_physics := true
+@export var allow_input := true:
+	set(value):
+		if _entry_assist_querying: _entry_assist_mutated = true
+		allow_input = value
+		if not value:
+			clear_input_buffers()
+			if weapon_phase == &"charge": _cancel_attack(&"input_disabled")
+@export var allow_drop_through := true
+@export var allow_dive := true
+@export var allow_climb := true
+@export var allow_wall_run := false
+@export var enable_hard_landing := false
+@export_flags_2d_physics var climbable_mask: int = 16
+@export var initial_facing := 1
+@export_flags_2d_physics var terrain_mask: int = 1
+@export var material_profile: Resource
+@export var debug_draw_collision := false
+
+var facing: int = 1
+var grounded := false
+var crouched := false
+var air_jumps_left := 1
+var main_action: StringName = &"locomotion"
+var action_phase: StringName = &""
+var phase_progress := 0.0
+var pose: StringName = &"idle"
+var move_x := 0.0
+var move_y := 0.0
+var body_height: float:
+	get: return profile.crouching_height if crouched else profile.standing_height
+var main_capabilities: Dictionary:
+	get: return _capabilities.duplicate(true)
+var weapon_permissions: Dictionary:
+	get: return _weapon_permissions.duplicate(true)
+var ledge_anchor: Vector2:
+	get: return _ledge_anchor
+
+var _shape_node: CollisionShape2D
+var _body_shape: RectangleShape2D
+var _visual: Node
+var _capabilities := DEFAULT_CAPABILITIES.duplicate(true)
+var _weapon_permissions := DEFAULT_WEAPON_PERMISSIONS.duplicate(true)
+var _external_weapon_permissions := DEFAULT_WEAPON_PERMISSIONS.duplicate(true)
+var _action_driver: Callable
+var _action_generation := 0
+var _reset_epoch := 0
+var _damage_receipt_sequence := 0
+var _noise_receipt_sequence := 0
+# Optional defeat policy owns only this gate, never host input/weapon settings.
+var _defeat_owner: WeakRef
+var _defeat_exit_callback: Callable
+var _defeat_generation := 0
+var _defeat_action_generation := -1
+var _defeat_elapsed := 0.0
+var _defeat_duration := 0.36
+var _defeat_input_rearm: Dictionary = {}
+var _physics_tick_running := false
+var _weapon_generation := 0
+var _active_melee_step: MokshaMeleeStepProfile
+var _chain_snapshot: MokshaMeleeChainProfile
+var _chain_source: MokshaMeleeChainProfile
+var _attack_chain_source_at_commit: MokshaMeleeChainProfile
+var _chain_serial := 0
+var _melee_configuration_epoch := 0
+var _chain_configuration_epoch := 0
+var _attack_configuration_epoch := 0
+var _attack_commit_reset_epoch := -1
+var _fresh_start_cursor := 0
+var _fresh_chain_commits := 0
+var _attack_buffer_configuration_epoch := 0
+var _chain_step_index := -1
+var _chain_next_step := -1
+var _chain_retention_remaining := 0.0
+var _chain_pending: Dictionary = {}
+var _attack_step_elapsed := 0.0
+var _attack_active_sampled := false
+var _attack_input_sequence := 0
+var _attack_buffer_input_id := 0
+var _attack_consumed_input_id := 0
+var _attack_tick_sequence := 0
+var _melee_reuse_lock_remaining := 0.0
+var _melee_input_snapshot: MokshaMeleeInputProfile
+var _melee_input_source: MokshaMeleeInputProfile
+var _melee_input_epoch := 0
+var _attack_input_source_at_commit: MokshaMeleeInputProfile
+var _attack_hold_id := 0
+var _attack_hold_armed := false
+var _attack_hold_released := true
+var _attack_rearm_required := false
+var _attack_hold_admitted := false
+var _attack_request_sequence := 0
+var _attack_request_id := 0
+var _attack_origin_hold_id := 0
+var _attack_request_kind: StringName = &"fresh"
+var _attack_buffer_request_id := 0
+var _attack_buffer_kind: StringName = &"fresh"
+var _repeat_offered_serial := -1
+var _repeat_restart_remaining := 0.0
+var _repeat_clock_started_tick := -1
+var _charge_serial := 0
+var _charge_role: StringName = &""
+var _charge_elapsed := 0.0
+var _attack_initial_fresh_admission := false
+var _attack_entry_provider: Callable
+var _entry_assist_provider_epoch := 0
+var _entry_assist_querying := false
+var _entry_assist_reentered := false
+var _entry_assist_mutated := false
+var _entry_assist_query_count := 0
+var _entry_assist_token := 0
+var _entry_assist_attack_serial := 0
+var _entry_assist_reason: StringName = &""
+var _entry_assist_manual_x := 0.0
+var _entry_assist_facing_before := 1
+var _entry_assist_facing_after := 1
+var _strike_scope_serial := 0
+var _strike_scope_action_generation := 0
+var _strike_scope_weapon_generation := 0
+var shield_phase: StringName = &"idle"
+var shield_serial := 0
+var _shield_elapsed := 0.0
+var _shield_phase_elapsed := 0.0
+var _shield_buffer := 0.0
+var _shield_lock_remaining := 0.0
+var _shield_attempt_held := false
+var _shield_pause_spent := false
+var _last_shield_held := false
+var _last_defense_outcome: StringName = &""
+var _incoming_histories: Dictionary = {}
+var _shield_effect_scope: Dictionary = {}
+var roll_phase: StringName = &""
+var weapon_phase: StringName = &"idle"
+var attack_serial := 0
+var attack_facing := 1
+var roll_direction := 1
+var air_roll_available := true
+var hitpause_remaining := 0.0
+var roll_serial := 0
+var _roll_fall_protection_serial := 0
+var hard_land_phase: StringName = &""
+var hard_land_kind: StringName = &"ordinary"
+var _hard_land_elapsed := 0.0
+var _hard_land_fall_distance := 0.0
+var _hard_land_relative_impact_speed := 0.0
+var _hard_land_entry_horizontal_speed := 0.0
+var _fall_history_active := false
+var _fall_apex_y := 0.0
+var _fall_distance := 0.0
+var _fall_sample_position := Vector2.ZERO
+var _fall_transport_sampled := Vector2.ZERO
+var _ground_contact_registered := false
+var _landed_this_tick := false
+var _floor_surface_velocity := Vector2.ZERO
+var _floor_contact_point := Vector2.ZERO
+var _floor_contact_local := Vector2.ZERO
+var _floor_relative_velocity := Vector2.ZERO
+var _roll_elapsed := 0.0
+var _roll_cooldown := 0.0
+var _roll_buffer := 0.0
+var _attack_buffer := 0.0
+var _last_roll_held := false
+var _last_attack_held := false
+var _jump_release_buffered := false
+var _weapon_elapsed := 0.0
+var _hurt_elapsed := 0.0
+var _hurt_duration := 0.0
+var _hit_targets := {}
+var _strike_paused_once := false
+var _strike_sample_active := false
+var _strike_previous_center := Vector2.ZERO
+var _paused_this_tick := false
+var dive_phase: StringName = &""
+var dive_serial := 0
+var dive_available := true
+var dive_direction := 1
+var _dive_phase_elapsed := 0.0
+var _dive_start_y := 0.0
+var _dive_impact_speed := 0.0
+var _dive_fall_distance := 0.0
+var _floor_contact_normal := Vector2.UP
+var _down_buffer := 0.0
+var _down_intent: StringName = &""
+var _drop_body: PhysicsBody2D
+var _drop_target_rid := RID()
+var _drop_exit_callback: Callable
+var _drop_ignore_elapsed := 0.0
+var _drop_elapsed := 0.0
+var _drop_target_id := 0
+var _drop_reason: StringName = &""
+var _drop_cleanup_blocked := false
+var _drop_safety_body: PhysicsBody2D
+var _dive_impacted_this_tick := false
+var _climb_target: Area2D
+var _climb_geometry := {}
+var _climb_origin := Vector2.ZERO
+var _climb_signature := Vector2.ZERO
+var _climb_phase: StringName = &""
+var _climb_phase_elapsed := 0.0
+var _climb_distance := 0.0
+var _climb_regrab_timer := 0.0
+var _climb_needs_neutral := false
+var _climb_transport := Vector2.ZERO
+var _climb_top_entry := false
+var _climb_jump_grace := 0.0
+var _climb_jump_target: Area2D
+var wall_phase: StringName = &""
+var _wall_body: PhysicsBody2D
+var _wall_geometry := {}
+var _wall_contact_bounds := Rect2()
+var _wall_signature := Vector2.ZERO
+var _wall_carrier_origin := Vector2.ZERO
+var _wall_side := 1
+var _wall_plane := 0.0
+var _wall_transport := Vector2.ZERO
+var _wall_relative_travel := 0.0
+var _wall_run_elapsed := 0.0
+var _wall_run_rise := 0.0
+var _wall_slide_elapsed := 0.0
+var _wall_kick_elapsed := 0.0
+var _wall_kick_direction := -1
+var _wall_regrab_timer := 0.0
+var _wall_episode_active := false
+var _wall_episode_serial := 0
+var _wall_episode_side := 1
+var _wall_rearm_ready := true
+var _wall_kick_grace := 0.0
+var _wall_grace_body: PhysicsBody2D
+var _wall_consumed_down_intent := false
+var _jump_started_this_tick := false
+var _wall_jump_waiting := false
+var _wall_air_jump_guard_sides := 0
+
+var _input := {}
+var _last_jump_held := false
+var _jump_buffer := 0.0
+var _coyote := 0.0
+var _turn_timer := 0.0
+var _land_timer := 0.0
+var _regrab_timer := 0.0
+var _blocked_pull_timer := 0.0
+var _last_move_x := 0.0
+var _last_position := Vector2.ZERO
+var _footstep_travel := 0.0
+var _clock := 0.0
+var _step_delta := 0.0
+var _support: Node2D
+var _pause_support: Node2D
+var _pause_wall_guard := false
+var _pause_support_position := Vector2.ZERO
+var _support_position := Vector2.ZERO
+var _support_displacement := Vector2.ZERO
+var _support_anchor_position := Vector2.ZERO
+var _support_local_normal := Vector2.UP
+var _pause_support_local_anchor := Vector2.ZERO
+var _pause_support_anchor_position := Vector2.ZERO
+var _pause_support_floor_contact := false
+var _pause_support_local_normal := Vector2.UP
+var _support_transport_blocked := false
+var rigid_contact_impulse_this_tick := 0.0
+var last_rigid_contact: Dictionary = {}
+var _rigid_contact_budget := 0.0
+var _voluntary_ground_target := Vector2.ZERO
+var _pressure_request_x := 0.0
+var _pressure_request_direction := 0
+var _pressure_request_body: WeakRef
+var _pressure_request_frame := -1
+var _pressure_request_material: Resource
+var _pressure_request_force := 0.0
+var _pressure_request_body_configuration: Dictionary = {}
+var _pressure_request_action_generation := -1
+var _pressure_request_weapon_generation := -1
+var _pressure_request_reset_epoch := -1
+var _last_pending_transport_velocity := Vector2.ZERO
+var _last_pending_transport_body: WeakRef
+var _last_pending_transport_frame := -1
+var _floor_contact_sweep := false
+var _ground_follow_steps_left := 32
+var _ground_follow_segments := 0
+var _ground_follow_limited := false
+var _ceiling_this_tick := false
+var _wall_normal := Vector2.ZERO
+var _ledge_body: Node2D
+var _ledge_local_anchor := Vector2.ZERO
+var _ledge_local_normal := Vector2.UP
+var _ledge_anchor := Vector2.ZERO
+var _ledge_direction := 1
+var _active_hang_drop := 29.0
+var _ledge_start := Vector2.ZERO
+var _ledge_phase_time := 0.0
+var _catch_wants_pull := false
+
+func _ready() -> void:
+	collision_layer = 2
+	collision_mask = terrain_mask
+	motion_mode = CharacterBody2D.MOTION_MODE_GROUNDED
+	up_direction = Vector2.UP
+	facing = -1 if initial_facing < 0 else 1
+	air_jumps_left = profile.air_jump_count
+	_active_hang_drop = profile.ledge_hang_drop
+	_shape_node = get_node_or_null("BodyShape")
+	if _shape_node == null:
+		_shape_node = CollisionShape2D.new()
+		_shape_node.name = "BodyShape"
+		add_child(_shape_node)
+	_body_shape = RectangleShape2D.new()
+	_shape_node.shape = _body_shape
+	_apply_shape()
+	_visual = get_node_or_null("Visual")
+	_last_position = global_position
+	_break_fall_history()
+	ensure_default_inputs()
+	add_to_group("combat_pc")
+
+func _physics_process(dt: float) -> void:
+	if automatic_physics: physics_tick(dt)
+
+## Deterministic input-injection entry. Null samples InputMap; {} is neutral.
+## The body sweep uses this delta directly; no hidden move_and_slide delta.
+func physics_tick(dt: float, frame: Variant = null) -> void:
+	# A callback can replace/reset the owner immediately, but cannot run a
+	# second simulation inside an admitted strike sample. New input belongs
+	# to the next real callback, including after a synchronous forced finish.
+	if _physics_tick_running:
+		if _entry_assist_querying: _entry_assist_reentered = true
+		return
+	_physics_tick_running = true
+	_run_physics_tick(dt, frame)
+	_physics_tick_running = false
+
+func _run_physics_tick(dt: float, frame: Variant) -> void:
+	if dt <= 0 or not is_inside_tree(): return
+	_prune_defeated_owner()
+	_step_delta = dt
+	rigid_contact_impulse_this_tick = 0.0
+	_voluntary_ground_target = Vector2.ZERO
+	_rigid_contact_budget = material_profile.impulse_budget(dt) if material_profile != null and material_profile.has_method("impulse_budget") else 0.0
+	_support_transport_blocked = false
+	var tick_reset_epoch = _reset_epoch
+	_input = _sample_input(frame)
+	_attack_tick_sequence += 1
+	if not _sync_melee_configuration() or _reset_epoch != tick_reset_epoch: return
+	_observe_attack_hold()
+	if _reset_epoch != tick_reset_epoch: return
+	_wall_consumed_down_intent = false
+	_jump_started_this_tick = false
+	# Intent precedes local freeze. The release latch preserves an entire tap
+	# inside pause, including the variable-jump cut on the resumed launch.
+	if _input.jump_pressed:
+		_wall_jump_waiting = false
+		_jump_release_buffered = false
+		if float(_input.y) > 0.5:
+			_down_intent = &"drop" if main_action not in [&"climb", &"wall"] and _down_context_grounded() else &"dive"
+			_down_buffer = profile.down_action_buffer_seconds
+			_jump_buffer = 0
+		else:
+			_jump_buffer = profile.jump_buffer_seconds
+			_down_buffer = 0
+			_down_intent = &""
+	if _input.roll_pressed: _roll_buffer = combat_profile.roll_buffer_seconds
+	if _input.attack_pressed:
+		_capture_attack_input()
+		if _reset_epoch != tick_reset_epoch: return
+	_capture_held_repeat()
+	if _reset_epoch != tick_reset_epoch: return
+	if _input.shield_pressed: _shield_buffer = shield_profile.input_buffer_seconds
+	if _input.shield_released: _shield_attempt_held = false
+	if _input.jump_released: _jump_release_buffered = true
+	_support_displacement = Vector2.ZERO
+	_fall_sample_position = global_position
+	_fall_transport_sampled = Vector2.ZERO
+	_landed_this_tick = false
+	_ground_follow_segments = 0
+	_ground_follow_limited = false
+	_climb_transport = Vector2.ZERO
+	_wall_transport = Vector2.ZERO
+	if main_action == &"wall" and wall_phase != &"kick": _validate_wall_support()
+	if _wall_kick_grace > 0 and not _has_wall_kick_grace(): _clear_wall_kick_grace()
+	_update_wall_rearm()
+	_update_wall_air_jump_guard()
+	if absf(float(_input.physical_y)) < 0.25: _climb_needs_neutral = false
+	if main_action == &"climb": _validate_climb()
+	if _climb_jump_grace > 0 and not _has_climb_jump_grace(): _clear_climb_jump_grace()
+	_update_drop_exception(0.0) # Dynamic target changes are checked even during local pause.
+	if _reset_epoch != tick_reset_epoch: return
+	if _drop_safety_body != null:
+		if is_instance_valid(_drop_safety_body) and _overlaps_body(_drop_safety_body):
+			_select_pose()
+			_present(0.0)
+			return
+		_drop_safety_body = null
+		_emit(&"drop_geometry_unblocked", {})
+	if shield_phase != &"idle" and not _shield_gates_open(): _cancel_shield(&"gate_revoked")
+	_paused_this_tick = hitpause_remaining > 0
+	if _paused_this_tick:
+		hitpause_remaining = maxf(0, hitpause_remaining - dt)
+		_tick_paused_transport(dt)
+		if _reset_epoch != tick_reset_epoch: return
+		if main_action == &"hard_land" and not grounded: _end_hard_land(&"support_lost")
+		_sync_fall_history()
+		_update_floor_telemetry(false)
+		_select_pose()
+		_present(0)
+		if hitpause_remaining <= 0: _emit(&"hitpause_ended", {})
+		return
+	_pause_support = null # Recoil detaches once actor simulation resumes.
+	_pause_wall_guard = false
+	_clock += dt
+	if is_defeated():
+		_defeat_elapsed += dt
+		phase_progress = _defeat_progress()
+	if _repeat_clock_started_tick != _attack_tick_sequence:
+		_repeat_restart_remaining = maxf(0, _repeat_restart_remaining - dt)
+	# A finite committed landing preserves fresh queues until control returns.
+	# Their ordinary expiration resumes afterward, including host-denied intent.
+	if main_action != &"hard_land":
+		if not _input.jump_pressed: _jump_buffer = maxf(0, _jump_buffer - dt)
+		if not _input.roll_pressed: _roll_buffer = maxf(0, _roll_buffer - dt)
+		if not _input.attack_pressed:
+			var old_attack_buffer = _attack_buffer
+			_attack_buffer = maxf(0, _attack_buffer - dt)
+			if old_attack_buffer > 0 and _attack_buffer <= 0 and _input_mode() != MokshaMeleeInputProfile.Mode.FRESH_ONLY: _disarm_attack_hold()
+		if not _input.shield_pressed: _shield_buffer = maxf(0, _shield_buffer - dt)
+		if not _input.jump_pressed: _down_buffer = maxf(0, _down_buffer - dt)
+	if _jump_buffer <= 0: _wall_jump_waiting = false
+	if _down_buffer <= 0: _down_intent = &""
+	_update_drop_exception(dt)
+	if _reset_epoch != tick_reset_epoch: return
+	_coyote = maxf(0, _coyote - dt)
+	_turn_timer = maxf(0, _turn_timer - dt)
+	_land_timer = maxf(0, _land_timer - dt)
+	_regrab_timer = maxf(0, _regrab_timer - dt)
+	_climb_regrab_timer = maxf(0, _climb_regrab_timer - dt)
+	_climb_jump_grace = maxf(0, _climb_jump_grace - dt)
+	if _climb_jump_grace < 0.000000001: _clear_climb_jump_grace()
+	_blocked_pull_timer = maxf(0, _blocked_pull_timer - dt)
+	_roll_cooldown = maxf(0, _roll_cooldown - dt)
+	if _roll_cooldown < 0.000000001: _roll_cooldown = 0
+	_shield_lock_remaining = maxf(0, _shield_lock_remaining - dt)
+	if _shield_lock_remaining < 0.000000001: _shield_lock_remaining = 0
+	_advance_chain_clocks(dt)
+	if _reset_epoch != tick_reset_epoch: return
+	_advance_shield(dt)
+	if _reset_epoch != tick_reset_epoch: return
+	_advance_combat(dt)
+	if _reset_epoch != tick_reset_epoch: return
+	_advance_down_actions(dt)
+	if _reset_epoch != tick_reset_epoch: return
+	_advance_wall(dt)
+	if _reset_epoch != tick_reset_epoch: return
+	_advance_hard_land(dt)
+	if _reset_epoch != tick_reset_epoch: return
+	_refresh_weapon_permissions()
+	_refresh_axes()
+	_floor_contact_sweep = false
+	_dive_impacted_this_tick = false
+	_ceiling_this_tick = false
+	_wall_normal = Vector2.ZERO
+	var starting_position = global_position
+	if main_action == &"climb":
+		_update_facing()
+		_update_crouch()
+		_arbitrate_input()
+		if _reset_epoch != tick_reset_epoch: return
+		if main_action == &"climb": _tick_climb(dt)
+		else:
+			# A detached owner starts its shared motion on this same tick.
+			_tick_detached_climb(dt)
+	elif main_action == &"ledge":
+		_tick_ledge(dt)
+	else:
+		var probe_impact_speed = velocity.y
+		var probe_horizontal_speed = velocity.x
+		if main_action == &"wall" and wall_phase != &"kick": _transport_wall(dt)
+		else: _transport_support(dt)
+		_refresh_ground()
+		if grounded:
+			_dispatch_landing(probe_impact_speed, _fall_history_active, probe_horizontal_speed)
+			if _reset_epoch != tick_reset_epoch: return
+			_coyote = profile.coyote_seconds
+			_break_fall_history()
+		else:
+			_ground_contact_registered = false
+			if not _has_fall_support(): _ensure_fall_history()
+		if main_action == &"hard_land" and not grounded: _end_hard_land(&"support_lost")
+		_update_facing()
+		_update_crouch()
+		_arbitrate_input()
+		if _reset_epoch != tick_reset_epoch: return
+		_refresh_weapon_permissions()
+		_refresh_axes()
+		_update_facing()
+		_update_crouch()
+		var motion_owned := false
+		if main_action == &"climb":
+			_tick_climb(dt)
+			motion_owned = true
+		elif main_action == &"wall":
+			_tick_wall_motion(dt)
+			motion_owned = true
+		elif main_action == &"roll":
+			_tick_roll_motion(dt)
+			motion_owned = true
+		elif main_action == &"dive":
+			_tick_dive_motion(dt)
+			motion_owned = true
+		elif main_action == &"hard_land":
+			_tick_hard_land_motion(dt)
+			motion_owned = true
+		elif main_action in [&"hurt", &"defeated"]:
+			velocity.x = move_toward(velocity.x, 0, combat_profile.hurt_drag * dt)
+			_update_vertical(dt)
+			motion_owned = true
+		elif _action_driver.is_valid():
+			motion_owned = bool(_action_driver.call(self, dt, _input.duplicate()))
+		if not motion_owned:
+			if weapon_phase == &"active":
+				if grounded:
+					if bool(_external_weapon_permissions.can_move): velocity.x = attack_facing * _attack_tuning(&"attack_active_ground_speed")
+					else: velocity.x = move_toward(velocity.x, 0, profile.ground_braking * dt)
+				else: velocity.x = move_toward(velocity.x, 0, _attack_tuning(&"attack_air_drag") * dt)
+			else: _update_horizontal(dt)
+			_update_vertical(dt)
+		if main_action != &"climb" and not _try_ledge_catch():
+			var was_grounded = grounded
+			var falling_speed = velocity.y
+			var incoming_horizontal = velocity.x
+			var wall_motion_start = global_position
+			_sweep_motion(velocity * dt)
+			_refresh_ground()
+			_record_wall_motion(wall_motion_start)
+			if main_action == &"roll" and not grounded: air_roll_available = false
+			if grounded and not was_grounded:
+				_dispatch_landing(falling_speed, true, incoming_horizontal)
+				if _reset_epoch != tick_reset_epoch: return
+				_arbitrate_input()
+				if _reset_epoch != tick_reset_epoch: return
+			if not grounded:
+				if not _try_ledge_catch(): _try_wall_entry()
+	_apply_pending_transport(dt)
+	if _reset_epoch != tick_reset_epoch: return
+	if main_action == &"hard_land" and not grounded: _end_hard_land(&"support_lost")
+	_sync_fall_history()
+	_update_floor_telemetry()
+	_update_drop_exception(0.0)
+	if main_action == &"dive" and dive_phase in [&"impact", &"recovery"] and not grounded: _end_dive(&"support_lost")
+	_select_pose()
+	# Contact authority lives in a separate adapter, but active identity and
+	# duplicate rejection live here and disappear immediately on cancellation.
+	if weapon_phase == &"active":
+		var snapshot = strike_snapshot()
+		if bool(snapshot.eligible): _attack_active_sampled = true
+		_strike_sample_active = true
+		_strike_scope_serial = attack_serial
+		_strike_scope_action_generation = _action_generation
+		_strike_scope_weapon_generation = _weapon_generation
+		strike_sample.emit(self, snapshot)
+		_strike_sample_active = false
+		if _reset_epoch != tick_reset_epoch: return
+		if attack_serial == _strike_scope_serial and _owner_unchanged(_strike_scope_action_generation, _strike_scope_weapon_generation) and weapon_phase == &"active" and _attack_configuration_is_current():
+			_strike_previous_center = _strike_center()
+	if grounded and not _landed_this_tick and absf(velocity.x) > 20 and main_action not in [&"roll", &"hurt", &"dive", &"drop", &"hard_land", &"defeated"]:
+		_footstep_travel += absf(global_position.x - starting_position.x - _support_displacement.x)
+		if _footstep_travel >= profile.footstep_distance:
+			_footstep_travel = fmod(_footstep_travel, profile.footstep_distance)
+			var noise_origin = global_position
+			var noise_loudness = profile.footstep_loudness
+			_emit(&"footstep", {})
+			_commit_noise(noise_origin, &"footstep", noise_loudness, tick_reset_epoch)
+			if not _noise_owner_live(tick_reset_epoch): return
+	else: _footstep_travel = 0
+	_last_move_x = move_x
+	_last_position = global_position
+	if _jump_buffer <= 0: _wall_jump_waiting = false
+	if _jump_buffer <= 0: _jump_release_buffered = false
+	_present(0.0 if hitpause_remaining > 0 else dt)
+
+func _present(dt: float) -> void:
+	if is_instance_valid(_visual):
+		if _visual.has_method("present"): _visual.present(dt, telemetry())
+		elif _visual.has_method("update_visual"): _visual.update_visual(dt, telemetry())
+	queue_redraw()
+
+func _refresh_axes() -> void:
+	move_x = _input.x if _uses_inputs() and bool(_weapon_permissions.can_move) else 0.0
+	move_y = _input.y if _uses_inputs() else 0.0
+
+# Roll is a main action. A weapon swing is a distinct phase owner. Their
+# permissions meet here before the shared motor and collider are advanced.
+func _arbitrate_input() -> void:
+	if not allow_input or is_defeated() or main_action in [&"ledge", &"hurt", &"hard_land"]: return
+	if _try_roll(): return
+	if _try_down_action(): return
+	if _try_jump(): return
+	if _try_shield(): return
+	if _try_attack(): return
+	if _try_climb(): return
+	_try_wall_entry()
+
+# Fall excursion bookkeeping is independent of every airborne action budget.
+# World carrier displacement translates the apex rather than adding fall height.
+func _has_fall_support() -> bool:
+	return grounded or main_action in [&"climb", &"ledge"] or (main_action == &"wall" and wall_phase in [&"run", &"slide"])
+func _break_fall_history() -> void:
+	_fall_history_active = false
+	_fall_apex_y = global_position.y
+	_fall_distance = 0
+	_fall_sample_position = global_position
+	_fall_transport_sampled = _support_displacement
+func _begin_fall_history() -> void:
+	_fall_history_active = true
+	_fall_apex_y = global_position.y
+	_fall_distance = 0
+	_fall_sample_position = global_position
+	_fall_transport_sampled = _support_displacement
+	_ground_contact_registered = false
+func _ensure_fall_history() -> void:
+	if _fall_history_active: return
+	_fall_history_active = true
+	_fall_apex_y = _fall_sample_position.y
+	_fall_distance = 0
+	_ground_contact_registered = false
+func _sample_fall_history() -> void:
+	if _fall_history_active:
+		_fall_apex_y += _support_displacement.y - _fall_transport_sampled.y
+		_fall_apex_y = minf(_fall_apex_y, global_position.y)
+		_fall_distance = maxf(0, global_position.y - _fall_apex_y)
+	_fall_sample_position = global_position
+	_fall_transport_sampled = _support_displacement
+func _sync_fall_history() -> void:
+	if _has_fall_support(): _break_fall_history()
+	else:
+		_ensure_fall_history()
+		_sample_fall_history()
+	if not grounded: _ground_contact_registered = false
+func _confirmed_floor_sample(hit: KinematicCollision2D) -> Dictionary:
+	var sample = {"normal": hit.get_normal(), "position": hit.get_position()}
+	var point = hit.get_position()
+	var surface = _ray(point + Vector2.UP * profile.floor_probe, point + Vector2.DOWN * profile.floor_probe)
+	# Kinematic recovery normals can be noisy near a corner. Refine only an
+	# already-confirmed walkable contact on the same body, at the same skin.
+	if not surface.is_empty() and surface.collider == hit.get_collider() and _floor_normal(surface.normal) and Vector2(surface.position).distance_to(point) <= profile.collision_margin * 2.0:
+		# A shared crest vertex belongs to more than one facet. The ray's
+		# candidate must also support the body's actual extreme floor corner;
+		# otherwise retain the valid kinematic crest/flat contact until clear.
+		var support_x = global_position.x - signf(float(surface.normal.x)) * profile.body_width * 0.5
+		var corner = _ray(Vector2(support_x, global_position.y - profile.floor_probe), Vector2(support_x, global_position.y + profile.floor_probe))
+		if not corner.is_empty() and corner.collider == hit.get_collider() and Vector2(corner.normal).is_equal_approx(surface.normal):
+			sample.normal = surface.normal
+			sample.position = surface.position
+	return sample
+func _observe_floor_contact(hit: KinematicCollision2D) -> void:
+	var sample = _confirmed_floor_sample(hit)
+	_floor_contact_normal = sample.normal
+	_floor_contact_point = sample.position
+	_floor_surface_velocity = hit.get_collider_velocity()
+	if is_instance_valid(_support):
+		var committed = _physics_transform(_support)
+		_floor_contact_local = committed.affine_inverse() * _floor_contact_point
+		_support_anchor_position = _floor_contact_point
+		_support_local_normal = committed.basis_xform_inv(_floor_contact_normal).normalized()
+		if _support is AnimatableBody2D and _step_delta > 0:
+			# The fixture's planned Node translation leads the committed solver
+			# transform. It is the same pending step used by carrier transport.
+			var pending = _support.global_position - committed.origin
+			if not pending.is_zero_approx(): _floor_surface_velocity = pending / _step_delta
+func _update_floor_telemetry(update_velocity := true) -> void:
+	if not grounded:
+		_floor_relative_velocity = Vector2.ZERO
+		return
+	if update_velocity:
+		_floor_relative_velocity = Vector2(velocity.x, _floor_tangent_y(velocity.x))
+	if is_instance_valid(_support): _floor_contact_point = _support.global_transform * _floor_contact_local
+func _dispatch_landing(preimpact_speed: float, emit_contact := true, preimpact_horizontal := 0.0) -> void:
+	if _ground_contact_registered or not grounded: return
+	var noise_generation_at_contact = _reset_epoch
+	var noise_origin = global_position
+	_ground_contact_registered = true
+	_sample_fall_history() # Include the final swept descent before clearing it.
+	var distance = _fall_distance
+	var relative_speed = maxf(0, preimpact_speed - _floor_surface_velocity.y)
+	var kind: StringName = &"dive" if main_action == &"dive" and dive_phase == &"descent" else &"ordinary"
+	var protected = is_roll_fall_protected()
+	var contact_surface_id = _support.get_instance_id() if is_instance_valid(_support) else 0
+	var contact_point = _floor_contact_point
+	var contact_normal = _floor_contact_normal
+	var hard = emit_contact and enable_hard_landing and not is_defeated() and not protected and _time_reached(distance, profile.hard_land_min_distance) and _time_reached(relative_speed, profile.hard_land_min_relative_speed)
+	_reset_wall_budget()
+	air_jumps_left = profile.air_jump_count
+	air_roll_available = true
+	dive_available = true
+	_coyote = profile.coyote_seconds
+	_break_fall_history()
+	if not emit_contact: return # Initial placement on a floor is not an impact.
+	var noise_kind: StringName = &"hard_land" if hard else (&"dive_impact" if kind == &"dive" or _dive_impacted_this_tick else &"land")
+	var noise_loudness: float = profile.hard_land_loudness if hard else (combat_profile.dive_impact_loudness if noise_kind == &"dive_impact" else clampf(preimpact_speed / profile.jump_speed, 0.35, 1.4) * profile.landing_loudness)
+	_landed_this_tick = true
+	_land_timer = profile.landing_pose_seconds
+	var expected_generation = _action_generation
+	if main_action == &"dive":
+		if dive_phase == &"startup": expected_generation += 1 # Its normal landing retirement.
+		_dive_landed(preimpact_speed, hard)
+		if not _noise_owner_live(noise_generation_at_contact): return
+	var owns_contact_handoff = _action_generation == expected_generation
+	if hard and owns_contact_handoff:
+		# New hard recovery preserves incoming horizontal momentum. The solver
+		# may project downward impact into X on a slope, while a floor probe
+		# does not; that sampling distinction must not create a new hard skid.
+		var entry_horizontal = 0.0 if _wall_normal.x * preimpact_horizontal < 0 else preimpact_horizontal
+		_start_hard_land(kind, distance, relative_speed, entry_horizontal)
+		if not _noise_owner_live(noise_generation_at_contact): return
+	elif owns_contact_handoff and main_action in [&"jump", &"air_jump"]:
+		# Natural floor completion retires only airborne movement. A live
+		# shield/melee weapon survives; the public host finish is forced.
+		_clear_wall_kick_grace()
+		_clear_climb_jump_grace()
+		_action_driver = Callable()
+		_set_action(&"locomotion", DEFAULT_CAPABILITIES)
+		if not _noise_owner_live(noise_generation_at_contact): return
+	_emit(&"landed", {"preimpact_speed": preimpact_speed, "relative_impact_speed": relative_speed,
+		"fall_distance": distance, "kind": kind, "hard": hard, "fall_protected": protected,
+		"surface_id": contact_surface_id, "normal": contact_normal, "contact_position": contact_point})
+	_commit_noise(noise_origin, noise_kind, noise_loudness, noise_generation_at_contact)
+func _hard_land_phase_progress() -> float:
+	if main_action != &"hard_land": return 0
+	if hard_land_phase == &"impact": return clampf(_hard_land_elapsed / maxf(profile.hard_land_impact_seconds, 0.001), 0, 1)
+	return clampf((_hard_land_elapsed - profile.hard_land_impact_seconds) / maxf(profile.hard_land_recovery_seconds, 0.001), 0, 1)
+func _start_hard_land(kind: StringName, distance: float, relative_speed: float, horizontal_speed: float) -> void:
+	if is_defeated(): return
+	# Signals are synchronous. A host may apply hurt or force another owner
+	# while the old action retires; that newer change must win this call too.
+	var expected_generation = _action_generation
+	if not _cancel_attack(&"hard_landing"): return
+	if _action_generation != expected_generation: return
+	if main_action == &"roll":
+		_end_roll(&"hard_landing")
+		expected_generation += 1
+	elif main_action == &"dive":
+		_end_dive(&"hard_landing")
+		expected_generation += 1
+	elif main_action == &"drop":
+		_end_drop_action(&"hard_landing")
+		expected_generation += 1
+	elif main_action == &"wall":
+		_end_wall(&"hard_landing")
+		expected_generation += 1
+	if _action_generation != expected_generation: return
+	_clear_wall_kick_grace()
+	_clear_climb_jump_grace()
+	hard_land_kind = kind
+	hard_land_phase = &"impact"
+	_hard_land_elapsed = 0
+	_hard_land_fall_distance = distance
+	_hard_land_relative_impact_speed = relative_speed
+	_hard_land_entry_horizontal_speed = horizontal_speed
+	velocity.x = horizontal_speed
+	_land_timer = 0
+	expected_generation += 1
+	_set_action(&"hard_land", {"uses_inputs": true, "can_wall_grab": false, "can_jump_through_up": true,
+		"small_hitbox": true, "can_drop_through": false, "can_dive": false, "can_climb": false, "interruptible_by": ["damage", "forced"]})
+	if _action_generation != expected_generation or main_action != &"hard_land": return
+	action_phase = hard_land_phase
+	_set_crouched(true)
+	if _action_generation != expected_generation or main_action != &"hard_land": return
+	_refresh_weapon_permissions()
+	_emit(&"hard_land_started", {"kind": kind, "fall_distance": distance, "relative_impact_speed": relative_speed,
+		"surface_id": _support.get_instance_id() if is_instance_valid(_support) else 0})
+	if _action_generation != expected_generation or main_action != &"hard_land": return
+	_emit(&"hard_land_phase_changed", {"phase": hard_land_phase, "kind": kind})
+func _advance_hard_land(dt: float) -> void:
+	if main_action != &"hard_land": return
+	_hard_land_elapsed += dt
+	if _time_reached(_hard_land_elapsed, profile.hard_land_impact_seconds + profile.hard_land_recovery_seconds):
+		_end_hard_land(&"finished")
+		return
+	if hard_land_phase == &"impact" and _time_reached(_hard_land_elapsed, profile.hard_land_impact_seconds):
+		hard_land_phase = &"recovery"
+		action_phase = hard_land_phase
+		_refresh_weapon_permissions()
+		_emit(&"hard_land_phase_changed", {"phase": hard_land_phase, "kind": hard_land_kind})
+		if main_action != &"hard_land": return
+	phase_progress = _hard_land_phase_progress()
+func _tick_hard_land_motion(dt: float) -> void:
+	if not grounded:
+		_end_hard_land(&"support_lost")
+		_update_vertical(dt)
+		return
+	velocity.x = move_toward(velocity.x, 0, profile.hard_land_braking * dt)
+	# Follow the actually confirmed floor tangent. A horizontal-only request
+	# can outrun the floor probe on a steep downhill and invent support loss.
+	velocity.y = -_floor_contact_normal.x / _floor_contact_normal.y * velocity.x
+	_floor_contact_sweep = true
+func _end_hard_land(reason: StringName) -> void:
+	if main_action != &"hard_land": return
+	var previous_phase = hard_land_phase
+	hard_land_phase = &""
+	_set_action(&"locomotion", DEFAULT_CAPABILITIES)
+	_refresh_weapon_permissions()
+	_emit(&"hard_land_finished" if reason == &"finished" else &"hard_land_cancelled",
+		{"reason": reason, "kind": hard_land_kind, "phase": previous_phase})
+
+# Original MOKSHA wall traversal: finite motion and explicit rearm policy.
+# The conservative one-rectangle adapter keeps carrier exclusion narrow.
+func _wall_shape_geometry(body: Variant, pending := false) -> Dictionary:
+	if not is_instance_valid(body) or not body is PhysicsBody2D or not body.is_inside_tree() or (body.collision_layer & terrain_mask) == 0: return {}
+	if bool(body.get_meta("wall_traversal_blocked", false)): return {}
+	var shape_count := 0
+	var bounds := Rect2()
+	var carrier_transform = body.global_transform if pending else _physics_transform(body)
+	for owner_id in body.get_shape_owners():
+		if body.is_shape_owner_disabled(owner_id): continue
+		if body.is_shape_owner_one_way_collision_enabled(owner_id): return {}
+		var shape_transform = carrier_transform * body.shape_owner_get_transform(owner_id)
+		if absf(shape_transform.x.y) > 0.00001 or absf(shape_transform.y.x) > 0.00001 or shape_transform.x.x <= 0 or shape_transform.y.y <= 0: return {}
+		for index in body.shape_owner_get_shape_count(owner_id):
+			shape_count += 1
+			var shape = body.shape_owner_get_shape(owner_id, index)
+			if shape_count > 1 or not shape is RectangleShape2D: return {}
+			bounds = shape_transform * shape.get_rect()
+	if shape_count != 1: return {}
+	return {"bounds": bounds, "origin": carrier_transform.origin, "size": bounds.size}
+func _wall_faces_contiguous(a: Rect2, b: Rect2, side: int) -> bool:
+	var plane_a = a.position.x if side > 0 else a.end.x
+	var plane_b = b.position.x if side > 0 else b.end.x
+	return absf(plane_a - plane_b) <= 0.1 and a.position.y <= b.end.y + profile.collision_margin and b.position.y <= a.end.y + profile.collision_margin
+func _wall_probe(side: int, reach: float = -1.0) -> Dictionary:
+	var distance = profile.wall_probe_reach if reach < 0 else reach
+	var first: Dictionary = {}
+	var geometry: Dictionary = {}
+	var visible_bounds := Rect2()
+	for height_ratio in [0.35, 0.75]:
+		var start = global_position - Vector2(0, body_height * height_ratio)
+		var hit = _ray(start, start + Vector2(side * (profile.body_width * 0.5 + distance), 0))
+		if hit.is_empty() or float(hit.normal.x) * side > -0.98 or not hit.collider is PhysicsBody2D: return {}
+		var hit_geometry = _wall_shape_geometry(hit.collider)
+		if hit_geometry.is_empty(): return {}
+		if first.is_empty():
+			first = hit
+			geometry = hit_geometry
+			visible_bounds = geometry.bounds
+		elif hit.collider != first.collider:
+			if not _wall_faces_contiguous(geometry.bounds, hit_geometry.bounds, side): return {}
+			visible_bounds = visible_bounds.merge(hit_geometry.bounds)
+	var plane = float(geometry.bounds.position.x) if side > 0 else float(geometry.bounds.end.x)
+	if absf(float(first.position.x) - plane) > 0.1: return {}
+	return {"body": first.collider, "geometry": geometry, "plane": plane, "contact_bounds": visible_bounds}
+func _near_solid_wall(side: int) -> bool:
+	# Any coplanar solid body counts as continuous contact for rearm; changing
+	# a collider ID at a seam cannot by itself create a new run allowance.
+	for height_ratio in [0.2, 0.5, 0.8]:
+		var start = global_position - Vector2(0, body_height * height_ratio)
+		var hit = _ray(start, start + Vector2(side * (profile.body_width * 0.5 + profile.wall_separation_distance), 0))
+		if hit.is_empty() or float(hit.normal.x) * side > -0.98 or not hit.collider is PhysicsBody2D: continue
+		var owner_id = hit.collider.shape_find_owner(int(hit.shape))
+		if not hit.collider.is_shape_owner_one_way_collision_enabled(owner_id): return true
+	return false
+# Preserve an accepted ordinary air jump against the same nearby face. This
+# guards its ascent, not future wall approaches: separation, apex or replacing
+# the jump retires it. Both sides cover narrow corridors without body-ID seams.
+func _update_wall_air_jump_guard() -> void:
+	if main_action != &"air_jump" or grounded or velocity.y >= 0:
+		_wall_air_jump_guard_sides = 0
+		return
+	if (_wall_air_jump_guard_sides & 1) and not _near_solid_wall(1): _wall_air_jump_guard_sides &= ~1
+	if (_wall_air_jump_guard_sides & 2) and not _near_solid_wall(-1): _wall_air_jump_guard_sides &= ~2
+func _air_jump_wall_contacts() -> int:
+	return (1 if _near_solid_wall(1) else 0) | (2 if _near_solid_wall(-1) else 0)
+func _reset_wall_budget() -> void:
+	_wall_episode_active = false
+	_wall_rearm_ready = true
+	_wall_run_elapsed = 0
+	_wall_run_rise = 0
+	_wall_slide_elapsed = 0
+func _update_wall_rearm() -> void:
+	if main_action == &"wall" and wall_phase in [&"run", &"slide"]: return
+	if not _wall_episode_active or _wall_rearm_ready: return
+	if profile.wall_rearm_policy == 0 and not _near_solid_wall(_wall_episode_side): _wall_rearm_ready = true
+func _wall_run_progress() -> float:
+	return clampf(maxf(_wall_run_elapsed / maxf(profile.wall_run_max_seconds, 0.001), _wall_run_rise / maxf(profile.wall_run_max_rise, 0.001)), 0, 1)
+func _wall_run_exhausted() -> bool:
+	return _time_reached(_wall_run_elapsed, profile.wall_run_max_seconds) or _time_reached(_wall_run_rise, profile.wall_run_max_rise)
+func _wall_entry_contact(ignore_regrab := false, for_jump := false) -> Dictionary:
+	if _jump_started_this_tick or main_action == &"wall" or grounded or not allow_wall_run or (not ignore_regrab and _wall_regrab_timer > 0): return {}
+	if is_instance_valid(_drop_body) or is_instance_valid(_drop_safety_body) or crouched: return {}
+	if not _uses_inputs() or not bool(_weapon_permissions.can_move) or float(_input.y) > 0.5: return {}
+	if not bool(_capabilities.can_wall_grab) or not bool(_external_weapon_permissions.can_wall_traverse): return {}
+	if not can_interrupt_with(&"wall") or not _weapon_allows_cancel(&"wall"): return {}
+	if absf(float(_input.x)) < profile.wall_toward_threshold: return {}
+	var side = int(signf(float(_input.x)))
+	if not for_jump and (_wall_air_jump_guard_sides & (1 if side > 0 else 2)): return {}
+	if side != facing and not bool(_weapon_permissions.can_turn): return {}
+	if not can_stand(): return {}
+	var contact = _wall_probe(side)
+	if contact.is_empty(): return {}
+	# Query results describe committed geometry. Authorize a fresh owner only
+	# if its already-planned body pose can still be reached safely this tick.
+	var pending_geometry = _wall_shape_geometry(contact.body, true)
+	if pending_geometry.is_empty() or not Vector2(contact.geometry.size).is_equal_approx(pending_geometry.size): return {}
+	var pending_shift: Vector2 = pending_geometry.origin - contact.geometry.origin
+	if pending_shift.length() > profile.wall_max_transport_speed * _step_delta + 1: return {}
+	if not pending_shift.is_zero_approx():
+		add_collision_exception_with(contact.body)
+		var blocked = test_move(global_transform, pending_shift, null, profile.collision_margin)
+		remove_collision_exception_with(contact.body)
+		if blocked: return {}
+	if _wall_episode_active and not _wall_rearm_ready and _time_reached(_wall_slide_elapsed, profile.wall_slide_max_seconds): return {}
+	contact["side"] = side
+	return contact
+func _try_wall_entry(for_jump := false) -> bool:
+	var contact = _wall_entry_contact(false, for_jump)
+	if contact.is_empty(): return false
+	var side = int(contact.side)
+	if not _cancel_attack(&"wall"): return false
+	_break_fall_history()
+	_clear_climb_jump_grace()
+	if not _wall_episode_active or _wall_rearm_ready:
+		_wall_episode_serial += 1
+		_wall_run_elapsed = 0
+		_wall_run_rise = 0
+		_wall_slide_elapsed = 0
+		_wall_relative_travel = 0
+	_wall_episode_active = true
+	_wall_rearm_ready = false
+	_wall_episode_side = side
+	_wall_side = side
+	_wall_body = contact.body
+	_wall_geometry = contact.geometry
+	_wall_contact_bounds = contact.contact_bounds
+	_wall_signature = contact.geometry.size
+	_wall_carrier_origin = contact.geometry.origin
+	_wall_plane = contact.plane
+	grounded = false
+	_support = null
+	_coyote = 0
+	_land_timer = 0
+	if bool(_weapon_permissions.can_turn): facing = side
+	var upward_pass = bool(_capabilities.can_jump_through_up)
+	_set_action(&"wall", {"uses_inputs": true, "can_wall_grab": true, "can_jump_through_up": upward_pass, "small_hitbox": false})
+	wall_phase = &""
+	_set_wall_phase(&"slide" if _wall_run_exhausted() else &"run")
+	_refresh_weapon_permissions()
+	_emit(&"wall_attached", {"contact_id": _wall_body.get_instance_id(), "side": side, "episode": _wall_episode_serial, "resumed": _wall_run_elapsed > 0 or _wall_run_rise > 0})
+	return true
+func _set_wall_phase(phase: StringName) -> void:
+	if wall_phase == phase: return
+	wall_phase = phase
+	if phase == &"slide": velocity.y = maxf(0, velocity.y)
+	action_phase = phase
+	phase_progress = 0
+	_refresh_weapon_permissions()
+	_emit(&"wall_phase_changed", {"phase": phase, "episode": _wall_episode_serial})
+func _validate_wall_support() -> bool:
+	if main_action != &"wall" or wall_phase == &"kick": return false
+	if not allow_wall_run or not bool(_external_weapon_permissions.can_wall_traverse):
+		_end_wall(&"ability_disabled")
+		return false
+	var geometry = _wall_shape_geometry(_wall_body)
+	var pending_geometry = _wall_shape_geometry(_wall_body, true)
+	if geometry.is_empty() or pending_geometry.is_empty() or not _wall_signature.is_equal_approx(geometry.size) or not _wall_signature.is_equal_approx(pending_geometry.size):
+		_end_wall(&"support_invalid")
+		return false
+	if Vector2(pending_geometry.origin).distance_to(geometry.origin) > profile.wall_max_transport_speed * _step_delta + 1:
+		_end_wall(&"support_moved_away")
+		return false
+	return true
+func _transport_wall(dt: float, pending := false) -> bool:
+	if not _validate_wall_support(): return false
+	var geometry = _wall_shape_geometry(_wall_body, pending)
+	if geometry.is_empty() or not _wall_signature.is_equal_approx(geometry.size):
+		_end_wall(&"support_invalid")
+		return false
+	var shift: Vector2 = geometry.origin - _wall_carrier_origin
+	if shift.length() > profile.wall_max_transport_speed * dt + 1:
+		_end_wall(&"support_moved_away")
+		return false
+	if shift.y < 0 and not bool(_capabilities.can_jump_through_up):
+		var query = _shape_query(global_position, body_height)
+		var excluded = query.exclude
+		excluded.append(_wall_body.get_rid())
+		query.exclude = excluded
+		query.motion = shift
+		var fractions = get_world_2d().direct_space_state.cast_motion(query)
+		if fractions.size() == 2 and fractions[0] < 1:
+			_end_wall(&"transport_blocked")
+			return false
+	if not shift.is_zero_approx():
+		var before = global_position
+		var clear = _transport_with_body(shift, _wall_body)
+		_wall_transport += global_position - before
+		_support_displacement += global_position - before
+		if not clear:
+			_end_wall(&"transport_blocked")
+			return false
+	_wall_geometry = geometry
+	_wall_contact_bounds.position += shift
+	_wall_carrier_origin = geometry.origin
+	_wall_plane = float(geometry.bounds.position.x) if _wall_side > 0 else float(geometry.bounds.end.x)
+	return true
+func _advance_wall(dt: float) -> void:
+	_wall_regrab_timer = maxf(0, _wall_regrab_timer - dt)
+	_wall_kick_grace = maxf(0, _wall_kick_grace - dt)
+	if _wall_kick_grace < 0.000000001: _clear_wall_kick_grace()
+	if main_action != &"wall": return
+	if wall_phase == &"run":
+		_wall_run_elapsed += dt
+		if _wall_run_exhausted(): _set_wall_phase(&"slide")
+	elif wall_phase == &"slide":
+		_wall_slide_elapsed += dt
+		if _time_reached(_wall_slide_elapsed, profile.wall_slide_max_seconds): _end_wall(&"slide_finished")
+	elif wall_phase == &"kick":
+		_wall_kick_elapsed += dt
+		if _time_reached(_wall_kick_elapsed, profile.wall_kick_commit_seconds):
+			_end_wall(&"kick_finished")
+			_set_action(&"jump", DEFAULT_CAPABILITIES)
+			_refresh_weapon_permissions()
+func _wall_touch_valid() -> bool:
+	var contact = _wall_probe(_wall_side)
+	if contact.is_empty(): return false
+	if contact.body != _wall_body:
+		if not _wall_faces_contiguous(_wall_geometry.bounds, contact.geometry.bounds, _wall_side): return false
+		var previous_id = _wall_body.get_instance_id() if is_instance_valid(_wall_body) else 0
+		_wall_body = contact.body
+		_wall_geometry = contact.geometry
+		_wall_signature = contact.geometry.size
+		_wall_carrier_origin = contact.geometry.origin
+		_wall_plane = contact.plane
+		_emit(&"wall_support_changed", {"previous_id": previous_id, "contact_id": _wall_body.get_instance_id(), "episode": _wall_episode_serial})
+	_wall_contact_bounds = contact.contact_bounds
+	return true
+func _tick_wall_motion(dt: float) -> void:
+	if wall_phase == &"kick":
+		velocity.x = _wall_kick_direction * profile.wall_kick_horizontal_speed
+		_update_vertical(dt)
+		phase_progress = clampf(_wall_kick_elapsed / maxf(profile.wall_kick_commit_seconds, 0.001), 0, 1)
+		return
+	if not _validate_wall_support():
+		_update_vertical(dt)
+		return
+	# Explicit action requests were already resolved. Releasing the direction
+	# cannot steal a same-tick jump, roll, dive or melee request.
+	if not _uses_inputs() or not bool(_external_weapon_permissions.can_move):
+		_end_wall(&"control_disabled")
+		_update_vertical(dt)
+		return
+	if not _wall_consumed_down_intent and (float(_input.y) > 0.5 or float(_input.x) * _wall_side < profile.wall_toward_threshold):
+		var reason: StringName = &"down_release" if float(_input.y) > 0.5 else (&"away_release" if float(_input.x) * _wall_side < -0.25 else &"neutral_release")
+		_end_wall(reason)
+		_update_horizontal(dt)
+		_update_vertical(dt)
+		return
+	if not _wall_touch_valid():
+		if _try_ledge_catch(): return
+		_end_wall(&"contact_lost")
+		_update_vertical(dt)
+		return
+	velocity.x = _wall_side * profile.wall_contact_push_speed
+	if wall_phase == &"run":
+		velocity.y = move_toward(velocity.y, -profile.wall_run_speed, profile.wall_run_acceleration * dt)
+		var remaining_rise = maxf(0, profile.wall_run_max_rise - _wall_run_rise)
+		velocity.y = maxf(velocity.y, -remaining_rise / dt)
+		phase_progress = _wall_run_progress()
+	else:
+		velocity.y = move_toward(velocity.y, profile.wall_slide_speed, profile.wall_slide_acceleration * dt)
+		phase_progress = clampf(_wall_slide_elapsed / maxf(profile.wall_slide_max_seconds, 0.001), 0, 1)
+func _record_wall_motion(before: Vector2) -> void:
+	if main_action != &"wall": return
+	if wall_phase == &"kick":
+		if grounded: _end_wall(&"landed")
+		return
+	var relative = global_position.y - before.y
+	_wall_relative_travel += relative
+	if wall_phase == &"run":
+		_wall_run_rise += maxf(0, -relative)
+		if _wall_run_exhausted(): _set_wall_phase(&"slide")
+	if grounded:
+		_end_wall(&"landed")
+	elif _ceiling_this_tick and wall_phase == &"run": _set_wall_phase(&"slide")
+	elif not _wall_touch_valid():
+		if not _try_ledge_catch(): _end_wall(&"contact_lost")
+func _clear_wall_kick_grace() -> void:
+	_wall_kick_grace = 0
+	_wall_grace_body = null
+func _has_wall_kick_grace() -> bool:
+	if _wall_kick_grace <= 0 or not allow_wall_run or not bool(_external_weapon_permissions.can_wall_traverse): return false
+	var geometry = _wall_shape_geometry(_wall_grace_body)
+	var pending_geometry = _wall_shape_geometry(_wall_grace_body, true)
+	if geometry.is_empty() or pending_geometry.is_empty() or not _wall_signature.is_equal_approx(geometry.size) or not _wall_signature.is_equal_approx(pending_geometry.size): return false
+	if Vector2(pending_geometry.origin).distance_to(geometry.origin) > profile.wall_max_transport_speed * _step_delta + 1: return false
+	var pending_plane = float(pending_geometry.bounds.position.x) if _wall_side > 0 else float(pending_geometry.bounds.end.x)
+	var pending_gap = (pending_plane - global_position.x) * _wall_side - profile.body_width * 0.5
+	if pending_gap < -profile.collision_margin or pending_gap > profile.wall_probe_reach + profile.run_speed * profile.wall_kick_grace_seconds: return false
+	var plane = float(geometry.bounds.position.x) if _wall_side > 0 else float(geometry.bounds.end.x)
+	var gap = (plane - global_position.x) * _wall_side - profile.body_width * 0.5
+	if gap < -profile.collision_margin or gap > profile.wall_probe_reach + profile.run_speed * profile.wall_kick_grace_seconds: return false
+	for ratio in [0.2, 0.5, 0.8]:
+		var point = global_position - Vector2(0, body_height * ratio)
+		var hit = _ray(point, Vector2(plane + _wall_side * 0.1, point.y))
+		if not hit.is_empty() and hit.collider == _wall_grace_body and float(hit.normal.x) * _wall_side < -0.98: return true
+	return false
+func _try_wall_kick() -> bool:
+	if not _weapon_allows_cancel(&"jump") or not can_interrupt_with(&"jump"): return false
+	if crouched and not can_stand(): return false
+	if main_action == &"wall":
+		if not _validate_wall_support() or not _wall_touch_valid(): return false
+	elif not _has_wall_kick_grace(): return false
+	var direction = -_wall_side
+	_clear_wall_kick_grace()
+	if main_action == &"wall": _end_wall(&"jump")
+	if not _cancel_attack(&"jump"): return false
+	_jump_buffer = 0
+	_wall_jump_waiting = false
+	_coyote = 0
+	grounded = false
+	_support = null
+	_land_timer = 0
+	_jump_started_this_tick = true
+	_wall_kick_direction = direction
+	_wall_kick_elapsed = 0
+	_wall_regrab_timer = profile.wall_regrab_delay
+	if bool(_external_weapon_permissions.can_turn): facing = direction
+	velocity = Vector2(direction * profile.wall_kick_horizontal_speed, -profile.wall_kick_vertical_speed)
+	_set_action(&"wall", {"uses_inputs": true, "can_wall_grab": false, "can_jump_through_up": true, "small_hitbox": false})
+	wall_phase = &""
+	_set_wall_phase(&"kick")
+	_begin_fall_history()
+	_emit(&"wall_kick", {"direction": direction, "episode": _wall_episode_serial})
+	return true
+func _end_wall(reason: StringName) -> void:
+	if main_action != &"wall": return
+	var old_phase = wall_phase
+	if old_phase != &"kick": _break_fall_history()
+	var contact_id = _wall_body.get_instance_id() if is_instance_valid(_wall_body) else 0
+	_clear_wall_kick_grace()
+	if reason in [&"away_release", &"neutral_release"] and is_instance_valid(_wall_body):
+		_wall_kick_grace = profile.wall_kick_grace_seconds
+		_wall_grace_body = _wall_body
+	_wall_body = null
+	wall_phase = &""
+	if old_phase != &"kick": _wall_regrab_timer = profile.wall_regrab_delay
+	_set_action(&"locomotion", DEFAULT_CAPABILITIES)
+	_refresh_weapon_permissions()
+	_emit(&"wall_detached", {"reason": reason, "phase": old_phase, "contact_id": contact_id, "episode": _wall_episode_serial})
+func _wall_ledge_handoff() -> void:
+	var contact_id = _wall_body.get_instance_id() if is_instance_valid(_wall_body) else 0
+	_end_wall(&"ledge_handoff")
+	_emit(&"wall_ledge_handoff", {"contact_id": contact_id, "episode": _wall_episode_serial})
+
+# Independent ladder/vine action. The sensor never disables world collision.
+func _climb_candidates() -> Array:
+	var query = _shape_query(global_position + Vector2.DOWN * 2, body_height + 4)
+	query.collision_mask = climbable_mask
+	query.collide_with_bodies = false
+	query.collide_with_areas = true
+	var candidates: Array = []
+	for hit in get_world_2d().direct_space_state.intersect_shape(query, 64):
+		var candidate = hit.collider
+		if not candidate is Area2D or not candidate.has_method("climb_geometry"): continue
+		var geometry: Dictionary = candidate.climb_geometry()
+		if geometry.is_empty(): continue
+		# Area broadphase can still contain the previous physics-step pose.
+		# Require overlap with the sensor's current declared span as well.
+		if absf(global_position.x - float(geometry.axis_x)) > (profile.body_width + float(geometry.width)) * 0.5: continue
+		if global_position.y < float(geometry.top_y) - profile.floor_probe - 2 or global_position.y > float(geometry.bottom_y) + 2: continue
+		if move_y < 0 and global_position.y <= float(geometry.top_y) + profile.climb_end_tolerance: continue
+		if move_y > 0 and global_position.y >= float(geometry.bottom_y) - profile.climb_end_tolerance: continue
+		candidates.append({"target": candidate, "geometry": geometry})
+	candidates.sort_custom(func(a, b):
+		if a.geometry.priority != b.geometry.priority: return a.geometry.priority > b.geometry.priority
+		var da = absf(global_position.x - float(a.geometry.axis_x))
+		var db = absf(global_position.x - float(b.geometry.axis_x))
+		if not is_equal_approx(da, db): return da < db
+		return String(a.target.get_path()) < String(b.target.get_path()))
+	return candidates
+
+func _try_climb() -> bool:
+	if main_action == &"climb" or absf(move_y) < 0.5 or absf(move_y) - absf(float(_input.x)) < profile.climb_entry_vertical_margin or _climb_needs_neutral or _climb_regrab_timer > 0: return false
+	if not _uses_inputs() or not bool(_weapon_permissions.can_move): return false
+	var candidates = _climb_candidates()
+	if candidates.is_empty(): return false
+	if not allow_climb or not bool(_capabilities.can_climb) or not bool(_external_weapon_permissions.can_climb):
+		_deny_climb(&"capability_denied")
+		return true
+	if is_instance_valid(_drop_body):
+		_deny_climb(&"drop_not_clear")
+		return true
+	if not can_interrupt_with(&"climb") or not _weapon_allows_cancel(&"climb"): return false
+	var selected: Dictionary = candidates[0]
+	var geometry: Dictionary = selected.geometry
+	var at_top = global_position.y <= float(geometry.top_y) + profile.climb_end_tolerance
+	var at_bottom = global_position.y >= float(geometry.bottom_y) - profile.climb_end_tolerance
+	# Up on the top surface and Down at the foot are ordinary locomotion.
+	if (at_top and move_y < 0) or (at_bottom and move_y > 0): return false
+	var top_drop = grounded and move_y > 0
+	var upward_pass = bool(_capabilities.can_jump_through_up)
+	if top_drop:
+		if not allow_drop_through or not bool(_capabilities.can_drop_through) or not bool(_external_weapon_permissions.can_drop_through):
+			_deny_climb(&"drop_capability_denied")
+			return true
+		# Top entry uses exactly the same target validation and cleanup as a drop.
+		_down_intent = &"drop"
+		_start_drop()
+		if main_action != &"drop":
+			_deny_climb(&"top_drop_denied")
+			return true
+		_end_drop_action(&"climb_entry")
+	if not _cancel_attack(&"climb"): return false
+	_climb_target = selected.target
+	_climb_geometry = geometry.duplicate()
+	_climb_origin = Vector2(geometry.axis_x, geometry.bottom_y)
+	_climb_signature = Vector2(geometry.width, float(geometry.bottom_y) - float(geometry.top_y))
+	_climb_distance = 0
+	_climb_top_entry = top_drop
+	_climb_phase = &""
+	_climb_phase_elapsed = 0
+	velocity = Vector2.ZERO
+	grounded = false
+	_support = null
+	_coyote = 0
+	_land_timer = 0
+	_set_action(&"climb", {"uses_inputs": true, "can_wall_grab": false, "can_jump_through_up": upward_pass, "small_hitbox": false, "can_drop_through": false})
+	_set_climb_phase(&"align")
+	_refresh_weapon_permissions()
+	_break_fall_history()
+	_emit(&"climb_attached", {"target_id": _climb_target.get_instance_id(), "type": geometry.type, "top_entry": top_drop})
+	return true
+
+func _deny_climb(reason: StringName) -> void:
+	_climb_needs_neutral = true
+	_emit(&"climb_denied", {"reason": reason})
+func _set_climb_phase(phase: StringName) -> void:
+	if _climb_phase == phase: return
+	_climb_phase = phase
+	action_phase = phase
+	_climb_phase_elapsed = 0
+	phase_progress = 0
+	_emit(&"climb_phase_changed", {"phase": phase})
+func _validate_climb() -> bool:
+	if main_action != &"climb": return false
+	if not allow_climb or not bool(_external_weapon_permissions.can_climb):
+		_detach_climb(&"ability_disabled")
+		return false
+	if not is_instance_valid(_climb_target) or not _climb_target.is_inside_tree() or not _climb_target.has_method("climb_geometry"):
+		_detach_climb(&"target_removed")
+		return false
+	var geometry: Dictionary = _climb_target.climb_geometry()
+	if geometry.is_empty() or not _climb_signature.is_equal_approx(Vector2(geometry.get("width", 0), float(geometry.get("bottom_y", 0)) - float(geometry.get("top_y", 0)))):
+		_detach_climb(&"target_changed")
+		return false
+	if (_climb_target.collision_layer & climbable_mask) == 0:
+		_detach_climb(&"target_disabled")
+		return false
+	return true
+func _transport_climb(dt: float) -> bool:
+	if not _validate_climb(): return false
+	var geometry: Dictionary = _climb_target.climb_geometry()
+	var next_origin = Vector2(geometry.axis_x, geometry.bottom_y)
+	var shift = next_origin - _climb_origin
+	if shift.length() > profile.climb_max_transport_speed * dt + 1:
+		_detach_climb(&"target_moved_away")
+		return false
+	if shift.y < 0 and not bool(_capabilities.can_jump_through_up):
+		var query = _shape_query(global_position, body_height)
+		query.motion = shift
+		var fractions = get_world_2d().direct_space_state.cast_motion(query)
+		if fractions.size() == 2 and fractions[0] < 1:
+			_detach_climb(&"transport_blocked")
+			return false
+	if not shift.is_zero_approx():
+		var before = global_position
+		var hit = move_and_collide(shift, false, profile.collision_margin, true)
+		_climb_transport += global_position - before
+		_support_displacement += global_position - before
+		if hit != null and hit.get_remainder().length() > 0.06:
+			_detach_climb(&"transport_blocked")
+			return false
+	_climb_origin = next_origin
+	_climb_geometry = geometry
+	return true
+func _tick_climb(dt: float) -> void:
+	if not _transport_climb(dt): return
+	grounded = false
+	_support = null
+	_coyote = 0
+	_climb_phase_elapsed += dt
+	# Explicit horizontal release works even when no air action remains.
+	if _uses_inputs() and bool(_weapon_permissions.can_move) and absf(float(_input.x)) > 0.5 and absf(move_y) < 0.25:
+		var side = signf(float(_input.x))
+		_detach_climb(&"horizontal_release")
+		velocity.x = side * profile.climb_release_speed
+		return
+	if not _uses_inputs() or not bool(_weapon_permissions.can_move):
+		velocity = Vector2.ZERO
+		_set_climb_phase(&"idle")
+		return
+	var axis = float(_climb_geometry.axis_x)
+	if absf(global_position.x - axis) > profile.climb_end_tolerance:
+		_set_climb_phase(&"align")
+		phase_progress = clampf(_climb_phase_elapsed / maxf(profile.climb_align_timeout, 0.001), 0, 1)
+		if _time_reached(_climb_phase_elapsed, profile.climb_align_timeout):
+			_detach_climb(&"alignment_timeout")
+			return
+		var align_motion = Vector2(move_toward(global_position.x, axis, profile.climb_align_speed * dt) - global_position.x, 0)
+		velocity = align_motion / dt
+		var alignment_hit = move_and_collide(align_motion, false, profile.collision_margin, true)
+		if alignment_hit != null and alignment_hit.get_remainder().length() > 0.06: _detach_climb(&"alignment_blocked")
+		return
+	var vertical_intent = move_y if bool(_weapon_permissions.can_move) else 0.0
+	var speed = profile.climb_down_speed if vertical_intent > 0 else profile.climb_up_speed
+	var target_speed = vertical_intent * speed
+	velocity.x = 0
+	velocity.y = move_toward(velocity.y, target_speed, (profile.climb_braking if vertical_intent == 0 else profile.climb_acceleration) * dt)
+	# The axis alignment velocity must not become an initial vertical impulse.
+	var top = float(_climb_geometry.top_y) - profile.collision_margin
+	if is_instance_valid(_drop_body):
+		var drop_geometry = _one_way_geometry(_drop_body)
+		if not drop_geometry.is_empty():
+			# Reversing a partial top entry must fully clear the ignored plane
+			# before landing back on it. This extra rise is swept, never snapped.
+			var clearance = maxf(profile.drop_plane_clearance, float(drop_geometry.margin) + profile.collision_margin)
+			top = minf(top, float(drop_geometry.top) - clearance - profile.collision_margin - profile.climb_end_tolerance)
+
+	var bottom = float(_climb_geometry.bottom_y)
+	if vertical_intent > 0 and global_position.y >= bottom - profile.climb_end_tolerance:
+		_detach_climb(&"bottom_exit")
+		_refresh_ground()
+		if grounded: _dispatch_landing(0.0)
+		return
+	if vertical_intent < 0 and global_position.y <= top + profile.climb_end_tolerance:
+		_detach_climb(&"top_exit")
+		_refresh_ground()
+		if grounded: _dispatch_landing(0.0)
+		return
+	var phase: StringName = &"idle"
+	if velocity.y < -0.1: phase = &"top_exit" if global_position.y - top < body_height else &"ascend"
+	elif velocity.y > 0.1: phase = &"descend"
+	var amount = clampf(velocity.y * dt, top - global_position.y, bottom - global_position.y)
+	var before = global_position
+	if amount < 0 and not bool(_capabilities.can_jump_through_up):
+		var query = _shape_query(global_position, body_height)
+		query.motion = Vector2(0, amount)
+		var fractions = get_world_2d().direct_space_state.cast_motion(query)
+		if fractions.size() == 2 and fractions[0] < 1:
+			amount *= fractions[0]
+			velocity.y = 0
+			phase = &"blocked"
+	var hit = move_and_collide(Vector2(0, amount), false, profile.collision_margin, true)
+	_climb_distance += global_position.y - before.y
+	if hit != null:
+		velocity.y = 0
+		if amount > 0 and _floor_normal(hit.get_normal()):
+			_detach_climb(&"floor_exit")
+			_refresh_ground()
+			if grounded: _dispatch_landing(0.0)
+			return
+		phase = &"blocked"
+		_ceiling_this_tick = hit.get_normal().y > 0.65
+	_set_climb_phase(phase)
+	# Progress describes actual top approach, never a timer-driven exit.
+	phase_progress = clampf(1.0 - (global_position.y - top) / maxf(body_height, 1), 0, 1) if _climb_phase == &"top_exit" else 0.0
+	if vertical_intent < 0 and global_position.y <= top + profile.climb_end_tolerance:
+		_detach_climb(&"top_exit")
+		_refresh_ground()
+		if grounded: _dispatch_landing(0.0)
+	elif vertical_intent > 0 and global_position.y >= bottom - profile.climb_end_tolerance:
+		_detach_climb(&"bottom_exit")
+		_refresh_ground()
+		if grounded: _dispatch_landing(0.0)
+
+func _clear_climb_jump_grace() -> void:
+	_climb_jump_grace = 0
+	_climb_jump_target = null
+func _has_climb_jump_grace() -> bool:
+	if _climb_jump_grace <= 0 or not is_instance_valid(_climb_jump_target) or not _climb_jump_target.is_inside_tree(): return false
+	if not allow_climb or not bool(_external_weapon_permissions.can_climb) or not _climb_jump_target.has_method("climb_geometry"): return false
+	var geometry: Dictionary = _climb_jump_target.climb_geometry()
+	if geometry.is_empty() or (_climb_jump_target.collision_layer & climbable_mask) == 0: return false
+	if not _climb_signature.is_equal_approx(Vector2(geometry.width, float(geometry.bottom_y) - float(geometry.top_y))): return false
+	# Grace is local to the just-released support, not a remotely moved sensor.
+	var reach = (profile.body_width + float(geometry.width)) * 0.5 + profile.run_speed * profile.climb_jump_grace_seconds
+	return absf(global_position.x - float(geometry.axis_x)) <= reach and global_position.y >= float(geometry.top_y) - profile.floor_probe - 2 and global_position.y <= float(geometry.bottom_y) + profile.standing_height
+func _detach_climb(reason: StringName) -> void:
+	if main_action != &"climb": return
+	_break_fall_history()
+	_clear_climb_jump_grace()
+	if reason == &"horizontal_release":
+		_climb_jump_grace = profile.climb_jump_grace_seconds
+		_climb_jump_target = _climb_target
+	var target_id = _climb_target.get_instance_id() if is_instance_valid(_climb_target) else 0
+	_climb_target = null
+	_climb_phase = &""
+	_climb_phase_elapsed = 0
+	_climb_top_entry = false
+	_climb_needs_neutral = true
+	_climb_regrab_timer = profile.climb_regrab_delay
+	_regrab_timer = maxf(_regrab_timer, profile.climb_regrab_delay)
+	_coyote = 0
+	grounded = false
+	_support = null
+	velocity = Vector2.ZERO
+	_set_action(&"locomotion", DEFAULT_CAPABILITIES)
+	_refresh_weapon_permissions()
+	_emit(&"climb_detached", {"reason": reason, "target_id": target_id})
+
+func _tick_detached_climb(dt: float) -> void:
+	_ensure_fall_history()
+	_refresh_weapon_permissions()
+	_refresh_axes()
+	_update_facing()
+	_update_crouch()
+	if main_action == &"roll": _tick_roll_motion(dt)
+	elif main_action == &"dive": _tick_dive_motion(dt)
+	else:
+		_update_horizontal(dt)
+		_update_vertical(dt)
+	var was_grounded = grounded
+	var falling_speed = velocity.y
+	var incoming_horizontal = velocity.x
+	_sweep_motion(velocity * dt)
+	_refresh_ground()
+	if grounded and not was_grounded: _dispatch_landing(falling_speed, true, incoming_horizontal)
+
+# A down-jump press is classified once at capture. Drop and dive never reuse
+# that press as another action after the actor changes between ground and air.
+func _down_context_grounded() -> bool:
+	# Freshly spawned/reset actors have no cached ground tick yet. Probe the
+	# actual supporting geometry without moving or refreshing any action budget.
+	if velocity.y < 0 and not grounded: return false
+	var contact = KinematicCollision2D.new()
+	return test_move(global_transform, Vector2.DOWN * profile.floor_probe, contact, profile.collision_margin) and _floor_normal(contact.get_normal())
+func _try_down_action() -> bool:
+	if _down_buffer <= 0 or _down_intent.is_empty(): return false
+	var dropping = _down_intent == &"drop"
+	if not (allow_drop_through if dropping else allow_dive):
+		_deny_down_action(&"ability_disabled")
+		return true
+	var key = "can_drop_through" if dropping else "can_dive"
+	if not bool(_capabilities[key]) or not bool(_external_weapon_permissions[key]):
+		_deny_down_action(&"capability_denied")
+		return true
+	if not _uses_inputs() or not can_interrupt_with(_down_intent) or not _weapon_allows_cancel(_down_intent): return false
+	if dropping:
+		if not grounded:
+			_deny_down_action(&"ground_context_lost")
+			return true
+		return _start_drop()
+	if not dive_available:
+		_deny_down_action(&"air_dive_spent")
+		return true
+	if grounded and main_action != &"climb":
+		_deny_down_action(&"air_context_lost")
+		return true
+	var near_floor = KinematicCollision2D.new()
+	if test_move(global_transform, Vector2.DOWN * combat_profile.dive_min_floor_clearance, near_floor, profile.collision_margin) and _floor_normal(near_floor.get_normal()):
+		_deny_down_action(&"insufficient_height")
+		return true
+	_start_dive()
+	return true
+func _consume_down_action() -> void:
+	_down_buffer = 0
+	_down_intent = &""
+	_jump_buffer = 0
+	_jump_release_buffered = false
+func _deny_down_action(reason: StringName) -> void:
+	if main_action == &"wall" and wall_phase != &"kick": _wall_consumed_down_intent = true
+	var intent = _down_intent
+	_consume_down_action()
+	_emit(StringName(String(intent) + "_denied"), {"reason": reason})
+
+func _one_way_geometry(body: PhysicsBody2D) -> Dictionary:
+	if not is_instance_valid(body) or not body.is_inside_tree(): return {}
+	var result: Dictionary = {}
+	var plane := 0.0
+	var bounds := Rect2()
+	var maximum_margin := 0.0
+	var count := 0
+	for owner_id in body.get_shape_owners():
+		if body.is_shape_owner_disabled(owner_id): continue
+		if not body.is_shape_owner_one_way_collision_enabled(owner_id): return {}
+		var shape_transform = _physics_transform(body) * body.shape_owner_get_transform(owner_id)
+		if absf(shape_transform.x.y) > 0.00001 or absf(shape_transform.y.x) > 0.00001 or shape_transform.x.x <= 0 or shape_transform.y.y <= 0: return {}
+		maximum_margin = maxf(maximum_margin, body.get_shape_owner_one_way_collision_margin(owner_id))
+		for shape_index in body.shape_owner_get_shape_count(owner_id):
+			var shape = body.shape_owner_get_shape(owner_id, shape_index)
+			if not shape is RectangleShape2D: return {}
+			var world_rect: Rect2 = shape_transform * shape.get_rect()
+			if count == 0:
+				plane = world_rect.position.y
+				bounds = world_rect
+			elif absf(world_rect.position.y - plane) > profile.drop_coplanar_tolerance: return {}
+			else: bounds = bounds.merge(world_rect)
+			count += 1
+	if count == 0: return result
+	return {"top": plane, "bounds": bounds, "margin": maximum_margin, "shape_count": count}
+func _start_drop() -> bool:
+	if is_instance_valid(_drop_body):
+		_deny_down_action(&"previous_drop_not_clear")
+		return true
+	var target = _support as PhysicsBody2D
+	var geometry = _one_way_geometry(target)
+	if geometry.is_empty():
+		_deny_down_action(&"unsupported_surface")
+		return true
+	# Only the validated platform is omitted. A second support, a floor, or a
+	# solid wall attached to another body still blocks the preflight and motion.
+	add_collision_exception_with(target)
+	var blocked = test_move(global_transform, Vector2.DOWN * profile.drop_preflight_distance, null, profile.collision_margin)
+	remove_collision_exception_with(target)
+	if blocked:
+		_deny_down_action(&"blocked_or_ambiguous_support")
+		return true
+	if not _cancel_attack(&"drop"): return false
+	if main_action == &"roll": _end_roll(&"drop")
+	if main_action == &"dive": _end_dive(&"drop")
+	_consume_down_action()
+	_clear_drop_exception(&"replaced")
+	_drop_body = target
+	_drop_target_rid = target.get_rid()
+	_drop_exit_callback = _on_drop_target_exiting
+	target.tree_exiting.connect(_drop_exit_callback)
+	_drop_target_id = target.get_instance_id()
+	_drop_ignore_elapsed = 0
+	_drop_elapsed = 0
+	_drop_reason = &""
+	_drop_cleanup_blocked = false
+	add_collision_exception_with(target)
+	_set_action(&"drop", {"uses_inputs": true, "can_wall_grab": false, "can_jump_through_up": true, "small_hitbox": true})
+	action_phase = &"release"
+	grounded = false
+	_support = null
+	_coyote = 0
+	_land_timer = 0
+	velocity.y = maxf(velocity.y, profile.drop_initial_speed)
+	_set_crouched(true)
+	_refresh_weapon_permissions()
+	_emit(&"drop_started", {"target_id": _drop_target_id, "shape_count": geometry.shape_count, "top": geometry.top})
+	return true
+func _update_drop_exception(dt: float) -> void:
+	if not is_instance_valid(_drop_body):
+		if _drop_body != null: _clear_drop_exception(&"target_removed")
+		return
+	_drop_ignore_elapsed += dt
+	var geometry = _one_way_geometry(_drop_body)
+	if geometry.is_empty():
+		var changed_target = _drop_body
+		_clear_drop_exception(&"target_changed")
+		if _overlaps_body(changed_target):
+			_drop_safety_body = changed_target
+			_cancel_attack(&"drop_geometry_blocked")
+			if main_action == &"roll": _end_roll(&"drop_geometry_blocked")
+			if main_action == &"dive": _end_dive(&"drop_geometry_blocked")
+			if main_action == &"drop": _end_drop_action(&"drop_geometry_blocked")
+			if main_action == &"climb": _detach_climb(&"drop_geometry_blocked")
+			velocity = Vector2.ZERO
+			grounded = false
+			_support = null
+			_coyote = 0
+			clear_input_buffers()
+			_emit(&"drop_geometry_blocked", {"target_id": _drop_target_id, "reason": &"target_changed_while_overlapping"})
+		return
+	var bounds: Rect2 = geometry.bounds
+	var clearance = maxf(profile.drop_plane_clearance, float(geometry.margin) + profile.collision_margin)
+	var outside_x = global_position.x + profile.body_width * 0.5 < bounds.position.x - clearance or global_position.x - profile.body_width * 0.5 > bounds.end.x + clearance
+	var below = global_position.y - body_height > bounds.end.y + clearance
+	var above = global_position.y < bounds.position.y - clearance
+	if below or above: _clear_drop_exception(&"body_cleared")
+	elif outside_x: _clear_drop_exception(&"span_cleared")
+	elif _time_reached(_drop_ignore_elapsed, profile.drop_max_ignore_seconds) and not _drop_cleanup_blocked:
+		# A deadline cannot make re-enabling an overlapping shape safe. Keep
+		# only this dedicated platform omitted and notify the host once; the
+		# finite action has ended and ordinary swept escape remains available.
+		_drop_cleanup_blocked = true
+		_emit(&"drop_cleanup_blocked", {"target_id": _drop_target_id, "reason": &"overlap_at_deadline"})
+
+func _on_drop_target_exiting() -> void:
+	# Runs while the target's PhysicsServer body is still alive.
+	_clear_drop_exception(&"target_removed")
+func _clear_drop_exception(reason: StringName) -> void:
+	var was_active = _drop_target_rid.is_valid()
+	if is_instance_valid(_drop_body) and _drop_exit_callback.is_valid() and _drop_body.tree_exiting.is_connected(_drop_exit_callback):
+		_drop_body.tree_exiting.disconnect(_drop_exit_callback)
+	if _drop_target_rid.is_valid():
+		PhysicsServer2D.body_remove_collision_exception(get_rid(), _drop_target_rid)
+	_drop_target_rid = RID()
+	_drop_exit_callback = Callable()
+	_drop_body = null
+	_drop_cleanup_blocked = false
+	_drop_reason = reason
+	if was_active: _emit(&"drop_clearance_restored", {"target_id": _drop_target_id, "reason": reason})
+func _exit_tree() -> void:
+	_clear_defeated_gate(true)
+	_clear_drop_exception(&"actor_removed")
+
+func _end_drop_action(reason: StringName) -> void:
+	if main_action != &"drop": return
+	_set_action(&"locomotion", DEFAULT_CAPABILITIES)
+	_refresh_weapon_permissions()
+	_emit(&"drop_finished", {"reason": reason, "target_id": _drop_target_id, "exception_active": is_instance_valid(_drop_body)})
+func _overlaps_body(body: PhysicsBody2D) -> bool:
+	if not is_instance_valid(body) or not body.is_inside_tree(): return false
+	# A just-replaced shape can precede the broadphase query update. Conservative
+	# owner_id bounds make this safety gate independent of that update timing.
+	var actor_rect = Rect2(global_position - Vector2(profile.body_width * 0.5, body_height), Vector2(profile.body_width, body_height))
+	for owner_id in body.get_shape_owners():
+		if body.is_shape_owner_disabled(owner_id): continue
+		var shape_transform = _physics_transform(body) * body.shape_owner_get_transform(owner_id)
+		for i in body.shape_owner_get_shape_count(owner_id):
+			var bounds: Rect2 = shape_transform * body.shape_owner_get_shape(owner_id, i).get_rect()
+			if actor_rect.intersects(bounds): return true
+	return false
+
+func _query_excludes() -> Array[RID]:
+	var result: Array[RID] = [get_rid()]
+	if is_instance_valid(_drop_body): result.append(_drop_body.get_rid())
+	return result
+
+func _start_dive() -> void:
+	if main_action == &"wall": _end_wall(&"dive")
+	if main_action == &"climb": _detach_climb(&"dive")
+	if not _cancel_attack(&"dive"): return
+	if main_action == &"roll": _end_roll(&"dive")
+	if main_action == &"drop": _end_drop_action(&"dive")
+	_consume_down_action()
+	dive_serial += 1
+	dive_available = false
+	dive_direction = facing
+	_dive_start_y = global_position.y
+	_dive_fall_distance = 0
+	_dive_impact_speed = 0
+	_dive_phase_elapsed = 0
+	dive_phase = &"startup"
+	_coyote = 0
+	_set_action(&"dive", {"uses_inputs": true, "can_wall_grab": false, "can_jump_through_up": true, "small_hitbox": false, "can_drop_through": false, "can_dive": false})
+	action_phase = dive_phase
+	_refresh_weapon_permissions()
+	_emit(&"dive_started", {"serial": dive_serial, "direction": dive_direction})
+	_emit(&"dive_phase_changed", {"serial": dive_serial, "phase": dive_phase})
+func _dive_phase_duration() -> float:
+	match dive_phase:
+		&"startup": return combat_profile.dive_startup_seconds
+		&"descent": return combat_profile.dive_max_descent_seconds
+		&"impact": return combat_profile.dive_impact_seconds
+		&"recovery": return combat_profile.dive_recovery_seconds
+	return 1.0
+func _dive_progress() -> float:
+	return clampf(_dive_phase_elapsed / maxf(_dive_phase_duration(), 0.001), 0, 1) if main_action == &"dive" else 0.0
+func _set_dive_phase(phase: StringName) -> void:
+	dive_phase = phase
+	action_phase = phase
+	_dive_phase_elapsed = 0
+	phase_progress = 0
+	_refresh_weapon_permissions()
+	_emit(&"dive_phase_changed", {"serial": dive_serial, "phase": phase})
+func _advance_down_actions(dt: float) -> void:
+	if main_action == &"drop":
+		_drop_elapsed += dt
+		action_phase = &"release" if is_instance_valid(_drop_body) else &"clear"
+		phase_progress = clampf(_drop_elapsed / maxf(profile.drop_release_seconds, 0.001), 0, 1)
+		if _time_reached(_drop_elapsed, profile.drop_release_seconds): _end_drop_action(&"released")
+	elif main_action == &"dive":
+		_dive_phase_elapsed += dt
+		phase_progress = _dive_progress()
+		_dive_fall_distance = maxf(_dive_fall_distance, global_position.y - _dive_start_y)
+		if _time_reached(_dive_phase_elapsed, _dive_phase_duration()):
+			match dive_phase:
+				&"startup":
+					_set_dive_phase(&"descent")
+					velocity.y = maxf(velocity.y, combat_profile.dive_initial_speed)
+				&"descent": _end_dive(&"descent_timeout")
+				&"impact": _set_dive_phase(&"recovery")
+				&"recovery": _end_dive(&"finished")
+func _tick_dive_motion(dt: float) -> void:
+	match dive_phase:
+		&"startup":
+			velocity.x = move_toward(velocity.x, 0, combat_profile.dive_horizontal_drag * dt)
+			velocity.y = move_toward(velocity.y, 0, combat_profile.dive_startup_vertical_braking * dt)
+		&"descent":
+			velocity.x = move_toward(velocity.x, 0, combat_profile.dive_horizontal_drag * dt)
+			velocity.y = move_toward(velocity.y, combat_profile.dive_max_speed, combat_profile.dive_acceleration * dt)
+		&"impact": velocity = Vector2.ZERO
+		&"recovery":
+			_update_horizontal(dt)
+			_update_vertical(dt)
+func _dive_landed(preimpact_speed: float, hard_outcome := false) -> void:
+	if main_action != &"dive": return
+	if dive_phase != &"descent":
+		if dive_phase == &"startup": _end_dive(&"landed_during_startup")
+		return
+	_dive_impacted_this_tick = true
+	_dive_impact_speed = preimpact_speed
+	_dive_fall_distance = maxf(_dive_fall_distance, global_position.y - _dive_start_y)
+	velocity = Vector2.ZERO
+	var payload = {"serial": dive_serial, "surface_id": _support.get_instance_id() if is_instance_valid(_support) else 0,
+		"normal": _floor_contact_normal, "contact_position": _floor_contact_point, "preimpact_speed": preimpact_speed, "fall_distance": _dive_fall_distance}
+	if not hard_outcome: _set_dive_phase(&"impact")
+	_emit(&"dive_impact", payload)
+func _end_dive(reason: StringName) -> void:
+	if main_action != &"dive": return
+	var old_phase = dive_phase
+	dive_phase = &""
+	_dive_phase_elapsed = 0
+	_set_action(&"locomotion", DEFAULT_CAPABILITIES)
+	_refresh_weapon_permissions()
+	_emit(&"dive_finished" if reason in [&"finished", &"hard_landing"] else &"dive_cancelled", {"serial": dive_serial, "phase": old_phase, "reason": reason})
+
+static func _time_reached(elapsed: float, threshold: float) -> bool:
+	# Absorb only arithmetic roundoff at authored second boundaries; this is
+	# not a frame-sized tolerance or a conversion to a fixed source timebase.
+	return elapsed >= threshold - 0.000000001
+func _roll_duration() -> float:
+	return combat_profile.roll_start_seconds + combat_profile.roll_travel_seconds + combat_profile.roll_recovery_seconds
+func _roll_phase_progress() -> float:
+	if main_action != &"roll": return 0
+	if roll_phase == &"start": return clampf(_roll_elapsed / maxf(combat_profile.roll_start_seconds, 0.001), 0, 1)
+	if roll_phase == &"travel": return clampf((_roll_elapsed - combat_profile.roll_start_seconds) / maxf(combat_profile.roll_travel_seconds, 0.001), 0, 1)
+	return clampf((_roll_elapsed - combat_profile.roll_start_seconds - combat_profile.roll_travel_seconds) / maxf(combat_profile.roll_recovery_seconds, 0.001), 0, 1)
+func _try_roll() -> bool:
+	if _roll_buffer <= 0 or _roll_cooldown > 0 or not _uses_inputs(): return false
+	if not grounded and not air_roll_available: return false
+	if not can_interrupt_with(&"roll") or not _weapon_allows_cancel(&"roll"): return false
+	if not bool(_external_weapon_permissions.can_roll): return false
+	var noise_generation_at_entry = _reset_epoch
+	var protects_fall = main_action == &"dive" and dive_phase == &"descent" and not grounded
+	if main_action == &"wall": _end_wall(&"roll")
+	if not _noise_owner_live(noise_generation_at_entry): return false
+	if main_action == &"climb": _detach_climb(&"roll")
+	if not _noise_owner_live(noise_generation_at_entry): return false
+	if not _cancel_attack(&"roll"): return false
+	if not _noise_owner_live(noise_generation_at_entry): return false
+	if main_action == &"dive": _end_dive(&"roll")
+	if not _noise_owner_live(noise_generation_at_entry): return false
+	if main_action == &"drop": _end_drop_action(&"roll")
+	if not _noise_owner_live(noise_generation_at_entry): return false
+	_roll_buffer = 0
+	roll_direction = facing
+	if bool(_external_weapon_permissions.can_turn) and absf(float(_input.x)) > 0.25:
+		roll_direction = int(signf(float(_input.x)))
+	facing = roll_direction
+	_roll_elapsed = 0
+	roll_serial += 1
+	_roll_fall_protection_serial = roll_serial if protects_fall else 0
+	_roll_cooldown = combat_profile.roll_cooldown_seconds
+	if not grounded: air_roll_available = false
+	var noise_origin = global_position
+	var noise_loudness = combat_profile.roll_loudness
+	_set_action(&"roll", {"uses_inputs": true, "can_wall_grab": false, "can_jump_through_up": true, "small_hitbox": true, "interruptible_by": []})
+	if not _noise_owner_live(noise_generation_at_entry): return false
+	roll_phase = &"start"
+	action_phase = roll_phase
+	_set_crouched(true)
+	if not _noise_owner_live(noise_generation_at_entry): return false
+	_refresh_weapon_permissions()
+	_emit(&"roll_started", {"direction": roll_direction, "airborne": not grounded})
+	_commit_noise(noise_origin, &"roll", noise_loudness, noise_generation_at_entry)
+	return true
+func _tick_roll_motion(dt: float) -> void:
+	if roll_phase == &"recovery": _update_horizontal(dt)
+	else:
+		var progress = clampf(_roll_elapsed / maxf(combat_profile.roll_start_seconds + combat_profile.roll_travel_seconds, 0.001), 0, 1)
+		velocity.x = roll_direction * lerpf(combat_profile.roll_start_speed, combat_profile.roll_end_speed, progress)
+	_update_vertical(dt) # Air roll keeps gravity and never supplies lift.
+func _end_roll(reason: StringName) -> void:
+	if main_action != &"roll": return
+	var completed = reason == &"finished"
+	_roll_fall_protection_serial = 0
+	roll_phase = &""
+	velocity.x = clampf(velocity.x, -combat_profile.roll_exit_speed_limit, combat_profile.roll_exit_speed_limit)
+	_set_action(&"locomotion", DEFAULT_CAPABILITIES)
+	_emit(&"roll_finished" if completed else &"roll_cancelled", {"reason": reason, "elapsed": _roll_elapsed})
+	# Shape expansion is intentionally left to the ordinary clearance query.
+	_refresh_weapon_permissions()
+func is_roll_fall_protected() -> bool:
+	return main_action == &"roll" and _roll_fall_protection_serial == roll_serial and roll_serial > 0
+func is_roll_invulnerable() -> bool:
+	return main_action == &"roll" and _time_reached(_roll_elapsed, combat_profile.roll_invulnerable_from) and not _time_reached(_roll_elapsed, combat_profile.roll_invulnerable_until)
+
+# Optional chain configuration is copied per episode. Runtime identities,
+# pending intent, phase clocks and hit sets are never stored in a Resource.
+func _attack_tuning(key: StringName) -> Variant:
+	if _active_melee_step == null: return combat_profile.get(key)
+	var mapped = {&"attack_windup_seconds": &"windup_seconds", &"attack_active_seconds": &"active_seconds", &"attack_recovery_seconds": &"recovery_seconds",
+		&"attack_windup_move_scale": &"windup_move_scale", &"attack_recovery_move_scale": &"recovery_move_scale", &"attack_active_ground_speed": &"active_ground_speed",
+		&"attack_air_drag": &"air_drag", &"strike_damage": &"damage", &"strike_impulse": &"impulse", &"attack_loudness": &"loudness", &"contact_hitpause_seconds": &"hitpause_seconds"}
+	return _active_melee_step.get(mapped.get(key, key))
+# Optional first-entry facing assistance. The host supplies one already perceived
+# opponent; this actor has no target catalogue, tracking or aim-derived hit right.
+func set_attack_entry_provider(provider: Callable) -> void:
+	if _attack_entry_provider == provider: return
+	_attack_entry_provider = provider
+	_entry_assist_provider_epoch += 1
+func attack_entry_provider_matches(provider: Callable) -> bool:
+	return _attack_entry_provider == provider
+func clear_attack_entry_provider(provider: Callable) -> bool:
+	if not attack_entry_provider_matches(provider): return false
+	set_attack_entry_provider(Callable())
+	return true
+func _entry_assist_turn_allowed() -> bool:
+	return enable_attack_entry_assist and _uses_inputs() and bool(_weapon_permissions.can_turn) and bool(_external_weapon_permissions.can_turn) and weapon_phase == &"windup" and _attack_configuration_is_current()
+func _entry_assist_preview() -> Dictionary:
+	var size: Vector2 = _attack_tuning(&"strike_size")
+	var offset: Vector2 = _attack_tuning(&"strike_center_offset")
+	var origin: Vector2 = _attack_tuning(&"strike_origin_offset")
+	if not size.is_finite() or not offset.is_finite() or not origin.is_finite() or size.x <= 0 or size.y <= 0: return {}
+	offset.y = maxf(offset.y, -body_height + size.y * 0.5)
+	origin.y = maxf(origin.y, -body_height + 3)
+	return {"preview_left": Rect2(global_position + Vector2(-offset.x, offset.y) - size * 0.5, size),
+		"preview_right": Rect2(global_position + offset - size * 0.5, size),
+		"origin_left": global_position + Vector2(-origin.x, origin.y), "origin_right": global_position + origin}
+func _entry_assist_contains(box: Rect2, point: Vector2) -> bool:
+	# Closed bounds keep the mirrored edge cases symmetric.
+	return point.x >= box.position.x and point.x <= box.end.x and point.y >= box.position.y and point.y <= box.end.y
+func _entry_assist_guard_state() -> Dictionary:
+	var state = telemetry()
+	for key in state.keys():
+		if String(key).begins_with("entry_assist_"): state.erase(key)
+	state.merge({"reset_epoch": _reset_epoch, "action_generation": _action_generation, "provider_epoch": _entry_assist_provider_epoch,
+		"tick": _attack_tick_sequence, "global_transform": global_transform, "input": _input.duplicate(true),
+		"capabilities": _capabilities.duplicate(true), "external_permissions": _external_weapon_permissions.duplicate(true),
+		"effective_permissions": _weapon_permissions.duplicate(true), "preview": _entry_assist_preview(),
+		"strike": strike_snapshot(), "collision_layer": collision_layer, "collision_mask": collision_mask,
+		"terrain_mask": terrain_mask, "shape_size": _body_shape.size if _body_shape != null else Vector2.ZERO,
+		"shape_transform": _shape_node.transform if _shape_node != null else Transform2D.IDENTITY,
+		"action_driver": _action_driver, "windup_duration": _attack_tuning(&"attack_windup_seconds"),
+		"active_duration": _attack_tuning(&"attack_active_seconds"), "recovery_duration": _attack_tuning(&"attack_recovery_seconds")})
+	return state
+func _entry_assist_record(reason: StringName, observable := true) -> void:
+	_entry_assist_reason = reason
+	_entry_assist_facing_after = facing
+	if observable:
+		_emit(&"entry_assist_resolved", {"token": _entry_assist_token, "attack_serial": _entry_assist_attack_serial,
+			"query_count": _entry_assist_query_count, "request_kind": _attack_request_kind, "reason": reason,
+			"manual_x": _entry_assist_manual_x, "facing_before": _entry_assist_facing_before, "facing_after": _entry_assist_facing_after})
+func _try_attack_entry_assist() -> void:
+	if _entry_assist_querying:
+		_entry_assist_reentered = true
+		return
+	# Default-off does not query or emit an additional gameplay event.
+	if not enable_attack_entry_assist: return
+	_entry_assist_attack_serial = attack_serial
+	_entry_assist_manual_x = float(_input.get("x", 0.0))
+	_entry_assist_facing_before = facing
+	_entry_assist_facing_after = facing
+	if not _attack_initial_fresh_admission or _attack_request_kind != &"fresh":
+		_entry_assist_record(&"not_initial_fresh")
+		return
+	if _entry_assist_manual_x != 0.0:
+		_entry_assist_record(&"manual_input")
+		return
+	if not _entry_assist_turn_allowed():
+		_entry_assist_record(&"turn_denied")
+		return
+	if not _attack_entry_provider.is_valid():
+		_entry_assist_record(&"no_provider")
+		return
+	var preview = _entry_assist_preview()
+	if preview.is_empty():
+		_entry_assist_record(&"invalid_preview")
+		return
+	_entry_assist_query_count += 1
+	_entry_assist_token += 1
+	var request = preview.duplicate(true)
+	request.merge({"token": _entry_assist_token, "sample_tick": _attack_tick_sequence, "engine_tick": Engine.get_physics_frames(),
+		"actor_id": get_instance_id(), "attack_serial": attack_serial, "input_id": _attack_consumed_input_id,
+		"request_id": _attack_request_id, "request_kind": _attack_request_kind, "hold_id": _attack_origin_hold_id,
+		"terrain_mask": terrain_mask})
+	var expected_action = _action_generation
+	var expected_weapon = _weapon_generation
+	var guard = _entry_assist_guard_state()
+	_entry_assist_reentered = false
+	_entry_assist_mutated = false
+	_entry_assist_querying = true
+	var answer: Variant = _attack_entry_provider.call(self, request.duplicate(true))
+	_entry_assist_querying = false
+	if _entry_assist_reentered:
+		_entry_assist_record(&"provider_reentered", false)
+		return
+	if _entry_assist_mutated or not is_inside_tree() or is_queued_for_deletion() or not _owner_unchanged(expected_action, expected_weapon) or not _entry_assist_turn_allowed() or guard != _entry_assist_guard_state():
+		_entry_assist_record(&"provider_mutated", false)
+		return
+	if not answer is Dictionary:
+		_entry_assist_record(&"malformed_offer")
+		return
+	var offer: Dictionary = answer.duplicate(true)
+	if offer.is_empty():
+		_entry_assist_record(&"no_offer")
+		return
+	for key in ["token", "sample_tick", "actor_id", "attack_serial"]:
+		if typeof(offer.get(key)) != TYPE_INT or offer[key] != request[key]:
+			_entry_assist_record(&"stale_offer")
+			return
+	for key in ["eligible", "perceived", "visible"]:
+		if typeof(offer.get(key)) != TYPE_BOOL or not offer[key]:
+			_entry_assist_record(&"attestation_denied")
+			return
+	if typeof(offer.get("classification")) not in [TYPE_STRING, TYPE_STRING_NAME] or String(offer.classification) != "opponent":
+		_entry_assist_record(&"not_opponent")
+		return
+	var candidate: Variant = offer.get("candidate")
+	if typeof(candidate) != TYPE_OBJECT or not is_instance_valid(candidate):
+		_entry_assist_record(&"invalid_candidate")
+		return
+	if not candidate is Node2D or candidate == self or candidate.is_queued_for_deletion() or not candidate.is_inside_tree() or candidate.get_tree() != get_tree():
+		_entry_assist_record(&"invalid_candidate")
+		return
+	if is_ancestor_of(candidate) or candidate.is_ancestor_of(self) or typeof(offer.get("candidate_id")) != TYPE_INT or candidate.get_instance_id() != offer.candidate_id:
+		_entry_assist_record(&"invalid_candidate")
+		return
+	# These explicit contradictions are independently knowable. Semantic
+	# awareness still belongs to the host; child artwork visibility is not it.
+	if not candidate.is_visible_in_tree():
+		_entry_assist_record(&"hidden_candidate")
+		return
+	if candidate.is_in_group(&"props"):
+		_entry_assist_record(&"prop_candidate")
+		return
+	if typeof(offer.get("local_anchor")) != TYPE_VECTOR2 or typeof(offer.get("anchor_world")) != TYPE_VECTOR2 or not Vector2(offer.local_anchor).is_finite() or not Vector2(offer.anchor_world).is_finite():
+		_entry_assist_record(&"invalid_anchor")
+		return
+	var anchor: Vector2 = candidate.to_global(offer.local_anchor)
+	if not anchor.is_finite() or anchor != Vector2(offer.anchor_world):
+		_entry_assist_record(&"stale_anchor")
+		return
+	if not _entry_assist_contains(preview.preview_left, anchor) and not _entry_assist_contains(preview.preview_right, anchor):
+		_entry_assist_record(&"outside_preview")
+		return
+	var direction = int(signf(anchor.x - global_position.x))
+	var origin: Vector2 = preview.origin_left if direction < 0 else preview.origin_right
+	var ray = PhysicsRayQueryParameters2D.create(origin, anchor, terrain_mask, [get_rid()])
+	ray.collide_with_areas = false
+	ray.collide_with_bodies = true
+	ray.hit_from_inside = true
+	if not get_world_2d().direct_space_state.intersect_ray(ray).is_empty():
+		_entry_assist_record(&"terrain_occluded")
+		return
+	# Validation itself supplies no authority to an already replaced owner.
+	if not _owner_unchanged(expected_action, expected_weapon) or not _entry_assist_turn_allowed() or guard != _entry_assist_guard_state():
+		_entry_assist_record(&"provider_mutated", false)
+		return
+	if direction == 0:
+		_entry_assist_record(&"equal_x")
+		return
+	if direction == facing:
+		_entry_assist_record(&"already_facing")
+		return
+	facing = direction
+	attack_facing = direction
+	# This seeds only an inactive preview. Actual active entry still resets the
+	# sweep and commits final facing after any later manual windup input.
+	_strike_previous_center = _strike_center()
+	_entry_assist_record(&"applied")
+
+func _input_snapshot_in_use() -> bool:
+	return weapon_phase != &"idle" or _chain_snapshot != null or not _chain_pending.is_empty() or _attack_buffer > 0 or _attack_hold_armed or _attack_hold_admitted
+func _input_mode() -> int:
+	if _input_snapshot_in_use() and _melee_input_snapshot != null and _melee_input_source == melee_input_profile and _melee_input_epoch == _melee_configuration_epoch:
+		return _melee_input_snapshot.mode
+	return melee_input_profile.mode if melee_input_profile != null else MokshaMeleeInputProfile.Mode.FRESH_ONLY
+func _input_mode_name() -> StringName:
+	match _input_mode():
+		MokshaMeleeInputProfile.Mode.HELD_REPEAT: return &"held_repeat"
+		MokshaMeleeInputProfile.Mode.HELD_CHARGE: return &"held_charge"
+	return &"fresh_only"
+func _hold_is_current() -> bool:
+	return _attack_hold_armed and not _attack_hold_released and allow_input and _last_attack_held and _melee_input_snapshot != null and _melee_input_source == melee_input_profile and _melee_input_epoch == _melee_configuration_epoch
+func _discard_synthetic_request() -> void:
+	if _chain_pending.get("request_kind", &"fresh") == &"held_repeat": _chain_pending.clear()
+	if _attack_buffer_kind == &"held_repeat": _attack_buffer = 0
+func _disarm_attack_hold(require_release := true) -> void:
+	_attack_hold_armed = false
+	_attack_hold_admitted = false
+	_attack_rearm_required = _attack_rearm_required or (require_release and _last_attack_held)
+	_repeat_restart_remaining = 0
+	_discard_synthetic_request()
+func _observe_attack_hold() -> void:
+	# Physical neutral is observed even when input is masked. Reset's neutral
+	# snapshot alone does not satisfy this; this runs only on a real callback.
+	if not _last_attack_held:
+		_attack_rearm_required = false
+		_attack_hold_released = true
+		_attack_hold_armed = false
+		_attack_hold_admitted = false
+		_discard_synthetic_request()
+	if bool(_input.attack_released):
+		_attack_hold_released = true
+		_attack_hold_armed = false
+		_attack_hold_admitted = false
+		_discard_synthetic_request()
+	if _attack_hold_admitted and (not allow_input or not _uses_inputs() or not bool(_external_weapon_permissions.can_attack)):
+		_disarm_attack_hold()
+	if weapon_phase == &"charge" and not _hold_is_current():
+		_cancel_attack(&"charge_released" if _attack_hold_released else &"charge_gate_revoked")
+func _prepare_attack_hold() -> bool:
+	if melee_input_profile == null: return true
+	if _input_mode() != MokshaMeleeInputProfile.Mode.FRESH_ONLY and _attack_rearm_required: return false
+	# Fresh follow-ups still belong to the committed configuration episode.
+	# Rejected presses never get here and cannot replace its held authority.
+	var snapshot = _melee_input_snapshot if _input_snapshot_in_use() else null
+	if snapshot == null and melee_input_profile != null: snapshot = melee_input_profile.snapshot()
+	if snapshot == null: return false
+	_melee_input_snapshot = snapshot
+	_melee_input_source = melee_input_profile
+	_melee_input_epoch = _melee_configuration_epoch
+	if snapshot.mode == MokshaMeleeInputProfile.Mode.FRESH_ONLY: return true
+	_attack_hold_id = _attack_input_sequence
+	_attack_hold_released = not _last_attack_held or bool(_input.attack_released)
+	_attack_hold_armed = not _attack_hold_released
+	_attack_hold_admitted = false
+	_repeat_offered_serial = -1
+	_repeat_restart_remaining = 0
+	return true
+func _capture_held_repeat() -> void:
+	if _input_mode() != MokshaMeleeInputProfile.Mode.HELD_REPEAT or not _hold_is_current() or not _attack_hold_admitted: return
+	if bool(_input.attack_pressed) or not _chain_pending.is_empty() or _attack_buffer > 0: return
+	if _repeat_restart_remaining > 0.000000001 or _repeat_offered_serial == attack_serial: return
+	if weapon_phase != &"idle":
+		if _active_melee_step == null or _chain_next_step < 0: return
+		if not _time_reached(_attack_step_elapsed, _active_melee_step.followup_open_seconds): return
+		if _time_reached(_attack_step_elapsed, _active_melee_step.followup_close_seconds):
+			_disarm_attack_hold()
+			return
+	_repeat_offered_serial = attack_serial
+	_capture_attack_input(true)
+func _charge_payload() -> Dictionary:
+	return {"charge_serial": _charge_serial, "hold_id": _attack_hold_id, "input_id": _attack_hold_id,
+		"elapsed": _charge_elapsed, "duration": _melee_input_snapshot.charge_seconds if _melee_input_snapshot != null else 0.0,
+		"request_id": _attack_request_id}
+func _charge_gates_open() -> bool:
+	return _hold_is_current() and _uses_inputs() and bool(_external_weapon_permissions.can_attack) and shield_phase == &"idle" and _shield_lock_remaining <= 0 and _melee_reuse_lock_remaining <= 0 and can_interrupt_with(&"attack")
+func _charge_branch_ready() -> bool:
+	return _charge_role == &"starter" and weapon_phase == &"recovery" and _melee_input_snapshot != null and _time_reached(_weapon_elapsed, _melee_input_snapshot.charge_branch_recovery_seconds) and _charge_gates_open()
+func _try_charge_transition() -> bool:
+	if _charge_role == &"starter" and weapon_phase == &"recovery" and _melee_input_snapshot != null:
+		if not _time_reached(_weapon_elapsed, _melee_input_snapshot.charge_branch_recovery_seconds) or not _charge_gates_open(): return false
+		var expected_action = _action_generation
+		if not _finish_melee_step(true): return true
+		if _action_generation != expected_action or weapon_phase != &"idle": return true
+		if not _charge_gates_open():
+			_charge_role = &""
+			_disarm_attack_hold()
+			return true
+		_weapon_generation += 1
+		var expected_weapon = _weapon_generation
+		weapon_phase = &"charge"
+		_weapon_elapsed = 0
+		_charge_elapsed = 0
+		_refresh_weapon_permissions()
+		_emit(&"charge_started", _charge_payload())
+		if not _owner_unchanged(expected_action, expected_weapon) or not _attack_configuration_is_current() or weapon_phase != &"charge": return true
+		return true
+	if weapon_phase != &"charge" or _melee_input_snapshot == null or not _time_reached(_charge_elapsed, _melee_input_snapshot.charge_seconds): return false
+	if not _charge_gates_open(): return false
+	var expected_action = _action_generation
+	var expected_weapon = _weapon_generation
+	var payload = _charge_payload()
+	_attack_request_sequence += 1
+	var committed_request_id = _attack_request_sequence
+	payload.request_id = committed_request_id
+	payload.request_kind = &"charge_commit"
+	# Commit intent is observable before installing a strike. Replacement or
+	# release in its callback invalidates this old transition immediately.
+	_emit(&"charge_committed", payload)
+	if not _owner_unchanged(expected_action, expected_weapon) or not _attack_configuration_is_current() or weapon_phase != &"charge" or not _charge_gates_open(): return true
+	_active_melee_step = _melee_input_snapshot.charge_strike
+	_chain_step_index = 1
+	_charge_role = &"charged"
+	_attack_request_id = committed_request_id
+	_attack_request_kind = &"charge_commit"
+	_disarm_attack_hold()
+	_melee_reuse_lock_remaining = maxf(_melee_reuse_lock_remaining, _active_melee_step.reuse_lock_seconds)
+	_start_attack_instance()
+	return true
+func _try_charge_starter() -> bool:
+	if _try_charge_transition(): return true
+	if _attack_buffer <= 0 or not _uses_inputs() or weapon_phase != &"idle" or not _charge_role.is_empty(): return false
+	if _melee_input_snapshot == null or _attack_buffer_configuration_epoch != _melee_configuration_epoch: return false
+	if not bool(_external_weapon_permissions.can_attack) or not can_interrupt_with(&"attack") or not _shield_allows_cancel(&"attack") or _shield_lock_remaining > 0 or _melee_reuse_lock_remaining > 0: return false
+	if not _retire_for_attack(): return false
+	if _attack_buffer <= 0 or _melee_input_epoch != _melee_configuration_epoch or _melee_input_source != melee_input_profile: return false
+	_active_melee_step = _melee_input_snapshot.charge_starter
+	_chain_step_index = 0
+	_chain_next_step = -1
+	_charge_role = &"starter"
+	_charge_elapsed = 0
+	_charge_serial += 1
+	_attack_consumed_input_id = _attack_buffer_input_id
+	_attack_request_id = _attack_buffer_request_id
+	_attack_request_kind = &"fresh"
+	_attack_hold_admitted = true
+	_melee_reuse_lock_remaining = maxf(_melee_reuse_lock_remaining, _active_melee_step.reuse_lock_seconds)
+	_start_attack_instance(true)
+	return true
+func _attack_metadata() -> Dictionary:
+	return {"serial": attack_serial, "chain_serial": _chain_serial if _chain_snapshot != null else 0,
+		"step_index": _chain_step_index if _active_melee_step != null else -1, "step_label": _active_melee_step.step_label if _active_melee_step != null else "",
+		"attack_pose_id": _active_melee_step.pose_id if _active_melee_step != null else &"", "input_id": _attack_consumed_input_id, "request_id": _attack_request_id, "request_kind": _attack_request_kind, "hold_id": _attack_origin_hold_id, "charge_serial": _charge_serial, "charge_role": _charge_role}
+func _attack_event(name_: StringName, extra: Dictionary = {}) -> void:
+	var payload = _attack_metadata()
+	payload.merge(extra, true)
+	_emit(name_, payload)
+func _step_allows_cancel(next_action: StringName) -> bool:
+	if next_action in [&"damage", &"forced", &"reset", &"hard_landing", &"drop_geometry_blocked", &"chain_reconfigured"]: return true
+	# Automatic ledge catch stays outside this weapon's cancellation policy.
+	if next_action == &"ledge": return false
+	var permitted: PackedStringArray
+	match weapon_phase:
+		&"windup": permitted = _active_melee_step.windup_cancels
+		&"active": permitted = _active_melee_step.active_cancels
+		&"recovery":
+			if not _time_reached(_weapon_elapsed, _active_melee_step.recovery_cancel_after): return false
+			permitted = _active_melee_step.recovery_cancels
+	return permitted.has(String(next_action))
+func _apply_step_permissions() -> void:
+	_weapon_permissions.can_attack = false
+	if weapon_phase == &"windup":
+		_weapon_permissions.move_scale *= _active_melee_step.windup_move_scale
+		_weapon_permissions.can_turn = bool(_weapon_permissions.can_turn) and _active_melee_step.allow_turn_windup
+	elif weapon_phase == &"active":
+		_weapon_permissions.can_move = false
+		_weapon_permissions.can_turn = bool(_weapon_permissions.can_turn) and _active_melee_step.allow_turn_active
+	elif weapon_phase == &"recovery":
+		_weapon_permissions.move_scale *= _active_melee_step.recovery_move_scale
+		_weapon_permissions.can_turn = bool(_weapon_permissions.can_turn) and _active_melee_step.allow_turn_recovery
+	for action in [&"roll", &"jump", &"shield", &"drop", &"dive", &"climb", &"wall"]:
+		var key = {&"roll": "can_roll", &"jump": "can_jump", &"shield": "can_shield", &"drop": "can_drop_through", &"dive": "can_dive", &"climb": "can_climb", &"wall": "can_wall_traverse"}[action]
+		var permitted = _step_allows_cancel(action) or (action == &"jump" and _step_allows_cancel(&"air_jump"))
+		_weapon_permissions[key] = bool(_weapon_permissions[key]) and permitted
+func _reset_chain(reason: StringName) -> void:
+	var had_context = _chain_snapshot != null or not _chain_pending.is_empty()
+	var payload = {"chain_serial": _chain_serial, "step_index": _chain_step_index, "pending_input_id": int(_chain_pending.get("id", 0)), "reason": reason}
+	# Only natural completion may carry one explicitly admitted fresh restart.
+	# All interruptions/configuration changes keep their existing clear policy.
+	var keep_restart = reason == &"completed" and weapon_phase == &"idle" and _active_melee_step == null and _chain_snapshot != null and _chain_next_step < 0 and _chain_pending.get("kind", &"") == &"restart" and int(_chain_pending.get("restart_after_serial", -1)) == _chain_serial and _chain_pending.get("source") == melee_chain and int(_chain_pending.get("configuration_epoch", -1)) == _melee_configuration_epoch and float(_chain_pending.get("remaining", 0)) > 0
+	if not keep_restart: _chain_pending.clear()
+	else: payload["restart_preserved"] = true
+	_chain_snapshot = null
+	_chain_source = null
+	_chain_step_index = -1
+	_chain_next_step = -1
+	_chain_retention_remaining = 0
+	if had_context: _emit(&"chain_reset", payload)
+func _reset_fresh_start_sequence() -> void:
+	_fresh_start_cursor = 0
+	_fresh_chain_commits = 0
+func _fresh_start_index(chain: MokshaMeleeChainProfile, request_kind: StringName = &"fresh") -> int:
+	if request_kind == &"fresh" and not chain.fresh_start_steps.is_empty():
+		return chain.fresh_start_steps[_fresh_start_cursor % chain.fresh_start_steps.size()]
+	return chain.start_step
+func _committed_attack_plan_current() -> bool:
+	return is_inside_tree() and not is_queued_for_deletion() and not is_defeated() and _attack_commit_reset_epoch == _reset_epoch \
+		and _active_melee_step != null and weapon_phase in [&"windup", &"active", &"recovery"] and _attack_configuration_is_current()
+## Defensive diagnostics only. No Resource, contact permit or writable clock is
+## exposed. Idle observes the same opening selector that commitment will use.
+func attack_plan_snapshot() -> Dictionary:
+	var committed := _committed_attack_plan_current()
+	var step: MokshaMeleeStepProfile = _active_melee_step if committed else null
+	var index := _chain_step_index if committed else -1
+	if weapon_phase == &"idle" and _input_mode() == MokshaMeleeInputProfile.Mode.HELD_CHARGE:
+		var input_snapshot: MokshaMeleeInputProfile = _melee_input_snapshot if _input_snapshot_in_use() and _melee_input_source == melee_input_profile and _melee_input_epoch == _melee_configuration_epoch else (melee_input_profile.snapshot() if melee_input_profile != null else null)
+		if input_snapshot != null:
+			step = input_snapshot.charge_starter
+			index = 0
+	elif weapon_phase == &"idle" and melee_chain != null:
+		var chain := melee_chain
+		var retained_current := _chain_snapshot != null and _chain_source == melee_chain and _chain_configuration_epoch == _melee_configuration_epoch
+		var request_kind: StringName = &"fresh"
+		if not _chain_pending.is_empty() and _chain_pending.get("source") == melee_chain and int(_chain_pending.get("configuration_epoch", -1)) == _melee_configuration_epoch:
+			request_kind = _chain_pending.get("request_kind", &"fresh")
+			if int(_chain_pending.get("serial", 0)) != 0 and retained_current:
+				chain = _chain_snapshot
+				index = _chain_next_step
+		elif retained_current and _chain_retention_remaining > 0.000000001 and _chain_next_step >= 0:
+			chain = _chain_snapshot
+			index = _chain_next_step
+		if index < 0: index = _fresh_start_index(chain, request_kind)
+		if chain.is_valid_chain() and index >= 0 and index < chain.steps.size(): step = chain.steps[index]
+	var size: Vector2 = step.strike_size if step != null else combat_profile.strike_size
+	var center: Vector2 = step.strike_center_offset if step != null else combat_profile.strike_center_offset
+	center.y = maxf(center.y, -body_height + size.y * 0.5)
+	var look := attack_facing if committed else facing
+	var result := {"valid": step != null, "committed": committed, "serial": attack_serial, "configuration_epoch": _melee_configuration_epoch,
+		"generation": _reset_epoch, "phase": weapon_phase, "elapsed": _weapon_elapsed if committed else 0.0, "step_index": index,
+		"fresh_chain_commits": _fresh_chain_commits, "fresh_start_cursor": _fresh_start_cursor,
+		"pose_id": step.pose_id if step != null else &"", "step_label": step.step_label if step != null else "",
+		"windup_seconds": step.windup_seconds if step != null else combat_profile.attack_windup_seconds,
+		"active_seconds": step.active_seconds if step != null else combat_profile.attack_active_seconds,
+		"recovery_seconds": step.recovery_seconds if step != null else combat_profile.attack_recovery_seconds,
+		"damage": step.damage if step != null else combat_profile.strike_damage,
+		"size": size, "center_offset": center, "facing": look, "rect": Rect2(Vector2(center.x * look, center.y) - size * 0.5, size)}
+	result.make_read_only()
+	return result
+## Only an unentered recovery of this exact still-live copied action may change.
+## Detach first: the active step can alias a reusable looping chain snapshot.
+func set_pending_recovery_duration(serial: int, configuration_epoch: int, duration: float) -> bool:
+	if not is_finite(duration) or duration < 0.001 or not _committed_attack_plan_current(): return false
+	if serial != attack_serial or configuration_epoch != _attack_configuration_epoch or weapon_phase not in [&"windup", &"active"]: return false
+	if not can_process() or not is_physics_processing() or get_tree().paused: return false
+	if _active_melee_step.next_step >= 0 and _active_melee_step.followup_commit_recovery_seconds > duration: return false
+	_active_melee_step = _active_melee_step.duplicate(true)
+	_active_melee_step.recovery_seconds = duration
+	return true
+func _attack_configuration_is_current() -> bool:
+	return _attack_chain_source_at_commit == melee_chain and _attack_input_source_at_commit == melee_input_profile and _attack_configuration_epoch == _melee_configuration_epoch
+func _sync_melee_configuration() -> bool:
+	var changed = weapon_phase != &"idle" and not _attack_configuration_is_current()
+	changed = changed or (_chain_snapshot != null and (_chain_source != melee_chain or _chain_configuration_epoch != _melee_configuration_epoch))
+	changed = changed or (not _chain_pending.is_empty() and (_chain_pending.source != melee_chain or int(_chain_pending.configuration_epoch) != _melee_configuration_epoch))
+	# The compatibility buffer is captured only in null-chain mode. It is
+	# bound to that configuration too, rather than sleeping behind a chain
+	# assignment and resurrecting if the host later restores the fallback.
+	changed = changed or (_attack_buffer > 0 and (_attack_buffer_configuration_epoch != _melee_configuration_epoch or (melee_chain != null and _input_mode() != MokshaMeleeInputProfile.Mode.HELD_CHARGE)))
+	var input_changed = _melee_input_snapshot != null and (_melee_input_source != melee_input_profile or _melee_input_epoch != _melee_configuration_epoch)
+	if input_changed:
+		if _input_snapshot_in_use(): changed = true
+		else:
+			# A retired optional profile has no authority over an independent
+			# live shield. Discard its unused copy without canceling that owner.
+			_melee_input_snapshot = null
+			_melee_input_source = null
+	if not changed: return true
+	_attack_buffer = 0
+	_attack_buffer_input_id = 0
+	var retired = _cancel_attack(&"chain_reconfigured")
+	_melee_input_snapshot = null
+	_melee_input_source = null
+	return retired
+func _fresh_restart_allowed(synthetic: bool, mode: int) -> bool:
+	if synthetic or mode != MokshaMeleeInputProfile.Mode.FRESH_ONLY or weapon_phase != &"recovery" or _active_melee_step == null or _chain_snapshot == null or _chain_next_step >= 0: return false
+	var window = _chain_snapshot.fresh_restart_window_seconds
+	return window > 0 and _time_reached(_weapon_elapsed, maxf(0, _active_melee_step.recovery_seconds - window))
+
+func _capture_attack_input(synthetic := false) -> void:
+	if not synthetic: _attack_input_sequence += 1
+	var request_input_id = _attack_hold_id if synthetic else _attack_input_sequence
+	_attack_request_sequence += 1
+	var request_id = _attack_request_sequence
+	var request_kind: StringName = &"held_repeat" if synthetic else &"fresh"
+	var mode = _input_mode()
+	var restart := false
+	var rejection: StringName = &""
+	if not synthetic and mode != MokshaMeleeInputProfile.Mode.FRESH_ONLY and _attack_rearm_required: rejection = &"hold_rearm_required"
+	elif mode == MokshaMeleeInputProfile.Mode.HELD_CHARGE and (weapon_phase != &"idle" or _attack_buffer > 0): rejection = &"charge_episode_busy"
+	elif not _chain_pending.is_empty() or (mode == MokshaMeleeInputProfile.Mode.HELD_REPEAT and _attack_buffer > 0): rejection = &"queue_full"
+	elif mode != MokshaMeleeInputProfile.Mode.HELD_CHARGE and (melee_chain != null or _chain_snapshot != null):
+		if melee_chain == null: rejection = &"configuration_changed"
+		elif weapon_phase != &"idle":
+			if _active_melee_step == null: rejection = &"other_weapon_live"
+			elif _chain_next_step < 0:
+				restart = _fresh_restart_allowed(synthetic, mode)
+				if not restart: rejection = &"chain_complete"
+			elif not _time_reached(_attack_step_elapsed, _active_melee_step.followup_open_seconds): rejection = &"too_early"
+			elif _time_reached(_attack_step_elapsed, _active_melee_step.followup_close_seconds): rejection = &"window_closed"
+	if not rejection.is_empty():
+		_emit(&"chain_input_rejected", {"input_id": request_input_id, "request_id": request_id, "request_kind": request_kind, "chain_serial": _chain_serial, "step_index": _chain_step_index, "reason": rejection})
+		return
+	if not synthetic and not _prepare_attack_hold():
+		_emit(&"chain_input_rejected", {"input_id": request_input_id, "request_id": request_id, "reason": &"invalid_input_profile"})
+		return
+	mode = _input_mode()
+	if mode == MokshaMeleeInputProfile.Mode.HELD_CHARGE or (melee_chain == null and _chain_snapshot == null):
+		_attack_buffer = combat_profile.attack_buffer_seconds
+		_attack_buffer_input_id = request_input_id
+		_attack_buffer_request_id = request_id
+		_attack_buffer_kind = request_kind
+		_attack_buffer_configuration_epoch = _melee_configuration_epoch
+		return
+	_attack_buffer = 0
+	var next = _fresh_start_index(melee_chain, request_kind)
+	var episode = 0
+	var lifetime = combat_profile.attack_buffer_seconds
+	var kind: StringName = &"start"
+	if restart:
+		# A new-chain request cannot commit while the finisher is still live.
+		# Serial zero uses the existing fresh-start admission after full recovery.
+		kind = &"restart"
+	elif weapon_phase != &"idle":
+		next = _chain_next_step
+		episode = _chain_serial
+		lifetime = _chain_snapshot.followup_buffer_seconds
+		kind = &"followup"
+	elif _chain_snapshot != null and _chain_retention_remaining > 0.000000001 and _chain_next_step >= 0:
+		next = _chain_next_step
+		episode = _chain_serial
+		kind = &"retained"
+	elif _chain_snapshot != null:
+		var expected_action = _action_generation
+		var expected_weapon = _weapon_generation
+		_reset_chain(&"retention_expired")
+		if not _owner_unchanged(expected_action, expected_weapon): return
+	_chain_pending = {"id": request_input_id, "request_id": request_id, "request_kind": request_kind, "step": next, "serial": episode, "source": melee_chain, "kind": kind,
+		"remaining": lifetime, "captured_tick": _attack_tick_sequence, "configuration_epoch": _melee_configuration_epoch}
+	if restart: _chain_pending["restart_after_serial"] = _chain_serial
+	_emit(&"chain_input_queued", {"input_id": request_input_id, "request_id": request_id, "request_kind": request_kind, "chain_serial": episode, "step_index": next, "kind": kind, "remaining": lifetime})
+func _advance_chain_clocks(dt: float) -> void:
+	_melee_reuse_lock_remaining = maxf(0, _melee_reuse_lock_remaining - dt)
+	if _melee_reuse_lock_remaining < 0.000000001: _melee_reuse_lock_remaining = 0
+	if not _chain_pending.is_empty() and main_action != &"hard_land" and int(_chain_pending.captured_tick) != _attack_tick_sequence:
+		_chain_pending.remaining = maxf(0, float(_chain_pending.remaining) - dt)
+		if float(_chain_pending.remaining) <= 0.000000001:
+			var expired = _chain_pending.duplicate()
+			_chain_pending.clear()
+			if _input_mode() != MokshaMeleeInputProfile.Mode.FRESH_ONLY: _disarm_attack_hold()
+			var expected_action = _action_generation
+			var expected_weapon = _weapon_generation
+			_emit(&"chain_input_expired", {"input_id": expired.id, "chain_serial": expired.serial, "step_index": expired.step, "reason": &"input_deadline"})
+			if not _owner_unchanged(expected_action, expected_weapon): return
+	if weapon_phase == &"idle" and _chain_snapshot != null:
+		_chain_retention_remaining = maxf(0, _chain_retention_remaining - dt)
+		if _chain_retention_remaining <= 0.000000001 and _chain_pending.is_empty(): _reset_chain(&"retention_expired")
+func _retire_for_attack() -> bool:
+	var expected_action = _action_generation
+	if not _cancel_shield(&"attack"): return false
+	var expected_weapon = _weapon_generation
+	if not _uses_inputs() or not bool(_external_weapon_permissions.can_attack) or _shield_lock_remaining > 0 or _melee_reuse_lock_remaining > 0 or not can_interrupt_with(&"attack"): return false
+	_clear_wall_kick_grace()
+	_wall_air_jump_guard_sides = 0
+	_clear_climb_jump_grace()
+	if main_action == &"wall":
+		_end_wall(&"attack")
+		expected_action += 1
+	elif main_action == &"climb":
+		_detach_climb(&"attack")
+		expected_action += 1
+	elif main_action == &"roll":
+		_end_roll(&"attack")
+		expected_action += 1
+	elif main_action == &"dive":
+		_end_dive(&"attack")
+		expected_action += 1
+	elif main_action == &"drop":
+		_end_drop_action(&"attack")
+		expected_action += 1
+	if not _owner_unchanged(expected_action, expected_weapon): return false
+	if _action_driver.is_valid() or main_action not in [&"locomotion", &"jump", &"air_jump"]:
+		_set_action(&"locomotion", DEFAULT_CAPABILITIES)
+		expected_action += 1
+	if not _owner_unchanged(expected_action, expected_weapon): return false
+	return _uses_inputs() and bool(_external_weapon_permissions.can_attack) and _shield_lock_remaining <= 0 and _melee_reuse_lock_remaining <= 0 and can_interrupt_with(&"attack")
+func _try_chain_attack() -> bool:
+	if _chain_pending.is_empty() or not _uses_inputs() or _shield_lock_remaining > 0 or _melee_reuse_lock_remaining > 0: return false
+	if not bool(_external_weapon_permissions.can_attack) or not can_interrupt_with(&"attack") or not _shield_allows_cancel(&"attack"): return false
+	var request = _chain_pending.duplicate()
+	if request.source != melee_chain or int(request.configuration_epoch) != _melee_configuration_epoch or float(request.remaining) <= 0: return false
+	if int(request.serial) != 0:
+		if _chain_snapshot == null or int(request.serial) != _chain_serial or int(request.step) != _chain_next_step: return false
+		if weapon_phase != &"idle":
+			if weapon_phase != &"recovery" or _active_melee_step == null or not _time_reached(_weapon_elapsed, _active_melee_step.followup_commit_recovery_seconds): return false
+	elif weapon_phase != &"idle": return false
+	# Validate all admission gates before retiring the previous step. Events
+	# during retirement may still supersede this request, so recheck afterward.
+	var expected_action = _action_generation
+	if weapon_phase != &"idle":
+		if not _finish_melee_step(true): return true
+	elif not _retire_for_attack(): return false
+	if _action_generation != expected_action and main_action not in [&"locomotion", &"jump", &"air_jump"]: return false
+	if _chain_pending.is_empty() or int(_chain_pending.id) != int(request.id) or request.source != melee_chain or int(request.configuration_epoch) != _melee_configuration_epoch: return false
+	if not _uses_inputs() or not bool(_external_weapon_permissions.can_attack) or _shield_lock_remaining > 0 or _melee_reuse_lock_remaining > 0 or not can_interrupt_with(&"attack") or shield_phase != &"idle": return false
+	if int(request.serial) == 0:
+		var snapshot = melee_chain.snapshot() if melee_chain != null else null
+		if snapshot == null:
+			_chain_pending.clear()
+			_emit(&"chain_input_rejected", {"input_id": request.id, "reason": &"invalid_configuration"})
+			return true
+		_chain_snapshot = snapshot
+		_chain_source = melee_chain
+		_chain_configuration_epoch = _melee_configuration_epoch
+		_chain_serial += 1
+	else:
+		if _chain_snapshot == null or int(request.serial) != _chain_serial: return false
+	var index = _fresh_start_index(_chain_snapshot, request.get("request_kind", &"fresh")) if int(request.serial) == 0 else int(request.step)
+	if index < 0 or index >= _chain_snapshot.steps.size():
+		_reset_chain(&"invalid_step")
+		return true
+	_chain_step_index = index
+	_active_melee_step = _chain_snapshot.steps[index]
+	_chain_next_step = _active_melee_step.next_step
+	_chain_retention_remaining = 0
+	_chain_pending.clear()
+	_attack_consumed_input_id = int(request.id)
+	_attack_request_id = int(request.get("request_id", request.id))
+	_attack_request_kind = request.get("request_kind", &"fresh")
+	if _input_mode() == MokshaMeleeInputProfile.Mode.HELD_REPEAT: _attack_hold_admitted = true
+	_melee_reuse_lock_remaining = maxf(_melee_reuse_lock_remaining, _active_melee_step.reuse_lock_seconds)
+	_start_attack_instance(int(request.serial) == 0 and _attack_request_kind == &"fresh")
+	return true
+func _start_attack_instance(initial_fresh := false) -> void:
+	_attack_initial_fresh_admission = initial_fresh
+	# The physical hold may change when a later request is queued. A live
+	# strike keeps the admitted request's origin throughout all its callbacks.
+	_attack_origin_hold_id = _attack_consumed_input_id if _input_mode() != MokshaMeleeInputProfile.Mode.FRESH_ONLY else 0
+	_attack_buffer = 0
+	_weapon_generation += 1
+	attack_serial += 1
+	_attack_chain_source_at_commit = melee_chain
+	_attack_input_source_at_commit = melee_input_profile
+	_attack_configuration_epoch = _melee_configuration_epoch
+	_attack_commit_reset_epoch = _reset_epoch
+	# Commitment is already real. Advance before every entry/feedback callback;
+	# callback reset/reconfiguration may clear it and must never be overwritten.
+	if initial_fresh and _chain_snapshot != null:
+		_fresh_chain_commits += 1
+		if not _chain_snapshot.fresh_start_steps.is_empty(): _fresh_start_cursor += 1
+	attack_facing = facing
+	_hit_targets.clear()
+	_strike_paused_once = false
+	_weapon_elapsed = 0
+	_attack_step_elapsed = 0
+	_attack_active_sampled = false
+	weapon_phase = &"windup"
+	_strike_previous_center = _strike_center()
+	_refresh_weapon_permissions()
+	var expected_action = _action_generation
+	var expected_weapon = _weapon_generation
+	_try_attack_entry_assist()
+	if not _owner_unchanged(expected_action, expected_weapon) or weapon_phase != &"windup" or not _attack_configuration_is_current(): return
+	_attack_event(&"attack_started", {"phase": weapon_phase})
+	if not _owner_unchanged(expected_action, expected_weapon) or weapon_phase != &"windup" or not _attack_configuration_is_current(): return
+	_attack_event(&"attack_phase_changed", {"phase": weapon_phase})
+func _finish_melee_step(early := false) -> bool:
+	var payload = _attack_metadata()
+	payload["early_chain"] = early
+	var expected_action = _action_generation
+	_weapon_generation += 1
+	var expected_weapon = _weapon_generation
+	var was_chain = _active_melee_step != null and _chain_snapshot != null
+	var finished_charge_role = _charge_role
+	weapon_phase = &"idle"
+	_weapon_elapsed = 0
+	_hit_targets.clear()
+	_active_melee_step = null
+	if was_chain and _chain_snapshot != null: _chain_retention_remaining = _chain_snapshot.idle_retention_seconds
+	_refresh_weapon_permissions()
+	_emit(&"attack_finished", payload)
+	if not _owner_unchanged(expected_action, expected_weapon) or weapon_phase != &"idle" or not _attack_configuration_is_current(): return false
+	if was_chain and _chain_next_step < 0:
+		_reset_chain(&"completed")
+		if not _owner_unchanged(expected_action, expected_weapon): return false
+	if not early:
+		if not finished_charge_role.is_empty():
+			_charge_role = &""
+			_disarm_attack_hold()
+		elif _input_mode() == MokshaMeleeInputProfile.Mode.HELD_REPEAT and _hold_is_current() and (not was_chain or _chain_next_step < 0):
+			_repeat_restart_remaining = _melee_input_snapshot.repeat_restart_seconds
+			_repeat_clock_started_tick = _attack_tick_sequence
+			_repeat_offered_serial = -1
+	return true
+func _advance_melee(dt: float) -> void:
+	if weapon_phase == &"idle": return
+	if weapon_phase == &"charge":
+		_charge_elapsed = minf(_charge_elapsed + dt, _melee_input_snapshot.charge_seconds)
+		_weapon_elapsed = _charge_elapsed
+		return
+	var expected_action = _action_generation
+	var expected_weapon = _weapon_generation
+	_weapon_elapsed += dt
+	_attack_step_elapsed += dt
+	# A phase-entry feedback callback may start pause before sampling. Keep
+	# that finite active phase live on resume until one sample is admitted.
+	if _active_melee_step != null and weapon_phase == &"active" and not _attack_active_sampled: return
+	# A valid short recovery can be crossed in one delta. Preserve one real
+	# arbitration opportunity for its held branch instead of silently skipping
+	# a supported configuration. Higher-priority input still wins below.
+	if _charge_branch_ready(): return
+	for _transition in range(3):
+		var duration = maxf(_weapon_duration(), 0.001)
+		if not _time_reached(_weapon_elapsed, duration): break
+		_weapon_elapsed = maxf(0, _weapon_elapsed - duration)
+		if weapon_phase == &"windup":
+			weapon_phase = &"active"
+			attack_facing = facing
+			_strike_previous_center = _strike_center()
+			_commit_noise(_strike_previous_center, &"strike", float(_attack_tuning(&"attack_loudness")), _reset_epoch)
+			if not _owner_unchanged(expected_action, expected_weapon) or weapon_phase != &"active" or not _attack_configuration_is_current(): return
+		elif weapon_phase == &"active": weapon_phase = &"recovery"
+		else:
+			_finish_melee_step()
+			return
+		_refresh_weapon_permissions()
+		_attack_event(&"attack_phase_changed", {"phase": weapon_phase})
+		if not _owner_unchanged(expected_action, expected_weapon) or not _attack_configuration_is_current(): return
+		# A configured chain never skips its only contact phase when a host
+		# supplies a large delta. Residual clock time is processed next tick.
+		if _active_melee_step != null and weapon_phase == &"active": return
+		if _charge_branch_ready(): return
+
+func _weapon_duration() -> float:
+	match weapon_phase:
+		&"charge": return _melee_input_snapshot.charge_seconds if _melee_input_snapshot != null else 1.0
+		&"windup": return _attack_tuning(&"attack_windup_seconds")
+		&"active": return _attack_tuning(&"attack_active_seconds")
+		&"recovery": return _attack_tuning(&"attack_recovery_seconds")
+	return 1.0
+func _weapon_allows_cancel(next_action: StringName) -> bool:
+	if shield_phase != &"idle": return _shield_allows_cancel(next_action)
+	if weapon_phase == &"idle": return true
+	if weapon_phase == &"charge": return next_action in [&"roll", &"jump", &"air_jump", &"shield", &"drop", &"dive", &"climb", &"wall", &"damage", &"forced", &"reset", &"hard_landing", &"drop_geometry_blocked", &"chain_reconfigured"]
+	if _active_melee_step != null: return _step_allows_cancel(next_action)
+	if next_action in [&"damage", &"forced", &"reset"]: return true
+	return weapon_phase != &"active" and next_action in [&"roll", &"jump", &"air_jump", &"drop", &"dive", &"climb", &"wall", &"shield"]
+func _try_attack() -> bool:
+	if _input_mode() == MokshaMeleeInputProfile.Mode.HELD_CHARGE: return _try_charge_starter()
+	if melee_chain != null or _chain_snapshot != null or not _chain_pending.is_empty(): return _try_chain_attack()
+	if _attack_buffer <= 0 or not _uses_inputs() or weapon_phase != &"idle" or _shield_lock_remaining > 0 or _melee_reuse_lock_remaining > 0: return false
+	if not _shield_allows_cancel(&"attack"): return false
+	if not bool(_external_weapon_permissions.can_attack) or not can_interrupt_with(&"attack"): return false
+	if _attack_buffer_configuration_epoch != _melee_configuration_epoch: return false
+	if not _retire_for_attack(): return false
+	if _attack_buffer <= 0 or _attack_buffer_configuration_epoch != _melee_configuration_epoch: return false
+	_active_melee_step = null
+	_attack_consumed_input_id = _attack_buffer_input_id
+	_attack_request_id = _attack_buffer_request_id
+	_attack_request_kind = _attack_buffer_kind
+	if _input_mode() == MokshaMeleeInputProfile.Mode.HELD_REPEAT: _attack_hold_admitted = true
+	_start_attack_instance(_attack_request_kind == &"fresh")
+	return true
+func _cancel_attack(reason: StringName) -> bool:
+	var expected_action = _action_generation
+	if reason in [&"damage", &"reset"]: _melee_reuse_lock_remaining = 0
+	if not _cancel_shield(reason): return false
+	var old_phase = weapon_phase
+	var charge_payload = _charge_payload() if old_phase == &"charge" else {}
+	var payload = _attack_metadata()
+	_disarm_attack_hold()
+	_charge_role = &""
+	_charge_elapsed = 0
+	payload.merge({"phase": old_phase, "reason": reason}, true)
+	if old_phase != &"idle": _weapon_generation += 1
+	var expected_weapon = _weapon_generation
+	weapon_phase = &"idle"
+	_weapon_elapsed = 0
+	_hit_targets.clear()
+	_active_melee_step = null
+	_reset_chain(reason)
+	if not _owner_unchanged(expected_action, expected_weapon): return false
+	if old_phase == &"charge":
+		charge_payload.reason = reason
+		_emit(&"charge_cancelled", charge_payload)
+	elif old_phase != &"idle": _emit(&"attack_cancelled", payload)
+	if not _owner_unchanged(expected_action, expected_weapon): return false
+	_refresh_weapon_permissions()
+	return _owner_unchanged(expected_action, expected_weapon)
+func _advance_combat(dt: float) -> void:
+	if main_action == &"roll":
+		_roll_elapsed += dt
+		if _time_reached(_roll_elapsed, _roll_duration()): _end_roll(&"finished")
+		else:
+			var next_phase: StringName = &"start" if not _time_reached(_roll_elapsed, combat_profile.roll_start_seconds) else (&"travel" if not _time_reached(_roll_elapsed, combat_profile.roll_start_seconds + combat_profile.roll_travel_seconds) else &"recovery")
+			if next_phase != roll_phase:
+				roll_phase = next_phase
+				action_phase = roll_phase
+				_refresh_weapon_permissions()
+				_emit(&"roll_phase_changed", {"phase": roll_phase, "direction": roll_direction})
+			phase_progress = _roll_phase_progress()
+	elif main_action == &"hurt":
+		_hurt_elapsed += dt
+		phase_progress = clampf(_hurt_elapsed / maxf(_hurt_duration, 0.001), 0, 1)
+		if _time_reached(_hurt_elapsed, _hurt_duration):
+			_set_action(&"locomotion", DEFAULT_CAPABILITIES)
+			_emit(&"hurt_finished", {})
+	_advance_melee(dt)
+
+func _strike_center() -> Vector2:
+	var offset: Vector2 = _attack_tuning(&"strike_center_offset")
+	# The attack can remain crouched under a roof. Its contact origin follows
+	# that physical body, not a visual hand or an assumed standing silhouette.
+	offset.y = maxf(offset.y, -body_height + Vector2(_attack_tuning(&"strike_size")).y * 0.5)
+	return global_position + Vector2(offset.x * attack_facing, offset.y)
+func strike_snapshot() -> Dictionary:
+	var origin_offset: Vector2 = _attack_tuning(&"strike_origin_offset")
+	origin_offset.y = maxf(origin_offset.y, -body_height + 3)
+	var payload = _attack_metadata()
+	payload.merge({"center": _strike_center(), "previous_center": _strike_previous_center,
+		"size": _attack_tuning(&"strike_size"), "origin": global_position + Vector2(origin_offset.x * attack_facing, origin_offset.y),
+		"facing": attack_facing, "damage": _attack_tuning(&"strike_damage"),
+		"impulse": Vector2(Vector2(_attack_tuning(&"strike_impulse")).x * attack_facing, Vector2(_attack_tuning(&"strike_impulse")).y),
+		"prop_launch_scale": _active_melee_step.prop_launch_scale if _active_melee_step != null else 1.0,
+		"phase": weapon_phase, "eligible": is_strike_current(attack_serial) and hitpause_remaining <= 0 and not _paused_this_tick})
+	return payload
+# Defensive canonical view for optional action adapters. The ordinary public
+# strike_snapshot is diagnostic; only this existing synchronous sample owns work.
+func active_action_sample_snapshot() -> Dictionary:
+	if not _strike_sample_active or not is_strike_current(_strike_scope_serial): return {}
+	var snapshot := strike_snapshot().duplicate(true)
+	snapshot.make_read_only()
+	return snapshot
+func is_strike_current(serial: int) -> bool:
+	if not is_inside_tree() or is_queued_for_deletion() or serial != attack_serial or weapon_phase != &"active": return false
+	if is_defeated() or main_action in [&"hurt", &"roll", &"ledge", &"dive", &"drop", &"hard_land", &"climb", &"wall"]: return false
+	if not _attack_configuration_is_current(): return false
+	if _strike_sample_active:
+		return serial == _strike_scope_serial and _owner_unchanged(_strike_scope_action_generation, _strike_scope_weapon_generation)
+	return hitpause_remaining <= 0 and not _paused_this_tick
+func confirm_strike(serial: int, target_id: int, contact_position: Vector2) -> bool:
+	if not is_strike_current(serial) or _hit_targets.has(target_id): return false
+	var expected_action = _action_generation
+	var expected_weapon = _weapon_generation
+	var pause_seconds = float(_attack_tuning(&"contact_hitpause_seconds"))
+	_hit_targets[target_id] = true
+	_attack_event(&"strike_confirmed", {"target_id": target_id, "contact_position": contact_position})
+	if not _owner_unchanged(expected_action, expected_weapon) or not is_strike_current(serial): return false
+	if not _strike_paused_once:
+		_strike_paused_once = true
+		apply_hitpause(pause_seconds)
+	return _owner_unchanged(expected_action, expected_weapon) and serial == attack_serial and weapon_phase == &"active" and _attack_configuration_is_current()
+
+func apply_hitpause(seconds: float = -1.0) -> void:
+	if _entry_assist_querying: _entry_assist_mutated = true
+	var duration = combat_profile.contact_hitpause_seconds if seconds < 0 else seconds
+	if duration <= 0: return
+	var was_paused = hitpause_remaining > 0
+	hitpause_remaining = maxf(hitpause_remaining, duration)
+	if not was_paused: _emit(&"hitpause_started", {"seconds": hitpause_remaining})
+# Shield is an exclusive weapon owner. Its use lock outlives ordinary
+# cancellation, while its contact/effect authority never outlives the attempt.
+func _shield_allows_cancel(next_action: StringName) -> bool:
+	if shield_phase == &"idle": return true
+	if next_action in [&"damage", &"forced", &"reset", &"hard_landing", &"drop_geometry_blocked"]: return true
+	return shield_profile.can_be_held and shield_phase == &"hold" and _time_reached(_shield_elapsed, shield_profile.hold_cancel_after) and next_action in [&"roll", &"jump", &"air_jump", &"attack", &"drop", &"dive", &"climb", &"wall"]
+func _shield_gates_open() -> bool:
+	return not is_defeated() and allow_shield and bool(_capabilities.can_shield) and bool(_external_weapon_permissions.can_shield)
+func _shield_turn_allowed() -> bool:
+	match shield_phase:
+		&"raise": return shield_profile.allow_turn_raise
+		&"parry": return shield_profile.allow_turn_parry
+		&"hold": return shield_profile.allow_turn_hold
+	return shield_profile.allow_turn_recovery
+func _apply_shield_permissions() -> void:
+	if _shield_lock_remaining > 0:
+		_weapon_permissions.can_attack = false
+		_weapon_permissions.can_shield = false
+	if shield_phase == &"idle": return
+	_weapon_permissions.move_scale *= maxf(0, shield_profile.ground_move_scale if grounded else shield_profile.air_move_scale)
+	_weapon_permissions.can_turn = bool(_weapon_permissions.can_turn) and _shield_turn_allowed()
+	for action in [&"jump", &"roll", &"attack", &"drop", &"dive", &"climb", &"wall"]:
+		var key = {&"jump": "can_jump", &"roll": "can_roll", &"attack": "can_attack", &"drop": "can_drop_through", &"dive": "can_dive", &"climb": "can_climb", &"wall": "can_wall_traverse"}[action]
+		_weapon_permissions[key] = bool(_weapon_permissions[key]) and _shield_allows_cancel(action)
+	_weapon_permissions.can_shield = false
+func _try_shield() -> bool:
+	if _shield_buffer <= 0 or not _uses_inputs() or not _shield_gates_open() or _shield_lock_remaining > 0 or _melee_reuse_lock_remaining > 0 or shield_phase != &"idle": return false
+	if not can_interrupt_with(&"shield") or not _weapon_allows_cancel(&"shield"): return false
+	if main_action in [&"ledge", &"hurt", &"hard_land"]: return false
+	# Admission is complete before retirement; each callback may replace us.
+	var expected_action = _action_generation
+	if not _cancel_attack(&"shield"): return false
+	var retired_weapon = _weapon_generation
+	if main_action == &"wall":
+		_end_wall(&"shield")
+		expected_action += 1
+	elif main_action == &"climb":
+		_detach_climb(&"shield")
+		expected_action += 1
+	elif main_action == &"roll":
+		_end_roll(&"shield")
+		expected_action += 1
+	elif main_action == &"dive":
+		_end_dive(&"shield")
+		expected_action += 1
+	elif main_action == &"drop":
+		_end_drop_action(&"shield")
+		expected_action += 1
+	if _action_generation != expected_action or _weapon_generation != retired_weapon or not _shield_gates_open(): return false
+	if _action_driver.is_valid() or main_action not in [&"locomotion", &"jump", &"air_jump"]:
+		_set_action(&"locomotion", DEFAULT_CAPABILITIES)
+		expected_action += 1
+		if _action_generation != expected_action or _weapon_generation != retired_weapon or not _shield_gates_open(): return false
+	_clear_wall_kick_grace()
+	_clear_climb_jump_grace()
+	_wall_air_jump_guard_sides = 0
+	_shield_buffer = 0
+	shield_serial += 1
+	_weapon_generation += 1
+	var expected_weapon = _weapon_generation
+	_shield_elapsed = 0
+	_shield_phase_elapsed = 0
+	_shield_pause_spent = false
+	_shield_attempt_held = bool(_input.shield)
+	_shield_lock_remaining = maxf(_shield_lock_remaining, maxf(0, shield_profile.use_lock_seconds))
+	shield_phase = &"parry" if _time_reached(0, maxf(0, shield_profile.parry_window_from)) else &"raise"
+	_refresh_weapon_permissions()
+	_emit(&"shield_started", {"serial": shield_serial, "phase": shield_phase})
+	if not _shield_authority(expected_action, expected_weapon): return true
+	_emit(&"shield_phase_changed", {"serial": shield_serial, "phase": shield_phase})
+	return true
+func _owner_unchanged(action_generation: int, weapon_generation: int) -> bool:
+	return is_inside_tree() and not is_queued_for_deletion() and _action_generation == action_generation and _weapon_generation == weapon_generation
+func _shield_authority(action_generation: int, weapon_generation: int) -> bool:
+	return _owner_unchanged(action_generation, weapon_generation) and shield_phase != &"idle" and _shield_gates_open()
+func _shield_recovery_duration() -> float:
+	match shield_phase:
+		&"success_recovery": return maxf(0, shield_profile.success_recovery_seconds)
+		&"release_recovery": return maxf(0, shield_profile.release_recovery_seconds)
+	return maxf(0, shield_profile.miss_recovery_seconds)
+func _shield_phase_progress() -> float:
+	match shield_phase:
+		&"idle", &"hold": return 0
+		&"raise": return clampf(_shield_elapsed / maxf(shield_profile.parry_window_from, 0.000001), 0, 1)
+		&"parry": return clampf((_shield_elapsed - shield_profile.parry_window_from) / maxf(shield_profile.parry_window_until - shield_profile.parry_window_from, 0.000001), 0, 1)
+	return clampf(_shield_phase_elapsed / maxf(_shield_recovery_duration(), 0.000001), 0, 1)
+func _set_shield_phase(next_phase: StringName) -> void:
+	if shield_phase == next_phase: return
+	shield_phase = next_phase
+	_shield_phase_elapsed = 0
+	_refresh_weapon_permissions()
+	_emit(&"shield_phase_changed", {"serial": shield_serial, "phase": shield_phase})
+func _advance_shield(dt: float) -> void:
+	if shield_phase == &"idle": return
+	if not _shield_gates_open():
+		_cancel_shield(&"gate_revoked")
+		return
+	_shield_elapsed += dt
+	_shield_phase_elapsed += dt
+	if shield_phase in [&"raise", &"parry"]:
+		if _time_reached(_shield_elapsed, maxf(shield_profile.parry_window_from, shield_profile.parry_window_until)):
+			var overshoot = maxf(0, _shield_elapsed - maxf(shield_profile.parry_window_from, shield_profile.parry_window_until))
+			var generation = _weapon_generation
+			var action_generation = _action_generation
+			_set_shield_phase(&"hold" if shield_profile.can_be_held and _shield_attempt_held and bool(_input.shield) else &"miss_recovery")
+			if _shield_authority(action_generation, generation): _shield_phase_elapsed = overshoot
+		elif _time_reached(_shield_elapsed, maxf(0, shield_profile.parry_window_from)):
+			_set_shield_phase(&"parry")
+	elif shield_phase == &"hold":
+		if not _shield_attempt_held or not bool(_input.shield): _set_shield_phase(&"release_recovery")
+	elif _time_reached(_shield_phase_elapsed, _shield_recovery_duration()):
+		_cancel_shield(&"finished")
+func _cancel_shield(reason: StringName) -> bool:
+	if reason in [&"damage", &"reset"]: _shield_lock_remaining = 0
+	if shield_phase == &"idle": return true
+	var expected_action = _action_generation
+	var old_phase = shield_phase
+	shield_phase = &"idle"
+	_weapon_generation += 1
+	var expected_weapon = _weapon_generation
+	_shield_attempt_held = false
+	_shield_effect_scope.clear()
+	_refresh_weapon_permissions()
+	_emit(&"shield_finished" if reason == &"finished" else &"shield_cancelled", {"serial": shield_serial, "phase": old_phase, "reason": reason, "lock_remaining": _shield_lock_remaining})
+	return _action_generation == expected_action and _weapon_generation == expected_weapon
+func is_shield_parry_open() -> bool:
+	return shield_phase == &"parry" and _shield_gates_open() and _time_reached(_shield_elapsed, maxf(0, shield_profile.parry_window_from)) and not _time_reached(_shield_elapsed, maxf(shield_profile.parry_window_from, shield_profile.parry_window_until))
+func _shield_size() -> Vector2:
+	return Vector2(maxf(0.1, shield_profile.contact_width), maxf(shield_profile.minimum_contact_height, body_height - shield_profile.contact_height_inset))
+func _shield_center() -> Vector2:
+	return global_position + Vector2(facing * (profile.body_width * 0.5 + shield_profile.contact_forward_offset), -body_height * shield_profile.contact_height_ratio)
+func _identified_attack(payload: Dictionary) -> Dictionary:
+	if not payload.has("attack_id"): return {"legacy": true}
+	var kind = StringName(payload.get("kind", &""))
+	var source: Variant = payload.get("source")
+	var carrier: Variant = payload.get("carrier")
+	var authenticator: Variant = carrier if kind == &"projectile" else source
+	# Variant validity precedes Node casts, including after queue_free.
+	if not is_instance_valid(authenticator) or not authenticator is Node or not authenticator.is_inside_tree() or authenticator.is_queued_for_deletion() or authenticator == self: return {}
+	if kind not in [&"melee", &"projectile", &"area"]: return {}
+	if not payload.attack_id is int: return {}
+	var attack_id = int(payload.attack_id)
+	if attack_id <= 0: return {}
+	for field in ["origin", "contact_position", "incoming_velocity"]:
+		if not payload.get(field) is Vector2 or not Vector2(payload[field]).is_finite(): return {}
+	var origin: Vector2 = payload.origin
+	var point: Vector2 = payload.contact_position
+	var bucket = str(authenticator.get_instance_id()) + ":" + String(kind)
+	var key = bucket + ":" + str(attack_id)
+	return {"legacy": false, "key": key, "bucket": bucket, "attack_id": attack_id, "authenticator": authenticator, "kind": kind, "origin": origin, "point": point,
+		"source": source if is_instance_valid(source) and source is Node else null,
+		"carrier": carrier if is_instance_valid(carrier) and carrier is Node else null}
+func _incoming_identity_status(attack: Dictionary) -> StringName:
+	for bucket in _incoming_histories.keys():
+		if _incoming_histories[bucket].authenticator.get_ref() == null: _incoming_histories.erase(bucket)
+	if not _incoming_histories.has(attack.bucket): return &"fresh"
+	var history: Dictionary = _incoming_histories[attack.bucket]
+	if int(attack.attack_id) < int(history.highest) - maxi(1, shield_profile.incoming_history_window) + 1: return &"stale"
+	return &"duplicate" if history.seen.has(attack.attack_id) else &"fresh"
+func _record_incoming_identity(attack: Dictionary) -> void:
+	if not _incoming_histories.has(attack.bucket):
+		_incoming_histories[attack.bucket] = {"authenticator": weakref(attack.authenticator), "highest": 0, "seen": {}}
+	var history: Dictionary = _incoming_histories[attack.bucket]
+	history.highest = maxi(int(history.highest), int(attack.attack_id))
+	var oldest = int(history.highest) - maxi(1, shield_profile.incoming_history_window) + 1
+	for sequence in history.seen.keys():
+		if int(sequence) < oldest: history.seen.erase(sequence)
+	history.seen[attack.attack_id] = true
+func _incoming_history_count() -> int:
+	var count = 0
+	for history in _incoming_histories.values(): count += history.seen.size()
+	return count
+func _attack_obstructed(origin: Vector2, point: Vector2, carrier: Variant = null) -> bool:
+	if origin.is_equal_approx(point): return false
+	# Unlike actor drop queries, attacks never ignore an outstanding platform.
+	var excluded: Array[RID] = [get_rid()]
+	# A real incoming rigid carrier may also be a support/collision layer for
+	# this actor. Its own shape cannot occlude the contact it just made.
+	if is_instance_valid(carrier) and carrier is PhysicsBody2D and carrier.is_inside_tree() \
+		and not carrier.is_queued_for_deletion() and carrier.get_tree() == get_tree() and carrier.get_world_2d() == get_world_2d():
+		excluded.append(carrier.get_rid())
+	var query = PhysicsRayQueryParameters2D.create(origin, point, terrain_mask, excluded)
+	query.hit_from_inside = true
+	return not get_world_2d().direct_space_state.intersect_ray(query).is_empty()
+func _physical_contact_is_current(payload: Dictionary) -> bool:
+	var authority: Variant = payload.get("physical_contact_authority")
+	if not has_meta(&"_moksha_physical_impact_receiver"): return false
+	var registered: Variant = get_meta(&"_moksha_physical_impact_receiver")
+	if not registered is WeakRef or registered.get_ref() != authority: return false
+	return is_instance_valid(authority) and authority is Node2D and authority.is_inside_tree() \
+		and not authority.is_queued_for_deletion() and is_ancestor_of(authority) and authority.get_world_2d() == get_world_2d() \
+		and authority.has_method("physical_attack_is_current") and authority.physical_attack_is_current(payload, self)
+func _boundary_contact_is_current(payload: Dictionary) -> bool:
+	var authority: Variant = payload.get("boundary_contact_authority")
+	if not is_instance_valid(authority) or not authority is MokshaBoundaryReceiver or not has_meta(&"_moksha_boundary_receiver"): return false
+	var registered: Variant = get_meta(&"_moksha_boundary_receiver")
+	return registered is WeakRef and registered.get_ref() == authority and authority.is_inside_tree() \
+		and not authority.is_queued_for_deletion() and is_ancestor_of(authority) \
+		and authority.get_world_2d() == get_world_2d() and authority.boundary_attack_is_current(payload, self)
+func _shield_faces_contact(payload: Dictionary, attack: Dictionary) -> bool:
+	if not _shield_gates_open(): return false
+	var point: Vector2 = attack.point
+	if not Rect2(_shield_center() - _shield_size() * 0.5, _shield_size()).has_point(point): return false
+	var outward = Vector2(facing, 0)
+	var to_origin: Vector2 = attack.origin - point
+	if to_origin.length_squared() <= 0.00000001 or to_origin.dot(outward) <= 0.0001: return false
+	if to_origin.normalized().dot(outward) < cos(deg_to_rad(clampf(shield_profile.frontal_half_angle_degrees, 0, 89))): return false
+	var incoming: Vector2 = payload.incoming_velocity
+	if incoming.is_zero_approx():
+		if attack.kind == &"projectile": return false
+		incoming = -to_origin
+	return incoming.normalized().dot(outward) <= -clampf(shield_profile.minimum_incoming_dot, 0, 1)
+func receive_hit(payload: Dictionary = {}) -> bool:
+	if _entry_assist_querying: _entry_assist_mutated = true
+	var result = receive_attack(payload)
+	# Accepted damaging hurt is independent of optional recoil resistance.
+	return result.outcome == &"hurt" and bool(result.get("admitted_damage", false))
+func receive_attack(payload: Dictionary = {}) -> Dictionary:
+	# Reserve before any response callback. A newly bound Health observer can
+	# reject an older in-flight contact without coupling this actor to Health.
+	_damage_receipt_sequence += 1
+	var admission_serial := _damage_receipt_sequence
+	var generation := _reset_epoch
+	var result := _resolve_attack(payload)
+	# A callback may reset/remove the actor while resolving recoil or reflection.
+	# The actor fences life; each optional observer fences its own binding.
+	if generation != _reset_epoch or not is_inside_tree() or is_queued_for_deletion(): return result
+	if not bool(result.get("consumed", false)): return result
+	if result.get("outcome") == &"hurt" and not bool(result.get("admitted_damage", false)): return result
+	var amount := float(result.get("residual_damage", 0.0))
+	if not is_finite(amount) or amount < 0: return result
+	var receipt := {"actor_id": get_instance_id(), "generation": generation, "serial": admission_serial,
+		"outcome": result.outcome, "amount": amount, "attack_key": String(result.get("attack_key", "")),
+		"braced": int(bool(result.get("braced", false))), "applied_recoil": int(bool(result.get("applied_recoil", false))),
+		"attack_interrupted": int(bool(result.get("attack_interrupted", false)))}
+	var boundary: Variant = payload.get("boundary_contact_authority")
+	if payload.has("boundary_contact_authority"):
+		if not is_instance_valid(boundary) or not boundary is MokshaBoundaryReceiver: return result
+		var guard: Dictionary = boundary.guarded_receipt_fields(payload)
+		if guard.is_empty(): return result
+		receipt.merge(guard)
+	receipt.make_read_only()
+	if payload.has("boundary_contact_authority") and not boundary.seal_boundary_receipt(payload, receipt): return result
+	damage_resolved.emit(receipt)
+	return result
+
+func damage_generation() -> int:
+	return _reset_epoch
+
+func damage_admission_sequence() -> int:
+	return _damage_receipt_sequence
+
+func _resolve_attack(payload: Dictionary = {}) -> Dictionary:
+	if _entry_assist_querying: _entry_assist_mutated = true
+	var result = {"outcome": &"rejected", "consumed": false, "residual_damage": 0.0, "attack_key": "", "shield_serial": shield_serial,
+		"shield_facing": facing, "defender_origin": _shield_center(), "incoming_origin": payload.get("origin", global_position), "contact_position": global_position, "counter_confirmed": false, "reflection_confirmed": false, "hurt_applied": false,
+		"admitted_damage": false, "braced": false, "applied_recoil": false, "attack_interrupted": false}
+	if is_defeated():
+		result["reason"] = &"defeated"
+		return result
+	var attack = _identified_attack(payload)
+	if attack.is_empty(): return result
+	var identified = not bool(attack.legacy)
+	var captured_boundary := false
+	if payload.has("boundary_contact_authority") and (not identified or attack.kind != &"area"): return result
+	if identified:
+		result.attack_key = attack.key
+		result.contact_position = attack.point
+		var identity_status = _incoming_identity_status(attack)
+		if identity_status != &"fresh":
+			result.outcome = &"duplicate" if identity_status == &"duplicate" else &"rejected"
+			result["reason"] = &"duplicate_attack_id" if identity_status == &"duplicate" else &"stale_attack_id"
+			return result
+		var body = Rect2(global_position - Vector2(profile.body_width * 0.5, body_height), Vector2(profile.body_width, body_height)).grow(profile.collision_margin * 2)
+		var captured_physical := payload.has("physical_contact_authority")
+		if captured_physical and not _physical_contact_is_current(payload): return result
+		if payload.has("boundary_contact_authority"):
+			if captured_physical or not _boundary_contact_is_current(payload): return result
+			captured_boundary = true
+		# The source's currentness query is an extension callback. A nested
+		# ordinary attack cannot borrow this identity between check and commit.
+		if captured_physical or captured_boundary:
+			identity_status = _incoming_identity_status(attack)
+			if identity_status != &"fresh":
+				result.outcome = &"duplicate" if identity_status == &"duplicate" else &"rejected"
+				result["reason"] = &"duplicate_attack_id" if identity_status == &"duplicate" else &"stale_attack_id"
+				return result
+		# A rigid-body solver contact precedes this deferred response. Ordinary
+		# actor motion may already have carried the body past that captured point;
+		# only the receiver's exact live permit can replace this redundant check.
+		var permitted_carrier: Variant = attack.carrier if captured_physical and attack.kind == &"projectile" else null
+		if not captured_boundary and ((not captured_physical and not body.has_point(attack.point)) or _attack_obstructed(attack.origin, attack.point, permitted_carrier)): return result
+		_record_incoming_identity(attack)
+	result.consumed = true
+	if bool(payload.get("rollable", true)) and is_roll_invulnerable():
+		result.outcome = &"evaded"
+		_last_defense_outcome = &"evaded"
+		_emit(&"hit_evaded", {"payload": payload.duplicate(true)})
+		if identified: _emit(&"defense_resolved", result)
+		return result
+	var front = identified and _shield_faces_contact(payload, attack)
+	var parried = front and bool(payload.get("parryable", false)) and is_shield_parry_open()
+	var guarded = front and bool(payload.get("blockable", false)) and shield_phase == &"hold"
+	if not parried and not guarded:
+		result.outcome = &"hurt"
+		result.residual_damage = maxf(0, float(payload.get("amount", 1)))
+		_last_defense_outcome = &"hurt"
+		var previous_weapon := _weapon_generation
+		var had_attack := weapon_phase != &"idle"
+		if not captured_boundary and _hurt_is_braced(payload):
+			result.braced = true
+			result.admitted_damage = _receive_braced_hurt(payload)
+		else:
+			result.hurt_applied = _receive_hurt(payload)
+			result.admitted_damage = result.hurt_applied
+			result.applied_recoil = result.hurt_applied
+		result.attack_interrupted = had_attack and previous_weapon != _weapon_generation
+		if identified: _emit(&"defense_resolved", result)
+		return result
+	result.outcome = &"parried" if parried else &"guarded"
+	result.residual_damage = 0.0 if parried else maxf(0, float(payload.get("amount", 1))) * (1.0 - clampf(shield_profile.guard_absorption, 0, 1))
+	_last_defense_outcome = result.outcome
+	var expected_action = _action_generation
+	var expected_weapon = _weapon_generation
+	var noise_generation_at_contact = _reset_epoch
+	var noise_origin: Vector2 = attack.point
+	var noise_kind: StringName = &"parry" if parried else &"guard"
+	var noise_loudness = shield_profile.parry_loudness if parried else shield_profile.guard_loudness
+	var normal = Vector2(facing, 0)
+	result["normal"] = normal
+	if parried:
+		# Install the closed window before any synchronous outcome callback.
+		shield_phase = &"success_recovery"
+		_shield_phase_elapsed = 0
+		_refresh_weapon_permissions()
+	else:
+		velocity.x -= facing * maxf(0, shield_profile.guard_recoil_speed)
+	_emit(&"defense_resolved", result)
+	if not _shield_authority(expected_action, expected_weapon): return result
+	if parried:
+		_emit(&"shield_phase_changed", {"serial": shield_serial, "phase": shield_phase})
+		if not _shield_authority(expected_action, expected_weapon): return result
+	_commit_noise(noise_origin, noise_kind, noise_loudness, noise_generation_at_contact)
+	if not _shield_authority(expected_action, expected_weapon): return result
+	if not _shield_pause_spent:
+		_shield_pause_spent = true
+		apply_hitpause(shield_profile.parry_hitpause_seconds if parried else shield_profile.guard_hitpause_seconds)
+	if not _shield_authority(expected_action, expected_weapon) or not parried: return result
+	var effect: StringName = &""
+	var target: Variant
+	if attack.kind == &"melee" and bool(payload.get("counterable", false)) and is_instance_valid(attack.source):
+		effect = &"counter"
+		target = attack.source
+	elif attack.kind == &"projectile" and bool(payload.get("reflectable", false)) and is_instance_valid(attack.carrier):
+		effect = &"reflect"
+		target = attack.carrier
+	if effect.is_empty(): return result
+	var request = {"shield_serial": shield_serial, "attack_key": attack.key, "effect": effect,
+		"source": attack.source, "source_id": attack.source.get_instance_id() if is_instance_valid(attack.source) else 0,
+		"carrier": attack.carrier, "carrier_id": attack.carrier.get_instance_id() if is_instance_valid(attack.carrier) else 0,
+		"target_id": target.get_instance_id(), "origin": result.defender_origin, "defender_origin": result.defender_origin, "incoming_origin": attack.origin, "contact_position": attack.point, "facing": result.shield_facing,
+		"normal": normal, "damage": shield_profile.counter_damage, "impulse": Vector2(shield_profile.counter_impulse.x * result.shield_facing, shield_profile.counter_impulse.y),
+		"reflect_direction": normal, "reflect_speed": shield_profile.reflected_projectile_speed, "max_range": shield_profile.counter_range}
+	_shield_effect_scope = {"serial": shield_serial, "key": attack.key, "effect": effect, "target_id": target.get_instance_id(), "target": weakref(target),
+		"action_generation": expected_action, "weapon_generation": expected_weapon, "confirmed": false, "result": result, "request": request.duplicate()}
+	shield_effect_requested.emit(self, request.duplicate())
+	_shield_effect_scope.clear()
+	return result
+func shield_effect_is_current(serial: int, attack_key: String, effect: StringName) -> bool:
+	return not _shield_effect_scope.is_empty() and int(_shield_effect_scope.serial) == serial and String(_shield_effect_scope.key) == attack_key and _shield_effect_scope.effect == effect and not bool(_shield_effect_scope.confirmed) and _shield_effect_scope.target.get_ref() != null and _shield_effect_scope.target.get_ref().is_inside_tree() and not _shield_effect_scope.target.get_ref().is_queued_for_deletion() and _shield_authority(int(_shield_effect_scope.action_generation), int(_shield_effect_scope.weapon_generation))
+# Read-only canonical view, available only inside this synchronous effect scope.
+# No public request dictionary can authorize altered damage, geometry or target.
+func shield_effect_snapshot() -> Dictionary:
+	if _shield_effect_scope.is_empty(): return {}
+	if not shield_effect_is_current(int(_shield_effect_scope.serial), String(_shield_effect_scope.key), StringName(_shield_effect_scope.effect)): return {}
+	var snapshot: Dictionary = _shield_effect_scope.request.duplicate(true)
+	snapshot.make_read_only()
+	return snapshot
+func confirm_shield_effect(serial: int, attack_key: String, effect: StringName, target_id: int, accepted: bool, details: Dictionary = {}) -> bool:
+	if not shield_effect_is_current(serial, attack_key, effect) or int(_shield_effect_scope.target_id) != target_id: return false
+	_shield_effect_scope.confirmed = true
+	if not accepted: return false
+	var key = "counter_confirmed" if effect == &"counter" else "reflection_confirmed"
+	_shield_effect_scope.result[key] = true
+	var feedback: Dictionary = _shield_effect_scope.request.duplicate()
+	feedback["serial"] = serial
+	feedback["shield_facing"] = feedback.facing
+	feedback["details"] = details.duplicate(true)
+	_emit(&"shield_counter_confirmed" if effect == &"counter" else &"shield_reflection_confirmed", feedback)
+	return true
+
+func _committed_hurt_protection() -> bool:
+	return is_inside_tree() and not is_queued_for_deletion() and not is_defeated() and _active_melee_step != null and _attack_configuration_is_current() \
+		and _active_melee_step.is_valid_hurt_response() and _active_melee_step.hurt_protected_phases.has(String(weapon_phase))
+
+## Scalar-only observation of the committed copy, never the mutable Resource.
+func hurt_response_snapshot() -> Dictionary:
+	var protected := _committed_hurt_protection()
+	var snapshot := {"protected": protected, "weapon_phase": weapon_phase, "attack_serial": attack_serial,
+		"interrupt_seconds": _active_melee_step.hurt_interrupt_seconds if protected else 0.0}
+	snapshot.make_read_only()
+	return snapshot
+
+func _hurt_is_braced(payload: Dictionary) -> bool:
+	if not _committed_hurt_protection(): return false
+	var duration: Variant = payload.get("stun_seconds", combat_profile.hurt_seconds)
+	# Invalid input must never silently grant protection. The ordinary response
+	# retains its established validation/default behavior outside this opt-in.
+	if not (duration is float or duration is int) or not is_finite(float(duration)) or float(duration) < 0.0: return false
+	return float(duration) < _active_melee_step.hurt_interrupt_seconds
+
+func _braced_feedback_current(action_generation: int, weapon_generation: int, generation: int) -> bool:
+	return generation == _reset_epoch and _owner_unchanged(action_generation, weapon_generation) and _attack_configuration_is_current()
+
+func _receive_braced_hurt(payload: Dictionary) -> bool:
+	var expected_action := _action_generation
+	var expected_weapon := _weapon_generation
+	var generation := _reset_epoch
+	var origin := global_position
+	var loudness := combat_profile.hurt_loudness
+	var pause := float(payload.get("hitpause", combat_profile.hurt_hitpause_seconds))
+	var event := {"amount": float(payload.get("amount", 1)), "duration": float(payload.get("stun_seconds", combat_profile.hurt_seconds)),
+		"interrupt_seconds": _active_melee_step.hurt_interrupt_seconds, "attack_serial": attack_serial, "weapon_phase": weapon_phase}
+	# This is an admitted damaging contact, not entry into the recoil owner.
+	# No support, input, facing, velocity or action state is changed here.
+	_emit(&"hurt_braced", event)
+	if not _braced_feedback_current(expected_action, expected_weapon, generation): return true
+	_commit_noise(origin, &"hurt", loudness, generation)
+	if not _braced_feedback_current(expected_action, expected_weapon, generation): return true
+	apply_hitpause(pause)
+	return true
+
+func _receive_hurt(payload: Dictionary = {}) -> bool:
+	if is_defeated(): return false
+	if bool(payload.get("rollable", true)) and is_roll_invulnerable():
+		_emit(&"hit_evaded", {"payload": payload.duplicate(true)})
+		return false
+	var expected_action = _action_generation
+	var expected_weapon = _weapon_generation
+	var noise_generation_at_contact = _reset_epoch
+	var noise_origin = global_position
+	var noise_loudness = combat_profile.hurt_loudness
+	# Preserve only carrier transport while the hit's local pause is frozen.
+	# Hurt remains airborne and keeps its authored recoil/jump budget unchanged.
+	if grounded and is_instance_valid(_support):
+		_pause_wall_guard = false
+		_pause_support = _support
+		_pause_support_position = _support_position
+		_pause_support_local_anchor = _floor_contact_local
+		_pause_support_anchor_position = _support_anchor_position
+		_pause_support_floor_contact = true
+		_pause_support_local_normal = _support_local_normal
+	elif main_action == &"ledge" and is_instance_valid(_ledge_body):
+		_pause_wall_guard = false
+		_pause_support = _ledge_body
+		_pause_support_position = _ledge_anchor - _ledge_body.global_transform.basis_xform(_ledge_local_anchor)
+		_pause_support_local_anchor = _ledge_local_anchor
+		_pause_support_anchor_position = _ledge_anchor
+		_pause_support_floor_contact = false
+	elif main_action == &"wall" and wall_phase != &"kick" and is_instance_valid(_wall_body):
+		_pause_wall_guard = true
+		_pause_support = _wall_body
+		_pause_support_position = _wall_carrier_origin
+		_pause_support_local_anchor = Vector2.ZERO
+		_pause_support_anchor_position = _wall_carrier_origin
+		_pause_support_floor_contact = false
+	if main_action == &"hard_land":
+		_end_hard_land(&"damage")
+		expected_action += 1
+		if not _owner_unchanged(expected_action, expected_weapon): return false
+	if main_action == &"wall":
+		_end_wall(&"damage")
+		expected_action += 1
+		if not _owner_unchanged(expected_action, expected_weapon): return false
+	_clear_wall_kick_grace()
+	if main_action == &"climb":
+		_detach_climb(&"damage")
+		expected_action += 1
+		if not _owner_unchanged(expected_action, expected_weapon): return false
+	if not _cancel_attack(&"damage"): return false
+	expected_weapon = _weapon_generation
+	if main_action == &"roll":
+		_end_roll(&"damage")
+		expected_action += 1
+		if not _owner_unchanged(expected_action, expected_weapon): return false
+	if main_action == &"dive":
+		_end_dive(&"damage")
+		expected_action += 1
+		if not _owner_unchanged(expected_action, expected_weapon): return false
+	if main_action == &"drop":
+		_end_drop_action(&"damage")
+		expected_action += 1
+		if not _owner_unchanged(expected_action, expected_weapon): return false
+	if main_action == &"ledge":
+		_clear_ledge()
+		_regrab_timer = profile.ledge_regrab_delay
+	clear_input_buffers()
+	_coyote = 0
+	_support = null
+	grounded = false
+	var direction = -facing
+	if payload.has("source_position"):
+		direction = int(signf(global_position.x - Vector2(payload.source_position).x))
+		if direction == 0: direction = -facing
+	velocity = payload.get("impulse", Vector2(direction * combat_profile.hurt_horizontal_speed, combat_profile.hurt_vertical_speed))
+	_hurt_elapsed = 0
+	_hurt_duration = maxf(0, float(payload.get("stun_seconds", combat_profile.hurt_seconds)))
+	expected_action += 1
+	_set_action(&"hurt", {"uses_inputs": false, "can_wall_grab": false, "can_jump_through_up": true, "small_hitbox": false, "interruptible_by": ["damage", "forced"]})
+	if not _owner_unchanged(expected_action, expected_weapon): return false
+	action_phase = &"recoil"
+	_refresh_weapon_permissions()
+	_emit(&"hurt_started", {"amount": float(payload.get("amount", 1)), "impulse": velocity, "duration": _hurt_duration})
+	if not _owner_unchanged(expected_action, expected_weapon): return true
+	_commit_noise(noise_origin, &"hurt", noise_loudness, noise_generation_at_contact)
+	if not _owner_unchanged(expected_action, expected_weapon): return true
+	apply_hitpause(float(payload.get("hitpause", combat_profile.hurt_hitpause_seconds)))
+	if not _owner_unchanged(expected_action, expected_weapon): return true
+	_select_pose()
+	return true
+func clear_input_buffers() -> void:
+	if _entry_assist_querying: _entry_assist_mutated = true
+	_disarm_attack_hold()
+	_wall_jump_waiting = false
+	_down_buffer = 0
+	_down_intent = &""
+	_jump_buffer = 0
+	_roll_buffer = 0
+	_attack_buffer = 0
+	_shield_buffer = 0
+	_chain_pending.clear()
+	_jump_release_buffered = false
+func _tick_paused_transport(dt: float) -> void:
+	# Actor-local hitpause cannot freeze a separately animated carrier. Keep
+	# established contact safe while action, velocity and pose clocks are frozen.
+	if _pause_wall_guard and is_instance_valid(_pause_support):
+		var geometry = _wall_shape_geometry(_pause_support)
+		if geometry.is_empty() or not _wall_signature.is_equal_approx(geometry.size): _pause_support = null
+	if main_action == &"wall" and wall_phase != &"kick":
+		if _transport_wall(dt) and not _wall_touch_valid(): _end_wall(&"contact_lost")
+	elif main_action == &"climb":
+		_transport_climb(dt)
+	elif main_action == &"ledge":
+		if not _validate_ledge():
+			_release_ledge(&"ledge_lost")
+			return
+		var anchor = _physics_transform(_ledge_body) * _ledge_local_anchor
+		var shift = anchor - _ledge_anchor
+		if shift.length() > profile.ledge_max_transport_speed * dt + 1 or not _transport_with_body(shift, _ledge_body):
+			_release_ledge(&"transport_blocked")
+			return
+		_ledge_start += shift
+		_ledge_anchor = anchor
+		_support_displacement += shift
+	elif grounded:
+		_transport_support(dt)
+		_refresh_ground()
+	elif is_instance_valid(_pause_support) and _pause_support.is_inside_tree():
+		var committed = _physics_transform(_pause_support)
+		var anchor = committed * _pause_support_local_anchor
+		var shift = anchor - _pause_support_anchor_position
+		var pending = _pause_support.global_transform * _pause_support_local_anchor - anchor if _pause_support is AnimatableBody2D else Vector2.ZERO
+		if _pause_support_floor_contact and (not _support_anchor_valid(_pause_support,anchor) or (_pause_support is AnimatableBody2D and not _floor_normal(_pause_support.global_transform.basis_xform(_pause_support_local_normal).normalized()))):
+			_pause_support = null
+			_strike_previous_center = _strike_center()
+			_select_pose()
+			return
+		if not _support_transport_pair_bounded(shift,pending,dt):
+			_pause_support = null
+		else:
+			var carry_start = global_position
+			var clear = _transport_with_body(shift, _pause_support)
+			if clear: clear = _transport_with_body(pending, _pause_support)
+			_support_displacement += global_position - carry_start
+			_pause_support_position = _pause_support.global_position
+			_pause_support_anchor_position = anchor + pending
+			if not clear:
+				_support_transport_blocked = true
+				_pause_support = null
+	_apply_pending_transport(dt)
+	_strike_previous_center = _strike_center() # Never sweep a carrier path crossed only during freeze.
+	_select_pose()
+
+func _ground_response():
+	var response = profile.ordinary_ground_response
+	if response != null and response.is_valid() and grounded and main_action == &"locomotion" and not crouched and weapon_phase == &"idle" and shield_phase == &"idle":
+		return response
+	return profile
+
+func _update_facing() -> void:
+	if not _uses_inputs() or not bool(_weapon_permissions.can_turn) or float(_input.x) == 0: return
+	var wanted = int(signf(float(_input.x)))
+	if wanted != facing:
+		var old = facing
+		facing = wanted
+		if grounded and absf(velocity.x) > 20:
+			_turn_timer = _ground_response().turn_pose_seconds
+			_emit(&"turn", {"from": old, "to": facing, "speed": velocity.x})
+
+	if weapon_phase in [&"windup", &"charge"] or (weapon_phase == &"recovery" and _active_melee_step == null): attack_facing = facing
+
+func _air_acceleration() -> float:
+	var response = profile.ordinary_air_response
+	if response != null and response.is_valid() and not grounded and main_action in [&"locomotion", &"jump", &"air_jump"] and not crouched and not is_instance_valid(_drop_body) and not _action_driver.is_valid() and weapon_phase == &"idle" and shield_phase == &"idle" and _uses_inputs() and bool(_weapon_permissions.can_move) and float(_weapon_permissions.move_scale)>0.0:
+		return response.air_acceleration
+	return profile.air_acceleration
+
+func _clear_pressure_request() -> void:
+	_pressure_request_x=0.0
+	_pressure_request_direction=0
+	_pressure_request_body=null
+	_pressure_request_frame=-1
+	_pressure_request_material=null
+	_pressure_request_force=0.0
+	_pressure_request_body_configuration.clear()
+	_pressure_request_action_generation=-1
+	_pressure_request_weapon_generation=-1
+	_pressure_request_reset_epoch=-1
+func _pressure_motor_request(target: float) -> float:
+	# One-frame voluntary request memory is distinct from projected velocity.
+	# Reuse never changes actual swept displacement or the body's collision solve.
+	if not grounded or main_action != &"locomotion" or weapon_phase != &"idle" or absf(move_x)<0.01 or int(signf(move_x)) != _pressure_request_direction or _pressure_request_frame != Engine.get_physics_frames()-1 or _pressure_request_body == null or material_profile == null or material_profile != _pressure_request_material or material_profile.impulse_budget(1.0) != _pressure_request_force or _pressure_request_force <= 0 or _pressure_request_action_generation != _action_generation or _pressure_request_weapon_generation != _weapon_generation or _pressure_request_reset_epoch != _reset_epoch or not material_profile.has_method("capture_body_configuration"):
+		_clear_pressure_request()
+		return velocity.x
+	var body: Variant = _pressure_request_body.get_ref()
+	if not is_instance_valid(body) or not body is RigidBody2D or not body.is_inside_tree() or body.is_queued_for_deletion() or body.freeze or not body.can_process() or body.get_world_2d() != get_world_2d() or (body.collision_layer & collision_mask) == 0 or body.get("simulation_enabled") == false or body.get("alive") == false:
+		_clear_pressure_request()
+		return velocity.x
+	if _pressure_request_body_configuration.is_empty() or material_profile.capture_body_configuration(body) != _pressure_request_body_configuration:
+		_clear_pressure_request()
+		return velocity.x
+	var retained := clampf(_pressure_request_x,-absf(target),absf(target))
+	return retained if velocity.x*_pressure_request_direction >= 0 and absf(retained)>absf(velocity.x) else velocity.x
+func _update_horizontal(dt: float) -> void:
+	if not grounded or main_action != &"locomotion" or weapon_phase != &"idle" or absf(move_x)<0.01 or int(signf(move_x)) != _pressure_request_direction: _clear_pressure_request()
+	var maximum = (profile.crouch_speed if crouched else profile.run_speed) * float(_weapon_permissions.move_scale)
+	var target = move_x * maximum
+	if grounded:
+		_voluntary_ground_target = Vector2(target,_floor_tangent_y(target))
+		var response = _ground_response()
+		var request_x := _pressure_motor_request(target)
+		if move_x == 0:
+			if _last_move_x != 0 and absf(velocity.x) > 30: _emit(&"brake", {"speed": velocity.x})
+			velocity.x = move_toward(velocity.x, 0, response.ground_braking * dt)
+		elif velocity.x != 0 and signf(velocity.x) != signf(move_x):
+			velocity.x = move_toward(request_x, target, response.reversal_acceleration * dt)
+		else: velocity.x = move_toward(request_x, target, response.ground_acceleration * dt)
+	elif move_x != 0:
+		velocity.x = move_toward(velocity.x, target, _air_acceleration() * dt)
+	else: velocity.x = move_toward(velocity.x, 0, profile.air_idle_drag * dt)
+
+func _update_vertical(dt: float) -> void:
+	if grounded and velocity.y >= 0:
+		velocity.y = 0
+		return
+	if _uses_inputs() and (_input.jump_released or _jump_release_buffered) and velocity.y < -profile.jump_release_rise_cap:
+		velocity.y = -profile.jump_release_rise_cap
+	var multiplier = 1.0
+	if velocity.y >= 0: multiplier = profile.falling_gravity_multiplier
+	elif not (_uses_inputs() and _input.jump): multiplier = profile.released_jump_gravity_multiplier
+	velocity.y = minf(velocity.y + profile.gravity * multiplier * dt, profile.terminal_fall_speed)
+
+func _try_jump() -> bool:
+	if is_instance_valid(_drop_body): return false
+	if _jump_buffer <= 0 or not _uses_inputs() or not bool(_weapon_permissions.can_jump): return false
+	if (main_action == &"wall" and wall_phase in [&"run", &"slide"]) or _has_wall_kick_grace():
+		return _try_wall_kick()
+	# A fresh toward-wall jump can arrive after release grace expires while
+	# the body still has a valid physical contact. Resolve that supported kick
+	# before spending an ordinary air jump, using the full entry authorization.
+	if not grounded and _coyote <= 0 and can_interrupt_with(&"jump") and _weapon_allows_cancel(&"jump"):
+		if _try_wall_entry(true): return _try_wall_kick()
+		# A still-valid supported intent may arrive just before regrab expires.
+		# Keep its existing buffer (and release edge) rather than spend an air
+		# jump which automatic contact would otherwise replace on the next tick.
+		# Waiting is allowed only when cooldown is the sole blocker and can end
+		# strictly before this input buffer expires. No new grace is introduced.
+		if _wall_regrab_timer > 0 and _wall_regrab_timer < _jump_buffer - 0.000000001 and not _wall_entry_contact(true, true).is_empty():
+			_wall_jump_waiting = true
+			return true
+	var from_grip = (main_action == &"climb" and _validate_climb()) or _has_climb_jump_grace()
+	var from_ground = grounded or _coyote > 0 or from_grip
+	if not can_interrupt_with(&"jump" if from_ground else &"air_jump"): return false
+	if not _weapon_allows_cancel(&"jump" if from_ground else &"air_jump"): return false
+	if crouched and not can_stand(): return false
+	if not from_ground and air_jumps_left <= 0: return false
+	_clear_climb_jump_grace()
+	if main_action == &"climb": _detach_climb(&"jump")
+	if main_action == &"roll": _end_roll(&"jump")
+	if main_action == &"dive": _end_dive(&"jump")
+	if main_action == &"drop": _end_drop_action(&"jump")
+	if not _cancel_attack(&"jump"): return false
+	_jump_started_this_tick = true
+	if crouched: _set_crouched(false)
+	_jump_buffer = 0
+	_wall_jump_waiting = false
+	_coyote = 0
+	grounded = false
+	_support = null
+	_land_timer = 0
+	if from_ground:
+		_set_action(&"jump", DEFAULT_CAPABILITIES)
+		velocity.y = -profile.jump_speed
+		_begin_fall_history()
+		_emit(&"ground_jump", {"from_climb": from_grip})
+	else:
+		air_jumps_left -= 1
+		_set_action(&"air_jump", DEFAULT_CAPABILITIES)
+		_wall_air_jump_guard_sides = _air_jump_wall_contacts()
+		velocity.y = -profile.air_jump_speed
+		_begin_fall_history()
+		_emit(&"air_jump", {"remaining": air_jumps_left})
+	return true
+
+func _update_crouch() -> void:
+	var required = bool(_capabilities.small_hitbox) or is_instance_valid(_drop_body)
+	var wants_crouch = required or (grounded and move_y > 0.5)
+	if wants_crouch: _set_crouched(true)
+	elif crouched and can_stand(): _set_crouched(false)
+func _set_crouched(value: bool) -> void:
+	if not value and is_instance_valid(_drop_body): return
+	if value == crouched: return
+	crouched = value
+	_apply_shape()
+	_emit(&"crouch_enter" if value else &"crouch_exit", {})
+func _apply_shape() -> void:
+	if _body_shape == null: return
+	_body_shape.size = Vector2(profile.body_width, body_height)
+	_shape_node.position = Vector2(0, -body_height * 0.5)
+func can_stand(at: Variant = null) -> bool:
+	if is_instance_valid(_drop_body) and (at == null or Vector2(at).is_equal_approx(global_position)): return false
+	return _shape_clear(global_position if at == null else at, profile.standing_height)
+
+# Godot's continuous shape sweep is the authored collision adaptation. Floor,
+# wall and ceiling contacts are geometric; no manual tunnel teleport/correction.
+func _floor_tangent_y(horizontal: float, normal: Vector2 = _floor_contact_normal) -> float:
+	return -normal.x / normal.y * horizontal
+
+func _sweep_motion(motion: Vector2) -> void:
+	_ground_follow_segments = 0
+	_ground_follow_limited = false
+	_ground_follow_steps_left = 32
+	# Supported velocity remains an authored horizontal component between
+	# callbacks. Only collision motion uses its confirmed floor tangent.
+	var tangent_y = _floor_tangent_y(motion.x)
+	var follows_floor = grounded and not _jump_started_this_tick and (absf(motion.y) <= 0.00001 or absf(motion.y - tangent_y) <= 0.0001)
+	if follows_floor:
+		_move_ground_following(motion.x)
+	else:
+		_floor_contact_sweep = false
+		_sweep_segment(motion, false)
+
+func _move_ground_following(horizontal: float) -> void:
+	# Revalidate after arbitration/callbacks, including changes to the collider
+	# or supporting world. A planned tangent is never proof of support.
+	_refresh_ground()
+	if not grounded:
+		# A rejected revalidation also spends work budget; a near-contact
+		# sweep/probe disagreement cannot recurse without a finite limit.
+		_ground_follow_steps_left = maxi(0, _ground_follow_steps_left - 1)
+		_floor_contact_sweep = false
+		var seconds = absf(horizontal / velocity.x) if absf(velocity.x) > 0.00001 else 0.0
+		_sweep_segment(velocity * seconds, false)
+		return
+	if absf(horizontal) <= 0.00001: return
+	# A crest can change from maximum uphill to maximum downhill. Bound each
+	# horizontal step so that even this change fits the existing floor probe.
+	# No larger vertical snap distance is introduced.
+	var steepness = tan(deg_to_rad(clampf(profile.maximum_floor_angle_degrees, 0.0, 89.0)))
+	var step_limit = minf(profile.collision_path_step, profile.floor_probe / maxf(2.0 * steepness, 0.001))
+	step_limit = maxf(step_limit, 0.01)
+	var remaining_x = horizontal
+	while absf(remaining_x) > 0.00001 and _ground_follow_steps_left > 0:
+		var step_x = signf(remaining_x) * minf(absf(remaining_x), step_limit)
+		var generation = _action_generation
+		velocity.y = _floor_tangent_y(velocity.x)
+		_ground_follow_steps_left -= 1
+		_ground_follow_segments += 1
+		var unresolved = _sweep_segment(Vector2(step_x, _floor_tangent_y(step_x)), true)
+		remaining_x -= step_x
+		if _action_generation != generation:
+			_floor_contact_sweep = false # Old support cannot reclaim a new upward owner.
+			return
+		_refresh_ground()
+		if not unresolved.is_zero_approx():
+			# A constrained floor/ceiling corner exhausted the ordinary collision
+			# iterations. Keep the last safe root; don't restart blocked X.
+			velocity.x = 0
+			return
+		if not grounded:
+			_floor_contact_sweep = false
+			var seconds = absf(remaining_x / velocity.x) if absf(velocity.x) > 0.00001 else 0.0
+			_sweep_segment(velocity * seconds, false)
+			return
+		if absf(velocity.x) <= 0.00001: return # A real side collision removed it.
+	if absf(remaining_x) > 0.00001:
+		_ground_follow_limited = true
+		# Bounded work for unusually large host velocity/delta. The residual is
+		# still one continuous collision sweep, with no additional following.
+		velocity.y = _floor_tangent_y(velocity.x)
+		_sweep_segment(Vector2(remaining_x, _floor_tangent_y(remaining_x)), true)
+
+func _sweep_segment(motion: Vector2, following_floor: bool) -> Vector2:
+	if not following_floor or main_action != &"locomotion" or weapon_phase != &"idle": _clear_pressure_request()
+	grounded = false
+	var remaining = motion
+	for _slide in range(5):
+		if remaining.length_squared() < 0.0000001: return Vector2.ZERO
+		if remaining.y < 0 and not bool(_capabilities.can_jump_through_up):
+			var q = _shape_query(global_position, body_height)
+			q.motion = Vector2(0, remaining.y)
+			var fractions = get_world_2d().direct_space_state.cast_motion(q)
+			if fractions.size() == 2 and fractions[0] < 1:
+				remaining.y *= fractions[0]
+				velocity.y = 0
+				_ceiling_this_tick = true
+		var hit = move_and_collide(remaining, false, profile.collision_margin, false)
+		if hit == null: return Vector2.ZERO
+		var contact_generation := _reset_epoch
+		_respond_rigid_contact(hit, following_floor)
+		if contact_generation != _reset_epoch or not is_inside_tree() or is_queued_for_deletion(): return Vector2.ZERO
+		var normal = hit.get_normal()
+		if absf(normal.x)>0.65 and not _floor_normal(normal) and (not hit.get_collider() is RigidBody2D or (_pressure_request_body != null and _pressure_request_body.get_ref() != hit.get_collider())): _clear_pressure_request()
+		if _floor_normal(normal) and (following_floor or velocity.dot(normal) <= 0.00001):
+			_floor_contact_sweep = true # An actual sweep contact, not a plan.
+			_floor_contact_normal = normal
+			grounded = true
+			_set_support(hit.get_collider())
+			_observe_floor_contact(hit)
+			normal = _floor_contact_normal
+			# Apply the same horizontal momentum policy as a probe landing.
+			# Vertical impact and vertical remainder cannot manufacture X.
+			velocity.y = _floor_tangent_y(velocity.x, normal)
+			remaining = Vector2(hit.get_remainder().x, _floor_tangent_y(hit.get_remainder().x, normal))
+			if not following_floor and absf(remaining.x) > 0.00001 and _ground_follow_steps_left > 0:
+				_move_ground_following(remaining.x)
+				return Vector2.ZERO
+		else:
+			if normal.y > 0.65 and velocity.y < 0:
+				_ceiling_this_tick = true
+				var generation = _action_generation
+				_emit(&"ceiling_contact", {})
+				if _action_generation != generation:
+					_floor_contact_sweep = false
+					return Vector2.ZERO
+			elif absf(normal.x) > 0.65: _wall_normal = normal
+			velocity = velocity.slide(normal)
+			remaining = hit.get_remainder().slide(normal)
+	return remaining
+
+func _refresh_ground() -> void:
+	if velocity.y < 0 and not _floor_contact_sweep:
+		grounded = false
+		_support = null
+		return
+	var contact = KinematicCollision2D.new()
+	if test_move(global_transform, Vector2.DOWN * profile.floor_probe, contact, profile.collision_margin) and _floor_normal(contact.get_normal()):
+		var sample = _confirmed_floor_sample(contact)
+		var normal = Vector2(sample.normal)
+		var gap = normal.dot(global_position - Vector2(sample.position)) - absf(normal.x) * profile.body_width * 0.5
+		# A probe proves support without repeatedly moving an already touching
+		# body down into its skin, then recovering sideways on the next sweep.
+		# Real separation or penetration still receives the ordinary safe sweep.
+		if absf(gap) > profile.collision_margin:
+			move_and_collide(Vector2.DOWN * profile.floor_probe, false, profile.collision_margin, false)
+		grounded = true
+		_floor_contact_sweep = true
+		_floor_contact_normal = contact.get_normal()
+		velocity.y = 0
+		_set_support(contact.get_collider())
+		_observe_floor_contact(contact)
+		_align_flat_support()
+	else:
+		grounded = false
+		_support = null
+func _align_flat_support() -> void:
+	# Animatable-body motion queries can report a contact at its previous-step
+	# surface. A current-space ray keeps the foot outside a rising flat support;
+	# correction still sweeps upward and never assigns an unchecked position.
+	if not is_instance_valid(_support): return
+	var surface = _ray(global_position + Vector2.UP * 4, global_position + Vector2.DOWN * (profile.floor_probe + 2))
+	if surface.is_empty() or surface.collider != _support or surface.normal.y > -0.99: return
+	var highest_foot = float(surface.position.y) - profile.collision_margin
+	if global_position.y > highest_foot + 0.001:
+		# We are moving OUT of the confirmed support; its previous-step contact
+		# must not truncate this tiny clearance correction. Other bodies still block.
+		_transport_with_body(Vector2(0, highest_foot - global_position.y), _support)
+
+func _set_support(body: Object) -> void:
+	if body is Node2D:
+		_support = body
+		_support_position = _physics_transform(body).origin
+func _transport_support(dt: float) -> void:
+	if not grounded or not is_instance_valid(_support): return
+	var committed = _physics_transform(_support)
+	var anchor = committed * _floor_contact_local
+	var displacement = anchor - _support_anchor_position
+	if not _support_anchor_valid(_support,anchor):
+		grounded = false
+		_support = null
+		return
+	if displacement.length() > profile.ledge_max_transport_speed * dt + 1:
+		grounded = false
+		_support = null
+		return
+	if displacement != Vector2.ZERO:
+		var before := global_position
+		var clear := _transport_with_body(displacement, _support)
+		_support_displacement += global_position - before
+		if not clear:
+			_support_transport_blocked = true
+			grounded = false
+			_support = null
+			return
+	_support_position = committed.origin
+	_support_anchor_position = anchor
+func _support_transport_pair_bounded(committed: Vector2, pending: Vector2, dt: float) -> bool:
+	return committed.is_finite() and pending.is_finite() and is_finite(dt) and dt > 0 and maxf(committed.length(),pending.length()) <= profile.ledge_max_transport_speed * dt + 1
+func _support_body_live(body: Node2D) -> bool:
+	return is_instance_valid(body) and body.is_inside_tree() and not body.is_queued_for_deletion() and body is PhysicsBody2D and (body.collision_layer & terrain_mask) != 0 and body.get_world_2d() == get_world_2d()
+func _support_anchor_valid(body: Node2D, anchor: Vector2) -> bool:
+	if not _support_body_live(body): return false
+	var sample = _ray(anchor + Vector2.UP * profile.floor_probe,anchor + Vector2.DOWN * profile.floor_probe)
+	return not sample.is_empty() and sample.collider == body and _floor_normal(sample.normal)
+func _respond_rigid_contact(hit: KinematicCollision2D, ground_follow_contact: bool) -> void:
+	if _rigid_contact_budget <= 0 or material_profile == null or not material_profile.has_method("respond"): return
+	var world_velocity := velocity + _support_displacement / _step_delta if _step_delta > 0 else velocity
+	# Animatable carry is solved at the previous tick end. Its committed pose
+	# catches up before this sweep; retain that actual, already-solved velocity.
+	if _last_pending_transport_frame == Engine.get_physics_frames()-1 and _last_pending_transport_body != null and _last_pending_transport_body.get_ref() == _support:
+		world_velocity += _last_pending_transport_velocity
+	var receipt: Dictionary = material_profile.respond(self,hit,world_velocity,_voluntary_ground_target+world_velocity-velocity,_rigid_contact_budget,ground_follow_contact)
+	if receipt.is_empty(): return
+	var used := float(receipt.get("magnitude",0.0))
+	_rigid_contact_budget = maxf(0.0,_rigid_contact_budget-used)
+	rigid_contact_impulse_this_tick += used
+	if used > 0 and velocity.x * move_x > 0 and material_profile.has_method("capture_body_configuration"):
+		_pressure_request_x = velocity.x
+		_pressure_request_direction = int(signf(move_x))
+		_pressure_request_body = weakref(hit.get_collider())
+		_pressure_request_frame = Engine.get_physics_frames()
+		_pressure_request_material = material_profile
+		_pressure_request_force = material_profile.impulse_budget(1.0)
+		_pressure_request_body_configuration = material_profile.capture_body_configuration(hit.get_collider())
+		_pressure_request_action_generation = _action_generation
+		_pressure_request_weapon_generation = _weapon_generation
+		_pressure_request_reset_epoch = _reset_epoch
+	receipt["relative_motor_velocity"] = velocity
+	receipt["solved_carrier_velocity"] = world_velocity-velocity
+	last_rigid_contact = receipt
+func _physics_transform(body: Node2D) -> Transform2D:
+	if body is PhysicsBody2D:
+		return PhysicsServer2D.body_get_state(body.get_rid(), PhysicsServer2D.BODY_STATE_TRANSFORM)
+	return body.global_transform
+func _apply_pending_transport(dt: float) -> void:
+	# Physics queries see committed body transforms. Animatable Node targets can
+	# already contain the next pose. Solve against committed geometry first, then
+	# carry to that planned pose so the actor and support agree after the step.
+	if main_action == &"wall" and wall_phase != &"kick":
+		_transport_wall(dt, true)
+	elif main_action == &"ledge" and is_instance_valid(_ledge_body):
+		var predicted_normal = _ledge_body.global_transform.basis_xform(_ledge_local_normal).normalized()
+		if predicted_normal.y > -0.94:
+			_release_ledge(&"ledge_rotated_away")
+			return
+		var target_anchor = _ledge_body.global_transform * _ledge_local_anchor
+		var pending = target_anchor - _ledge_anchor
+		if pending.length() > profile.ledge_max_transport_speed * dt + 1:
+			_release_ledge(&"ledge_moved_away")
+			return
+		if pending != Vector2.ZERO:
+			if not _transport_with_body(pending, _ledge_body):
+				_release_ledge(&"transport_blocked")
+				return
+			_ledge_start += pending
+			_support_displacement += pending
+		_ledge_anchor = target_anchor
+	elif grounded and is_instance_valid(_support):
+		if not _support_body_live(_support):
+			grounded = false
+			_support = null
+			return
+		var committed = _physics_transform(_support)
+		if not _support_anchor_valid(_support,committed * _floor_contact_local):
+			grounded = false
+			_support = null
+			return
+		if _support is AnimatableBody2D and not _floor_normal(_support.global_transform.basis_xform(_support_local_normal).normalized()):
+			grounded = false
+			_support = null
+			return
+		var pending = _support.global_transform * _floor_contact_local - committed * _floor_contact_local if _support is AnimatableBody2D else Vector2.ZERO
+		if pending.length() > profile.ledge_max_transport_speed * dt + 1:
+			grounded = false
+			_support = null
+			return
+		if pending != Vector2.ZERO:
+			var before := global_position
+			var clear := _transport_with_body(pending, _support)
+			var actual := global_position - before
+			_support_displacement += actual
+			_last_pending_transport_velocity = actual / dt if dt > 0 else Vector2.ZERO
+			_last_pending_transport_body = weakref(_support)
+			_last_pending_transport_frame = Engine.get_physics_frames()
+			if not clear:
+				_support_transport_blocked = true
+				grounded = false
+				_support = null
+				return
+		_support_position = _support.global_position
+		_support_anchor_position = _support.global_transform * _floor_contact_local if _support is AnimatableBody2D else committed * _floor_contact_local
+
+func _transport_with_body(displacement: Vector2, body: Node2D) -> bool:
+	var excluded = body is PhysicsBody2D
+	if excluded: add_collision_exception_with(body)
+	var hit = move_and_collide(displacement, false, profile.collision_margin, true)
+	if excluded: remove_collision_exception_with(body)
+	return hit == null or hit.get_remainder().length() < 0.1
+func _floor_normal(normal: Vector2) -> bool:
+	return normal.dot(Vector2.UP) >= cos(deg_to_rad(profile.maximum_floor_angle_degrees))
+
+# Assisted arrivals use a wall face plus a independently observed top surface.
+# The path is checked before capture, before pulling, and during every sweep.
+func _try_ledge_catch() -> bool:
+	if grounded or main_action == &"ledge" or _regrab_timer > 0 or crouched: return false
+	if weapon_phase != &"idle" or shield_phase != &"idle": return false
+	if not bool(_capabilities.can_wall_grab) or not can_interrupt_with(&"ledge"): return false
+	if not bool(_weapon_permissions.can_move) or not _uses_inputs(): return false
+	if velocity.y < -profile.ledge_max_rising_speed or velocity.y > profile.ledge_max_falling_speed: return false
+	if move_y > 0.5: return false
+	var direction = int(signf(move_x)) if absf(move_x) > 0.25 else 0
+	if direction == 0: return false
+	if direction != facing and not bool(_weapon_permissions.can_turn): return false
+	var wall_y = global_position.y - profile.standing_height * 0.28
+	var wall = _ray(Vector2(global_position.x, wall_y), Vector2(global_position.x + direction * (profile.body_width * 0.5 + profile.ledge_reach), wall_y))
+	if wall.is_empty() or absf(wall.normal.x) < 0.8 or signf(wall.normal.x) != -direction: return false
+	var x = float(wall.position.x) + direction * profile.ledge_surface_inset
+	var top = _ray(Vector2(x, global_position.y - profile.standing_height - profile.ledge_probe_above_head), Vector2(x, global_position.y - profile.ledge_min_top_above_feet))
+	if top.is_empty() or top.collider != wall.collider or top.normal.y > -0.94: return false
+	var anchor = Vector2(float(wall.position.x), float(top.position.y))
+	# A covered top on the lower of two coplanar bodies is a seam, not a
+	# ledge. Check the actual continuation plane for both approach paths so a
+	# wall release cannot fall through into a false ordinary ledge catch.
+	var continuation = _ray(Vector2(global_position.x, anchor.y - 1), Vector2(anchor.x + direction * profile.ledge_surface_inset, anchor.y - 1))
+	if not continuation.is_empty() and float(continuation.normal.x) * direction < -0.98 and absf(float(continuation.position.x) - anchor.x) <= 0.1: return false
+	# A near-successful arrival must not be pulled down to a lower hang pose.
+	var arrival_drop = minf(profile.ledge_hang_drop, maxf(0, global_position.y - anchor.y))
+	var hang = anchor + Vector2(-direction * (profile.body_width * 0.5 + profile.ledge_outside_gap), arrival_drop)
+	if not _shape_clear(hang, profile.standing_height): return false
+	if not _segment_clear(global_position, hang): return false
+	if main_action == &"wall": _wall_ledge_handoff()
+	_ledge_body = wall.collider as Node2D
+	if _ledge_body == null: return false
+	_ledge_anchor = anchor
+	_ledge_local_anchor = _physics_transform(_ledge_body).affine_inverse() * anchor
+	_ledge_local_normal = _physics_transform(_ledge_body).basis_xform_inv(top.normal).normalized()
+	_ledge_direction = direction
+	_active_hang_drop = arrival_drop
+	_ledge_start = global_position
+	_ledge_phase_time = 0
+	_catch_wants_pull = profile.automatic_arrival_pull
+	facing = direction
+	velocity = Vector2.ZERO
+	grounded = false
+	_support = null
+	_coyote = 0
+	_jump_buffer = 0
+	_set_action(&"ledge", {"uses_inputs": true, "can_wall_grab": false, "can_jump_through_up": true, "small_hitbox": false, "interruptible_by": ["damage", "forced", "locomotion"]})
+	action_phase = &"catch"
+	phase_progress = 0
+	_break_fall_history()
+	_emit(&"ledge_catch", {"anchor": anchor, "direction": direction})
+	return true
+
+func _tick_ledge(dt: float) -> void:
+	if not _validate_ledge():
+		_release_ledge(&"ledge_lost")
+		return
+	var next_anchor = _physics_transform(_ledge_body) * _ledge_local_anchor
+	var shift = next_anchor - _ledge_anchor
+	if shift.length() > profile.ledge_max_transport_speed * dt + 1:
+		_release_ledge(&"ledge_moved_away")
+		return
+	if shift != Vector2.ZERO:
+		if not _transport_with_body(shift, _ledge_body):
+			_release_ledge(&"transport_blocked")
+			return
+		_ledge_start += shift
+		_support_displacement = shift
+	_ledge_anchor = next_anchor
+	# Release wins over a simultaneous pull command, and consumes that press.
+	if move_y > 0.5 or move_x * _ledge_direction < -0.25:
+		_release_ledge(&"input_release")
+		return
+	velocity = Vector2.ZERO
+	grounded = false
+	_ledge_phase_time += dt
+	match action_phase:
+		&"catch":
+			phase_progress = minf(1, _ledge_phase_time / maxf(profile.ledge_catch_seconds, 0.001))
+			var target = _ledge_start.lerp(_hang_at(_ledge_anchor, _ledge_direction), _smooth(phase_progress))
+			if not _sweep_to(target):
+				_release_ledge(&"catch_blocked")
+				return
+			if phase_progress >= 1:
+				action_phase = &"hang"
+				_ledge_phase_time = 0
+				phase_progress = 0
+		&"hang":
+			if not _sweep_to(_hang_at(_ledge_anchor, _ledge_direction)):
+				_release_ledge(&"hang_blocked")
+				return
+			var pull = move_x * _ledge_direction > 0.25 or move_y < -0.25 or _input.jump_pressed or _catch_wants_pull
+			if pull and _blocked_pull_timer <= 0:
+				_catch_wants_pull = false
+				_jump_buffer = 0
+				if _can_pull_up():
+					_start_ledge_phase(&"pull")
+					_emit(&"pullup_begin", {"anchor": _ledge_anchor})
+				else:
+					_blocked_pull_timer = profile.blocked_pull_retry_seconds
+					_emit(&"pullup_blocked", {"anchor": _ledge_anchor})
+		&"pull":
+			phase_progress = minf(1, _ledge_phase_time / maxf(profile.ledge_pull_seconds, 0.001))
+			var target = _ledge_start.lerp(_pull_at(_ledge_anchor, _ledge_direction), _smooth(phase_progress))
+			if not _sweep_to(target):
+				_release_ledge(&"pull_blocked")
+				return
+			if phase_progress >= 1:
+				_start_ledge_phase(&"step")
+				_emit(&"ledge_step", {"anchor": _ledge_anchor})
+		&"step":
+			phase_progress = minf(1, _ledge_phase_time / maxf(profile.ledge_step_seconds, 0.001))
+			var end = _step_at(_ledge_anchor, _ledge_direction)
+			# Feet stay above the edge while the body crosses, then plant.
+			var target = _ledge_start.lerp(Vector2(end.x, end.y - profile.ledge_top_clearance), _smooth(phase_progress))
+			if not _sweep_to(target):
+				_release_ledge(&"step_blocked")
+				return
+			if phase_progress >= 1:
+				_sweep_to(end)
+				var anchor = _ledge_anchor
+				_clear_ledge()
+				finish_main_action()
+				velocity = Vector2.ZERO
+				_refresh_ground()
+				if grounded: _dispatch_landing(0.0)
+				_regrab_timer = profile.ledge_regrab_delay
+				_emit(&"pullup_end", {"anchor": anchor, "grounded": grounded})
+
+func _validate_ledge() -> bool:
+	if not is_instance_valid(_ledge_body) or not _ledge_body.is_inside_tree(): return false
+	var current = _physics_transform(_ledge_body) * _ledge_local_anchor
+	var x = current.x + _ledge_direction * profile.ledge_surface_inset
+	var top = _ray(Vector2(x, current.y - 3), Vector2(x, current.y + 3))
+	return not top.is_empty() and top.collider == _ledge_body and top.normal.y < -0.94 and absf(float(top.position.y) - current.y) < 1.5
+func _can_pull_up() -> bool:
+	var pull = _pull_at(_ledge_anchor, _ledge_direction)
+	var step = _step_at(_ledge_anchor, _ledge_direction)
+	if not _shape_clear(pull, profile.standing_height): return false
+	if not _shape_clear(step + Vector2.UP * profile.ledge_top_clearance, profile.standing_height): return false
+	if not _segment_clear(global_position, pull): return false
+	if not _segment_clear(pull, step + Vector2.UP * profile.ledge_top_clearance): return false
+	var support = _ray(step + Vector2.UP * 2, step + Vector2.DOWN * 3)
+	return not support.is_empty() and support.collider == _ledge_body and _floor_normal(support.normal)
+func _start_ledge_phase(phase: StringName) -> void:
+	action_phase = phase
+	_ledge_phase_time = 0
+	phase_progress = 0
+	_ledge_start = global_position
+func _release_ledge(reason: StringName) -> void:
+	_break_fall_history()
+	var anchor = _ledge_anchor
+	var direction = _ledge_direction
+	_clear_ledge()
+	finish_main_action()
+	_coyote = 0
+	_jump_buffer = 0
+	_regrab_timer = profile.ledge_regrab_delay
+	grounded = false
+	velocity = Vector2(-direction * profile.ledge_release_horizontal_speed if move_x * direction < -0.25 else 0.0, profile.ledge_release_fall_speed)
+	_emit(&"ledge_release", {"reason": reason, "anchor": anchor})
+func _clear_ledge() -> void:
+	_ledge_body = null
+	action_phase = &""
+	phase_progress = 0
+	_ledge_phase_time = 0
+func _hang_at(anchor: Vector2, direction: int) -> Vector2:
+	return anchor + Vector2(-direction * (profile.body_width * 0.5 + profile.ledge_outside_gap), _active_hang_drop)
+func _pull_at(anchor: Vector2, direction: int) -> Vector2:
+	return anchor + Vector2(-direction * (profile.body_width * 0.5 + profile.ledge_outside_gap), -profile.ledge_top_clearance)
+func _step_at(anchor: Vector2, direction: int) -> Vector2:
+	return anchor + Vector2(direction * (profile.body_width * 0.5 + profile.ledge_step_inset), 0)
+func _sweep_to(target: Vector2) -> bool:
+	var distance = global_position.distance_to(target)
+	var pieces = maxi(1, ceili(distance / maxf(profile.collision_path_step, 0.1)))
+	for i in range(pieces):
+		var remaining = target - global_position
+		var motion = remaining / float(pieces - i)
+		var hit = move_and_collide(motion, false, profile.collision_margin, true)
+		if hit != null and hit.get_remainder().length() > 0.06: return false
+	return global_position.distance_to(target) < 0.12
+func _segment_clear(from: Vector2, to: Vector2) -> bool:
+	var test = Transform2D(global_transform)
+	test.origin = from
+	return not test_move(test, to - from, null, profile.collision_margin)
+func _shape_query(at: Vector2, height: float) -> PhysicsShapeQueryParameters2D:
+	var box = RectangleShape2D.new()
+	box.size = Vector2(profile.body_width - 0.04, height - 0.04)
+	var query = PhysicsShapeQueryParameters2D.new()
+	query.shape = box
+	query.transform = Transform2D(0, at + Vector2(0, -height * 0.5))
+	query.collision_mask = terrain_mask
+	query.exclude = _query_excludes()
+	query.collide_with_areas = false
+	return query
+func _shape_clear(at: Vector2, height: float) -> bool:
+	return get_world_2d().direct_space_state.intersect_shape(_shape_query(at, height), 1).is_empty()
+func _ray(from: Vector2, to: Vector2) -> Dictionary:
+	var query = PhysicsRayQueryParameters2D.create(from, to, terrain_mask, _query_excludes())
+	query.collide_with_areas = false
+	return get_world_2d().direct_space_state.intersect_ray(query)
+static func _smooth(t: float) -> float:
+	return t * t * (3 - 2 * t)
+
+# Capability arbitration is original MOKSHA policy, grounded in the observed
+# main-skill/weapon separation. It is not a recovered Dead Cells cancel matrix.
+func _uses_inputs() -> bool:
+	return allow_input and not is_defeated() and bool(_capabilities.uses_inputs)
+func can_interrupt_with(next_action: StringName) -> bool:
+	if is_defeated(): return false
+	if main_action == &"hard_land": return next_action in [&"damage", &"forced"]
+	if is_instance_valid(_drop_body) and next_action in [&"jump", &"air_jump"]: return false
+	if main_action == &"wall":
+		if next_action in [&"damage", &"forced"]: return true
+		return wall_phase != &"kick" and next_action in [&"roll", &"jump", &"air_jump", &"dive", &"attack", &"shield", &"ledge", &"locomotion"]
+	if main_action == &"climb": return next_action in [&"damage", &"forced", &"jump", &"air_jump", &"roll", &"dive", &"attack", &"shield", &"locomotion"]
+	if main_action == &"dive":
+		if next_action in [&"damage", &"forced"]: return true
+		if dive_phase in [&"startup", &"recovery"]: return next_action in [&"roll", &"jump", &"air_jump", &"attack", &"shield"]
+		return dive_phase == &"descent" and next_action == &"roll"
+	if main_action == &"drop":
+		if next_action in [&"damage", &"forced", &"roll", &"attack", &"shield"]: return true
+		return not is_instance_valid(_drop_body) and next_action in [&"jump", &"air_jump", &"dive"]
+	if main_action == &"roll":
+		if next_action in [&"damage", &"forced"]: return true
+		if next_action in [&"jump", &"air_jump", &"drop", &"dive"]: return _time_reached(_roll_elapsed, combat_profile.roll_jump_cancel_after)
+		if next_action in [&"attack", &"shield"]: return _time_reached(_roll_elapsed, combat_profile.roll_attack_cancel_after)
+		return false
+	if main_action == &"hurt": return next_action in [&"damage", &"forced"]
+	var allowed: Variant = _capabilities.interruptible_by
+	if allowed is Callable: return bool(allowed.call(next_action))
+	return allowed.has("*") or allowed.has(String(next_action)) or allowed.has(next_action)
+## A weak, explicit owner makes optional component removal reversible. Reentry
+## from cancellation/action callbacks cannot release or overwrite a newer owner.
+func is_defeated() -> bool:
+	return _defeat_owner != null
+func is_defeated_by(request_owner: Node) -> bool:
+	return is_instance_valid(request_owner) and _defeat_owner != null and _defeat_owner.get_ref() == request_owner
+func _defeat_progress() -> float:
+	if not is_defeated(): return 0.0
+	return 1.0 if _defeat_duration <= 0 else clampf(_defeat_elapsed / _defeat_duration, 0.0, 1.0)
+func _prune_defeated_owner() -> void:
+	if _defeat_owner == null: return
+	var request_owner = _defeat_owner.get_ref() as Node
+	if not is_instance_valid(request_owner) or not request_owner.is_inside_tree() or request_owner.is_queued_for_deletion():
+		_clear_defeated_gate(true)
+func _on_defeated_owner_exiting(generation: int) -> void:
+	if generation == _defeat_generation: _clear_defeated_gate(true)
+func _clear_defeated_gate(resume: bool) -> void:
+	if _defeat_owner == null: return
+	var owns_action = main_action == &"defeated" and _action_generation == _defeat_action_generation
+	var request_owner = _defeat_owner.get_ref() as Node
+	if is_instance_valid(request_owner) and _defeat_exit_callback.is_valid() and request_owner.tree_exiting.is_connected(_defeat_exit_callback):
+		request_owner.tree_exiting.disconnect(_defeat_exit_callback)
+	_defeat_owner = null
+	_defeat_exit_callback = Callable()
+	_defeat_generation += 1
+	_defeat_action_generation = -1
+	_defeat_elapsed = 0.0
+	_action_generation += 1 # Invalidate even an entry still cancelling its weapon.
+	clear_input_buffers()
+	var generation = _defeat_generation
+	if resume and owns_action:
+		_action_driver = Callable()
+		_set_action(&"locomotion", DEFAULT_CAPABILITIES)
+	if generation != _defeat_generation: return
+	_refresh_weapon_permissions()
+	_select_pose()
+func release_defeated(request_owner: Node) -> bool:
+	if not is_defeated_by(request_owner): return false
+	_clear_defeated_gate(true)
+	return true
+func enter_defeated(request_owner: Node, collapse_seconds: float = 0.36) -> bool:
+	if not is_inside_tree() or is_queued_for_deletion() or not is_instance_valid(request_owner) or not request_owner.is_inside_tree() or request_owner.is_queued_for_deletion() or not is_finite(collapse_seconds): return false
+	_prune_defeated_owner()
+	if is_defeated(): return is_defeated_by(request_owner)
+	if _entry_assist_querying: _entry_assist_mutated = true
+	_defeat_generation += 1
+	var generation = _defeat_generation
+	var reset_generation = _reset_epoch
+	_defeat_owner = weakref(request_owner)
+	_defeat_exit_callback = _on_defeated_owner_exiting.bind(generation)
+	request_owner.tree_exiting.connect(_defeat_exit_callback)
+	_defeat_elapsed = 0.0
+	_defeat_duration = maxf(0.0, collapse_seconds)
+	_action_generation += 1 # Stop existing strike/defense callbacks immediately.
+	var action_generation = _action_generation
+	if not _cancel_attack(&"defeated"): return false
+	if _defeat_generation != generation or _reset_epoch != reset_generation or _action_generation != action_generation or not is_defeated_by(request_owner): return false
+	# Retire action-local state without an intermediate locomotion callback.
+	# Collision exceptions, velocity, support and the recoil pause stay intact.
+	if main_action in [&"ledge", &"wall", &"climb"]:
+		_break_fall_history()
+		_regrab_timer = maxf(_regrab_timer, profile.ledge_regrab_delay)
+	_clear_ledge()
+	_clear_wall_kick_grace()
+	_clear_climb_jump_grace()
+	_wall_body = null
+	wall_phase = &""
+	_climb_target = null
+	_climb_phase = &""
+	_climb_phase_elapsed = 0.0
+	_climb_top_entry = false
+	roll_phase = &""
+	_roll_fall_protection_serial = 0
+	dive_phase = &""
+	_dive_phase_elapsed = 0.0
+	hard_land_phase = &""
+	_hard_land_elapsed = 0.0
+	_hurt_elapsed = 0.0
+	_hurt_duration = 0.0
+	_action_driver = Callable()
+	_coyote = 0.0
+	_turn_timer = 0.0
+	_land_timer = 0.0
+	_footstep_travel = 0.0
+	_last_move_x = 0.0
+	move_x = 0.0
+	move_y = 0.0
+	clear_input_buffers()
+	var held_actions = {"jump": _last_jump_held, "roll": _last_roll_held, "attack": _last_attack_held, "shield": _last_shield_held}
+	for key in held_actions:
+		if bool(held_actions[key]): _defeat_input_rearm[key] = true
+	for key in ["x", "y", "physical_y"]: _input[key] = 0.0
+	for key in ["jump", "roll", "attack", "shield"]:
+		_input[key] = false
+		_input[key + "_pressed"] = false
+		_input[key + "_released"] = false
+	_defeat_action_generation = _action_generation + 1
+	_set_action(&"defeated", {"uses_inputs": false, "can_wall_grab": false, "can_jump_through_up": true,
+		"small_hitbox": false, "can_shield": false, "can_drop_through": false, "can_dive": false, "can_climb": false, "interruptible_by": []})
+	if _defeat_generation != generation or _reset_epoch != reset_generation or _action_generation != _defeat_action_generation or not is_defeated_by(request_owner): return false
+	action_phase = &"collapse"
+	phase_progress = _defeat_progress()
+	_refresh_weapon_permissions()
+	_select_pose()
+	return true
+
+func begin_main_action(id: StringName, capabilities: Dictionary, motion_driver: Callable = Callable()) -> bool:
+	if _entry_assist_querying: _entry_assist_mutated = true
+	if is_defeated() or id.is_empty() or id in [&"ledge", &"roll", &"hurt", &"drop", &"dive", &"climb", &"wall", &"hard_land", &"defeated"] or not can_interrupt_with(id): return false
+	if not _weapon_allows_cancel(id): return false
+	if main_action == &"hard_land": _end_hard_land(id)
+	if main_action == &"wall": _end_wall(id)
+	_clear_wall_kick_grace()
+	if main_action == &"climb": _detach_climb(id)
+	if main_action == &"roll": _end_roll(id)
+	if main_action == &"dive": _end_dive(id)
+	if main_action == &"drop": _end_drop_action(id)
+	_clear_climb_jump_grace()
+	if not _cancel_attack(id): return false
+	if main_action == &"ledge":
+		_clear_ledge()
+		_regrab_timer = profile.ledge_regrab_delay
+		_coyote = 0
+		_jump_buffer = 0
+	var expected_generation = _action_generation + 1
+	_set_action(id, capabilities)
+	if _action_generation != expected_generation or is_defeated(): return false
+	_action_driver = motion_driver
+	return true
+func finish_main_action() -> void:
+	if is_defeated(): return
+	if _entry_assist_querying: _entry_assist_mutated = true
+	if not _cancel_attack(&"forced"): return
+	if main_action == &"hard_land":
+		_end_hard_land(&"forced")
+		return
+	_clear_wall_kick_grace()
+	if main_action == &"wall":
+		_end_wall(&"forced")
+		return
+	_clear_climb_jump_grace()
+	if main_action == &"climb":
+		_detach_climb(&"forced")
+		return
+	if main_action == &"dive":
+		_end_dive(&"forced")
+		return
+	if main_action == &"drop":
+		_end_drop_action(&"forced")
+		return
+	if main_action == &"roll":
+		_end_roll(&"finished")
+		return
+	if main_action == &"ledge":
+		_clear_ledge()
+		_regrab_timer = profile.ledge_regrab_delay
+	_action_driver = Callable()
+	_set_action(&"locomotion", DEFAULT_CAPABILITIES)
+func _set_action(id: StringName, capabilities: Dictionary) -> void:
+	if is_defeated() and id != &"defeated": return
+	_action_generation += 1
+	if id != &"roll": _roll_fall_protection_serial = 0
+	if id != &"air_jump": _wall_air_jump_guard_sides = 0
+	if id != &"locomotion": _clear_wall_kick_grace()
+	if id != &"locomotion": _clear_climb_jump_grace()
+	var previous = main_action
+	main_action = id
+	_capabilities = DEFAULT_CAPABILITIES.duplicate(true)
+	for key in DEFAULT_CAPABILITIES:
+		if capabilities.has(key): _capabilities[key] = capabilities[key]
+	if previous != id:
+		if id != &"ledge":
+			action_phase = &""
+			phase_progress = 0
+		_action_driver = Callable()
+		action_changed.emit(previous, id)
+func set_weapon_permissions(permissions: Dictionary = {}) -> void:
+	if _entry_assist_querying: _entry_assist_mutated = true
+	_external_weapon_permissions = DEFAULT_WEAPON_PERMISSIONS.duplicate(true)
+	for key in DEFAULT_WEAPON_PERMISSIONS:
+		if permissions.has(key): _external_weapon_permissions[key] = permissions[key]
+	_external_weapon_permissions.move_scale = maxf(0, float(_external_weapon_permissions.move_scale))
+	if _attack_hold_admitted and not bool(_external_weapon_permissions.can_attack):
+		_disarm_attack_hold()
+		if weapon_phase == &"charge": _cancel_attack(&"charge_gate_revoked")
+	_refresh_weapon_permissions()
+func _refresh_weapon_permissions() -> void:
+	_weapon_permissions = _external_weapon_permissions.duplicate(true)
+	if is_defeated():
+		for key in DEFAULT_WEAPON_PERMISSIONS:
+			_weapon_permissions[key] = 0.0 if key == "move_scale" else false
+		return
+	_apply_shield_permissions()
+	if _melee_reuse_lock_remaining > 0:
+		_weapon_permissions.can_attack = false
+		_weapon_permissions.can_shield = false
+	if main_action == &"hard_land":
+		for key in ["can_move", "can_jump", "can_roll", "can_attack", "can_drop_through", "can_dive", "can_climb", "can_wall_traverse"]: _weapon_permissions[key] = false
+		_weapon_permissions.can_turn = hard_land_phase == &"recovery" and bool(_weapon_permissions.can_turn)
+	if main_action == &"wall":
+		_weapon_permissions.can_climb = false
+		if wall_phase == &"kick":
+			for key in ["can_move", "can_turn", "can_jump", "can_roll", "can_attack", "can_drop_through", "can_dive"]: _weapon_permissions[key] = false
+	if main_action == &"dive":
+		_weapon_permissions.can_move = dive_phase == &"recovery" and bool(_weapon_permissions.can_move)
+		_weapon_permissions.can_turn = dive_phase == &"recovery" and bool(_weapon_permissions.can_turn)
+		_weapon_permissions.can_jump = dive_phase in [&"startup", &"recovery"] and bool(_weapon_permissions.can_jump)
+		_weapon_permissions.can_roll = dive_phase != &"impact" and bool(_weapon_permissions.can_roll)
+		_weapon_permissions.can_attack = dive_phase in [&"startup", &"recovery"] and bool(_weapon_permissions.can_attack)
+		_weapon_permissions.can_drop_through = false
+		_weapon_permissions.can_dive = false
+	if main_action == &"hurt" or (main_action == &"roll" and roll_phase != &"recovery"):
+		_weapon_permissions.can_move = false
+		_weapon_permissions.can_turn = false
+	if main_action == &"hurt":
+		_weapon_permissions.can_jump = false
+		_weapon_permissions.can_roll = false
+		_weapon_permissions.can_attack = false
+		_weapon_permissions.can_drop_through = false
+		_weapon_permissions.can_dive = false
+	elif main_action == &"roll":
+		_weapon_permissions.can_roll = false
+		_weapon_permissions.can_attack = bool(_weapon_permissions.can_attack) and _time_reached(_roll_elapsed, combat_profile.roll_attack_cancel_after)
+		_weapon_permissions.can_jump = bool(_weapon_permissions.can_jump) and _time_reached(_roll_elapsed, combat_profile.roll_jump_cancel_after)
+		_weapon_permissions.can_drop_through = bool(_weapon_permissions.can_drop_through) and _time_reached(_roll_elapsed, combat_profile.roll_jump_cancel_after)
+		_weapon_permissions.can_dive = bool(_weapon_permissions.can_dive) and _time_reached(_roll_elapsed, combat_profile.roll_jump_cancel_after)
+	if weapon_phase == &"charge" and _melee_input_snapshot != null:
+		_weapon_permissions.can_attack = false
+		_weapon_permissions.move_scale *= _melee_input_snapshot.charge_move_scale
+		_weapon_permissions.can_turn = bool(_weapon_permissions.can_turn) and _melee_input_snapshot.charge_allow_turn
+	elif _active_melee_step != null and weapon_phase != &"idle":
+		_apply_step_permissions()
+	else:
+		if weapon_phase != &"idle": _weapon_permissions.can_attack = false
+		if weapon_phase == &"windup":
+			_weapon_permissions.move_scale *= _attack_tuning(&"attack_windup_move_scale")
+		elif weapon_phase == &"active":
+			_weapon_permissions.can_roll = false
+			_weapon_permissions.can_drop_through = false
+			_weapon_permissions.can_dive = false
+			_weapon_permissions.can_move = false
+			_weapon_permissions.can_turn = false
+			_weapon_permissions.can_jump = false
+		elif weapon_phase == &"recovery":
+			_weapon_permissions.move_scale *= _attack_tuning(&"attack_recovery_move_scale")
+	if is_instance_valid(_drop_body): _weapon_permissions.can_jump = false
+	_weapon_permissions.can_drop_through = bool(_weapon_permissions.can_drop_through) and allow_drop_through and bool(_capabilities.can_drop_through)
+	_weapon_permissions.can_dive = bool(_weapon_permissions.can_dive) and allow_dive and bool(_capabilities.can_dive)
+	_weapon_permissions.can_wall_traverse = bool(_weapon_permissions.can_wall_traverse) and allow_wall_run and bool(_capabilities.can_wall_grab) and can_interrupt_with(&"wall") and _weapon_allows_cancel(&"wall") and not is_instance_valid(_drop_body)
+	_weapon_permissions.can_shield = bool(_weapon_permissions.can_shield) and allow_shield and bool(_capabilities.can_shield) and can_interrupt_with(&"shield") and _weapon_allows_cancel(&"shield") and shield_phase == &"idle" and _shield_lock_remaining <= 0
+	_weapon_permissions.can_climb = bool(_weapon_permissions.can_climb) and allow_climb and bool(_capabilities.can_climb) and can_interrupt_with(&"climb") and _weapon_allows_cancel(&"climb") and not is_instance_valid(_drop_body)
+
+func _select_pose() -> void:
+	if is_defeated(): pose = &"defeated" if grounded else &"defeated_air"
+	elif is_instance_valid(_drop_safety_body): pose = &"drop_blocked"
+	elif main_action == &"hurt": pose = &"hurt"
+	elif main_action == &"hard_land": pose = StringName("hard_land_" + String(hard_land_phase))
+	elif main_action == &"dive": pose = StringName("dive_" + String(dive_phase))
+	elif main_action == &"drop": pose = &"drop"
+	elif main_action == &"wall": pose = StringName("wall_" + String(wall_phase))
+	elif main_action == &"climb": pose = StringName("climb_" + String(_climb_phase))
+	elif main_action == &"roll": pose = StringName("roll_" + String(roll_phase))
+	elif shield_phase != &"idle": pose = StringName("shield_" + String(shield_phase))
+	elif weapon_phase == &"charge": pose = &"attack_charge"
+	elif weapon_phase != &"idle": pose = StringName("attack_" + (String(_active_melee_step.pose_id) + "_" if _active_melee_step != null else "") + String(weapon_phase))
+	elif main_action == &"ledge": pose = StringName("ledge_" + String(action_phase))
+	elif crouched: pose = &"crouch"
+	elif not grounded:
+		if absf(velocity.y) < profile.apex_pose_speed: pose = &"jump_apex"
+		elif velocity.y < 0: pose = &"jump_rise"
+		else: pose = &"fall"
+	elif _land_timer > 0: pose = &"land"
+	elif _turn_timer > 0: pose = &"turn"
+	elif move_x == 0 and absf(velocity.x) > 4: pose = &"brake"
+	elif absf(velocity.x) > 4: pose = &"run"
+	else: pose = &"idle"
+func telemetry() -> Dictionary:
+	return {"position": global_position, "world_position": global_position, "velocity": velocity,
+		"facing": facing, "grounded": grounded, "move_x": move_x, "move_y": move_y,
+		"crouched": crouched, "body_height": body_height, "body_width": profile.body_width,
+		"main_action": String(main_action), "state": String(pose), "pose": String(pose),
+		"action_phase": String(action_phase), "phase_progress": phase_progress,
+		"defeated": is_defeated(), "defeat_elapsed": _defeat_elapsed, "defeat_progress": _defeat_progress(),
+		"air_jumps_left": air_jumps_left, "ledge_anchor": _ledge_anchor, "palm_target": _ledge_anchor,
+		"ledge_direction": _ledge_direction, "hang_target": _hang_at(_ledge_anchor, _ledge_direction),
+		"pull_target": _pull_at(_ledge_anchor, _ledge_direction), "step_target": _step_at(_ledge_anchor, _ledge_direction),
+		"support_id": _support.get_instance_id() if is_instance_valid(_support) else 0,
+		"support_displacement": _support_displacement, "ceiling_contact": _ceiling_this_tick,
+		"time": _clock,
+		"enable_hard_landing": enable_hard_landing, "fall_history_active": _fall_history_active, "fall_distance": _fall_distance, "fall_apex_y": _fall_apex_y,
+		"hard_land_active": main_action == &"hard_land", "hard_land_kind": hard_land_kind, "hard_land_phase": hard_land_phase,
+		"hard_land_phase_progress": _hard_land_phase_progress(), "hard_land_progress": clampf(_hard_land_elapsed / maxf(profile.hard_land_impact_seconds + profile.hard_land_recovery_seconds, 0.001), 0, 1),
+		"hard_land_fall_distance": _hard_land_fall_distance, "hard_land_relative_impact_speed": _hard_land_relative_impact_speed, "hard_land_entry_horizontal_speed": _hard_land_entry_horizontal_speed,
+		"hard_land_skidding": main_action == &"hard_land" and grounded and not _floor_relative_velocity.is_zero_approx(),
+		"ground_follow_segments": _ground_follow_segments, "ground_follow_limited": _ground_follow_limited,
+		"floor_normal": _floor_contact_normal, "floor_contact_point": _floor_contact_point, "floor_relative_velocity": _floor_relative_velocity,
+		"roll_serial": roll_serial, "roll_fall_protected": is_roll_fall_protected(),
+		"drop_active": main_action == &"drop", "drop_phase": &"release" if is_instance_valid(_drop_body) else &"clear",
+		"drop_progress": clampf(_drop_elapsed / maxf(profile.drop_release_seconds, 0.001), 0, 1),
+		"drop_target_id": _drop_target_id, "drop_exception_active": is_instance_valid(_drop_body),
+		"drop_ignore_elapsed": _drop_ignore_elapsed, "drop_cleanup_blocked": _drop_cleanup_blocked, "drop_geometry_blocked": is_instance_valid(_drop_safety_body), "down_intent": _down_intent, "down_buffer": _down_buffer,
+		"allow_drop_through": allow_drop_through, "allow_dive": allow_dive,
+		"allow_wall_run": allow_wall_run, "wall_active": main_action == &"wall" and wall_phase in [&"run", &"slide"],
+		"wall_phase": wall_phase, "wall_phase_progress": phase_progress if main_action == &"wall" else 0.0,
+		"wall_side": _wall_side, "wall_normal": Vector2(-_wall_side, 0) if main_action == &"wall" and wall_phase != &"kick" else _wall_normal,
+		"wall_plane_x": _wall_plane, "wall_contact_point": Vector2(_wall_plane, global_position.y - body_height * 0.55),
+		"wall_contact_id": _wall_body.get_instance_id() if is_instance_valid(_wall_body) else 0,
+		"wall_top_y": _wall_contact_bounds.position.y, "wall_bottom_y": _wall_contact_bounds.end.y,
+		"wall_relative_travel": _wall_relative_travel, "wall_run_rise": _wall_run_rise, "wall_run_elapsed": _wall_run_elapsed,
+		"wall_run_progress": _wall_run_progress(), "wall_exhausted": _wall_run_exhausted(), "wall_slide_elapsed": _wall_slide_elapsed,
+		"wall_support_transport": _wall_transport, "wall_kick_direction": _wall_kick_direction,
+		"wall_kick_progress": clampf(_wall_kick_elapsed / maxf(profile.wall_kick_commit_seconds, 0.001), 0, 1),
+		"wall_regrab_remaining": _wall_regrab_timer, "wall_rearm_ready": _wall_rearm_ready,
+		"wall_episode_serial": _wall_episode_serial, "wall_kick_grace": _wall_kick_grace,
+		"wall_jump_waiting": _wall_jump_waiting, "wall_air_jump_guard_sides": _wall_air_jump_guard_sides,
+		"allow_climb": allow_climb, "climb_active": main_action == &"climb", "climb_phase": _climb_phase,
+		"climb_phase_progress": phase_progress if main_action == &"climb" else 0.0,
+		"climb_target_id": _climb_target.get_instance_id() if is_instance_valid(_climb_target) else 0,
+		"climb_axis_x": _climb_geometry.get("axis_x", global_position.x),
+		"climb_top_y": _climb_geometry.get("top_y", global_position.y), "climb_bottom_y": _climb_geometry.get("bottom_y", global_position.y),
+		"climb_width": _climb_geometry.get("width", 20.0), "climb_type": _climb_geometry.get("type", "ladder"), "climb_velocity": velocity.y if main_action == &"climb" else 0.0,
+		"climb_distance": _climb_distance, "climb_transport": _climb_transport, "climb_rung_spacing": _climb_geometry.get("rung_spacing", 12.0), "climb_rung_origin_offset": _climb_geometry.get("rung_origin_offset", 4.0),
+		"climb_jump_grace": _climb_jump_grace, "climb_regrab_remaining": _climb_regrab_timer, "climb_needs_neutral": _climb_needs_neutral,
+		"dive_available": dive_available, "dive_phase": dive_phase, "dive_phase_progress": _dive_progress(), "dive_serial": dive_serial,
+		"dive_direction": dive_direction, "dive_fall_distance": _dive_fall_distance, "dive_impact_speed": _dive_impact_speed,
+		"roll_elapsed": _roll_elapsed, "weapon_elapsed": _weapon_elapsed, "jump_buffer": _jump_buffer,
+		"strike_center": _strike_center(), "strike_size": _attack_tuning(&"strike_size"), "hurt_direction": signf(velocity.x),
+		"roll_phase": roll_phase, "roll_progress": _roll_elapsed / maxf(_roll_duration(), 0.001) if main_action == &"roll" else 0.0,
+		"roll_phase_progress": _roll_phase_progress(), "roll_direction": roll_direction,
+		"roll_invulnerable": is_roll_invulnerable(), "roll_cooldown": _roll_cooldown,
+		"shield_active": shield_phase != &"idle", "shield_phase": shield_phase, "shield_phase_progress": _shield_phase_progress(),
+		"shield_elapsed": _shield_elapsed, "shield_serial": shield_serial, "shield_facing": facing,
+		"shield_center": _shield_center(), "shield_size": _shield_size(), "shield_normal": Vector2(facing, 0),
+		"shield_parry_open": is_shield_parry_open(), "shield_buffer": _shield_buffer, "shield_lock_remaining": _shield_lock_remaining,
+		"shield_holdable": shield_profile.can_be_held, "last_defense_outcome": _last_defense_outcome, "shield_effect_pending": not _shield_effect_scope.is_empty(),
+		"allow_shield": allow_shield, "weapon_generation": _weapon_generation,
+		"incoming_history_entries": _incoming_history_count(), "incoming_history_sources": _incoming_histories.size(), "incoming_history_window": maxi(1, shield_profile.incoming_history_window),
+		"attack_pose_id": _active_melee_step.pose_id if _active_melee_step != null else &"",
+		"attack_step_index": _chain_step_index if _active_melee_step != null else -1,
+		"attack_step_label": _active_melee_step.step_label if _active_melee_step != null else "",
+		"chain_serial": _chain_serial, "chain_id": _chain_snapshot.chain_id if _chain_snapshot != null else &"",
+		"chain_next_step": _chain_next_step, "chain_retention_remaining": _chain_retention_remaining,
+		"chain_pending_input_id": int(_chain_pending.get("id", 0)), "chain_pending_step": int(_chain_pending.get("step", -1)),
+		"chain_pending_remaining": float(_chain_pending.get("remaining", 0)), "chain_pending_kind": _chain_pending.get("kind", &""),
+		"input_mode": _input_mode_name(), "attack_hold_id": _attack_hold_id, "attack_hold_armed": _attack_hold_armed,
+		"attack_hold_released": _attack_hold_released, "attack_rearm_required": _attack_rearm_required,
+		"attack_request_id": _attack_request_id, "attack_request_kind": _attack_request_kind, "attack_origin_hold_id": _attack_origin_hold_id,
+		"pending_attack_request_id": int(_chain_pending.get("request_id", _attack_buffer_request_id if _attack_buffer > 0 else 0)),
+		"pending_attack_request_kind": _chain_pending.get("request_kind", _attack_buffer_kind if _attack_buffer > 0 else &""),
+		"repeat_restart_remaining": _repeat_restart_remaining, "charge_serial": _charge_serial, "charge_role": _charge_role,
+		"charge_phase": (&"ready" if _melee_input_snapshot != null and _time_reached(_charge_elapsed, _melee_input_snapshot.charge_seconds) else &"loading") if weapon_phase == &"charge" else &"",
+		"charge_elapsed": _charge_elapsed, "charge_duration": _melee_input_snapshot.charge_seconds if _melee_input_snapshot != null else 0.0,
+		"charge_progress": clampf(_charge_elapsed / maxf(_melee_input_snapshot.charge_seconds, 0.001), 0, 1) if _melee_input_snapshot != null else 0.0,
+		"attack_initial_fresh_admission": _attack_initial_fresh_admission,
+		"entry_assist_query_count": _entry_assist_query_count, "entry_assist_token": _entry_assist_token,
+		"entry_assist_attack_serial": _entry_assist_attack_serial, "entry_assist_reason": _entry_assist_reason,
+		"entry_assist_manual_x": _entry_assist_manual_x, "entry_assist_facing_before": _entry_assist_facing_before,
+		"entry_assist_facing_after": _entry_assist_facing_after,
+		"attack_input_id": _attack_input_sequence, "attack_consumed_input_id": _attack_consumed_input_id,
+		"melee_configuration_epoch": _melee_configuration_epoch, "attack_configuration_epoch": _attack_configuration_epoch,
+		"attack_step_elapsed": _attack_step_elapsed, "attack_active_sampled": _attack_active_sampled, "melee_reuse_lock_remaining": _melee_reuse_lock_remaining,
+		"air_roll_available": air_roll_available, "weapon_phase": weapon_phase,
+		"weapon_phase_progress": clampf(_weapon_elapsed / maxf(_weapon_duration(), 0.001), 0, 1),
+		"attack_serial": attack_serial, "attack_facing": attack_facing,
+		"hitpause_remaining": hitpause_remaining, "paused": _paused_this_tick or hitpause_remaining > 0,
+		"hurt_progress": _hurt_elapsed / maxf(_hurt_duration, 0.001) if main_action == &"hurt" else 0.0,
+		"strike_active": weapon_phase == &"active", "allow_input": allow_input,
+		"roll_buffer": _roll_buffer, "attack_buffer": _attack_buffer, "run_speed": profile.run_speed, "run_reference_speed": profile.run_speed}
+func noise_generation() -> int:
+	return _reset_epoch
+func _noise_owner_live(generation: int) -> bool:
+	return is_inside_tree() and not is_queued_for_deletion() and generation == _reset_epoch
+func _commit_noise(origin: Vector2, kind: StringName, loudness: float, generation: int) -> void:
+	# Scalar arguments preserve the actual event through synchronous callbacks.
+	# A reset retires the event; an ordinary teleport must not relocate it.
+	if not _noise_owner_live(generation): return
+	noise_requested.emit(origin, kind, loudness, self)
+	if not _noise_owner_live(generation): return
+	if not origin.is_finite() or not is_finite(loudness) or loudness <= 0: return
+	_noise_receipt_sequence += 1
+	var event := {"actor_id": get_instance_id(), "generation": generation, "serial": _noise_receipt_sequence,
+		"origin": origin, "kind": kind, "loudness": loudness}
+	event.make_read_only()
+	noise_committed.emit(event)
+func _emit(name_: StringName, payload: Dictionary) -> void:
+	payload = payload.duplicate()
+	payload["position"] = global_position
+	payload["facing"] = facing
+	movement_event.emit(name_, payload)
+func reset_actor(at: Vector2, look: int = 1) -> void:
+	if _entry_assist_querying: _entry_assist_mutated = true
+	_reset_epoch += 1
+	_reset_fresh_start_sequence()
+	var own_reset_epoch = _reset_epoch
+	_clear_defeated_gate(false)
+	_defeat_input_rearm.clear()
+	var own_defeat_generation = _defeat_generation
+	_melee_reuse_lock_remaining = 0
+	_attack_buffer_input_id = 0
+	_attack_consumed_input_id = 0
+	_cancel_shield(&"reset")
+	if _reset_epoch != own_reset_epoch or _defeat_generation != own_defeat_generation: return
+	_shield_lock_remaining = 0
+	_shield_buffer = 0
+	_last_shield_held = false
+	_last_defense_outcome = &""
+	_incoming_histories.clear()
+	_shield_effect_scope.clear()
+	if main_action == &"hard_land": _end_hard_land(&"reset")
+	if _reset_epoch != own_reset_epoch or _defeat_generation != own_defeat_generation: return
+	hard_land_phase = &""
+	hard_land_kind = &"ordinary"
+	_hard_land_elapsed = 0
+	_hard_land_fall_distance = 0
+	_hard_land_relative_impact_speed = 0
+	_hard_land_entry_horizontal_speed = 0
+	_roll_fall_protection_serial = 0
+	_ground_contact_registered = false
+	_landed_this_tick = false
+	_ground_follow_segments = 0
+	_ground_follow_limited = false
+	_ground_follow_steps_left = 32
+	_floor_contact_point = at
+	_floor_contact_local = Vector2.ZERO
+	_floor_surface_velocity = Vector2.ZERO
+	_floor_relative_velocity = Vector2.ZERO
+	if main_action == &"wall": _end_wall(&"reset")
+	if _reset_epoch != own_reset_epoch or _defeat_generation != own_defeat_generation: return
+	_reset_wall_budget()
+	_clear_wall_kick_grace()
+	_wall_regrab_timer = 0
+	_wall_geometry.clear()
+	_wall_contact_bounds = Rect2()
+	_wall_transport = Vector2.ZERO
+	_wall_relative_travel = 0
+	_wall_plane = 0
+	_wall_kick_elapsed = 0
+	_clear_climb_jump_grace()
+	if main_action == &"climb": _detach_climb(&"reset")
+	if _reset_epoch != own_reset_epoch or _defeat_generation != own_defeat_generation: return
+	_climb_regrab_timer = 0
+	_climb_needs_neutral = false
+	_climb_geometry.clear()
+	_climb_origin = Vector2.ZERO
+	_climb_signature = Vector2.ZERO
+	_climb_distance = 0
+	_climb_transport = Vector2.ZERO
+	_climb_phase_elapsed = 0
+	_cancel_attack(&"reset")
+	if _reset_epoch != own_reset_epoch or _defeat_generation != own_defeat_generation: return
+	if main_action == &"dive": _end_dive(&"reset")
+	if _reset_epoch != own_reset_epoch or _defeat_generation != own_defeat_generation: return
+	if main_action == &"drop": _end_drop_action(&"reset")
+	if _reset_epoch != own_reset_epoch or _defeat_generation != own_defeat_generation: return
+	_clear_drop_exception(&"reset")
+	if _reset_epoch != own_reset_epoch or _defeat_generation != own_defeat_generation: return
+	_drop_safety_body = null
+	_dive_impacted_this_tick = false
+	_drop_elapsed = 0
+	_drop_ignore_elapsed = 0
+	_drop_target_id = 0
+	dive_available = true
+	_dive_start_y = at.y
+	_dive_phase_elapsed = 0
+	_dive_fall_distance = 0
+	_dive_impact_speed = 0
+	_floor_contact_normal = Vector2.UP
+	if main_action == &"roll": _end_roll(&"reset")
+	if _reset_epoch != own_reset_epoch or _defeat_generation != own_defeat_generation: return
+	roll_phase = &""
+	_roll_elapsed = 0
+	_roll_cooldown = 0
+	air_roll_available = true
+	hitpause_remaining = 0
+	_paused_this_tick = false
+	_hurt_elapsed = 0
+	_hurt_duration = 0
+	clear_input_buffers()
+	_last_roll_held = false
+	_last_attack_held = false
+	_strike_previous_center = at
+	roll_direction = -1 if look < 0 else 1
+	attack_facing = roll_direction
+	global_position = at
+	_break_fall_history()
+	velocity = Vector2.ZERO
+	facing = -1 if look < 0 else 1
+	grounded = false
+	crouched = false
+	_apply_shape()
+	_clear_ledge()
+	finish_main_action()
+	if _reset_epoch != own_reset_epoch or _defeat_generation != own_defeat_generation: return
+	set_weapon_permissions()
+	if _reset_epoch != own_reset_epoch or _defeat_generation != own_defeat_generation: return
+	air_jumps_left = profile.air_jump_count
+	_jump_buffer = 0
+	_coyote = 0
+	_turn_timer = 0
+	_land_timer = 0
+	_regrab_timer = 0
+	_blocked_pull_timer = 0
+	_footstep_travel = 0
+	move_x = 0
+	move_y = 0
+	_support_displacement = Vector2.ZERO
+	_support_position = Vector2.ZERO
+	_support_anchor_position = Vector2.ZERO
+	_support_local_normal = Vector2.UP
+	_support_transport_blocked = false
+	_rigid_contact_budget = 0.0
+	_voluntary_ground_target = Vector2.ZERO
+	_pressure_request_x = 0.0
+	_pressure_request_direction = 0
+	_pressure_request_body = null
+	_pressure_request_frame = -1
+	_pressure_request_material = null
+	_pressure_request_force = 0.0
+	rigid_contact_impulse_this_tick = 0.0
+	last_rigid_contact.clear()
+	_last_pending_transport_velocity = Vector2.ZERO
+	_last_pending_transport_body = null
+	_last_pending_transport_frame = -1
+	_floor_contact_sweep = false
+	_ceiling_this_tick = false
+	_wall_normal = Vector2.ZERO
+	_ledge_anchor = Vector2.ZERO
+	_ledge_local_anchor = Vector2.ZERO
+	_ledge_local_normal = Vector2.UP
+	_ledge_start = Vector2.ZERO
+	_catch_wants_pull = false
+	_active_hang_drop = profile.ledge_hang_drop
+	_support = null
+	_pause_support = null
+	_pause_support_position = Vector2.ZERO
+	_pause_support_anchor_position = Vector2.ZERO
+	_pause_support_local_anchor = Vector2.ZERO
+	_pause_support_floor_contact = false
+	_pause_support_local_normal = Vector2.UP
+	_pause_wall_guard = false
+	_last_jump_held = false
+	_last_move_x = 0
+	_last_position = at
+	pose = &"idle"
+	_clock = 0
+	_ledge_direction = facing
+	# A reset may be called synchronously inside an admitted physics tick.
+	# Its epoch stops that old tick, while any retiring helper still sees a
+	# complete neutral snapshot rather than missing dictionary properties.
+	_input = _sample_input({})
+	if is_instance_valid(_visual) and _visual.has_method("reset_presentation"): _visual.reset_presentation()
+	_emit(&"reset", {})
+func _sample_input(injected: Variant) -> Dictionary:
+	var raw: Dictionary
+	if injected == null:
+		raw = {"left": Input.get_action_strength("cp_left"), "right": Input.get_action_strength("cp_right"), "up": Input.get_action_strength("cp_up"), "down": Input.get_action_strength("cp_down")}
+		for name_ in ["jump", "roll", "attack", "shield"]:
+			raw[name_] = Input.is_action_pressed("cp_" + name_)
+			raw[name_ + "_pressed"] = Input.is_action_just_pressed("cp_" + name_)
+			raw[name_ + "_released"] = Input.is_action_just_released("cp_" + name_)
+	else: raw = injected
+	var result = {"x": clampf(float(raw.get("right", 0)) - float(raw.get("left", 0)), -1, 1), "y": clampf(float(raw.get("down", 0)) - float(raw.get("up", 0)), -1, 1)}
+	result.physical_y = result.y
+	var input_enabled = allow_input and not is_defeated()
+	var previous = {"jump": _last_jump_held, "roll": _last_roll_held, "attack": _last_attack_held, "shield": _last_shield_held}
+	for name_ in previous:
+		var held = bool(raw.get(name_, false))
+		result[name_] = held
+		result[name_ + "_pressed"] = input_enabled and bool(raw.get(name_ + "_pressed", held and not previous[name_]))
+		result[name_ + "_released"] = input_enabled and bool(raw.get(name_ + "_released", not held and previous[name_]))
+	_last_jump_held = result.jump
+	_last_roll_held = result.roll
+	_last_attack_held = result.attack
+	_last_shield_held = result.shield
+	for name_ in previous:
+		if not bool(result[name_]): _defeat_input_rearm.erase(name_)
+		elif is_defeated(): _defeat_input_rearm[name_] = true
+		if _defeat_input_rearm.has(name_):
+			result[name_] = false
+			result[name_ + "_pressed"] = false
+			result[name_ + "_released"] = false
+	if not input_enabled:
+		result.x = 0.0
+		result.y = 0.0
+		for name_ in previous: result[name_] = false
+	return result
+static func ensure_default_inputs() -> void:
+	var keys = {"cp_left": [KEY_A, KEY_LEFT], "cp_right": [KEY_D, KEY_RIGHT], "cp_up": [KEY_W, KEY_UP], "cp_down": [KEY_S, KEY_DOWN], "cp_jump": [KEY_SPACE, KEY_C], "cp_roll": [KEY_SHIFT], "cp_attack": [KEY_J], "cp_shield": [KEY_K]}
+	for action in keys:
+		if not InputMap.has_action(action): InputMap.add_action(action, 0.25)
+		if InputMap.action_get_events(action).is_empty():
+			for code in keys[action]:
+				var event = InputEventKey.new()
+				event.physical_keycode = code
+				InputMap.action_add_event(action, event)
+			var pad = InputEventJoypadButton.new()
+			pad.button_index = {"cp_left": JOY_BUTTON_DPAD_LEFT, "cp_right": JOY_BUTTON_DPAD_RIGHT, "cp_up": JOY_BUTTON_DPAD_UP, "cp_down": JOY_BUTTON_DPAD_DOWN, "cp_jump": JOY_BUTTON_A, "cp_roll": JOY_BUTTON_RIGHT_SHOULDER, "cp_attack": JOY_BUTTON_X, "cp_shield": JOY_BUTTON_LEFT_SHOULDER}[action]
+			InputMap.action_add_event(action, pad)
+			if action in ["cp_left", "cp_right", "cp_up", "cp_down"]:
+				var stick = InputEventJoypadMotion.new()
+				stick.axis = JOY_AXIS_LEFT_X if action in ["cp_left", "cp_right"] else JOY_AXIS_LEFT_Y
+				stick.axis_value = -1.0 if action in ["cp_left", "cp_up"] else 1.0
+				InputMap.action_add_event(action, stick)
+func _draw() -> void:
+	if debug_draw_collision:
+		draw_rect(Rect2(Vector2(-profile.body_width * 0.5, -body_height), Vector2(profile.body_width, body_height)), Color(0.4, 0.9, 1, 0.6), false, 0.6)

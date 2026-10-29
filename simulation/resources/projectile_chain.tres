@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="MokshaMeleeChainProfile" load_steps=4 format=3]
+[ext_resource type="Script" path="res://combat_pc/resources/melee_chain.gd" id="1"]
+[ext_resource type="Script" path="res://combat_pc/resources/melee_step.gd" id="2"]
+[sub_resource type="Resource" id="Step"]
+resource_local_to_scene = true
+script = ExtResource("2")
+step_label = "Release projectile"
+pose_id = &"projectile"
+next_step = -1
+windup_seconds = 0.72
+active_seconds = 0.001
+recovery_seconds = 0.95
+windup_move_scale = 0.0
+recovery_move_scale = 0.0
+active_ground_speed = 0.0
+allow_turn_windup = false
+allow_turn_active = false
+allow_turn_recovery = false
+damage = 1.0
+loudness = 0.0
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1")
+chain_id = &"projectile"
+steps = Array[ExtResource("2")]([SubResource("Step")])

@@ -1,0 +1,39 @@
+extends "res://simulation/tests/review_projectile_adversity.gd"
+const ReceiverProbe=preload("res://simulation/tests/review_projectile_receiver_probe.gd")
+func _probe(actor:Node)->Node:
+	var old:Node=actor.get_node("ProjectileReceiver")
+	old.unbind()
+	actor.remove_child(old)
+	old.queue_free()
+	var probe:=ReceiverProbe.new()
+	probe.name="ProjectileReceiver"
+	actor.add_child(probe)
+	probe.projectile_resolved.connect(func(event):receipts.append(event.duplicate(true)))
+	return probe
+func _run()->void:
+	for operation in ["carrier_teleport","carrier_velocity","carrier_shape_replace","target_shape_replace","target_reset","source_reset"]:
+		await _begin(operation,"raw","raw",180)
+		emissions=[];resolutions=[];retirements=[]
+		var capture_frames:Array[int]=[]
+		var probe:=_probe(right)
+		probe.callback=func():
+			capture_frames.append(Engine.get_physics_frames())
+			var carrier:Node2D=get_nodes_in_group("shared_projectiles")[0]
+			match operation:
+				"carrier_teleport": carrier.global_position+=Vector2(1000,0)
+				"carrier_velocity": carrier.velocity=Vector2(0,1000)
+				"carrier_shape_replace":
+					var shape:=CircleShape2D.new()
+					shape.radius=carrier.radius
+					carrier.get_node("CarrierShape").shape=shape
+				"target_shape_replace":
+					var shape:Shape2D=right.get_node("BodyShape").shape.duplicate()
+					right.get_node("BodyShape").shape=shape
+				"target_reset":right.reset_actor(right.position,-1)
+				"source_reset":left.reset_actor(left.position,1)
+		await _frames(3)
+		await _attack(left)
+		await _frames(ceili(hz*2.5))
+		print("CAPTURE ",operation," CAPTURE_FRAMES ",capture_frames," HEALTH ",_health(right)," RESOLVED ",resolutions," RETIRED ",retirements)
+		await _end()
+	quit()

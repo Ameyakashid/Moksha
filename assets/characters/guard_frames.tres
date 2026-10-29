@@ -1,0 +1,145 @@
+[gd_resource type="SpriteFrames" load_steps=14 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/characters/guard_sheet.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="Atlas_00"]
+atlas = ExtResource("1_sheet")
+region = Rect2(124, 14, 232, 309)
+margin = Rect2(246, 47, 408, 75)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Atlas_01"]
+atlas = ExtResource("1_sheet")
+region = Rect2(516, 15, 235, 309)
+margin = Rect2(243, 48, 405, 75)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Atlas_02"]
+atlas = ExtResource("1_sheet")
+region = Rect2(900, 28, 292, 297)
+margin = Rect2(196, 60, 348, 87)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Atlas_03"]
+atlas = ExtResource("1_sheet")
+region = Rect2(94, 335, 284, 299)
+margin = Rect2(204, 56, 356, 85)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Atlas_04"]
+atlas = ExtResource("1_sheet")
+region = Rect2(486, 332, 316, 305)
+margin = Rect2(179, 51, 324, 79)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Atlas_05"]
+atlas = ExtResource("1_sheet")
+region = Rect2(923, 336, 283, 301)
+margin = Rect2(203, 54, 357, 83)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Atlas_06"]
+atlas = ExtResource("1_sheet")
+region = Rect2(60, 639, 332, 295)
+margin = Rect2(177, 60, 308, 89)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Atlas_07"]
+atlas = ExtResource("1_sheet")
+region = Rect2(466, 644, 359, 289)
+margin = Rect2(164, 66, 281, 95)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Atlas_08"]
+atlas = ExtResource("1_sheet")
+region = Rect2(822, 669, 430, 263)
+margin = Rect2(143, 94, 210, 121)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Atlas_09"]
+atlas = ExtResource("1_sheet")
+region = Rect2(78, 940, 357, 289)
+margin = Rect2(180, 68, 283, 95)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Atlas_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(499, 940, 306, 289)
+margin = Rect2(200, 68, 334, 95)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Atlas_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(890, 960, 338, 269)
+margin = Rect2(177, 88, 302, 115)
+filter_clip = true
+
+[resource]
+animations = [
+{
+"frames": [
+{"duration": 1.0, "texture": SubResource("Atlas_00")},
+{"duration": 1.0, "texture": SubResource("Atlas_01")}
+],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+},
+{
+"frames": [
+{"duration": 1.0, "texture": SubResource("Atlas_02")},
+{"duration": 1.0, "texture": SubResource("Atlas_03")},
+{"duration": 1.0, "texture": SubResource("Atlas_04")},
+{"duration": 1.0, "texture": SubResource("Atlas_05")}
+],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+},
+{
+"frames": [
+{"duration": 1.0, "texture": SubResource("Atlas_06")},
+{"duration": 1.8, "texture": SubResource("Atlas_07")}
+],
+"loop": false,
+"name": &"windup",
+"speed": 8.0
+},
+{
+"frames": [
+{"duration": 1.3, "texture": SubResource("Atlas_08")},
+{"duration": 1.0, "texture": SubResource("Atlas_09")}
+],
+"loop": false,
+"name": &"thrust",
+"speed": 12.0
+},
+{
+"frames": [
+{"duration": 1.0, "texture": SubResource("Atlas_06")},
+{"duration": 2.0, "texture": SubResource("Atlas_07")},
+{"duration": 0.55, "texture": SubResource("Atlas_08")},
+{"duration": 1.2, "texture": SubResource("Atlas_09")},
+{"duration": 1.5, "texture": SubResource("Atlas_11")}
+],
+"loop": false,
+"name": &"spear_sequence",
+"speed": 12.0
+},
+{
+"frames": [
+{"duration": 1.0, "texture": SubResource("Atlas_10")}
+],
+"loop": false,
+"name": &"hurt",
+"speed": 1.0
+},
+{
+"frames": [
+{"duration": 1.0, "texture": SubResource("Atlas_11")}
+],
+"loop": false,
+"name": &"ready",
+"speed": 1.0
+}
+]

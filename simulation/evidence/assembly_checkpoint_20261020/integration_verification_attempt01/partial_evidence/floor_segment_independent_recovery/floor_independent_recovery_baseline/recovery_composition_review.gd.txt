@@ -1,0 +1,42 @@
+extends "res://demo/tests/expanded_mission_route_bot.gd"
+const Actor = preload("res://simulation/actors/shared_actor.tscn")
+class ProbeHost extends Node2D:
+	var player: Node2D
+class Raw extends Node:
+	var raw := {}
+	func sample_raw(_actor: Node, _dt: float) -> Dictionary: return raw.duplicate(true)
+	func reset_intent() -> void: raw.clear()
+var review_results: Array=[]
+func _initialize() -> void:
+	Engine.physics_ticks_per_second=120
+	run.call_deferred()
+func run() -> void:
+	for kind in ["below","above","below","above"]:
+		host=ProbeHost.new();root.add_child(host)
+		var room=load("res://demo/components/mission_room.gd").new();host.add_child(room);room.build({"theme":"interior","width":2000,"platforms":[]})
+		var obstacle=preload("res://simulation/world/static_platform.tscn").instantiate();obstacle.position=Vector2(1447.381,256.1996);obstacle.platform_size=Vector2(28,28);obstacle.rotation=0.00206;host.add_child(obstacle)
+		var actor=Actor.instantiate();actor.position=Vector2(1478,250)
+		var source:=Raw.new();source.name="InputSource";actor.add_child(source);host.add_child(actor);host.player=actor
+		var target:=Vector2(1466,270 if kind=="below" else 230)
+		var reached_hang:=false;var fired:=false;var exited:=false;var landed:=false;var sent:Dictionary={};var samples:Array=[]
+		stagnant=0;var prior_x:float=actor.position.x
+		for i in range(500):
+			if absf(actor.position.x-prior_x)<0.3:stagnant+=1.0/120.0
+			else:stagnant=0
+			prior_x=actor.position.x
+			if actor.main_action==&"ledge" and actor.action_phase==&"hang":reached_hang=true
+			var recovery:Dictionary=ledge_waypoint_recovery(target)
+			if not recovery.is_empty():fired=true;sent=recovery.duplicate()
+			if fired and actor.main_action!=&"ledge":exited=true
+			if exited and actor.grounded:landed=true
+			if not recovery.is_empty():source.raw=recovery
+			elif fired:source.raw={}
+			elif actor.main_action==&"ledge":source.raw={}
+			else:source.raw={"left":1.0}
+			if i%30==0:samples.append({"tick":i,"pos":str(actor.position),"action":str(actor.main_action),"phase":str(actor.action_phase),"grounded":actor.grounded,"input":source.raw.duplicate()})
+			await physics_frame;await process_frame
+		review_results.append({"kind":kind,"hang":reached_hang,"fired":fired,"sent":sent,"exited":exited,"landed":landed,"samples":samples})
+		host.queue_free();await physics_frame;await process_frame
+	print("INDEPENDENT RECOVERY ",JSON.stringify(review_results))
+	FileAccess.open("res://review_results.json",FileAccess.WRITE).store_string(JSON.stringify(review_results,"\t"))
+	quit()

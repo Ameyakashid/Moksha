@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3]
+[ext_resource type="Script" path="res://demo/views/favela_piece.gd" id="1"]
+[ext_resource type="Script" path="res://demo/views/favela_appearance.gd" id="2"]
+[sub_resource type="Resource" id="Paint"]
+resource_local_to_scene = true
+script = ExtResource("2")
+[node name="FavelaBuilding" type="Node2D"]
+script = ExtResource("1")
+kind = 0
+appearance = SubResource("Paint")

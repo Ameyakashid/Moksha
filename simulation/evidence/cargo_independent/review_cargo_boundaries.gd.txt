@@ -1,0 +1,277 @@
+extends SceneTree
+const CRATE = preload("res://scenes/props/crate.tscn")
+const PROP = preload("res://demo/components/mission_prop.gd")
+const SENTINEL = preload("res://demo/components/shared_sentinel.tscn")
+var hz := 120
+var world: Node2D
+var actor: Node2D
+var health: Node
+var checks: Array[Dictionary] = []
+var failures: Array[String] = []
+var label := ""
+func _initialize() -> void:
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--hz="): hz = int(arg.trim_prefix("--hz="))
+	Engine.physics_ticks_per_second = hz
+	_run.call_deferred()
+func frames(count: int) -> void:
+	for i in count:
+		await physics_frame
+		await process_frame
+func until(predicate: Callable, seconds := 2.0) -> bool:
+	for i in ceili(seconds * hz):
+		await frames(1)
+		if predicate.call(): return true
+	return false
+func check(ok: bool, detail: String) -> void:
+	checks.append({"scenario":label,"detail":detail,"passed":ok})
+	if not ok: failures.append(label + ": " + detail)
+func solid(at: Vector2, size: Vector2, layer := 1) -> StaticBody2D:
+	var body := StaticBody2D.new(); body.position = at; body.collision_layer = layer
+	var shape := CollisionShape2D.new(); var rect := RectangleShape2D.new(); rect.size = size
+	shape.shape = rect; body.add_child(shape); world.add_child(body); return body
+func begin(name: String, x := 400.0) -> void:
+	label = name
+	world = Node2D.new(); root.add_child(world)
+	solid(Vector2(400,220),Vector2(1400,40))
+	actor = SENTINEL.instantiate(); actor.position = Vector2(x,200); actor.ai_enabled = false; actor.max_health = 30.0
+	world.add_child(actor); health = actor.get_node("Health")
+	await frames(8)
+func finish() -> void:
+	world.queue_free(); paused = false; await frames(3)
+func spawn(at: Vector2, velocity := Vector2.ZERO, charged := false, fragile := false, intercept := false) -> RigidBody2D:
+	var box = CRATE.instantiate()
+	box.set_script(preload("res://simulation/tests/review_chain_interceptor.gd") if intercept else PROP)
+	box.collision_mask = 43; box.position = at; box.tuning = box.tuning.duplicate(true)
+	box.tuning.hard_impacts_to_break = 100; box.tuning.body_gravity_scale = 0.0
+	box.tuning.body_linear_damp = 0.0; box.tuning.launch_lift = 0.0; box.tuning.launch_spin_range = Vector2.ZERO
+	box.linear_velocity = velocity; world.add_child(box); box.impact_profile.break_on_accepted_impact = fragile
+	if charged: box.charge = 2.5
+	return box
+func relocate(box: RigidBody2D, at: Vector2, velocity := Vector2.ZERO) -> void:
+	# Explicit test-scene reset. It preserves epochs/history and never grants a contact.
+	box.invalidate_pending_contacts(); box.position = at; box.linear_velocity = velocity
+	box.angular_velocity = 0.0; box.rotation = 0.0; box.sleeping = false
+func _run() -> void:
+	await authority_boundaries()
+	await receipt_retirement()
+	await break_callbacks()
+	await chain_retirement()
+	await chain_query_reentrancy()
+	await chain_epochs()
+	await obstruction_queries()
+	await unpermitted_carrier_obstruction()
+	var report := {"hz":hz,"checks":checks,"failures":failures,"scope":"Independent real rigid contact probes. Initial velocity/charge and between-phase placement are labelled fixture setup. Obstruction checks are explicit read-only API boundaries, not gameplay hits."}
+	FileAccess.open("res://simulation/evidence/review_cargo_boundaries_%d.json"%hz,FileAccess.WRITE).store_string(JSON.stringify(report,"  ")+"\n")
+	print("INDEPENDENT CARGO BOUNDARIES ",hz," Hz: ",checks.size()," checks; ",failures.size()," failures")
+	for failure in failures: printerr(failure)
+	quit(0 if failures.is_empty() else 1)
+func break_callbacks() -> void:
+	for stage in ["prop_break_noise","break_burst"]:
+		await begin("accepted break callback / "+stage,240)
+		var box := spawn(Vector2(120,180),Vector2(280,0),true,true)
+		var id := box.get_instance_id(); var ref: WeakRef = weakref(box)
+		var reset := [false]; var later_bursts := [0]; var destroyed := [0]; var accepted := [0]
+		box.physical_contact_resolved.connect(func(e):
+			if e.accepted: accepted[0] += 1)
+		box.burst_requested.connect(func(_at,_count,color,_speed):
+			if reset[0]: later_bursts[0] += 1
+			if stage == "break_burst" and color.is_equal_approx(Color("a8b4b3")) and not reset[0]:
+				reset[0] = true; actor.reset_at(actor.position))
+		box.destroyed.connect(func(_box):destroyed[0] += 1)
+		var callback := func(_at,kind,_volume,source):
+			if stage == "prop_break_noise" and is_instance_valid(source) and source.get_instance_id() == id and kind == &"prop_break" and not reset[0]:
+				reset[0] = true; actor.reset_at(actor.position)
+		root.get_node("NoiseBus").noise_emitted.connect(callback)
+		check(await until(func():return ref.get_ref() == null),"real accepted contact commits terminal cargo deletion")
+		root.get_node("NoiseBus").noise_emitted.disconnect(callback)
+		check(reset[0] and accepted[0] == 1 and health.current_health == 30.0,"observer reset runs after a genuine accepted contact")
+		check(later_bursts[0] == 0,"no later break presentation survives target reset")
+		check(destroyed[0] == 1,"committed terminal destroyed notification survives observer reset exactly once")
+		await finish()
+func chain_retirement() -> void:
+	for mode in ["donor_expiry","donor_pause_cycle","target_invalidation"]:
+		await begin("real chain capture retirement / "+mode,700)
+		var recipient := spawn(Vector2(210,180))
+		var donor := spawn(Vector2(110,180),Vector2(360,0),true,false,true)
+		var intercepted := [false]
+		donor.before_charge_delivery = func(_target,_packet):
+			if intercepted[0]: return
+			intercepted[0] = true
+			match mode:
+				"donor_expiry": donor.charge = 0.0
+				"donor_pause_cycle": paused = true; paused = false
+				"target_invalidation": recipient.invalidate_pending_contacts()
+		check(await until(func():return intercepted[0]),"real donor/recipient contact captured before interception")
+		await frames(4)
+		check(donor.charge_transfers == 0 and recipient.charge == 0.0,"retired actual contact cannot transfer or emit success")
+		check(recipient.impact_epoch == 1 and recipient.hit_count == 0,"rejected chain creates no launch or epoch")
+		await finish()
+func place_pair(donor: RigidBody2D, recipient: RigidBody2D) -> void:
+	# Explicit between-phase fixture relocation: freeze across server ticks so
+	# old contact constraints cannot inject correction velocity after a teleport.
+	for box in [donor,recipient]:
+		box.freeze = true; box.invalidate_pending_contacts(); box.linear_velocity = Vector2.ZERO; box.angular_velocity = 0.0
+	donor.position = Vector2(110,180); recipient.position = Vector2(210,180)
+	donor.rotation = 0.0; recipient.rotation = 0.0
+	await frames(4)
+	for box in [donor,recipient]: box.freeze = false; box.invalidate_pending_contacts(); box.sleeping = false
+	await frames(4)
+func chain_epochs() -> void:
+	await begin("chain cannot rearm spent recipient epoch",400)
+	var recipient := spawn(Vector2(280,180),Vector2(280,0),true)
+	check(await until(func():return health.current_health == 27.0),"recipient spends epoch one by actual actor contact")
+	var epoch: int = recipient.impact_epoch
+	var donor := spawn(Vector2(110,180))
+	await place_pair(donor,recipient)
+	actor.reset_at(Vector2(400,200)); recipient.charge = 0.0; donor.charge = 2.5
+	var recontact := [false]
+	recipient.body_entered.connect(func(other):
+		if other == actor: recontact[0] = true)
+	donor.linear_velocity = Vector2(400,0)
+	check(await until(func():return donor.charge_transfers == 1),"new donor actually charges spent recipient")
+	check(recipient.impact_epoch == epoch and recipient.hit_count == 0,"transfer preserves recipient epoch and launch count")
+	check(await until(func():return recontact[0]),"charged recipient makes fresh actual actor contact")
+	check(health.current_health == 30.0,"chain-charged spent epoch cannot debit reset actor on recontact")
+	# Recipient's genuine launch then separate placement preserves its new epoch
+	# but must not rearm the donor's already-used recipient identity.
+	recipient.launch(-1)
+	await frames(3)
+	await place_pair(donor,recipient)
+	recipient.charge = 0.0; donor.charge = 2.5
+	var touching := [false]
+	donor.body_entered.connect(func(other):
+		if other == recipient: touching[0] = true)
+	donor.linear_velocity = Vector2(360,0)
+	check(await until(func():return touching[0]),"recipient new launch epoch meets same donor in fresh real collision")
+	await frames(4)
+	check(donor.charge_transfers == 1 and recipient.charge == 0.0,"recipient relaunch cannot rearm old donor transfer")
+	await place_pair(donor,recipient); recipient.charge = 0.0
+	donor.launch(1)
+	check(await until(func():return donor.charge_transfers == 2),"new genuine donor launch permits one fresh physical transfer")
+	check(recipient.charge > 0.0 and recipient.impact_epoch == epoch+1,"charge reception never advances recipient epoch")
+	await finish()
+func obstruction_queries() -> void:
+	await begin("exact physical carrier obstruction exclusion",240)
+	var carrier := spawn(Vector2(160,180)); carrier.freeze = true
+	await frames(4)
+	check(not actor._attack_obstructed(Vector2(160,180),Vector2(231,180),carrier),"own carrier shape is excluded from the identified approach ray")
+	var blocker := solid(Vector2(201,180),Vector2(12,32),8)
+	await frames(3)
+	check(actor._attack_obstructed(Vector2(160,180),Vector2(231,180),carrier),"different cargo-layer body still blocks")
+	blocker.queue_free(); await frames(3)
+	blocker = solid(Vector2(201,180),Vector2(12,32),1)
+	await frames(3)
+	check(actor._attack_obstructed(Vector2(160,180),Vector2(231,180),carrier),"different terrain body still blocks")
+	await finish()
+func authority_boundaries() -> void:
+	for mode in ["altered_amount","unrelated_identity","shifted_point","wrong_authority","replayed_exact","query_replay","source_invalidation","host_reset"]:
+		await begin("physical derivative authority / "+mode,240)
+		# Replace this fixture with an observer subclass before first contact.
+		actor.queue_free(); await frames(3)
+		actor = preload("res://simulation/tests/review_attack_host.tscn").instantiate()
+		actor.position = Vector2(240,200); actor.ai_enabled = false; actor.max_health = 30.0
+		world.add_child(actor); health = actor.get_node("Health"); await frames(6)
+		var box = CRATE.instantiate(); box.set_script(preload("res://simulation/tests/review_query_cargo.gd"))
+		box.position = Vector2(120,180); box.collision_mask = 43; box.tuning = box.tuning.duplicate(true)
+		box.tuning.hard_impacts_to_break = 100; box.tuning.body_gravity_scale = 0.0
+		box.linear_velocity = Vector2(280,0); world.add_child(box); box.charge = 2.5; box.impact_profile.break_on_accepted_impact = false
+		var attacked := [false]; var nested: Array[Dictionary] = []
+		var canonical: Array[Dictionary] = []
+		var fake := Node2D.new(); fake.set_script(preload("res://simulation/tests/review_fake_authority.gd")); actor.add_child(fake)
+		actor.before_attack = func(payload):
+			if attacked[0] or not payload.has("physical_contact_authority"): return
+			attacked[0] = true
+			canonical.append(payload)
+			if mode in ["altered_amount","unrelated_identity","shifted_point","wrong_authority","replayed_exact"]:
+				var forged: Dictionary = payload.duplicate(true)
+				if mode == "altered_amount": forged.amount = 900.0
+				elif mode == "unrelated_identity": forged.attack_id += 50
+				elif mode == "shifted_point": forged.contact_position += Vector2(1000,0)
+				elif mode == "wrong_authority": forged.physical_contact_authority = fake
+				nested.append(actor.receive_attack(forged))
+		box.before_query = func(_packet,_target,count):
+			if count == 2:
+				if mode == "query_replay": nested.append(actor.receive_attack(canonical[0].duplicate(true)))
+				elif mode == "source_invalidation": box.invalidate_pending_contacts()
+				elif mode == "host_reset": actor.reset_at(actor.position)
+		check(await until(func():return attacked[0]),"actual source contact produces canonical receiver derivative")
+		check(actor.legacy_hit_calls == 0,"mission source never uses preserved sentinel take_hit shim")
+		await frames(5)
+		if mode in ["altered_amount","unrelated_identity","shifted_point","wrong_authority","query_replay"]:
+			check(nested.size() == 1 and not nested[0].consumed,"edited derivative cannot borrow live authority")
+			check(health.current_health == 27.0,"invalid borrowing leaves authentic contact usable exactly once")
+		elif mode == "replayed_exact":
+			check(health.current_health == 27.0,"same canonical identity can cause at most one actual debit")
+		else:
+			check(health.current_health == 30.0 and box.resolved_contacts == 0,"extension retirement cannot leak damage into another source or host life")
+		await finish()
+	await begin("null profile from completed contact callback",240)
+	var box := spawn(Vector2(120,180),Vector2(280,0),true,true)
+	var observed := [false]; var impacts := [0]
+	box.physical_contact_resolved.connect(func(_e):observed[0] = true; box.impact_profile = null)
+	box.impacted.connect(func(_box,_target,_amount,_dir):impacts[0] += 1)
+	check(await until(func():return observed[0]),"real contact reaches profile-removal observer")
+	await frames(3)
+	check(is_instance_valid(box) and box.alive and impacts[0] == 0,"null capability retires follow-on feedback safely")
+	await finish()
+func receipt_retirement() -> void:
+	for mode in ["host_reset","receiver_disable","receiver_unbind","source_invalidation"]:
+		await begin("receiver receipt callback retirement / "+mode,240)
+		var box := spawn(Vector2(120,180),Vector2(280,0),true,true)
+		var receiver = actor.get_node("PhysicalImpactReceiver")
+		var seen := [false]; var source_receipts := [0]; var impacts := [0]
+		box.physical_contact_resolved.connect(func(_e):source_receipts[0] += 1)
+		box.impacted.connect(func(_box,_target,_amount,_dir):impacts[0] += 1)
+		receiver.impact_resolved.connect(func(_e):
+			seen[0] = true
+			if mode == "host_reset": actor.reset_at(actor.position)
+			elif mode == "receiver_disable": receiver.enabled = false
+			elif mode == "receiver_unbind": receiver.unbind()
+			elif mode == "source_invalidation": box.invalidate_pending_contacts())
+		check(await until(func():return seen[0]),"receiver completed genuine debit before observer retirement")
+		await frames(3)
+		check(box.alive and impacts[0] == 0,"retired receiver callback cannot authorize subsequent break/presentation")
+		check(source_receipts[0] == 0 and box.resolved_contacts == 0 and box.last_impact.is_empty(),"retired target or source does not leak completed source diagnostics")
+		await finish()
+	for stage in ["source_receipt","impacted","shake","pre_break_burst"]:
+		await begin("precommit presentation callback retirement / "+stage,240)
+		var box := spawn(Vector2(120,180),Vector2(280,0),true,true)
+		var reset := [false]; var destroyed := [0]
+		var retire := func():
+			if not reset[0]: reset[0] = true; actor.reset_at(actor.position)
+		if stage == "source_receipt": box.physical_contact_resolved.connect(func(_e):retire.call())
+		elif stage == "impacted": box.impacted.connect(func(_box,_target,_amount,_dir):retire.call())
+		elif stage == "shake": box.shake_requested.connect(func(_amount):retire.call())
+		else:
+			box.burst_requested.connect(func(_at,_count,color,_speed):
+				if color.is_equal_approx(Color("eab779")): retire.call())
+		box.destroyed.connect(func(_box):destroyed[0] += 1)
+		check(await until(func():return reset[0]),"actual contact reaches intended presentation callback")
+		await frames(3)
+		check(box.alive and destroyed[0] == 0 and health.current_health == 30.0,"precommit retirement suppresses stale break without undoing prior observed signal")
+		await finish()
+func chain_query_reentrancy() -> void:
+	await begin("charge extension query cannot recursively accept",700)
+	var recipient := spawn(Vector2(210,180))
+	var donor = CRATE.instantiate(); donor.set_script(preload("res://simulation/tests/review_query_cargo.gd"))
+	donor.collision_mask = 43; donor.position = Vector2(110,180); donor.tuning = donor.tuning.duplicate(true)
+	donor.tuning.body_gravity_scale = 0.0; donor.tuning.hard_impacts_to_break = 100; donor.linear_velocity = Vector2(360,0)
+	world.add_child(donor); donor.charge = 2.5; donor.impact_profile.break_on_accepted_impact = false
+	var nested: Array[bool] = []
+	donor.before_charge_query = func(packet,target):nested.append(target.receive_physical_charge(packet))
+	check(await until(func():return donor.charge_transfers == 1),"actual charge contact completes despite nested query attempt")
+	check(nested == [false] and recipient.charge > 0 and recipient.impact_epoch == 1,"recipient reentrancy guard admits outer charge once without synthetic launch")
+	await finish()
+func unpermitted_carrier_obstruction() -> void:
+	await begin("unpermitted projectile cannot exclude intervening body",240)
+	var wall_carrier := spawn(Vector2(190,180)); wall_carrier.freeze = true
+	await frames(4)
+	# Negative, explicitly fabricated API input. It must fail; this is not a
+	# reported gameplay hit or evidence of a solver-authorized projectile.
+	var packet := {"attack_id":12345,"kind":&"projectile","source":wall_carrier,"carrier":wall_carrier,
+		"origin":Vector2(150,180),"contact_position":actor.global_position+Vector2(0,-20),
+		"incoming_velocity":Vector2(280,0),"amount":3.0,"impulse":Vector2(180,-80)}
+	var result: Dictionary = actor.receive_attack(packet)
+	check(not result.consumed and health.current_health == 30.0,"ordinary projectile identity cannot grant physical carrier obstruction exemption")
+	await finish()

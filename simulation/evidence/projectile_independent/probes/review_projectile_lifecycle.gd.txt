@@ -1,0 +1,34 @@
+extends "res://simulation/tests/review_projectile_adversity.gd"
+func _run()->void:
+	for operation in ["reflector_disable","reflector_physics_disable","reflector_new_world","carrier_disable_reenable","source_hurt","source_reset","source_defeated","carrier_resolved_reset_receiver"]:
+		await _begin(operation,"raw","raw",180)
+		emissions=[];resolutions=[];retirements=[]
+		var fired:Array[bool]=[]
+		left.get_node("ProjectileEmitter").projectile_emitted.connect(func(event):
+			var carrier:Node=instance_from_id(event.carrier_id)
+			if operation=="carrier_disable_reenable":
+				carrier.process_mode=Node.PROCESS_MODE_DISABLED
+				carrier.process_mode=Node.PROCESS_MODE_INHERIT
+			elif operation=="source_hurt":left.receive_attack({"amount":1.0,"impulse":Vector2.ZERO,"stun_seconds":0.15})
+			elif operation=="source_reset":left.reset_actor(left.position,1)
+			elif operation=="source_defeated":left.receive_attack({"amount":100.0,"impulse":Vector2.ZERO})
+			else:carrier.resolved.connect(func(_carrier,result):
+				if not fired.is_empty():return
+				fired.append(true)
+				if result.get("reflection_confirmed",false):
+					if operation=="reflector_disable":right.process_mode=Node.PROCESS_MODE_DISABLED
+					elif operation=="reflector_physics_disable":right.set_physics_process(false)
+					elif operation=="reflector_new_world":
+						var viewport:=SubViewport.new()
+						viewport.world_2d=World2D.new()
+						world.add_child(viewport)
+						right.reparent(viewport)
+				elif operation=="carrier_resolved_reset_receiver":right.reset_actor(right.position,-1)))
+		await _attack(left)
+		if operation.begins_with("reflector_"):
+			await _frames(ceili(hz*1.27))
+			_request(right,{"shield":true})
+		await _frames(ceili(hz*2.5))
+		print("LIFECYCLE ",operation," LEFT ",_health(left)," RIGHT ",_health(right)," RESOLVED ",resolutions," RETIRED ",retirements)
+		await _end()
+	quit()

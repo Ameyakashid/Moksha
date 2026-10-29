@@ -1,0 +1,25 @@
+extends "res://simulation/tests/warden_factory_regression.gd"
+## Observation-only diagnostic wrapper; inherited legacy raw input is unchanged.
+var observed_players: Dictionary = {}
+var last_input_observation: Dictionary = {}
+func room_input() -> Dictionary:
+	var player: Node = host.player
+	if not observed_players.has(player.get_instance_id()):
+		observed_players[player.get_instance_id()] = true
+		player.movement_event.connect(_observe_defense.bind(weakref(player)))
+	var raw := super.room_input()
+	last_input_observation = {"raw":raw.duplicate(true), "shield_phase":player.shield_phase, "weapon_phase":player.weapon_phase, "facing":player.facing, "position":player.position}
+	return raw
+func _observe_defense(kind: StringName, payload: Dictionary, reference: WeakRef) -> void:
+	if kind != &"defense_resolved": return
+	var player: Node = reference.get_ref()
+	if not is_instance_valid(player): return
+	var outward := Vector2(float(payload.shield_facing), 0)
+	var origin: Vector2 = payload.incoming_origin
+	var point: Vector2 = payload.contact_position
+	var center: Vector2 = payload.defender_origin
+	var size: Vector2 = player._shield_size()
+	var current_enemies := []
+	for actor in host.enemies:
+		current_enemies.append({"kind":actor.kind, "id":actor.get_instance_id(), "position":actor.position, "phase":actor.weapon_phase, "facing":actor.attack_facing, "health":actor.health})
+	print("CONTACT_DIAGNOSTIC ",JSON.stringify({"frame":frame,"outcome":payload.outcome,"attack_key":payload.attack_key,"shield_serial":payload.shield_serial,"facing":payload.shield_facing,"pc_position":player.position,"origin":origin,"point":point,"shield_center":center,"shield_size":size,"point_in_shield":Rect2(center-size*.5,size).has_point(point),"origin_forward_of_point":(origin-point).dot(outward),"previous_input_sample":last_input_observation,"enemies":current_enemies}))

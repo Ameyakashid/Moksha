@@ -1,0 +1,85 @@
+{
+  "accepted": true,
+  "scope": "Opt-in shared projectile adapter only; production sentry/factory unchanged",
+  "foundation_stages": 45,
+  "focused": {
+    "60": {
+      "scenarios": 39,
+      "checks": 115,
+      "failures": 0
+    },
+    "120": {
+      "scenarios": 39,
+      "checks": 115,
+      "failures": 0
+    }
+  },
+  "stock_suites": 10,
+  "historical_stages": 19,
+  "routes": [
+    {
+      "hz": 60,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 178.100000000034,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 60,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 167.116666666692,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 167.108333333346,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 156.591666666689,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    }
+  ],
+  "sources_unchanged_during_run": true,
+  "all_final_hashes_current": true,
+  "prior_archives_verified": 10,
+  "independent_review": "projectile_independent/review_acceptance.json",
+  "native": {
+    "observed": [
+      "ordinary traveling bolt",
+      "NPC firing/PC damage",
+      "live player shot/NPC damage",
+      "R reset",
+      "Esc selector",
+      "final full-project-reload fresh stage boot"
+    ],
+    "screenshot_claim": "native_projectile.png shows PC23/contact7 NPC30/contact0 one live bolt; later NPC29/contact1 was witnessed, not in this saved frame",
+    "not_proven": [
+      "timed native reflection",
+      "exact cargo interception frame",
+      "audio mix"
+    ]
+  },
+  "images": {
+    "native_projectile.png": "9e2d22c364264fb90972fd0c00c3d3e93e282e1745ead17d3bab5b186dddc05e",
+    "native_gym.png": "539e467509128268dc17c9c481d8c25741b4e6ebb0e6f220d0307f5ad5f7a622"
+  }
+}

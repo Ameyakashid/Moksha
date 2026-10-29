@@ -1,0 +1,117 @@
+extends "res://simulation/tests/sentinel_regression.gd"
+const ARCHETYPE = preload("res://demo/resources/listener_archetype.tres")
+const EAR = preload("res://simulation/resources/hearing_profile.gd")
+var observations := []
+func new_npc() -> Node2D:
+	var result := SENTINEL.instantiate()
+	result.kind = "listener"
+	result.archetype_profile = ARCHETYPE
+	return result
+func _run() -> void:
+	root.get_node("NoiseBus").noise_emitted.connect(bus_noise)
+	await _real_default_life()
+	await _lethal_default_counter()
+	await _peer_blocked_counter()
+	await _actual_peer_warnings()
+	await _vertical_hearing_and_wall()
+	await _separate_profiles_and_reset()
+	await _deleted_hearing_source()
+	var report := {"hz":hz,"scenarios":scenarios,"checks":checks,"failures":failures,"observations":observations,"scope":"Independent supplementary listener production-scene probes; physical contact outcomes and explicitly labeled hearing/lifecycle boundaries."}
+	FileAccess.open("res://simulation/evidence/listener_independent_%d.json" % hz,FileAccess.WRITE).store_string(JSON.stringify(report,"  ")+"\n")
+	print("INDEPENDENT LISTENER %d Hz: %d scenarios %d checks %d failures" % [hz,scenarios.size(),checks.size(),failures.size()])
+	for failure in failures: printerr(failure)
+	quit(0 if failures.is_empty() else 1)
+func _real_default_life() -> void:
+	await begin("actual two PC strikes deplete unoverridden listener",0,100,136)
+	check(npc.health == 2,"default production life starts at2")
+	var damage: Array = []
+	npc.get_node("Health").damage_processed.connect(func(r): damage.append(r.duplicate(true)))
+	driver.frame={"attack":true}; await frames(1); driver.frame={}
+	check(await until(func(): return npc.health < 2),"first raw PC strike has actual listener contact")
+	check(npc.health == 1 and count_noise(&"enemy_damage",npc)==1,"first strike produces exactly one Health debit and HIT")
+	await frames(ceili(hz*0.65))
+	driver.frame={"right":1.0}
+	check(await until(func(): return npc.position.x-pc.position.x<=35,1.5),"ordinary movement closes actual recoil distance")
+	driver.frame={}; await frames(2)
+	driver.frame={"attack":true}; await frames(1); driver.frame={}
+	check(await until(func(): return npc.dead),"second raw PC strike genuinely depletes listener")
+	await frames(3)
+	check(npc.health==0 and defeats==1 and damage.size()==2,"real two-contact life has two receipts and one defeat")
+	check(count_noise(&"enemy_damage",npc)==2 and count_noise(&"enemy_death",npc)==1,"exactly two HIT and one DOWN accompany actual receipts")
+	check(npc.collision_layer==0 and npc.get_node("BodyShape/IncomingStrikeReceiver").collision_layer==0 and not npc.is_physics_processing(),"default listener actual death retires body incoming and schedule")
+	observations.append({"case":"default_two_hit_life","source_serial":pc.attack_serial,"health_receipts":damage.size(),"npc_x":npc.position.x,"pc_x":pc.position.x})
+	await finish()
+func _lethal_default_counter() -> void:
+	await begin("actual timed shield counter against default capacity2",0)
+	attack(); check(await until(func(): return npc.weapon_phase==&"windup"),"genuine listener windup begins")
+	await until(func(): return npc._phase_elapsed>=npc._windup-0.10)
+	driver.frame={"shield":true}
+	check(await until(func(): return not receipts.is_empty()),"real overlap reaches PC shield adjudication")
+	await frames(3)
+	check(npc.health==0 and npc.dead and defeats==1,"counter clamps applied damage to default2 remaining life")
+	check(pc.get_node("Health").current_health==60 and pc.get_node("ShieldContactAdapter").confirmed_counters==1,"timed shield preserves PC Health and confirms one physical counter")
+	check(npc.last_attack_result.get("outcome")==&"parried" and npc.last_attack_result.get("counter_confirmed",false),"confirmed terminal parry remains observable")
+	check(count_noise(&"enemy_damage",npc)==1 and count_noise(&"enemy_death",npc)==1,"terminal counter produces one HIT and one DOWN")
+	await finish()
+func _peer_blocked_counter() -> void:
+	await begin("overlapping listener peer cannot intercept counter damage",8)
+	var peer:=new_npc(); peer.ai_enabled=false; peer.position=Vector2(119,200); world.add_child(peer); await frames(3)
+	attack(); check(await until(func(): return npc.weapon_phase==&"windup"),"attacker commits beside physical peer")
+	await until(func(): return npc._phase_elapsed>=npc._windup-0.10); driver.frame={"shield":true}
+	check(await until(func(): return not receipts.is_empty()),"actual strike can meet PC with peer between")
+	npc.ai_enabled=false; await frames(3)
+	check(pc.get_node("Health").current_health==60 and receipts[0].outcome==&"parried","defense outcome still comes from PC")
+	check(peer.health==2 and peer.get_node("ShieldCounterReceiver").accepted_count==0,"counter never transfers to intervening peer")
+	check(npc.health==8 and npc.get_node("ShieldCounterReceiver").accepted_count==0,"blocking peer makes physical counter unreachable instead of invented")
+	observations.append({"case":"peer_counter_obstruction","report":pc.get_node("ShieldContactAdapter").last_report})
+	await finish()
+func _actual_peer_warnings() -> void:
+	for listener_kind in [false,true]:
+		await begin("actual peer warning ignored configuration listener=%s"%listener_kind,0,100,300)
+		npc.configure(null,root.get_node("NoiseBus"))
+		var source:Node2D = new_npc() if listener_kind else SENTINEL.instantiate()
+		source.position=Vector2(136,200); source.ai_enabled=false; world.add_child(source); source.configure(pc,root.get_node("NoiseBus")); await frames(3)
+		source.ai_enabled=true
+		check(await until(func(): return source.weapon_phase==&"windup"),"actual peer action emits warning")
+		check(count_noise(&"enemy_windup",source)==1,"real peer warning reaches shared bus once")
+		check(npc.get_node("HearingSensor").last_receipt.get("source_id")==source.get_instance_id() and npc._noise_memory==0,"sensor admits real peer noise but policy filters its source")
+		await finish()
+func _vertical_hearing_and_wall() -> void:
+	await begin("default hearing uses actual foot-origin radial geometry behind wall",0,650,300)
+	npc.configure(null,root.get_node("NoiseBus"))
+	var sensor:=npc.get_node("HearingSensor"); var policy:=npc.get_node("SentinelPolicy")
+	surface(Vector2(340,130),Vector2(12,140)); await frames(3)
+	root.get_node("NoiseBus").emit_noise(npc.position+Vector2(300,0),&"boundary_fixture",1.0,pc)
+	check(npc._noise_memory==3.2 and not sensor.last_receipt.terrain_blocked,"real wall does not silently enable default acoustic occlusion")
+	policy.noise_memory=0
+	root.get_node("NoiseBus").emit_noise(npc.position+Vector2(0,-340),&"boundary_fixture",1.0,pc)
+	check(npc._noise_memory==3.2 and is_equal_approx(sensor.last_receipt.distance,340),"vertical boundary is measured from actor foot origin")
+	policy.noise_memory=0
+	root.get_node("NoiseBus").emit_noise(npc.position+Vector2(300,-180),&"boundary_fixture",1.0,pc)
+	check(npc._noise_memory==0,"Euclidean radius rejects diagonal beyond340 despite each axis inside")
+	root.get_node("NoiseBus").emit_noise(npc.position+Vector2(0,-340.01),&"boundary_fixture",1.0,pc)
+	check(npc._noise_memory==0,"vertical beyond-boundary event stays inaudible")
+	await finish()
+func _separate_profiles_and_reset() -> void:
+	await begin("explicit hearing profile wins and reset retains private configured life",0)
+	var template:=EAR.new(); template.range_at_unit_loudness=73; template.ear_offset=Vector2(0,-13); template.terrain_attenuation_enabled=true
+	var sibling:=new_npc(); sibling.position=Vector2(450,200); sibling.ai_enabled=false; sibling.hearing_range=999; sibling.hearing_profile=template
+	sibling.max_health=7; sibling.movement_speed=111; sibling.windup_override=.33
+	world.add_child(sibling); sibling.configure(null,root.get_node("NoiseBus")); await frames(3)
+	check(sibling.hearing_profile!=template and sibling.hearing_profile.range_at_unit_loudness==73 and sibling.hearing_profile.ear_offset==Vector2(0,-13),"explicit hearing profile copied and scalar range does not override")
+	sibling.hearing_range=1234
+	check(sibling.hearing_profile.range_at_unit_loudness==73,"post-ready legacy range setter respects explicit hearing ownership")
+	sibling.hearing_profile.range_at_unit_loudness=88; sibling.archetype_profile.hearing_memory_seconds=4.0
+	sibling.reset_at(Vector2(480,200)); await frames(3)
+	check(sibling.health==7 and sibling.profile.run_speed==111 and sibling._windup==.33 and sibling.archetype_profile.hearing_memory_seconds==4.0,"ordinary reset retains configured private profile and explicit overrides")
+	check(template.range_at_unit_loudness==73 and ARCHETYPE.hearing_memory_seconds==3.2 and npc.health==2 and npc._windup==.46,"reset and local edits do not leak to templates or sibling actor")
+	check(sibling.get_node("HearingSensor").profile==sibling.hearing_profile and sibling.hearing_profile.range_at_unit_loudness==88,"hearing sensor retains actor-owned config after reset")
+	await finish()
+func _deleted_hearing_source() -> void:
+	await begin("queued source boundary cannot create new listener memory",0,650,200)
+	npc.configure(null,root.get_node("NoiseBus"))
+	var source:=Node2D.new(); source.position=npc.position; world.add_child(source)
+	source.queue_free()
+	root.get_node("NoiseBus").emit_noise(npc.position,&"boundary_fixture",1.0,source)
+	check(npc._noise_memory==0,"queued source is ineligible in actual bus query")
+	await finish()

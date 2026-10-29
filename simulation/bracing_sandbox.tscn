@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3]
+[ext_resource type="Script" path="res://simulation/bracing_sandbox.gd" id="1"]
+[ext_resource type="PackedScene" path="res://simulation/actors/shared_actor.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://movement/geometry/test_surface.tscn" id="3"]
+[ext_resource type="Script" path="res://simulation/components/player_input_source.gd" id="4"]
+[ext_resource type="Script" path="res://simulation/components/npc_input_source.gd" id="5"]
+[ext_resource type="Script" path="res://simulation/components/melee_intent_policy.gd" id="6"]
+[ext_resource type="Resource" path="res://simulation/resources/bracing_chain.tres" id="7"]
+[node name="BracingSandbox" type="Node2D"]
+script = ExtResource("1")
+[node name="Floor" parent="." instance=ExtResource("3")]
+position = Vector2(0,300)
+points = PackedVector2Array(0,0,640,0,640,40,0,40)
+label = ""
+[node name="LeftBoundary" parent="." instance=ExtResource("3")]
+position = Vector2(0,0)
+points = PackedVector2Array(0,0,8,0,8,340,0,340)
+[node name="RightBoundary" parent="." instance=ExtResource("3")]
+position = Vector2(632,0)
+points = PackedVector2Array(0,0,8,0,8,340,0,340)
+[node name="Player" parent="." instance=ExtResource("2")]
+position = Vector2(180,300)
+melee_chain = ExtResource("7")
+modulate = Color(0.65,0.9,1,1)
+[node name="InputSource" type="Node" parent="Player"]
+script = ExtResource("4")
+[node name="NPC" parent="." instance=ExtResource("2")]
+position = Vector2(420,300)
+melee_chain = ExtResource("7")
+initial_facing = -1
+modulate = Color(1,0.8,0.58,1)
+[node name="InputSource" type="Node" parent="NPC"]
+script = ExtResource("5")
+policy_path = NodePath("../MeleePolicy")
+[node name="MeleePolicy" type="Node" parent="NPC"]
+script = ExtResource("6")
+target_path = NodePath("../../Player")
+move_strength = 0.35
+stop_distance = 34.0
+[node name="HUD" type="CanvasLayer" parent="."]
+[node name="Instructions" type="Label" parent="HUD"]
+offset_left = 12.0
+offset_top = 8.0
+theme_override_font_sizes/font_size = 12
+text = "SHARED HURT | A/D move, Space jump, Shift roll, J strike, K guard/parry\nBoth use the same committed cut and bracing profile. R reset / Esc gym"
+[node name="Status" type="Label" parent="HUD"]
+offset_left = 12.0
+offset_top = 49.0
+theme_override_font_sizes/font_size = 11
+[node name="Limit" type="Label" parent="HUD"]
+offset_left = 12.0
+offset_top = 116.0
+theme_override_font_sizes/font_size = 11
+text = "Gold shoulders: windup/active resist short recoil, never damage. Recovery is vulnerable.\nA genuine timed K counter uses 0.78s stun and breaks the 0.70s brace threshold."
+
+[node name="FloorCaption" type="Label" parent="HUD"]
+offset_left = 15.0
+offset_top = 304.0
+theme_override_font_sizes/font_size = 8
+text = "Real contacts only. No assigned damage, recoil, or defeat outcomes."

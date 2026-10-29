@@ -1,0 +1,133 @@
+{
+  "scope": "Production PC/NPC cargo support, authored grounded pressure, exact canonical melee cargo launch and current configuration parity; boundary hazards separate.",
+  "source_count": 580,
+  "code_unchanged_through_all_gates": true,
+  "foundation_stages": 69,
+  "preserved_prior_foundation_stages": 62,
+  "stock_combinations": 10,
+  "held": {
+    "each_rate_scenarios": 114,
+    "each_rate_checks": 333
+  },
+  "historical_stages": 19,
+  "new_suites": {
+    "actor_cargo": {
+      "60": 466,
+      "120": 676
+    },
+    "production_defense": {
+      "60": 79,
+      "120": 79
+    },
+    "independent_request": {
+      "60": 178,
+      "120": 178
+    }
+  },
+  "routes": [
+    {
+      "hz": 60,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 178.600000000034,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 60,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 159.266666666686,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 176.383333333337,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 168.216666666678,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    }
+  ],
+  "native": {
+    "genuine_input_observed": [
+      "grounded walking push",
+      "J launch with lift and rotation",
+      "R reset"
+    ],
+    "not_established": [
+      "top-standing",
+      "NPC melee cargo launch",
+      "incoming damage",
+      "exact support/force/defense thresholds"
+    ],
+    "isolated_start": true,
+    "debugger_entries_unexpanded": 24,
+    "captures": 8
+  },
+  "trajectory_limits": {
+    "free_rotation_displacement_px": {
+      "PC": {
+        "60": 118.5532,
+        "120": 102.5169
+      },
+      "NPC": {
+        "60": 119.5927,
+        "120": 118.1684
+      }
+    },
+    "nonrotating_production_friction_each_role_dx": {
+      "60": 116.414154052734,
+      "120": 120.079132080078
+    },
+    "qualification": "Shared law and equal-config controlled role parity; no deterministic freely rotating cross-instance/cross-rate trajectory promise. Actual tiny-angle/contact-point differences preserved."
+  },
+  "independent_review": "actor_cargo_independent_review.md",
+  "preservation": {
+    "archives": 14,
+    "preceding_reports_documents": 1043,
+    "unchanged": 1039,
+    "intentional_doc_updates": 4,
+    "missing": 0,
+    "unexpected_changes": 0
+  },
+  "artifact_sha256": {
+    "actor_cargo_frozen_source.json": "3de353b6c0d625c50077e9f636521051080fe2129d4d456f14dcd931c823c82c",
+    "actor_cargo_final_gates.json": "3f7f93111848f6371af8a69faa0be303e8bbe331bd7f2b7569fa156f2e4ab4a6",
+    "actor_cargo_foundation_report.json": "9969af357f0bdb2206a4b9854542a8e684e39a22d4da8d910cdcc960df11b582",
+    "actor_cargo_compatibility.json": "b4e47f638baf079176fdf4f6f5a80221691f65d7d4842af587f041ebe65a243a",
+    "actor_cargo_held_60.json": "1872782342e4a38930152ffd4ab4aeb4266a43f921f5d50ccf0e0c8b436e2d96",
+    "actor_cargo_held_120.json": "1ea5ba7d632349e68bb0722b459493d27ba10d1bf841cf3ceebd6995001b7b5c",
+    "actor_cargo_historical_report.json": "5a7b5732aae5291bd4535af7904c2e6c1d09cd67614cbbfaf96bccfae97f12ca",
+    "actor_cargo_route_summary.json": "2355deed433edda4ac3da7ed396e42d61b988bb429eada0fd44c29a136c4d307",
+    "actor_cargo_archive_preservation.json": "e12b7ed2234722469e16e04d4c275485f86651c692ac5b1fe573196830cd4fbb",
+    "actor_cargo_report_preservation.json": "e94b7ecf7ec9ac129ca974bf154ea0d7798859511528958222aff3ae00e4f68c",
+    "actor_cargo_source_delta.json": "71ae1cc952da91f0893d30cd08351f96b0c50ea75be6535b5fb5dba413c08786",
+    "actor_cargo_changed_sources.diff": "6bc4e1d5f507529cd2cd08d4fe9d994342508f5e3b39c4eea9e06f9668dbefee",
+    "actor_cargo_native_review.md": "fa3c904a7fa7d7916afed4852129fcad12a4f5833564f52c917fd5687d9ec226",
+    "actor_cargo_native_capture_hashes.json": "4abb8b1a140ad5197944b41d8995b27b842f84281f3b246c36ef7a1979ac39a8",
+    "actor_cargo_adapted_baseline_provenance.json": "a2e2ddd58c90d18ee6f2bfe491d3a4de155c0de91fcf580ff48974a382c97dbf",
+    "actor_cargo_adapted_baseline_route_summary.json": "15161a23c58f7822b5ccd5c9970a68ea99cb8319427cabe1de26f06d5b2519bd",
+    "actor_cargo_request_experiment/corrected_manifest.json": "cf915fcdd2823948a5c83561e679053304be1c07fefaad5a6188e17b60ecc2b7",
+    "actor_cargo_independent_review.md": "78355016798457eb2fcb4881cd7d0e4addba237636b3d9d92be88d8eb4f7ca6d"
+  },
+  "next_delivery_step": "Parent clean-directory import, per-file archive verification and packaging; no gameplay source changes pending.",
+  "independent_review_verdict": "Final scoped acceptance approved"
+}

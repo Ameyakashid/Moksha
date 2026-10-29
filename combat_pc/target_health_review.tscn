@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://combat_pc/target_health_review.gd" id="1"]
+[ext_resource type="PackedScene" path="res://combat_pc/player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/health_target.tscn" id="3"]
+[ext_resource type="Script" path="res://combat_pc/fixtures/contact_review_hud.gd" id="4"]
+[ext_resource type="Resource" path="res://combat_pc/resources/air_response_agile.tres" id="5"]
+[ext_resource type="Resource" path="res://combat_pc/resources/responsive_chain.tres" id="6"]
+[ext_resource type="Resource" path="res://combat_pc/resources/ground_presentation_agile.tres" id="7"]
+
+[sub_resource type="RectangleShape2D" id="FloorShape"]
+size = Vector2(640, 36)
+
+[sub_resource type="RectangleShape2D" id="WallShape"]
+size = Vector2(8, 120)
+
+[node name="TargetHealthReview" type="Node2D"]
+process_mode = 3
+script = ExtResource("1")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(320, 288)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("FloorShape")
+
+[node name="ImpactWall" type="StaticBody2D" parent="."]
+position = Vector2(348, 210)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="ImpactWall"]
+shape = SubResource("WallShape")
+
+[node name="Player" parent="." instance=ExtResource("2")]
+process_mode = 1
+position = Vector2(280, 270)
+automatic_physics = false
+profile = ExtResource("5")
+melee_chain = ExtResource("6")
+
+[node name="Visual" parent="Player" index="1"]
+ground_presentation = ExtResource("7")
+
+[node name="Target" parent="." instance=ExtResource("3")]
+process_mode = 1
+position = Vector2(310, 270)
+
+[node name="ReviewCamera" type="Camera2D" parent="."]
+position = Vector2(320, 225)
+zoom = Vector2(1.5, 1.5)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Canvas" type="Node2D" parent="HUD"]
+script = ExtResource("4")
+
+[editable path="Player"]

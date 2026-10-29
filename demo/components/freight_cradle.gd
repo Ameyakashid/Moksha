@@ -1,0 +1,110 @@
+extends Node2D
+## Local E-replacement station. Origin is launch floor height, cargo centre X.
+## Replacement invalidates the previous crate before making the new one live;
+## no health, enemy, ordinary-prop or room state is reset here.
+signal cargo_spawned(prop: RigidBody2D)
+signal cargo_replaced(previous_id: int, current_id: int)
+
+const CRATE = preload("res://simulation/world/mission_cargo.tscn")
+@export var auto_spawn := true
+@export var cargo_offset := Vector2(0, -15)
+@export var interaction_radius := 58.0
+@export var simulation_enabled := true
+
+var cargo: RigidBody2D
+var receiver: Node2D
+var replacement_enabled := true
+var replacement_count := 0
+var _replacement_pending := false
+var _generation := 0
+
+func _ready() -> void:
+	var support := StaticBody2D.new()
+	support.name = "CradleSupport"
+	support.collision_layer = 1
+	support.collision_mask = 0
+	var shape := CollisionShape2D.new()
+	var box := RectangleShape2D.new()
+	box.size = Vector2(52, 10)
+	shape.shape = box
+	shape.position = Vector2(0, 5)
+	support.add_child(shape)
+	add_child(support)
+	if auto_spawn: replace_cargo()
+
+func bind_receiver(value: Node2D) -> void:
+	if is_instance_valid(receiver) and receiver.latched.is_connected(_on_latched):
+		receiver.latched.disconnect(_on_latched)
+	receiver = value
+	if not is_instance_valid(receiver): return
+	receiver.latched.connect(_on_latched)
+	if receiver.is_latched:
+		replacement_enabled = false
+	else:
+		receiver.bind_cargo(cargo)
+
+func can_interact(actor: Node2D) -> bool:
+	return replacement_enabled and simulation_enabled and is_instance_valid(actor) \
+		and actor.global_position.distance_to(global_position) <= interaction_radius
+
+func interact(actor: Node2D) -> bool:
+	if not can_interact(actor): return false
+	return replace_cargo()
+
+func replace_cargo() -> bool:
+	if not replacement_enabled or not simulation_enabled or _replacement_pending: return false
+	if is_instance_valid(receiver) and receiver.is_latched:
+		replacement_enabled = false
+		return false
+	_replacement_pending = true
+	_generation += 1
+	var old_id := 0
+	if is_instance_valid(cargo):
+		old_id = cargo.get_instance_id()
+		# These logical guards are immediate even inside a physics query flush.
+		cargo.set_meta("freight_valid", false)
+		cargo.invalidate_pending_contacts()
+		cargo.alive = false
+		cargo.simulation_enabled = false
+		cargo.add_to_group("sonar_ignore")
+		cargo.remove_from_group("freight_cargo")
+		cargo.remove_from_group("props")
+		cargo.hide()
+		cargo.set_deferred("collision_layer", 0)
+		cargo.set_deferred("collision_mask", 0)
+		cargo.queue_free()
+	cargo = null
+	if is_instance_valid(receiver): receiver.bind_cargo(null)
+	# Commit after the physics flush; queued deletion precedes this new body.
+	_spawn_cargo.call_deferred(_generation, old_id)
+	return true
+
+func _spawn_cargo(generation: int, old_id: int) -> void:
+	if not is_inside_tree() or is_queued_for_deletion() or generation != _generation: return
+	_replacement_pending = false
+	if not replacement_enabled or (is_instance_valid(receiver) and receiver.is_latched): return
+	cargo = CRATE.instantiate()
+	cargo.name = "DesignatedFreight"
+	cargo.position = cargo_offset
+	cargo.set_meta("freight_valid", true)
+	cargo.set_meta("freight_generation", generation)
+	cargo.add_to_group("freight_cargo")
+	add_child(cargo)
+	replacement_count += 1
+	if is_instance_valid(receiver): receiver.bind_cargo(cargo)
+	cargo_spawned.emit(cargo)
+	cargo_replaced.emit(old_id, cargo.get_instance_id())
+	queue_redraw()
+
+func _on_latched(_prop: RigidBody2D) -> void:
+	replacement_enabled = false
+	_replacement_pending = false
+	queue_redraw()
+
+func _draw() -> void:
+	var ink := Color("a5e6cc") if not replacement_enabled else Color("b8c9b2")
+	draw_rect(Rect2(-26, 0, 52, 10), Color("172a30"))
+	draw_rect(Rect2(-26, 0, 52, 10), ink, false, 1.0)
+	draw_line(Vector2(-21, 5), Vector2(21, 5), ink, 0.8)
+	var label := "DELIVERED" if not replacement_enabled else "E  REPLACE CARGO"
+	draw_string(ThemeDB.fallback_font, Vector2(-39, 25), label, HORIZONTAL_ALIGNMENT_LEFT, -1, 8, ink)

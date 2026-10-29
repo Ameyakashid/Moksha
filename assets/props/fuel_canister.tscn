@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/props/fuel_canister.tres" id="1_art"]
+
+[node name="FuelCanister" type="Node2D"]
+metadata/art_only = true
+metadata/nominal_size = Vector2(16, 24)
+metadata/origin_kind = "bottom_center"
+metadata/source_pivot = Vector2(80.5, 228)
+
+[node name="Art" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-8.64429530, -24.64864865)
+scale = Vector2(0.10738255, 0.10810811)
+texture = ExtResource("1_art")
+centered = false

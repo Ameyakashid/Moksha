@@ -1,0 +1,180 @@
+extends SceneTree
+const Marker = preload("res://simulation/world/relay_marker.tscn")
+const Appearance = preload("res://demo/views/relay_marker_appearance.gd")
+const Support = preload("res://simulation/tests/relay_marker_support.gd")
+const Sonar = preload("res://demo/components/mission_sonar.gd")
+var hz := 60
+var checks := 0
+var failures: Array[String] = []
+func _initialize() -> void:
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--hz="): hz=int(arg.trim_prefix("--hz="))
+	Engine.physics_ticks_per_second=hz
+	_run.call_deferred()
+func check(ok: bool, label: String) -> void:
+	checks+=1
+	if not ok: failures.append(label); print("FAIL ",label)
+func sonar_for(world: Node2D):
+	var sonar=Sonar.new();sonar.tuning=preload("res://resources/sensory/sonar_default.tres").duplicate(true)
+	root.add_child(sonar);sonar.set_process(false);sonar.bind_level(world,null);sonar.set_blind(true)
+	return sonar
+func alphas(sonar) -> Array:
+	var result: Array=[]
+	for record in sonar.geometry: result.append(sonar._segment_alphas(record))
+	return result
+func _run() -> void:
+	var legacy:=Support.legacy_room_script()
+	var count:=0
+	for data in preload("res://demo/mission_data.gd").sectors():
+		var world:=Node2D.new();root.add_child(world)
+		var old=legacy.new();var fresh=preload("res://demo/components/mission_room.gd").new()
+		world.add_child(old);world.add_child(fresh);old.build(data);fresh.build(data)
+		old.set_process(false);fresh.set_process(false)
+		check(Support.topology(old,[])==Support.topology(fresh,[]),"exact ordered physical topology")
+		check(Support.contours(old)==Support.contours(fresh),"exact ordered collision-derived sonar contours")
+		var points: Array = data.get("relays",[]).duplicate()
+		if data.has("relay"): points.append(data.relay)
+		check(fresh.relay_markers.size()==points.size(),"no invented or omitted relay")
+		for index in points.size():
+			var m=fresh.relay_markers[index];count+=1
+			check(m.position==points[index] and m.raster_reference==m.position,"authored relay placement/reference")
+			check(m.show_behind_parent and m.z_index>fresh.onward_marker.z_index and m.z_index<0,"mission-only relay paint depth")
+			check(m.get_node("RelayContour").get_groups().is_empty(),"relay contour has no sonar exemption group")
+			m.appearance.active_ink=Color.RED
+			check(Support.topology(old,[])==Support.topology(fresh,[]) and Support.contours(old)==Support.contours(fresh),"paint cannot change physics or sonar geometry")
+		check(fresh.get_child(fresh.get_child_count()-1)==fresh.onward_marker,"onward traversal remains last")
+		var sa=sonar_for(old);var sb=sonar_for(fresh)
+		var origin: Vector2=data.get("station",Vector2(float(data.width)-45,float(data.get("gate_y",300))))+Vector2(-60,-21)
+		sa._on_noise_emitted(origin,&"weapon_tap",1.0,old);sb._on_noise_emitted(origin,&"weapon_tap",1.0,fresh)
+		check(sa.accepted_event_count==1 and sb.accepted_event_count==1,"actual scoped production sonar admits source")
+		for frame in range(hz*3):
+			sa.advance_simulation(1.0/hz);sb.advance_simulation(1.0/hz)
+			check(alphas(sa)==alphas(sb),"actual contour pulse timing/alpha parity")
+		check(sa.pulses.is_empty() and sb.pulses.is_empty(),"real pulses expire")
+		sa.free();sb.free();world.free()
+	check(count==8,"all eight production relays extracted")
+	await mixed_key_test()
+	var world:=Node2D.new();root.add_child(world)
+	var a=Marker.instantiate();var b=Marker.instantiate();a.is_active=true;a.appearance.label="CIRCUIT"
+	world.add_child(a);world.add_child(b)
+	check(a.is_active and a.get_node("View").is_active and a.get_node("View").appearance.label=="CIRCUIT","explicit state before tree entry")
+	check(a.appearance!=b.appearance and a.get_node("RelayContour/Shape").shape!=b.get_node("RelayContour/Shape").shape,"per-instance appearance and shape resources")
+	var original:=Support.contours(a)
+	a.appearance.active_ink=Color.RED;a.appearance.label="EXIT";a.appearance.label="RELAY"
+	check(b.appearance.active_ink==Color("9ce5bd") and b.appearance.label=="RELAY","paint and state edits isolated")
+	check(Support.contours(a)==original,"all state/paint inputs leave contour invariant")
+	var retired=a.appearance;var replacement=Appearance.new();a.appearance=replacement
+	check(not retired.changed.is_connected(a.get_node("View").queue_redraw) and replacement.changed.is_connected(a.get_node("View").queue_redraw),"replacement removes retired redraw subscription")
+	var font:=preload("res://fonts/DejaVuSansMono.ttf").duplicate(true);replacement.font=font
+	check(font.changed.is_connected(replacement._font_changed),"custom font changes propagate")
+	replacement.font=null;check(not font.changed.is_connected(replacement._font_changed),"old font subscription disconnected")
+	b.appearance=replacement;replacement.font_size=13;check(b.appearance.font_size==13,"explicit appearance sharing is intentional")
+	b.appearance=replacement.duplicate(true);replacement.font_size=17;check(b.appearance.font_size==13,"explicit deep copy isolates edits")
+	a.raster_reference=Vector2(-20.75,-0.25);a.raster_reference=Vector2(NAN,0);replacement.font_size=0
+	check(a.raster_reference==Vector2(-20.75,-0.25) and replacement.font_size==17,"invalid input keeps last valid configuration")
+	var parent:=Node2D.new();parent.position=Vector2(30,-50);parent.rotation=0.3;parent.scale=Vector2(1.3,0.8);world.add_child(parent)
+	a.reparent(parent);a.position=Vector2(12.5,-4.75);a.rotation=-0.2;a.scale=Vector2(0.8,1.2)
+	check(a.raster_reference==Vector2(-20.75,-0.25),"raster reference remains fixed under parent/root transforms")
+	check(a.get_node("RelayContour").global_transform.is_equal_approx(a.global_transform*Transform2D(0,Vector2(0,-15.5))),"contour follows native composed transform")
+	var sonar=sonar_for(parent)
+	check(sonar.geometry.size()==1 and not sonar.geometry[0].dynamic,"real static contour survives nested transform")
+	a.hide();a.appearance=null;sonar.refresh_geometry();check(sonar.geometry.size()==1,"hidden/null paint preserves sonar as legacy")
+	parent.remove_child(a);sonar.refresh_geometry();check(sonar.geometry.is_empty(),"detached marker leaves no geometry")
+	a.appearance=Appearance.new();a.is_active=true;a.appearance.label="CIRCUIT";parent.add_child(a);sonar.refresh_geometry()
+	check(sonar.geometry.size()==1 and a.get_node("View").appearance.label=="CIRCUIT","reattachment restores contour and current state")
+	a.show()
+	var pack:=PackedScene.new();check(pack.pack(a)==OK,"configured marker packs")
+	check(ResourceSaver.save(pack,"user://relay_marker_roundtrip.tscn")==OK,"configured marker saves")
+	var restored=load("user://relay_marker_roundtrip.tscn").instantiate();world.add_child(restored)
+	check(restored.is_active and restored.appearance.label=="CIRCUIT" and restored.raster_reference==a.raster_reference and restored.transform==a.transform,"state/placement/reference survive serialization")
+	check(restored.appearance!=a.appearance and restored.get_node("RelayContour/Shape").shape!=a.get_node("RelayContour/Shape").shape,"serialized instance resources isolated")
+	a.get_node("View").free();a.appearance=Appearance.new();sonar.refresh_geometry();check(sonar.geometry.size()==1,"removed optional view preserves actual contour")
+	a.free();sonar.refresh_geometry();check(sonar.geometry.is_empty(),"deleted contour cannot ghost");sonar.free()
+	world.free()
+	await passage_test()
+	await mission_test()
+	var report={"hz":hz,"checks":checks,"failures":failures,"passed":failures.is_empty(),"production_markers":count,"scope":"Geometry/state/sonar tests and direct-state mission contract fixtures; not input-driven routes."}
+	FileAccess.open("res://simulation/evidence/relay_marker_%dhz.json"%hz,FileAccess.WRITE).store_string(JSON.stringify(report,"\t"))
+	print("RELAY MARKER ",JSON.stringify(report));quit(0 if failures.is_empty() else 1)
+func passage_test() -> void:
+	var world:=Node2D.new();root.add_child(world)
+	var marker=Marker.instantiate();world.add_child(marker)
+	var actor=preload("res://combat_pc/player.tscn").instantiate()
+	actor.automatic_physics=false;world.add_child(actor)
+	for mode in range(5):
+		marker.is_active=mode>0
+		if mode==2:marker.hide()
+		if mode==3:marker.appearance=null
+		if mode==4:marker.get_node("View").free()
+		actor.position=Vector2(-80,-15.5)
+		await physics_frame
+		var hit=actor.move_and_collide(Vector2(160,0))
+		check(hit==null and actor.position.is_equal_approx(Vector2(80,-15.5)),"real shared actor crosses enabled relay with active/hidden/null/removed paint mode %d"%mode)
+		check(not marker.get_node("RelayContour/Shape").disabled,"all paint modes preserve enabled contour")
+	var cargo:=RigidBody2D.new();cargo.gravity_scale=0;cargo.collision_layer=8;cargo.collision_mask=1
+	var shape:=CollisionShape2D.new();var box:=RectangleShape2D.new();box.size=Vector2(12,12);shape.shape=box;cargo.add_child(shape)
+	cargo.position=Vector2(-80,-15.5);cargo.linear_velocity=Vector2(160,0);world.add_child(cargo)
+	for frame in range(hz): await physics_frame
+	check(cargo.position.x>40,"real solver-driven rigid cargo crosses enabled contour")
+	world.free()
+func mixed_key_test() -> void:
+	var data:Dictionary={"theme":"interior","width":350,"platforms":[],"station":Vector2(305,300),"relay":Vector2(303,292),"relays":[Vector2(300,290),Vector2(307,295)],"cache":Vector2(310,285),"shutters":[[Vector2(330,250),Vector2(24,100),0]]}
+	var old=Support.legacy_room_script().new();var fresh=preload("res://demo/components/mission_room.gd").new()
+	root.add_child(old);root.add_child(fresh);old.build(data);fresh.build(data);old.set_process(false);fresh.set_process(false)
+	check(Support.topology(old,[])==Support.topology(fresh,[]) and Support.contours(old)==Support.contours(fresh),"mixed keys retain singular-before-cache-before-plural contour traversal")
+	check(fresh.relay_markers[0].position==data.relays[0] and fresh.relay_markers[1].position==data.relays[1] and fresh.relay_markers[2].position==data.relay,"paint indices remain plural then singular")
+	check(fresh.exchange_station.z_index<fresh.relay_markers[0].z_index and fresh.relay_markers[0].z_index<fresh.relay_markers[2].z_index,"mixed relay paint ordering is distinct from physical insertion")
+	var alias:Array[int]=[];fresh.activated_relays=alias
+	alias.append(1);fresh._process(0)
+	check(not fresh.relay_markers[0].is_active and fresh.relay_markers[1].is_active and not fresh.relay_markers[2].is_active,"aliased append observed by process sync")
+	alias.append(2);fresh.queue_redraw();await process_frame;await process_frame
+	check(fresh.relay_markers[1].is_active and fresh.relay_markers[2].is_active,"manual queued redraw observes aliased state while process disabled")
+	alias[0]=0;fresh._process(0)
+	check(fresh.relay_markers[0].is_active and not fresh.relay_markers[1].is_active and fresh.relay_markers[2].is_active,"aliased indexed replacement observed")
+	alias.erase(0);fresh._process(0)
+	check(not fresh.relay_markers[1].is_active and fresh.relay_markers[2].is_active,"in-place erase observed")
+	alias.clear();fresh._process(0);check(not fresh.relay_markers[2].is_active,"in-place clear observed")
+	fresh.relay_on=true;check(fresh.relay_markers.all(func(m):return m.is_active),"global relay state remains OR for all paint indices")
+	fresh._process(0);await process_frame
+	check(not fresh.shutters[0].is_open,"global relay paint override alone never opens a shutter")
+	fresh.relay_on=false;var single:Array[int]=[0];fresh.activated_relays=single;check(fresh.relay_markers[0].is_active and not fresh.relay_markers[1].is_active,"property assignment forwards synchronously")
+	old.free();fresh.free()
+	data.relays=[]
+	old=Support.legacy_room_script().new();fresh=preload("res://demo/components/mission_room.gd").new()
+	root.add_child(old);root.add_child(fresh);old.build(data);fresh.build(data)
+	check(fresh.relay_markers.size()==1 and fresh.relay_markers[0].position==data.relay and Support.topology(old,[])==Support.topology(fresh,[]) and Support.contours(old)==Support.contours(fresh),"empty plural key retains singular paint and exact traversal")
+	old.free();fresh.free()
+func mission_test() -> void:
+	var host=load("res://demo/mission.tscn").instantiate();root.add_child(host);host.save_enabled=false;host.start_new(true)
+	host.set_process(false);host.set_physics_process(false)
+	for sector in [0,1,2,4,5]:
+		host.load_sector(sector);host.room.process_mode=Node.PROCESS_MODE_DISABLED
+		var points:Array=host._relay_points();var first:Vector2=points[0]
+		host.player.reset_actor(first,1)
+		check(host.relay_states.is_empty() and not host.relay_on,"proximity alone never activates relay")
+		for distance in [45.01,45.0]:
+			host.player.reset_actor(first+Vector2(-distance,0),1);host.bus.clear_history();host.interact()
+			check(host.relay_states.is_empty() and host.bus.event_history.is_empty(),"strict E relay boundary excludes distance at least 45")
+		for index in points.size():
+			host.player.reset_actor(points[index]+Vector2(-44.99,0),1);host.bus.clear_history();host.interact()
+			check(host.relay_states.size()==index+1 and host.relay_states.has(index),"E activates only the next targeted inactive relay")
+			var events:Array=host.bus.event_history
+			check(events.size()==1 and events[0].origin==points[index]-Vector2(0,20) and events[0].kind==&"prop_impact" and events[0].loudness==1.4 and events[0].source_id==host.room.get_instance_id(),"exact authored-point room-sourced relay noise")
+			check(host.relay_on==(index==points.size()-1) and host.room.relay_on==host.relay_on,"global completion only after all relay indices")
+			host.room._process(0)
+			await process_frame
+			for shutter in host.room.shutters:check(shutter.is_open==host.relay_states.has(shutter.relay_index),"only matching actual shutter opens")
+			if index<points.size()-1:check(not host.room.gate_open and host._pending_sector==-1,"partial relays cannot advance or open onward")
+			host.bus.clear_history();host.interact();check(host.relay_states.size()==index+1 and host.bus.event_history.is_empty(),"repeated E cannot reactivate or emit relay noise")
+		check(host.room.gate_open==not host.sectors[sector].get("lock",false),"gate retains enemy-lock policy after relay completion")
+		host.load_sector(sector);check(host.relay_states.is_empty() and not host.room.relay_on and host.room.relay_markers.all(func(m):return not m.is_active),"sector retry reconstructs inactive relay state")
+	# Explicit synthetic mixed-key fixture: mission prefers plural exclusively.
+	var mixed:Dictionary=host.sectors[0].duplicate(true)
+	mixed.relays=[Vector2(200,300),Vector2(200,300)];mixed.relay=Vector2(400,300);mixed.enemies=[];mixed.props=[];mixed.erase("cache")
+	host.sectors[0]=mixed;host.load_sector(0);host.room.set_process(false)
+	check(host._relay_points().size()==2 and host.room.relay_markers.size()==3,"mixed fixture preserves mission plural preference versus painting both keys")
+	host.player.reset_actor(Vector2(200,300),1);host.interact();check(host.relay_states==[0] and not host.relay_on,"overlapping relays activate first inactive point only")
+	host.interact();check(host.relay_states==[0,1] and host.relay_on and host.room.relay_markers[2].is_active,"next E activates next inactive; global OR paints singular without mission objective")
+	mixed.relays=[];host.sectors[0]=mixed;host.load_sector(0)
+	check(host._relay_points().is_empty() and host.room.relay_markers.size()==1 and host.room.gate_open,"empty plural key leaves singular paint outside mission objectives")
+	paused=false;host.free();await process_frame

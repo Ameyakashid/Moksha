@@ -1,0 +1,18 @@
+
+func contact_waypoint_recovery(target: Vector2) -> Dictionary:
+ var player=host.player
+ if player.grounded or player.main_action!=&"locomotion" or stagnant<=0.45 or player.velocity.length()>0.1:return {}
+ if absf(target.x-player.position.x)>=8 or target.y<=player.position.y+player.profile.floor_probe:return {}
+ var hit:=KinematicCollision2D.new()
+ if not player.test_move(player.global_transform,Vector2.DOWN*player.profile.floor_probe,hit,player.profile.collision_margin) or not player._floor_normal(hit.get_normal()):return {}
+ var body=hit.get_collider()
+ if not is_instance_valid(body) or not body is PhysicsBody2D or body.get_world_2d()!=player.get_world_2d():return {}
+ var away:float=player.global_position.x-hit.get_position().x
+ if absf(away)<=player.profile.collision_margin:return {}
+ return {"right":1.0} if away>0 else {"left":1.0}
+func ledge_waypoint_recovery(target: Vector2) -> Dictionary:
+ var raw:Dictionary=super.ledge_waypoint_recovery(target)
+ if not raw.is_empty() or not contact_recovery_fixture:return raw
+ raw=contact_waypoint_recovery(target)
+ if not raw.is_empty():print("DIAGNOSTIC CONTACT RECOVERY ",raw," ",snapshot())
+ return raw

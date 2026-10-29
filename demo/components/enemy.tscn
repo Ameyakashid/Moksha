@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/health_target.tscn" id="1"]
+[ext_resource type="Script" path="res://demo/components/enemy.gd" id="2"]
+[ext_resource type="PackedScene" path="res://simulation/components/physical_impact_receiver.tscn" id="3"]
+
+[node name="DemoEnemy" instance=ExtResource("1")]
+script = ExtResource("2")
+
+[node name="PhysicalImpactReceiver" parent="." instance=ExtResource("3")]
+response = 1
+health_path = NodePath("../StrikeHealth/Health")
+provider_path = NodePath("../StrikeHealth")
+required_host_flag = &"enabled"

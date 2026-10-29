@@ -1,0 +1,64 @@
+extends "res://simulation/tests/warden_factory_regression.gd"
+## Factory setup only; all assertions below observe actual configured sources.
+const EmitterScript = preload("res://simulation/components/projectile_emitter.gd")
+var source_records: Array[Dictionary] = []
+
+func run() -> void:
+	host = preload("res://demo/mission.tscn").instantiate()
+	host.save_enabled = false
+	root.add_child(host)
+	host.start_new(true)
+	host.input_override = {}
+	var counts := {"sentinel":0,"listener":0,"sentry":0,"warden":0}
+	for index in host.sectors.size():
+		host.load_sector(index)
+		for actor in host.enemies: actor.ai_enabled = false
+		await frames(2)
+		check(inherits_controller(host.player) and host.player.get_node_or_null("IntentDriver") == null, "PC retains canonical controller and original sole host scheduler")
+		for actor in host.enemies:
+			counts[actor.kind] += 1
+			_audit_actor(actor, index)
+	check(counts.values().all(func(value): return value > 0) and counts.warden == 1, "all four actual factory kinds audited, including the unique Warden")
+	host.queue_free()
+	await frames(3)
+	check(get_nodes_in_group("shared_projectiles").is_empty(), "factory audit disposal leaves no projectile")
+	var report := {"suite":"independent all-four factory source closure", "hz":hz, "checks":checks, "failures":failures, "counts":counts, "actors":source_records, "method":"Actual factory sector setup and inherited AI-disable fixture, followed by read-only identity/binding/profile/mask assertions. No fabricated outgoing contacts; actual outputs are separately proven by physical suites."}
+	FileAccess.open("res://simulation/evidence/independent_factory_sources_%d.json" % hz, FileAccess.WRITE).store_string(JSON.stringify(report, "  ") + "\n")
+	print("INDEPENDENT FACTORY SOURCES %d Hz: %d checks, %d failures, counts=%s" % [hz,checks.size(),failures.size(),str(counts)])
+	for failure in failures: printerr(failure)
+	quit(0 if failures.is_empty() else 1)
+
+func _script_chain(node: Node) -> Array[String]:
+	var paths: Array[String] = []
+	var script: Script = node.get_script()
+	while script != null:
+		paths.append(script.resource_path)
+		script = script.get_base_script()
+	return paths
+
+func _audit_actor(actor: Node, sector: int) -> void:
+	var contact: Node = actor.get_node("ContactAdapter")
+	var driver: Node = actor.get_node("IntentDriver")
+	var input: Node = actor.get_node("InputSource")
+	var policy: Node = actor.get_node("SentinelPolicy")
+	var projectile: Node = actor.get_node_or_null("ProjectileEmitter")
+	var chain := _script_chain(actor)
+	var label := "%s sector%d: " % [actor.kind,sector+1]
+	check(chain.has("res://combat_pc/player.gd") and chain.has("res://demo/components/shared_sentinel.gd"), label + "inherits common controller and shared NPC host")
+	check(contact.get_script().resource_path == "res://combat_pc/components/contact_adapter.gd" and contact.actor == actor and actor.strike_sample.is_connected(Callable(contact,"sample_strike")), label + "outgoing ContactAdapter is the common script bound to the canonical actor strike signal")
+	check(contact.enabled == (actor.kind != "sentry") and contact.target_mask == 64 and contact.obstruction_mask == 1, label + "correct melee source enabled state and authored target/wall masks")
+	check(actor.collision_layer == 32 and actor.get_node("ProjectileReceiver").accepted_source_layers == 2, label + "hostile owner layer32 and reflected-PC receiver layer2")
+	check(driver.get_script().resource_path == "res://simulation/components/actor_intent_driver.gd" and driver._actor == actor and driver._owns_tick and not actor.automatic_physics and driver.automatic_driver, label + "sole canonical intent driver owns scheduler")
+	check(input.get_script().resource_path == "res://simulation/components/npc_input_source.gd" and driver.get_node(driver.source_path) == input and input.get_parent() == actor and input.get_node(input.policy_path) == policy, label + "shared raw NPC input source is owned and selected by sole driver")
+	check(policy.get_script().resource_path == ("res://demo/components/sentry_policy.gd" if actor.kind == "sentry" else "res://demo/components/sentinel_policy.gd"), label + "expected intentions-only policy identity")
+	var record := {"sector":sector+1,"kind":actor.kind,"actor_id":actor.get_instance_id(),"controller_scripts":chain,"contact_script":contact.get_script().resource_path,"contact_bound":contact.actor == actor,"contact_enabled":contact.enabled,"contact_target_mask":contact.target_mask,"contact_obstruction_mask":contact.obstruction_mask,"owner_layer":actor.collision_layer,"driver_script":driver.get_script().resource_path,"input_script":input.get_script().resource_path,"policy_script":policy.get_script().resource_path}
+	if actor.kind == "sentry":
+		check(projectile != null and projectile.get_script().resource_path == "res://simulation/components/projectile_emitter.gd" and EmitterScript.registered(actor) == projectile and projectile.get_bound_actor() == actor and projectile.get_parent() == actor, label + "registered common projectile emitter belongs to canonical sentry")
+		check(projectile.enabled and actor.movement_event.is_connected(Callable(projectile,"_on_actor_event")) and actor.strike_sample.is_connected(Callable(projectile,"_on_sample")), label + "emitter observes canonical controller commitment/sample signals")
+		check(projectile.profile.get_script().resource_path == "res://simulation/resources/projectile_profile.gd" and projectile.profile.valid() and projectile.profile.snapshot() == projectile._profile_snapshot, label + "valid private projectile profile matches registered source snapshot")
+		check(projectile.profile.outbound_mask == 43 and projectile.profile.reflected_mask == 43 and projectile.profile.obstruction_mask == 9 and projectile.profile.require_clear_aim_on_release, label + "authored projectile masks43/43/walls9 and clear-aim gate")
+		check(projectile.get_node(projectile.aim_path) == policy and projectile.profile.release_pose == actor.melee_chain.steps[0].pose_id and actor.melee_chain.steps[0].next_step == -1, label + "same owned aim policy and canonical terminal projectile release step")
+		record["projectile"] = {"script":projectile.get_script().resource_path,"registered":EmitterScript.registered(actor) == projectile,"bound":projectile.get_bound_actor() == actor,"profile_script":projectile.profile.get_script().resource_path,"profile":projectile.profile.snapshot(),"owner_layer":actor.collision_layer,"aim_policy":policy.get_script().resource_path}
+	else:
+		check(projectile == null and EmitterScript.registered(actor) == null, label + "melee actor has no duplicate ranged source")
+	source_records.append(record)

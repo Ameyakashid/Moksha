@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="PackedScene" path="res://simulation/actors/shared_actor.tscn" id="1"]
+[ext_resource type="Script" path="res://simulation/components/npc_input_source.gd" id="2"]
+[ext_resource type="Script" path="res://simulation/components/melee_intent_policy.gd" id="3"]
+[ext_resource type="Resource" path="res://demo/resources/sentinel_contact.tres" id="4"]
+[node name="NPC" instance=ExtResource("1")]
+initial_facing=-1
+modulate=Color(1,0.8,0.58,1)
+[node name="InputSource" type="Node" parent="."]
+script=ExtResource("2")
+policy_path=NodePath("../Policy")
+[node name="Policy" type="Node" parent="."]
+script=ExtResource("3")
+target_path=NodePath("../../Player")
+move_strength=0.35
+stop_distance=34.0
+[node name="ContactConfig" parent="."]
+profile=ExtResource("4")

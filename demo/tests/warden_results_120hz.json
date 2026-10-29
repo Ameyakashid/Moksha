@@ -1,0 +1,36 @@
+{
+  "checks": 76,
+  "execution": "Actual Godot physics callbacks and production PC/ContactAdapter/ShieldContactAdapter/health/motor. Direct lifecycle and setup probes explicitly labeled.",
+  "failures": [],
+  "hz": 120,
+  "input_only_duel_seconds": 13.4333333333333,
+  "preserved_hashes": {
+    "res://combat_pc/components/contact_adapter.gd": "8b1bb344c195c2bbb4247e4213bff300fb96b0e894aaadbe797a3b786752f97a",
+    "res://combat_pc/components/health_component.gd": "a24a01f6497ffbda15e510134c1a5fd613fb060f2f0b188621fb5021603a5dc3",
+    "res://combat_pc/components/shield_contact_adapter.gd": "edae8a74912a1b5f9515510fd62bffd942f7b9e2dcebab981123a57a22060b7f",
+    "res://combat_pc/components/strike_health.gd": "fdf3dd095bce22280cea6e0dd287b45bb030c57327a6c2826f60b190022d37fd",
+    "res://combat_pc/components/strike_knockback.gd": "c72f2b5b9fef51d5b0c74f49ba52aa28ebef46a93aa47a02247c8d0138eb998d",
+    "res://combat_pc/player.gd": "6cd582c819d5297096205754d30d7c7bbc25021822390117edc71378ecbe43ea",
+    "res://demo/components/enemy.gd": "5a375422c4af9b6c5ab52f26bcae86d532bb079dff942d1d65efbf5e420a087f",
+    "res://movement/components/movement_motor.gd": "149e8eddeab852f44aa141924ddb75d86c0a66846dfe47c27241a4c9b422b1fb",
+    "res://prop.gd": "8b0b1e06d6c76da455585318fecf02bc08e92e6917c2bf83a30f6cc72576cef0"
+  },
+  "scenarios": [
+    "physical melee during committed windup",
+    "physical rear melee during active brace",
+    "physical timed parry and counter cut",
+    "physical timed parry and counter sweep",
+    "held frontal guard remains physical",
+    "physical recovery punish remains interruptible",
+    "physical lethal strike through brace",
+    "explicit reset during committed windup",
+    "below-half pressure from physical strike",
+    "alternating cut and sweep with honest visible reach",
+    "escape outside committed reach",
+    "terrain inserted during committed windup",
+    "timed stock roll against braced cut",
+    "explicit stale-counter boundary",
+    "complete input-only duel through repeated real parries"
+  ],
+  "suite": "demo Warden climax"
+}

@@ -1,0 +1,9 @@
+extends "res://simulation/components/incoming_strike_receiver.gd"
+var after_validation: Callable
+var retire_on := -1
+var validation_calls := 0
+func strike_generation_is_current(token: Dictionary) -> bool:
+	var current := super.strike_generation_is_current(token)
+	validation_calls += 1
+	if validation_calls == retire_on and after_validation.is_valid(): after_validation.call()
+	return current

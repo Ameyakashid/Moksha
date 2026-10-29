@@ -1,0 +1,10 @@
+extends SceneTree
+func _initialize() -> void:
+	_run.call_deferred()
+func _run() -> void:
+	var actor = preload("res://combat_pc/player.tscn").instantiate()
+	root.add_child(actor)
+	print("ABSENT AUTHORITY RESULT ",actor._physical_contact_is_current({}))
+	actor.queue_free()
+	await process_frame
+	quit()

@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=3]
+[ext_resource type="Script" path="res://sandbox/station_controls.gd" id="1"]
+[ext_resource type="PackedScene" path="res://sandbox/actors/player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://simulation/world/static_platform.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://simulation/world/moving_lift.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://simulation/world/mission_ladder.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://simulation/world/mission_cargo.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://sandbox/station_overlay.tscn" id="7"]
+[node name="TraversalStation" type="Node2D"]
+script=ExtResource("1")
+station_title="01 / TRAVERSAL MODULES"
+station_description="Drag-and-drop support, lift, ladder and cargo. Same controller; no room script."
+[node name="Floor" parent="." instance=ExtResource("3")]
+position=Vector2(320,330)
+platform_size=Vector2(640,40)
+[node name="UpperShelf" parent="." instance=ExtResource("3")]
+position=Vector2(460,180)
+platform_size=Vector2(200,18)
+one_way_collision=true
+[node name="Lift" parent="." instance=ExtResource("4")]
+position=Vector2(240,300)
+travel=Vector2(0,-115)
+period=6.0
+platform_size=Vector2(110,14)
+[node name="Ladder" parent="." instance=ExtResource("5")]
+position=Vector2(450,310)
+height=140.0
+[node name="Cargo" parent="." instance=ExtResource("6")]
+position=Vector2(350,294)
+[node name="Player" parent="." instance=ExtResource("2")]
+position=Vector2(85,310)
+[node name="Overlay" parent="." instance=ExtResource("7")]

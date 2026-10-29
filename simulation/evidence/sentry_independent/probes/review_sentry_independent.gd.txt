@@ -1,0 +1,92 @@
+extends "res://simulation/tests/sentry_regression.gd"
+const ReviewReceiver=preload("res://simulation/tests/review_sentry_receiver.gd")
+var extra_results: Array[Dictionary] = []
+func replace_receiver(actor: Node, layers: int) -> Node:
+	var old := actor.get_node("ProjectileReceiver")
+	old.unbind()
+	actor.remove_child(old)
+	old.queue_free()
+	var receiver := ReviewReceiver.new()
+	receiver.name="ProjectileReceiver"
+	receiver.accepted_source_layers=layers
+	actor.add_child(receiver)
+	await frames(2)
+	return receiver
+func run() -> void:
+	root.get_node("NoiseBus").noise_emitted.connect(noise)
+	for callback_name in ["capture_callback","current_callback"]:
+		for mutation in ["filter blocked","filter roundtrip","source layer","owner swap","target reset"]:
+			await begin("receiver extension "+callback_name+" / "+mutation,1,20)
+			var receiver := await replace_receiver(pc,32)
+			var callback_frame := [-1]
+			var damage_frames:=[]
+			pc.get_node("Health").damage_processed.connect(func(_receipt): damage_frames.append(Engine.get_physics_frames()))
+			var callback := func():
+				callback_frame[0]=Engine.get_physics_frames()
+				match mutation:
+					"filter blocked": receiver.accepted_source_layers=2
+					"filter roundtrip": receiver.accepted_source_layers=0; receiver.accepted_source_layers=32
+					"source layer": npc.collision_layer=2
+					"owner swap": first_shot().attack_owner=weakref(pc)
+					"target reset": pc.reset_actor(pc.position,1)
+			receiver.set(callback_name,callback)
+			await launch(); npc.ai_enabled=false
+			await frames(ceili(hz*1.3))
+			check(callback_frame[0]>=0,"actual swept contact reaches extension callback")
+			if mutation in ["filter roundtrip","target reset"]:
+				check(damage_frames.is_empty() or damage_frames[0]>callback_frame[0],"invalidated contact cannot debit Health during callback frame")
+				check(pc.get_node("Health").current_health>=59,"later new sweep can at most debit once")
+			else:
+				check(pc.get_node("Health").current_health==60 and target_health.is_empty(),"retired filter/source/owner cannot debit Health")
+			await finish()
+	await begin("source reset inside admitted release noise",1,20)
+	var noise_reset:=func(_origin,kind,_loudness,source):
+		if source==npc and kind==&"enemy_attack": npc.reset_at(npc.position); npc.ai_enabled=false
+	root.get_node("NoiseBus").noise_emitted.connect(noise_reset)
+	npc.ai_enabled=true; await frames(hz*2)
+	root.get_node("NoiseBus").noise_emitted.disconnect(noise_reset)
+	check(noise_count(&"enemy_attack",npc)==1 and emissions.is_empty() and npc.shots_fired==0,"one admitted sound and no old-generation launch notification after synchronous reset")
+	check(pc.get_node("Health").current_health==60,"retired admitted carrier cannot hurt target")
+	await finish()
+	await begin("source reset on own returned Health callback",1,2)
+	npc.get_node("Health").damage_processed.connect(func(_receipt): npc.reset_at(npc.position); npc.ai_enabled=false,CONNECT_ONE_SHOT)
+	await reflected(); await frames(hz*2)
+	check(npc.health==2 and not npc.dead and npc.last_attack_result.is_empty(),"new life does not inherit old lethal return facade result")
+	check(npc.get_node("ProjectileReceiver").last_receipt.is_empty(),"new source life receives no stale target receipt")
+	check(get_nodes_in_group("shared_projectiles").is_empty(),"returned retirement removes all carriers")
+	await finish()
+	await begin("pending warning retires on pause",1,20)
+	npc.ai_enabled=true; await until(func(): return npc.weapon_phase==&"windup")
+	var emitter:=npc.get_node("ProjectileEmitter")
+	check(not emitter.pending_aim_snapshot().is_empty(),"real start has presentation aim")
+	paused=true; await frames(3)
+	check(emitter.pending_aim_snapshot().is_empty(),"pause hides retired pending aim")
+	paused=false; npc.ai_enabled=false; await frames(hz*2)
+	check(emissions.is_empty() and noise_count(&"enemy_attack",npc)==0,"resume cannot recreate pre-pause pending release")
+	await finish()
+	await begin("same-life emitter replacement and fresh rearm",1,20)
+	await launch(); npc.ai_enabled=false
+	var old:=npc.get_node("ProjectileEmitter")
+	var source_profile=old.profile.duplicate(true)
+	old.unbind(); npc.remove_child(old); old.queue_free()
+	var emitter2=preload("res://simulation/components/projectile_emitter.gd").new()
+	emitter2.name="ProjectileEmitter"; emitter2.profile=source_profile; emitter2.aim_path=NodePath("../SentinelPolicy"); npc.add_child(emitter2)
+	await frames(hz*2)
+	check(pc.get_node("Health").current_health==60 and get_nodes_in_group("shared_projectiles").is_empty(),"replacing emitter retires previous flight")
+	npc.ai_enabled=true
+	check(await until(func(): return emitter2.emitted_count>0),"fresh genuine controller action remains usable after replacement")
+	npc.ai_enabled=false
+	await frames(hz)
+	check(pc.get_node("Health").current_health==59,"replacement emits one genuine physical hit")
+	check(npc.shots_fired==1,"facade does not silently rebind unknown replaced emitter")
+	await finish()
+	await begin("per-instance authored override isolation",1,20)
+	var sibling=SENTRY.instantiate(); sibling.position=Vector2(600,200); sibling.ai_enabled=false; sibling.projectile_speed=321; sibling.projectile_lifetime=1.7; sibling.reflected_damage=7; sibling.windup_override=0.8; world.add_child(sibling)
+	check(sibling.get_node("ProjectileEmitter").profile.speed==321 and sibling.get_node("ProjectileEmitter").profile.return_minimum_damage==7 and sibling._windup==0.8,"authored override applied privately")
+	check(npc.get_node("ProjectileEmitter").profile.speed==245 and npc.get_node("ProjectileEmitter").profile.return_minimum_damage==2 and npc._windup==0.72,"overrides never mutate production defaults or sibling")
+	await finish()
+	var report:={"hz":hz,"checks":checks,"scenarios":scenarios,"failures":failures}
+	FileAccess.open("/tmp/moksha_sentry_review/independent_%d.json"%hz,FileAccess.WRITE).store_string(JSON.stringify(report,"  ")+"\n")
+	print("INDEPENDENT SENTRY %d Hz: %d scenarios, %d checks, %d failures"%[hz,scenarios.size(),checks.size(),failures.size()])
+	for failure in failures: printerr(failure)
+	quit(0 if failures.is_empty() else 1)

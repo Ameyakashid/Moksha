@@ -1,0 +1,19 @@
+{
+  "scope": "Every captured original file SHA-256; does not treat generated caches or new files as original content",
+  "checks": [
+    {
+      "project": "emberwake",
+      "baseline_files": 155,
+      "missing": [],
+      "changed": [],
+      "pass": true
+    },
+    {
+      "project": "moksha-assets",
+      "baseline_files": 89,
+      "missing": [],
+      "changed": [],
+      "pass": true
+    }
+  ]
+}

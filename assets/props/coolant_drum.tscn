@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/props/coolant_drum.tres" id="1_art"]
+
+[node name="CoolantDrum" type="Node2D"]
+metadata/art_only = true
+metadata/nominal_size = Vector2(20, 36)
+metadata/origin_kind = "bottom_center"
+metadata/source_pivot = Vector2(86.5, 308)
+
+[node name="Art" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-10.74534161, -36.71523179)
+scale = Vector2(0.12422360, 0.11920530)
+texture = ExtResource("1_art")
+centered = false

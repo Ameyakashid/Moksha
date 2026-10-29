@@ -1,0 +1,53 @@
+extends "res://simulation/tests/incoming_strike_regression.gd"
+const RangedActor=preload("res://simulation/actors/shared_ranged_actor.tscn")
+class FakeCarrier extends Node2D:
+	var _retired := false
+	func contact_is_current(_packet: Dictionary, _receiver: Node) -> bool: return true
+	func contact_source_is_current(_packet: Dictionary) -> bool: return true
+	func claim_contact(_packet: Dictionary, _receiver: Node) -> bool: return true
+func _actor(at: Vector2, mode: String, facing := 1) -> Node2D:
+	var actor := RangedActor.instantiate() as Node2D
+	actor.position=at
+	actor.initial_facing=facing
+	var source := RawSource.new()
+	source.name="InputSource"
+	actor.add_child(source)
+	actor.set_meta("mode","raw")
+	world.add_child(actor)
+	actor.get_node("ProjectileReceiver").projectile_resolved.connect(func(receipt:Dictionary): receipts.append(receipt.duplicate(true)))
+	return actor
+func _run() -> void:
+	await _begin("ordinary", "raw","raw",180)
+	left.get_node("ProjectileEmitter").projectile_emitted.connect(func(receipt):
+		var c:Node2D=instance_from_id(receipt.carrier_id)
+		print("EMIT valid=",c._lease_current()," owner=",c.attack_owner.get_ref()," pos=",c.global_position)
+		c.retired.connect(func(carrier,reason): print("RETIRED ",reason," age=",carrier.age," pos=",carrier.global_position," lease=",carrier._lease_current()))
+		c.resolved.connect(func(_c,result): print("RESOLVED ",result)))
+	left.movement_event.connect(func(kind,packet):
+		if kind in [&"attack_started",&"attack_phase_changed",&"attack_cancelled"]: print("EVENT ",kind," ",packet," SNAP ",left.strike_snapshot()," STRUCT ",left.get_node("ProjectileEmitter")._structural()," PENDING ",left.get_node("ProjectileEmitter")._pending))
+	left.strike_sample.connect(func(_actor,packet): print("SAMPLE ",packet," CAN ",left.active_action_sample_snapshot()," PENDING ",left.get_node("ProjectileEmitter")._pending))
+	await _attack(left)
+	await _frames(ceili(hz*2))
+	print("ORDINARY health ",_health(right)," receipts ",receipts," emitted ",left.get_node("ProjectileEmitter").emitted_count)
+	await _end()
+	await _begin("forgery", "raw","raw",180)
+	var fake:=FakeCarrier.new()
+	world.add_child(fake)
+	var receiver:Node=right.get_node("ProjectileReceiver")
+	var token:Dictionary=receiver.capture_projectile_generation()
+	var point:=right.global_position+Vector2(-8,-22)
+	var packet := {"carrier":fake,"receiver":receiver,"target":right,"receiver_generation":token,"contact_epoch":0,"contact_ticket":1,"attack_id":1,"source":left,"source_epoch":left.damage_generation(),"origin":point-Vector2(10,0),"contact_position":point,"incoming_velocity":Vector2(100,0),"collider_shape":0,"damage":9.0,"impulse":Vector2.ZERO,"stun_seconds":-1.0,"blockable":false,"parryable":false,"rollable":false,"reflectable":false,"reflected":false}
+	var response:Dictionary=receiver.receive_projectile(packet)
+	print("FORGED health ",_health(right)," response ",response)
+	await _end()
+	await _begin("translated parent","raw","raw",180)
+	world.position=Vector2(600,300)
+	var spawns:Array[Dictionary]=[]
+	left.get_node("ProjectileEmitter").projectile_emitted.connect(func(receipt:Dictionary):
+		var carrier:Node2D=instance_from_id(receipt.carrier_id)
+		spawns.append({"expected":receipt.muzzle,"actual":carrier.global_position}))
+	await _attack(left)
+	await _frames(ceili(hz*2))
+	print("TRANSLATED health ",_health(right)," spawns ",spawns)
+	await _end()
+	quit()

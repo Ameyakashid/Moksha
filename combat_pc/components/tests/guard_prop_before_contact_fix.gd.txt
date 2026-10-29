@@ -1,0 +1,171 @@
+class_name MokshaGuardPropAdapter
+extends Node2D
+## Instance-only bridge for the original physical prop. Its launch/impact noise
+## and melee launch API stay on prop.gd; this adapter owns defense descriptors.
+signal resolved(result: Dictionary)
+@export var attack_damage := 12.0
+@export var minimum_attack_speed := 45.0
+@export var lifetime_seconds := 5.0
+@export var blockable := true
+@export var parryable := true
+@export var reflectable := true
+@export var rollable := true
+var body: RigidBody2D
+var attack_owner: WeakRef
+var attack_id := 0
+var simulation_enabled := true
+var fixture_paused := false
+var _body_simulating := true
+var _was_body_enabled := true
+var _was_body_processing := true
+var reflected := false
+var reflection_count := 0
+var last_result: Dictionary = {}
+var last_contact := Vector2.ZERO
+var _age := 0.0
+var _previous_velocity := Vector2.ZERO
+var _previous_position := Vector2.ZERO
+var _visited: Dictionary = {}
+var _retired := false
+var _paused_velocity := Vector2.ZERO
+var _paused_spin := 0.0
+var _was_frozen := false
+
+func _ready() -> void:
+	process_physics_priority = 110
+	body = get_parent() as RigidBody2D
+	if body == null: return
+	body.collision_mask |= 2
+	body.max_contacts_reported = maxi(body.max_contacts_reported, 16)
+	body.continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
+	body.contact_monitor = true
+	if body.has_signal("launched"): body.connect("launched", _on_launched)
+	_previous_position = body.global_position
+	_previous_velocity = body.linear_velocity
+	queue_redraw()
+
+func configure(source: Node) -> void:
+	attack_owner = weakref(source) if is_instance_valid(source) else null
+
+func _on_launched(_prop: RigidBody2D) -> void:
+	attack_id += 1
+	_age = 0
+	_visited.clear()
+	reflected = false
+	_previous_position = body.global_position
+	_previous_velocity = body.get("last_speed")
+
+func _physics_process(dt: float) -> void:
+	if not simulation_enabled or fixture_paused or _retired or not is_instance_valid(body) or body.is_queued_for_deletion() or body.get("alive") == false: return
+	_age += dt
+	if _age >= lifetime_seconds:
+		retire()
+		return
+	# These are real contacts committed by Godot's rigid-body solver, including
+	# its shape CCD. No timer/range approximation invents an incoming impact.
+	var state := PhysicsServer2D.body_get_direct_state(body.get_rid())
+	if state != null and attack_id > 0:
+		for index in range(mini(16, state.get_contact_count())):
+			var target: Variant = state.get_contact_collider_object(index)
+			if not is_instance_valid(target) or not target is Node or target.is_queued_for_deletion(): continue
+			var target_id: int = target.get_instance_id()
+			if _visited.has(target_id): continue
+			var point := state.get_contact_local_position(index)
+			var normal := state.get_contact_local_normal(index)
+			var incoming := _previous_velocity
+			if incoming.length() < minimum_attack_speed: continue
+			if incoming.dot(normal) >= -1.0: continue
+			if target.has_method("receive_attack") and not reflected:
+				_visited[target_id] = true
+				last_contact = point
+				var source: Variant = attack_owner.get_ref() if attack_owner != null else null
+				last_result = target.receive_attack({"attack_id": attack_id, "source": source, "carrier": self, "kind": &"projectile",
+					"origin": _previous_position, "source_position": _previous_position, "contact_position": point,
+					"incoming_velocity": incoming, "amount": attack_damage, "impulse": incoming.normalized() * 150 + Vector2(0, -65),
+					"blockable": blockable, "parryable": parryable, "reflectable": reflectable, "counterable": false, "rollable": rollable})
+				resolved.emit(last_result.duplicate(true))
+			elif reflected and target.has_method("receive_guard_projectile"):
+				_visited[target_id] = true
+				last_contact = point
+				var response: Variant = target.receive_guard_projectile({"carrier": self, "owner": attack_owner.get_ref() if attack_owner != null else null,
+					"attack_id": attack_id, "damage": attack_damage, "contact_position": point, "incoming_velocity": incoming, "reflected": true})
+				last_result = response if response is Dictionary else {"accepted": false}
+				resolved.emit(last_result.duplicate(true))
+			if not is_instance_valid(body) or body.is_queued_for_deletion() or _retired: return
+	_previous_position = body.global_position
+	_previous_velocity = body.linear_velocity
+	queue_redraw()
+
+func reflect_from_shield(payload: Dictionary) -> Dictionary:
+	if _retired or not simulation_enabled or fixture_paused or reflected or not is_instance_valid(body) or body.is_queued_for_deletion(): return {"accepted": false, "reason": &"prop_ineligible"}
+	var defender: Variant = payload.get("defender")
+	var direction: Vector2 = payload.get("reflect_direction", Vector2.ZERO)
+	var speed := float(payload.get("reflect_speed", _previous_velocity.length()))
+	if not is_instance_valid(defender) or not defender is PhysicsBody2D or not direction.is_finite() or direction.is_zero_approx() or not is_finite(speed) or speed <= 0:
+		return {"accepted": false, "reason": &"invalid_redirect"}
+	var previous_owner: Variant = attack_owner.get_ref() if attack_owner != null else null
+	if is_instance_valid(previous_owner) and previous_owner is PhysicsBody2D: body.remove_collision_exception_with(previous_owner)
+	attack_owner = weakref(defender)
+	body.add_collision_exception_with(defender)
+	body.linear_velocity = direction.normalized() * speed
+	body.angular_velocity = -body.angular_velocity
+	body.sleeping = false
+	_previous_velocity = body.linear_velocity
+	reflected = true
+	reflection_count += 1
+	attack_id += 1
+	queue_redraw()
+	return {"accepted": true, "velocity": body.linear_velocity, "owner_id": defender.get_instance_id(), "reflection_count": reflection_count, "rigid_body_id": body.get_instance_id()}
+
+func set_fixture_paused(paused: bool) -> void:
+	if fixture_paused == paused: return
+	fixture_paused = paused
+	_sync_body_simulation()
+
+func set_simulation_enabled(enabled: bool) -> void:
+	if simulation_enabled == enabled: return
+	simulation_enabled = enabled
+	_sync_body_simulation()
+
+func _sync_body_simulation() -> void:
+	if not is_instance_valid(body): return
+	var enabled := simulation_enabled and not fixture_paused
+	if _body_simulating == enabled: return
+	_body_simulating = enabled
+	if not enabled:
+		# Synchronize the already-committed rigid transform before freezing.
+		# The Node can lag the PhysicsServer by one completed step.
+		var committed: Transform2D = PhysicsServer2D.body_get_state(body.get_rid(), PhysicsServer2D.BODY_STATE_TRANSFORM)
+		body.global_transform = committed
+		_paused_velocity = body.linear_velocity
+		_paused_spin = body.angular_velocity
+		_was_frozen = body.freeze
+		_was_body_enabled = bool(body.get("simulation_enabled"))
+		_was_body_processing = body.is_physics_processing()
+		body.set("simulation_enabled", false)
+		body.set_physics_process(false)
+		body.freeze = true
+	else:
+		body.freeze = _was_frozen
+		body.linear_velocity = _paused_velocity
+		body.angular_velocity = _paused_spin
+		body.sleeping = false
+		body.set("simulation_enabled", _was_body_enabled)
+		body.set_physics_process(_was_body_processing)
+		_previous_position = body.global_position
+		_previous_velocity = body.linear_velocity
+
+func retire() -> void:
+	if _retired: return
+	_retired = true
+	set_simulation_enabled(false)
+	if is_instance_valid(body):
+		body.collision_layer = 0
+		body.collision_mask = 0
+		body.queue_free()
+
+func _draw() -> void:
+	var color := Color("7cdfc0") if reflected else Color("d7b07e")
+	draw_rect(Rect2(-14, -14, 28, 28), color, false, 1)
+	draw_line(Vector2(-14, -14), Vector2(14, 14), color, 1)
+	draw_line(Vector2(-14, 14), Vector2(14, -14), color, 1)

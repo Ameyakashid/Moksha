@@ -1,0 +1,17 @@
+extends "res://simulation/components/physical_cargo.gd"
+## Mission presentation/configuration of the common physical source.
+func _ready() -> void:
+	impact_profile = impact_profile.duplicate(true) if impact_profile != null else ImpactProfile.new()
+	impact_profile.requires_charge = true
+	impact_profile.break_on_accepted_impact = true
+	impact_profile.minimum_normal_speed = tuning.contact_damage_speed
+	impact_profile.damage = tuning.damage
+	super._ready()
+	sprite.hide()
+	queue_redraw()
+func _draw() -> void:
+	var r := Rect2(-14,-14,28,28)
+	draw_rect(r,Color("19252b"))
+	draw_rect(r,Color("b2b6a3"),false,1.0)
+	draw_line(Vector2(-10,-10),Vector2(10,10),Color("70888b"),0.8)
+	draw_line(Vector2(10,-10),Vector2(-10,10),Color("70888b"),0.8)

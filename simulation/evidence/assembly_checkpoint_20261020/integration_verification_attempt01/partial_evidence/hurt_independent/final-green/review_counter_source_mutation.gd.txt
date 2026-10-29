@@ -1,0 +1,11 @@
+extends "res://combat_pc/components/shield_contact_adapter.gd"
+var changed := false
+func counter_source_is_current(packet: Dictionary, expected_binding: int = -1) -> bool:
+	var current := super.counter_source_is_current(packet, expected_binding)
+	if current and not changed and bool(_delivery_scope.get("claimed", false)):
+		changed = true
+		var receiver: Node = packet.counter_receiver
+		var previous: float = receiver.response_stun_seconds
+		receiver.response_stun_seconds = 0.21
+		receiver.response_stun_seconds = previous
+	return current

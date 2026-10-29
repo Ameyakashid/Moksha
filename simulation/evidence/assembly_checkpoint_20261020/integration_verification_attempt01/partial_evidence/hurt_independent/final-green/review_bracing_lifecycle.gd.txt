@@ -1,0 +1,50 @@
+extends "res://simulation/tests/review_bracing_independent.gd"
+func _run() -> void:
+	for stage in ["hurt_braced", "noise_requested", "hitpause_started"]:
+		for operation in ["reset", "replace_health", "rebind_health", "forced_action", "replace_chain", "source_reset"]:
+			await _begin("real brace lifecycle %s/%s" % [stage,operation], "raw", "NPC")
+			_brace(right)
+			var called: Array[bool]=[]
+			var healths: Array[Node]=[right.get_node("Health")]
+			var response: Array[Dictionary]=[]
+			var mutate := func():
+				if not called.is_empty(): return
+				called.append(true)
+				match operation:
+					"reset": right.reset_actor(right.position,-1)
+					"replace_health":
+						var old: Node=healths[0]
+						old.unbind_actor()
+						right.remove_child(old)
+						old.queue_free()
+						var fresh: Node=HealthScene.instantiate()
+						fresh.maximum_health=30
+						right.add_child(fresh)
+						healths[0]=fresh
+					"rebind_health": healths[0].unbind_actor(); healths[0].bind_actor(right)
+					"forced_action": right.begin_main_action(&"forced",{})
+					"replace_chain": right.melee_chain=null
+					"source_reset": left.reset_actor(left.position,1)
+			right.movement_event.connect(func(kind,payload):
+				if String(kind)==stage: mutate.call()
+				if kind==&"defense_resolved": response.append(payload.duplicate(true))
+			)
+			if stage=="noise_requested": right.noise_requested.connect(func(_pos,kind,_loud,_source):
+				if kind==&"hurt": mutate.call()
+			)
+			await _attack(right)
+			await _attack(left)
+			_check(await _until(func(): return not called.is_empty()),"real melee reaches selected callback")
+			var expected: float=30 if operation in ["reset","replace_health","rebind_health"] else 29
+			_check(healths[0].current_health==expected,"old operation does not debit replacement life/binding; same-life damage remains")
+			_check(right.main_action!=&"hurt", "braced callback never invents recoil")
+			if operation=="forced_action": _check(right.main_action==&"forced", "new owner remains authoritative")
+			if stage=="hurt_braced" and operation in ["reset","forced_action","replace_chain"]:
+				_check(right.hitpause_remaining==0,"stale old-owner feedback does not start hitpause")
+				_check(noise_events.filter(func(e): return e.actor_id==right.get_instance_id() and e.kind==&"hurt").is_empty(),"stale old-owner feedback emits no hurt noise")
+			await _end()
+	var report: Dictionary={"hz":hz,"checks":checks,"failures":failures,"scenarios":scenarios,"execution":"Independent actual melee contacts interrupted through hurt_braced/noise/hitpause lifecycle callbacks."}
+	FileAccess.open("res://simulation/evidence/review_bracing_lifecycle_%d.json" % hz,FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
+	print("INDEPENDENT BRACING LIFECYCLE %dHz %d checks %d failures" % [hz,checks,failures.size()])
+	for failure in failures: printerr(failure)
+	quit(0 if failures.is_empty() else 1)

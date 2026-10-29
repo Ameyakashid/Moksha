@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/city-background-v1.png" id="1_bg"]
+
+[node name="CityBackground" type="Node2D"]
+metadata/art_only = true
+metadata/nominal_size = Vector2(640, 360)
+
+[node name="Art" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.3827751196, 0.3825717322)
+texture = ExtResource("1_bg")
+centered = false

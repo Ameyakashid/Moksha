@@ -1,0 +1,23 @@
+@tool
+extends Node2D
+## Host-independent, decorative-only baseline-anchored text. No physical/sonar role.
+const Appearance = preload("res://demo/views/sign_appearance.gd")
+@export_multiline var text := "WORLD SIGN":
+	set(value):
+		text = value
+		queue_redraw()
+@export var baseline_offset := Vector2.ZERO:
+	set(value):
+		if not value.is_finite(): return
+		baseline_offset = value
+		queue_redraw()
+@export var appearance: Appearance:
+	set(value):
+		if appearance != null and appearance.changed.is_connected(queue_redraw): appearance.changed.disconnect(queue_redraw)
+		appearance = value
+		if appearance != null and not appearance.changed.is_connected(queue_redraw): appearance.changed.connect(queue_redraw)
+		queue_redraw()
+func _draw() -> void:
+	if appearance == null: return
+	var face: Font = appearance.font if appearance.font != null else ThemeDB.fallback_font
+	draw_string(face,baseline_offset,text,appearance.alignment,appearance.width,appearance.font_size,appearance.font_color)

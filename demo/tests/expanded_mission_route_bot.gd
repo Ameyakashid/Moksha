@@ -1,0 +1,700 @@
+extends SceneTree
+## Black-box-input full route probe. Bot reads layout/AI to plan, but measured
+## play sends only PC raw button frames and proximity-limited host interactions.
+## It never changes player positions, enemy health, damage, AI, or collision.
+class InputDispatch extends Node:
+	signal applied
+	var pending: Array[Callable] = []
+	func _process(_dt: float) -> void:
+		if pending.is_empty(): return
+		var work=pending.duplicate()
+		pending.clear()
+		for action in work: action.call()
+		applied.emit()
+
+var input_dispatch: InputDispatch
+var host: Node
+var scene_path := "res://demo/mission.tscn"
+var closed_shutters: Array[Rect2] = []
+var shutter_signature := ""
+var relay_recovery_probe := false
+var relay_recovery_phase := 0
+var relay_recovery_exited := false
+var starting_sight_fixture := false
+var approach := "direct"
+var freight_stage := 0
+var freight_attack_frame := -1
+var freight_replacement_frame := -99999
+var freight_seen_cargo := {}
+var freight_solids: Array[Rect2] = []
+var max_sector_seconds := 60
+var hz := 60
+var sacrifice := false
+var frame := 0
+var sector_seen := -1
+var waypoints: Array = []
+var waypoint_index := 0
+var jump_age := -1.0
+var jump_released := false
+var attack_clock := 0.0
+var trace: Array[Dictionary] = []
+var events: Array[Dictionary] = []
+var failures: Array[String] = []
+var retries := 0
+var sector_start := 0
+var last_x := 0.0
+var stagnant := 0.0
+var unreachable_seconds := 0.0
+var native_opening := false
+var native_ui_receipts: Array[Dictionary] = []
+var choice_done := false
+var pause_done := false
+var samples := {}
+var report_path := ""
+var source_hashes := {}
+var inputs_count := {"attack":0,"jump":0,"shield":0,"roll":0,"tap":0}
+var roll_exercised := false
+var platforms: Array[Rect2] = []
+var links: Array = []
+var support := 0
+var nav_trace := {}
+var probe_sector := -1
+var damage_receipts: Array[Dictionary] = []
+
+func _initialize() -> void:
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--scene="): scene_path=arg.trim_prefix("--scene=")
+		if arg=="--relay-recovery-probe": relay_recovery_probe=true
+		if arg.begins_with("--approach="): approach=arg.trim_prefix("--approach=")
+		if arg.begins_with("--sector-timeout="): max_sector_seconds=int(arg.trim_prefix("--sector-timeout="))
+		if arg.begins_with("--hz="): hz = int(arg.trim_prefix("--hz="))
+		if arg == "--sacrifice": sacrifice = true
+		if arg == "--native-opening": native_opening = true
+		if arg.begins_with("--probe-sector="): probe_sector=int(arg.trim_prefix("--probe-sector="))
+	Engine.physics_ticks_per_second = hz
+	run.call_deferred()
+
+func key(code: int) -> void:
+	var event := InputEventKey.new()
+	event.physical_keycode = code
+	event.pressed = true
+	await dispatch_ui(func(): host._unhandled_key_input(event))
+
+func dispatch_ui(action: Callable) -> void:
+	input_dispatch.pending.append(action)
+	await input_dispatch.applied
+
+func native_ui_receipt(label: String) -> void:
+	native_ui_receipts.append({"event":label,"state":host.state,"wall_msec":Time.get_ticks_msec(),"engine_process_frame":Engine.get_process_frames(),"mission_active_seconds":host.elapsed,"intro_seconds":host.intro_time})
+
+func present_native_opening() -> bool:
+	if scene_path != "res://demo/mission.tscn" or probe_sector >= 0 or host.state != "title":
+		failures.append("Native opening requires normal mission title and full-campaign start")
+		return false
+	native_ui_receipt("title_visible")
+	await create_timer(1.0,true).timeout
+	await key(KEY_ENTER)
+	native_ui_receipt("enter_pressed")
+	if host.state != "intro":
+		failures.append("Actual Enter did not enter normal intro")
+		return false
+	# Only observe: the existing mission process owns the entire unskipped intro.
+	for _i in hz*12:
+		if host.state != "intro": break
+		await process_frame
+	native_ui_receipt("intro_finished")
+	if host.state != "playing" or host.intro_time < 3.7:
+		failures.append("Normal intro failed to finish unskipped within bounded observation")
+		return false
+	return true
+
+func run() -> void:
+	input_dispatch=InputDispatch.new()
+	input_dispatch.process_mode=Node.PROCESS_MODE_ALWAYS
+	root.add_child(input_dispatch)
+	for path in ["res://demo/mission.gd","res://demo/mission_data.gd","res://demo/components/enemy.gd","res://combat_pc/player.gd","res://demo/tests/expanded_mission_route_bot.gd","res://prop.gd","res://scenes/props/crate.tscn","res://resources/tuning/crate_default.tres","res://combat_pc/components/contact_adapter.gd",scene_path]:
+		source_hashes[path]=FileAccess.get_sha256(path)
+	for directory in ["res://demo","res://demo/components","res://demo/areas"]:
+		for filename in DirAccess.get_files_at(directory):
+			if filename.ends_with(".gd") or filename.ends_with(".tscn"):
+				var path=directory+"/"+filename
+				source_hashes[path]=FileAccess.get_sha256(path)
+	if scene_path != "res://demo/mission.tscn":
+		var scene_script=scene_path.trim_suffix(".tscn")+".gd"
+		if FileAccess.file_exists(scene_script): source_hashes[scene_script]=FileAccess.get_sha256(scene_script)
+	host = load(scene_path).instantiate()
+	print("ROUTE INIT before host add")
+	root.add_child(host)
+	print("ROUTE INIT after host add")
+	host.save_enabled = false
+	var opening_ready := true
+	if native_opening: opening_ready = await present_native_opening()
+	elif host.state != "playing": host.start_new(true)
+	if sacrifice and scene_path.contains("freight_lock_review"):
+		if host.elapsed!=0: failures.append("Isolated sight fixture was not applied before active time")
+		host.blind=true
+		host._apply_trade()
+		host.sonar.set_blind(true)
+		starting_sight_fixture=true
+		events.append({"event":"explicit_pre_run_sight_fixture","sacrificed":true,"active_seconds":host.elapsed,"not_full_mission_evidence":true})
+	if probe_sector>=0:
+		host.load_sector(probe_sector)
+		events.append({"event":"explicit_sector_start_fixture","sector":probe_sector+1,"excluded_from_full_route_evidence":true})
+	for tick in range(hz*1500 if opening_ready else 0):
+		frame = tick
+		if host.state == "complete" or (probe_sector>=0 and host.sector!=probe_sector): break
+		if host.state == "dead":
+			events.append({"event":"death", "sector":host.sector+1, "frame":frame,"position":str(host.player.position)})
+			retries += 1
+			if retries >= 12:
+				failures.append("Twelve input-driven deaths; route aborted")
+				break
+			await key(KEY_R)
+			sector_seen = -1
+			host.input_override = {}
+		elif host.state == "archive":
+			await key(KEY_E)
+			events.append({"event":"archive_read_and_close","sector":host.sector+1})
+		elif host.state == "choice":
+			print("ROUTE CHOICE resume frame=",frame)
+			if native_opening:
+				native_ui_receipt("choice_visible")
+				var choice_active_before: float = host.elapsed
+				await create_timer(1.0,true).timeout
+				native_ui_receipt("choice_hold_finished")
+				if host.state != "choice" or not paused or host.elapsed != choice_active_before:
+					failures.append("Choice presentation hold did not preserve paused panel and active clock")
+				await key(KEY_J if sacrifice else KEY_K)
+				native_ui_receipt("choice_key_applied")
+				if host.state != "playing" or host.blind != sacrifice: failures.append("Actual sight-choice key did not apply requested choice")
+			else: await dispatch_ui(func(): host.choose_sight(sacrifice))
+			choice_done = true
+			events.append({"event":"sight_choice", "sacrificed":sacrifice, "position":str(host.player.position)})
+		else:
+			if host.sector != sector_seen: begin_sector()
+			if tick-sector_start==2: events.append({"event":"spawn_physics_acceptance","position":str(host.player.position),"grounded":host.player.grounded,"health":host.health.current_health})
+			if tick == hz*2 and not pause_done:
+				var before: Vector2 = host.player.position
+				var elapsed_before: float = host.elapsed
+				print("ROUTE PAUSE toggle frame=",frame)
+				await key(KEY_ESCAPE)
+				for _i in hz/2:
+					await physics_frame
+					await process_frame
+				if host.state != "paused" or host.player.position != before or host.elapsed != elapsed_before:
+					failures.append("Pause did not freeze player and active timer")
+				print("ROUTE PAUSE toggle frame=",frame)
+				await key(KEY_ESCAPE)
+				pause_done = true
+				events.append({"event":"pause_resume", "passed":host.state=="playing"})
+			host.input_override = decide()
+			if nav_trace.get("unreachable",false): unreachable_seconds+=1.0/hz
+			else: unreachable_seconds=0
+			if unreachable_seconds>3:
+				failures.append("Navigation graph has no path for3seconds: %s"%[snapshot()])
+				break
+			for button in ["attack","jump","shield","roll"]:
+				if host.input_override.get(button,false): inputs_count[button]+=1
+			if frame % (hz/2) == 0:
+				trace.append(snapshot())
+				if trace.size() > 200: trace.pop_front()
+			if frame % (hz*10) == 0: print("ROUTE ", snapshot())
+			if frame-sector_start > hz*max_sector_seconds:
+				failures.append("Sector %d exceeded %d simulated seconds at %s" % [host.sector+1,max_sector_seconds,host.player.position])
+				break
+		await physics_frame
+		await process_frame
+	if probe_sector<0:
+		if host.state != "complete": failures.append("Full route did not reach ending")
+		if host.sectors.any(func(data): return data.has("station")) and not choice_done: failures.append("Sight choice interaction not exercised")
+		if sacrifice and not host.blind: failures.append("Requested sacrificed route did not actually trade sight")
+		if host.metrics.size()!=host.sectors.size(): failures.append("Expected %d sector completion metrics, got %d" % [host.sectors.size(),host.metrics.size()])
+	elif host.sector==probe_sector and host.state!="complete": failures.append("Explicit sector-start probe did not reach next sector")
+	if native_opening and host.state == "complete":
+		native_ui_receipt("complete_visible")
+		await create_timer(3.0,true).timeout
+		native_ui_receipt("complete_hold_finished")
+		if host.state != "complete": failures.append("Final complete panel changed during presentation hold")
+	var changed_sources:=[]
+	for path in source_hashes:
+		if FileAccess.get_sha256(path)!=source_hashes[path]: changed_sources.append(path)
+	if not changed_sources.is_empty(): failures.append("Production/test source changed during run: %s"%[changed_sources])
+	if relay_recovery_probe and (relay_recovery_phase<2 or not relay_recovery_exited): failures.append("Actual fall and recovery ladder exit were not both observed")
+	var phase := "Expanded mission input route with live shutter-aware navigation"
+	if scene_path!="res://demo/mission.tscn": phase="Isolated area actual-input experiment; not full mission evidence"
+	if probe_sector>=0: phase="Explicit sector-start diagnostic fixture; not full-route evidence"
+	var report := {"suite":"input-driven expanded mission route", "native_opening":native_opening,"native_ui_receipts":native_ui_receipts, "scene":scene_path,"freight_approach":approach,"relay_recovery_probe":relay_recovery_probe, "validation_phase":phase,"pre_run_sight_fixture":starting_sight_fixture, "probe_sector":probe_sector, "hz":hz, "sacrificed_sight":sacrifice, "completed":host.state=="complete", "simulated_active_seconds":host.elapsed, "human_duration_validated":false, "deaths":host.deaths, "retry_count":retries,"kills":host.kills,"caches":host.caches.size(), "sectors":host.metrics,"authored_sector_count":host.sectors.size(),"authored_area_ids":host.sectors.map(func(area):return str(area.get("id",""))),"authored_enemy_count":host.sectors.reduce(func(total, data): return total+data.get("enemies",[]).size(),0),"authored_archive_count":host.sectors.filter(func(data): return data.has("cache")).size(), "events":events,"source_hashes":source_hashes,"sources_changed_during_run":changed_sources,"damage_receipts":damage_receipts,"input_held_frames":inputs_count,"failures":failures,"last_trace":trace,"ui_dispatch":"Choice and raw key handlers run from an ordinary PROCESS_ALWAYS callback; never unpause directly from a physics_frame await.","method":"Actual production physics driven by raw player button dictionaries and proximity interactions; layout/AI-aware deterministic bot; no measured gameplay teleports, health writes, forced kills, gate writes, or AI disabling. Timing is simulated active time, not a human playthrough."}
+	report_path = "res://demo/evidence/expanded_mission_route_%dhz_%s.json" % [hz,"sacrificed" if sacrifice else "retained"]
+	if relay_recovery_probe: report_path="res://demo/evidence/relay_works_recovery_route_%dhz_%s.json"%[hz,"sacrificed" if sacrifice else "retained"]
+	if scene_path.contains("freight_lock_review"):
+		report_path="res://demo/evidence/freight_lock_route_%dhz_%s_%s.json"%[hz,"sacrificed" if sacrifice else "retained",approach]
+	if probe_sector>=0: report_path=report_path.trim_suffix(".json")+"_probe%d.json"%(probe_sector+1)
+	FileAccess.open(report_path,FileAccess.WRITE).store_string(JSON.stringify(report,"  ")+"\n")
+	print("EXPANDED MISSION ROUTE RESULT ",report_path," complete=",report.completed," active_seconds=",report.simulated_active_seconds," failures=",failures)
+	quit(0 if failures.is_empty() else 1)
+
+func begin_sector() -> void:
+	sector_seen = host.sector
+	sector_start = frame
+	waypoint_index = 0
+	jump_age = -1
+	jump_released = false
+	stagnant = 0
+	unreachable_seconds=0
+	last_x = host.player.position.x
+	waypoints = []
+	freight_stage=0
+	freight_attack_frame=-1
+	freight_replacement_frame=-99999
+	freight_seen_cargo.clear()
+	freight_solids=[]
+	if is_instance_valid(host.room.freight_receiver):
+		for body in host.room.freight_receiver.get_children():
+			if body is StaticBody2D:
+				for shape in body.get_children():
+					if shape is CollisionShape2D and shape.shape is RectangleShape2D:
+						freight_solids.append(Rect2(shape.global_position-shape.shape.size*0.5,shape.shape.size))
+		host.room.freight_receiver.latched.connect(func(cargo):
+			events.append({"event":"freight_latched","frame":frame,"sector":host.sector+1,"position":str(cargo.global_position),"velocity":str(cargo.linear_velocity),"hit_count":cargo.hit_count,"intact":cargo.alive})
+			print("FREIGHT LATCHED ",freight_snapshot()))
+	shutter_signature=""
+	refresh_shutters(host.sectors[host.sector],true)
+	events.append({"event":"sector_enter", "sector":host.sector+1,"title":str(host.sectors[host.sector].title), "active_seconds":host.elapsed,"health":host.health.current_health,"enemy_tuning":host.enemies.map(func(enemy): return {"kind":enemy.kind,"health":enemy.health,"damage":enemy._damage})})
+	host.player.damage_resolved.connect(func(receipt):
+		var entry: Dictionary=receipt.duplicate()
+		entry.merge({"sector":host.sector+1,"frame":frame,"position":str(host.player.position)})
+		damage_receipts.append(entry))
+	host.player.movement_event.connect(func(kind,payload):
+		if str(kind)=="climb_detached" and str(payload.get("reason",""))=="top_exit":
+			stagnant=0
+			jump_age=-1
+			jump_released=false
+			if relay_recovery_probe and relay_recovery_phase==2 and host.player.position.distance_to(Vector2(1740,0))<4:
+				relay_recovery_exited=true
+				events.append({"event":"actual_recovery_ladder_exit","frame":frame,"position":str(host.player.position)})
+		if (str(kind).begins_with("climb_") or "ledge" in str(kind) or "pullup" in str(kind)) and str(kind) not in ["climb_phase_changed","climb_step"]:
+			events.append({"event":str(kind),"frame":frame,"sector":host.sector+1,"position":str(host.player.position),"payload":str(payload)})
+			print("CLIMB ",kind," ",payload," at ",host.player.position))
+	print("ENTER SECTOR ",host.sector+1," blind=",host.blind)
+
+func snapshot() -> Dictionary:
+	var p = host.player
+	var alive := []
+	for enemy in host.enemies:
+		if is_instance_valid(enemy) and not enemy.dead: alive.append({"position":str(enemy.position),"health":enemy.health,"state":enemy.ai_state})
+	return {"frame":frame,"sector":host.sector+1,"position":str(p.position),"velocity":str(p.velocity),"grounded":p.grounded,"action":p.main_action,"action_phase":p.action_phase,"raw_input":host.input_override,"weapon":p.weapon_phase,"health":host.health.current_health,"climb_needs_neutral":p._climb_needs_neutral,"closed_shutters":closed_shutters.map(func(rect): return str(rect)),"active_relays":host.relay_states.duplicate(),"waypoint":waypoint_index,"navigation":nav_trace,"enemies":alive,"freight":freight_snapshot()}
+
+func decide() -> Dictionary:
+	var p = host.player
+	var pos: Vector2 = p.position
+	var dt := 1.0/hz
+	var d: Dictionary = host.sectors[host.sector]
+	var raw := {}
+	refresh_shutters(d)
+	attack_clock += dt
+	if absf(pos.x-last_x)<0.3: stagnant += dt
+	else: stagnant = 0
+	last_x = pos.x
+	if frame % maxi(1,hz/3)==0:
+		host.tap_weapon()
+		inputs_count.tap+=1
+	if host.sector==0 and frame<hz/2: return {"shield":true}
+	if d.get("ending",false) and not roll_exercised and p.grounded and pos.x>120:
+		roll_exercised=true
+		return {"right":1.0,"roll":true}
+	if d.has("station") and not choice_done and host._near(d.station):
+		host.interact()
+		return {}
+	var relay_points: Array = host._relay_points()
+	for index in relay_points.size():
+		if not host.relay_states.has(index) and host._near(relay_points[index]): host.interact()
+	if d.has("cache") and not host.caches.has(host.sector) and host._near(d.cache): host.interact()
+	var gate := Vector2(float(d.width)-45,float(d.get("gate_y",300)))
+	if host._near(gate,65) and host.room.gate_open:
+		events.append({"event":"sector_exit","area_id":str(d.get("id","")),"sector":host.sector+1,"title":str(d.title),"active_seconds":host.elapsed,"remaining_enemies":host.remaining_enemies(),"kills_so_far":host.kills,"caches_so_far":host.caches.size(),"health":host.health.current_health,"activated_relays":host.relay_states.size(),"closed_shutters":closed_shutters.size(),"freight":freight_snapshot()})
+		host.interact()
+		return {}
+	var target := gate
+	var objective := "gate"
+	for index in relay_points.size():
+		if not host.relay_states.has(index):
+			target=relay_points[index]
+			objective="relay %d"%index
+			break
+	if d.has("station") and not choice_done:
+		target=d.station
+		objective="station"
+	if relay_recovery_probe and d.has("relay_labels") and host.relay_states.has(0) and relay_recovery_phase<2:
+		if relay_recovery_phase==0:
+			if reached_supported_waypoint(Vector2(1740,0),24):
+				relay_recovery_phase=1
+			else:
+				target=Vector2(1740,0)
+				objective="diagnostic recovery approach"
+		if relay_recovery_phase==1:
+			if p.grounded and pos.y>295 and pos.x>1690:
+				relay_recovery_phase=2
+				if host.relay_states.has(1): failures.append("Recovery fall occurred after Lift shutter already opened")
+				events.append({"event":"actual_fall_right_of_closed_lift_shutter","frame":frame,"position":str(pos),"active_relays":host.relay_states.duplicate(),"closed_shutters":closed_shutters.map(func(rect):return str(rect))})
+			else:
+				target=Vector2(1900,300)
+				objective="diagnostic actual fall"
+	if d.has("freight") and not host.room.freight_receiver.is_latched:
+		var cargo_plan := freight_plan(d)
+		if cargo_plan.has("raw"): return cargo_plan.raw
+		target=cargo_plan.target
+		objective="freight " + str(cargo_plan.objective)
+	if d.has("freight") and host.room.freight_receiver.is_latched:
+		if p.main_action==&"ledge" and stagnant>0.8 and pos.x>d.freight.receiver.x:
+			freight_stage=2
+		if freight_stage<3:
+			var basin_step: Vector2=d.freight.receiver+Vector2(-30,0)
+			if freight_basin_staged(basin_step):
+				freight_stage=3
+				events.append({"event":"freight_basin_egress_staging","frame":frame,"position":str(pos)})
+			else:
+				target=basin_step
+				objective="freight basin staging"
+	var enemy_target: Node2D = null
+	var nearest := INF
+	for enemy in host.enemies:
+		if not is_instance_valid(enemy) or enemy.dead: continue
+		var distance: float = pos.distance_to(enemy.position)
+		if distance<nearest and (distance<115 or (d.get("lock",false) and objective=="gate")):
+			nearest=distance
+			enemy_target=enemy
+	var in_combat := false
+	if enemy_target != null:
+		in_combat=absf(pos.x-enemy_target.position.x)<90 and absf(pos.y-enemy_target.position.y)<40 and enemy_target._terrain_visible(pos+Vector2(0,-20))
+		if in_combat or (d.get("lock",false) and objective=="gate"):
+			target=enemy_target.position
+			objective="enemy"
+	var nav := navigate(target,d)
+	if nav.get("drop",false) and not in_combat and p.grounded:
+		return {"down":1.0,"jump":true} if not p._last_jump_held else {}
+	var steering: Vector2 = nav.target
+	var direction := signf(steering.x-pos.x)
+	if absf(steering.x-pos.x)<8: direction=0
+	if in_combat:
+		direction=signf(enemy_target.position.x-pos.x)
+		if absf(enemy_target.position.x-pos.x)<32: direction=0
+		if p.facing!=int(signf(enemy_target.position.x-pos.x)): direction=signf(enemy_target.position.x-pos.x)
+		# Common observed protection is a defensive cue, independent of role.
+		# Do not sword-advance through a warning that short recoil cannot stop.
+		var protected: bool=enemy_target.has_method("hurt_response_snapshot") and bool(enemy_target.hurt_response_snapshot().protected)
+		var warning_remaining: float=enemy_target._windup-enemy_target._phase_elapsed
+		if protected and enemy_target.ai_state==&"windup" and warning_remaining>.22 and absf(enemy_target.position.x-pos.x)<28:
+			# Ordinary retreat early in the warning creates a real front contact;
+			# later ordinary facing input turns back before the shield opening.
+			direction=-signf(enemy_target.position.x-pos.x)
+		var danger: bool=absf(enemy_target.position.x-pos.x)<70 and (enemy_target.ai_state==&"active" or (enemy_target.ai_state==&"windup" and warning_remaining<(.10 if protected else .16)))
+		if danger: raw.shield=true
+		elif not protected and absf(enemy_target.position.x-pos.x)<54 and attack_clock>0.15:
+			raw.attack=true
+			attack_clock=0
+	if direction>0: raw.right=1.0
+	elif direction<0: raw.left=1.0
+	if nav.up and absf(steering.x-pos.x)<12:
+		raw.erase("attack")
+		raw.erase("shield")
+		raw.erase("right")
+		raw.erase("left")
+		if not p._climb_needs_neutral or p.main_action==&"climb": raw.up=1.0
+	var jump_needed: bool=nav.jump and not in_combat
+	if not in_combat and direction!=0:
+		for rect in d.platforms+freight_solids:
+			# Observer: a suspended solid above the standing body is not a ground obstacle.
+			if pos.y-p.body_height>=rect.end.y: continue
+			if rect.size.y<=18: continue
+			var edge: float=rect.position.x if direction>0 else rect.end.x
+			if (edge-pos.x)*direction>=-8 and (edge-pos.x)*direction<(105 if rect.size.y>60 else 60) and pos.y>rect.position.y+8: jump_needed=true
+		for gap in d.get("gaps",[]):
+			var edge: float=gap.x if direction>0 else gap.y
+			if (edge-pos.x)*direction>=-5 and (edge-pos.x)*direction<45: jump_needed=true
+	if p.grounded:
+		jump_age=-1
+		jump_released=false
+		if stagnant>0.45 and direction!=0 and not in_combat and not nav.up: jump_needed=true
+		if jump_needed and not p._last_jump_held:
+			jump_age=0
+			raw.jump=true
+	elif jump_age>=0:
+		jump_age+=dt
+		if jump_age<0.29: raw.jump=true
+		elif not jump_released: jump_released=true
+		elif jump_age<0.62: raw.jump=true
+	elif pos.y>315 and p.air_jumps_left>0:
+		raw.jump=true
+		jump_age=0.3
+		jump_released=true
+	# A horizontal dead zone must not strand an actually hanging actor. This is
+	# ordinary navigation input, not a support/completion or actor-state override.
+	if not in_combat and not nav.up:
+		var recovery := ledge_waypoint_recovery(steering)
+		if recovery.is_empty(): recovery = contact_waypoint_recovery(steering)
+		if not recovery.is_empty(): raw = recovery
+	nav_trace.merge({"objective":objective,"goal":str(target),"steering":str(steering)},true)
+	return raw
+
+func ledge_waypoint_recovery(target: Vector2) -> Dictionary:
+	var player = host.player
+	if player.grounded or player.main_action != &"ledge" or player.action_phase != &"hang" or stagnant <= 0.45: return {}
+	# A lower navigation target requires ordinary release even when horizontally
+	# offset; alignment constrains upward pull-up, not downward disengagement.
+	if target.y > player.position.y+player.profile.collision_margin: return {"down":1.0}
+	if absf(target.x-player.position.x) >= 8: return {}
+	return {"up":1.0}
+
+func contact_waypoint_recovery(target: Vector2) -> Dictionary:
+	# A real off-center floor contact can stop motion without admitting support.
+	# Once neutral steering stagnates over a lower waypoint, step away from that
+	# contact through ordinary input; do not fabricate grounding or completion.
+	var player = host.player
+	if player.grounded or player.main_action != &"locomotion" or stagnant <= 0.45 or player.velocity.length() > 0.1: return {}
+	if absf(target.x-player.position.x) >= 8 or target.y <= player.position.y+player.profile.floor_probe: return {}
+	var hit := KinematicCollision2D.new()
+	if not player.test_move(player.global_transform, Vector2.DOWN*player.profile.floor_probe, hit, player.profile.collision_margin) or not player._floor_normal(hit.get_normal()): return {}
+	var body = hit.get_collider()
+	if not is_instance_valid(body) or not body is PhysicsBody2D or body.get_world_2d() != player.get_world_2d(): return {}
+	var away: float = player.global_position.x-hit.get_position().x
+	if absf(away) <= player.profile.collision_margin: return {}
+	return {"right":1.0} if away > 0 else {"left":1.0}
+
+func freight_basin_staged(target: Vector2) -> bool:
+	if reached_supported_waypoint(target,16): return true
+	# Observer only: delivered cargo may occupy the intended floor waypoint.
+	# Actual supported cargo-top footing is already a valid place to walk onward.
+	var p = host.player
+	return p.grounded and is_instance_valid(p._support) and p._support is RigidBody2D and absf(p.position.x-target.x)<=16 and p.position.y<target.y and p.position.y>=target.y-100
+
+func freight_snapshot() -> Dictionary:
+	if not is_instance_valid(host.room.freight_receiver): return {}
+	var receiver=host.room.freight_receiver
+	var cradle=host.room.freight_cradle
+	var result:={"status":receiver.status,"latched":receiver.is_latched,"replacement_count":cradle.replacement_count}
+	var cargo=cradle.cargo
+	if is_instance_valid(cargo):
+		result.merge({"id":cargo.get_instance_id(),"position":str(cargo.global_position),"velocity":str(cargo.linear_velocity),"spin":cargo.angular_velocity,"hit_count":cargo.hit_count,"intact":cargo.alive})
+	return result
+
+func freight_plan(d: Dictionary) -> Dictionary:
+	var player=host.player
+	var pos: Vector2=player.position
+	var cradle=host.room.freight_cradle
+	var cargo=cradle.cargo
+	if approach=="flank" and freight_stage<2:
+		var flank_target:=Vector2(400,100) if freight_stage==0 else Vector2(900,100)
+		if reached_supported_waypoint(flank_target,24):
+			events.append({"event":"freight_flank_waypoint","frame":frame,"waypoint":freight_stage,"position":str(pos)})
+			freight_stage+=1
+			if freight_stage<2: return {"target":Vector2(900,100),"objective":"upper flank"}
+		else: return {"target":flank_target,"objective":"upper flank"}
+	var launch_stance: Vector2=d.freight.cradle-Vector2(40,0)
+	if pos.distance_to(launch_stance)>9: return {"target":launch_stance,"objective":"launch stance"}
+	if player.facing!=1: return {"raw":{"right":1.0}}
+	if absf(player.velocity.x)>20 or not player.grounded: return {"raw":{}}
+	if is_instance_valid(cargo) and not freight_seen_cargo.has(cargo.get_instance_id()):
+		freight_seen_cargo[cargo.get_instance_id()]=true
+		cargo.launched.connect(func(body):
+			events.append({"event":"freight_actual_launch","frame":frame,"sector":host.sector+1,"position":str(body.global_position),"player_position":str(player.position),"hit_count":body.hit_count,"velocity":str(body.linear_velocity)})
+			print("FREIGHT ACTUAL LAUNCH ",freight_snapshot()))
+	var cargo_valid: bool=is_instance_valid(cargo) and cargo.alive and not cargo.is_queued_for_deletion()
+	var flight_expired: bool=freight_attack_frame>=0 and frame-freight_attack_frame>hz*8
+	if (not cargo_valid or flight_expired) and frame-freight_replacement_frame>hz:
+		if host._near(d.freight.cradle,60):
+			events.append({"event":"freight_replace_input","frame":frame,"position":str(pos),"previous":freight_snapshot()})
+			host.interact()
+			freight_replacement_frame=frame
+			freight_attack_frame=-1
+		return {"raw":{}}
+	if not cargo_valid: return {"raw":{}}
+	if cargo.hit_count>0: return {"raw":{"shield":true} if player.weapon_phase==&"idle" else {}}
+	if freight_attack_frame>=0 and frame-freight_attack_frame<hz: return {"raw":{}}
+	if player.weapon_phase!=&"idle": return {"raw":{}}
+	freight_attack_frame=frame
+	events.append({"event":"freight_attack_input","frame":frame,"position":str(pos),"cargo":freight_snapshot()})
+	return {"raw":{"attack":true}}
+
+func refresh_shutters(d: Dictionary, force := false) -> void:
+	var signature := ""
+	var bounds: Array[Rect2] = []
+	var physical_shutters: Array=host.room.shutters.duplicate()
+	if is_instance_valid(host.room.freight_shutter): physical_shutters.append(host.room.freight_shutter)
+	for shutter in physical_shutters:
+		signature += "%d:%s;"%[shutter.relay_index,str(shutter.is_open)]
+		if not shutter.is_open and not shutter.collision_shape.disabled:
+			# Query the actual live collider, not just authored shutter rectangles.
+			var shape = shutter.collision_shape
+			bounds.append(Rect2(shape.global_position-shape.shape.size*0.5,shape.shape.size))
+	if not force and signature==shutter_signature: return
+	closed_shutters=bounds
+	shutter_signature=signature
+	events.append({"event":"shutter_navigation_rebuild","frame":frame,"sector":host.sector+1,"states":signature,"closed_rectangles":bounds.map(func(rect): return str(rect))})
+	build_navigation(d)
+
+func append_surface(rect: Rect2) -> void:
+	var pieces: Array[Rect2] = [rect]
+	for wall in closed_shutters:
+		if rect.position.y<=wall.position.y+1 or rect.position.y-36>=wall.end.y: continue
+		var remaining: Array[Rect2] = []
+		for piece in pieces:
+			if piece.end.x<=wall.position.x or piece.position.x>=wall.end.x:
+				remaining.append(piece)
+				continue
+			if wall.position.x-piece.position.x>=1:
+				remaining.append(Rect2(piece.position,Vector2(wall.position.x-piece.position.x,piece.size.y)))
+			if piece.end.x-wall.end.x>=1:
+				remaining.append(Rect2(wall.end.x,piece.position.y,piece.end.x-wall.end.x,piece.size.y))
+		pieces=remaining
+	platforms.append_array(pieces)
+
+func edge_crosses_closed_shutter(from: Rect2, to: Rect2) -> bool:
+	for wall in closed_shutters:
+		var crossing: bool=(from.end.x<=wall.position.x+1 and to.position.x>=wall.end.x-1) or (to.end.x<=wall.position.x+1 and from.position.x>=wall.end.x-1)
+		# Route via the real shutter top instead of treating a tall wall as an
+		# invisible floor link. Actual physics remains the final reachability test.
+		if crossing and minf(from.position.y,to.position.y)>wall.position.y+1: return true
+	return false
+
+func build_navigation(d: Dictionary) -> void:
+	platforms=[]
+	links=[]
+	var cursor:=0.0
+	for gap in d.get("gaps",[]):
+		append_surface(Rect2(cursor,300,gap.x-cursor,80))
+		cursor=gap.y
+	append_surface(Rect2(cursor,300,float(d.width)-cursor,80))
+	for rect in d.platforms: append_surface(rect)
+	for rect in freight_solids: append_surface(rect)
+	for wall in closed_shutters: platforms.append(wall)
+	for _i in platforms.size(): links.append([])
+	for a in platforms.size():
+		for b in platforms.size():
+			if a==b: continue
+			var from: Rect2=platforms[a]
+			var to: Rect2=platforms[b]
+			var rise:=from.position.y-to.position.y
+			var gap:=maxf(0,maxf(to.position.x-from.end.x,from.position.x-to.end.x))
+			var reach:=155.0 if rise>35 else 185.0
+			if rise<0: reach=235
+			if rise<=112 and gap<=reach and not edge_crosses_closed_shutter(from,to):
+				links[a].append({"to":b,"ladder":false})
+			for ladder in d.get("ladders",[]):
+				var x:=float(ladder[0])
+				var bottom:=float(ladder[1])
+				var top:=bottom-float(ladder[2])
+				# A ladder can be boarded from an intermediate supporting surface.
+				# Only its actual top is an exit, and a standing body must fit
+				# throughout the ascent without passing through solid terrain.
+				if from.position.y>bottom+5 or from.position.y<=top+5: continue
+				if absf(to.position.y-top)>=5 or x<from.position.x-12 or x>from.end.x+12 or x<to.position.x-12 or x>to.end.x+12: continue
+				var profile=host.player.profile
+				var corridor:=Rect2(x-profile.body_width*0.5,top-profile.standing_height-profile.collision_margin,profile.body_width,from.position.y-top+profile.standing_height)
+				var blockers: Array[String]=[]
+				for solid in d.platforms+freight_solids+closed_shutters:
+					if solid.size.y<=18 and not freight_solids.has(solid) and not closed_shutters.has(solid): continue
+					if corridor.intersects(solid): blockers.append(str(solid))
+				if not blockers.is_empty():
+					events.append({"event":"ladder_navigation_rejected","frame":frame,"sector":host.sector+1,"from":str(from),"to":str(to),"axis_x":x,"corridor":str(corridor),"reason":"standing_ascent_intersects_solid","blockers":blockers})
+					continue
+				links[a].append({"to":b,"ladder":true,"x":x})
+				if absf(from.position.y-bottom)>=5:
+					events.append({"event":"ladder_navigation_intermediate_boarding","frame":frame,"sector":host.sector+1,"from":str(from),"to":str(to),"axis_x":x,"corridor":str(corridor)})
+	support=closest_surface(host.player.position)
+
+func project_supported_waypoint(target: Vector2) -> Vector2:
+	# Read-only navigation: an intended foot position inside the current solid
+	# support is inaccessible. Project it only onto that same observed surface.
+	var player=host.player
+	if not player.grounded or target.y <= player.position.y+player.profile.collision_margin: return target
+	var body:Variant=player._support
+	if not is_instance_valid(body) or not body is PhysicsBody2D or not body.is_inside_tree() or body.is_queued_for_deletion() or body.get_world_2d()!=player.get_world_2d(): return target
+	var space=player.get_world_2d().direct_space_state
+	var point:=PhysicsPointQueryParameters2D.new()
+	point.position=target; point.collision_mask=player.terrain_mask; point.collide_with_areas=false; point.exclude=[player.get_rid()]
+	if not space.intersect_point(point,32).any(func(hit):return hit.collider==body): return target
+	var ray:=PhysicsRayQueryParameters2D.create(Vector2(target.x,player.position.y-player.profile.floor_probe),target,player.terrain_mask,[player.get_rid()])
+	var hit:Dictionary=space.intersect_ray(ray)
+	if hit.is_empty() or hit.collider!=body or not player._floor_normal(hit.normal) or absf(hit.position.y-player.position.y)>player.profile.floor_probe+player.profile.collision_margin: return target
+	return Vector2(target.x,hit.position.y-player.profile.collision_margin)
+func reached_supported_waypoint(target: Vector2, tolerance: float) -> bool:
+	var player=host.player
+	if not player.grounded: return false
+	var projected:=project_supported_waypoint(target)
+	var reached:bool=player.position.distance_to(projected)<tolerance
+	if reached and projected!=target:
+		events.append({"event":"supported_waypoint_projection","frame":frame,"sector":host.sector+1,"original":str(target),"projected":str(projected),"support_id":player._support.get_instance_id(),"actual_feet":str(player.position),"evidence":"point inside current solid support and walkable ray on that same body"})
+	return reached
+
+func closest_surface(point: Vector2) -> int:
+	var selected:=0
+	var score:=INF
+	for i in platforms.size():
+		var rect: Rect2=platforms[i]
+		var dx:=maxf(0,maxf(rect.position.x-point.x,point.x-rect.end.x))
+		var dy:=absf(point.y-rect.position.y)
+		var distance:=dy+dx*1.5
+		if distance<score:
+			score=distance
+			selected=i
+	return selected
+
+func navigate(target: Vector2,d: Dictionary) -> Dictionary:
+	target=project_supported_waypoint(target)
+	var p=host.player
+	var pos: Vector2=p.position
+	if p.grounded: support=closest_surface(pos)
+	var goal:=closest_surface(target)
+	var result:={"target":target,"jump":false,"up":false,"drop":false}
+	if support==goal:
+		if target.y>pos.y+35 and absf(target.x-pos.x)<40: result.target.x+=60
+		nav_trace={"support":support,"goal_surface":goal,"next":goal}
+		return result
+	var queue: Array[int]=[support]
+	var previous:={support:-1}
+	var used:={}
+	while not queue.is_empty():
+		var here: int=queue.pop_front()
+		if here==goal: break
+		for edge in links[here]:
+			var next: int=edge.to
+			if previous.has(next): continue
+			previous[next]=here
+			used[next]=edge
+			queue.append(next)
+	if not previous.has(goal):
+		nav_trace={"support":support,"goal_surface":goal,"unreachable":true}
+		result.jump=target.y<pos.y-30 and absf(target.x-pos.x)<170
+		return result
+	var next:=goal
+	while previous[next]!=support and previous[next]!=-1: next=previous[next]
+	var edge: Dictionary=used[next]
+	var destination: Rect2=platforms[next]
+	var from: Rect2=platforms[support]
+	var direction:=1.0 if (target.x if next==goal else destination.get_center().x)>pos.x else -1.0
+	if destination.position.y>from.position.y+5 and destination.position.x<=from.end.x and destination.end.x>=from.position.x:
+		direction=1.0 if target.x>pos.x else -1.0
+	var inset:=minf(28,destination.size.x*0.35)
+	var landing:=clampf(pos.x,destination.position.x+inset,destination.end.x-inset)
+	if edge.ladder:
+		result.target=Vector2(edge.x,destination.position.y)
+		result.up=true
+	else:
+		result.target=Vector2(landing,destination.position.y)
+		var rise:=from.position.y-destination.position.y
+		if rise < -35 and from.size.y<=18 and not freight_solids.has(from) and pos.x>destination.position.x+12 and pos.x<destination.end.x-12:
+			result.drop=true
+		var boundary:=from.end.x if direction>0 else from.position.x
+		var start_distance:=40.0 if rise<=0 else 60.0
+		var horizontal_gap:=maxf(0,maxf(destination.position.x-from.end.x,from.position.x-destination.end.x))
+		# For an overlapping target jump below its edge; for a separated landing,
+		# walk to the departure lip before consuming the first jump.
+		if horizontal_gap<1:
+			result.jump=rise>10 and absf(landing-pos.x)<90
+		else:
+			result.jump=(boundary-pos.x)*direction<start_distance
+			if not result.jump: result.target.x=boundary-direction*15
+		if rise< -5 and absf(result.target.x-pos.x)<12:
+			result.target.x=(from.end.x+25) if direction>0 else (from.position.x-25)
+	nav_trace={"support":support,"goal_surface":goal,"next":next,"ladder":bool(edge.ladder)}
+	return result

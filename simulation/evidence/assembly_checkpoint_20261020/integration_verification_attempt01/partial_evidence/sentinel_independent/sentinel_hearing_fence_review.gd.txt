@@ -1,0 +1,26 @@
+extends "res://simulation/tests/sentinel_independent_review.gd"
+func _run() -> void:
+	for operation in ["missing_fence", "disabled_fence", "disabled_sensor", "stopped_sensor"]:
+		await _begin("real bus / structural hearing fail-closed " + operation)
+		var fence := sentinel.get_node("HearingPauseFence")
+		var sensor := sentinel.get_node("HearingSensor")
+		match operation:
+			"missing_fence": sentinel.remove_child(fence)
+			"disabled_fence": fence.process_mode=Node.PROCESS_MODE_DISABLED
+			"disabled_sensor": sensor.enabled=false
+			"stopped_sensor": sensor.process_mode=Node.PROCESS_MODE_DISABLED
+		bus.emit_noise(player.position,&"weapon_tap",1.0,player)
+		check(sentinel._noise_memory==0,"unavailable hearing dependency prevents new intention")
+		match operation:
+			"missing_fence": sentinel.add_child(fence)
+			"disabled_fence": fence.process_mode=Node.PROCESS_MODE_PAUSABLE
+			"disabled_sensor": sensor.enabled=true
+			"stopped_sensor": sensor.process_mode=Node.PROCESS_MODE_INHERIT
+		bus.emit_noise(player.position,&"weapon_tap",1.0,player)
+		check(sentinel._noise_memory>0,"restored dependency accepts later genuine event")
+		await _end()
+	var report := {"hz":hz,"checks":checks,"scenarios":cases,"failures":failures}
+	FileAccess.open("/tmp/sentinel_boundary_review/hearing_fence_%d.json"%hz,FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
+	print("HEARING FENCE %d Hz: %d checks, %d failures"%[hz,checks,failures.size()])
+	for f in failures: printerr(f)
+	quit(0 if failures.is_empty() else 1)

@@ -1,0 +1,3 @@
+# Combined assembly checkpoint — 2026-10-20
+
+Current fresh full-run result: `aggregate/results.json`; source hashes match the integrated project. `fresh_evidence/` preserves current changed reports by original path; older reports at their original locations remain intentionally untouched. Newly introduced oracles/tests also retain their expected paths. Interrupted pre-final runs are retained separately and are not passes. Native reports: `fresh_evidence/simulation/evidence/{hud_native_pixels,physical_scene_pixels,body_echo_pixels}.json`. See `simulation/ASSEMBLY_CHECKPOINT.md` for practical module/run instructions and scope. Videos supplied separately.

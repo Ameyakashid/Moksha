@@ -1,0 +1,35 @@
+extends AnimatableBody2D
+## One detachable translating support. The existing PC's support tracking owns
+## carry/jump behavior. Its optional idle motor hum reveals its real location.
+@export var travel := Vector2(0,-180)
+@export var period := 6.0
+@export var platform_size := Vector2(100,14)
+var origin := Vector2.ZERO
+var clock := 0.0
+var hum_clock := 0.0
+func _ready() -> void:
+	origin = position
+	collision_layer=1
+	collision_mask=0
+	sync_to_physics=true
+	var shape := CollisionShape2D.new()
+	var box := RectangleShape2D.new()
+	box.size=platform_size
+	shape.shape=box
+	shape.one_way_collision=true
+	add_child(shape)
+func _physics_process(dt: float) -> void:
+	clock += dt
+	var phase := fmod(clock/maxf(period,0.1),1.0)
+	var progress := 0.5-0.5*cos(phase*TAU)
+	position = origin+travel*progress
+	hum_clock += dt
+	if hum_clock>=1.8:
+		hum_clock=0
+		var bus := get_node_or_null("/root/NoiseBus")
+		if bus != null and bus.has_method("emit_noise"):
+			bus.emit_noise(global_position,&"lift_motor",0.45,self)
+func _draw() -> void:
+	draw_rect(Rect2(-platform_size*0.5,platform_size),Color("172d35"))
+	draw_rect(Rect2(-platform_size*0.5,platform_size),Color("b8cec5"),false,1)
+	for x in [-30,-15,0,15,30]: draw_line(Vector2(x,-4),Vector2(x+6,3),Color("738e92"),1)

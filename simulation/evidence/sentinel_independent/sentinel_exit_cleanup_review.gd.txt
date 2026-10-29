@@ -1,0 +1,43 @@
+extends "res://simulation/tests/sentinel_independent_review.gd"
+class RawSource extends Node:
+	var frame := {}
+	func sample_raw(_actor: Node, _dt: float) -> Dictionary: return frame
+	func reset_intent() -> void: frame = {}
+func _run() -> void:
+	await _begin("real configured one-way drop / actor removal cleanup")
+	world.get_child(0).queue_free()
+	await frames(2)
+	var platform := StaticBody2D.new()
+	platform.position=Vector2(136,206)
+	var shape := CollisionShape2D.new()
+	var box := RectangleShape2D.new()
+	box.size=Vector2(200,12)
+	shape.shape=box
+	shape.one_way_collision=true
+	platform.add_child(shape)
+	world.add_child(platform)
+	sentinel.configure(null,bus)
+	sentinel.reset_at(Vector2(136,200))
+	var source := RawSource.new()
+	source.name="ReviewInput"
+	sentinel.add_child(source)
+	var intent_driver := sentinel.get_node("IntentDriver")
+	intent_driver.source_path=NodePath("../ReviewInput")
+	var caps = intent_driver.capabilities.duplicate(true)
+	caps.can_drop_through=true
+	caps.can_jump=true
+	intent_driver.configure_capabilities(caps)
+	await frames(5)
+	source.frame={"down":1.0,"jump":true}
+	check(await until(func(): return sentinel._drop_target_rid.is_valid()),"ordinary down-jump acquires real one-way collision exception")
+	print("DROP BEFORE EXIT rid=",sentinel._drop_target_rid.is_valid()," exceptions=",sentinel.get_collision_exceptions().size())
+	world.remove_child(sentinel)
+	print("DROP AFTER EXIT rid=",sentinel._drop_target_rid.is_valid()," exceptions=",sentinel.get_collision_exceptions().size())
+	check(not sentinel._drop_target_rid.is_valid() and sentinel.get_collision_exceptions().is_empty(),"facade inherits base actor-removal cleanup")
+	sentinel.free()
+	await _end()
+	var report := {"hz":hz,"checks":checks,"scenarios":cases,"failures":failures}
+	FileAccess.open("/tmp/sentinel_boundary_review/exit_cleanup_%d.json"%hz,FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
+	print("EXIT CLEANUP %d Hz: %d checks, %d failures"%[hz,checks,failures.size()])
+	for f in failures: printerr(f)
+	quit(0 if failures.is_empty() else 1)

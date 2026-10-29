@@ -1,0 +1,8 @@
+[gd_scene load_steps=4 format=3]
+[ext_resource type="PackedScene" path="res://main.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/levels/arcology_one.tscn" id="2"]
+[ext_resource type="Script" path="res://tests/native_feedback_capture.gd" id="3"]
+[node name="Moksha" instance=ExtResource("1")]
+starting_level = ExtResource("2")
+[node name="PassiveFeedbackCapture" type="Node" parent="."]
+script = ExtResource("3")

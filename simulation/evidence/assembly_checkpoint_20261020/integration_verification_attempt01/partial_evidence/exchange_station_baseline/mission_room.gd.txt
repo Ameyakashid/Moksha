@@ -1,0 +1,206 @@
+extends "res://simulation/components/boundary_scope.gd"
+## Placeable world composition and original architectural wireframe dressing.
+const BackdropScene = preload("res://demo/views/room_backdrop.tscn")
+const BackdropProfile = preload("res://demo/views/room_backdrop_profile.gd")
+const PlatformScene = preload("res://simulation/world/static_platform.tscn")
+const PlatformAppearance = preload("res://demo/views/platform_appearance.gd")
+const FloorScene = preload("res://simulation/world/floor_segment.tscn")
+const FloorAppearance = preload("res://demo/views/floor_appearance.gd")
+const SignScene = preload("res://simulation/world/world_sign.tscn")
+const OnwardScene = preload("res://simulation/world/onward_marker.tscn")
+var onward_marker: Node2D
+var backdrop: Node2D
+var data: Dictionary
+var floor_rects: Array[Rect2] = []
+var relay_on := false
+var cache_found := false
+var gate_open := false:
+	set(value):
+		gate_open = value
+		if is_instance_valid(onward_marker): onward_marker.is_open = value
+var time := 0.0
+var activated_relays: Array[int] = []
+var shutters: Array[Node] = []
+var freight_receiver: Node2D
+var freight_cradle: Node2D
+var freight_shutter: Node2D
+func build(config: Dictionary) -> void:
+	data = config
+	var appearance := BackdropProfile.new()
+	var ceiling := float(data.get("top", -100))
+	appearance.room_bounds = Rect2(0, ceiling, float(data.width), 300.0-ceiling)
+	appearance.theme = str(data.theme)
+	backdrop = BackdropScene.instantiate()
+	backdrop.profile = appearance
+	backdrop.automatic_animation = false
+	backdrop.set_animation_time(time)
+	add_child(backdrop)
+	var boundary := preload("res://simulation/components/boundary_hazard.tscn").instantiate()
+	boundary.position.y = float(data.get("boundary_y", 420.0))
+	add_child(boundary)
+	var cursor := 0.0
+	for gap in data.get("gaps",[]):
+		floor_rects.append(Rect2(cursor,300,gap.x-cursor,80))
+		cursor = gap.y
+	floor_rects.append(Rect2(cursor,300,float(data.width)-cursor,80))
+	for r in floor_rects:
+		var floor_segment = FloorScene.instantiate()
+		floor_segment.position = r.get_center()
+		floor_segment.segment_size = r.size
+		floor_segment.hatch_reference_x = r.position.x
+		floor_segment.show_behind_parent = true
+		var floor_paint := FloorAppearance.new()
+		if data.theme == "city":
+			floor_paint.outline = Color("897c70")
+			floor_paint.hatch = Color("28303a")
+		floor_segment.appearance = floor_paint
+		add_child(floor_segment)
+	for r in data.platforms:
+		var platform = PlatformScene.instantiate()
+		platform.position = r.get_center()
+		platform.platform_size = r.size
+		platform.one_way_collision = r.size.y <= 18
+		platform.show_behind_parent = true
+		var paint := PlatformAppearance.new()
+		if data.theme == "city":
+			paint.outline = Color("897c70")
+			paint.brace = Color("28303a")
+		platform.appearance = paint
+		add_child(platform)
+	# Behind the mission foreground, after floor/platform paint in authored order.
+	for sign_data in data.get("signs",[]):
+		var sign_view = SignScene.instantiate()
+		sign_view.position = sign_data[0]
+		sign_view.raster_reference = sign_data[0]
+		sign_view.text = sign_data[1]
+		sign_view.show_behind_parent = true
+		add_child(sign_view)
+	var top := float(data.get("top",-100))-80
+	_solid(Rect2(-20,top,20,400-top),false)
+	_solid(Rect2(float(data.width),top,20,400-top),false)
+	for item in data.get("ladders",[]):
+		var ladder = preload("res://combat_pc/components/climbable.tscn").instantiate()
+		ladder.position = Vector2(item[0],item[1])
+		ladder.height = item[2]
+		add_child(ladder)
+		# Passive physical rails match the actual climbable, for sound contours.
+		var rails := StaticBody2D.new()
+		rails.collision_layer=0
+		rails.collision_mask=0
+		rails.position=Vector2(0,-float(item[2])*0.5)
+		var rails_shape := CollisionShape2D.new()
+		var rails_box := RectangleShape2D.new()
+		rails_box.size=Vector2(20,item[2])
+		rails_shape.shape=rails_box
+		rails.add_child(rails_shape)
+		ladder.add_child(rails)
+	for item in data.get("lifts",[]):
+		var lift := AnimatableBody2D.new()
+		lift.set_script(preload("res://demo/components/mission_lift.gd"))
+		lift.position=item[0]
+		lift.travel=item[1]
+		lift.period=item[2]
+		add_child(lift)
+	for item in data.get("shutters",[]):
+		var shutter:=StaticBody2D.new()
+		shutter.set_script(load("res://demo/components/relay_shutter.gd"))
+		shutter.position=item[0]
+		shutter.shutter_size=item[1]
+		shutter.relay_index=item[2]
+		add_child(shutter)
+		shutters.append(shutter)
+	if data.has("freight"):
+		var freight:Dictionary=data.freight
+		freight_receiver=Node2D.new()
+		freight_receiver.set_script(load("res://demo/components/freight_receiver.gd"))
+		freight_receiver.position=freight.receiver
+		add_child(freight_receiver)
+		freight_cradle=Node2D.new()
+		freight_cradle.set_script(load("res://demo/components/freight_cradle.gd"))
+		freight_cradle.auto_spawn=false
+		freight_cradle.position=freight.cradle
+		add_child(freight_cradle)
+		freight_cradle.bind_receiver(freight_receiver)
+		freight_cradle.replace_cargo()
+		freight_shutter=StaticBody2D.new()
+		freight_shutter.set_script(load("res://demo/components/relay_shutter.gd"))
+		freight_shutter.position=freight.shutter[0]
+		freight_shutter.shutter_size=freight.shutter[1]
+		add_child(freight_shutter)
+	for key in ["station","relay","cache"]:
+		if data.has(key): _marker_body(data[key], key)
+	for at in data.get("relays",[]): _marker_body(at,"relay")
+	onward_marker = OnwardScene.instantiate()
+	onward_marker.position = Vector2(float(data.width)-45,float(data.get("gate_y",300)))
+	onward_marker.raster_reference = onward_marker.position
+	onward_marker.is_open = gate_open
+	onward_marker.ending = bool(data.get("ending",false))
+	onward_marker.show_behind_parent = true
+	add_child(onward_marker)
+	queue_redraw()
+func _solid(rect: Rect2, oneway: bool) -> void:
+	var body := StaticBody2D.new()
+	body.position = rect.get_center()
+	body.collision_layer = 1
+	body.collision_mask = 0
+	var shape := CollisionShape2D.new()
+	var box := RectangleShape2D.new()
+	box.size = rect.size
+	shape.shape = box
+	shape.one_way_collision = oneway
+	body.add_child(shape)
+	add_child(body)
+func _marker_body(at: Vector2, kind: String) -> void:
+	var body := StaticBody2D.new()
+	body.name = kind.capitalize()+"Contour"
+	var size: Vector2 = {"cache":Vector2(16,18),"station":Vector2(32,42),"relay":Vector2(22,31)}.get(kind,Vector2(18,36))
+	body.position = at-Vector2(0,size.y*0.5)
+	body.collision_layer = 0
+	body.collision_mask = 0
+	var shape := CollisionShape2D.new()
+	var box := RectangleShape2D.new()
+	box.size = size
+	shape.shape = box
+	body.add_child(shape)
+	add_child(body)
+func set_cache_found(found: bool) -> void:
+	cache_found = found
+	var marker := get_node_or_null("CacheContour")
+	if is_instance_valid(marker):
+		if found: marker.add_to_group("sonar_ignore")
+		elif marker.is_in_group("sonar_ignore"): marker.remove_from_group("sonar_ignore")
+	queue_redraw()
+func surface_y(x: float) -> float:
+	var y := 300.0
+	for r in data.platforms:
+		if x >= r.position.x+12 and x <= r.end.x-12: y = minf(y,r.position.y)
+	return y
+func _process(dt: float) -> void:
+	time += dt
+	if is_instance_valid(backdrop): backdrop.set_animation_time(time)
+	if is_instance_valid(freight_shutter):
+		freight_shutter.set_open(freight_receiver.is_latched)
+	for shutter in shutters:
+		shutter.set_open(activated_relays.has(shutter.relay_index))
+	queue_redraw()
+func _draw() -> void:
+	if data.is_empty(): return
+	if data.has("station"):
+		var p: Vector2 = data.station
+		draw_rect(Rect2(p-Vector2(16,42),Vector2(32,42)),Color("a2c8c3"),false,1)
+		draw_circle(p+Vector2(0,-28),7,Color("e9d2ab"),false,1)
+		draw_line(p+Vector2(-8,-28),p+Vector2(8,-28),Color("e9d2ab"),1)
+		draw_string(ThemeDB.fallback_font,p+Vector2(-39,-54),"THE EXCHANGE",HORIZONTAL_ALIGNMENT_LEFT,-1,8,Color("e9d2ab"))
+	var relay_points: Array = data.get("relays",[]).duplicate()
+	if data.has("relay"): relay_points.append(data.relay)
+	for relay_index in relay_points.size():
+		var p: Vector2 = relay_points[relay_index]
+		var c := Color("9ce5bd") if relay_on or activated_relays.has(relay_index) else Color("e7b779")
+		draw_rect(Rect2(p-Vector2(11,31),Vector2(22,31)),c,false,1)
+		draw_circle(p+Vector2(0,-19),4,c)
+		draw_string(ThemeDB.fallback_font,p+Vector2(-18,-40),"RELAY",HORIZONTAL_ALIGNMENT_LEFT,-1,8,c)
+	if data.has("cache") and not cache_found:
+		var p: Vector2 = data.cache
+		draw_rect(Rect2(p-Vector2(8,18),Vector2(16,18)),Color("b1c9d1"),false,1)
+		draw_line(p+Vector2(-4,-9),p+Vector2(4,-9),Color("b1c9d1"),1)
+

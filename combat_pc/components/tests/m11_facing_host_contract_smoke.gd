@@ -1,0 +1,123 @@
+extends SceneTree
+const Host = preload("res://combat_pc/components/attack_entry_facing_host.gd")
+const Target = preload("res://combat_pc/fixtures/chain_target.tscn")
+class HostActor:
+	extends CharacterBody2D
+	var enable_attack_entry_assist := false
+	var provider := Callable()
+	func set_attack_entry_provider(value: Callable) -> void: provider = value
+	func clear_attack_entry_provider(value: Callable) -> bool:
+		if provider != value: return false
+		provider = Callable()
+		return true
+	func attack_entry_provider_matches(value: Callable) -> bool: return provider == value
+var world: Node2D
+var actor: HostActor
+var host: Node2D
+var target: Node2D
+var checks: Array[Dictionary] = []
+func _initialize() -> void: run.call_deferred()
+func check(label: String, passed: bool) -> void:
+	checks.append({"name": label, "passed": passed})
+	print("PASS " if passed else "FAIL ", label)
+func request() -> Dictionary:
+	return {"token": 1, "sample_tick": 1, "engine_tick": Engine.get_physics_frames(), "actor_id": actor.get_instance_id(), "attack_serial": 1,
+		"preview_left": Rect2(-42, -32, 34, 24), "preview_right": Rect2(8, -32, 34, 24), "origin_left": Vector2(-3, -22), "origin_right": Vector2(3, -22), "terrain_mask": 1}
+func attest() -> Dictionary:
+	return {"classification": &"opponent", "eligible": true, "perceived": true, "visible": true, "local_anchor": Vector2(0,-15)}
+func offer() -> Dictionary: return host.provide_attack_entry_offer(actor, request())
+func settle() -> void:
+	await physics_frame
+	await process_frame
+func run() -> void:
+	world = Node2D.new()
+	root.add_child(world)
+	actor = HostActor.new()
+	actor.collision_layer = 2
+	world.add_child(actor)
+	target = Target.instantiate()
+	target.position = Vector2(24, 0)
+	world.add_child(target)
+	host = Host.new()
+	world.add_child(host)
+	check("bind_one_owned_provider", host.bind_actor(actor))
+	check("default_assist_off", not actor.enable_attack_entry_assist and offer().is_empty())
+	host.set_assist_enabled(true)
+	host.register_candidate(target)
+	check("missing_attestation_rejects", offer().is_empty())
+	host.register_candidate(target, attest())
+	await settle()
+	var accepted := offer()
+	check("explicit_visible_candidate_offered", accepted.get("candidate") == target and accepted.get("anchor_world") == Vector2(24,-15))
+	check("identity_and_request_echo", accepted.get("candidate_id") == target.get_instance_id() and accepted.get("token") == 1 and accepted.get("sample_tick") == 1 and accepted.get("actor_id") == actor.get_instance_id())
+	host.set_candidate_awareness(false, true)
+	check("unperceived_rejects", offer().is_empty() and host.last_reason == &"unperceived")
+	host.set_candidate_awareness(true, false)
+	check("unattested_visibility_rejects", offer().is_empty() and host.last_reason == &"visibility_not_attested")
+	host.set_candidate_awareness(true, true)
+	target.visible = false
+	check("actual_hidden_canvas_rejects", offer().is_empty() and host.last_reason == &"hidden")
+	target.visible = true
+	host.set_candidate_eligible(false)
+	check("ineligible_rejects", offer().is_empty())
+	host.set_candidate_eligible(true)
+	host.set_candidate_classification(&"prop")
+	check("classified_prop_rejects", offer().is_empty())
+	host.set_candidate_classification(&"opponent")
+	target.add_to_group("props")
+	check("actual_prop_group_rejects", offer().is_empty())
+	target.remove_from_group("props")
+	target.position.x = 80
+	check("outside_request_preview_rejects", offer().is_empty() and host.last_reason == &"outside_preview")
+	target.position.x = -24
+	check("mirrored_preview_accepts", offer().get("anchor_world") == Vector2(-24,-15))
+	target.position.x = 24
+	var wall := StaticBody2D.new()
+	wall.position = Vector2(12,-20)
+	var holder := CollisionShape2D.new()
+	var shape := RectangleShape2D.new()
+	shape.size = Vector2(2,40)
+	holder.shape = shape
+	wall.add_child(holder)
+	world.add_child(wall)
+	await settle()
+	check("real_thin_terrain_occludes", offer().is_empty() and host.last_reason == &"occluded")
+	wall.free()
+	await settle()
+	check("removed_occluder_reopens_offer", not offer().is_empty())
+	for anchor in [Vector2(-42,-32),Vector2(-8,-8),Vector2(8,-32),Vector2(42,-8)]:
+		target.position = anchor - Vector2(0,-15)
+		check("inclusive_preview_edge_" + str(anchor), not offer().is_empty())
+	target.position = Vector2(24,0)
+	var stale := request()
+	stale.engine_tick = -1
+	check("stale_engine_tick_rejects", host.provide_attack_entry_offer(actor, stale).is_empty())
+	var bad := request()
+	bad.preview_left = Rect2(Vector2.INF, Vector2.ONE)
+	check("nonfinite_preview_rejects", host.provide_attack_entry_offer(actor, bad).is_empty())
+	var proxy := Node2D.new()
+	proxy.position = Vector2(24,0)
+	world.add_child(proxy)
+	host.register_candidate(proxy, attest())
+	check("eligibility_independent_of_damage_receiver", not offer().is_empty())
+	proxy.queue_free()
+	check("queued_deletion_rejects", offer().is_empty())
+	await settle()
+	check("freed_candidate_rejects_without_dereference", offer().is_empty())
+	var diagnostic: Dictionary = host.diagnostics()
+	check("diagnostics_have_no_target_identity_or_coordinates", not diagnostic.has("candidate") and not diagnostic.has("candidate_id") and not diagnostic.has("anchor_world") and not diagnostic.has("position"))
+	var replacement := Host.new()
+	world.add_child(replacement)
+	replacement.set_assist_enabled(true)
+	check("replacement_binds", replacement.bind_actor(actor))
+	host.set_assist_enabled(false)
+	check("old_host_cannot_change_replacement_enable", actor.enable_attack_entry_assist)
+	host.unbind_actor()
+	check("old_host_cannot_detach_replacement", actor.attack_entry_provider_matches(replacement.provider_callable()))
+	replacement.unbind_actor()
+	check("current_owner_can_detach", not actor.provider.is_valid())
+	var failures := checks.filter(func(item): return not item.passed).size()
+	var file := FileAccess.open("res://combat_pc/components/tests/m11_facing_host_contract_smoke_results.json", FileAccess.WRITE)
+	file.store_string(JSON.stringify({"checks":checks,"passed":checks.size()-failures,"failures":failures},"\t"))
+	print("HOST_RESULT ", checks.size()-failures, "/", checks.size())
+	quit(1 if failures else 0)

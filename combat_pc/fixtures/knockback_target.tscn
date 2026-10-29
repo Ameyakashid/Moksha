@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3]
+[ext_resource type="Script" path="res://combat_pc/fixtures/knockback_target.gd" id="1"]
+[ext_resource type="Resource" path="res://movement/resources/npc.tres" id="2"]
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/chain_target.tscn" id="3"]
+[ext_resource type="Script" path="res://movement/components/wireframe.gd" id="4"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/strike_knockback.tscn" id="5"]
+[sub_resource type="RectangleShape2D" id="Body"]
+size = Vector2(16,36)
+
+[node name="KnockbackTarget" type="CharacterBody2D"]
+script = ExtResource("1")
+tuning = ExtResource("2")
+collision_layer = 0
+collision_mask = 1
+double_jump_enabled = false
+air_dash_enabled = false
+
+[node name="BodyShape" type="CollisionShape2D" parent="."]
+position = Vector2(0,-18)
+shape = SubResource("Body")
+
+[node name="Hurtbox" parent="." instance=ExtResource("3")]
+visible = false
+size = Vector2(16,36)
+
+[node name="Visual" type="Node2D" parent="."]
+script = ExtResource("4")
+tint = Color(0.902,0.706,0.494,1)
+actor_label = "TARGET"
+
+[node name="Knockback" parent="." instance=ExtResource("5")]
+receiver_path = NodePath("../Hurtbox")
+motor_path = NodePath("..")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=3]
+[ext_resource type="PackedScene" path="res://scenes/props/crate.tscn" id="1"]
+[ext_resource type="Script" path="res://combat_pc/fixtures/contact_noise_prop.gd" id="2"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/physics_contact_noise.tscn" id="3"]
+[node name="ContactNoiseProp" instance=ExtResource("1")]
+script = ExtResource("2")
+process_mode = 1
+collision_mask = 9
+[node name="ImpactNoise" parent="." instance=ExtResource("3")]

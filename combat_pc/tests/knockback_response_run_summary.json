@@ -1,0 +1,66 @@
+{
+  "milestone": 21,
+  "baseline_zip_sha256": "48752e6b00f630937360772799bac58b2af9527d9146185c592f6faa439ff6bd",
+  "selected_hz": [
+    60,
+    120
+  ],
+  "protected_source_audit_stable_during_batch": true,
+  "runs": [
+    {
+      "physics_hz": 60,
+      "passed": true,
+      "exit_code": 0,
+      "diagnostics": false,
+      "scenarios": 44,
+      "assertions": 157,
+      "failures": [],
+      "source_stable": true,
+      "trace": "knockback_response_60hz.json.gz",
+      "log": "knockback_response_60hz.log",
+      "harness_sha256": "070dbb888bb540ac7f16110431001f86e817f7d479abd271bfd2dfb3ed6339e5",
+      "controller_sha256": "2f0d4d0b93aa1f0eb3f21e94fb96af09923892d0aef1c7f0cf1704a9b22e9997",
+      "engine": {
+        "build": "official",
+        "hash": "7d41c59c457bd5a245092b4e7eb2d833e3b3f8c3",
+        "hex": 263683,
+        "major": 4,
+        "minor": 6,
+        "patch": 3,
+        "status": "stable",
+        "string": "4.6.3-stable (official)",
+        "timestamp": 0
+      }
+    },
+    {
+      "physics_hz": 120,
+      "passed": true,
+      "exit_code": 0,
+      "diagnostics": false,
+      "scenarios": 44,
+      "assertions": 157,
+      "failures": [],
+      "source_stable": true,
+      "trace": "knockback_response_120hz.json.gz",
+      "log": "knockback_response_120hz.log",
+      "harness_sha256": "070dbb888bb540ac7f16110431001f86e817f7d479abd271bfd2dfb3ed6339e5",
+      "controller_sha256": "2f0d4d0b93aa1f0eb3f21e94fb96af09923892d0aef1c7f0cf1704a9b22e9997",
+      "engine": {
+        "build": "official",
+        "hash": "7d41c59c457bd5a245092b4e7eb2d833e3b3f8c3",
+        "hex": 263683,
+        "major": 4,
+        "minor": 6,
+        "patch": 3,
+        "status": "stable",
+        "string": "4.6.3-stable (official)",
+        "timestamp": 0
+      }
+    }
+  ],
+  "passed": true,
+  "limits": [
+    "Focused passive target acceptance only; no NPC AI, broad moving-platform or full controller-suite rerun claimed.",
+    "Existing controller and adapters are checked byte-for-byte against v24; actual combo contacts are exercised in the new suite."
+  ]
+}

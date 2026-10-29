@@ -1,0 +1,18 @@
+[gd_scene load_steps=7 format=3]
+[ext_resource type="PackedScene" path="res://simulation/actors/shared_actor.tscn" id="1"]
+[ext_resource type="Resource" path="res://simulation/resources/projectile_chain.tres" id="2"]
+[ext_resource type="Resource" path="res://simulation/resources/projectile_input.tres" id="3"]
+[ext_resource type="Script" path="res://simulation/components/projectile_emitter.gd" id="4"]
+[ext_resource type="Script" path="res://simulation/components/projectile_receiver.gd" id="5"]
+[ext_resource type="Script" path="res://simulation/components/projectile_aim.gd" id="6"]
+[node name="SharedRangedActor" instance=ExtResource("1")]
+melee_chain = ExtResource("2")
+melee_input_profile = ExtResource("3")
+[node name="ContactAdapter" parent="." index="1"]
+enabled = false
+[node name="ProjectileAim" type="Node" parent="."]
+script = ExtResource("6")
+[node name="ProjectileReceiver" type="Node" parent="."]
+script = ExtResource("5")
+[node name="ProjectileEmitter" type="Node" parent="."]
+script = ExtResource("4")

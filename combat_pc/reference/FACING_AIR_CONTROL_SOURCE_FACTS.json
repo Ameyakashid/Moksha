@@ -1,0 +1,381 @@
+{
+  "audit_date": "2026-10-04",
+  "repository": "N3rdL0rd/DeadCellsDecomp",
+  "commit": "77c3ad263c4187ade6d048ba77bb61f79e6cec44",
+  "target_build_from_repository_readme": "PC v35 / 50edff4",
+  "scope": "Read-only facing, aim and target-conditioned air-control research; does not authorize implementation changes",
+  "sources": [
+    {
+      "path": "deadcells/src/game/tool/weap/ElbowBlades.hx",
+      "blob_sha": "e73126a46513ff8c2e5d65167fe87cbc1c3cfbb2",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/ElbowBlades.hx",
+      "line_count": 29
+    },
+    {
+      "path": "deadcells/src/game/tool/Weapon.hx",
+      "blob_sha": "5515da6ac74a18b7188d1670e3611c14168e58ac",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Weapon.hx",
+      "line_count": 285
+    },
+    {
+      "path": "deadcells/src/game/en/Hero.hx",
+      "blob_sha": "fd03750543f136f7487bf1a030489cddb7cb4280",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/en/Hero.hx",
+      "line_count": 965
+    },
+    {
+      "path": "deadcells/src/game/Entity.hx",
+      "blob_sha": "69aa974fb93311fe58756200cfc8b0d2a74605d5",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/Entity.hx",
+      "line_count": 1055
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/BaseBow.hx",
+      "blob_sha": "08cf6881bd97fd3799bf9bd9e2443888683d349d",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/BaseBow.hx",
+      "line_count": 79
+    },
+    {
+      "path": "deadcells/src/game/tool/hero/HeroWeaponsManager.hx",
+      "blob_sha": "4d0481b00096601195e18ae3616630d253b9faf4",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/hero/HeroWeaponsManager.hx",
+      "line_count": 221
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/TPSword.hx",
+      "blob_sha": "4bfd51f576b618009d59243c4b06cb0340690aa2",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/TPSword.hx",
+      "line_count": 68
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/PureNail.hx",
+      "blob_sha": "6ece91fd8ed61ea15fb1aeeacd952ab3a38c512f",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/PureNail.hx",
+      "line_count": 64
+    },
+    {
+      "path": "deadcells/src/game/tool/TargetHelper.hx",
+      "blob_sha": "ff666e4a04d9bdeb640e7fc1fe38260e142d4715",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/TargetHelper.hx",
+      "line_count": 108
+    },
+    {
+      "path": "deadcells/src/game/tool/Team.hx",
+      "blob_sha": "32b76f0e624c341aebefcf70f99caffaa6e0a422",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Team.hx",
+      "line_count": 105
+    },
+    {
+      "path": "deadcells/src/game/tool/quadTree/QuadTree.hx",
+      "blob_sha": "8f776df0e05438387fe020aadd9d91df34ff9598",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/quadTree/QuadTree.hx",
+      "line_count": 61
+    },
+    {
+      "path": "deadcells/src/game/tool/Area.hx",
+      "blob_sha": "a3ba6809f2f6aaba3cc94a2218be1e487311ed38",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Area.hx",
+      "line_count": 27
+    },
+    {
+      "path": "deadcells/src/game/tool/hero/HeroMainSkillsManager.hx",
+      "blob_sha": "cc77011495a33fc9651bb6b9660cffea676bcd12",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/hero/HeroMainSkillsManager.hx",
+      "line_count": 124
+    },
+    {
+      "path": "deadcells/src/game/tool/hero/mainSkills/BeheadedMainSkillsManager.hx",
+      "blob_sha": "34a8122a678faac6b0fec1a0d6f298df99021a2e",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/hero/mainSkills/BeheadedMainSkillsManager.hx",
+      "line_count": 14
+    },
+    {
+      "path": "deadcells/src/game/tool/HeroMainSkill.hx",
+      "blob_sha": "f781f60f2ec11622bf325015d500c42b1f3fb834",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/HeroMainSkill.hx",
+      "line_count": 200
+    },
+    {
+      "path": "deadcells/src/game/tool/mainSkills/AirJumpBeheaded.hx",
+      "blob_sha": "e92ed40b6a7c0fe3aa4f370f65e9fbf6219d2bbe",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/mainSkills/AirJumpBeheaded.hx",
+      "line_count": 20
+    },
+    {
+      "path": "deadcells/src/game/tool/mainSkills/JumpBeheaded.hx",
+      "blob_sha": "c5a29abafe8aca6c6630ee1368477ccc438fbe36",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/mainSkills/JumpBeheaded.hx",
+      "line_count": 33
+    },
+    {
+      "path": "deadcells/src/game/tool/mainSkills/blackboards/JumpBlackBoard.hx",
+      "blob_sha": "72f9bd3060a8d9672e5efabd5d12def72c415261",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/mainSkills/blackboards/JumpBlackBoard.hx",
+      "line_count": 25
+    },
+    {
+      "path": "deadcells/src/game/en/hero/Beheaded.hx",
+      "blob_sha": "deb5c783b4c72fabc71cd2f70414d6e3f97b6f1a",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/en/hero/Beheaded.hx",
+      "line_count": 91
+    },
+    {
+      "path": "deadcells/src/game/tool/hero/weap/BeheadedWeaponsManager.hx",
+      "blob_sha": "550de25404b8f6bcbd7bb05072353f668520e384",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/hero/weap/BeheadedWeaponsManager.hx",
+      "line_count": 84
+    },
+    {
+      "path": "deadcells/src/game/tool/mainSkills/AirJump.hx",
+      "blob_sha": "2991081b3d442874d71bf8476a1aa956d89c695a",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/mainSkills/AirJump.hx",
+      "line_count": 55
+    },
+    {
+      "path": "deadcells/src/game/tool/mainSkills/Jump.hx",
+      "blob_sha": "390b524bcce1b5e0468bd181612993861210ae0d",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/mainSkills/Jump.hx",
+      "line_count": 38
+    },
+    {
+      "path": "deadcells/src/game/tool/mainSkills/DodgeRoll.hx",
+      "blob_sha": "6414194a4832aa7a6fb37a688dacb1061cb23e7a",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/mainSkills/DodgeRoll.hx",
+      "line_count": 113
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/Trident.hx",
+      "blob_sha": "fd4958f2433dd3894021fb585ae1ebd8604a30f4",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Trident.hx",
+      "line_count": 79
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/WiggleWhip.hx",
+      "blob_sha": "d9b01ca523901b86f2b9414e67e2c52d3efbed4e",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/WiggleWhip.hx",
+      "line_count": 132
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/ThrowingKnife.hx",
+      "blob_sha": "525184fce79c13e3f118154cc2844db48c6a133a",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/ThrowingKnife.hx",
+      "line_count": 16
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/LightningWhip.hx",
+      "blob_sha": "4445427c9bef10d78642e07eceb503c95c0420ee",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/LightningWhip.hx",
+      "line_count": 27
+    },
+    {
+      "path": "deadcells/src/game/AssistModeData.hx",
+      "blob_sha": "efd0e4d189304b98b4888b5f41b303b5a8af126f",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/AssistModeData.hx",
+      "line_count": 50
+    }
+  ],
+  "facts": [
+    {
+      "id": "elbow_cycle_branch",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/tool/weap/ElbowBlades.hx",
+      "lines": [
+        21,
+        27
+      ],
+      "statement": "At cycle zero autoAim returns false without calling the base routine; otherwise delegates. Return-value meaning and caller timing are unavailable."
+    },
+    {
+      "id": "cycle_getter",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/tool/Weapon.hx",
+      "lines": [
+        39,
+        41
+      ],
+      "statement": "Base cycle getter returns stored _cycle; does not establish cycle semantics or lifecycle."
+    },
+    {
+      "id": "base_charge_turn",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/tool/Weapon.hx",
+      "lines": [
+        141,
+        143
+      ],
+      "statement": "Base allowTurnDuringCharge returns true; consumers are missing."
+    },
+    {
+      "id": "tp_charge_turn",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/tool/weap/TPSword.hx",
+      "lines": [
+        30,
+        32
+      ],
+      "statement": "TPSword charge-turn override returns false."
+    },
+    {
+      "id": "tp_aim_return",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/tool/weap/TPSword.hx",
+      "lines": [
+        44,
+        46
+      ],
+      "statement": "TPSword autoAim override returns false; no chooser is implemented in the override."
+    },
+    {
+      "id": "wiggle_charge_turn",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/tool/weap/WiggleWhip.hx",
+      "lines": [
+        72,
+        74
+      ],
+      "statement": "WiggleWhip charge-turn override returns false."
+    },
+    {
+      "id": "aim_family_missing",
+      "category": "DECL",
+      "source_path": "deadcells/src/game/tool/Weapon.hx",
+      "lines": [
+        160,
+        176
+      ],
+      "statement": "Base autoAim, special-mode aim, hit eligibility and airControlOwner have unavailable implementations."
+    },
+    {
+      "id": "hero_turn_missing",
+      "category": "DECL",
+      "source_path": "deadcells/src/game/en/Hero.hx",
+      "lines": [
+        143,
+        145
+      ],
+      "statement": "Hero.shouldTurn is a throw-stub."
+    },
+    {
+      "id": "hero_air_missing",
+      "category": "DECL",
+      "source_path": "deadcells/src/game/en/Hero.hx",
+      "lines": [
+        764,
+        765
+      ],
+      "statement": "Hero.airControl is empty."
+    },
+    {
+      "id": "nail_air_missing",
+      "category": "DECL",
+      "source_path": "deadcells/src/game/tool/weap/PureNail.hx",
+      "lines": [
+        58,
+        59
+      ],
+      "statement": "PureNail's airControlOwner override is empty."
+    },
+    {
+      "id": "target_registry_change",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/Entity.hx",
+      "lines": [
+        200,
+        232
+      ],
+      "statement": "Team/targetable setters conditionally dispatch team membership changes for entities outside the quadtree; this is not the aim eligibility or chooser."
+    },
+    {
+      "id": "entity_alive",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/Entity.hx",
+      "lines": [
+        613,
+        618
+      ],
+      "statement": "isAlive checks positive life and not destroyed. No implemented aim caller was established."
+    },
+    {
+      "id": "target_filters_missing",
+      "category": "DECL",
+      "source_path": "deadcells/src/game/tool/TargetHelper.hx",
+      "lines": [
+        20,
+        106
+      ],
+      "statement": "Area, distance, sight, angle/front, targetability, shield and breakable filter/score methods and getBest are unavailable; no filter policy/order is recovered."
+    },
+    {
+      "id": "area_reference",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/tool/Area.hx",
+      "lines": [
+        14,
+        25
+      ],
+      "statement": "Area position can be set absolute or relative to an entity; no strike-zone geometry algorithm is established."
+    },
+    {
+      "id": "climb_jump_call",
+      "category": "CALL",
+      "source_path": "deadcells/src/game/tool/mainSkills/AirJump.hx",
+      "lines": [
+        44,
+        46
+      ],
+      "statement": "Climb-start calls missing set_airJumps with zero; this neither connects weapon use to jump refunds nor establishes used/remaining semantics."
+    },
+    {
+      "id": "auto_mode_default",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/AssistModeData.hx",
+      "lines": [
+        16,
+        32
+      ],
+      "statement": "Constructor sets modeAuto false before optional cloning of supplied data; gameplay consumer mapping remains missing."
+    }
+  ],
+  "primary_evidence": [
+    {
+      "url": "https://deadcells.com/patchnotes/23",
+      "version": "Update 23, 2021-03-04",
+      "statement": "Describes air control for weapons conditional on an enemy being in the strike zone; mechanism and numbers unspecified."
+    },
+    {
+      "url": "https://media.gdcvault.com/gdc2019/presentations/Benard-Sebastian-DeepCells.pdf#page=17",
+      "version": "GDC 2019",
+      "statement": "Combat slide names turnaround and auto-aim as control features; no timing or target-selection algorithm."
+    },
+    {
+      "url": "https://deadcells.com/patchnotes/1",
+      "version": "Update 1, 2017-05-31",
+      "statement": "Some weapons, including throwing knives, prioritize elites/bosses more strongly; not a universal melee policy."
+    },
+    {
+      "url": "https://deadcells.com/patchnotes/4",
+      "version": "Update 4 / 4.2, 2017",
+      "statement": "Describes bow auto-aim and separately removes Lightning Whip air control; predates broader Update 23."
+    },
+    {
+      "url": "https://deadcells.com/patchnotes/29",
+      "version": "Update 29, 2022",
+      "statement": "Optional auto-hit for primary melee weapon is distinct from manual attack aiming."
+    }
+  ],
+  "unknowns": [
+    "Meaning of autoAim Boolean at callers",
+    "Aim admission and sampling schedule",
+    "Target candidate rules/filter order/priority/ties",
+    "Exact strike-zone geometry and occlusion",
+    "Facing latch/retarget and committed hit direction",
+    "Air-control mechanism/axes/strength/duration",
+    "Target presence versus successful damage condition",
+    "Air modifier continuation after target loss",
+    "Main-skill/weapon ordering and cancellation",
+    "Jump budget and fall-risk behavior during combat",
+    "All v35 gameplay numerical values"
+  ],
+  "measured_gameplay_values": [],
+  "runtime_files_changed": []
+}

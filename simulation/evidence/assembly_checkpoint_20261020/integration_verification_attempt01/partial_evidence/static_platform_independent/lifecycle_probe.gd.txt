@@ -1,0 +1,24 @@
+extends SceneTree
+const Platform=preload('res://simulation/world/static_platform.tscn')
+const Appearance=preload('res://demo/views/platform_appearance.gd')
+var checks=0
+func check(ok:bool,label:String):
+ assert(ok,label);checks+=1
+func _initialize(): run.call_deferred()
+func run():
+ var a=Platform.instantiate();var b=Platform.instantiate()
+ a.platform_size=Vector2(217,37);a.one_way_collision=true;a.one_way_collision_margin=7
+ var packed=PackedScene.new();check(packed.pack(a)==OK,'pack before tree entry')
+ var c=packed.instantiate();root.add_child(a);root.add_child(b);root.add_child(c)
+ check(c.get_node('CollisionShape2D').shape.size==Vector2(217,37),'pre-ready size serialized and applied')
+ check(c.get_node('CollisionShape2D').one_way_collision and c.get_node('CollisionShape2D').one_way_collision_margin==7,'pre-ready flags serialized and applied')
+ check(c.appearance!=a.appearance and c.get_node('CollisionShape2D').shape!=a.get_node('CollisionShape2D').shape,'packed clones independent')
+ a.appearance.fill=Color.RED
+ check(c.appearance.fill!=Color.RED and b.appearance.fill!=Color.RED,'appearance clone edits isolated')
+ root.remove_child(a);a.platform_size=Vector2(333,33);root.add_child(a)
+ check(a.get_node('CollisionShape2D').shape.size==Vector2(333,33),'removed edited reinserted size')
+ a.request_ready();root.remove_child(a);root.add_child(a)
+ check(a.get_node('CollisionShape2D').shape.size==Vector2(333,33),'re-ready recreates correct shape')
+ a.get_node('View').free();a.appearance=Appearance.new();a.platform_size=Vector2(444,44)
+ check(a.get_node('CollisionShape2D').shape.size==Vector2(444,44),'view removal keeps shape configurable')
+ print('INDEPENDENT LIFECYCLE ',checks,' passed');quit()

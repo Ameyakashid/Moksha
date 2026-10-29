@@ -1,0 +1,56 @@
+[gd_scene load_steps=11 format=3]
+[ext_resource type="Script" path="res://combat_pc/surface_review.gd" id="1"]
+[ext_resource type="PackedScene" path="res://combat_pc/player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/health_component.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/defeat_response.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/noise_relay.tscn" id="5"]
+[ext_resource type="Script" path="res://scripts/sensory/noise_bus.gd" id="6"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/surface_pulse.tscn" id="7"]
+[sub_resource type="RectangleShape2D" id="Block"]
+size = Vector2(72,68)
+[sub_resource type="RectangleShape2D" id="Floor"]
+size = Vector2(640,36)
+[sub_resource type="RectangleShape2D" id="Wall"]
+size = Vector2(12,130)
+
+[node name="SurfaceReview" type="Node2D"]
+script = ExtResource("1")
+[node name="SoundEvents" type="Node" parent="."]
+script = ExtResource("6")
+history_limit = 64
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(320,288)
+collision_layer = 1
+collision_mask = 0
+[node name="Shape" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("Floor")
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(22,205)
+collision_layer = 1
+collision_mask = 0
+[node name="Shape" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("Wall")
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(618,205)
+collision_layer = 1
+collision_mask = 0
+[node name="Shape" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("Wall")
+[node name="Player" parent="." instance=ExtResource("2")]
+position = Vector2(250,270)
+automatic_physics = false
+[node name="Health" parent="Player" instance=ExtResource("3")]
+[node name="DefeatResponse" parent="Player" instance=ExtResource("4")]
+[node name="NoiseRelay" parent="Player" instance=ExtResource("5")]
+event_bus_path = NodePath("../../SoundEvents")
+
+[node name="Block" type="StaticBody2D" parent="."]
+position = Vector2(434,236)
+collision_layer = 1
+collision_mask = 0
+[node name="Shape" type="CollisionShape2D" parent="Block"]
+shape = SubResource("Block")
+[node name="SurfacePulse" parent="." instance=ExtResource("7")]
+geometry_root_path = NodePath("..")
+excluded_actor_path = NodePath("../Player")
+event_bus_path = NodePath("../SoundEvents")

@@ -1,0 +1,123 @@
+{
+  "generated_utc": "2026-10-20T01:24:45.552017+00:00",
+  "scope": "Shared configured origin-witness world half-plane; existing controller/Health/Defeat and explicit cargo source retirement.",
+  "source_count": 592,
+  "code_unchanged_through_all_gates": true,
+  "gate_groups": 14,
+  "foundation_stages": 72,
+  "preserved_prior_foundation_stages": 69,
+  "stock_combinations": 10,
+  "held_checks": {
+    "60": 333,
+    "120": 333
+  },
+  "historical_stages": 19,
+  "production_boundary": {
+    "each_rate_scenarios": 51,
+    "each_rate_checks": 174
+  },
+  "health_compatibility": {
+    "health_regression_60": {
+      "checks": 182,
+      "scenarios": 25
+    },
+    "defeat_regression_60": {
+      "checks": 187,
+      "scenarios": 23
+    },
+    "defeat_health_compatibility_60": {
+      "checks": 182,
+      "scenarios": 25
+    },
+    "health_shield_compatibility_60": {
+      "checks": 214,
+      "scenarios": 46
+    },
+    "health_regression_120": {
+      "checks": 182,
+      "scenarios": 25
+    },
+    "defeat_regression_120": {
+      "checks": 187,
+      "scenarios": 23
+    },
+    "defeat_health_compatibility_120": {
+      "checks": 182,
+      "scenarios": 25
+    },
+    "health_shield_compatibility_120": {
+      "checks": 214,
+      "scenarios": 46
+    }
+  },
+  "independent": {
+    "each_rate_scenarios": 26,
+    "each_rate_checks": 95,
+    "each_rate_ordinary_health_checks": 182,
+    "additional_reproducer_checks": 22,
+    "total_executed_checks": 576,
+    "source_count": 528,
+    "report": "boundary_independent/REVIEW.md"
+  },
+  "routes": [
+    {
+      "hz": 60,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 178.200000000034,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 60,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 159.266666666686,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 175.550000000005,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 167.625000000012,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    }
+  ],
+  "native": {
+    "report": "boundary_native_review.md",
+    "captures": 7,
+    "ordinary_pc_fall_defeat_retry_observed": true,
+    "four_guards_disappeared_and_hud_room_clear_observed": true,
+    "cargo_launch_observed": true,
+    "precise_boundary_and_pending_cargo_retirement": "headless only",
+    "final_label_presentation": "accepted",
+    "debugger": "29 stable unexpanded entries, not investigated"
+  },
+  "clean_import_and_both_boots": true,
+  "limitations": [
+    "Configured point half-plane, not shape-overlap collision.",
+    "Initial outside occupancy is distinct from consecutive observed crossing.",
+    "128 disjoint guarded admission ranges fail closed; ordinary damage remains usable.",
+    "External movable ancestors need BoundaryScope or explicit invalidation before reposition.",
+    "Locked-gap fixture is labelled; actual authored Cistern gap is unlocked.",
+    "No physical corpse, acoustic simulation, decorative extraction, new campaign or human duration claim."
+  ]
+}

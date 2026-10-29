@@ -1,0 +1,70 @@
+extends "res://combat_pc/tests/health_regression.gd"
+const ReplacementHealth = preload("res://combat_pc/components/health_component.tscn")
+class LegacyProvider extends Node2D:
+	signal damage_resolved(receipt: Dictionary)
+	signal movement_event(kind: StringName, payload: Dictionary)
+	func damage_generation() -> int: return 0
+func _run() -> void:
+	await _nested_receipts()
+	await _begin("admission gaps preserve fresh contacts and duplicate rejection")
+	var source := _source()
+	var rejected: Dictionary=actor.receive_attack(_attack(source,0,50))
+	var first: Dictionary=actor.receive_attack(_attack(source,1,5))
+	var duplicate: Dictionary=actor.receive_attack(_attack(source,1,99))
+	_check(not rejected.consumed and first.consumed and not duplicate.consumed, "rejection and duplicate do not admit damage")
+	_near(health.current_health,95,"only fresh contact debits")
+	health.unbind_actor()
+	_check(health.bind_actor(actor),"same store rebind succeeds")
+	actor.receive_attack(_attack(source,2,7))
+	_near(health.current_health,88,"fresh post-rebind contact clears fixed serial floor")
+	await _finish()
+	await _begin("fresh nested contact after Health replacement")
+	source=_source()
+	var done: Array[bool]=[]
+	var new_health: Array[Node]=[]
+	actor.movement_event.connect(func(kind,_payload):
+		if kind!=&"hurt_started" or not done.is_empty(): return
+		done.append(true)
+		var old: Node=health
+		old.unbind_actor()
+		actor.remove_child(old)
+		old.queue_free()
+		var fresh: Node=ReplacementHealth.instantiate()
+		actor.add_child(fresh)
+		new_health.append(fresh)
+		health=fresh
+		actor.receive_attack(_attack(source,2,7))
+	)
+	actor.receive_attack(_attack(source,1,10))
+	_check(done==[true] and not new_health.is_empty(),"outer callback installs fresh store")
+	_near(health.current_health,93,"fresh nested hit debits replacement; old outer hit does not")
+	await _finish()
+	await _begin("late Health bind after actor reset in hurt callback")
+	source=_source()
+	done=[]
+	actor.movement_event.connect(func(kind,_payload):
+		if kind!=&"hurt_started" or not done.is_empty(): return
+		done.append(true)
+		actor.reset_actor(Vector2(100,200))
+		health.unbind_actor()
+		health.bind_actor(actor)
+	)
+	actor.receive_attack(_attack(source,1,20))
+	_near(health.current_health,100,"reset plus late bind excludes in-flight old life")
+	actor.receive_attack(_attack(source,2,3))
+	_near(health.current_health,97,"fresh same-binding post-reset contact accepted")
+	await _finish()
+	await _begin("legacy provider without admission getter remains compatible",false)
+	var legacy:=LegacyProvider.new()
+	world.add_child(legacy)
+	var legacy_health: Node=ReplacementHealth.instantiate()
+	legacy.add_child(legacy_health)
+	_check(not legacy.has_method("damage_admission_sequence"),"legacy provider omits new optional accessor")
+	legacy.damage_resolved.emit({"actor_id":legacy.get_instance_id(),"generation":0,"outcome":&"hurt","amount":4.0})
+	_near(legacy_health.current_health,96,"legacy provider receipt without serial still accepted")
+	await _finish()
+	var report: Dictionary={"hz":hz,"checks":checks.size(),"failures":failures,"scenarios":scenarios,"execution":"Explicit public API lifecycle probes, plus stock nested receipt acceptance. These are not claimed successful gameplay contacts."}
+	FileAccess.open("res://simulation/evidence/review_health_admission_%d.json" % hz,FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
+	print("INDEPENDENT HEALTH ADMISSION %dHz: %d checks %d failures" % [hz,checks.size(),failures.size()])
+	for failure in failures: printerr(failure)
+	quit(0 if failures.is_empty() else 1)

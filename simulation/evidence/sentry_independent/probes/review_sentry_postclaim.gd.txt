@@ -1,0 +1,30 @@
+extends "res://simulation/tests/sentry_regression.gd"
+func run() -> void:
+	root.get_node("NoiseBus").noise_emitted.connect(noise)
+	for mutation in ["source layer","receiver filter","filter roundtrip","owner swap","attack id","reflection flag","receiver disabled","source reset","target reset"]:
+		await begin("post-claim final hook / "+mutation,1,20)
+		await launch(); npc.ai_enabled=false
+		var shot:=first_shot(); var callback_frame:=[-1]; var damage_frames:=[]
+		pc.get_node("Health").damage_processed.connect(func(_receipt): damage_frames.append(Engine.get_physics_frames()))
+		shot.after_claim_callback=func(_packet):
+			callback_frame[0]=Engine.get_physics_frames()
+			match mutation:
+				"source layer": npc.collision_layer=2
+				"receiver filter": pc.get_node("ProjectileReceiver").accepted_source_layers=2
+				"filter roundtrip": pc.get_node("ProjectileReceiver").accepted_source_layers=0; pc.get_node("ProjectileReceiver").accepted_source_layers=32
+				"owner swap": shot.attack_owner=weakref(pc)
+				"attack id": shot.attack_id+=1
+				"reflection flag": shot.reflected=true
+				"receiver disabled": pc.get_node("ProjectileReceiver").enabled=false
+				"source reset": npc.reset_at(npc.position); npc.ai_enabled=false
+				"target reset": pc.reset_actor(pc.position,1)
+		await frames(ceili(hz*1.5))
+		check(callback_frame[0]>=0,"genuine claimed physical contact reaches final source hook")
+		check(pc.get_node("Health").current_health==60 and damage_frames.is_empty(),"post-hook source/receiver mutation rejects all Health writes")
+		check(get_nodes_in_group("shared_projectiles").is_empty(),"rejected contact leaves no live carrier")
+		await finish()
+	var report:={"hz":hz,"checks":checks,"scenarios":scenarios,"failures":failures}
+	FileAccess.open("/tmp/moksha_sentry_review/postclaim_%d.json"%hz,FileAccess.WRITE).store_string(JSON.stringify(report,"  ")+"\n")
+	print("POSTCLAIM SENTRY %d Hz: %d scenarios, %d checks, %d failures"%[hz,scenarios.size(),checks.size(),failures.size()])
+	for failure in failures: printerr(failure)
+	quit(0 if failures.is_empty() else 1)

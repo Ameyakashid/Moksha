@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="MokshaMeleeChainProfile" load_steps=5 format=3]
+[ext_resource type="Script" path="res://combat_pc/resources/melee_chain.gd" id="1"]
+[ext_resource type="Script" path="res://combat_pc/resources/melee_step.gd" id="2"]
+[sub_resource type="Resource" id="Cut"]
+script = ExtResource("2")
+step_label = "Warden cut"
+pose_id = &"warden_cut"
+next_step = -1
+windup_seconds = 0.78
+active_seconds = 0.14
+recovery_seconds = 0.90
+windup_move_scale = 0.0
+recovery_move_scale = 0.0
+active_ground_speed = 0.0
+allow_turn_windup = false
+allow_turn_active = false
+allow_turn_recovery = false
+windup_cancels = PackedStringArray()
+active_cancels = PackedStringArray()
+recovery_cancels = PackedStringArray()
+strike_size = Vector2(57, 27)
+strike_center_offset = Vector2(32.5, -22)
+strike_origin_offset = Vector2(0, -22)
+damage = 18.0
+impulse = Vector2(130, -65)
+loudness = 1.0
+hurt_protected_phases = PackedStringArray("windup", "active")
+hurt_interrupt_seconds = 0.70
+[sub_resource type="Resource" id="Sweep"]
+script = ExtResource("2")
+step_label = "Warden sweep"
+pose_id = &"warden_sweep"
+next_step = -1
+windup_seconds = 1.014
+active_seconds = 0.18
+recovery_seconds = 1.10
+windup_move_scale = 0.0
+recovery_move_scale = 0.0
+active_ground_speed = 0.0
+allow_turn_windup = false
+allow_turn_active = false
+allow_turn_recovery = false
+windup_cancels = PackedStringArray()
+active_cancels = PackedStringArray()
+recovery_cancels = PackedStringArray()
+strike_size = Vector2(73, 27)
+strike_center_offset = Vector2(40.5, -22)
+strike_origin_offset = Vector2(0, -22)
+damage = 18.0
+impulse = Vector2(130, -65)
+loudness = 1.0
+hurt_protected_phases = PackedStringArray("windup", "active")
+hurt_interrupt_seconds = 0.70
+[resource]
+script = ExtResource("1")
+chain_id = &"warden_independent_pattern"
+fresh_start_steps = PackedInt32Array(0, 1)
+steps = Array[ExtResource("2")]([SubResource("Cut"), SubResource("Sweep")])

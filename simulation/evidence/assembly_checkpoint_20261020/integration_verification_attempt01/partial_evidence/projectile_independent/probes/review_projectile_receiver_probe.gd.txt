@@ -1,0 +1,9 @@
+extends "res://simulation/components/projectile_receiver.gd"
+var callback:Callable
+func capture_projectile_generation()->Dictionary:
+	var token:=super.capture_projectile_generation()
+	if callback.is_valid():
+		var fn:=callback
+		callback=Callable()
+		fn.call()
+	return token

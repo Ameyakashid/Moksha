@@ -1,0 +1,31 @@
+[gd_scene load_steps=12 format=3]
+[ext_resource type="PackedScene" path="res://combat_pc/player.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/health_component.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/defeat_response.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/noise_relay.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://simulation/components/hearing_sensor.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://simulation/components/physical_impact_receiver.tscn" id="6"]
+[ext_resource type="Script" path="res://simulation/components/actor_intent_driver.gd" id="7"]
+[ext_resource type="PackedScene" path="res://simulation/components/incoming_strike_receiver.tscn" id="8"]
+[ext_resource type="Script" path="res://simulation/components/actor_contact_config.gd" id="9"]
+[ext_resource type="PackedScene" path="res://simulation/components/shield_counter_receiver.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://simulation/components/boundary_receiver.tscn" id="11"]
+[node name="SharedActor" instance=ExtResource("1")]
+automatic_physics = false
+[node name="Health" parent="." instance=ExtResource("2")]
+maximum_health = 30.0
+[node name="DefeatResponse" parent="." instance=ExtResource("3")]
+[node name="NoiseRelay" parent="." instance=ExtResource("4")]
+event_bus_path = NodePath("/root/NoiseBus")
+[node name="HearingSensor" parent="." instance=ExtResource("5")]
+[node name="PhysicalImpactReceiver" parent="." instance=ExtResource("6")]
+[node name="IntentDriver" type="Node" parent="."]
+script = ExtResource("7")
+
+[node name="IncomingStrikeReceiver" parent="BodyShape" instance=ExtResource("8")]
+[node name="ContactConfig" type="Node" parent="."]
+script = ExtResource("9")
+
+[node name="ShieldCounterReceiver" parent="." instance=ExtResource("10")]
+
+[node name="BoundaryReceiver" parent="." instance=ExtResource("11")]

@@ -1,0 +1,359 @@
+{
+  "audit_date": "2026-10-04",
+  "repository": "N3rdL0rd/DeadCellsDecomp",
+  "commit": "77c3ad263c4187ade6d048ba77bb61f79e6cec44",
+  "target_build_from_repository_readme": "PC v35 / 50edff4",
+  "moksha_player_sha256_at_inspection": "4aa4132650037e5c975de27547ef06c6dd1e95a3c7384d9744524de048a8760a",
+  "purpose": "Source provenance and evidence classification only; no proprietary implementation or runtime parity claim",
+  "sources": [
+    {
+      "path": "deadcells/src/game/tool/weap/BaseShield.hx",
+      "blob_sha": "7237528fde8dbf1decb7a55a4c0b890d0fb1b013",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/BaseShield.hx",
+      "line_count": 92
+    },
+    {
+      "path": "deadcells/src/game/tool/Weapon.hx",
+      "blob_sha": "5515da6ac74a18b7188d1670e3611c14168e58ac",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Weapon.hx",
+      "line_count": 285
+    },
+    {
+      "path": "deadcells/src/game/tool/hero/HeroWeaponsManager.hx",
+      "blob_sha": "4d0481b00096601195e18ae3616630d253b9faf4",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/hero/HeroWeaponsManager.hx",
+      "line_count": 221
+    },
+    {
+      "path": "deadcells/src/game/en/Hero.hx",
+      "blob_sha": "fd03750543f136f7487bf1a030489cddb7cb4280",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/en/Hero.hx",
+      "line_count": 965
+    },
+    {
+      "path": "deadcells/src/game/en/hero/Beheaded.hx",
+      "blob_sha": "deb5c783b4c72fabc71cd2f70414d6e3f97b6f1a",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/en/hero/Beheaded.hx",
+      "line_count": 91
+    },
+    {
+      "path": "deadcells/src/game/tool/atk/AttackData.hx",
+      "blob_sha": "66632db96953ea3a104ebdcaa355e6c17d063eb9",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/atk/AttackData.hx",
+      "line_count": 139
+    },
+    {
+      "path": "deadcells/src/game/tool/atk/AttackTargetImpl.hx",
+      "blob_sha": "eb29921dd1420bc397109b589231a13c39264f23",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/atk/AttackTargetImpl.hx",
+      "line_count": 72
+    },
+    {
+      "path": "deadcells/src/game/tool/atk/AttackUtils.hx",
+      "blob_sha": "a0404eee72b93b6bc97a00416be06835aefc0d33",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/atk/AttackUtils.hx",
+      "line_count": 93
+    },
+    {
+      "path": "deadcells/src/game/tool/atk/atkTargets/HeroAttackTarget.hx",
+      "blob_sha": "9e37666556e9ffce7095663bd6c6f27c6f303380",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/atk/atkTargets/HeroAttackTarget.hx",
+      "line_count": 39
+    },
+    {
+      "path": "deadcells/src/game/tool/hero/weap/BeheadedWeaponsManager.hx",
+      "blob_sha": "550de25404b8f6bcbd7bb05072353f668520e384",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/hero/weap/BeheadedWeaponsManager.hx",
+      "line_count": 84
+    },
+    {
+      "path": "deadcells/src/game/tool/skill/OldSkill.hx",
+      "blob_sha": "5790f28b83d361415972fdc2cbaf34c034d7415c",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/skill/OldSkill.hx",
+      "line_count": 156
+    },
+    {
+      "path": "deadcells/src/game/HitResult.hx",
+      "blob_sha": "15c5481070e0ac12de494aca3bd28258deadddc7",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/HitResult.hx",
+      "line_count": 8
+    },
+    {
+      "path": "deadcells/src/game/en/Bullet.hx",
+      "blob_sha": "f7c759c63c64263f2fc7b2c9e0cc9f52b127aa14",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/en/Bullet.hx",
+      "line_count": 274
+    },
+    {
+      "path": "deadcells/src/game/en/Grenade.hx",
+      "blob_sha": "d768e248b8087183764a3ddc1870b63d67f076db",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/en/Grenade.hx",
+      "line_count": 162
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/sh/StartShield.hx",
+      "blob_sha": "1e8a753f8ff5722fb2ffac364ac7cd70f5edc700",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/sh/StartShield.hx",
+      "line_count": 10
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/sh/HoldShield.hx",
+      "blob_sha": "952a494c5063d39b39c67f17d1025f6e006b1ba8",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/sh/HoldShield.hx",
+      "line_count": 35
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/sh/ParryShield.hx",
+      "blob_sha": "2830b7e37b3a8821045e015ed6ca07e52a1f0778",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/sh/ParryShield.hx",
+      "line_count": 17
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/sh/DashShield.hx",
+      "blob_sha": "88d2fcb9af7deff6498475ccafe8ab50674d8949",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/sh/DashShield.hx",
+      "line_count": 41
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/sh/BumpShield.hx",
+      "blob_sha": "9aff590b77c9b2ff16e9277b6b2a723498e59504",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/sh/BumpShield.hx",
+      "line_count": 13
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/sh/StunShield.hx",
+      "blob_sha": "4f77e5761cf1d3f23c63b6c9c44b54cd2a0316ff",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/sh/StunShield.hx",
+      "line_count": 17
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/AlucardShield.hx",
+      "blob_sha": "09204e36cbfb16390dcb28a4b8f3b445f98479ab",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/AlucardShield.hx",
+      "line_count": 42
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/sh/AreaShield.hx",
+      "blob_sha": "c9f42ca1a764badc2203c1b32bcdd51410af22cc",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/sh/AreaShield.hx",
+      "line_count": 38
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/sh/BloodShield.hx",
+      "blob_sha": "b08c662310bf19f5e27ae53d2a7f3296a2b266b9",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/sh/BloodShield.hx",
+      "line_count": 13
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/sh/GreedShield.hx",
+      "blob_sha": "d2fcb150f0ec885a6daf0dd7e0446c6baa8ef35f",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/sh/GreedShield.hx",
+      "line_count": 13
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/sh/IceShield.hx",
+      "blob_sha": "8fadac36fa4b6fd486b39ab6a3077bb1905a6fc1",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/sh/IceShield.hx",
+      "line_count": 37
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/sh/SpikeShield.hx",
+      "blob_sha": "5c38b81989ffbde73cb6f97012bc5fc3070441f3",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/sh/SpikeShield.hx",
+      "line_count": 16
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/sh/ThunderShield.hx",
+      "blob_sha": "71b037a3e4fc8f79ef0ef7318d5c6dd36c82b537",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/sh/ThunderShield.hx",
+      "line_count": 39
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/sh/WarriorShield.hx",
+      "blob_sha": "5e11b17275e984c6332825f1b6459cd6c5723e94",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/sh/WarriorShield.hx",
+      "line_count": 13
+    },
+    {
+      "path": "deadcells/src/game/en/bu/CounteredBullet.hx",
+      "blob_sha": "e30a42c4fefc9e04d1eeb1af311df8551618cfe5",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/en/bu/CounteredBullet.hx",
+      "line_count": 28
+    },
+    {
+      "path": "deadcells/src/game/Entity.hx",
+      "blob_sha": "69aa974fb93311fe58756200cfc8b0d2a74605d5",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/Entity.hx",
+      "line_count": 1055
+    },
+    {
+      "path": "deadcells/src/game/tool/Area.hx",
+      "blob_sha": "a3ba6809f2f6aaba3cc94a2218be1e487311ed38",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Area.hx",
+      "line_count": 27
+    },
+    {
+      "path": "deadcells/src/game/AssistModeData.hx",
+      "blob_sha": "efd0e4d189304b98b4888b5f41b303b5a8af126f",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/AssistModeData.hx",
+      "line_count": 50
+    },
+    {
+      "path": "deadcells/src/game/tool/Controller.hx",
+      "blob_sha": "852957d8ca0f202ec28e4d25832f906e4c9dc2b3",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Controller.hx",
+      "line_count": 109
+    },
+    {
+      "path": "deadcells/src/game/tool/ControllerAccess.hx",
+      "blob_sha": "ebff438ec37fa9c9fa77de44ac98cab5a62746b4",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/ControllerAccess.hx",
+      "line_count": 41
+    },
+    {
+      "path": "deadcells/src/game/CustomGameData.hx",
+      "blob_sha": "7344fb2a15a6091db110e3688a5588727caac1bb",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/CustomGameData.hx",
+      "line_count": 204
+    },
+    {
+      "path": "deadcells/src/game/tool/hero/HeroMainSkillsManager.hx",
+      "blob_sha": "cc77011495a33fc9651bb6b9660cffea676bcd12",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/hero/HeroMainSkillsManager.hx",
+      "line_count": 124
+    },
+    {
+      "path": "deadcells/src/game/tool/HeroMainSkill.hx",
+      "blob_sha": "f781f60f2ec11622bf325015d500c42b1f3fb834",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/HeroMainSkill.hx",
+      "line_count": 200
+    }
+  ],
+  "facts": [
+    {
+      "id": "cancel_holdability_gate",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/tool/weap/BaseShield.hx",
+      "lines": [
+        25,
+        30
+      ],
+      "statement": "A nonholdable shield rejects tryToCancel; otherwise cancellation is delegated to the missing Weapon.tryToCancel implementation."
+    },
+    {
+      "id": "counter_result_dispatch",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/tool/weap/BaseShield.hx",
+      "lines": [
+        60,
+        71
+      ],
+      "statement": "Outgoing counter data is sent to the incoming attack's source. The counter-success hook dispatches only if that outgoing attack's isSuccess query passes; that query is missing."
+    },
+    {
+      "id": "counter_tags_uninterpreted",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/tool/weap/BaseShield.hx",
+      "lines": [
+        62,
+        65
+      ],
+      "statement": "Tag 13 is added. Tags 25, 1 and 2 are set from fullParry. Semantic names are not established."
+    },
+    {
+      "id": "charge_turn_default",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/tool/Weapon.hx",
+      "lines": [
+        141,
+        143
+      ],
+      "statement": "The base weapon defaults to allowing turn during charge. Final shield-phase turn policy is unavailable."
+    },
+    {
+      "id": "charging_affix_lookup",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/tool/hero/HeroWeaponsManager.hx",
+      "lines": [
+        75,
+        82
+      ],
+      "statement": "The charging-uninterruptible query checks CannotInterrupt on the selected charging weapon, if any; actual charging selection and cancellation consumers are missing."
+    },
+    {
+      "id": "direction_predicates_missing",
+      "category": "DECL",
+      "source_path": "deadcells/src/game/tool/atk/AttackTargetImpl.hx",
+      "lines": [
+        58,
+        68
+      ],
+      "statement": "Front-blocking, back-blocking and facing predicates all have missing bodies."
+    },
+    {
+      "id": "incoming_geometry_missing",
+      "category": "DECL",
+      "source_path": "deadcells/src/game/tool/atk/AttackData.hx",
+      "lines": [
+        104,
+        129
+      ],
+      "statement": "Source-to-target direction, origin and hit-position getters have missing bodies."
+    },
+    {
+      "id": "distinct_projectile_flags",
+      "category": "DECL",
+      "source_path": "deadcells/src/game/en/Bullet.hx",
+      "lines": [
+        22,
+        26
+      ],
+      "statement": "Bullet declares attack data and distinct noCounterBullet and noParry flags. Their policy consumers are unavailable."
+    },
+    {
+      "id": "ice_full_parry_dispatch",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/tool/weap/sh/IceShield.hx",
+      "lines": [
+        11,
+        16
+      ],
+      "statement": "The explosion hook is called conditionally on fullParry after the base block hook; explosion implementation is missing."
+    },
+    {
+      "id": "charged_dash_release",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/tool/weap/sh/DashShield.hx",
+      "lines": [
+        35,
+        38
+      ],
+      "statement": "A charged DashShield calls the base startParry on release. This is a subtype condition, not the ordinary shield lifecycle."
+    },
+    {
+      "id": "easy_parry_default",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/AssistModeData.hx",
+      "lines": [
+        26,
+        26
+      ],
+      "statement": "Assist mode's easyParry default is false; its gameplay timing consumer is unavailable."
+    }
+  ],
+  "unrecovered_contracts": [
+    "Input press/release-to-parry lifecycle",
+    "Parry and guard timing in v35",
+    "Successful-parry immediate rearm or cooldown reset",
+    "Damage absorption and critical math",
+    "Direction cone and above/below/same-X geometry",
+    "Actual source-versus-carrier direction choice",
+    "Movement, turning, jump, roll and traversal cancel permissions by phase",
+    "Ordinary shield control-lock interval and affected controls",
+    "Reflection trajectory, ownership, speed, lifetime and complete v35 penetration policy",
+    "Counter result success predicate and incoming eligibility",
+    "Stun, impulse, hitpause and AI-noise implementation"
+  ],
+  "measured_gameplay_values": [],
+  "authored_tuning_values_in_this_artifact": []
+}

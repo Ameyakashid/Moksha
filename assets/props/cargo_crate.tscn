@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/props/cargo_crate.tres" id="1_art"]
+
+[node name="CargoCrate" type="Node2D"]
+metadata/art_only = true
+metadata/nominal_size = Vector2(28, 28)
+metadata/origin_kind = "bottom_center"
+metadata/source_pivot = Vector2(124.0, 239)
+
+[node name="Art" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-14.71186441, -28.72103004)
+scale = Vector2(0.11864407, 0.12017167)
+texture = ExtResource("1_art")
+centered = false

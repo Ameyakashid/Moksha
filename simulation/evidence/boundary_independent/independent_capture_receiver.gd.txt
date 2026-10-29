@@ -1,0 +1,5 @@
+extends "res://simulation/components/boundary_receiver.gd"
+var saved_packet: Dictionary = {}
+func receive_boundary(packet: Dictionary) -> Dictionary:
+	if saved_packet.is_empty():saved_packet=packet
+	return super.receive_boundary(packet)

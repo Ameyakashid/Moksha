@@ -1,0 +1,130 @@
+{
+  "completed_at_utc": "2026-10-20T05:20:32.557326+00:00",
+  "status": "accepted_for_final_review_and_packaging",
+  "scope": "Placeable floor root composes existing static support and independent floor view, preserving production geometry/paint. Includes bounded generic test-bot ledge dead-zone recovery; no production gameplay, levels, interactions or HUD changes.",
+  "baseline": {
+    "archive": "MOKSHA-Placeable-Static-Platforms-2026-10-20.zip",
+    "archive_sha256": "c64b68ed241eb58463c651895cb20a37fc5957b138cb31bf0353cb4435d4fb83",
+    "provenance": "simulation/evidence/floor_segment_baseline/provenance.json"
+  },
+  "asset": "simulation/world/floor_segment.tscn",
+  "physical_owner": "Support child: existing StaticPlatform StaticBody2D with one RectangleShape2D; root Node2D owns placement/configuration",
+  "view": "demo/views/floor_view.tscn",
+  "appearance": "demo/views/floor_appearance.gd",
+  "contract": "simulation/FLOOR_SEGMENT_CONTRACT.md",
+  "showcase": "simulation/floor_segment_review.tscn",
+  "aggregate": {
+    "groups": 24,
+    "all_passed": true,
+    "terminal_exit": 0,
+    "source_files": 627,
+    "sources_unchanged": true,
+    "historical_reports_restored": true,
+    "report": "simulation/evidence/floor_segment_final_gates.json",
+    "terminal_log": "simulation/evidence/floor_segment_terminal_runner.log",
+    "fresh_reports_root": "simulation/evidence/floor_segment_gates"
+  },
+  "focused": {
+    "60_hz_checks": 117,
+    "120_hz_checks": 177,
+    "generic_route_policy_60_hz_checks": 40,
+    "generic_route_policy_120_hz_checks": 40,
+    "failures": []
+  },
+  "native": {
+    "report": "simulation/evidence/floor_segment_native_pixels.json",
+    "final_diagnostics_review": "simulation/evidence/floor_segment_final_native_review.md",
+    "prior_live_review": "simulation/evidence/floor_segment_native_review.md",
+    "live_source_correspondence": "simulation/evidence/floor_segment_live_source_correspondence.json",
+    "captures": "simulation/evidence/floor_segment_capture_hashes.json",
+    "exact_comparisons": 108,
+    "reuse_checks": 6,
+    "sources_match": true,
+    "renderer": "gl_compatibility",
+    "display_server": "X11",
+    "literal_down_space_verified": false,
+    "s_space_solid_floor_verified": true,
+    "diagnostic_limit": "Known audio initialization/fallback, VSync and script lint entries disclosed; no renderer/canvas errors, no warning-free or audible-mix claim."
+  },
+  "routes": [
+    {
+      "hz": 60,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 177.950000000034,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 60,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 158.933333333352,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 176.66666666667,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 166.983333333346,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    }
+  ],
+  "independent_review": {
+    "root": "simulation/evidence/floor_segment_independent_recovery",
+    "actual_baseline_candidate_episodes": 8,
+    "separate_policy_guard_cases": 960,
+    "scope": "Actual controller episodes use only initial placement plus ordinary raw inputs. Synthetic guard cases are labeled policy-only and are not gameplay evidence.",
+    "adapted_baseline_validation_scope": "Four focused actual below/above/repeated episodes on adapted sealed-platform composition, plus four on candidate. No full sealed-baseline route was run after integrating the helper."
+  },
+  "attempt_history": {
+    "first_full_attempt": "simulation/evidence/floor_segment_failed_route_attempt",
+    "first_full_result": "21/22 groups; random 120 Hz sacrificed route hung on delivered cargo ledge while bot emitted empty input. Original failure preserved.",
+    "diagnostic_root": "simulation/evidence/floor_segment_route_diagnostic",
+    "controlled_seed_pairs": [
+      205,
+      617
+    ],
+    "controlled_result": "Baseline/candidate full-route durations, launch spins and latch poses equal for each seed; both pairs passed.",
+    "red_reproduction": "Actual initial-geometry fixture reproduced the same dead-zone hang in both compositions, 710 empty-input ticks.",
+    "recovery": "Generic test-bot observed ledge/hang + nongrounded + stagnation >0.45s + existing horizontal dead zone uses ordinary down/up only. No completion/timeouts/randomness/mechanics changed.",
+    "earlier_native_proof": "simulation/evidence/floor_segment_pre_route_native",
+    "final_full_attempt": "24/24, exit 0, four randomized complete routes with zero deaths/retries/failures.",
+    "environment_launch_failures": [
+      "simulation/evidence/floor_segment_development_60_runner.log",
+      "simulation/evidence/floor_segment_independent_recovery/floor_independent_recovery_review/review.log"
+    ],
+    "controlled_route_scope": "Two pre-recovery matched-seed full routes per composition (seeds 205 and 617), plus one unseeded original baseline 120 Hz sacrificed route. These are diagnosis of unchanged floor composition before the helper change, not post-helper full baseline validation."
+  },
+  "preservation_audit": "simulation/evidence/floor_segment_preservation_audit.json",
+  "remaining_scope": [
+    "World signs",
+    "Interaction presentation",
+    "HUD",
+    "Other appearance separation as useful; no level expansion"
+  ],
+  "limits": [
+    "Native audible mix not certified",
+    "Earlier exact counter/guard native limitations unchanged",
+    "Arbitrary nonuniform physics scaling not certified",
+    "Fixture/regression success is not a guarantee of every randomized human route or game feel"
+  ]
+}

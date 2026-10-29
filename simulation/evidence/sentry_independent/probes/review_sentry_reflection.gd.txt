@@ -1,0 +1,31 @@
+extends "res://simulation/tests/sentry_regression.gd"
+func run() -> void:
+	for mutation in ["receiver filter","filter roundtrip","source layer","receiver unbind","target reset"]:
+		await begin("shield scope mutation / "+mutation,1,20)
+		var adapter:=pc.get_node("ShieldContactAdapter")
+		pc.shield_effect_requested.disconnect(adapter.resolve_effect)
+		var called:=[false]
+		pc.shield_effect_requested.connect(func(_actor,_packet):
+			called[0]=true
+			match mutation:
+				"receiver filter": pc.get_node("ProjectileReceiver").accepted_source_layers=2
+				"filter roundtrip": pc.get_node("ProjectileReceiver").accepted_source_layers=0; pc.get_node("ProjectileReceiver").accepted_source_layers=32
+				"source layer": npc.collision_layer=2
+				"receiver unbind": pc.get_node("ProjectileReceiver").unbind()
+				"target reset": pc.reset_actor(pc.position,1)
+		)
+		pc.shield_effect_requested.connect(adapter.resolve_effect)
+		await launch(); npc.ai_enabled=false
+		await until(func(): return is_instance_valid(first_shot()) and first_shot().position.x-pc.position.x<38)
+		driver.frame={"shield":true}
+		await frames(hz*2)
+		check(called[0],"actual shield scope executes callback")
+		check(npc.health==20 and pc.get_node("Health").current_health==60,"retired shield scope cannot produce source or target damage")
+		check(contacts.all(func(receipt): return not receipt.get("reflection_confirmed",false)),"retired source/filter scope cannot redirect")
+		check(get_nodes_in_group("shared_projectiles").is_empty(),"rejected reflection consumes original carrier")
+		await finish()
+	var report:={"hz":hz,"checks":checks,"scenarios":scenarios,"failures":failures}
+	FileAccess.open("/tmp/moksha_sentry_review/reflection_%d.json"%hz,FileAccess.WRITE).store_string(JSON.stringify(report,"  ")+"\n")
+	print("REFLECTION SENTRY %d Hz: %d scenarios, %d checks, %d failures"%[hz,scenarios.size(),checks.size(),failures.size()])
+	for failure in failures: printerr(failure)
+	quit(0 if failures.is_empty() else 1)

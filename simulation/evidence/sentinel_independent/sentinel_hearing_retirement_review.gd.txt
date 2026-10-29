@@ -1,0 +1,37 @@
+extends "res://simulation/tests/sentinel_independent_review.gd"
+func _run() -> void:
+	for operation in ["reset", "reconfigure", "disable", "pause", "pause_resume", "sensor_rebind", "disable_enable", "always_pause_resume"]:
+		await _begin("real bus / early hearing observer " + operation)
+		var actor := SENTINEL.instantiate()
+		actor.position=Vector2(180,200)
+		actor.ai_enabled=false
+		if operation=="always_pause_resume": actor.process_mode=Node.PROCESS_MODE_ALWAYS
+		var changed := [false]
+		actor.get_node("HearingSensor").heard.connect(func(_evidence):
+			if changed[0]: return
+			changed[0]=true
+			match operation:
+				"reset": actor.reset_at(actor.position)
+				"reconfigure": actor.configure(null,bus)
+				"disable": actor.enabled=false
+				"pause": paused=true
+				"pause_resume", "always_pause_resume": paused=true; paused=false
+				"sensor_rebind": actor.get_node("HearingSensor").unbind(); actor.get_node("HearingSensor").bind(actor,bus)
+				"disable_enable": actor.enabled=false; actor.enabled=true
+		)
+		world.add_child(actor)
+		actor.configure(player,bus)
+		await frames(3)
+		bus.emit_noise(player.position,&"weapon_tap",1.0,player)
+		print("HEARING RETIREMENT ",operation, " callback=",changed[0]," memory=",actor._noise_memory)
+		check(changed[0] and actor._noise_memory==0,"earlier observer retirement prevents stale intent")
+		paused=false
+		if operation=="disable": actor.enabled=true
+		bus.emit_noise(player.position,&"weapon_tap",1.0,player)
+		check(actor._noise_memory>0,"later fresh real bus sound remains hearable")
+		await _end()
+	var report := {"hz":hz,"checks":checks,"scenarios":cases,"failures":failures}
+	FileAccess.open("/tmp/sentinel_boundary_review/hearing_retirement_%d.json" % hz,FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
+	print("HEARING RETIREMENT %d Hz: %d checks, %d failures"%[hz,checks,failures.size()])
+	for f in failures: printerr(f)
+	quit(0 if failures.is_empty() else 1)

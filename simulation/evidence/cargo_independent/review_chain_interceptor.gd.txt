@@ -1,0 +1,6 @@
+extends "res://demo/components/mission_prop.gd"
+## Independent test-only callback at a real captured transfer boundary.
+var before_charge_delivery: Callable
+func _deliver_charge(target_ref: WeakRef, packet: Dictionary) -> void:
+	if before_charge_delivery.is_valid(): before_charge_delivery.call(target_ref, packet)
+	super._deliver_charge(target_ref, packet)

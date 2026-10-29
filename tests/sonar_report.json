@@ -1,0 +1,41 @@
+{
+	"checks": 63,
+	"engine": "4.6.3-stable (official)",
+	"failures": [],
+	"metrics": {
+		"camera_vertical_screen_delta": 200.0,
+		"cpu_stress": {
+			"active_segments": 986,
+			"geometry_collection_usec": 549,
+			"geometry_segments": 1680,
+			"mean_all_contour_alpha_evaluation_usec": 3148.0,
+			"mean_event_creation_usec": 1847.05555555556,
+			"note": "Synthetic overlapping geometry; CPU instrumentation only, not GPU/frame-rate claim",
+			"pulses": 18
+		},
+		"defaults": {
+			"break_range": 655.223931186888,
+			"enemy_step_range": 251.512926109176,
+			"local_head_and_trail_seconds": 0.625,
+			"tap_range": 426.865201205252
+		},
+		"headless_draw_commands": {
+			"blind_origin_marks": 1,
+			"blind_segments": 10,
+			"quiet_segments": 0,
+			"sighted_segments": 0
+		},
+		"independent_arrival_seconds": {
+			"far": 0.611608386039734,
+			"near": 0.150069937109947
+		},
+		"maximum_render_sample_alpha_error": 0.000000146048205862392,
+		"maximum_sample_length": 5.81588268280029,
+		"surface_arrival_seconds": [
+			0.150069937109947,
+			0.360839158296585,
+			0.571608364582062
+		]
+	},
+	"passed": true
+}

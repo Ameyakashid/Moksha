@@ -1,0 +1,21 @@
+[gd_scene load_steps=7 format=3]
+[ext_resource type="Script" path="res://sandbox/station_controls.gd" id="1"]
+[ext_resource type="PackedScene" path="res://sandbox/actors/player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://sandbox/actors/npc.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://simulation/world/static_platform.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://simulation/world/mission_cargo.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://sandbox/station_overlay.tscn" id="6"]
+[node name="CombatStation" type="Node2D"]
+script=ExtResource("1")
+station_title="02 / ONE ACTOR, TWO INPUT SOURCES"
+station_description="Blue: keyboard. Orange: existing AI policy. Shared movement, health and impact rules."
+[node name="Floor" parent="." instance=ExtResource("4")]
+position=Vector2(320,330)
+platform_size=Vector2(640,40)
+[node name="Player" parent="." instance=ExtResource("2")]
+position=Vector2(160,310)
+[node name="NPC" parent="." instance=ExtResource("3")]
+position=Vector2(400,310)
+[node name="Cargo" parent="." instance=ExtResource("5")]
+position=Vector2(260,294)
+[node name="Overlay" parent="." instance=ExtResource("6")]

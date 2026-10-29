@@ -1,0 +1,110 @@
+class_name MokshaHealthComponent
+extends Node
+## Optional scalar health store. Defense, recoil and attack identity remain
+## owned by the actor. Zero emits depletion; it does not impose a death policy.
+signal health_changed(current: float, maximum: float)
+signal damage_processed(receipt: Dictionary)
+signal depleted()
+
+@export_node_path("Node2D") var actor_path := NodePath("..")
+@export_range(1.0, 10000.0, 1.0) var maximum_health := 100.0
+@export var reset_with_actor := true
+var current_health: float:
+	get: return _current
+var capacity: float:
+	get: return _capacity
+var _current := 0.0
+var _capacity := 100.0
+var _actor_ref: WeakRef
+var _binding := 0
+var _minimum_damage_serial := 0
+var _change_generation := 0
+var _damage_callback: Callable
+var _movement_callback: Callable
+var _damage_delivery_scope: Dictionary = {}
+
+func _ready() -> void:
+	reset_to_full()
+	if not actor_path.is_empty(): bind_actor(get_node_or_null(actor_path))
+
+func _exit_tree() -> void:
+	unbind_actor()
+
+func _actor() -> Node:
+	return _actor_ref.get_ref() if _actor_ref != null else null
+
+func get_bound_actor() -> Node:
+	return _actor()
+
+func bind_actor(actor: Node) -> bool:
+	unbind_actor()
+	if not is_instance_valid(actor) or not actor.is_inside_tree() or actor.is_queued_for_deletion(): return false
+	if not actor.has_signal("damage_resolved") or not actor.has_signal("movement_event") or not actor.has_method("damage_generation"): return false
+	_actor_ref = weakref(actor)
+	# Fixed floor for this binding, not a last-seen high-water mark: nested
+	# receipt N+1 may still arrive before an independently admitted receipt N.
+	_minimum_damage_serial = int(actor.damage_admission_sequence()) + 1 if actor.has_method("damage_admission_sequence") else 0
+	_damage_callback = _on_damage.bind(_binding)
+	_movement_callback = _on_movement.bind(_binding)
+	actor.connect("damage_resolved", _damage_callback)
+	actor.connect("movement_event", _movement_callback)
+	return true
+
+func unbind_actor() -> void:
+	_binding += 1
+	_change_generation += 1
+	var actor := _actor()
+	_actor_ref = null
+	if is_instance_valid(actor):
+		if _damage_callback.is_valid() and actor.is_connected("damage_resolved", _damage_callback): actor.disconnect("damage_resolved", _damage_callback)
+		if _movement_callback.is_valid() and actor.is_connected("movement_event", _movement_callback): actor.disconnect("movement_event", _movement_callback)
+
+func reset_to_full() -> void:
+	_change_generation += 1
+	_capacity = maximum_health if is_finite(maximum_health) and maximum_health >= 1.0 else 100.0
+	_current = _capacity
+	health_changed.emit(_current, _capacity)
+
+func _on_movement(kind: StringName, _payload: Dictionary, binding: int) -> void:
+	if binding == _binding and kind == &"reset" and reset_with_actor: reset_to_full()
+
+func _on_damage(receipt: Dictionary, binding: int) -> void:
+	var actor := _actor()
+	if binding != _binding or not is_instance_valid(actor) or not actor.is_inside_tree() or actor.is_queued_for_deletion(): return
+	if receipt.get("actor_id") != actor.get_instance_id() or receipt.get("generation") != actor.damage_generation(): return
+	if _minimum_damage_serial > 0 and (not receipt.get("serial") is int or int(receipt.serial) < _minimum_damage_serial): return
+	var amount: Variant = receipt.get("amount")
+	if not (amount is float or amount is int) or not is_finite(float(amount)) or float(amount) < 0: return
+	if receipt.get("outcome") not in [&"hurt", &"guarded", &"parried", &"evaded"]: return
+	# No highest-serial filter: a synchronous nested hit can deliver N+1 before N.
+	# The actor already deduplicates identified contacts; this connection is unique.
+	_change_generation += 1
+	var change := _change_generation
+	var previous := _current
+	_current = maxf(0.0, previous - float(amount))
+	var became_empty := previous > 0.0 and _current == 0.0
+	var event := receipt.duplicate()
+	event.merge({"applied": previous - _current, "before": previous, "after": _current, "maximum": _capacity})
+	event.make_read_only()
+	if _current != previous: health_changed.emit(_current, _capacity)
+	if not _notification_is_current(change, binding, actor, receipt.generation): return
+	var previous_scope := _damage_delivery_scope
+	_damage_delivery_scope = {"receipt": event, "change": change, "binding": binding, "actor": weakref(actor), "generation": int(receipt.generation)}
+	damage_processed.emit(event)
+	# Nested damage/reset/rebind permanently retires older notification scope.
+	_damage_delivery_scope = previous_scope if _delivery_scope_current(previous_scope) else {}
+	if not _notification_is_current(change, binding, actor, receipt.generation): return
+	if became_empty: depleted.emit()
+
+func _notification_is_current(change: int, binding: int, actor: Node, generation: int) -> bool:
+	return change == _change_generation and binding == _binding and is_inside_tree() and not is_queued_for_deletion() and is_instance_valid(actor) and actor.is_inside_tree() and not actor.is_queued_for_deletion() and actor.damage_generation() == generation
+
+func _delivery_scope_current(scope: Dictionary) -> bool:
+	if scope.is_empty(): return false
+	var actor: Node = scope.actor.get_ref()
+	return _notification_is_current(int(scope.change), int(scope.binding), actor, int(scope.generation)) and _actor() == actor
+
+## Synchronous genuine Health notification observation; equal copied scalars
+## are not authority. This accessor never invokes an extension callback.
+func damage_receipt_is_current(receipt: Dictionary) -> bool:
+	return _delivery_scope_current(_damage_delivery_scope) and is_same(receipt, _damage_delivery_scope.receipt)

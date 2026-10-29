@@ -1,0 +1,23 @@
+extends "res://combat_pc/components/shield_contact_adapter.gd"
+var changed := false
+var operation := "incoming_toggle"
+func counter_source_is_current(packet: Dictionary, expected_binding: int = -1) -> bool:
+	var current := super.counter_source_is_current(packet, expected_binding)
+	if current and not changed and bool(_delivery_scope.get("claimed", false)):
+		changed = true
+		var incoming: Node=packet.counter_receiver.get_bound_actor().get_node("BodyShape/IncomingStrikeReceiver")
+		match operation:
+			"incoming_toggle": incoming.enabled=false; incoming.enabled=true
+			"body_disable": incoming.get_parent().disabled=true
+			"shape_disable": incoming.get_node("Shape").disabled=true
+			"shape_replace":
+				var next:=RectangleShape2D.new()
+				next.size=Vector2(18,36)
+				incoming.get_node("Shape").shape=next
+			"shape_resize": incoming.get_node("Shape").shape.size=Vector2(30,40)
+			"shape_offset": incoming.get_node("Shape").position.x=1
+			"hurtbox_transform": incoming.position.x=1
+			"body_layer": incoming.get_parent().get_parent().collision_layer=64
+			"hurtbox_layer": incoming.collision_layer=4
+			"source_retire": enabled=false; enabled=true
+	return current

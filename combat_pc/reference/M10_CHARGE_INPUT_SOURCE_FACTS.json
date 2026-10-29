@@ -1,0 +1,511 @@
+{
+  "audit_date": "2026-10-04",
+  "repository": "N3rdL0rd/DeadCellsDecomp",
+  "commit": "77c3ad263c4187ade6d048ba77bb61f79e6cec44",
+  "scope": "Bounded M10 held-charge, held-repeat, manual facing and shield-overlap source addendum",
+  "target_build_from_repository_readme": "PC v35 / 50edff4",
+  "classification_note": "Nonempty bodies can still call missing behavior; no runtime-equivalence or numerical-parity claim.",
+  "sources": [
+    {
+      "id": "katana",
+      "path": "deadcells/src/game/tool/weap/Katana.hx",
+      "blob_sha": "7d36b147e2895919e3e27febfdb59f42c9f57f21",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Katana.hx",
+      "line_count": 79
+    },
+    {
+      "id": "weapon",
+      "path": "deadcells/src/game/tool/Weapon.hx",
+      "blob_sha": "5515da6ac74a18b7188d1670e3611c14168e58ac",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Weapon.hx",
+      "line_count": 285
+    },
+    {
+      "id": "old",
+      "path": "deadcells/src/game/tool/skill/OldSkill.hx",
+      "blob_sha": "5790f28b83d361415972fdc2cbaf34c034d7415c",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/skill/OldSkill.hx",
+      "line_count": 156
+    },
+    {
+      "id": "manager",
+      "path": "deadcells/src/game/tool/hero/HeroWeaponsManager.hx",
+      "blob_sha": "4d0481b00096601195e18ae3616630d253b9faf4",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/hero/HeroWeaponsManager.hx",
+      "line_count": 221
+    },
+    {
+      "id": "shield",
+      "path": "deadcells/src/game/tool/weap/BaseShield.hx",
+      "blob_sha": "7237528fde8dbf1decb7a55a4c0b890d0fb1b013",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/BaseShield.hx",
+      "line_count": 92
+    },
+    {
+      "id": "options",
+      "path": "deadcells/src/game/Options.hx",
+      "blob_sha": "3c567a7806fb70beb2a988d177de57ff689e84a4",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/Options.hx",
+      "line_count": 332
+    },
+    {
+      "id": "controller",
+      "path": "deadcells/src/game/tool/Controller.hx",
+      "blob_sha": "852957d8ca0f202ec28e4d25832f906e4c9dc2b3",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Controller.hx",
+      "line_count": 109
+    },
+    {
+      "id": "trident",
+      "path": "deadcells/src/game/tool/weap/Trident.hx",
+      "blob_sha": "fd4958f2433dd3894021fb585ae1ebd8604a30f4",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Trident.hx",
+      "line_count": 79
+    },
+    {
+      "id": "bow",
+      "path": "deadcells/src/game/tool/weap/BaseBow.hx",
+      "blob_sha": "08cf6881bd97fd3799bf9bd9e2443888683d349d",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/BaseBow.hx",
+      "line_count": 79
+    },
+    {
+      "id": "hammer",
+      "path": "deadcells/src/game/tool/weap/BehemothHammer.hx",
+      "blob_sha": "7d31c0d4a7fa8fb4d3f3c3480a476d44c0a23498",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/BehemothHammer.hx",
+      "line_count": 32
+    }
+  ],
+  "primary_sources": [
+    {
+      "id": "p21",
+      "url": "https://deadcells.com/patchnotes/21",
+      "initial_version": "21",
+      "initial_date": "2020-12-03",
+      "initial_branch": "alpha",
+      "stable_version": "21.4",
+      "stable_date": "2020-12-21"
+    },
+    {
+      "id": "p23",
+      "url": "https://deadcells.com/patchnotes/23",
+      "initial_version": "23",
+      "initial_date": "2021-03-04",
+      "initial_branch": "alpha",
+      "stable_version": "23.8",
+      "stable_date": "2021-03-30"
+    },
+    {
+      "id": "p33",
+      "url": "https://deadcells.com/patchnotes/33",
+      "versions": [
+        {
+          "version": "33.1",
+          "date": "2023-03-10"
+        },
+        {
+          "version": "33.3",
+          "date": "2023-03-30"
+        }
+      ]
+    }
+  ],
+  "facts": [
+    {
+      "id": "katana_hold_scheduler_missing",
+      "confidence": "DECL",
+      "statement": "Katana declares a charge counter and pending-charge flag, but its button-down query and onExecute are stubs and fixedUpdate is empty; no charge start or input schedule is recovered.",
+      "references": [
+        {
+          "source": "katana",
+          "start_line": 4,
+          "end_line": 12,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Katana.hx#L4-L12"
+        },
+        {
+          "source": "katana",
+          "start_line": 23,
+          "end_line": 25,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Katana.hx#L23-L25"
+        },
+        {
+          "source": "katana",
+          "start_line": 39,
+          "end_line": 55,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Katana.hx#L39-L55"
+        }
+      ]
+    },
+    {
+      "id": "katana_prepare_forwards_missing_base",
+      "confidence": "CALL",
+      "statement": "Katana.prepare delegates to Weapon.prepare, whose body is empty.",
+      "references": [
+        {
+          "source": "katana",
+          "start_line": 18,
+          "end_line": 20,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Katana.hx#L18-L20"
+        },
+        {
+          "source": "weapon",
+          "start_line": 184,
+          "end_line": 185,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Weapon.hx#L184-L185"
+        }
+      ]
+    },
+    {
+      "id": "katana_interrupt_dispatch_order",
+      "confidence": "BODY_CALL",
+      "statement": "Katana.interrupt conditionally calls dynamicChargeExecute when nextIsChargeAtk is set, then calls base interrupt. Both called execution and base interruption behavior are unavailable.",
+      "references": [
+        {
+          "source": "katana",
+          "start_line": 43,
+          "end_line": 52,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Katana.hx#L43-L52"
+        },
+        {
+          "source": "weapon",
+          "start_line": 154,
+          "end_line": 155,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Weapon.hx#L154-L155"
+        }
+      ],
+      "does_not_establish": [
+        "Dash actually executed",
+        "Damage occurred",
+        "Release-to-fire",
+        "Threshold bypass",
+        "Universal attack-on-cancel"
+      ]
+    },
+    {
+      "id": "katana_cancel_flag_clear_order",
+      "confidence": "BODY_CALL",
+      "statement": "Katana.cancelDashCharge calls interrupt before clearing nextIsChargeAtk; the helper alone cannot establish the outcome of cancellation.",
+      "references": [
+        {
+          "source": "katana",
+          "start_line": 71,
+          "end_line": 74,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Katana.hx#L71-L74"
+        }
+      ]
+    },
+    {
+      "id": "oldskill_independent_state_surfaces",
+      "confidence": "DECL",
+      "statement": "OldSkill declares separate charge, charge maximum/multiplier, cooldown, control lock, animation completion, dynamic charge, movement permission, interruption and automatic cooldown fields.",
+      "references": [
+        {
+          "source": "old",
+          "start_line": 6,
+          "end_line": 25,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/skill/OldSkill.hx#L6-L25"
+        }
+      ]
+    },
+    {
+      "id": "oldskill_execution_missing",
+      "confidence": "DECL",
+      "statement": "Preparation, execution, interrupt, timers, readiness, update and charge callbacks are missing. Automatic charge execution is not established by the callback names or automatic-cooldown field.",
+      "references": [
+        {
+          "source": "old",
+          "start_line": 44,
+          "end_line": 85,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/skill/OldSkill.hx#L44-L85"
+        },
+        {
+          "source": "old",
+          "start_line": 103,
+          "end_line": 119,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/skill/OldSkill.hx#L103-L119"
+        },
+        {
+          "source": "old",
+          "start_line": 133,
+          "end_line": 155,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/skill/OldSkill.hx#L133-L155"
+        }
+      ]
+    },
+    {
+      "id": "weaponskill_inherits_oldskill",
+      "confidence": "DECL",
+      "statement": "WeaponSkill is a secondary class in Weapon.hx inheriting OldSkill; its cast-speed method is a stub.",
+      "references": [
+        {
+          "source": "weapon",
+          "start_line": 275,
+          "end_line": 285,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Weapon.hx#L275-L285"
+        }
+      ]
+    },
+    {
+      "id": "early_charge_and_combo_missing",
+      "confidence": "DECL",
+      "statement": "Weapon distinguishes early-combo and early-charge predicates but both are stubs. Trident's early-charge override is also a stub.",
+      "references": [
+        {
+          "source": "weapon",
+          "start_line": 146,
+          "end_line": 152,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Weapon.hx#L146-L152"
+        },
+        {
+          "source": "trident",
+          "start_line": 28,
+          "end_line": 30,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Trident.hx#L28-L30"
+        }
+      ]
+    },
+    {
+      "id": "held_and_fresh_queries_missing",
+      "confidence": "DECL",
+      "statement": "HeroWeaponsManager declares distinct down/pressed queries plus charge cancellation, weapon update and admission; relevant bodies are missing.",
+      "references": [
+        {
+          "source": "manager",
+          "start_line": 84,
+          "end_line": 90,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/hero/HeroWeaponsManager.hx#L84-L90"
+        },
+        {
+          "source": "manager",
+          "start_line": 147,
+          "end_line": 162,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/hero/HeroWeaponsManager.hx#L147-L162"
+        }
+      ]
+    },
+    {
+      "id": "release_flags_have_no_recovered_consumers",
+      "confidence": "DECL_SEARCH",
+      "statement": "Weapon has two release flags; Options separately has holdToAttack and pressToggleShield. Targeted searches returned these declarations without implementing consumers.",
+      "references": [
+        {
+          "source": "weapon",
+          "start_line": 14,
+          "end_line": 21,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Weapon.hx#L14-L21"
+        },
+        {
+          "source": "options",
+          "start_line": 29,
+          "end_line": 32,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/Options.hx#L29-L32"
+        }
+      ],
+      "search_queries": [
+        "needButtonRelease",
+        "requireRelease",
+        "holdToAttack"
+      ]
+    },
+    {
+      "id": "katana_inherited_charge_turn_result",
+      "confidence": "BODY_DECL",
+      "statement": "Weapon.allowTurnDuringCharge returns true and the complete pinned Katana class has no override of that method. Missing callers leave application timing and final actor facing policy unknown.",
+      "references": [
+        {
+          "source": "weapon",
+          "start_line": 141,
+          "end_line": 143,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Weapon.hx#L141-L143"
+        },
+        {
+          "source": "katana",
+          "start_line": 3,
+          "end_line": 79,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Katana.hx#L3-L79"
+        }
+      ]
+    },
+    {
+      "id": "aim_and_air_bodies_missing",
+      "confidence": "DECL",
+      "statement": "Weapon owner-turn, auto-aim and air-control bodies do not recover facing sampling, target selection or airborne control.",
+      "references": [
+        {
+          "source": "weapon",
+          "start_line": 98,
+          "end_line": 103,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Weapon.hx#L98-L103"
+        },
+        {
+          "source": "weapon",
+          "start_line": 160,
+          "end_line": 176,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Weapon.hx#L160-L176"
+        }
+      ]
+    },
+    {
+      "id": "shield_cancel_gate_only",
+      "confidence": "BODY_CALL",
+      "statement": "BaseShield refuses tryToCancel when canBeHeld is false; otherwise it delegates to missing base cancellation, without establishing shield-versus-charge arbitration.",
+      "references": [
+        {
+          "source": "shield",
+          "start_line": 25,
+          "end_line": 30,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/BaseShield.hx#L25-L30"
+        },
+        {
+          "source": "weapon",
+          "start_line": 199,
+          "end_line": 201,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Weapon.hx#L199-L201"
+        }
+      ]
+    },
+    {
+      "id": "other_dynamic_charge_bodies_missing",
+      "confidence": "DECL",
+      "statement": "BaseBow and BehemothHammer have missing interruption, dynamic-charge execution and update behavior; no alternate scheduler was recovered.",
+      "references": [
+        {
+          "source": "bow",
+          "start_line": 48,
+          "end_line": 78,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/BaseBow.hx#L48-L78"
+        },
+        {
+          "source": "hammer",
+          "start_line": 14,
+          "end_line": 30,
+          "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/BehemothHammer.hx#L14-L30"
+        }
+      ]
+    },
+    {
+      "id": "official_katana_held_branch",
+      "confidence": "PRIMARY_HISTORICAL",
+      "statement": "Update21 describes a standard slash followed by a charged dash through held attack input; it does not specify release execution or automatic readiness execution.",
+      "primary_source": "p21"
+    },
+    {
+      "id": "official_katana_shield_loading_fix",
+      "confidence": "PRIMARY_HISTORICAL",
+      "statement": "Update23 fixes the ability to load Katana's strike while holding a shield. This identifies that overlap as unwanted, without defining shield raised after charge, simultaneous presses or blocked-input resumption.",
+      "primary_source": "p23"
+    },
+    {
+      "id": "official_optional_hold_chaining",
+      "confidence": "PRIMARY_HISTORICAL",
+      "statement": "Update23 adds an optional hold-to-chain-attacks setting; its default, charge arbitration and cycle-rearm rules are unspecified.",
+      "primary_source": "p23"
+    },
+    {
+      "id": "official_cancel_air_tech_restored",
+      "confidence": "PRIMARY_HISTORICAL",
+      "statement": "Update33.1 restores Katana cancellation technique and 33.3 restores its air technique; input recipe, charge storage and physics are not stated.",
+      "primary_source": "p33"
+    }
+  ],
+  "searches": [
+    {
+      "query": "nextIsChargeAtk",
+      "returned_paths": [
+        "deadcells/src/game/tool/weap/Katana.hx"
+      ],
+      "all_returned_urls_match_pin": true,
+      "note": "Indexed search; not proof against missing decompilation or hidden dynamic calls."
+    },
+    {
+      "query": "dynamicChargeExecute",
+      "returned_paths": [
+        "deadcells/src/game/tool/weap/Katana.hx",
+        "deadcells/src/game/tool/weap/BaseBow.hx",
+        "deadcells/src/game/tool/weap/BehemothHammer.hx"
+      ],
+      "all_returned_urls_match_pin": true,
+      "note": "Indexed search; not proof against missing decompilation or hidden dynamic calls."
+    },
+    {
+      "query": "canStartChargeEarly",
+      "returned_paths": [
+        "deadcells/src/game/tool/weap/Trident.hx",
+        "deadcells/src/game/tool/Weapon.hx"
+      ],
+      "all_returned_urls_match_pin": true,
+      "note": "Indexed search; not proof against missing decompilation or hidden dynamic calls."
+    },
+    {
+      "query": "holdToAttack",
+      "returned_paths": [
+        "deadcells/src/game/Options.hx"
+      ],
+      "all_returned_urls_match_pin": true,
+      "note": "Indexed search; not proof against missing decompilation or hidden dynamic calls."
+    },
+    {
+      "query": "katanaChargeF",
+      "returned_paths": [
+        "deadcells/src/game/tool/weap/Katana.hx"
+      ],
+      "all_returned_urls_match_pin": true,
+      "note": "Indexed search; not proof against missing decompilation or hidden dynamic calls."
+    },
+    {
+      "query": "cancelDashCharge",
+      "returned_paths": [
+        "deadcells/src/game/tool/weap/Katana.hx"
+      ],
+      "all_returned_urls_match_pin": true,
+      "note": "Indexed search; not proof against missing decompilation or hidden dynamic calls."
+    },
+    {
+      "query": "requireRelease",
+      "returned_paths": [
+        "deadcells/src/game/tool/Weapon.hx"
+      ],
+      "all_returned_urls_match_pin": true,
+      "note": "Indexed search; not proof against missing decompilation or hidden dynamic calls."
+    },
+    {
+      "query": "needButtonRelease",
+      "returned_paths": [
+        "deadcells/src/game/tool/Weapon.hx"
+      ],
+      "all_returned_urls_match_pin": true,
+      "note": "Indexed search; not proof against missing decompilation or hidden dynamic calls."
+    }
+  ],
+  "unknowns": [
+    "Release versus readiness-triggered Katana execution",
+    "Charge opening, thresholds, scaling and timebase",
+    "Partial-charge release outcome",
+    "Early-charge overlap and input windows",
+    "Held-repeat default, cadence, wrap, rearm and precedence with charge",
+    "Exact cancellation input recipes, permitted phases and charge storage",
+    "Shield-versus-charge simultaneous-input and charge-to-shield priorities",
+    "Facing sampling and aim priority",
+    "Phase movement and target-conditioned air physics",
+    "Exact charge/cooldown/control-lock clocks and numerical values"
+  ],
+  "measured_gameplay_values": [],
+  "observed_input_traces": [],
+  "runtime_files_changed": [],
+  "authored_policy_location": "M10_CHARGE_INPUT_ADDENDUM.md#selected-representative-moksha-policy",
+  "authored_policy_is_recovered_parity": false,
+  "selected_moksha_example": {
+    "confidence": "AUTHORED_MOKSHA_NOT_REFERENCE_FACT",
+    "fresh_starter": "Slash",
+    "held_episode": "same uninterrupted hold",
+    "recovery_branch_seconds": 0.06,
+    "charge_seconds": 0.45,
+    "execution": "automatic_at_readiness",
+    "followup": "Charged Thrust",
+    "release_during_charge": "cancel_without_extra_attack",
+    "interruption": "cancel",
+    "rearm": "release_then_new_admitted_press",
+    "early_charge_accumulation": false
+  }
+}

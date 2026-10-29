@@ -1,0 +1,109 @@
+[gd_scene load_steps=12 format=3]
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/test_surface.tscn" id="1"]
+[ext_resource type="Script" path="res://combat_pc/fixtures/ramp.gd" id="2"]
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/contact_target.tscn" id="3"]
+[ext_resource type="Script" path="res://combat_pc/fixtures/practice_pulse.gd" id="4"]
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/drop_stack.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/climbable.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/wall_course.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/fall_course.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/slope_course.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/guard_course.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/chain_target.tscn" id="11"]
+[node name="Geometry" type="Node2D"]
+[node name="FloorA" parent="." instance=ExtResource("1")]
+position = Vector2(0,270)
+size = Vector2(1050,36)
+[node name="FloorB" parent="." instance=ExtResource("1")]
+position = Vector2(1140,270)
+size = Vector2(600,36)
+[node name="LowClearance" parent="." instance=ExtResource("1")]
+position = Vector2(450,238)
+size = Vector2(92,10)
+label = "CLEARANCE / JUMP OVER"
+[node name="Ledge" parent="." instance=ExtResource("1")]
+position = Vector2(340,206)
+size = Vector2(90,64)
+label = "JUMP > CATCH > PULL"
+[node name="DropStack" parent="." instance=ExtResource("5")]
+position = Vector2(560,152)
+[node name="StepA" parent="." instance=ExtResource("1")]
+position = Vector2(690,246)
+size = Vector2(24,24)
+[node name="StepB" parent="." instance=ExtResource("1")]
+position = Vector2(714,222)
+size = Vector2(24,48)
+label = "SHORT LEDGES"
+[node name="ThinWall" parent="." instance=ExtResource("1")]
+position = Vector2(825,178)
+size = Vector2(4,92)
+label = "THIN WALL"
+[node name="BlockedLedge" parent="." instance=ExtResource("1")]
+position = Vector2(920,216)
+size = Vector2(64,54)
+label = "BLOCKED MANTLE"
+[node name="BlockedRoof" parent="." instance=ExtResource("1")]
+position = Vector2(910,178)
+size = Vector2(84,16)
+[node name="MovingLedge" parent="." instance=ExtResource("1")]
+position = Vector2(1080,208)
+size = Vector2(64,12)
+moving = true
+travel = Vector2(88,-32)
+travel_speed = 44.0
+label = "MOVING CONTACT"
+[node name="Ramp" type="StaticBody2D" parent="."]
+position = Vector2(1260,270)
+script = ExtResource("2")
+collision_layer = 1
+collision_mask = 0
+[node name="Shape" type="CollisionPolygon2D" parent="Ramp"]
+polygon = PackedVector2Array(0,0,96,-36,96,24,0,24)
+[node name="HighLedge" parent="." instance=ExtResource("1")]
+position = Vector2(1510,180)
+size = Vector2(150,90)
+label = "AIR JUMP / ARRIVAL"
+[node name="LeftBoundary" parent="." instance=ExtResource("1")]
+position = Vector2(-8,0)
+size = Vector2(8,360)
+[node name="RightBoundary" parent="." instance=ExtResource("1")]
+position = Vector2(4500,-120)
+size = Vector2(8,480)
+
+[node name="OpenContact" parent="." instance=ExtResource("11")]
+position = Vector2(250,270)
+label = "MELEE / CHAIN"
+[node name="BlockedContact" parent="." instance=ExtResource("3")]
+position = Vector2(843,270)
+label = "OCCLUDED"
+[node name="PracticePulse" type="Node2D" parent="."]
+position = Vector2(1410,270)
+script = ExtResource("4")
+[node name="ComboContact" parent="." instance=ExtResource("3")]
+position = Vector2(1470,270)
+label = "ROLL > STRIKE"
+
+[node name="LadderTop" parent="." instance=ExtResource("1")]
+position = Vector2(1418,130)
+size = Vector2(80,6)
+one_way = true
+label = "CLIMB / TOP"
+[node name="Climbable" parent="." instance=ExtResource("6")]
+position = Vector2(1450,270)
+height = 140.0
+width = 20.0
+
+[node name="FloorC" parent="." instance=ExtResource("1")]
+position = Vector2(1740,270)
+size = Vector2(720,36)
+
+[node name="WallCourse" parent="." instance=ExtResource("7")]
+position = Vector2(1810,270)
+
+[node name="FallCourse" parent="." instance=ExtResource("8")]
+
+[node name="SlopeCourse" parent="." instance=ExtResource("9")]
+position = Vector2(2460,270)
+
+[node name="GuardCourse" parent="." instance=ExtResource("10")]
+position = Vector2(3300,270)

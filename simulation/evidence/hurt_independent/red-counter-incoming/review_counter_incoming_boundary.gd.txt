@@ -1,0 +1,18 @@
+extends "res://simulation/tests/shield_counter_regression.gd"
+const Mutator=preload("res://simulation/tests/review_counter_incoming_mutation.gd")
+func _run() -> void:
+	await _begin("post-claim source hook retires incoming binding", "NPC", "PC")
+	var old: Node=right.get_node("ShieldContactAdapter")
+	old.bind_actor(null)
+	right.remove_child(old)
+	old.queue_free()
+	var probe:=Mutator.new()
+	probe.name="ShieldContactAdapter"
+	right.add_child(probe)
+	await _frames(3)
+	await _parry(left,right)
+	_check(probe.changed,"genuine counter reaches post-claim hook")
+	_check(_health(left)==30 and left.main_action!=&"hurt","retired incoming generation cannot authorize old counter contact")
+	print("COUNTER INCOMING BOUNDARY ", {"hz":hz,"checks":checks,"failures":failures,"left_health":_health(left),"left_action":left.main_action,"report":probe.last_report})
+	await _end()
+	quit(0 if failures.is_empty() else 1)

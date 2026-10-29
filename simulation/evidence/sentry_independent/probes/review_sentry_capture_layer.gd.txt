@@ -1,0 +1,15 @@
+extends "res://simulation/tests/sentry_regression.gd"
+const ReviewReceiver=preload("res://simulation/tests/review_sentry_receiver.gd")
+func run() -> void:
+	await begin("source layer changed during capture",1,20)
+	var other:=peer("sentinel",Vector2(200,200))
+	var old:=other.get_node("ProjectileReceiver"); old.unbind(); other.remove_child(old); old.queue_free()
+	var receiver:=ReviewReceiver.new(); receiver.name="ProjectileReceiver"; receiver.accepted_source_layers=2; other.add_child(receiver)
+	var callback_frame:=[-1]; var damage_frames:=[]
+	receiver.capture_callback=func(): callback_frame[0]=Engine.get_physics_frames(); npc.collision_layer=2
+	other.get_node("Health").damage_processed.connect(func(_receipt): damage_frames.append(Engine.get_physics_frames()))
+	await frames(2); await launch(); npc.ai_enabled=false; await frames(hz)
+	print("CAPTURE OWNER LAYER ",JSON.stringify({"hz":hz,"callback_frame":callback_frame[0],"health_frames":damage_frames,"health":other.health,"contacts":contacts}))
+	check(damage_frames.is_empty() or damage_frames[0]>callback_frame[0],"capture callback source-layer change cannot authorize original captured contact")
+	await finish()
+	quit(0 if failures.is_empty() else 1)

@@ -1,0 +1,159 @@
+{
+  "status": "passed_frozen_ready_for_archive",
+  "completed_utc": "2026-10-19T19:36:17.691847+00:00",
+  "engine": "Godot4.6.3",
+  "scope": "Detachable actual-contact shared incoming melee bridge; no mission migration or shared counters",
+  "foundation_stages": 26,
+  "gym_lifecycle_checks": 50,
+  "strike_focused": {
+    "60": {
+      "scenarios": 62,
+      "checks": 162
+    },
+    "120": {
+      "scenarios": 62,
+      "checks": 162
+    }
+  },
+  "stock_adapter_compatibility": [
+    {
+      "name": "combat",
+      "hz": 60,
+      "passed": true,
+      "checks": 135,
+      "errors": []
+    },
+    {
+      "name": "combo",
+      "hz": 60,
+      "passed": true,
+      "checks": 1384,
+      "errors": []
+    },
+    {
+      "name": "combat",
+      "hz": 120,
+      "passed": true,
+      "checks": 135,
+      "errors": []
+    },
+    {
+      "name": "combo",
+      "hz": 120,
+      "passed": true,
+      "checks": 1360,
+      "errors": []
+    }
+  ],
+  "historical_stages": 19,
+  "mission_routes": [
+    {
+      "hz": 60,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 151.533333333346,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 60,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 138.900000000003,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 148.833333333362,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 148.02500000003,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    }
+  ],
+  "independent_review": {
+    "status": "passed_independent_focused_review",
+    "adversarial_scenarios": 17,
+    "adversarial_checks": 40,
+    "fence_scenarios": 7,
+    "fence_checks": 13,
+    "rates": [
+      60,
+      120
+    ],
+    "source_hashes_stable": true
+  },
+  "native_review": {
+    "status": "accepted",
+    "observed": [
+      "five-stage selector and complete inset caption readable",
+      "actual NPC-to-PC and PC-to-NPC health receipts",
+      "physical side walls retain actors after repeated recoil",
+      "R reset and Esc return"
+    ],
+    "not_established": [
+      "guard effectiveness by native sample",
+      "audible mix",
+      "continuous combat feel"
+    ],
+    "screenshot": "simulation/evidence/native_strike.png",
+    "screenshot_sha256": "7ee9404afe48b8ee9496cfca3df2e7ed780c420597ae5c8ab7cb8400a3d4f0b5"
+  },
+  "immutable_archives": {
+    "MOKSHA-The-First-Ascent-v28-Expanded.zip": "153fd2824303354b1f70dea66c7ba91b27bc204da9c16a05f9b1a27a29955937",
+    "MOKSHA-Simulation-Gym-Foundations-2026-10-19.zip": "891c3f393f440fc626bb1f235890b0807252bcc71a4b5887a61c6a5ef4eeec9d",
+    "MOKSHA-Simulation-Gym-Shared-Impact-2026-10-19.zip": "5a18425ce2e83b22af82411f188e99f3733b1190c887e4c73dd6de4877ddc72b",
+    "MOKSHA-Simulation-Gym-Shared-Movement-2026-10-19.zip": "745821c401bcc20619d7bed43dd2a5d13de1b40b82e72522476da55b3e515570"
+  },
+  "controller_sha256": "2f0d4d0b93aa1f0eb3f21e94fb96af09923892d0aef1c7f0cf1704a9b22e9997",
+  "project_configuration_unchanged": true,
+  "source_delta": {
+    "changed": [
+      "combat_pc/components/contact_adapter.gd",
+      "simulation/actors/shared_actor.tscn",
+      "simulation/gym.gd",
+      "simulation/gym.tscn",
+      "simulation/movement_sandbox.tscn",
+      "simulation/tests/gym_lifecycle.gd",
+      "simulation/tests/shared_actor_regression.gd"
+    ],
+    "added": [
+      "simulation/components/actor_contact_config.gd",
+      "simulation/components/incoming_strike_receiver.gd",
+      "simulation/components/incoming_strike_receiver.tscn",
+      "simulation/components/melee_intent_policy.gd",
+      "simulation/resources/actor_contact_profile.gd",
+      "simulation/strike_sandbox.gd",
+      "simulation/strike_sandbox.tscn",
+      "simulation/tests/incoming_strike_regression.gd",
+      "simulation/tests/strike_capture_probe.gd"
+    ],
+    "removed": [],
+    "unchanged_count": 431
+  },
+  "source_stability_verified": true,
+  "contract": "simulation/STRIKE_CONTRACT.md",
+  "remaining": [
+    "Shared shield-counter admission independently proven before sentinel migration",
+    "Sentinel-first production facade migration",
+    "Listener/ranged/Warden remain unchanged until separate gates",
+    "Physical corpse and material/acoustic propagation remain outside scope"
+  ]
+}

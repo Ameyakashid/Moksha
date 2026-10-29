@@ -1,0 +1,28 @@
+extends "res://simulation/tests/shield_counter_regression.gd"
+func _run() -> void:
+	for pair in [["PC","NPC"],["NPC","PC"],["NPC","NPC"]]:
+		for lethal in [false,true]:
+			await _begin("actual counter noise %s to %s lethal=%s" % [pair[0],pair[1],lethal],pair[0],pair[1])
+			if lethal: right.shield_profile.counter_damage=40.0
+			var hurt_origins: Array[Vector2]=[]
+			left.movement_event.connect(func(kind,payload):
+				if kind==&"hurt_started": hurt_origins.append(payload.position))
+			var relay: Array[Dictionary]=[]
+			left.get_node("NoiseRelay").forwarded.connect(func(event): relay.append(event.duplicate(true)))
+			right.get_node("NoiseRelay").forwarded.connect(func(event): relay.append(event.duplicate(true)))
+			root.get_node("NoiseBus").clear_history()
+			await _parry(left,right)
+			var hurt: Array=[];var parry: Array=[]
+			for event in root.get_node("NoiseBus").event_history:
+				if event.kind==&"hurt" and event.source_id==left.get_instance_id(): hurt.append(event)
+				if event.kind==&"parry" and event.source_id==right.get_instance_id(): parry.append(event)
+			_check(hurt.size()==1 and parry.size()==1,"one real hurt and one real parry noise with correct actor provenance")
+			_check(not hurt.is_empty() and hurt_origins.size()==1 and hurt[0].origin==hurt_origins[0],"hurt uses committed actor origin")
+			_check(not parry.is_empty() and receipts.size()==1 and parry[0].origin==receipts[0].contact_position,"parry uses actual incoming contact origin")
+			_check(relay.filter(func(event): return event.kind in [&"hurt",&"parry"]).size()==2,"both committed events traverse ordinary NoiseRelay")
+			_check(_health(left)==(0 if lethal else 27) and left.is_defeated()==lethal and _health(right)==30,"same noise path accompanies nonlethal/lethal Health and Defeat")
+			await _end()
+	print("COUNTER NOISE REVIEW: ",checks," checks, ",failures.size()," failures")
+	for failure in failures: printerr(failure)
+	FileAccess.open("/tmp/moksha-counter-review/noise_%d.json" % hz,FileAccess.WRITE).store_string(JSON.stringify({"hz":hz,"scenarios":scenarios,"checks":checks,"failures":failures},"  "))
+	quit(0 if failures.is_empty() else 1)

@@ -1,0 +1,12 @@
+extends "res://simulation/components/physical_cargo.gd"
+var observations := 0
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if state.get_contact_count() > 0 and observations < 6:
+		observations += 1
+		for index in state.get_contact_count():
+			var target = state.get_contact_collider_object(index)
+			var normal = state.get_contact_local_normal(index).normalized()
+			var local_velocity = state.get_contact_local_velocity_at_position(index)
+			var target_velocity = state.get_contact_collider_velocity_at_position(index)
+			print("CARGO_ENGINE_CONTACT ", JSON.stringify({"frame":Engine.get_physics_frames(),"source_position":state.transform.origin,"target":target.name if is_instance_valid(target) else "gone","normal":normal,"local_velocity":local_velocity,"target_velocity":target_velocity,"normal_speed":maxf(0,-(local_velocity-target_velocity).dot(normal)),"required_speed":impact_profile.minimum_normal_speed,"ready":_available(),"source_velocity":state.linear_velocity}))
+	super._integrate_forces(state)

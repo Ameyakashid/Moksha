@@ -1,0 +1,14 @@
+extends "res://simulation/tests/sentry_regression.gd"
+func run() -> void:
+	await begin("receiver filter changes in initial source lease hook",1,20)
+	pc.get_node("ProjectileReceiver").accepted_source_layers=2
+	var callback_frame:=[-1]; var damage_frames:=[]
+	pc.get_node("Health").damage_processed.connect(func(_receipt): damage_frames.append(Engine.get_physics_frames()))
+	await launch(); npc.ai_enabled=false
+	npc.get_node("ProjectileEmitter").contact_callback=func():
+		callback_frame[0]=Engine.get_physics_frames()
+		pc.get_node("ProjectileReceiver").accepted_source_layers=32
+	await frames(hz)
+	print("ENTRY FILTER ",JSON.stringify({"hz":hz,"callback_frame":callback_frame[0],"damage_frames":damage_frames,"health":pc.get_node("Health").current_health,"contacts":contacts}))
+	check(damage_frames.is_empty() or damage_frames[0]>callback_frame[0],"lease callback cannot substitute receiver filter for original captured contact")
+	await finish(); quit(0 if failures.is_empty() else 1)

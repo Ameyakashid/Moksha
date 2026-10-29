@@ -1,0 +1,10 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="PackedScene" path="res://combat_pc/player.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/health_component.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/defeat_response.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://simulation/components/physical_impact_receiver.tscn" id="4"]
+[node name="ImpactPlayer" instance=ExtResource("1")]
+[node name="Health" parent="." instance=ExtResource("2")]
+maximum_health = 30.0
+[node name="DefeatResponse" parent="." instance=ExtResource("3")]
+[node name="PhysicalImpactReceiver" parent="." instance=ExtResource("4")]

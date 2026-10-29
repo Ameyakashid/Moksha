@@ -1,0 +1,59 @@
+extends "res://demo/tests/expanded_mission_route_bot.gd"
+var diagnostic_seed := 21479
+var recorded_spin_fixture := false
+var contact_recovery_fixture := false
+var configured_cargo := {}
+func _initialize() -> void:
+ for arg in OS.get_cmdline_user_args():
+  if arg.begins_with("--seed="):diagnostic_seed=int(arg.trim_prefix("--seed="))
+  if arg=="--recorded-spin":recorded_spin_fixture=true
+  if arg=="--contact-recovery":contact_recovery_fixture=true
+ seed(diagnostic_seed)
+ super._initialize()
+func snapshot() -> Dictionary:
+ var result:Dictionary=super.snapshot()
+ var actor=host.player
+ var hit:=KinematicCollision2D.new()
+ var touching:bool=actor.test_move(actor.global_transform,Vector2.DOWN*actor.profile.floor_probe,hit,actor.profile.collision_margin)
+ var state:={"seed":diagnostic_seed,"stagnant":stagnant,"body_width":actor.profile.body_width,"margin":actor.profile.collision_margin,"floor_probe":actor.profile.floor_probe,"ground_sweep":actor._floor_contact_sweep,"support_valid":is_instance_valid(actor._support),"wall_normal":str(actor._wall_normal),"floor_normal":str(actor._floor_contact_normal),"probe_hit":touching}
+ if touching:
+  var body=hit.get_collider()
+  var committed:Transform2D=actor._physics_transform(body)
+  var anchor:Vector2=committed*actor._floor_contact_local
+  var ray:Dictionary=actor._ray(anchor+Vector2.UP*actor.profile.floor_probe,anchor+Vector2.DOWN*actor.profile.floor_probe)
+  state.merge({"anchor":str(anchor),"anchor_valid":actor._support_anchor_valid(body,anchor),"anchor_ray_empty":ray.is_empty(),"anchor_ray_normal":str(ray.get("normal",Vector2.ZERO)),"floor_contact_local":str(actor._floor_contact_local)})
+  state.merge({"normal":str(hit.get_normal()),"walkable":actor._floor_normal(hit.get_normal()),"hit_position":str(hit.get_position()),"travel":str(hit.get_travel()),"remainder":str(hit.get_remainder()),"collider_name":body.name,"collider_position":str(body.global_position),"collider_rotation":body.global_rotation,"collider_class":body.get_class()})
+ if is_instance_valid(host.room.freight_cradle):
+  var cargo=host.room.freight_cradle.cargo
+  if is_instance_valid(cargo):state.cargo_rotation=cargo.rotation
+ result.diagnostic=state
+ return result
+
+func decide() -> Dictionary:
+ if recorded_spin_fixture and is_instance_valid(host.room.freight_cradle):
+  var cargo=host.room.freight_cradle.cargo
+  if is_instance_valid(cargo) and not configured_cargo.has(cargo.get_instance_id()):
+   assert(cargo.hit_count==0)
+   cargo.tuning=cargo.tuning.duplicate(true)
+   cargo.tuning.launch_spin_range=Vector2(15.4306106567383,15.4306106567383)
+   configured_cargo[cargo.get_instance_id()]=true
+   print("DIAGNOSTIC PRE-LAUNCH TUNING: observed spin scalar15.4306106567383; ordinary launch and solver remain responsible")
+ return super.decide()
+
+func contact_waypoint_recovery(target: Vector2) -> Dictionary:
+ var player=host.player
+ if player.grounded or player.main_action!=&"locomotion" or stagnant<=0.45 or player.velocity.length()>0.1:return {}
+ if absf(target.x-player.position.x)>=8 or target.y<=player.position.y+player.profile.floor_probe:return {}
+ var hit:=KinematicCollision2D.new()
+ if not player.test_move(player.global_transform,Vector2.DOWN*player.profile.floor_probe,hit,player.profile.collision_margin) or not player._floor_normal(hit.get_normal()):return {}
+ var body=hit.get_collider()
+ if not is_instance_valid(body) or not body is PhysicsBody2D or body.get_world_2d()!=player.get_world_2d():return {}
+ var away:float=player.global_position.x-hit.get_position().x
+ if absf(away)<=player.profile.collision_margin:return {}
+ return {"right":1.0} if away>0 else {"left":1.0}
+func ledge_waypoint_recovery(target: Vector2) -> Dictionary:
+ var raw:Dictionary=super.ledge_waypoint_recovery(target)
+ if not raw.is_empty() or not contact_recovery_fixture:return raw
+ raw=contact_waypoint_recovery(target)
+ if not raw.is_empty():print("DIAGNOSTIC CONTACT RECOVERY ",raw," ",snapshot())
+ return raw

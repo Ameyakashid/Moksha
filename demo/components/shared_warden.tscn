@@ -1,0 +1,16 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="PackedScene" path="res://demo/components/shared_sentinel.tscn" id="1"]
+[ext_resource type="Script" path="res://demo/components/shared_warden.gd" id="2"]
+[ext_resource type="Resource" path="res://demo/resources/warden_archetype.tres" id="3"]
+[ext_resource type="Resource" path="res://demo/resources/warden_melee.tres" id="4"]
+[ext_resource type="Script" path="res://demo/components/warden_view.gd" id="5"]
+[node name="Warden" instance=ExtResource("1")]
+script = ExtResource("2")
+kind = "warden"
+archetype_profile = ExtResource("3")
+melee_chain = ExtResource("4")
+hearing_peer_group = &"mission_warden_hearing"
+[node name="Visual" parent="."]
+script = ExtResource("5")
+[node name="ShieldCounterReceiver" parent="."]
+response_stun_seconds = 0.78

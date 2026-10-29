@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/raised_ledge.tres" id="1_art"]
+
+[node name="RaisedLedge" type="Node2D"]
+metadata/art_only = true
+metadata/nominal_size = Vector2(96, 16)
+metadata/origin_kind = "surface_top_left"
+metadata/source_pivot = Vector2(6, 9)
+
+[node name="Art" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-2.09454545, -1.92000000)
+scale = Vector2(0.34909091, 0.21333333)
+texture = ExtResource("1_art")
+centered = false

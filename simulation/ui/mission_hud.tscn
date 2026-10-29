@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://simulation/ui/mission_hud.gd" id="1"]
+[ext_resource type="Script" path="res://demo/views/hud_view.gd" id="2"]
+[ext_resource type="Script" path="res://demo/views/hud_appearance.gd" id="3"]
+
+[sub_resource type="Resource" id="Appearance"]
+resource_local_to_scene = true
+script = ExtResource("3")
+
+[node name="MissionHUD" type="Node2D"]
+script = ExtResource("1")
+appearance = SubResource("Appearance")
+
+[node name="View" type="Node2D" parent="."]
+script = ExtResource("2")

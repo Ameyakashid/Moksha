@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/test_surface.tscn" id="1"]
+
+[node name="WallCourse" type="Node2D"]
+
+[node name="OppositeLanding" parent="." instance=ExtResource("1")]
+position = Vector2(60, -120)
+size = Vector2(130, 16)
+one_way = true
+label = "WALL KICK / HIGHER LANDING"
+
+[node name="TallWall" parent="." instance=ExtResource("1")]
+position = Vector2(260, -180)
+size = Vector2(24, 180)
+label = ""
+
+[node name="HandoffWall" parent="." instance=ExtResource("1")]
+position = Vector2(470, -130)
+size = Vector2(80, 130)
+label = "WALL > LEDGE HANDOFF"
+
+[node name="MirroredLanding" parent="." instance=ExtResource("1")]
+position = Vector2(354, -110)
+size = Vector2(60, 16)
+one_way = true
+label = "MIRRORED LANDING"

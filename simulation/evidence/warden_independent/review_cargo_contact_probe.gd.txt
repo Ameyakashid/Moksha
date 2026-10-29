@@ -1,0 +1,16 @@
+extends "res://simulation/tests/warden_regression.gd"
+func _run() -> void:
+	await _begin("read-only engine contact diagnostic")
+	_attack(); await _until(func():return enemy.weapon_phase==&"windup")
+	var cargo = preload("res://review_cargo_contact_spy.tscn").instantiate()
+	cargo.position=enemy.position+Vector2(60,-20)
+	cargo.tuning=cargo.tuning.duplicate(true)
+	cargo.tuning.body_gravity_scale=0
+	cargo.tuning.hard_impacts_to_break=100
+	cargo.linear_velocity=Vector2(-360,0)
+	cargo.impact_profile.hitpause_seconds=.06
+	world.add_child(cargo)
+	await _seconds(0.4)
+	print("CARGO_ENGINE_SUMMARY ", JSON.stringify({"hz":hz,"health":enemy.health,"captured":cargo.captured_contacts,"velocity":cargo.linear_velocity,"position":cargo.position,"receiver":enemy.get_node("PhysicalImpactReceiver").last_reason}))
+	await _finish()
+	quit()

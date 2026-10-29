@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://movement/components/movement_motor.gd" id="1"]
+[ext_resource type="Resource" path="res://movement/resources/npc.tres" id="2"]
+[ext_resource type="Script" path="res://movement/components/npc_intent.gd" id="3"]
+[ext_resource type="Script" path="res://movement/components/wireframe.gd" id="4"]
+
+[sub_resource type="CapsuleShape2D" id="Shape"]
+radius = 8.0
+height = 36.0
+
+[node name="MovementNPC" type="CharacterBody2D" groups=["movement_npcs"]]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1")
+tuning = ExtResource("2")
+double_jump_enabled = false
+air_dash_enabled = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -18)
+shape = SubResource("Shape")
+
+[node name="Intent" type="Node" parent="."]
+script = ExtResource("3")
+
+[node name="Wireframe" type="Node2D" parent="."]
+script = ExtResource("4")
+tint = Color(1, 0.69, 0.38, 1)
+actor_label = "NPC"

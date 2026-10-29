@@ -1,0 +1,33 @@
+[gd_scene load_steps=9 format=3]
+[ext_resource type="Script" path="res://sandbox/station_controls.gd" id="1"]
+[ext_resource type="PackedScene" path="res://sandbox/actors/player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://simulation/world/static_platform.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://simulation/world/freight_cradle.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://simulation/world/freight_receiver.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://simulation/world/relay_shutter.tscn" id="6"]
+[ext_resource type="Script" path="res://sandbox/freight_link.gd" id="7"]
+[ext_resource type="PackedScene" path="res://sandbox/station_overlay.tscn" id="8"]
+[node name="FreightStation" type="Node2D"]
+script=ExtResource("1")
+station_title="03 / SIGNAL-WIRED FREIGHT"
+station_description="J launches the real crate. E near cradle replaces it. Receiver success opens shutter."
+cradle_path=NodePath("Cradle")
+[node name="Floor" parent="." instance=ExtResource("3")]
+position=Vector2(320,330)
+platform_size=Vector2(640,40)
+[node name="LaunchDeck" parent="." instance=ExtResource("3")]
+position=Vector2(170,250)
+platform_size=Vector2(240,20)
+[node name="Cradle" parent="." instance=ExtResource("4")]
+position=Vector2(180,240)
+auto_spawn=false
+[node name="Receiver" parent="." instance=ExtResource("5")]
+position=Vector2(426,270)
+[node name="Shutter" parent="." instance=ExtResource("6")]
+position=Vector2(590,180)
+shutter_size=Vector2(24,260)
+[node name="Link" type="Node" parent="."]
+script=ExtResource("7")
+[node name="Player" parent="." instance=ExtResource("2")]
+position=Vector2(135,240)
+[node name="Overlay" parent="." instance=ExtResource("8")]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/storm_drain.tres" id="1_art"]
+
+[node name="StormDrain" type="Node2D"]
+metadata/art_only = true
+metadata/nominal_size = Vector2(64, 10)
+metadata/origin_kind = "bottom_center"
+metadata/source_pivot = Vector2(142.5, 55)
+
+[node name="Art" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-33.40659341, -11.22448980)
+scale = Vector2(0.23443223, 0.20408163)
+texture = ExtResource("1_art")
+centered = false

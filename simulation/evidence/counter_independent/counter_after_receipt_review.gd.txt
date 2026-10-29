@@ -1,0 +1,21 @@
+extends "res://simulation/tests/shield_counter_regression.gd"
+func _run() -> void:
+	for operation in ["target_reset","receiver_unbind","incoming_remove","target_remove"]:
+		await _begin("after counter receipt / "+operation,"NPC","PC")
+		_counter(left).counter_resolved.connect(func(_receipt):
+			match operation:
+				"target_reset": left.reset_actor(left.position,1)
+				"receiver_unbind": _counter(left).unbind()
+				"incoming_remove": _receiver(left).queue_free()
+				"target_remove": left.queue_free()
+		)
+		await _parry(left,right)
+		var adapter := right.get_node("ShieldContactAdapter")
+		_check(counters.size()==1 and counters[0].amount==3,"already emitted committed receipt remains truthful")
+		_check(adapter.confirmed_counters==0 and adapter.last_report.applied,"late retirement preserves applied fact but suppresses confirmation")
+		print(operation," ",adapter.last_report)
+		await _end()
+	print("AFTER RECEIPT REVIEW: ",checks," checks, ",failures.size()," failures")
+	for failure in failures: printerr(failure)
+	FileAccess.open("/tmp/moksha-counter-review/after_receipt_%d.json" % hz,FileAccess.WRITE).store_string(JSON.stringify({"hz":hz,"scenarios":scenarios,"checks":checks,"failures":failures},"  "))
+	quit(0 if failures.is_empty() else 1)

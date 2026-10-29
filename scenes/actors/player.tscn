@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://player.gd" id="1_player"]
+[ext_resource type="Resource" path="res://resources/tuning/player_default.tres" id="2_tuning"]
+[ext_resource type="Script" path="res://scripts/graphics/actor_graphics.gd" id="3_graphics"]
+[ext_resource type="SpriteFrames" path="res://assets/characters/operative_frames.tres" id="4_frames"]
+[ext_resource type="Script" path="res://scripts/components/strike_component.gd" id="5_strike"]
+[ext_resource type="Resource" path="res://resources/tuning/strike_default.tres" id="6_strike_tuning"]
+
+[ext_resource type="Script" path="res://scripts/graphics/metal_baton.gd" id="7_baton"]
+
+[ext_resource type="Resource" path="res://resources/graphics/operative_attack.tres" id="8_attack_art"]
+
+[sub_resource type="CapsuleShape2D" id="Capsule_player"]
+radius = 7.0
+height = 40.0
+
+[node name="Player" type="CharacterBody2D" groups=["actors", "players"]]
+z_index = 8
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_player")
+tuning = ExtResource("2_tuning")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20)
+shape = SubResource("Capsule_player")
+
+[node name="Graphics" type="Node2D" parent="."]
+script = ExtResource("3_graphics")
+attack_pose = ExtResource("8_attack_art")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Graphics"]
+texture_filter = 1
+scale = Vector2(0.165, 0.165)
+sprite_frames = ExtResource("4_frames")
+animation = &"idle"
+autoplay = "idle"
+centered = false
+offset = Vector2(-320, -352)
+
+[node name="Weapon" type="Node2D" parent="Graphics"]
+z_index = 1
+script = ExtResource("7_baton")
+
+[node name="StrikeComponent" type="Node" parent="."]
+script = ExtResource("5_strike")
+tuning = ExtResource("6_strike_tuning")
+
+[connection signal="attack_requested" from="." to="StrikeComponent" method="resolve_attack"]
+[connection signal="shake_requested" from="StrikeComponent" to="." method="_on_strike_shake"]

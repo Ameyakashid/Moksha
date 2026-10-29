@@ -1,0 +1,37 @@
+extends "res://simulation/tests/review_projectile_adversity.gd"
+func _run()->void:
+	for operation in ["return_lethal","hurt_reset","health_changed_reset","processed_reset","processed_source_reset","defeat_reset"]:
+		await _begin(operation,"raw","raw",180)
+		emissions=[];resolutions=[];retirements=[]
+		var events:Array[Dictionary]=[]
+		var fired:Array[bool]=[]
+		if operation=="return_lethal":left.get_node("ProjectileEmitter").profile.return_minimum_damage=40.0
+		if operation=="defeat_reset":
+			left.melee_chain=left.melee_chain.duplicate(true)
+			left.melee_chain.steps[0].damage=40.0
+		var mutate:=func():
+			if not fired.is_empty():return
+			fired.append(true)
+			if operation=="processed_source_reset":left.reset_actor(left.position,1)
+			else:right.reset_actor(right.position,-1)
+		if operation=="hurt_reset":right.movement_event.connect(func(kind,_packet):
+			if kind==&"hurt_started":mutate.call())
+		elif operation=="health_changed_reset":right.get_node("Health").health_changed.connect(func(_c,_m):mutate.call())
+		elif operation in ["processed_reset","processed_source_reset"]:right.get_node("Health").damage_processed.connect(func(_r):mutate.call())
+		elif operation=="defeat_reset":right.get_node("DefeatResponse").defeat_started.connect(mutate)
+		left.get_node("Health").damage_processed.connect(func(r):events.append(r.duplicate(true)))
+		right.get_node("Health").damage_processed.connect(func(r):events.append(r.duplicate(true)))
+		await _attack(left)
+		if operation=="return_lethal":
+			await _frames(ceili(hz*1.27))
+			_request(right,{"shield":true})
+		await _frames(ceili(hz*2.5))
+		_check(_health(left)==(0.0 if operation=="return_lethal" else 30.0),"source exact health")
+		_check(_health(right)==(29.0 if operation=="processed_source_reset" else 30.0),"target exact health")
+		if operation=="return_lethal":_check(resolutions.size()==2 and resolutions[1].accepted and resolutions[1].amount==30.0 and left.is_defeated(),"reflected lethal receipt retains completed damage")
+		elif operation in ["hurt_reset","health_changed_reset"]:_check(resolutions.size()==1 and not resolutions[0].accepted and resolutions[0].amount==0.0,"suppressed Health event never becomes false damage fact")
+		elif operation in ["processed_reset","defeat_reset"]:_check(resolutions.size()==1 and resolutions[0].accepted and resolutions[0].retired and receipts.is_empty(),"completed old-life fact survives but new-life notification suppressed")
+		print("TERMINAL ",operation," LEFT ",_health(left)," RIGHT ",_health(right)," RESOLVED ",resolutions)
+		await _end()
+	print("REVIEW TERMINAL ",hz," Hz: ",checks," checks, ",failures.size()," failures ",failures)
+	quit(0 if failures.is_empty() else 1)

@@ -1,0 +1,74 @@
+extends "res://simulation/tests/warden_regression.gd"
+## Read-only observation wrapper. Calls the inherited six-counter raw-input duel unchanged.
+var observed_actor_id := 0
+var observed_health: Array[Dictionary] = []
+var observed_noise: Array[Dictionary] = []
+var observed_phases: Array[int] = []
+var observed_defeats := 0
+var terminal_seen := false
+var after_defeat: Array[Dictionary] = []
+var final_actor_state: Dictionary = {}
+var observation_order: Array[Dictionary] = []
+
+func _run() -> void:
+	await _input_duel()
+	var applied := 0.0
+	var serials := {}
+	for receipt in observed_health:
+		applied += float(receipt.applied)
+		serials[receipt.serial] = true
+	var damage_noise := observed_noise.filter(func(event): return event.kind == &"enemy_damage")
+	var death_noise := observed_noise.filter(func(event): return event.kind == &"enemy_death")
+	_check(observed_health.size() == 6 and serials.size() == 6 and applied == 16.0, "six distinct genuine applied Health receipts total16")
+	_check(observed_health.all(func(receipt): return receipt.current_scope and receipt.actor_id == observed_actor_id and receipt.applied > 0), "every observed receipt is in the exact live Health delivery scope")
+	_check(damage_noise.size() == 6 and damage_noise.all(func(event): return event.exact_source and event.source_id == observed_actor_id), "six enemy_damage notifications carry the actual actor source")
+	_check(death_noise.size() == 1 and death_noise[0].exact_source and observed_defeats == 1, "one genuine enemy_death and one defeated signal")
+	_check(observed_phases == [2], "exactly one phase2 notification")
+	_check(after_defeat.is_empty(), "no actor noise, Health, phase, defeat, or attack-start work after defeat through inherited1.2second observation and disposal")
+	var report := {"suite":"independent exact-once six-counter duel observation", "hz":hz, "checks":checks, "failures":failures, "actor_id":observed_actor_id, "health_receipts":observed_health, "applied_total":applied, "noise":observed_noise, "phases":observed_phases, "defeated_count":observed_defeats, "post_defeat_events":after_defeat, "final_actor_state":final_actor_state, "event_order":observation_order, "duel_seconds":duel_seconds, "method":"Inherited _input_duel unchanged; read-only signals connected after inherited setup and before AI activation. Real production physics, six actual PC shield contacts, no result writes."}
+	FileAccess.open("res://simulation/evidence/independent_duel_noise_%d.json" % hz, FileAccess.WRITE).store_string(JSON.stringify(report, "  ") + "\n")
+	print("INDEPENDENT DUEL NOISE %d Hz: %d checks, %d failures; health=%d applied=%s damage_noise=%d death_noise=%d defeats=%d phases=%s post_defeat=%d" % [hz,checks,failures.size(),observed_health.size(),applied,damage_noise.size(),death_noise.size(),observed_defeats,str(observed_phases),after_defeat.size()])
+	for failure in failures: printerr(failure)
+	quit(0 if failures.is_empty() else 1)
+
+func _begin(label: String, capacity := 16.0) -> void:
+	await super._begin(label, capacity)
+	observed_actor_id = enemy.get_instance_id()
+	root.get_node("NoiseBus").noise_emitted.connect(_observe_noise)
+	enemy.get_node("Health").damage_processed.connect(_observe_health)
+	enemy.phase_changed.connect(_observe_phase)
+	enemy.defeated.connect(_observe_defeated)
+	enemy.movement_event.connect(_observe_movement)
+
+func _record(kind: String, details: Dictionary) -> void:
+	var event := {"kind":kind, "physics_frame":Engine.get_physics_frames(), "details":details}
+	observation_order.append(event)
+	if terminal_seen: after_defeat.append(event)
+
+func _observe_noise(origin: Vector2, kind: StringName, loudness: float, source: Node) -> void:
+	if not is_instance_valid(source) or source.get_instance_id() != observed_actor_id: return
+	var event := {"kind":kind,"source_id":source.get_instance_id(),"exact_source":source == enemy,"origin":origin,"loudness":loudness}
+	observed_noise.append(event)
+	_record("noise", event)
+
+func _observe_health(receipt: Dictionary) -> void:
+	var event := receipt.duplicate(true)
+	event["current_scope"] = enemy.get_node("Health").damage_receipt_is_current(receipt)
+	observed_health.append(event)
+	_record("health", event)
+
+func _observe_phase(actor: Node2D, phase: int) -> void:
+	observed_phases.append(phase)
+	_record("phase", {"phase":phase,"exact_source":actor == enemy})
+
+func _observe_defeated(actor: Node2D) -> void:
+	observed_defeats += 1
+	_record("defeated", {"exact_source":actor == enemy})
+	terminal_seen = true
+
+func _observe_movement(kind: StringName, payload: Dictionary) -> void:
+	if kind == &"attack_started": _record("attack_started", payload.duplicate(true))
+
+func _finish() -> void:
+	final_actor_state = {"health":enemy.health,"dead":enemy.dead,"confirmed_counters":player.get_node("ShieldContactAdapter").confirmed_counters,"player_health":player_health.current_health}
+	await super._finish()

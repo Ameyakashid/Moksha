@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+[ext_resource type="Script" path="res://simulation/resources/actor_contact_profile.gd" id="1"]
+[ext_resource type="Resource" path="res://demo/resources/actor_material.tres" id="2"]
+[resource]
+script = ExtResource("1")
+body_layer = 32
+body_mask = 9
+terrain_mask = 9
+hurtbox_layer = 4
+strike_target_mask = 72
+obstruction_mask = 9
+material_profile = ExtResource("2")
+groups = PackedStringArray("enemies", "actors")

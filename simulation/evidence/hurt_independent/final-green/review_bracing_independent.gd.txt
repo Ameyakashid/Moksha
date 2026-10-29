@@ -1,0 +1,84 @@
+extends "res://simulation/tests/shield_counter_regression.gd"
+const Chain = preload("res://combat_pc/resources/melee_chain.gd")
+const Step = preload("res://combat_pc/resources/melee_step.gd")
+const HealthScene = preload("res://combat_pc/components/health_component.tscn")
+const MutatingAdapter = preload("res://simulation/tests/review_counter_source_mutation.gd")
+var measurements: Array[Dictionary] = []
+func _brace(actor: Node, phase := "windup") -> Resource:
+	var chain := Chain.new()
+	var step := Step.new()
+	step.next_step = -1
+	step.windup_seconds = 0.6 if phase == "windup" else 0.07
+	step.active_seconds = 0.7 if phase == "active" else 0.07
+	step.recovery_seconds = 0.8
+	step.active_ground_speed = 0
+	step.strike_center_offset = Vector2(-100, -20)
+	step.hurt_protected_phases = PackedStringArray(["windup", "active"])
+	chain.steps.append(step)
+	actor.melee_chain = chain
+	return step
+func _run() -> void:
+	for mode in ["PC", "NPC"]:
+		for phase in ["windup", "active", "recovery"]:
+			for duration in [0.699999, 0.70, 0.78]:
+				await _begin("actual brace %s/%s/%.6f" % [mode,phase,duration], "raw", mode)
+				_brace(right,phase)
+				right.combat_profile.hurt_seconds = duration
+				var events: Array[StringName] = []
+				right.movement_event.connect(func(kind,_p): events.append(kind))
+				await _attack(right)
+				_check(await _until(func(): return String(right.weapon_phase)==phase), "ordinary input reaches requested phase")
+				await _attack(left)
+				_check(await _until(func(): return _health(right)<30), "actual melee reaches Health")
+				var expected: bool = phase != "recovery" and duration < 0.70
+				_check(_health(right)==29, "full one-point Health loss")
+				_check(events.has(&"hurt_braced")==expected and events.has(&"hurt_started")!=expected, "exact brace versus recoil event")
+				_check((right.main_action!=&"hurt")==expected, "only below threshold protected phase avoids recoil")
+				_check(noise_events.filter(func(e): return e.actor_id==right.get_instance_id() and e.kind==&"hurt").size()==1, "one ordinary hurt noise")
+				measurements.append({"case":label,"health":_health(right),"phase":String(right.weapon_phase),"action":String(right.main_action),"braced":events.has(&"hurt_braced")})
+				await _end()
+	await _begin("source Resource mutation cannot alter committed snapshot", "raw", "NPC")
+	var authored := _brace(right)
+	await _attack(right)
+	authored.hurt_protected_phases.clear()
+	authored.hurt_interrupt_seconds = 0.01
+	_check(right.hurt_response_snapshot().protected and right.hurt_response_snapshot().interrupt_seconds==0.70, "deep committed snapshot retained")
+	await _attack(left)
+	_check(await _until(func(): return _health(right)<30), "actual contact reaches mutated-source snapshot")
+	_check(right.main_action!=&"hurt" and _health(right)==29, "authored-source mutation cannot steal bracing")
+	await _end()
+	await _begin("post-claim counter source callback invalidates target config", "NPC", "PC")
+	_brace(left,"active")
+	# Keep the attack aimed toward the defender for a genuine counter-producing contact.
+	left.melee_chain.steps[0].strike_center_offset=Vector2(25,-20)
+	_counter(left).response_stun_seconds=0.78
+	var old: Node=right.get_node("ShieldContactAdapter")
+	old.bind_actor(null)
+	right.remove_child(old)
+	old.queue_free()
+	var probe := MutatingAdapter.new()
+	probe.name="ShieldContactAdapter"
+	right.add_child(probe)
+	await _frames(3)
+	await _parry(left,right)
+	_check(probe.changed, "actual counter ray reaches post-claim source callback")
+	_check(_health(left)==30 and _health(right)==30 and left.main_action!=&"hurt", "retired config produces no fake damage or recoil")
+	_check(counters.is_empty() and probe.confirmed_counters==0, "one-use claim cannot authorize retired target config")
+	_check(receipts.size()==1 and receipts[0].outcome==&"parried", "incoming parry remains independently completed")
+	_request(left,{})
+	_request(right,{})
+	await _frames(2)
+	left.reset_actor(Vector2(200,200),1)
+	right.reset_actor(Vector2(236,200),-1)
+	counters=[]
+	receipts=[]
+	await _frames(5)
+	await _parry(left,right)
+	print("FRESH COUNTER DETAILS ", {"left_health":_health(left),"right_health":_health(right),"confirmed":probe.confirmed_counters,"left_action":left.main_action,"left_phase":left.weapon_phase,"right_shield":right.shield_phase,"receipts":receipts,"counters":counters,"report":probe.last_report})
+	_check(_health(left)==27 and probe.confirmed_counters==1 and left.main_action==&"hurt", "fresh later actual counter uses restored 0.78 config")
+	await _end()
+	var report := {"hz":hz,"checks":checks,"failures":failures,"measurements":measurements,"execution":"Independent input-driven real melee and canonical one-use counter ray. No direct Health or phase writes."}
+	FileAccess.open("res://simulation/evidence/review_bracing_independent_%d.json" % hz,FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
+	print("INDEPENDENT BRACING %dHz %d checks %d failures" % [hz,checks,failures.size()])
+	for failure in failures: printerr(failure)
+	quit(0 if failures.is_empty() else 1)

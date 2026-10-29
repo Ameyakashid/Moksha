@@ -1,0 +1,35 @@
+{
+  "checks": 74,
+  "execution": "Actual Godot physics callbacks, swept production guard carrier and stock PC/ShieldContactAdapter. Direct lifecycle probes explicitly labeled.",
+  "failures": [],
+  "hz": 60,
+  "preserved_hashes": {
+    "res://combat_pc/components/health_component.gd": "a24a01f6497ffbda15e510134c1a5fd613fb060f2f0b188621fb5021603a5dc3",
+    "res://combat_pc/components/shield_contact_adapter.gd": "edae8a74912a1b5f9515510fd62bffd942f7b9e2dcebab981123a57a22060b7f",
+    "res://combat_pc/components/strike_health.gd": "fdf3dd095bce22280cea6e0dd287b45bb030c57327a6c2826f60b190022d37fd",
+    "res://combat_pc/components/strike_knockback.gd": "c72f2b5b9fef51d5b0c74f49ba52aa28ebef46a93aa47a02247c8d0138eb998d",
+    "res://combat_pc/fixtures/guard_projectile.gd": "81a24827896915710684fd61ddd180a3f9a3b6ce3fd8cfa487b3743c112d0cca",
+    "res://combat_pc/player.gd": "6cd582c819d5297096205754d30d7c7bbc25021822390117edc71378ecbe43ea",
+    "res://movement/components/movement_motor.gd": "149e8eddeab852f44aa141924ddb75d86c0a66846dfe47c27241a4c9b422b1fb",
+    "res://prop.gd": "8b0b1e06d6c76da455585318fecf02bc08e92e6917c2bf83a30f6cc72576cef0"
+  },
+  "scenarios": [
+    "physical swept hit and once-only contact",
+    "preserved held guard absorbs projectile",
+    "timed real reflection kills original shooter",
+    "solid wall prevents target acquisition",
+    "swept projectile hits thin terrain",
+    "door closes during committed telegraph",
+    "late physical jump evades committed horizontal shot",
+    "production sword interrupts ranged windup",
+    "explicit reset boundary retires in-flight shot",
+    "explicit death boundary retires in-flight shot",
+    "explicit death during telegraph prevents release",
+    "source removal retires sibling carrier",
+    "scene removal clears carrier ownership",
+    "missed projectile expires within bounded lifetime",
+    "retreat brakes before actual platform lip",
+    "real rigid-body crate defeats ranged body32"
+  ],
+  "suite": "demo ranged sentry"
+}

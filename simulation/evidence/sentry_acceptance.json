@@ -1,0 +1,159 @@
+{
+  "completed_at_utc": "2026-10-19T22:17:32.065705+00:00",
+  "checkpoint": "Production shared sentry",
+  "passed": true,
+  "scope": "All 13 authored mission sentries use shared actor, policy, root Health and canonical projectile emitter; Warden migration is deferred.",
+  "focused": [
+    {
+      "hz": 60,
+      "scenarios": 35,
+      "checks": 202,
+      "failures": 0,
+      "passed": true,
+      "evidence": "sentry_60.json"
+    },
+    {
+      "hz": 120,
+      "scenarios": 35,
+      "checks": 202,
+      "failures": 0,
+      "passed": true,
+      "evidence": "sentry_120.json"
+    }
+  ],
+  "aggregate": {
+    "foundation": {
+      "passed": 48,
+      "total": 48
+    },
+    "stock": {
+      "passed": 10,
+      "total": 10
+    },
+    "historical": {
+      "passed": 19,
+      "total": 19
+    },
+    "routes": [
+      {
+        "hz": 60,
+        "sacrificed_sight": false,
+        "completed": true,
+        "simulated_active_seconds": 177.483333333367,
+        "deaths": 0,
+        "retry_count": 0,
+        "failures": [],
+        "exit_code": 0
+      },
+      {
+        "hz": 60,
+        "sacrificed_sight": true,
+        "completed": true,
+        "simulated_active_seconds": 166.350000000025,
+        "deaths": 0,
+        "retry_count": 0,
+        "failures": [],
+        "exit_code": 0
+      },
+      {
+        "hz": 120,
+        "sacrificed_sight": false,
+        "completed": true,
+        "simulated_active_seconds": 171.283333333342,
+        "deaths": 0,
+        "retry_count": 0,
+        "failures": [],
+        "exit_code": 0
+      },
+      {
+        "hz": 120,
+        "sacrificed_sight": true,
+        "completed": true,
+        "simulated_active_seconds": 161.116666666684,
+        "deaths": 0,
+        "retry_count": 0,
+        "failures": [],
+        "exit_code": 0
+      }
+    ]
+  },
+  "sources": {
+    "count": 548,
+    "unchanged_during_full_acceptance": true,
+    "final_live_matches": true,
+    "baseline_source_count": 538,
+    "unchanged_from_projectile": 529,
+    "modified": 9,
+    "added": 10,
+    "removed": 0,
+    "final_map_sha256": "371201f80d649194749a9206afa34a7982ee84237d6c812363fbd2530bafbe75",
+    "map_evidence": "sentry_final_gates.json",
+    "delta_evidence": "sentry_source_delta.json",
+    "preserved_legacy_and_controller": {
+      "combat_pc/player.gd": "65703f806f7f7afa8698a23fba5a502f752174a82ac61250a9bdb0be5250b6c3",
+      "combat_pc/fixtures/guard_projectile.gd": "81a24827896915710684fd61ddd180a3f9a3b6ce3fd8cfa487b3743c112d0cca",
+      "demo/components/ranged_enemy.gd": "503d7ea36ab85edc590765247cea4ec8971e8dbf04c1ca525c072baf6d52eaff",
+      "demo/components/ranged_enemy.tscn": "5accfceb90d82212f2e026377e36782b380d80c51a4cf98a1ac18d5c04e2d73d",
+      "demo/components/ranged_projectile.gd": "97f5f388fbd852466fd5a5c5ce0a36467f724bb357b0feb1b68ff01b2d5f57bf",
+      "demo/components/ranged_projectile.tscn": "6f35ca5d95bef6c962c59811fb83b7fb41cf0754438145fd687e95ae9b745260",
+      "demo/tests/ranged_regression.gd": "ef58f6818ce11aae2a7ce68ef5c5e88c775985ca6bbff26cee118e1568483353",
+      "demo/components/warden.gd": "c5d6899ab00b448a638b31f9386da6495bf690f084b71e01ab1edfcd830baa4f",
+      "demo/components/warden.tscn": "9d90e49799172c57f0067e2b63ce1f93212a1546540ec5823eb6fb5de69d5d42"
+    }
+  },
+  "archives": {
+    "count": 11,
+    "all_unchanged": true,
+    "evidence": "sentry_archive_preservation.json"
+  },
+  "independent": {
+    "passed": true,
+    "runs": 18,
+    "scenarios_per_rate": 32,
+    "checks_per_rate": 153,
+    "reviewed_source_count": 19,
+    "final_live_matches": true,
+    "clean_import": true,
+    "clean_boot_frames": 300,
+    "evidence": "sentry_independent/REVIEW.md"
+  },
+  "native": {
+    "entry": "res://simulation/sentry_review.tscn",
+    "initial_configuration": "Actual mission factory and authored Intake sector; initial spawn (790,135), saving disabled.",
+    "observed": [
+      "cyan bow and antenna",
+      "orange warning ring and locked aim line",
+      "ordinary shield raised",
+      "ordinary sword reduced sentry Health then produced defeat",
+      "normal R retry restored live encounter",
+      "unguarded warning-to-recovery transition"
+    ],
+    "unverified": [
+      "distinct free-flight bolt",
+      "projectile-caused player damage",
+      "guard interception effect",
+      "timed reflection",
+      "cargo and peer filter contact outcomes",
+      "audio mix",
+      "full native route completion"
+    ],
+    "diagnostics": "Current Output 0 errors/0 warnings; accumulated Debugger 24 not exhaustively reviewed.",
+    "evidence": "native_sentry_review.md"
+  },
+  "intentional_changes": [
+    "Cargo blocks acquisition, release LOS and flight.",
+    "Both flight masks are 43: terrain, PC, cargo, NPC physically intercept.",
+    "Receiver accepted_source_layers is configurable; production shared NPCs accept PC2 and mission PC accepts NPC32. Filtered impacts retire without Health mutation."
+  ],
+  "remaining_limits": [
+    "Warden is an explicit physical projectile blocker without a registered root-Health receiver or projectile damage until its later migration.",
+    "Manual arbitrary emitter replacement does not automatically reconnect the fixed production facade presentation observers.",
+    "Native projectile travel, reflection and collision/filter results remain unverified; actual-physics automated tests cover them."
+  ],
+  "corrected_findings": [
+    "Capture owner/layer and receiver filter before extension hooks; reject stale permission at final-local boundary.",
+    "Cargo test now waits for genuine warning before inserting actual production crate; deterministic lift/spin is explicit fixture setup.",
+    "Target-facing intent occurs only when ready to commit, avoiding retreat-facing oscillation."
+  ],
+  "archive_packaging": "Pending parent-owned immutable packaging and extracted-copy validation after sole-writer handoff."
+}

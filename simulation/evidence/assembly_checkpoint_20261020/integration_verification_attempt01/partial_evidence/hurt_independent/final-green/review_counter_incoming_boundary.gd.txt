@@ -1,0 +1,26 @@
+extends "res://simulation/tests/shield_counter_regression.gd"
+const Mutator=preload("res://simulation/tests/review_counter_incoming_mutation.gd")
+func _run() -> void:
+	for operation in ["incoming_toggle","body_disable","shape_disable","shape_replace","shape_resize","shape_offset","hurtbox_transform","body_layer","hurtbox_layer","source_retire","source_reset","source_forced","source_shield_off","source_external_gate","source_physics_off","source_process_off","source_fence_remove","source_fence_mode","source_rebind"]:
+		await _begin("post-claim source hook / "+operation, "NPC", "PC")
+		_counter(left).response_stun_seconds=0.78
+		var old: Node=right.get_node("ShieldContactAdapter")
+		old.bind_actor(null)
+		right.remove_child(old)
+		old.queue_free()
+		var probe:=Mutator.new()
+		probe.name="ShieldContactAdapter"
+		probe.operation=operation
+		right.add_child(probe)
+		var recoil_events: Array[bool]=[]
+		left.movement_event.connect(func(kind,_payload):
+			if kind==&"hurt_started": recoil_events.append(true)
+		)
+		await _frames(3)
+		await _parry(left,right)
+		_check(probe.changed,"genuine counter reaches post-claim hook")
+		_check(_health(left)==30 and left.main_action!=&"hurt" and recoil_events.is_empty(),"retired incoming generation cannot authorize old counter contact")
+		print("COUNTER INCOMING BOUNDARY ", {"hz":hz,"checks":checks,"failures":failures,"left_health":_health(left),"left_action":left.main_action,"report":probe.last_report})
+		await _end()
+	print("COUNTER POST-CLAIM MATRIX %dHz: %d checks %d failures" % [hz, checks, failures.size()])
+	quit(0 if failures.is_empty() else 1)

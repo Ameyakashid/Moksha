@@ -1,0 +1,190 @@
+extends "res://simulation/components/boundary_scope.gd"
+## Placeable world composition and original architectural wireframe dressing.
+var data: Dictionary
+var floor_rects: Array[Rect2] = []
+var relay_on := false
+var cache_found := false
+var gate_open := false
+var time := 0.0
+var activated_relays: Array[int] = []
+var shutters: Array[Node] = []
+var freight_receiver: Node2D
+var freight_cradle: Node2D
+var freight_shutter: Node2D
+func build(config: Dictionary) -> void:
+	data = config
+	var boundary := preload("res://simulation/components/boundary_hazard.tscn").instantiate()
+	boundary.position.y = float(data.get("boundary_y", 420.0))
+	add_child(boundary)
+	var cursor := 0.0
+	for gap in data.get("gaps",[]):
+		floor_rects.append(Rect2(cursor,300,gap.x-cursor,80))
+		cursor = gap.y
+	floor_rects.append(Rect2(cursor,300,float(data.width)-cursor,80))
+	for r in floor_rects: _solid(r,false)
+	for r in data.platforms: _solid(r,r.size.y <= 18)
+	var top := float(data.get("top",-100))-80
+	_solid(Rect2(-20,top,20,400-top),false)
+	_solid(Rect2(float(data.width),top,20,400-top),false)
+	for item in data.get("ladders",[]):
+		var ladder = preload("res://combat_pc/components/climbable.tscn").instantiate()
+		ladder.position = Vector2(item[0],item[1])
+		ladder.height = item[2]
+		add_child(ladder)
+		# Passive physical rails match the actual climbable, for sound contours.
+		var rails := StaticBody2D.new()
+		rails.collision_layer=0
+		rails.collision_mask=0
+		rails.position=Vector2(0,-float(item[2])*0.5)
+		var rails_shape := CollisionShape2D.new()
+		var rails_box := RectangleShape2D.new()
+		rails_box.size=Vector2(20,item[2])
+		rails_shape.shape=rails_box
+		rails.add_child(rails_shape)
+		ladder.add_child(rails)
+	for item in data.get("lifts",[]):
+		var lift := AnimatableBody2D.new()
+		lift.set_script(preload("res://demo/components/mission_lift.gd"))
+		lift.position=item[0]
+		lift.travel=item[1]
+		lift.period=item[2]
+		add_child(lift)
+	for item in data.get("shutters",[]):
+		var shutter:=StaticBody2D.new()
+		shutter.set_script(load("res://demo/components/relay_shutter.gd"))
+		shutter.position=item[0]
+		shutter.shutter_size=item[1]
+		shutter.relay_index=item[2]
+		add_child(shutter)
+		shutters.append(shutter)
+	if data.has("freight"):
+		var freight:Dictionary=data.freight
+		freight_receiver=Node2D.new()
+		freight_receiver.set_script(load("res://demo/components/freight_receiver.gd"))
+		freight_receiver.position=freight.receiver
+		add_child(freight_receiver)
+		freight_cradle=Node2D.new()
+		freight_cradle.set_script(load("res://demo/components/freight_cradle.gd"))
+		freight_cradle.auto_spawn=false
+		freight_cradle.position=freight.cradle
+		add_child(freight_cradle)
+		freight_cradle.bind_receiver(freight_receiver)
+		freight_cradle.replace_cargo()
+		freight_shutter=StaticBody2D.new()
+		freight_shutter.set_script(load("res://demo/components/relay_shutter.gd"))
+		freight_shutter.position=freight.shutter[0]
+		freight_shutter.shutter_size=freight.shutter[1]
+		add_child(freight_shutter)
+	for key in ["station","relay","cache"]:
+		if data.has(key): _marker_body(data[key], key)
+	for at in data.get("relays",[]): _marker_body(at,"relay")
+	_marker_body(Vector2(float(data.width)-45,float(data.get("gate_y",300))),"gate")
+	queue_redraw()
+func _solid(rect: Rect2, oneway: bool) -> void:
+	var body := StaticBody2D.new()
+	body.position = rect.get_center()
+	body.collision_layer = 1
+	body.collision_mask = 0
+	var shape := CollisionShape2D.new()
+	var box := RectangleShape2D.new()
+	box.size = rect.size
+	shape.shape = box
+	shape.one_way_collision = oneway
+	body.add_child(shape)
+	add_child(body)
+func _marker_body(at: Vector2, kind: String) -> void:
+	var body := StaticBody2D.new()
+	body.name = kind.capitalize()+"Contour"
+	var size: Vector2 = {"gate":Vector2(40,76),"cache":Vector2(16,18),"station":Vector2(32,42),"relay":Vector2(22,31)}.get(kind,Vector2(18,36))
+	body.position = at-Vector2(0,size.y*0.5)
+	body.collision_layer = 0
+	body.collision_mask = 0
+	var shape := CollisionShape2D.new()
+	var box := RectangleShape2D.new()
+	box.size = size
+	shape.shape = box
+	body.add_child(shape)
+	add_child(body)
+func set_cache_found(found: bool) -> void:
+	cache_found = found
+	var marker := get_node_or_null("CacheContour")
+	if is_instance_valid(marker):
+		if found: marker.add_to_group("sonar_ignore")
+		elif marker.is_in_group("sonar_ignore"): marker.remove_from_group("sonar_ignore")
+	queue_redraw()
+func surface_y(x: float) -> float:
+	var y := 300.0
+	for r in data.platforms:
+		if x >= r.position.x+12 and x <= r.end.x-12: y = minf(y,r.position.y)
+	return y
+func _process(dt: float) -> void:
+	time += dt
+	if is_instance_valid(freight_shutter):
+		freight_shutter.set_open(freight_receiver.is_latched)
+	for shutter in shutters:
+		shutter.set_open(activated_relays.has(shutter.relay_index))
+	queue_redraw()
+func _draw() -> void:
+	if data.is_empty(): return
+	var city: bool = data.theme == "city"
+	var width := float(data.width)
+	var ink := Color("5b7f87") if not city else Color("897c70")
+	var faint := Color("182c35") if not city else Color("28303a")
+	draw_rect(Rect2(-40,float(data.get("top",-100))-100,width+80,600-float(data.get("top",-100))),Color("071119") if not city else Color("111821"))
+	# Original distant architecture: quiet, tall silhouettes below fine outlines.
+	for i in range(int(width/90)+2):
+		var h := 80.0+float((i*73+31)%160)
+		var r := Rect2(i*90-25,280-h,66,h)
+		draw_rect(r,Color("13212b") if city else Color("0b1c25"))
+		draw_line(r.position,Vector2(r.end.x,r.position.y),faint,1)
+		if city:
+			for row in range(3):
+				for col in range(3):
+					draw_rect(Rect2(r.position+Vector2(10+col*17,12+row*21),Vector2(3,7)),Color("3a3936"))
+		else:
+			draw_line(Vector2(i*90,float(data.get("top",-100))),Vector2(i*90,280),faint,1)
+			draw_circle(Vector2(i*90,75),3,faint,false,1)
+	if city:
+		for i in range(45):
+			var x := fmod(float(i*73)+time*38,width)
+			var y := fmod(float(i*47)+time*125,285)
+			draw_line(Vector2(x,y),Vector2(x-3,y+9),Color(0.35,0.5,0.6,0.2),0.65)
+	else:
+		for y in [45,52,269]: draw_line(Vector2(0,y),Vector2(width,y),faint,1)
+	for r in floor_rects:
+		draw_rect(r,Color("101f27"))
+		draw_line(r.position,Vector2(r.end.x,r.position.y),ink,1.2)
+		for x in range(int(r.position.x)+10,int(r.end.x),40): draw_line(Vector2(x,304),Vector2(x-9,315),faint,1)
+	for r in data.platforms:
+		draw_rect(r,Color("10232c"))
+		draw_rect(r,ink,false,0.8)
+		draw_line(r.position+Vector2(2,2),Vector2(r.end.x-2,r.position.y+2),Color("a7c1bd"),0.8)
+		if r.size.y > 20:
+			draw_line(r.position+Vector2(8,8),r.end-Vector2(8,8),faint,1)
+			draw_line(Vector2(r.end.x-8,r.position.y+8),Vector2(r.position.x+8,r.end.y-8),faint,1)
+	for sign_data in data.get("signs",[]):
+		draw_string(ThemeDB.fallback_font,sign_data[0],sign_data[1],HORIZONTAL_ALIGNMENT_LEFT,-1,9,Color("89b2b6"))
+	var gate := Vector2(width-45,float(data.get("gate_y",300)))
+	var gc := Color("a5e6cc") if gate_open else Color("cd946a")
+	draw_rect(Rect2(gate-Vector2(20,76),Vector2(40,76)),Color("0b1820"))
+	draw_rect(Rect2(gate-Vector2(20,76),Vector2(40,76)),gc,false,1)
+	for i in range(3): draw_line(gate+Vector2(-14,-65+i*8),gate+Vector2(14,-65+i*8),gc,0.8)
+	draw_string(ThemeDB.fallback_font,gate+Vector2(-32,-86),"LIFT" if data.get("ending",false) else "ONWARD",HORIZONTAL_ALIGNMENT_LEFT,-1,8,gc)
+	if data.has("station"):
+		var p: Vector2 = data.station
+		draw_rect(Rect2(p-Vector2(16,42),Vector2(32,42)),Color("a2c8c3"),false,1)
+		draw_circle(p+Vector2(0,-28),7,Color("e9d2ab"),false,1)
+		draw_line(p+Vector2(-8,-28),p+Vector2(8,-28),Color("e9d2ab"),1)
+		draw_string(ThemeDB.fallback_font,p+Vector2(-39,-54),"THE EXCHANGE",HORIZONTAL_ALIGNMENT_LEFT,-1,8,Color("e9d2ab"))
+	var relay_points: Array = data.get("relays",[]).duplicate()
+	if data.has("relay"): relay_points.append(data.relay)
+	for relay_index in relay_points.size():
+		var p: Vector2 = relay_points[relay_index]
+		var c := Color("9ce5bd") if relay_on or activated_relays.has(relay_index) else Color("e7b779")
+		draw_rect(Rect2(p-Vector2(11,31),Vector2(22,31)),c,false,1)
+		draw_circle(p+Vector2(0,-19),4,c)
+		draw_string(ThemeDB.fallback_font,p+Vector2(-18,-40),"RELAY",HORIZONTAL_ALIGNMENT_LEFT,-1,8,c)
+	if data.has("cache") and not cache_found:
+		var p: Vector2 = data.cache
+		draw_rect(Rect2(p-Vector2(8,18),Vector2(16,18)),Color("b1c9d1"),false,1)
+		draw_line(p+Vector2(-4,-9),p+Vector2(4,-9),Color("b1c9d1"),1)

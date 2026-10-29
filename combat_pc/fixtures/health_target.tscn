@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/knockback_target.tscn" id="1"]
+[ext_resource type="Script" path="res://combat_pc/fixtures/health_target.gd" id="2"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/strike_health.tscn" id="3"]
+
+[node name="HealthTarget" instance=ExtResource("1")]
+script = ExtResource("2")
+
+[node name="StrikeHealth" parent="." instance=ExtResource("3")]
+receiver_path = NodePath("../Hurtbox")

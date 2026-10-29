@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://simulation/resources/actor_capabilities.gd" id="1"]
+[resource]
+script = ExtResource("1")
+can_jump = false
+can_roll = false
+can_shield = false
+can_drop_through = false
+can_dive = false
+can_climb = false

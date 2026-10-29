@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="MokshaMeleeInputProfile" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://combat_pc/resources/melee_input_profile.gd" id="1"]
+[ext_resource type="Script" path="res://combat_pc/resources/melee_step.gd" id="2"]
+
+[sub_resource type="Resource" id="Starter"]
+script = ExtResource("2")
+step_label = "Starter Slash"
+pose_id = &"slash"
+next_step = -1
+
+[sub_resource type="Resource" id="Thrust"]
+script = ExtResource("2")
+step_label = "Charged Thrust"
+pose_id = &"charged_thrust"
+next_step = -1
+windup_seconds = 0.06
+active_seconds = 0.10
+recovery_seconds = 0.24
+windup_move_scale = 0.35
+recovery_move_scale = 0.65
+active_ground_speed = 260.0
+recovery_cancel_after = 0.06
+strike_size = Vector2(44, 24)
+strike_center_offset = Vector2(30, -20)
+damage = 2.6
+impulse = Vector2(360, -100)
+prop_launch_scale = 1.25
+hitpause_seconds = 0.06
+loudness = 1.25
+
+[resource]
+script = ExtResource("1")
+mode = 2
+charge_starter = SubResource("Starter")
+charge_strike = SubResource("Thrust")
+charge_branch_recovery_seconds = 0.06
+charge_seconds = 0.45
+charge_move_scale = 0.35
+charge_allow_turn = true

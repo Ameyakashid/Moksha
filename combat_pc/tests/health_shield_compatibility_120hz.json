@@ -1,0 +1,3642 @@
+{
+  "checks": 214,
+  "execution": "Original shield regression cases and assertions, one production sample per real physics callback; compact report only",
+  "failures": [],
+  "generated_utc": "2026-10-20T10:17:44",
+  "groups": [
+    "outcomes",
+    "history",
+    "callbacks",
+    "effects"
+  ],
+  "milestone": 12,
+  "physics_hz": 120,
+  "production_hash_stable_during_run": true,
+  "scenarios": [
+    {
+      "assertions": [
+        {
+          "label": "same eligible front contact yields the phase-specific incoming result",
+          "passed": true
+        },
+        {
+          "label": "residual damage metadata follows ordinary guard and full-negation policy exactly once actual 8.000000 expected 8.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "duplicate stable identity has no second hurt defense or feedback effect",
+          "passed": true
+        }
+      ],
+      "checks": 3,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 2,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333
+        ],
+        "engine_gaps": [],
+        "physics_samples": 1
+      },
+      "name": "incoming outcome and same ID duplicate idle",
+      "recorded_physics_frames": 1
+    },
+    {
+      "assertions": [
+        {
+          "label": "same eligible front contact yields the phase-specific incoming result",
+          "passed": true
+        },
+        {
+          "label": "residual damage metadata follows ordinary guard and full-negation policy exactly once actual 2.000000 expected 2.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "duplicate stable identity has no second hurt defense or feedback effect",
+          "passed": true
+        },
+        {
+          "label": "guard residual metadata does not also run the ordinary full-hurt path",
+          "passed": true
+        }
+      ],
+      "checks": 4,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 2,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 22
+      },
+      "name": "incoming outcome and same ID duplicate guard",
+      "recorded_physics_frames": 22
+    },
+    {
+      "assertions": [
+        {
+          "label": "same eligible front contact yields the phase-specific incoming result",
+          "passed": true
+        },
+        {
+          "label": "residual damage metadata follows ordinary guard and full-negation policy exactly once actual 0.000000 expected 0.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "duplicate stable identity has no second hurt defense or feedback effect",
+          "passed": true
+        },
+        {
+          "label": "incoming parry success closes the attempt even without a confirmed counter",
+          "passed": true
+        }
+      ],
+      "checks": 4,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 2,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 5
+      },
+      "name": "incoming outcome and same ID duplicate parry",
+      "recorded_physics_frames": 5
+    },
+    {
+      "assertions": [
+        {
+          "label": "same eligible front contact yields the phase-specific incoming result",
+          "passed": true
+        },
+        {
+          "label": "residual damage metadata follows ordinary guard and full-negation policy exactly once actual 0.000000 expected 0.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "duplicate stable identity has no second hurt defense or feedback effect",
+          "passed": true
+        }
+      ],
+      "checks": 3,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 2,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 7
+      },
+      "name": "incoming outcome and same ID duplicate roll",
+      "recorded_physics_frames": 7
+    },
+    {
+      "assertions": [
+        {
+          "label": "authenticator identity distinguishes simultaneous attacks that share a local sequence",
+          "passed": true
+        },
+        {
+          "label": "first success enters committed recovery and does not grant blanket immunity to a distinct attack",
+          "passed": true
+        }
+      ],
+      "checks": 2,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 2,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 5
+      },
+      "name": "same local ID from distinct live sources",
+      "recorded_physics_frames": 5
+    },
+    {
+      "assertions": [
+        {
+          "label": "one live emitter's first physical descriptor is consumed normally",
+          "passed": true
+        },
+        {
+          "label": "nearby previously unseen lower IDs remain eligible after a newer arrival",
+          "passed": true
+        },
+        {
+          "label": "distinct guard contacts share one feedback-pause budget instead of extending the attempt indefinitely actual 0.025000 expected 0.025000 ± 0.000000",
+          "passed": true
+        },
+        {
+          "label": "live emitter history has a bounded authored retention window",
+          "passed": true
+        },
+        {
+          "label": "evicted old identity remains permanently ineligible within this emitter lifetime",
+          "passed": true
+        },
+        {
+          "label": "stale attack has no renewed guard recoil noise or feedback",
+          "passed": true
+        },
+        {
+          "label": "recent consumed identity remains a duplicate",
+          "passed": true
+        },
+        {
+          "label": "fresh shield attempt cannot re-parry a prior accepted identity",
+          "passed": true
+        },
+        {
+          "label": "ordinary hurt does not reset contact identity history",
+          "passed": true
+        }
+      ],
+      "checks": 9,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 290,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 41
+      },
+      "name": "bounded history reordered IDs duplicates and stale contact",
+      "recorded_physics_frames": 41
+    },
+    {
+      "assertions": [
+        {
+          "label": "invalid contact with far-future ID is rejected before retention advances",
+          "passed": true
+        },
+        {
+          "label": "valid nearby contact remains usable after invalid far ID",
+          "passed": true
+        },
+        {
+          "label": "reset clears contact history while preserving non-reused attempt identity",
+          "passed": true
+        }
+      ],
+      "checks": 3,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 3,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 23
+      },
+      "name": "invalid far ID cannot advance history window",
+      "recorded_physics_frames": 23
+    },
+    {
+      "assertions": [
+        {
+          "label": "malformed or unavailable required authenticator cannot gain defense or ordinary hurt",
+          "passed": true
+        },
+        {
+          "label": "rejected identity is silent and leaves the actor untouched",
+          "passed": true
+        }
+      ],
+      "checks": 2,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 5
+      },
+      "name": "identified descriptor rejection missing_source",
+      "recorded_physics_frames": 5
+    },
+    {
+      "assertions": [
+        {
+          "label": "malformed or unavailable required authenticator cannot gain defense or ordinary hurt",
+          "passed": true
+        },
+        {
+          "label": "rejected identity is silent and leaves the actor untouched",
+          "passed": true
+        }
+      ],
+      "checks": 2,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 5
+      },
+      "name": "identified descriptor rejection removed_source",
+      "recorded_physics_frames": 5
+    },
+    {
+      "assertions": [
+        {
+          "label": "malformed or unavailable required authenticator cannot gain defense or ordinary hurt",
+          "passed": true
+        },
+        {
+          "label": "rejected identity is silent and leaves the actor untouched",
+          "passed": true
+        }
+      ],
+      "checks": 2,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 5
+      },
+      "name": "identified descriptor rejection queued_source",
+      "recorded_physics_frames": 5
+    },
+    {
+      "assertions": [
+        {
+          "label": "malformed or unavailable required authenticator cannot gain defense or ordinary hurt",
+          "passed": true
+        },
+        {
+          "label": "rejected identity is silent and leaves the actor untouched",
+          "passed": true
+        }
+      ],
+      "checks": 2,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 5
+      },
+      "name": "identified descriptor rejection fractional_id",
+      "recorded_physics_frames": 5
+    },
+    {
+      "assertions": [
+        {
+          "label": "malformed or unavailable required authenticator cannot gain defense or ordinary hurt",
+          "passed": true
+        },
+        {
+          "label": "rejected identity is silent and leaves the actor untouched",
+          "passed": true
+        }
+      ],
+      "checks": 2,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 5
+      },
+      "name": "identified descriptor rejection negative_id",
+      "recorded_physics_frames": 5
+    },
+    {
+      "assertions": [
+        {
+          "label": "synchronous replacement retires the old shield owner at the selected callback boundary",
+          "passed": true
+        },
+        {
+          "label": "stale shield continuation cannot request or confirm an outgoing effect after replacement",
+          "passed": true
+        },
+        {
+          "label": "replacement preserves already-applied pause but prevents later stale shield feedback actual 0.000000 expected 0.000000 ± 0.000000",
+          "passed": true
+        },
+        {
+          "label": "retired attempt remains absent over subsequent callbacks",
+          "passed": true
+        }
+      ],
+      "checks": 4,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 0,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 6
+      },
+      "name": "shield callback shield_started replaces with reset",
+      "recorded_physics_frames": 6
+    },
+    {
+      "assertions": [
+        {
+          "label": "synchronous replacement retires the old shield owner at the selected callback boundary",
+          "passed": true
+        },
+        {
+          "label": "stale shield continuation cannot request or confirm an outgoing effect after replacement",
+          "passed": true
+        },
+        {
+          "label": "new forced hurt ownership and phase survive shield callback return",
+          "passed": true
+        },
+        {
+          "label": "replacement preserves already-applied pause but prevents later stale shield feedback actual 0.000000 expected 0.000000 ± 0.000000",
+          "passed": true
+        },
+        {
+          "label": "retired attempt remains absent over subsequent callbacks",
+          "passed": true
+        }
+      ],
+      "checks": 5,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 0,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 6
+      },
+      "name": "shield callback shield_started replaces with hurt",
+      "recorded_physics_frames": 6
+    },
+    {
+      "assertions": [
+        {
+          "label": "synchronous replacement retires the old shield owner at the selected callback boundary",
+          "passed": true
+        },
+        {
+          "label": "stale shield continuation cannot request or confirm an outgoing effect after replacement",
+          "passed": true
+        },
+        {
+          "label": "replacement preserves already-applied pause but prevents later stale shield feedback actual 0.000000 expected 0.000000 ± 0.000000",
+          "passed": true
+        },
+        {
+          "label": "retired attempt remains absent over subsequent callbacks",
+          "passed": true
+        }
+      ],
+      "checks": 4,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 0,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 9
+      },
+      "name": "shield callback parry_phase replaces with reset",
+      "recorded_physics_frames": 9
+    },
+    {
+      "assertions": [
+        {
+          "label": "synchronous replacement retires the old shield owner at the selected callback boundary",
+          "passed": true
+        },
+        {
+          "label": "stale shield continuation cannot request or confirm an outgoing effect after replacement",
+          "passed": true
+        },
+        {
+          "label": "new forced hurt ownership and phase survive shield callback return",
+          "passed": true
+        },
+        {
+          "label": "replacement preserves already-applied pause but prevents later stale shield feedback actual 0.000000 expected 0.000000 ± 0.000000",
+          "passed": true
+        },
+        {
+          "label": "retired attempt remains absent over subsequent callbacks",
+          "passed": true
+        }
+      ],
+      "checks": 5,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 0,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 9
+      },
+      "name": "shield callback parry_phase replaces with hurt",
+      "recorded_physics_frames": 9
+    },
+    {
+      "assertions": [
+        {
+          "label": "synchronous replacement retires the old shield owner at the selected callback boundary",
+          "passed": true
+        },
+        {
+          "label": "stale shield continuation cannot request or confirm an outgoing effect after replacement",
+          "passed": true
+        },
+        {
+          "label": "replacement preserves already-applied pause but prevents later stale shield feedback actual 0.000000 expected 0.000000 ± 0.000000",
+          "passed": true
+        },
+        {
+          "label": "retired attempt remains absent over subsequent callbacks",
+          "passed": true
+        }
+      ],
+      "checks": 4,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 9
+      },
+      "name": "shield callback defense_resolved replaces with reset",
+      "recorded_physics_frames": 9
+    },
+    {
+      "assertions": [
+        {
+          "label": "synchronous replacement retires the old shield owner at the selected callback boundary",
+          "passed": true
+        },
+        {
+          "label": "stale shield continuation cannot request or confirm an outgoing effect after replacement",
+          "passed": true
+        },
+        {
+          "label": "new forced hurt ownership and phase survive shield callback return",
+          "passed": true
+        },
+        {
+          "label": "replacement preserves already-applied pause but prevents later stale shield feedback actual 0.000000 expected 0.000000 ± 0.000000",
+          "passed": true
+        },
+        {
+          "label": "retired attempt remains absent over subsequent callbacks",
+          "passed": true
+        }
+      ],
+      "checks": 5,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 9
+      },
+      "name": "shield callback defense_resolved replaces with hurt",
+      "recorded_physics_frames": 9
+    },
+    {
+      "assertions": [
+        {
+          "label": "synchronous replacement retires the old shield owner at the selected callback boundary",
+          "passed": true
+        },
+        {
+          "label": "stale shield continuation cannot request or confirm an outgoing effect after replacement",
+          "passed": true
+        },
+        {
+          "label": "replacement preserves already-applied pause but prevents later stale shield feedback actual 0.000000 expected 0.000000 ± 0.000000",
+          "passed": true
+        },
+        {
+          "label": "retired attempt remains absent over subsequent callbacks",
+          "passed": true
+        }
+      ],
+      "checks": 4,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 9
+      },
+      "name": "shield callback parry_noise replaces with reset",
+      "recorded_physics_frames": 9
+    },
+    {
+      "assertions": [
+        {
+          "label": "synchronous replacement retires the old shield owner at the selected callback boundary",
+          "passed": true
+        },
+        {
+          "label": "stale shield continuation cannot request or confirm an outgoing effect after replacement",
+          "passed": true
+        },
+        {
+          "label": "new forced hurt ownership and phase survive shield callback return",
+          "passed": true
+        },
+        {
+          "label": "replacement preserves already-applied pause but prevents later stale shield feedback actual 0.000000 expected 0.000000 ± 0.000000",
+          "passed": true
+        },
+        {
+          "label": "retired attempt remains absent over subsequent callbacks",
+          "passed": true
+        }
+      ],
+      "checks": 5,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 9
+      },
+      "name": "shield callback parry_noise replaces with hurt",
+      "recorded_physics_frames": 9
+    },
+    {
+      "assertions": [
+        {
+          "label": "synchronous replacement retires the old shield owner at the selected callback boundary",
+          "passed": true
+        },
+        {
+          "label": "stale shield continuation cannot request or confirm an outgoing effect after replacement",
+          "passed": true
+        },
+        {
+          "label": "replacement preserves already-applied pause but prevents later stale shield feedback actual 0.000000 expected 0.000000 ± 0.000000",
+          "passed": true
+        },
+        {
+          "label": "retired attempt remains absent over subsequent callbacks",
+          "passed": true
+        }
+      ],
+      "checks": 4,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 9
+      },
+      "name": "shield callback hitpause_started replaces with reset",
+      "recorded_physics_frames": 9
+    },
+    {
+      "assertions": [
+        {
+          "label": "synchronous replacement retires the old shield owner at the selected callback boundary",
+          "passed": true
+        },
+        {
+          "label": "stale shield continuation cannot request or confirm an outgoing effect after replacement",
+          "passed": true
+        },
+        {
+          "label": "new forced hurt ownership and phase survive shield callback return",
+          "passed": true
+        },
+        {
+          "label": "replacement preserves already-applied pause but prevents later stale shield feedback actual 0.045000 expected 0.045000 ± 0.000000",
+          "passed": true
+        },
+        {
+          "label": "retired attempt remains absent over subsequent callbacks",
+          "passed": true
+        }
+      ],
+      "checks": 5,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 9
+      },
+      "name": "shield callback hitpause_started replaces with hurt",
+      "recorded_physics_frames": 9
+    },
+    {
+      "assertions": [
+        {
+          "label": "new main-action generation keeps its custom phase after structured incoming hurt returns",
+          "passed": true
+        },
+        {
+          "label": "old hurt setup cannot overwrite the accepted replacement impulse actual 0.000000 expected 0.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "old hurt feedback cannot impose a later pause on the replacement actual 0.000000 expected 0.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "new owner survives several real callbacks beyond the synchronous replacement",
+          "passed": true
+        }
+      ],
+      "checks": 4,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 5
+      },
+      "name": "structured hurt callback preserves newer owner action_changed",
+      "recorded_physics_frames": 5
+    },
+    {
+      "assertions": [
+        {
+          "label": "new main-action generation keeps its custom phase after structured incoming hurt returns",
+          "passed": true
+        },
+        {
+          "label": "old hurt setup cannot overwrite the accepted replacement impulse actual 0.000000 expected 0.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "old hurt feedback cannot impose a later pause on the replacement actual 0.000000 expected 0.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "new owner survives several real callbacks beyond the synchronous replacement",
+          "passed": true
+        }
+      ],
+      "checks": 4,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 5
+      },
+      "name": "structured hurt callback preserves newer owner hurt_started",
+      "recorded_physics_frames": 5
+    },
+    {
+      "assertions": [
+        {
+          "label": "new main-action generation keeps its custom phase after structured incoming hurt returns",
+          "passed": true
+        },
+        {
+          "label": "old hurt setup cannot overwrite the accepted replacement impulse actual 0.000000 expected 0.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "old hurt feedback cannot impose a later pause on the replacement actual 0.000000 expected 0.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "new owner survives several real callbacks beyond the synchronous replacement",
+          "passed": true
+        }
+      ],
+      "checks": 4,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 5
+      },
+      "name": "structured hurt callback preserves newer owner hurt_noise",
+      "recorded_physics_frames": 5
+    },
+    {
+      "assertions": [
+        {
+          "label": "wrong target rejected response and duplicate confirmation cannot fabricate an outgoing success",
+          "passed": true
+        },
+        {
+          "label": "effect authority closes when synchronous request emission returns",
+          "passed": true
+        },
+        {
+          "label": "reset cannot revive a retained old effect callback",
+          "passed": true
+        }
+      ],
+      "checks": 3,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "physics_samples": 5
+      },
+      "name": "effect confirmation scope rejects delayed wrong and repeated callbacks",
+      "recorded_physics_frames": 5
+    },
+    {
+      "assertions": [
+        {
+          "label": "real telescoping blade reaches the actor and resolves one full incoming parry",
+          "passed": true
+        },
+        {
+          "label": "physical receiver application and current-scope confirmation remain distinct from incoming defense",
+          "passed": true
+        },
+        {
+          "label": "reachable passive receiver accepts the authored counter damage once actual 3.000000 expected 3.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "completed physical blade cannot duplicate incoming or outgoing effects",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 6,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": true,
+            "attack_key": "210033968705:melee:1",
+            "confirmed": true,
+            "effect": "counter",
+            "reason": "accepted",
+            "receiver_details": {
+              "accepted": true,
+              "contact_position": [
+                70.0,
+                184.091995239258
+              ],
+              "damage_applied": 3.0
+            },
+            "target_id": 210033968705
+          },
+          "tick": 11
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 35,
+        "support_losses": 0
+      },
+      "name": "physical melee counter accepted direction-1",
+      "recorded_physics_frames": 35
+    },
+    {
+      "assertions": [
+        {
+          "label": "real telescoping blade reaches the actor and resolves one full incoming parry",
+          "passed": true
+        },
+        {
+          "label": "physical receiver application and current-scope confirmation remain distinct from incoming defense",
+          "passed": true
+        },
+        {
+          "label": "completed physical blade cannot duplicate incoming or outgoing effects",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 5,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": false,
+            "attack_key": "225234126401:melee:1",
+            "confirmed": false,
+            "effect": "counter",
+            "reason": "counter_receiver_disabled",
+            "receiver_details": {
+              "accepted": false,
+              "reason": "counter_receiver_disabled"
+            },
+            "target_id": 225234126401
+          },
+          "tick": 11
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 35,
+        "support_losses": 0
+      },
+      "name": "physical melee counter receiver_rejects direction-1",
+      "recorded_physics_frames": 35
+    },
+    {
+      "assertions": [
+        {
+          "label": "real telescoping blade reaches the actor and resolves one full incoming parry",
+          "passed": true
+        },
+        {
+          "label": "physical receiver application and current-scope confirmation remain distinct from incoming defense",
+          "passed": true
+        },
+        {
+          "label": "completed physical blade cannot duplicate incoming or outgoing effects",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 5,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": false,
+            "attack_key": "240300066369:melee:1",
+            "confirmed": false,
+            "effect": "counter",
+            "reason": "no_reachable_counter_receiver",
+            "target_id": 240300066369
+          },
+          "tick": 15
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 39,
+        "support_losses": 0
+      },
+      "name": "physical melee counter out_of_counter_range direction-1",
+      "recorded_physics_frames": 39
+    },
+    {
+      "assertions": [
+        {
+          "label": "real telescoping blade reaches the actor and resolves one full incoming parry",
+          "passed": true
+        },
+        {
+          "label": "physical receiver application and current-scope confirmation remain distinct from incoming defense",
+          "passed": true
+        },
+        {
+          "label": "reachable passive receiver accepts the authored counter damage once actual 3.000000 expected 3.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "post-defense turn cannot redirect the already-frozen counter geometry",
+          "passed": true
+        },
+        {
+          "label": "completed physical blade cannot duplicate incoming or outgoing effects",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 7,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": true,
+            "attack_key": "257161168449:melee:1",
+            "confirmed": true,
+            "effect": "counter",
+            "reason": "accepted",
+            "receiver_details": {
+              "accepted": true,
+              "contact_position": [
+                70.0,
+                184.091995239258
+              ],
+              "damage_applied": 3.0
+            },
+            "target_id": 257161168449
+          },
+          "tick": 11
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 35,
+        "support_losses": 0
+      },
+      "name": "physical melee counter turn_after_defense direction-1",
+      "recorded_physics_frames": 35
+    },
+    {
+      "assertions": [
+        {
+          "label": "real telescoping blade reaches the actor and resolves one full incoming parry",
+          "passed": true
+        },
+        {
+          "label": "physical receiver application and current-scope confirmation remain distinct from incoming defense",
+          "passed": true
+        },
+        {
+          "label": "reachable passive receiver accepts the authored counter damage once actual 3.000000 expected 3.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "physical effect already applied before reset is retained honestly without stale confirmation",
+          "passed": true
+        },
+        {
+          "label": "completed physical blade cannot duplicate incoming or outgoing effects",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 7,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": true,
+            "attack_key": "272210331201:melee:1",
+            "confirmed": false,
+            "effect": "counter",
+            "reason": "accepted",
+            "receiver_details": {
+              "accepted": true,
+              "contact_position": [
+                70.0,
+                184.091995239258
+              ],
+              "damage_applied": 3.0
+            },
+            "target_id": 272210331201
+          },
+          "tick": 11
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 35,
+        "support_losses": 1
+      },
+      "name": "physical melee counter reset_after_counter direction-1",
+      "recorded_physics_frames": 35
+    },
+    {
+      "assertions": [
+        {
+          "label": "live swept carrier can be defended independently from its remote owner",
+          "passed": true
+        },
+        {
+          "label": "projectile defense does not fabricate a remote-source melee counter or denied redirect",
+          "passed": true
+        },
+        {
+          "label": "actual carrier switches ownership once",
+          "passed": true
+        },
+        {
+          "label": "actual redirected carrier uses the independent authored outgoing speed actual -420.000000 expected -420.000000 ± 0.001000",
+          "passed": true
+        },
+        {
+          "label": "old projectile identity cannot also damage the defender after resolution",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 7,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": true,
+            "attack_key": "288601671254:projectile:1024",
+            "confirmed": true,
+            "effect": "reflect",
+            "reason": "accepted",
+            "receiver_details": {
+              "accepted": true,
+              "owner_id": 287376934489,
+              "reflection_count": 1,
+              "velocity": [
+                -420.0,
+                0.0
+              ]
+            },
+            "target_id": 288601671254
+          },
+          "tick": 14
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 24,
+        "support_losses": 0
+      },
+      "name": "physical projectile effect reflected direction-1",
+      "recorded_physics_frames": 24
+    },
+    {
+      "assertions": [
+        {
+          "label": "live swept carrier can be defended independently from its remote owner",
+          "passed": true
+        },
+        {
+          "label": "projectile defense does not fabricate a remote-source melee counter or denied redirect",
+          "passed": true
+        },
+        {
+          "label": "actual carrier switches ownership once",
+          "passed": true
+        },
+        {
+          "label": "actual redirected carrier uses the independent authored outgoing speed actual -420.000000 expected -420.000000 ± 0.001000",
+          "passed": true
+        },
+        {
+          "label": "old projectile identity cannot also damage the defender after resolution",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 7,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": true,
+            "attack_key": "298886104666:projectile:1025",
+            "confirmed": true,
+            "effect": "reflect",
+            "reason": "accepted",
+            "receiver_details": {
+              "accepted": true,
+              "owner_id": 297946580549,
+              "reflection_count": 1,
+              "velocity": [
+                -420.0,
+                0.0
+              ]
+            },
+            "target_id": 298886104666
+          },
+          "tick": 15
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 25,
+        "support_losses": 0
+      },
+      "name": "physical projectile effect remote_source_freed direction-1",
+      "recorded_physics_frames": 25
+    },
+    {
+      "assertions": [
+        {
+          "label": "live swept carrier can be defended independently from its remote owner",
+          "passed": true
+        },
+        {
+          "label": "projectile defense does not fabricate a remote-source melee counter or denied redirect",
+          "passed": true
+        },
+        {
+          "label": "old projectile identity cannot also damage the defender after resolution",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 5,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": false,
+            "attack_key": "309589968467:projectile:1026",
+            "confirmed": false,
+            "effect": "reflect",
+            "reason": "carrier_ineligible",
+            "receiver_details": {
+              "accepted": false,
+              "reason": "carrier_ineligible"
+            },
+            "target_id": 309589968467
+          },
+          "tick": 14
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 24,
+        "support_losses": 0
+      },
+      "name": "physical projectile effect carrier_disabled direction-1",
+      "recorded_physics_frames": 24
+    },
+    {
+      "assertions": [
+        {
+          "label": "live swept carrier can be defended independently from its remote owner",
+          "passed": true
+        },
+        {
+          "label": "projectile defense does not fabricate a remote-source melee counter or denied redirect",
+          "passed": true
+        },
+        {
+          "label": "old projectile identity cannot also damage the defender after resolution",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 5,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 24,
+        "support_losses": 0
+      },
+      "name": "physical projectile effect carrier_removed direction-1",
+      "recorded_physics_frames": 24
+    },
+    {
+      "assertions": [
+        {
+          "label": "real terrain sweep retires the projectile before any actor defense or hurt",
+          "passed": true
+        },
+        {
+          "label": "old projectile identity cannot also damage the defender after resolution",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 4,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 0,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 17,
+        "support_losses": 0
+      },
+      "name": "physical projectile effect wall_before_actor direction-1",
+      "recorded_physics_frames": 17
+    },
+    {
+      "assertions": [
+        {
+          "label": "real telescoping blade reaches the actor and resolves one full incoming parry",
+          "passed": true
+        },
+        {
+          "label": "physical receiver application and current-scope confirmation remain distinct from incoming defense",
+          "passed": true
+        },
+        {
+          "label": "reachable passive receiver accepts the authored counter damage once actual 3.000000 expected 3.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "completed physical blade cannot duplicate incoming or outgoing effects",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 6,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": true,
+            "attack_key": "338161567254:melee:1",
+            "confirmed": true,
+            "effect": "counter",
+            "reason": "accepted",
+            "receiver_details": {
+              "accepted": true,
+              "contact_position": [
+                130.0,
+                184.091995239258
+              ],
+              "damage_applied": 3.0
+            },
+            "target_id": 338161567254
+          },
+          "tick": 11
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 35,
+        "support_losses": 0
+      },
+      "name": "physical melee counter accepted direction1",
+      "recorded_physics_frames": 35
+    },
+    {
+      "assertions": [
+        {
+          "label": "real telescoping blade reaches the actor and resolves one full incoming parry",
+          "passed": true
+        },
+        {
+          "label": "physical receiver application and current-scope confirmation remain distinct from incoming defense",
+          "passed": true
+        },
+        {
+          "label": "completed physical blade cannot duplicate incoming or outgoing effects",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 5,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": false,
+            "attack_key": "353210730006:melee:1",
+            "confirmed": false,
+            "effect": "counter",
+            "reason": "counter_receiver_disabled",
+            "receiver_details": {
+              "accepted": false,
+              "reason": "counter_receiver_disabled"
+            },
+            "target_id": 353210730006
+          },
+          "tick": 11
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 35,
+        "support_losses": 0
+      },
+      "name": "physical melee counter receiver_rejects direction1",
+      "recorded_physics_frames": 35
+    },
+    {
+      "assertions": [
+        {
+          "label": "real telescoping blade reaches the actor and resolves one full incoming parry",
+          "passed": true
+        },
+        {
+          "label": "physical receiver application and current-scope confirmation remain distinct from incoming defense",
+          "passed": true
+        },
+        {
+          "label": "completed physical blade cannot duplicate incoming or outgoing effects",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 5,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": false,
+            "attack_key": "368259892758:melee:1",
+            "confirmed": false,
+            "effect": "counter",
+            "reason": "no_reachable_counter_receiver",
+            "target_id": 368259892758
+          },
+          "tick": 15
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 39,
+        "support_losses": 0
+      },
+      "name": "physical melee counter out_of_counter_range direction1",
+      "recorded_physics_frames": 39
+    },
+    {
+      "assertions": [
+        {
+          "label": "real telescoping blade reaches the actor and resolves one full incoming parry",
+          "passed": true
+        },
+        {
+          "label": "physical receiver application and current-scope confirmation remain distinct from incoming defense",
+          "passed": true
+        },
+        {
+          "label": "reachable passive receiver accepts the authored counter damage once actual 3.000000 expected 3.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "post-defense turn cannot redirect the already-frozen counter geometry",
+          "passed": true
+        },
+        {
+          "label": "completed physical blade cannot duplicate incoming or outgoing effects",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 7,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": true,
+            "attack_key": "385120994838:melee:1",
+            "confirmed": true,
+            "effect": "counter",
+            "reason": "accepted",
+            "receiver_details": {
+              "accepted": true,
+              "contact_position": [
+                130.0,
+                184.091995239258
+              ],
+              "damage_applied": 3.0
+            },
+            "target_id": 385120994838
+          },
+          "tick": 11
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 35,
+        "support_losses": 0
+      },
+      "name": "physical melee counter turn_after_defense direction1",
+      "recorded_physics_frames": 35
+    },
+    {
+      "assertions": [
+        {
+          "label": "real telescoping blade reaches the actor and resolves one full incoming parry",
+          "passed": true
+        },
+        {
+          "label": "physical receiver application and current-scope confirmation remain distinct from incoming defense",
+          "passed": true
+        },
+        {
+          "label": "reachable passive receiver accepts the authored counter damage once actual 3.000000 expected 3.000000 ± 0.000001",
+          "passed": true
+        },
+        {
+          "label": "physical effect already applied before reset is retained honestly without stale confirmation",
+          "passed": true
+        },
+        {
+          "label": "completed physical blade cannot duplicate incoming or outgoing effects",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 7,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": true,
+            "attack_key": "400170157590:melee:1",
+            "confirmed": false,
+            "effect": "counter",
+            "reason": "accepted",
+            "receiver_details": {
+              "accepted": true,
+              "contact_position": [
+                130.0,
+                184.091995239258
+              ],
+              "damage_applied": 3.0
+            },
+            "target_id": 400170157590
+          },
+          "tick": 11
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 35,
+        "support_losses": 1
+      },
+      "name": "physical melee counter reset_after_counter direction1",
+      "recorded_physics_frames": 35
+    },
+    {
+      "assertions": [
+        {
+          "label": "live swept carrier can be defended independently from its remote owner",
+          "passed": true
+        },
+        {
+          "label": "projectile defense does not fabricate a remote-source melee counter or denied redirect",
+          "passed": true
+        },
+        {
+          "label": "actual carrier switches ownership once",
+          "passed": true
+        },
+        {
+          "label": "actual redirected carrier uses the independent authored outgoing speed actual 420.000000 expected 420.000000 ± 0.001000",
+          "passed": true
+        },
+        {
+          "label": "old projectile identity cannot also damage the defender after resolution",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 7,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": true,
+            "attack_key": "416276285023:projectile:1029",
+            "confirmed": true,
+            "effect": "reflect",
+            "reason": "accepted",
+            "receiver_details": {
+              "accepted": true,
+              "owner_id": 415336760904,
+              "reflection_count": 1,
+              "velocity": [
+                420.0,
+                0.0
+              ]
+            },
+            "target_id": 416276285023
+          },
+          "tick": 14
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 24,
+        "support_losses": 0
+      },
+      "name": "physical projectile effect reflected direction1",
+      "recorded_physics_frames": 24
+    },
+    {
+      "assertions": [
+        {
+          "label": "live swept carrier can be defended independently from its remote owner",
+          "passed": true
+        },
+        {
+          "label": "projectile defense does not fabricate a remote-source melee counter or denied redirect",
+          "passed": true
+        },
+        {
+          "label": "actual carrier switches ownership once",
+          "passed": true
+        },
+        {
+          "label": "actual redirected carrier uses the independent authored outgoing speed actual 420.000000 expected 420.000000 ± 0.001000",
+          "passed": true
+        },
+        {
+          "label": "old projectile identity cannot also damage the defender after resolution",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 7,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": true,
+            "attack_key": "426560718426:projectile:1030",
+            "confirmed": true,
+            "effect": "reflect",
+            "reason": "accepted",
+            "receiver_details": {
+              "accepted": true,
+              "owner_id": 425621194334,
+              "reflection_count": 1,
+              "velocity": [
+                420.0,
+                0.0
+              ]
+            },
+            "target_id": 426560718426
+          },
+          "tick": 15
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 25,
+        "support_losses": 0
+      },
+      "name": "physical projectile effect remote_source_freed direction1",
+      "recorded_physics_frames": 25
+    },
+    {
+      "assertions": [
+        {
+          "label": "live swept carrier can be defended independently from its remote owner",
+          "passed": true
+        },
+        {
+          "label": "projectile defense does not fabricate a remote-source melee counter or denied redirect",
+          "passed": true
+        },
+        {
+          "label": "old projectile identity cannot also damage the defender after resolution",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 5,
+      "effect_reports": [
+        {
+          "report": {
+            "applied": false,
+            "attack_key": "437264582209:projectile:1031",
+            "confirmed": false,
+            "effect": "reflect",
+            "reason": "carrier_ineligible",
+            "receiver_details": {
+              "accepted": false,
+              "reason": "carrier_ineligible"
+            },
+            "target_id": 437264582209
+          },
+          "tick": 14
+        }
+      ],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 24,
+        "support_losses": 0
+      },
+      "name": "physical projectile effect carrier_disabled direction1",
+      "recorded_physics_frames": 24
+    },
+    {
+      "assertions": [
+        {
+          "label": "live swept carrier can be defended independently from its remote owner",
+          "passed": true
+        },
+        {
+          "label": "projectile defense does not fabricate a remote-source melee counter or denied redirect",
+          "passed": true
+        },
+        {
+          "label": "old projectile identity cannot also damage the defender after resolution",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 5,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 1,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 24,
+        "support_losses": 0
+      },
+      "name": "physical projectile effect carrier_removed direction1",
+      "recorded_physics_frames": 24
+    },
+    {
+      "assertions": [
+        {
+          "label": "real terrain sweep retires the projectile before any actor defense or hurt",
+          "passed": true
+        },
+        {
+          "label": "old projectile identity cannot also damage the defender after resolution",
+          "passed": true
+        },
+        {
+          "label": "independent full-body terrain and rectangle clearance stays within the unchanged collision skin",
+          "passed": true
+        },
+        {
+          "label": "supported segmentation stays within its finite per-callback work budget",
+          "passed": true
+        }
+      ],
+      "checks": 4,
+      "effect_reports": [],
+      "failures": 0,
+      "incoming_contacts": 0,
+      "measurements": {
+        "callback_deltas": [
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333,
+          0.00833333333333333
+        ],
+        "engine_gaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "maximum_rectangle_depth": 0.0,
+        "maximum_segments": 0,
+        "minimum_clearance": null,
+        "physics_samples": 17,
+        "support_losses": 0
+      },
+      "name": "physical projectile effect wall_before_actor direction1",
+      "recorded_physics_frames": 17
+    }
+  ],
+  "source_hashes": {
+    "res://combat_pc/components/climbable.gd": "4ee5a79021c365598cb3c758f628a838571c2ad3c9a51fc7cedb4a418fc7b68e",
+    "res://combat_pc/components/climbable.tscn": "f272bec5dd84d5fd632dbdaf47dca35ee7a496ca0f0dbe0be2ca84992eaae928",
+    "res://combat_pc/components/contact_adapter.gd": "8b1bb344c195c2bbb4247e4213bff300fb96b0e894aaadbe797a3b786752f97a",
+    "res://combat_pc/components/health_component.gd": "a24a01f6497ffbda15e510134c1a5fd613fb060f2f0b188621fb5021603a5dc3",
+    "res://combat_pc/components/health_component.tscn": "ed2aaa454a45227adb939a5b0778001ae5ce2dd765ec2a61e1bdcda47ea60947",
+    "res://combat_pc/components/shield_contact_adapter.gd": "edae8a74912a1b5f9515510fd62bffd942f7b9e2dcebab981123a57a22060b7f",
+    "res://combat_pc/fixtures/guard_melee_fixture.gd": "c412d1aa3875281991230cf5a37ea4ef20147a599429b6363988d1e847f3ef69",
+    "res://combat_pc/fixtures/guard_projectile.gd": "81a24827896915710684fd61ddd180a3f9a3b6ce3fd8cfa487b3743c112d0cca",
+    "res://combat_pc/fixtures/slope_course.gd": "57f09c50975079fe1945fd785701a81cdcae54eb375e2bd608174c879dac0123",
+    "res://combat_pc/fixtures/slope_course.tscn": "6dd06d3496ed02321dc6b6f58836bb32179e470dba1626acc3e019e12c7082cd",
+    "res://combat_pc/player.gd": "6cd582c819d5297096205754d30d7c7bbc25021822390117edc71378ecbe43ea",
+    "res://combat_pc/player.tscn": "66cdd188fbb7f495eb21399616ed14306283956306aa21384da5bdeb9bf59e06",
+    "res://combat_pc/resources/combat_profile.gd": "e3a35c3c0774f4f9f1bd2fa1587d8b37523daba45c39d07c42afd1297280a81f",
+    "res://combat_pc/resources/combat_profile.tres": "38cacdc87b1d75a6ec6c9d472ce3e11d5d90ef4b138440f1236b37dd7a5c957c",
+    "res://combat_pc/resources/movement_profile.gd": "e97b21c8ce11c04aa3451a265ea9567312f43fa47832eb6873686c9900dfdbb5",
+    "res://combat_pc/resources/movement_profile.tres": "507bc8fa5deccd23646bcf3d532758aeeca084c868989c6328fb060f587155e6",
+    "res://combat_pc/resources/shield_profile.gd": "81b1227af14124ee2b836d0a6bef9271bb0a2dfb84e2902756416e455d109d16",
+    "res://combat_pc/resources/shield_profile.tres": "66520bcd5d2f083e2b2723a6d5a2f3b1751372fb638621a794fbb23c25854e78",
+    "res://combat_pc/tests/shield_regression.gd": "575918904e7f52006f4eff0f42bd1805e6579d2021dacb5b3c15d8bda0d7261a",
+    "res://combat_pc/tests/soft_slope_probe_player.gd": "e2ba5ad8d442ada025ba463055daa90636d89368e982943751a296bc2ca633d0",
+    "res://combat_pc/tests/soft_slope_regression.gd": "f9c574437ffe396d22e9ad0b5f83fb83cd768db2e28b3e8232055039237708d1"
+  },
+  "suite": "existing shield compatibility"
+}

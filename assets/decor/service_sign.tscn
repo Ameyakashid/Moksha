@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/decor/service_sign.tres" id="1_art"]
+
+[node name="ServiceSign" type="Node2D"]
+metadata/art_only = true
+metadata/nominal_size = Vector2(64, 32)
+metadata/origin_kind = "bottom_center"
+metadata/source_pivot = Vector2(142.0, 141)
+
+[node name="Art" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-33.41176471, -33.42222222)
+scale = Vector2(0.23529412, 0.23703704)
+texture = ExtResource("1_art")
+centered = false

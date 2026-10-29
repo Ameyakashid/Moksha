@@ -1,0 +1,9 @@
+extends "res://simulation/components/shared_projectile.gd"
+var after_claim_callback: Callable
+func contact_source_is_current(packet: Dictionary) -> bool:
+	var current := super.contact_source_is_current(packet)
+	if current and bool(_delivery.get("claimed",false)) and after_claim_callback.is_valid():
+		var callback := after_claim_callback
+		after_claim_callback = Callable()
+		callback.call(packet)
+	return current

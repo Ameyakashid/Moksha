@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/props/utility_cabinet.tres" id="1_art"]
+
+[node name="UtilityCabinet" type="Node2D"]
+metadata/art_only = true
+metadata/nominal_size = Vector2(26, 48)
+metadata/origin_kind = "bottom_center"
+metadata/source_pivot = Vector2(88.0, 319)
+
+[node name="Art" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-13.95121951, -48.92012780)
+scale = Vector2(0.15853659, 0.15335463)
+texture = ExtResource("1_art")
+centered = false

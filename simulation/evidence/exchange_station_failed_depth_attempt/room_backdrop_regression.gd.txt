@@ -1,0 +1,93 @@
+extends SceneTree
+## Actual scene/lifecycle checks. Pixel evidence belongs to the native harness.
+const View = preload("res://demo/views/room_backdrop.tscn")
+const Profile = preload("res://demo/views/room_backdrop_profile.gd")
+const Support = preload("res://simulation/tests/room_backdrop_support.gd")
+var checks: Array[String] = []
+var failures: Array[String] = []
+var hz := 60
+func _initialize() -> void:
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--hz="): hz = int(arg.get_slice("=", 1))
+	Engine.physics_ticks_per_second = hz
+	_run.call_deferred()
+func check(ok: bool, label: String) -> void:
+	checks.append(label)
+	if not ok: failures.append(label); push_error("FAIL " + label)
+func _run() -> void:
+	var legacy = Support.legacy_room_script()
+	var current = preload("res://demo/components/mission_room.gd")
+	paused = true
+	for data in preload("res://demo/mission_data.gd").sectors():
+		var a = legacy.new(); var b = current.new()
+		root.add_child(a); root.add_child(b)
+		a.build(data); b.build(data)
+		await process_frame
+		if data.has("freight"):
+			check(is_instance_valid(a.freight_cradle.cargo) and is_instance_valid(b.freight_cradle.cargo), data.title + " deferred designated cargo exists before topology comparison")
+		check(Support.topology(a, []) == Support.topology(b, []), data.title + " exact body/shape/layer/mask/one-way topology")
+		check(Support.contours(a) == Support.contours(b), data.title + " exact physical sonar contours")
+		check(b.backdrop != null and b.backdrop.get_script().resource_path == "res://demo/views/room_backdrop.gd", data.title + " actual production uses reusable view")
+		check(b.get_script().get_base_script().resource_path == "res://simulation/components/boundary_scope.gd" and b.get_node("BoundaryHazard").position.y == 420.0, data.title + " world-scope and hazard unchanged")
+		check(b.backdrop.show_behind_parent and b.backdrop.z_index == 0 and b.backdrop.z_as_relative and not b.backdrop.top_level, data.title + " original canvas order")
+		check(b.backdrop.profile.visual_seed == 0 and not b.backdrop.automatic_animation, data.title + " canonical seed and single external clock")
+		b._process(0.375)
+		check(b.time == b.backdrop.animation_time and b.time == 0.375, data.title + " room clock explicitly forwarded")
+		b.hide(); check(not b.backdrop.is_visible_in_tree(), data.title + " parent hidden view hidden")
+		b.show(); check(b.backdrop.is_visible_in_tree(), data.title + " parent visible view visible")
+		var before := Support.topology(b, [])
+		b.backdrop.free()
+		check(Support.topology(b, []) == before, data.title + " removing appearance leaves physics intact")
+		a.free(); b.free()
+	var holder := Node2D.new(); holder.process_mode = Node.PROCESS_MODE_PAUSABLE; root.add_child(holder)
+	var one = View.instantiate(); var two = View.instantiate()
+	holder.add_child(one); holder.add_child(two)
+	check(one.profile != two.profile, "scene instances own separate local Resource profiles")
+	one.profile.room_bounds = Rect2(24, -20, 900, 440); one.profile.visual_seed = 19
+	check(two.profile.visual_seed == 0 and two.profile.room_bounds == Rect2(0,-100,700,400), "configuration mutation isolated")
+	one.automatic_animation = false; two.automatic_animation = false
+	one.set_animation_time(7.125); two.set_animation_time(0.5); one.set_animation_time(0.0)
+	check(one.animation_time == 0.0 and two.animation_time == 0.5, "absolute time can rewind independently")
+	one.set_animation_time(NAN); one.set_animation_time(INF)
+	check(one.animation_time == 0.0, "nonfinite time rejected")
+	two.profile = one.profile
+	one.set_animation_time(3.0)
+	check(two.animation_time == 0.5, "intentionally shared immutable config shares no clock")
+	holder.position = Vector2(310,120); holder.rotation = 0.2; holder.scale = Vector2(0.6,0.8)
+	one.position = Vector2(35,-11); one.rotation = -0.35; one.scale = Vector2(1.2,0.7)
+	check(one.global_transform == holder.global_transform * one.transform and Support.topology(one, []).is_empty(), "nested transformed view remains independent and nonphysical")
+	one.profile = Profile.new(); one.profile.room_bounds = Rect2(0,0,0,20)
+	check(not one.profile.has_valid_bounds(), "zero width invalid instead of dividing by zero")
+	one.profile.room_bounds = Rect2(Vector2(INF,0),Vector2(700,400))
+	check(not one.profile.has_valid_bounds(), "nonfinite bounds invalid")
+	one.profile = Profile.new(); one.automatic_animation = true
+	var frozen: float = one.animation_time
+	for i in range(3): await process_frame
+	check(one.animation_time == frozen, "automatic view inherits global pause")
+	paused = false
+	for i in range(3): await process_frame
+	check(one.animation_time > frozen, "standalone automatic clock advances through real process callbacks")
+	holder.process_mode = Node.PROCESS_MODE_DISABLED
+	frozen = one.animation_time
+	for i in range(3): await process_frame
+	check(one.animation_time == frozen, "automatic view inherits disabled parent processing")
+	holder.process_mode = Node.PROCESS_MODE_PAUSABLE
+	await process_frame; await process_frame
+	check(one.animation_time > frozen and one.animation_time-frozen < 1.0, "resume advances without paused-time catch-up")
+	holder.free()
+	var mission = preload("res://demo/mission.tscn").instantiate(); mission.save_enabled = false; root.add_child(mission)
+	mission.start_new(true); mission.input_override = {}
+	for i in range(3): await process_frame
+	check(mission.room.backdrop.animation_time == mission.room.time, "actual mission keeps exact view/room clock")
+	paused = true; frozen = mission.room.time
+	for i in range(3): await process_frame
+	check(mission.room.time == frozen and mission.room.backdrop.animation_time == frozen, "actual mission pause freezes both clocks")
+	paused = false; mission.load_sector(1)
+	check(mission.room.time == 0.0 and mission.room.backdrop.animation_time == 0.0, "actual sector replacement starts independent zero clock")
+	mission.load_sector(1)
+	check(mission.room.backdrop.animation_time == 0.0, "actual same-room retry rebuilds view clock")
+	mission.free(); paused = false
+	var report := {"hz":hz,"checks":checks,"failures":failures,"baseline_sha256":Support.BASELINE_SHA,"scope":"Headless actual scene, physics-topology and process lifecycle checks; direct configuration/snapshot probes are labelled. No rendered appearance claim."}
+	FileAccess.open("res://simulation/evidence/room_backdrop_%d.json" % hz, FileAccess.WRITE).store_string(JSON.stringify(report,"\t"))
+	print("ROOM BACKDROP ", hz, " checks=", checks.size(), " failures=", failures.size())
+	quit(0 if failures.is_empty() else 1)

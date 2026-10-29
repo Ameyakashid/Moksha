@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/test_surface.tscn" id="1"]
+[node name="DropStack" type="Node2D"]
+[node name="Upper" parent="." instance=ExtResource("1")]
+size = Vector2(104,6)
+one_way = true
+label = "DROP / UPPER"
+[node name="Lower" parent="." instance=ExtResource("1")]
+position = Vector2(0,44)
+size = Vector2(104,6)
+one_way = true
+label = "DROP / LOWER"
+[node name="SolidSide" parent="." instance=ExtResource("1")]
+position = Vector2(104,-30)
+size = Vector2(4,148)
+label = "SOLID"

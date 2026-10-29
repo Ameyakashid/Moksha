@@ -1,0 +1,5 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="PackedScene" path="res://main.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/levels/arcology_one.tscn" id="2"]
+[node name="MokshaArcology" instance=ExtResource("1")]
+starting_level = ExtResource("2")

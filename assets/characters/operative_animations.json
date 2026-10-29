@@ -1,0 +1,532 @@
+{
+  "version": 1,
+  "name": "operative",
+  "sheet": "res://assets/characters/operative_sheet.png",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "original_source": "art_sources/characters/operative_generated_v2.png",
+  "source_dimensions": [
+    1536,
+    1024
+  ],
+  "lossless_outer_border_crop": 0,
+  "source_sha256": "b2d79d5d76e074ad16eb5f98a059c6c9a3deeaa6702f424eb8c377a1192d2cd8",
+  "sheet_sha256": "b2d79d5d76e074ad16eb5f98a059c6c9a3deeaa6702f424eb8c377a1192d2cd8",
+  "source_mode": "Built-in image_gen; original RGBA pixels preserved; no alpha repainting",
+  "sprite_frames": "res://assets/characters/operative_frames.tres",
+  "art_scene": "res://assets/characters/operative_art.tscn",
+  "facing": "right",
+  "virtual_canvas": [
+    640,
+    384
+  ],
+  "foot_origin": [
+    320,
+    352
+  ],
+  "animated_sprite": {
+    "centered": false,
+    "offset": [
+      -320,
+      -352
+    ],
+    "scale": [
+      0.165,
+      0.165
+    ],
+    "texture_filter": "nearest"
+  },
+  "unique_source_drawing_count": 12,
+  "visually_distinct_pose_count": 11,
+  "near_duplicate_pose_pairs": [
+    [
+      0,
+      1
+    ]
+  ],
+  "reused_pose_alias_count": 0,
+  "pose_count_note": "Twelve separately generated drawings; idle A/B are near-identical silhouettes, so only eleven materially distinct poses are claimed.",
+  "animation_frame_reuse": {},
+  "frames": [
+    {
+      "index": 0,
+      "label": "idle_a",
+      "source_box": [
+        141,
+        19,
+        257,
+        326
+      ],
+      "region": [
+        138,
+        16,
+        122,
+        313
+      ],
+      "sheet_pivot": [
+        197,
+        324
+      ],
+      "original_source_pivot": [
+        197,
+        324
+      ],
+      "margin": [
+        261,
+        44,
+        518,
+        71
+      ],
+      "region_rgba_sha256": "9eb13e4818591e426d6a4f07d8aba142660f734928df9c36e4a18c65dbb49db2",
+      "pose_kind": "separately_generated_drawing",
+      "alias_of": null
+    },
+    {
+      "index": 1,
+      "label": "idle_b",
+      "source_box": [
+        522,
+        20,
+        640,
+        326
+      ],
+      "region": [
+        519,
+        17,
+        124,
+        312
+      ],
+      "sheet_pivot": [
+        580,
+        324
+      ],
+      "original_source_pivot": [
+        580,
+        324
+      ],
+      "margin": [
+        259,
+        45,
+        516,
+        72
+      ],
+      "region_rgba_sha256": "da75eaa3fc956fab772191aca247982bf9a055823baf78cd5d6d207f6d0ffdcd",
+      "pose_kind": "separately_generated_drawing",
+      "alias_of": null
+    },
+    {
+      "index": 2,
+      "label": "run_contact_a",
+      "source_box": [
+        821,
+        38,
+        1087,
+        326
+      ],
+      "region": [
+        818,
+        35,
+        272,
+        294
+      ],
+      "sheet_pivot": [
+        953,
+        326
+      ],
+      "original_source_pivot": [
+        953,
+        326
+      ],
+      "margin": [
+        185,
+        61,
+        368,
+        90
+      ],
+      "region_rgba_sha256": "a649c4d37a3ad9851e188be61b35ccae518e4187e35db62158e2603f4c3d5c4d",
+      "pose_kind": "separately_generated_drawing",
+      "alias_of": null
+    },
+    {
+      "index": 3,
+      "label": "run_down_a",
+      "source_box": [
+        1225,
+        40,
+        1405,
+        330
+      ],
+      "region": [
+        1222,
+        37,
+        186,
+        296
+      ],
+      "sheet_pivot": [
+        1329,
+        326
+      ],
+      "original_source_pivot": [
+        1329,
+        326
+      ],
+      "margin": [
+        213,
+        63,
+        454,
+        88
+      ],
+      "region_rgba_sha256": "d271702a238d3e6fb6ee1bca368bc1966f2b18f4cd81ecb9157bc7753ec44b49",
+      "pose_kind": "separately_generated_drawing",
+      "alias_of": null
+    },
+    {
+      "index": 4,
+      "label": "run_passing_a",
+      "source_box": [
+        112,
+        369,
+        303,
+        670
+      ],
+      "region": [
+        109,
+        366,
+        197,
+        307
+      ],
+      "sheet_pivot": [
+        198,
+        667
+      ],
+      "original_source_pivot": [
+        198,
+        667
+      ],
+      "margin": [
+        231,
+        51,
+        443,
+        77
+      ],
+      "region_rgba_sha256": "76c8f099bd30e0170c494018379dc27bcde6fac6a7e466375dc759c42c82604d",
+      "pose_kind": "separately_generated_drawing",
+      "alias_of": null
+    },
+    {
+      "index": 5,
+      "label": "run_contact_b",
+      "source_box": [
+        447,
+        369,
+        717,
+        668
+      ],
+      "region": [
+        444,
+        366,
+        276,
+        305
+      ],
+      "sheet_pivot": [
+        586,
+        664
+      ],
+      "original_source_pivot": [
+        586,
+        664
+      ],
+      "margin": [
+        178,
+        54,
+        364,
+        79
+      ],
+      "region_rgba_sha256": "b5d4f22705ab458c111773a37293a5fe05640ad4b39f99115b8d68875dbff9c7",
+      "pose_kind": "separately_generated_drawing",
+      "alias_of": null
+    },
+    {
+      "index": 6,
+      "label": "run_down_b",
+      "source_box": [
+        854,
+        376,
+        1023,
+        670
+      ],
+      "region": [
+        851,
+        373,
+        175,
+        300
+      ],
+      "sheet_pivot": [
+        944,
+        667
+      ],
+      "original_source_pivot": [
+        944,
+        667
+      ],
+      "margin": [
+        227,
+        58,
+        465,
+        84
+      ],
+      "region_rgba_sha256": "2048061ebb3380de58880cbfecc94e5165ebb2d99d8d292a05715f5b57332513",
+      "pose_kind": "separately_generated_drawing",
+      "alias_of": null
+    },
+    {
+      "index": 7,
+      "label": "run_passing_b",
+      "source_box": [
+        1234,
+        368,
+        1431,
+        669
+      ],
+      "region": [
+        1231,
+        365,
+        203,
+        307
+      ],
+      "sheet_pivot": [
+        1335,
+        667
+      ],
+      "original_source_pivot": [
+        1335,
+        667
+      ],
+      "margin": [
+        216,
+        50,
+        437,
+        77
+      ],
+      "region_rgba_sha256": "db97ca01f6cd56b4c656f2bc33dbb220153c841f6b2f57fe60478a0b8eabc52c",
+      "pose_kind": "separately_generated_drawing",
+      "alias_of": null
+    },
+    {
+      "index": 8,
+      "label": "jump_rise",
+      "source_box": [
+        84,
+        684,
+        313,
+        988
+      ],
+      "region": [
+        81,
+        681,
+        235,
+        310
+      ],
+      "sheet_pivot": [
+        200,
+        986
+      ],
+      "original_source_pivot": [
+        200,
+        986
+      ],
+      "margin": [
+        201,
+        47,
+        405,
+        74
+      ],
+      "region_rgba_sha256": "6a7ff80c0491d4f5cf529f57e62572a8f99614850cb0262f93dc1d1eed66a810",
+      "pose_kind": "separately_generated_drawing",
+      "alias_of": null
+    },
+    {
+      "index": 9,
+      "label": "fall",
+      "source_box": [
+        483,
+        701,
+        695,
+        970
+      ],
+      "region": [
+        480,
+        698,
+        218,
+        275
+      ],
+      "sheet_pivot": [
+        591,
+        968
+      ],
+      "original_source_pivot": [
+        591,
+        968
+      ],
+      "margin": [
+        209,
+        82,
+        422,
+        109
+      ],
+      "region_rgba_sha256": "229ec6df9e81ab1e3705651778645a088730783d89a86fc2a3d065fb05917a5a",
+      "pose_kind": "separately_generated_drawing",
+      "alias_of": null
+    },
+    {
+      "index": 10,
+      "label": "hurt",
+      "source_box": [
+        857,
+        733,
+        1029,
+        999
+      ],
+      "region": [
+        854,
+        730,
+        178,
+        272
+      ],
+      "sheet_pivot": [
+        944,
+        997
+      ],
+      "original_source_pivot": [
+        944,
+        997
+      ],
+      "margin": [
+        230,
+        85,
+        462,
+        112
+      ],
+      "region_rgba_sha256": "6c9dcee546f7dc9ae028bc4802cea514cc7f0a573f215f201d6f701c92e2d6c8",
+      "pose_kind": "separately_generated_drawing",
+      "alias_of": null
+    },
+    {
+      "index": 11,
+      "label": "ready",
+      "source_box": [
+        1208,
+        718,
+        1442,
+        998
+      ],
+      "region": [
+        1205,
+        715,
+        240,
+        286
+      ],
+      "sheet_pivot": [
+        1327,
+        997
+      ],
+      "original_source_pivot": [
+        1327,
+        997
+      ],
+      "margin": [
+        198,
+        70,
+        400,
+        98
+      ],
+      "region_rgba_sha256": "baa9dca114ea3dbecbc5b81661857d8364d291931199d240365546022015a9e1",
+      "pose_kind": "separately_generated_drawing",
+      "alias_of": null
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 2,
+      "loop": true,
+      "durations": [
+        1.0,
+        1.0
+      ]
+    },
+    "run": {
+      "frames": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "fps": 10,
+      "loop": true,
+      "durations": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "jump": {
+      "frames": [
+        8
+      ],
+      "fps": 1,
+      "loop": false,
+      "durations": [
+        1.0
+      ]
+    },
+    "fall": {
+      "frames": [
+        9
+      ],
+      "fps": 1,
+      "loop": false,
+      "durations": [
+        1.0
+      ]
+    },
+    "hurt": {
+      "frames": [
+        10
+      ],
+      "fps": 1,
+      "loop": false,
+      "durations": [
+        1.0
+      ]
+    },
+    "ready": {
+      "frames": [
+        11
+      ],
+      "fps": 1,
+      "loop": false,
+      "durations": [
+        1.0
+      ]
+    }
+  },
+  "limitations": [
+    "Review checkpoint; generated pixel-art rather than a final hand-authored animation pass.",
+    "Idle drawings are intentionally very similar; do not imply twelve distinct actions.",
+    "Locomotion silhouettes vary but require artist cleanup for fully consistent opposite-leg alternation and minimal foot slip.",
+    "Foot pivot is each pose's lowest solid boot baseline; airborne movement must be applied externally.",
+    "Original alpha includes negligible low-alpha dust/soft edges; no opaque background rectangles.",
+    "No gameplay, collisions, combat hitboxes, powers, brand names, or sense-system decisions are embedded."
+  ]
+}

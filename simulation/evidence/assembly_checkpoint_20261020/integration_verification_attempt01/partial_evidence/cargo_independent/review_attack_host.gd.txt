@@ -1,0 +1,14 @@
+extends "res://demo/components/shared_sentinel.gd"
+## Test observes canonical receiver derivative before preserved host dispatch.
+var before_attack: Callable
+var observing := false
+func receive_attack(payload: Dictionary = {}) -> Dictionary:
+	if before_attack.is_valid() and not observing:
+		observing = true
+		before_attack.call(payload)
+		observing = false
+	return super.receive_attack(payload)
+var legacy_hit_calls := 0
+func take_hit(amount: float, direction: float, from_prop: bool = false) -> void:
+	legacy_hit_calls += 1
+	super.take_hit(amount,direction,from_prop)

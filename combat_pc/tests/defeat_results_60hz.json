@@ -1,0 +1,1623 @@
+{
+  "checks": 187,
+  "engine": "4.6.3-stable (official)",
+  "execution": "Real reusable player and optional Health/DefeatResponse, one driver call per engine physics callback; bounded assertions and measurements",
+  "failures": [],
+  "generated_utc": "2026-10-20T10:16:00",
+  "limitations": [
+    "Headless integration and numeric pose checks; native visual review belongs to parent",
+    "Authored collapse policy and timing; no source-game death-animation parity claim"
+  ],
+  "milestone": 13,
+  "physics_hz": 60,
+  "production_hash_stable_during_run": true,
+  "scenarios": [
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "nonlethal and fully defended outcomes do not acquire defeat",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "health": 80.0,
+        "outcome": "hurt"
+      },
+      "name": "nonlethal hurt",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real input enters held guard",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "nonlethal and fully defended outcomes do not acquire defeat",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "health": 95.0,
+        "outcome": "guarded"
+      },
+      "name": "nonlethal guard",
+      "physics_ticks": 14
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real input reaches open parry window",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "nonlethal and fully defended outcomes do not acquire defeat",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "health": 100.0,
+        "outcome": "parried"
+      },
+      "name": "nonlethal parry",
+      "physics_ticks": 6
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real input reaches roll invulnerability",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "nonlethal and fully defended outcomes do not acquire defeat",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "health": 100.0,
+        "outcome": "evaded"
+      },
+      "name": "nonlethal roll",
+      "physics_ticks": 7
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real swept melee fixture arms",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real swept melee reaches actual actor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "zero Health installs the response-owned terminal action",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defeat retires weapon shield and roll owners",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defeat clears queued input and held attack admission",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one lethal damage receipt produces one policy transition",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "lethal guard chip preserves guarded outcome",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "later identified and legacy hits reject without recoil or extra receipts",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "lethal contact hitpause freezes collapse clock",
+          "details": {
+            "actual": 0.0,
+            "expected": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "all held controls remain locked while recoil settles onto floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "collapse completes without timed revival",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "actual motor telemetry selects settled defeated rendering",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "collapse_progress": 1.0,
+        "contacts": 1,
+        "outcome": "hurt"
+      },
+      "name": "real lethal melee hurt",
+      "physics_ticks": 78
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real input enters held guard",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real swept melee fixture arms",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real swept melee reaches actual actor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "zero Health installs the response-owned terminal action",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defeat retires weapon shield and roll owners",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defeat clears queued input and held attack admission",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one lethal damage receipt produces one policy transition",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "lethal guard chip preserves guarded outcome",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "later identified and legacy hits reject without recoil or extra receipts",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "lethal contact hitpause freezes collapse clock",
+          "details": {
+            "actual": 0.0,
+            "expected": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "all held controls remain locked while recoil settles onto floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "collapse completes without timed revival",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "actual motor telemetry selects settled defeated rendering",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "collapse_progress": 1.0,
+        "contacts": 1,
+        "outcome": "guarded"
+      },
+      "name": "real lethal melee guard",
+      "physics_ticks": 89
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "fixture reaches intended weapon phase",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "lethal legacy hit commits",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "zero Health installs the response-owned terminal action",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defeat retires weapon shield and roll owners",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defeat clears queued input and held attack admission",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "old strike eligibility and delayed confirmations retire",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "held controls cannot start another attack or shield",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "component release cannot replay buttons held across defeat",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "fresh neutral then press works after explicit policy release",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "retire live active",
+      "physics_ticks": 78
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "fixture reaches intended weapon phase",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "fixture contains a genuine queued attack",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "lethal legacy hit commits",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "zero Health installs the response-owned terminal action",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defeat retires weapon shield and roll owners",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defeat clears queued input and held attack admission",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "old strike eligibility and delayed confirmations retire",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "held controls cannot start another attack or shield",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "component release cannot replay buttons held across defeat",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "fresh neutral then press works after explicit policy release",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "retire live queued",
+      "physics_ticks": 80
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "fixture reaches intended weapon phase",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "lethal legacy hit commits",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "zero Health installs the response-owned terminal action",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defeat retires weapon shield and roll owners",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defeat clears queued input and held attack admission",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "old strike eligibility and delayed confirmations retire",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "held controls cannot start another attack or shield",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "component release cannot replay buttons held across defeat",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "fresh neutral then press works after explicit policy release",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "retire live charge",
+      "physics_ticks": 84
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real input enters held guard",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "lethal legacy hit commits",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "zero Health installs the response-owned terminal action",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defeat retires weapon shield and roll owners",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defeat clears queued input and held attack admission",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "old strike eligibility and delayed confirmations retire",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "held controls cannot start another attack or shield",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "component release cannot replay buttons held across defeat",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "fresh neutral then press works after explicit policy release",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "retire live shield",
+      "physics_ticks": 82
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "airborne lethal recoil commits",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "airborne defeat chooses air pose",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defeated body falls and lands through production sweep",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "qualifying high contact cannot replace defeat or tunnel through floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "gravity and existing hurt drag converge to stable terminal body",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "floor_y": 700,
+        "foot_y": 699.97998046875
+      },
+      "name": "defeated high fall does not revive through hard landing",
+      "physics_ticks": 103
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "carrier fixture establishes real support",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "carrier motion cannot advance paused collapse clock",
+          "details": {
+            "actual": 0.5,
+            "expected": 0.5
+          },
+          "passed": true
+        },
+        {
+          "assertion": "settled terminal body retains swept moving-support transport",
+          "details": {
+            "relative_error": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "carrier_travel_x": 30.0,
+        "relative_error": 0.0
+      },
+      "name": "defeated moving support and carrier hitpause",
+      "physics_ticks": 76
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "refilling quantity alone does not revive",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "explicit actor reset releases terminal ownership and restores default health",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "a reset actor can acquire a new defeat episode",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "component release preserves host input and weapon settings",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "health-only and actor reset have separate policies",
+      "physics_ticks": 5
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "component or health lifetime end releases only its gate",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "lifetime detach_response",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "component or health lifetime end releases only its gate",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "lifetime remove_health",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "component or health lifetime end releases only its gate",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "lifetime queue_response",
+      "physics_ticks": 4
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "old retained depleted callable cannot acquire after unbind",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "bind rejects Health belonging to a different actor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "binding current zero Health acquires terminal state",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "foreign owner cannot release or replace an acquired gate",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "matching release permits a new owner",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "stale component cleanup cannot retire replacement ownership",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "replacement owner's actual tree exit releases its own gate",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "Health can rebind to replacement actor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "policy can rebind to replacement actor and current zero store",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "retained callbacks mismatched store and replacement owner",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "depletion-time binding check rejects a store that changed actors",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "Health rebound before depletion invalidates prior response",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "synchronous callback invalidates outer acquisition and stale start signal",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "reset or unbind remains authoritative after callback returns",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "actor reset during acquisition restores scalar health",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "synchronous acquisition callback reset",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "synchronous callback invalidates outer acquisition and stale start signal",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "reset or unbind remains authoritative after callback returns",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "synchronous acquisition callback unbind",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "synchronous callback invalidates outer acquisition and stale start signal",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "new owner survives return through prior acquisition stack",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "synchronous acquisition callback replacement",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "attached inactive response and bare actor have exact movement/combat parity",
+          "details": {
+            "mismatched_ticks": 0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "Health without response retains M12 depletion behavior",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "optional response has no policy before depletion",
+      "physics_ticks": 141
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.0,
+            "slope": -0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.0,
+            "slope": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.0,
+            "slope": 0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.2,
+            "slope": -0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.2,
+            "slope": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.2,
+            "slope": 0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.4,
+            "slope": -0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.4,
+            "slope": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.4,
+            "slope": 0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.65,
+            "slope": -0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.65,
+            "slope": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.65,
+            "slope": 0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.92,
+            "slope": -0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.92,
+            "slope": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 0.92,
+            "slope": 0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 1.0,
+            "slope": -0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 1.0,
+            "slope": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated",
+            "phase": 1.0,
+            "slope": 0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.0,
+            "slope": -0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.0,
+            "slope": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.0,
+            "slope": 0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.2,
+            "slope": -0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.2,
+            "slope": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.2,
+            "slope": 0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.4,
+            "slope": -0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.4,
+            "slope": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.4,
+            "slope": 0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.65,
+            "slope": -0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.65,
+            "slope": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.65,
+            "slope": 0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.92,
+            "slope": -0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.92,
+            "slope": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 0.92,
+            "slope": 0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 1.0,
+            "slope": -0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 1.0,
+            "slope": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "finite passive unarmed collapse sample",
+          "details": {
+            "mode": "defeated_air",
+            "phase": 1.0,
+            "slope": 0.4
+          },
+          "passed": true
+        },
+        {
+          "assertion": "all sampled air and ground collapse bones mirror",
+          "details": {
+            "maximum_error": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "ground feet and knees stay above sampled flat and slope contact planes",
+          "details": {
+            "minimum_clearance": -0.000000238418579101562
+          },
+          "passed": true
+        },
+        {
+          "assertion": "settled head follows horizontal torso for a readable prone silhouette",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "maximum_mirror_error": 0.0,
+        "minimum_floor_clearance": -0.000000238418579101562,
+        "samples": 36
+      },
+      "name": "passive mirrored collapse geometry",
+      "physics_ticks": 0
+    }
+  ],
+  "source_hashes": {
+    "res://combat_pc/components/defeat_response.gd": "5a4d4cfba65e77513e9b8ecd6e6a3eb65d3eb6631ac816b70579f4c885b36742",
+    "res://combat_pc/components/defeat_response.tscn": "c2ad893de7d0db2a1375bb8890f6934a0856853b6a617e076b46b5a40f323691",
+    "res://combat_pc/components/health_component.gd": "a24a01f6497ffbda15e510134c1a5fd613fb060f2f0b188621fb5021603a5dc3",
+    "res://combat_pc/player.gd": "6cd582c819d5297096205754d30d7c7bbc25021822390117edc71378ecbe43ea",
+    "res://combat_pc/player.tscn": "66cdd188fbb7f495eb21399616ed14306283956306aa21384da5bdeb9bf59e06",
+    "res://combat_pc/visuals/defeat_pose.gd": "74427952a134896b729f93e40c2441d03d215c21d3b47bb339859b2a19a5df97",
+    "res://combat_pc/visuals/wireframe.gd": "2ec42a86dd5a30c2132fe7ac3ada521fcb458a3354d8acd92c999992dcfcd319",
+    "res://combat_pc/visuals/wireframe_pose.gd": "0b1cf2f577a051f79cfbfe9c2d2963fc07f8c2537fe6675f1ba2beff6fddc74f"
+  },
+  "total_physics_ticks": 871
+}

@@ -1,0 +1,115 @@
+{
+  "status": "PASS",
+  "frozen_at_utc": "2026-10-19T20:34:54.375647+00:00",
+  "scope": "Ordinary production sentinel shared-controller migration only; other archetype controllers and stock cargo source remain legacy.",
+  "stages": {
+    "foundation": 34,
+    "stock_both_rate_suites": 10,
+    "historical": 19,
+    "full_production_routes": 4,
+    "baseline_migrated_route_comparison": 8
+  },
+  "sentinel_regression_per_rate": {
+    "scenarios": 26,
+    "checks": 111,
+    "hz": [
+      60,
+      120
+    ]
+  },
+  "independent_boundary_per_rate": {
+    "scenarios": 22,
+    "checks": 81,
+    "hz": [
+      60,
+      120
+    ]
+  },
+  "final_routes": [
+    {
+      "hz": 60,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 174.233333333364,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 60,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 163.283333333355,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 161.400000000018,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 150.758333333361,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    }
+  ],
+  "source_files": 518,
+  "sources_match_final_tested_manifest": true,
+  "checked_current_logs": 49,
+  "current_log_errors": 0,
+  "preserved_counter_authority_sha256": {
+    "combat_pc/player.gd": "7a7c7a483f88ac3b55e4e5f8d9498e02acf779a73dc03e48af0303ce1d5c1ca9",
+    "combat_pc/components/contact_adapter.gd": "d6c8af62596d1edaf7412cec1fbeff10127f1a8a07c05ef46c53300e14275f58",
+    "combat_pc/components/shield_contact_adapter.gd": "edae8a74912a1b5f9515510fd62bffd942f7b9e2dcebab981123a57a22060b7f",
+    "simulation/components/shield_counter_receiver.gd": "3bd84ee709de2d6cb3c7bc385fd5d3ad0ad0cff4fb56c7c7322bada356c0ce99",
+    "simulation/components/shield_counter_receiver.tscn": "f3ff91b4b581a999c529360a9749ba1164bb5e91be7c2389d3f1260851d42b38",
+    "simulation/components/incoming_strike_receiver.gd": "071a8fa77f3d831d1210ca4863541b58244bb46548625eddfde691683b90de67",
+    "simulation/actors/shared_actor.tscn": "9097c569b74a267a84e6b986f603afed89e2609a4fcf9c0fa689433cd39e0ca1",
+    "simulation/tests/shield_counter_regression.gd": "9373b632291898b3ebfa522f19919dab54341245097a9dd8a3d875ab54fc4fc8",
+    "simulation/tests/counter_capture_probe.gd": "42d31da541be505f646f31c0415c560ab98901933103012cdd2ba1386126c3eb",
+    "simulation/strike_sandbox.gd": "161434b7c03df62327e58eb7b15ad25f660b7ddb478e7d121a0ac2911ba963e5",
+    "simulation/strike_sandbox.tscn": "5a6fbc62f373311ce51e049e7ea73cc693464e7f9e3c2d507fd5372a8e35cd59"
+  },
+  "immutable_archives_sha256": {
+    "MOKSHA-Simulation-Gym-Foundations-2026-10-19.zip": "891c3f393f440fc626bb1f235890b0807252bcc71a4b5887a61c6a5ef4eeec9d",
+    "MOKSHA-Simulation-Gym-Shared-Counter-2026-10-19.zip": "524820ce4bbf7b3305a8f5f257c2a450587abcddbf433a9da29440ac207e808b",
+    "MOKSHA-Simulation-Gym-Shared-Impact-2026-10-19.zip": "5a18425ce2e83b22af82411f188e99f3733b1190c887e4c73dd6de4877ddc72b",
+    "MOKSHA-Simulation-Gym-Shared-Movement-2026-10-19.zip": "745821c401bcc20619d7bed43dd2a5d13de1b40b82e72522476da55b3e515570",
+    "MOKSHA-Simulation-Gym-Shared-Strike-2026-10-19.zip": "fff9e5423029e449bf41bc6119e28be9f54b3a70d0659e4800f187efedee0d0a",
+    "MOKSHA-The-First-Ascent-Project.zip": "1343e593756c2afc777316fbbca1122f2c6e8ccab9293f7f0e50ed2d38047155",
+    "MOKSHA-The-First-Ascent-v28-Expanded.zip": "153fd2824303354b1f70dea66c7ba91b27bc204da9c16a05f9b1a27a29955937"
+  },
+  "evidence": {
+    "aggregate": "sentinel_final_gates.json",
+    "source_delta": "sentinel_source_delta.json",
+    "independent": "sentinel_independent/REVIEW.md",
+    "planner_review": "sentinel_independent/PLANNER_SUPPLEMENT.md",
+    "baseline_matrix": "sentinel_ladder_diagnosis/matrix-summary.json",
+    "initial_failures": "sentinel_route_initial_failure/README.md",
+    "native": "native_sentinel_review.md",
+    "native_desktop_capture": "native_sentinel_defeat_desktop.jpg"
+  },
+  "native_capture_sha256": "ed899a3154a2e1686220d9fe5cda423a9ec963c0e81b991f4bc778bb6823f358",
+  "limits": [
+    "Native blind/noise causality, full room transitions and timing/parry fairness unproven; audio uses dummy device.",
+    "Original sector2 lower ladder drawing may suggest floor access blocked by unchanged solid terrain; valid blocktop boarding remains.",
+    "Stock prop compatibility is real-contact legacy dispatch, not authenticated shared cargo source parity.",
+    "No physical corpses, other archetype migration, complete acoustic propagation or human-duration validation."
+  ],
+  "owned_execution": "All implementation-owned headless/test commands completed; final aggregate shell returned exit0; both review/diagnosis workers completed.",
+  "handoff": "SENTINEL_HANDOFF.md"
+}

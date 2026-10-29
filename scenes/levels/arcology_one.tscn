@@ -1,0 +1,444 @@
+[gd_scene load_steps=20 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/level.gd" id="level"]
+[ext_resource type="PackedScene" path="res://scenes/environment/platform.tscn" id="platform"]
+[ext_resource type="PackedScene" path="res://scenes/environment/architecture.tscn" id="architecture"]
+[ext_resource type="PackedScene" path="res://scenes/environment/world_sign.tscn" id="sign"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/gate.tscn" id="gate"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/ascent_barrier.tscn" id="barrier"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/sacrifice_station.tscn" id="station"]
+[ext_resource type="PackedScene" path="res://scenes/actors/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/actors/enemy.tscn" id="enemy"]
+[ext_resource type="PackedScene" path="res://scenes/props/crate.tscn" id="crate"]
+[ext_resource type="PackedScene" path="res://scenes/props/barrel.tscn" id="barrel"]
+[ext_resource type="PackedScene" path="res://scenes/props/canister.tscn" id="canister"]
+[ext_resource type="PackedScene" path="res://assets/environment/city_background.tscn" id="citybg"]
+[ext_resource type="PackedScene" path="res://assets/decor/streetlamp.tscn" id="lamp"]
+[ext_resource type="PackedScene" path="res://assets/decor/exposed_pipe.tscn" id="pipe"]
+[ext_resource type="PackedScene" path="res://assets/decor/cable_bundle.tscn" id="cable"]
+[ext_resource type="PackedScene" path="res://assets/decor/service_sign.tscn" id="service"]
+[ext_resource type="PackedScene" path="res://assets/props/utility_cabinet.tscn" id="cabinet"]
+[ext_resource type="PackedScene" path="res://assets/environment/storm_drain.tscn" id="drain"]
+
+[node name="ArcologyOne" type="Node2D"]
+script = ExtResource("level")
+level_title = "ARCOLOGY 01"
+subtitle = "SENSORY EXCHANGE / FIRST ASCENT"
+camera_bounds = Rect2(0, 0, 1200, 1100)
+sensory_required = true
+
+[node name="Background" type="Node2D" parent="."]
+z_index = -30
+
+[node name="ShaftWall1" parent="Background" instance=ExtResource("architecture")]
+position = Vector2(0, 0)
+dimensions = Vector2(380, 1100)
+style = 1
+seed_offset = 4
+z_index = 0
+
+[node name="ShaftWall2" parent="Background" instance=ExtResource("architecture")]
+position = Vector2(386, 0)
+dimensions = Vector2(392, 1100)
+style = 1
+seed_offset = 5
+z_index = 0
+
+[node name="ShaftWall3" parent="Background" instance=ExtResource("architecture")]
+position = Vector2(784, 0)
+dimensions = Vector2(416, 1100)
+style = 1
+seed_offset = 6
+z_index = 0
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="IntakeFloor" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(0, 1000)
+width = 1200
+depth = 100
+art_style = 1
+
+[node name="ShaftCeiling" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(0, 0)
+width = 1200
+depth = 12
+art_style = 1
+
+[node name="WestWall1" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(0, 0)
+width = 16
+depth = 500
+art_style = 1
+
+[node name="WestWall2" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(0, 500)
+width = 16
+depth = 500
+art_style = 1
+
+[node name="WestWall3" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(0, 1000)
+width = 16
+depth = 100
+art_style = 1
+
+[node name="EastWall1" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(1184, 0)
+width = 16
+depth = 500
+art_style = 1
+
+[node name="EastWall2" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(1184, 500)
+width = 16
+depth = 500
+art_style = 1
+
+[node name="EastWall3" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(1184, 1000)
+width = 16
+depth = 100
+art_style = 1
+
+[node name="Ascent01" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(420, 904)
+width = 340
+depth = 20
+art_style = 1
+hazard_edge = false
+one_way_collision = true
+
+[node name="Ascent02" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(810, 808)
+width = 350
+depth = 20
+art_style = 1
+hazard_edge = true
+one_way_collision = true
+
+[node name="Ascent03" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(420, 712)
+width = 340
+depth = 20
+art_style = 1
+hazard_edge = false
+one_way_collision = true
+
+[node name="Ascent04" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(810, 616)
+width = 350
+depth = 20
+art_style = 1
+hazard_edge = true
+one_way_collision = true
+
+[node name="Ascent05" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(420, 520)
+width = 340
+depth = 20
+art_style = 1
+hazard_edge = false
+one_way_collision = true
+
+[node name="Ascent06" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(810, 424)
+width = 350
+depth = 20
+art_style = 1
+hazard_edge = true
+one_way_collision = true
+
+[node name="Ascent07" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(420, 328)
+width = 340
+depth = 20
+art_style = 1
+hazard_edge = false
+one_way_collision = true
+
+[node name="Ascent08" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(810, 232)
+width = 350
+depth = 20
+art_style = 1
+hazard_edge = true
+one_way_collision = true
+
+[node name="ExitLanding" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(420, 136)
+width = 340
+depth = 20
+art_style = 1
+hazard_edge = false
+one_way_collision = true
+
+[node name="ExitReaderPost" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(448, 86)
+width = 16
+depth = 50
+art_style = 2
+
+[node name="ExitJamb" parent="Terrain" instance=ExtResource("platform")]
+position = Vector2(425, 64)
+width = 16
+depth = 72
+art_style = 2
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Player" parent="Actors" instance=ExtResource("player")]
+position = Vector2(112, 1000)
+
+[node name="Enemies" type="Node2D" parent="Actors"]
+
+[node name="Guard01" parent="Actors/Enemies" instance=ExtResource("enemy")]
+position = Vector2(998, 808)
+target_path = NodePath("../../Player")
+
+[node name="Guard02" parent="Actors/Enemies" instance=ExtResource("enemy")]
+position = Vector2(994, 616)
+target_path = NodePath("../../Player")
+
+[node name="Guard03" parent="Actors/Enemies" instance=ExtResource("enemy")]
+position = Vector2(1004, 424)
+target_path = NodePath("../../Player")
+
+[node name="Guard04" parent="Actors/Enemies" instance=ExtResource("enemy")]
+position = Vector2(1000, 232)
+target_path = NodePath("../../Player")
+
+[node name="Props" type="Node2D" parent="Actors"]
+
+[node name="Crate01" parent="Actors/Props" instance=ExtResource("crate")]
+position = Vector2(412, 986)
+
+[node name="Canister02" parent="Actors/Props" instance=ExtResource("canister")]
+position = Vector2(451, 988)
+
+[node name="Barrel03" parent="Actors/Props" instance=ExtResource("barrel")]
+position = Vector2(555, 880)
+
+[node name="Crate04" parent="Actors/Props" instance=ExtResource("crate")]
+position = Vector2(887, 788)
+
+[node name="Canister05" parent="Actors/Props" instance=ExtResource("canister")]
+position = Vector2(939, 790)
+
+[node name="Canister06" parent="Actors/Props" instance=ExtResource("canister")]
+position = Vector2(626, 694)
+
+[node name="Barrel07" parent="Actors/Props" instance=ExtResource("barrel")]
+position = Vector2(900, 592)
+
+[node name="Crate08" parent="Actors/Props" instance=ExtResource("crate")]
+position = Vector2(606, 500)
+
+[node name="Crate09" parent="Actors/Props" instance=ExtResource("crate")]
+position = Vector2(896, 404)
+
+[node name="Canister10" parent="Actors/Props" instance=ExtResource("canister")]
+position = Vector2(672, 310)
+
+[node name="Barrel11" parent="Actors/Props" instance=ExtResource("barrel")]
+position = Vector2(902, 208)
+
+[node name="Crate12" parent="Actors/Props" instance=ExtResource("crate")]
+position = Vector2(660, 116)
+
+[node name="Decor" type="Node2D" parent="."]
+
+[node name="ServicePipe1" parent="Decor" instance=ExtResource("pipe")]
+position = Vector2(64, 939)
+z_index = -3
+
+[node name="ServicePipe2" parent="Decor" instance=ExtResource("pipe")]
+position = Vector2(410, 858)
+z_index = -3
+
+[node name="ServicePipe3" parent="Decor" instance=ExtResource("pipe")]
+position = Vector2(1144, 773)
+z_index = -3
+
+[node name="ServicePipe4" parent="Decor" instance=ExtResource("pipe")]
+position = Vector2(445, 660)
+z_index = -3
+
+[node name="ServicePipe5" parent="Decor" instance=ExtResource("pipe")]
+position = Vector2(1144, 575)
+z_index = -3
+
+[node name="ServicePipe6" parent="Decor" instance=ExtResource("pipe")]
+position = Vector2(445, 469)
+z_index = -3
+
+[node name="ServicePipe7" parent="Decor" instance=ExtResource("pipe")]
+position = Vector2(1144, 376)
+z_index = -3
+
+[node name="ServicePipe8" parent="Decor" instance=ExtResource("pipe")]
+position = Vector2(445, 278)
+z_index = -3
+
+[node name="ServicePipe9" parent="Decor" instance=ExtResource("pipe")]
+position = Vector2(1128, 187)
+z_index = -3
+
+[node name="Cable1" parent="Decor" instance=ExtResource("cable")]
+position = Vector2(211, 884)
+z_index = -3
+
+[node name="Cable2" parent="Decor" instance=ExtResource("cable")]
+position = Vector2(641, 961)
+z_index = -3
+
+[node name="Cable3" parent="Decor" instance=ExtResource("cable")]
+position = Vector2(986, 742)
+z_index = -3
+
+[node name="Cable4" parent="Decor" instance=ExtResource("cable")]
+position = Vector2(615, 565)
+z_index = -3
+
+[node name="Cable5" parent="Decor" instance=ExtResource("cable")]
+position = Vector2(1000, 362)
+z_index = -3
+
+[node name="Cable6" parent="Decor" instance=ExtResource("cable")]
+position = Vector2(617, 183)
+z_index = -3
+
+[node name="ServiceCabinet1" parent="Decor" instance=ExtResource("cabinet")]
+position = Vector2(1085, 1000)
+z_index = -2
+
+[node name="ServiceCabinet2" parent="Decor" instance=ExtResource("cabinet")]
+position = Vector2(1107, 808)
+z_index = -2
+
+[node name="ServiceCabinet3" parent="Decor" instance=ExtResource("cabinet")]
+position = Vector2(467, 712)
+z_index = -2
+
+[node name="ServiceCabinet4" parent="Decor" instance=ExtResource("cabinet")]
+position = Vector2(1105, 616)
+z_index = -2
+
+[node name="ServiceCabinet5" parent="Decor" instance=ExtResource("cabinet")]
+position = Vector2(468, 520)
+z_index = -2
+
+[node name="ServiceCabinet6" parent="Decor" instance=ExtResource("cabinet")]
+position = Vector2(1108, 424)
+z_index = -2
+
+[node name="ServiceCabinet7" parent="Decor" instance=ExtResource("cabinet")]
+position = Vector2(470, 328)
+z_index = -2
+
+[node name="ServiceCabinet8" parent="Decor" instance=ExtResource("cabinet")]
+position = Vector2(1108, 232)
+z_index = -2
+
+[node name="StationSign" parent="Decor" instance=ExtResource("sign")]
+position = Vector2(248, 866)
+caption = "SENSORY EXCHANGE"
+detail = "E: SIGHT FOR +25% SPEED"
+sign_width = 220
+arrow = Vector2(0, 1)
+
+[node name="AscentSign" parent="Decor" instance=ExtResource("sign")]
+position = Vector2(537, 974)
+caption = "ASCENT LOCKED"
+detail = "TRADE AT STATION / E"
+sign_width = 200
+arrow = Vector2(1, 0)
+active = false
+
+[node name="EchoSign" parent="Decor" instance=ExtResource("sign")]
+position = Vector2(617, 835)
+caption = "READ THE ECHO"
+detail = "HOLD Q / TAP THE FLOOR"
+sign_width = 210
+arrow = Vector2(1, -0.5)
+
+[node name="JumpSign" parent="Decor" instance=ExtResource("sign")]
+position = Vector2(936, 912)
+caption = "ASCEND THE SHAFT"
+detail = "HOLD JUMP / SPACE AGAIN"
+sign_width = 220
+arrow = Vector2(0, -1)
+
+[node name="RouteSign2" parent="Decor" instance=ExtResource("sign")]
+position = Vector2(1097, 741)
+caption = "LIFT 01"
+detail = "NEXT LEDGE LEFT"
+sign_width = 139
+arrow = Vector2(-1, -1)
+
+[node name="RouteSign3" parent="Decor" instance=ExtResource("sign")]
+position = Vector2(510, 650)
+caption = "ASCENT 03"
+detail = "NEXT LEDGE RIGHT"
+sign_width = 154
+arrow = Vector2(1, -1)
+
+[node name="RouteSign4" parent="Decor" instance=ExtResource("sign")]
+position = Vector2(1097, 549)
+caption = "LIFT 02"
+detail = "NEXT LEDGE LEFT"
+sign_width = 139
+arrow = Vector2(-1, -1)
+
+[node name="RouteSign5" parent="Decor" instance=ExtResource("sign")]
+position = Vector2(510, 458)
+caption = "ASCENT 05"
+detail = "NEXT LEDGE RIGHT"
+sign_width = 154
+arrow = Vector2(1, -1)
+
+[node name="RouteSign6" parent="Decor" instance=ExtResource("sign")]
+position = Vector2(1097, 357)
+caption = "LIFT 03"
+detail = "NEXT LEDGE LEFT"
+sign_width = 139
+arrow = Vector2(-1, -1)
+
+[node name="RouteSign7" parent="Decor" instance=ExtResource("sign")]
+position = Vector2(510, 266)
+caption = "ASCENT 07"
+detail = "NEXT LEDGE RIGHT"
+sign_width = 154
+arrow = Vector2(1, -1)
+
+[node name="RouteSign8" parent="Decor" instance=ExtResource("sign")]
+position = Vector2(1097, 165)
+caption = "LIFT 04"
+detail = "NEXT LEDGE LEFT"
+sign_width = 139
+arrow = Vector2(-1, -1)
+
+[node name="ExitSign" parent="Decor" instance=ExtResource("sign")]
+position = Vector2(621, 57)
+caption = "FIRST ASCENT"
+detail = "E: COMPLETE"
+sign_width = 162
+arrow = Vector2(-1, 0)
+
+[node name="SacrificeAnchor" type="Marker2D" parent="."]
+position = Vector2(263, 981)
+
+[node name="SacrificeVisual" parent="." instance=ExtResource("station")]
+position = Vector2(263, 1000)
+
+[node name="GateBarrier" parent="." instance=ExtResource("barrier")]
+position = Vector2(365, 1000)
+height = 1012.0
+
+[node name="GateAnchor" type="Marker2D" parent="."]
+position = Vector2(530, 120)
+
+[node name="GateVisual" parent="." instance=ExtResource("gate")]
+position = Vector2(530, 136)
+caption = "LIFT 01"
+unlocked = false

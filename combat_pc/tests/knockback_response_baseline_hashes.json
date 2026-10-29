@@ -1,0 +1,2103 @@
+{
+  "baseline_version": 24,
+  "baseline_zip_sha256": "48752e6b00f630937360772799bac58b2af9527d9146185c592f6faa439ff6bd",
+  "checked_original_sources": 348,
+  "unchanged_original_sources": 345,
+  "changed_sources": [
+    "combat_pc/reference/generate_parameter_ledger.py",
+    "project.godot",
+    "tools/package_project.py"
+  ],
+  "unexpected_changes": [],
+  "sources": {
+    "arcology_run.tscn": {
+      "v24_sha256": "42da2731fc622ff565966a434e78adf8468e18940ff6c0ae518175be480115dc",
+      "current_sha256": "42da2731fc622ff565966a434e78adf8468e18940ff6c0ae518175be480115dc",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/characters/attack/00_anticipation.tres": {
+      "v24_sha256": "1aff1a8a47000a21c4dc51fac029213d7249d85238ab3cab4a1c7aefcf82c068",
+      "current_sha256": "1aff1a8a47000a21c4dc51fac029213d7249d85238ab3cab4a1c7aefcf82c068",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/characters/attack/01_launch.tres": {
+      "v24_sha256": "b21357045813928fade6834703113ac9a89fff71cafb1939591f217393271935",
+      "current_sha256": "b21357045813928fade6834703113ac9a89fff71cafb1939591f217393271935",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/characters/attack/02_contact.tres": {
+      "v24_sha256": "dd45e178b62ffb3c25b2736ccc5506cc54fa91fbf55098a476e6bed168e07320",
+      "current_sha256": "dd45e178b62ffb3c25b2736ccc5506cc54fa91fbf55098a476e6bed168e07320",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/characters/attack/03_followthrough.tres": {
+      "v24_sha256": "070cf70c9d22424ce0b2a0ba2f71d8be225fa648a058f45bdcef8fdb2fa68f42",
+      "current_sha256": "070cf70c9d22424ce0b2a0ba2f71d8be225fa648a058f45bdcef8fdb2fa68f42",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/characters/attack/04_recoil.tres": {
+      "v24_sha256": "1255df0e84acd44aa3485d87c6acaf7b42e4fac613c3eec3acce6017f07a3ca5",
+      "current_sha256": "1255df0e84acd44aa3485d87c6acaf7b42e4fac613c3eec3acce6017f07a3ca5",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/characters/attack/05_recovery.tres": {
+      "v24_sha256": "a1fdda3a44bd0a9c235a1db25bc945081872bb4a2dd104055e744f299d45b2cd",
+      "current_sha256": "a1fdda3a44bd0a9c235a1db25bc945081872bb4a2dd104055e744f299d45b2cd",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/characters/attack/operative_attack_frames.tres": {
+      "v24_sha256": "f58ae999a58ae45b86a4cacf823a314a579aba2d61c60a7b6e1061a279406799",
+      "current_sha256": "f58ae999a58ae45b86a4cacf823a314a579aba2d61c60a7b6e1061a279406799",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/characters/guard_art.tscn": {
+      "v24_sha256": "59eef0824d8e3f156c92c417d5cb1d20e70b260daf51579543d8b16e892b62b3",
+      "current_sha256": "59eef0824d8e3f156c92c417d5cb1d20e70b260daf51579543d8b16e892b62b3",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/characters/guard_frames.tres": {
+      "v24_sha256": "048ba2dfad5aa273d1f919c63f381622f6c8749c3af2f0dfcb9ce0ce65270a59",
+      "current_sha256": "048ba2dfad5aa273d1f919c63f381622f6c8749c3af2f0dfcb9ce0ce65270a59",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/characters/operative_art.tscn": {
+      "v24_sha256": "a7f58ce8363d5774e453011c90ad59f764715a38adc7c2c6865deb39092311f0",
+      "current_sha256": "a7f58ce8363d5774e453011c90ad59f764715a38adc7c2c6865deb39092311f0",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/characters/operative_frames.tres": {
+      "v24_sha256": "e3f4a862722462b681a56f6416ebe076cdba87678cdc3cb8fccbca87f7eb19a4",
+      "current_sha256": "e3f4a862722462b681a56f6416ebe076cdba87678cdc3cb8fccbca87f7eb19a4",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/decor/cable_bundle.tres": {
+      "v24_sha256": "8d00b1bcfe649bce42c6c898f7d4486b26a4b6c0c1f83174fde9e35f253becd3",
+      "current_sha256": "8d00b1bcfe649bce42c6c898f7d4486b26a4b6c0c1f83174fde9e35f253becd3",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/decor/cable_bundle.tscn": {
+      "v24_sha256": "2c40226d80fafade2b0cb1cf33161f3c1160b9ba545e00f723b2e18b82c10acf",
+      "current_sha256": "2c40226d80fafade2b0cb1cf33161f3c1160b9ba545e00f723b2e18b82c10acf",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/decor/exposed_pipe.tres": {
+      "v24_sha256": "1c6cd68112c7cfe1f6b5ab5972fe9bdae86803dc53a6f9c69e92437d66ccb72b",
+      "current_sha256": "1c6cd68112c7cfe1f6b5ab5972fe9bdae86803dc53a6f9c69e92437d66ccb72b",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/decor/exposed_pipe.tscn": {
+      "v24_sha256": "7c1e63d75c15098a009266e8dfd8e1238d6b9afd24dafc67eb8069b56f02ee20",
+      "current_sha256": "7c1e63d75c15098a009266e8dfd8e1238d6b9afd24dafc67eb8069b56f02ee20",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/decor/service_sign.tres": {
+      "v24_sha256": "bc6b61fed812c1a68f1bd7c3338512cf8a7f4f20971e0a6658d374a23c9d58ac",
+      "current_sha256": "bc6b61fed812c1a68f1bd7c3338512cf8a7f4f20971e0a6658d374a23c9d58ac",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/decor/service_sign.tscn": {
+      "v24_sha256": "c38ed452a70c4fa3cdc58ddc0c1c5b14922199bbaf891ec2043bb99a9c584600",
+      "current_sha256": "c38ed452a70c4fa3cdc58ddc0c1c5b14922199bbaf891ec2043bb99a9c584600",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/decor/streetlamp.tres": {
+      "v24_sha256": "15b8d296af8baf840652c7348a65c4bf12662a892ae7b2126db3f1a6c4b81c29",
+      "current_sha256": "15b8d296af8baf840652c7348a65c4bf12662a892ae7b2126db3f1a6c4b81c29",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/decor/streetlamp.tscn": {
+      "v24_sha256": "d146f504c3501509902e24a87e66b479b9f3ce82c510745d6110d664f5048566",
+      "current_sha256": "d146f504c3501509902e24a87e66b479b9f3ce82c510745d6110d664f5048566",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/environment/city_background.tscn": {
+      "v24_sha256": "291b7f2bfdf95503ed7fdce8dea210f157dd9576efcc56995c6fd1c61ae79ee5",
+      "current_sha256": "291b7f2bfdf95503ed7fdce8dea210f157dd9576efcc56995c6fd1c61ae79ee5",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/environment/pavement_segment.tres": {
+      "v24_sha256": "d7ce7f7175c1c6d93952794a3f8564e54b8d13c781a91372c855a22e8bacc86f",
+      "current_sha256": "d7ce7f7175c1c6d93952794a3f8564e54b8d13c781a91372c855a22e8bacc86f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/environment/pavement_segment.tscn": {
+      "v24_sha256": "ae02e6127870154660c1937d0a3e558cd964d95d9d454bc24363b8861f030d47",
+      "current_sha256": "ae02e6127870154660c1937d0a3e558cd964d95d9d454bc24363b8861f030d47",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/environment/raised_ledge.tres": {
+      "v24_sha256": "b950e89d2783f9984ded76afce473778a0284f66de7c62e5962a5d9b26d56537",
+      "current_sha256": "b950e89d2783f9984ded76afce473778a0284f66de7c62e5962a5d9b26d56537",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/environment/raised_ledge.tscn": {
+      "v24_sha256": "e267ca48b476d5c61dd7ab55616a739470544f1b3f7af82ef2cc81610827becb",
+      "current_sha256": "e267ca48b476d5c61dd7ab55616a739470544f1b3f7af82ef2cc81610827becb",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/environment/storm_drain.tres": {
+      "v24_sha256": "829e2888b4ffdffb1e11519470e97618176d10b02c3bab9bc79eb02ae1255321",
+      "current_sha256": "829e2888b4ffdffb1e11519470e97618176d10b02c3bab9bc79eb02ae1255321",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/environment/storm_drain.tscn": {
+      "v24_sha256": "0315988e7f116a4fe09fd84a218213defa4e9a0020921f8d22a29555667fc458",
+      "current_sha256": "0315988e7f116a4fe09fd84a218213defa4e9a0020921f8d22a29555667fc458",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/environment/wall_panel.tres": {
+      "v24_sha256": "2120bee982aceb2be13e06945999f88dabe8d5dbc2c821ebf73be850d95fa448",
+      "current_sha256": "2120bee982aceb2be13e06945999f88dabe8d5dbc2c821ebf73be850d95fa448",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/environment/wall_panel.tscn": {
+      "v24_sha256": "4505017a2500f921aaf18b2830649e18a86a7b492d2102a04ac9b29d6947a1aa",
+      "current_sha256": "4505017a2500f921aaf18b2830649e18a86a7b492d2102a04ac9b29d6947a1aa",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/props/cargo_crate.tres": {
+      "v24_sha256": "d3413efefdce58a0684da63463ff2f3d1cface533badcebc1f2e557f09f4061c",
+      "current_sha256": "d3413efefdce58a0684da63463ff2f3d1cface533badcebc1f2e557f09f4061c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/props/cargo_crate.tscn": {
+      "v24_sha256": "335eb3caf0491170a27cfe9fdd3e64230a373e797430f55b800a4900cdc349ec",
+      "current_sha256": "335eb3caf0491170a27cfe9fdd3e64230a373e797430f55b800a4900cdc349ec",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/props/coolant_drum.tres": {
+      "v24_sha256": "9fdc1f4f391c2a4824713b742a91000d2e63ae4e5038838cec28ab982722c1f9",
+      "current_sha256": "9fdc1f4f391c2a4824713b742a91000d2e63ae4e5038838cec28ab982722c1f9",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/props/coolant_drum.tscn": {
+      "v24_sha256": "d44219dc38327d013b6197894c0309247b372697474da8497e556a370f3d2815",
+      "current_sha256": "d44219dc38327d013b6197894c0309247b372697474da8497e556a370f3d2815",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/props/fuel_canister.tres": {
+      "v24_sha256": "906d7e9c89485136239702c2e01e9c66593e9696e3e44bbc5db9f23167f1187c",
+      "current_sha256": "906d7e9c89485136239702c2e01e9c66593e9696e3e44bbc5db9f23167f1187c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/props/fuel_canister.tscn": {
+      "v24_sha256": "ee01656e72257799971663eb86a2ebf90f0dbb388ea60acd4e630fd6b78841d8",
+      "current_sha256": "ee01656e72257799971663eb86a2ebf90f0dbb388ea60acd4e630fd6b78841d8",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/props/utility_cabinet.tres": {
+      "v24_sha256": "5938cb9a95cc9f0d2492123b4e7774899281b7d84e214ac6be3ed0c4b439ece6",
+      "current_sha256": "5938cb9a95cc9f0d2492123b4e7774899281b7d84e214ac6be3ed0c4b439ece6",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "assets/props/utility_cabinet.tscn": {
+      "v24_sha256": "52ef2cdfb02852ae542654973ca1d12232837402dcf39d68cde13412124f9f17",
+      "current_sha256": "52ef2cdfb02852ae542654973ca1d12232837402dcf39d68cde13412124f9f17",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "audio/generate_audio.py": {
+      "v24_sha256": "9963652f4cfdf23df7d73c1a0bb924ebeee70df499ef655f8d2c11b176ea6a08",
+      "current_sha256": "9963652f4cfdf23df7d73c1a0bb924ebeee70df499ef655f8d2c11b176ea6a08",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "audio/generate_guard_draw.py": {
+      "v24_sha256": "d90f737bbf9a57a6e379b360d1cc5a015ba3dbcd29e7bf078b14958892b84ea9",
+      "current_sha256": "d90f737bbf9a57a6e379b360d1cc5a015ba3dbcd29e7bf078b14958892b84ea9",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/air_response_review.gd": {
+      "v24_sha256": "ca4a64c7ef047c7d9838f8c6d17cfcd1d1417d69dd8271c34311d564efaeaa69",
+      "current_sha256": "ca4a64c7ef047c7d9838f8c6d17cfcd1d1417d69dd8271c34311d564efaeaa69",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/air_response_review.tscn": {
+      "v24_sha256": "3436b56f496c249276a8c6ff79042106fef74887923677d38306bf7f7656ebe5",
+      "current_sha256": "3436b56f496c249276a8c6ff79042106fef74887923677d38306bf7f7656ebe5",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/combo_response_review.gd": {
+      "v24_sha256": "fda4b508e70f1e20a7f482a6542a880c1b63a3f7cf852dc815c996c7f7d613c7",
+      "current_sha256": "fda4b508e70f1e20a7f482a6542a880c1b63a3f7cf852dc815c996c7f7d613c7",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/combo_response_review.tscn": {
+      "v24_sha256": "77399f634db657c790c99aafee6ce4e620c6e64856c9248570f9207aa8f616da",
+      "current_sha256": "77399f634db657c790c99aafee6ce4e620c6e64856c9248570f9207aa8f616da",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/attack_entry_facing_host.gd": {
+      "v24_sha256": "954acdc61aa6ea97c5b954090e9795d986ef6f1ac538927c475c6101b5dd29ec",
+      "current_sha256": "954acdc61aa6ea97c5b954090e9795d986ef6f1ac538927c475c6101b5dd29ec",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/attack_entry_facing_host.tscn": {
+      "v24_sha256": "d21327b789ab8d07594642a891e781e05ae64196942b3abc75b9cd9817162120",
+      "current_sha256": "d21327b789ab8d07594642a891e781e05ae64196942b3abc75b9cd9817162120",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/character_footsteps.gd": {
+      "v24_sha256": "1f2e506e43bc50668d63d26360185e41717591e4f08a4fd914fd9bc741def39e",
+      "current_sha256": "1f2e506e43bc50668d63d26360185e41717591e4f08a4fd914fd9bc741def39e",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/character_footsteps.tscn": {
+      "v24_sha256": "2a0f079d9d12f927f8472cc067c200511e3ca3bd644e01d3eb007aadbd1b25ce",
+      "current_sha256": "2a0f079d9d12f927f8472cc067c200511e3ca3bd644e01d3eb007aadbd1b25ce",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/climbable.gd": {
+      "v24_sha256": "4ee5a79021c365598cb3c758f628a838571c2ad3c9a51fc7cedb4a418fc7b68e",
+      "current_sha256": "4ee5a79021c365598cb3c758f628a838571c2ad3c9a51fc7cedb4a418fc7b68e",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/climbable.tscn": {
+      "v24_sha256": "f272bec5dd84d5fd632dbdaf47dca35ee7a496ca0f0dbe0be2ca84992eaae928",
+      "current_sha256": "f272bec5dd84d5fd632dbdaf47dca35ee7a496ca0f0dbe0be2ca84992eaae928",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/contact_adapter.gd": {
+      "v24_sha256": "ba78d140c874a3f8b1ce7fed7a44d8c2ff1a3c6077781782ab9e4b867119690d",
+      "current_sha256": "ba78d140c874a3f8b1ce7fed7a44d8c2ff1a3c6077781782ab9e4b867119690d",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/defeat_response.gd": {
+      "v24_sha256": "5a4d4cfba65e77513e9b8ecd6e6a3eb65d3eb6631ac816b70579f4c885b36742",
+      "current_sha256": "5a4d4cfba65e77513e9b8ecd6e6a3eb65d3eb6631ac816b70579f4c885b36742",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/defeat_response.tscn": {
+      "v24_sha256": "c2ad893de7d0db2a1375bb8890f6934a0856853b6a617e076b46b5a40f323691",
+      "current_sha256": "c2ad893de7d0db2a1375bb8890f6934a0856853b6a617e076b46b5a40f323691",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/guard_prop_adapter.gd": {
+      "v24_sha256": "433e35369ed7574a349b1c11fe1194fa6c0b3b6fcf81629a0c2f000891bbb5e9",
+      "current_sha256": "433e35369ed7574a349b1c11fe1194fa6c0b3b6fcf81629a0c2f000891bbb5e9",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/health_component.gd": {
+      "v24_sha256": "f9253a10ffe0aba42745006f9b61e4422b04a41ea9e1344690e6e06b5de7bb8c",
+      "current_sha256": "f9253a10ffe0aba42745006f9b61e4422b04a41ea9e1344690e6e06b5de7bb8c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/health_component.tscn": {
+      "v24_sha256": "ed2aaa454a45227adb939a5b0778001ae5ce2dd765ec2a61e1bdcda47ea60947",
+      "current_sha256": "ed2aaa454a45227adb939a5b0778001ae5ce2dd765ec2a61e1bdcda47ea60947",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/noise_relay.gd": {
+      "v24_sha256": "c95079da13ac1e0528f917e59d4918a2e7b6b67e72da4128d6cd0194f5f874bb",
+      "current_sha256": "c95079da13ac1e0528f917e59d4918a2e7b6b67e72da4128d6cd0194f5f874bb",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/noise_relay.tscn": {
+      "v24_sha256": "f31ce3167027022c47e33bb409db048811063b3dfc4cc9af96d11dae3e3ec299",
+      "current_sha256": "f31ce3167027022c47e33bb409db048811063b3dfc4cc9af96d11dae3e3ec299",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/physics_contact_noise.gd": {
+      "v24_sha256": "d6a69d4f47ed3db0987b62394479182c9a5852a7cd3c9353fbfdf9b158a9c012",
+      "current_sha256": "d6a69d4f47ed3db0987b62394479182c9a5852a7cd3c9353fbfdf9b158a9c012",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/physics_contact_noise.tscn": {
+      "v24_sha256": "782190a412814324fa4bf951e541966efcd8ebb774199bc575b074632ce9698d",
+      "current_sha256": "782190a412814324fa4bf951e541966efcd8ebb774199bc575b074632ce9698d",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/shield_contact_adapter.gd": {
+      "v24_sha256": "db58d07f47317db194b23c80874598f51ebb633ff3edd9c08073d5c71ba3d005",
+      "current_sha256": "db58d07f47317db194b23c80874598f51ebb633ff3edd9c08073d5c71ba3d005",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/surface_pulse.gd": {
+      "v24_sha256": "ca948fbe41cfc8913c2f1f1f57901580f9138231ab0617888e1312eec6302993",
+      "current_sha256": "ca948fbe41cfc8913c2f1f1f57901580f9138231ab0617888e1312eec6302993",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/surface_pulse.tscn": {
+      "v24_sha256": "bfdf88b2ca7aaf09b6ed61c1fd7ed39c9baef5864b0eec76ccb3e9ffde6198e8",
+      "current_sha256": "bfdf88b2ca7aaf09b6ed61c1fd7ed39c9baef5864b0eec76ccb3e9ffde6198e8",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/tests/guard_component_smoke.gd": {
+      "v24_sha256": "cfbfd459eb54fa1df4ae021dfa845d41bb84c912e978706ee5b0d029d30fdbde",
+      "current_sha256": "cfbfd459eb54fa1df4ae021dfa845d41bb84c912e978706ee5b0d029d30fdbde",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/tests/guard_prop_contact_observer.gd": {
+      "v24_sha256": "4d5eb01f290f29b360354ae57e3326a04cd43f3a51236abd109913e1a37bc04b",
+      "current_sha256": "4d5eb01f290f29b360354ae57e3326a04cd43f3a51236abd109913e1a37bc04b",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/tests/m11_facing_host_contract_smoke.gd": {
+      "v24_sha256": "a7df4d399b455a24d1b76995d63df4c79c2489c0d4a08ef11c542e69ec0d8ec9",
+      "current_sha256": "a7df4d399b455a24d1b76995d63df4c79c2489c0d4a08ef11c542e69ec0d8ec9",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/components/tests/m11_facing_host_player_smoke.gd": {
+      "v24_sha256": "77a4de0da4b2d540aeb50ce5950eb639b0ffd5c114ea287f43ea117fdc0bfc5e",
+      "current_sha256": "77a4de0da4b2d540aeb50ce5950eb639b0ffd5c114ea287f43ea117fdc0bfc5e",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/contact_noise_review.gd": {
+      "v24_sha256": "40b940e7a63822358ccc606223ff4b2b7afbccbb3fc24771755ac347cdacf76e",
+      "current_sha256": "40b940e7a63822358ccc606223ff4b2b7afbccbb3fc24771755ac347cdacf76e",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/contact_noise_review.tscn": {
+      "v24_sha256": "df1a412bc603cd99b0b4977581e35810c51f27f569b955d8d995d54817078913",
+      "current_sha256": "df1a412bc603cd99b0b4977581e35810c51f27f569b955d8d995d54817078913",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/defeat_review.gd": {
+      "v24_sha256": "1c0b70dfd4d4e42cdfaad2a62b0f5f9a9a08aa17bbcd8b89cfdef5b3a7fed0c8",
+      "current_sha256": "1c0b70dfd4d4e42cdfaad2a62b0f5f9a9a08aa17bbcd8b89cfdef5b3a7fed0c8",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/defeat_review.tscn": {
+      "v24_sha256": "190598eba6a32abd80c083ce85eab78111faaf2c8b3b3e6307baf54ffe510f47",
+      "current_sha256": "190598eba6a32abd80c083ce85eab78111faaf2c8b3b3e6307baf54ffe510f47",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/chain_target.gd": {
+      "v24_sha256": "f5ff7fcb45a21a58c4dbf008fa1f5cafddf5dbd3c03b64d9a12496a25081b39c",
+      "current_sha256": "f5ff7fcb45a21a58c4dbf008fa1f5cafddf5dbd3c03b64d9a12496a25081b39c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/chain_target.tscn": {
+      "v24_sha256": "259308a1e9680eb536f3067f4d81e3a37102efd1e1c60565af847b1a31d55b09",
+      "current_sha256": "259308a1e9680eb536f3067f4d81e3a37102efd1e1c60565af847b1a31d55b09",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/contact_noise_prop.gd": {
+      "v24_sha256": "9b835a5ee961e524a2abf298cf21a406678165c8a40861aa604d3e2571803d76",
+      "current_sha256": "9b835a5ee961e524a2abf298cf21a406678165c8a40861aa604d3e2571803d76",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/contact_noise_prop.tscn": {
+      "v24_sha256": "7fe596253ed0e26bdebf08056dc999e0f7ad33091656dbd2531875f54f8f5bc8",
+      "current_sha256": "7fe596253ed0e26bdebf08056dc999e0f7ad33091656dbd2531875f54f8f5bc8",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/contact_review_hud.gd": {
+      "v24_sha256": "a7b47dbd3f777c6a071e7fdc2b81e8f9aea4dcfc3cab534928295d15bb5c2b39",
+      "current_sha256": "a7b47dbd3f777c6a071e7fdc2b81e8f9aea4dcfc3cab534928295d15bb5c2b39",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/contact_target.gd": {
+      "v24_sha256": "32c0709a4b5a70318aeb39a3bc681be11d86d83b7c34aa0ea8dc24f99dff92a7",
+      "current_sha256": "32c0709a4b5a70318aeb39a3bc681be11d86d83b7c34aa0ea8dc24f99dff92a7",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/contact_target.tscn": {
+      "v24_sha256": "0d6cbf77a3d9ee854dbb2cc53c61cb7a7cbaf8d8462119bcbe9e5dd0dd6cefd7",
+      "current_sha256": "0d6cbf77a3d9ee854dbb2cc53c61cb7a7cbaf8d8462119bcbe9e5dd0dd6cefd7",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/drop_stack.tscn": {
+      "v24_sha256": "c32b226f11c885e5c4909c93905ce77d7349f93e548e9fe9f89d45ee783fe0cc",
+      "current_sha256": "c32b226f11c885e5c4909c93905ce77d7349f93e548e9fe9f89d45ee783fe0cc",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/fall_course.tscn": {
+      "v24_sha256": "8ea03f4452a049baba01395e6baad896a13edf861d248680553ed3400add3526",
+      "current_sha256": "8ea03f4452a049baba01395e6baad896a13edf861d248680553ed3400add3526",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/footstep_npc.tscn": {
+      "v24_sha256": "543c469335e5768e25d4a6bfb94345d30b1cfac93dc253a77cafda05ec8148ef",
+      "current_sha256": "543c469335e5768e25d4a6bfb94345d30b1cfac93dc253a77cafda05ec8148ef",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/footstep_npc_motor.gd": {
+      "v24_sha256": "141379c475eb323424eeedff6012bf3f649f183b90ca6288f6686a11e229e596",
+      "current_sha256": "141379c475eb323424eeedff6012bf3f649f183b90ca6288f6686a11e229e596",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/geometry.tscn": {
+      "v24_sha256": "51db019161732799bee1a1482c13a131cd9bc862a5044f37bc444068d5243dbe",
+      "current_sha256": "51db019161732799bee1a1482c13a131cd9bc862a5044f37bc444068d5243dbe",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/guard_course.gd": {
+      "v24_sha256": "5e372a5415545bcc81eaf330efc607e93a4e98a6d306387b993994f52c59fd2e",
+      "current_sha256": "5e372a5415545bcc81eaf330efc607e93a4e98a6d306387b993994f52c59fd2e",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/guard_course.tscn": {
+      "v24_sha256": "81a9da3bea34ec7e3d2b8e663d8fa1c4160495bc324cd8a672186bc9f768cacf",
+      "current_sha256": "81a9da3bea34ec7e3d2b8e663d8fa1c4160495bc324cd8a672186bc9f768cacf",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/guard_melee_fixture.gd": {
+      "v24_sha256": "c412d1aa3875281991230cf5a37ea4ef20147a599429b6363988d1e847f3ef69",
+      "current_sha256": "c412d1aa3875281991230cf5a37ea4ef20147a599429b6363988d1e847f3ef69",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/guard_melee_fixture.tscn": {
+      "v24_sha256": "12a001847bd3782cf6ed00695e2aac1388099aacc599d269ada08a0ffa708f67",
+      "current_sha256": "12a001847bd3782cf6ed00695e2aac1388099aacc599d269ada08a0ffa708f67",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/guard_projectile.gd": {
+      "v24_sha256": "a50bcfc9167924fdd61346883282df77a61bb82d55e33fbd7d814700cd101a60",
+      "current_sha256": "a50bcfc9167924fdd61346883282df77a61bb82d55e33fbd7d814700cd101a60",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/guard_projectile_fixture.gd": {
+      "v24_sha256": "134385ef50758d0b7492cfc70a0f9f13ee6b8b895b23b2184df5b97201145028",
+      "current_sha256": "134385ef50758d0b7492cfc70a0f9f13ee6b8b895b23b2184df5b97201145028",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/guard_projectile_fixture.tscn": {
+      "v24_sha256": "4a9443db7c65bb4eaf296b25d23866db59ea77c78145cdf8480ccd701608986e",
+      "current_sha256": "4a9443db7c65bb4eaf296b25d23866db59ea77c78145cdf8480ccd701608986e",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/guard_prop_fixture.gd": {
+      "v24_sha256": "3ad3ea1663af002821d40b28c8e6ba39c9ec4b91bed1abcedbc3f6984531b59e",
+      "current_sha256": "3ad3ea1663af002821d40b28c8e6ba39c9ec4b91bed1abcedbc3f6984531b59e",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/guard_prop_fixture.tscn": {
+      "v24_sha256": "3f0beade9d40023c8468300c0b5f42514508d37b9ee81057d4dbf5d2587cb367",
+      "current_sha256": "3f0beade9d40023c8468300c0b5f42514508d37b9ee81057d4dbf5d2587cb367",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/npc_footstep_wire.gd": {
+      "v24_sha256": "2607db42b55c6d096abe51d6efdf97132cee1dd17f7e8dbf216792cca1a74d26",
+      "current_sha256": "2607db42b55c6d096abe51d6efdf97132cee1dd17f7e8dbf216792cca1a74d26",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/practice_pulse.gd": {
+      "v24_sha256": "a4aed9107abfe67455e8418c94c716ed99601e3f66dd8fb2adc9dbaac3de4275",
+      "current_sha256": "a4aed9107abfe67455e8418c94c716ed99601e3f66dd8fb2adc9dbaac3de4275",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/ramp.gd": {
+      "v24_sha256": "355c7746185f45003e0ff8118e206bee4cacefb8df6db085209c77ecc04a0282",
+      "current_sha256": "355c7746185f45003e0ff8118e206bee4cacefb8df6db085209c77ecc04a0282",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/slope_course.gd": {
+      "v24_sha256": "57f09c50975079fe1945fd785701a81cdcae54eb375e2bd608174c879dac0123",
+      "current_sha256": "57f09c50975079fe1945fd785701a81cdcae54eb375e2bd608174c879dac0123",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/slope_course.tscn": {
+      "v24_sha256": "6dd06d3496ed02321dc6b6f58836bb32179e470dba1626acc3e019e12c7082cd",
+      "current_sha256": "6dd06d3496ed02321dc6b6f58836bb32179e470dba1626acc3e019e12c7082cd",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/test_surface.gd": {
+      "v24_sha256": "12776df9d8b3a8da83e1a3747bad4d730cb7e7a3a84cb814ab09dd9882ceb05d",
+      "current_sha256": "12776df9d8b3a8da83e1a3747bad4d730cb7e7a3a84cb814ab09dd9882ceb05d",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/test_surface.tscn": {
+      "v24_sha256": "b549d88975271c99eb5a776f348b5d70ea07880cd9dd5db2baa2ee3c168bd016",
+      "current_sha256": "b549d88975271c99eb5a776f348b5d70ea07880cd9dd5db2baa2ee3c168bd016",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/fixtures/wall_course.tscn": {
+      "v24_sha256": "2551ed312e20f24f5b56159d0d45a1af90b8fd61c0cc61cee177d88f44551e43",
+      "current_sha256": "2551ed312e20f24f5b56159d0d45a1af90b8fd61c0cc61cee177d88f44551e43",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/ground_response_review.gd": {
+      "v24_sha256": "c583297eaa0a14a098cdd432362ae7b3ff33538e114f89dfe274919432191abb",
+      "current_sha256": "c583297eaa0a14a098cdd432362ae7b3ff33538e114f89dfe274919432191abb",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/ground_response_review.tscn": {
+      "v24_sha256": "39df9a2e9e89ccf524f981562d402edd49b47ee5472c08e0f9e5a1b5e5028621",
+      "current_sha256": "39df9a2e9e89ccf524f981562d402edd49b47ee5472c08e0f9e5a1b5e5028621",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/health_review.gd": {
+      "v24_sha256": "b9ecfb7bac5194188554a0db172db550dfe0c1845a88f25f276b720e17bb740c",
+      "current_sha256": "b9ecfb7bac5194188554a0db172db550dfe0c1845a88f25f276b720e17bb740c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/health_review.tscn": {
+      "v24_sha256": "4402a925a54af97cf68db848cdc62ca970a67e5805b72f6b752d8d4cc91f9012",
+      "current_sha256": "4402a925a54af97cf68db848cdc62ca970a67e5805b72f6b752d8d4cc91f9012",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/lab.gd": {
+      "v24_sha256": "0f4ffa0264b81c58c09783df28810ea2f60273c8895a40a1aca15cf15331ffb8",
+      "current_sha256": "0f4ffa0264b81c58c09783df28810ea2f60273c8895a40a1aca15cf15331ffb8",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/lab.tscn": {
+      "v24_sha256": "f964e1cb617674fff606ba7151438eac15709b64d5b3c513715304b8a9d17d68",
+      "current_sha256": "f964e1cb617674fff606ba7151438eac15709b64d5b3c513715304b8a9d17d68",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/lab_hud.gd": {
+      "v24_sha256": "a64dd6817647fd0ed96d0076b48aad0d10f8f19233e43a3168c0808a63d01c21",
+      "current_sha256": "a64dd6817647fd0ed96d0076b48aad0d10f8f19233e43a3168c0808a63d01c21",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/minimal_host.tscn": {
+      "v24_sha256": "991703c97c5ce5785f07cd3c55a157f9aa5e2bf2a08194513c3be6faac8ccc21",
+      "current_sha256": "991703c97c5ce5785f07cd3c55a157f9aa5e2bf2a08194513c3be6faac8ccc21",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/noise_review.gd": {
+      "v24_sha256": "d38348c5d6c0b3b1e58be163b3f2551a2f65621b5bf254bbb50ab1a2d45e9cf1",
+      "current_sha256": "d38348c5d6c0b3b1e58be163b3f2551a2f65621b5bf254bbb50ab1a2d45e9cf1",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/noise_review.tscn": {
+      "v24_sha256": "adb3b8aedcc11f3e0256de8658345a5566d486741351d412c3bac9b601fb7eb7",
+      "current_sha256": "adb3b8aedcc11f3e0256de8658345a5566d486741351d412c3bac9b601fb7eb7",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/npc_footstep_review.gd": {
+      "v24_sha256": "edfff1a5cf62b96ff39d8ffd14bfd63f5e207bd837a8767b836c5fe0b5087e27",
+      "current_sha256": "edfff1a5cf62b96ff39d8ffd14bfd63f5e207bd837a8767b836c5fe0b5087e27",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/npc_footstep_review.tscn": {
+      "v24_sha256": "27fc1c805020ad463d2321a0f898d75c790d0330d33d584dd01571b59f6304d0",
+      "current_sha256": "27fc1c805020ad463d2321a0f898d75c790d0330d33d584dd01571b59f6304d0",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/player.gd": {
+      "v24_sha256": "2f0d4d0b93aa1f0eb3f21e94fb96af09923892d0aef1c7f0cf1704a9b22e9997",
+      "current_sha256": "2f0d4d0b93aa1f0eb3f21e94fb96af09923892d0aef1c7f0cf1704a9b22e9997",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/player.tscn": {
+      "v24_sha256": "66cdd188fbb7f495eb21399616ed14306283956306aa21384da5bdeb9bf59e06",
+      "current_sha256": "66cdd188fbb7f495eb21399616ed14306283956306aa21384da5bdeb9bf59e06",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/reference/generate_parameter_ledger.py": {
+      "v24_sha256": "86f31e5ca6dc6e4ee9d7c892ddbfb788e099951bbee7d3d2e5cc5194fe46cb77",
+      "current_sha256": "90adfa5d8f46f6d95f87a70558443f453a773b555fa37a1a658845ab216a62a2",
+      "unchanged": false,
+      "allowed_host_change": true
+    },
+    "combat_pc/resources/air_response_agile.tres": {
+      "v24_sha256": "750c7e98ca91d97c5a9c2c5def57848b9ea9f213191aa4e255552e1e46c3ce02",
+      "current_sha256": "750c7e98ca91d97c5a9c2c5def57848b9ea9f213191aa4e255552e1e46c3ce02",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/air_response_profile.gd": {
+      "v24_sha256": "e31548e3749de5c92c113ddf4a1acd3e2617d550a27864afcb4d46026badf1ac",
+      "current_sha256": "e31548e3749de5c92c113ddf4a1acd3e2617d550a27864afcb4d46026badf1ac",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/combat_profile.gd": {
+      "v24_sha256": "e3a35c3c0774f4f9f1bd2fa1587d8b37523daba45c39d07c42afd1297280a81f",
+      "current_sha256": "e3a35c3c0774f4f9f1bd2fa1587d8b37523daba45c39d07c42afd1297280a81f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/combat_profile.tres": {
+      "v24_sha256": "38cacdc87b1d75a6ec6c9d472ce3e11d5d90ef4b138440f1236b37dd7a5c957c",
+      "current_sha256": "38cacdc87b1d75a6ec6c9d472ce3e11d5d90ef4b138440f1236b37dd7a5c957c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/contact_noise_profile.gd": {
+      "v24_sha256": "b082e0fecd3e7603dd17416f867ba382f52f4d6eaaa5a9a6ad55f18bda291343",
+      "current_sha256": "b082e0fecd3e7603dd17416f867ba382f52f4d6eaaa5a9a6ad55f18bda291343",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/contact_noise_profile.tres": {
+      "v24_sha256": "79debf85a3b071cee6b3bb0667c39362c5bbbcd18d9c54821e6ba76f69ac138f",
+      "current_sha256": "79debf85a3b071cee6b3bb0667c39362c5bbbcd18d9c54821e6ba76f69ac138f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/footstep_profile.gd": {
+      "v24_sha256": "68662a24f7d009d3417249f9c315966883991e44792429c90fa3b6f7cf4ba276",
+      "current_sha256": "68662a24f7d009d3417249f9c315966883991e44792429c90fa3b6f7cf4ba276",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/footstep_profile.tres": {
+      "v24_sha256": "37ba26d92bf82c9a0137de3017ae67ea1eae7fd0d2cca348376f7d639d9d18b2",
+      "current_sha256": "37ba26d92bf82c9a0137de3017ae67ea1eae7fd0d2cca348376f7d639d9d18b2",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/ground_presentation_agile.tres": {
+      "v24_sha256": "a812c300d72abbff3d261e012c77b36d7238fa804fab791217eee417fc59826b",
+      "current_sha256": "a812c300d72abbff3d261e012c77b36d7238fa804fab791217eee417fc59826b",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/ground_presentation_profile.gd": {
+      "v24_sha256": "604ce1c2d3a2504449dd64ff21c0aab6b79daf1d07642793a46c19b79eff4492",
+      "current_sha256": "604ce1c2d3a2504449dd64ff21c0aab6b79daf1d07642793a46c19b79eff4492",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/ground_response_agile.tres": {
+      "v24_sha256": "34ccda410c53afe44d0d1a6f115be9305c1db58e901c081073f6b6cd72379f44",
+      "current_sha256": "34ccda410c53afe44d0d1a6f115be9305c1db58e901c081073f6b6cd72379f44",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/ground_response_profile.gd": {
+      "v24_sha256": "ca86b8cf51854cffbf95e6eeb521b0235f61c94fd04c0012d4ea3bea4bb1f754",
+      "current_sha256": "ca86b8cf51854cffbf95e6eeb521b0235f61c94fd04c0012d4ea3bea4bb1f754",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/held_charge.tres": {
+      "v24_sha256": "1e9dee88ebe29619375c3c769867518ec3f0f6930a4d73a07cb7b96b87cf8159",
+      "current_sha256": "1e9dee88ebe29619375c3c769867518ec3f0f6930a4d73a07cb7b96b87cf8159",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/held_repeat.tres": {
+      "v24_sha256": "3049a1df6d20ad854eba4c416fc07ead8f2c08d338437178b33f7b74f8aed519",
+      "current_sha256": "3049a1df6d20ad854eba4c416fc07ead8f2c08d338437178b33f7b74f8aed519",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/light_chain.tres": {
+      "v24_sha256": "cfc88474288bb73c2c0f2ea73c99b1273c0563b61d68c9090215f91463e882f0",
+      "current_sha256": "cfc88474288bb73c2c0f2ea73c99b1273c0563b61d68c9090215f91463e882f0",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/melee_chain.gd": {
+      "v24_sha256": "cae6a07eeae298a6f5a000595c8311e07686e222d1b1b75b394d1da866e280ab",
+      "current_sha256": "cae6a07eeae298a6f5a000595c8311e07686e222d1b1b75b394d1da866e280ab",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/melee_input_profile.gd": {
+      "v24_sha256": "5ca4bcd6268c7fd9337c0e3f2f1fb56fd44ebe340d29d52b23f90affa61b94ad",
+      "current_sha256": "5ca4bcd6268c7fd9337c0e3f2f1fb56fd44ebe340d29d52b23f90affa61b94ad",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/melee_step.gd": {
+      "v24_sha256": "ff1e5e7f78b5c5878a815dfb5b5febf884a213aadefd33f255d2a2f3abb91ae6",
+      "current_sha256": "ff1e5e7f78b5c5878a815dfb5b5febf884a213aadefd33f255d2a2f3abb91ae6",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/movement_profile.gd": {
+      "v24_sha256": "e97b21c8ce11c04aa3451a265ea9567312f43fa47832eb6873686c9900dfdbb5",
+      "current_sha256": "e97b21c8ce11c04aa3451a265ea9567312f43fa47832eb6873686c9900dfdbb5",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/movement_profile.tres": {
+      "v24_sha256": "507bc8fa5deccd23646bcf3d532758aeeca084c868989c6328fb060f587155e6",
+      "current_sha256": "507bc8fa5deccd23646bcf3d532758aeeca084c868989c6328fb060f587155e6",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/responsive_chain.tres": {
+      "v24_sha256": "27a0952bb28576e5d790391da3393e5bf13cc9c6cc30255e4f64b705deb465e0",
+      "current_sha256": "27a0952bb28576e5d790391da3393e5bf13cc9c6cc30255e4f64b705deb465e0",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/shield_profile.gd": {
+      "v24_sha256": "81b1227af14124ee2b836d0a6bef9271bb0a2dfb84e2902756416e455d109d16",
+      "current_sha256": "81b1227af14124ee2b836d0a6bef9271bb0a2dfb84e2902756416e455d109d16",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/shield_profile.tres": {
+      "v24_sha256": "66520bcd5d2f083e2b2723a6d5a2f3b1751372fb638621a794fbb23c25854e78",
+      "current_sha256": "66520bcd5d2f083e2b2723a6d5a2f3b1751372fb638621a794fbb23c25854e78",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/resources/surface_pulse_default.tres": {
+      "v24_sha256": "8e4bee0cb20912064dc3324f654936adb040e2e66896771370db572574e19957",
+      "current_sha256": "8e4bee0cb20912064dc3324f654936adb040e2e66896771370db572574e19957",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/surface_review.gd": {
+      "v24_sha256": "83f653676588a296eeadf448fc4e4abf69afe77e5d8ff540307c2f2874e48650",
+      "current_sha256": "83f653676588a296eeadf448fc4e4abf69afe77e5d8ff540307c2f2874e48650",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/surface_review.tscn": {
+      "v24_sha256": "3d999bf4af3114d1321ff6fb6bf3aae2503322fc4896631c7ad822e5889af5eb",
+      "current_sha256": "3d999bf4af3114d1321ff6fb6bf3aae2503322fc4896631c7ad822e5889af5eb",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/air_response_archive_compatibility.gd": {
+      "v24_sha256": "7fe2c53a89a169e036be2f347f829d9c5830fa5880b6cc31ce86a53d4e3deb1a",
+      "current_sha256": "7fe2c53a89a169e036be2f347f829d9c5830fa5880b6cc31ce86a53d4e3deb1a",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/air_response_compare_rates.py": {
+      "v24_sha256": "00d4a3dc27eddc39e909d2fa7c5cf5418f4bf2f06d5ea1c0dd96c9d798ddcc51",
+      "current_sha256": "00d4a3dc27eddc39e909d2fa7c5cf5418f4bf2f06d5ea1c0dd96c9d798ddcc51",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/air_response_defeat_compatibility.gd": {
+      "v24_sha256": "7301066dd5af977619afee792d29cdf78f047391a713de9beb0b82fa080aafe5",
+      "current_sha256": "7301066dd5af977619afee792d29cdf78f047391a713de9beb0b82fa080aafe5",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/air_response_ground_compatibility.gd": {
+      "v24_sha256": "b16ba1a302228da5956f5aaf9ed310adda2667ce3c09097677e2517a6c751041",
+      "current_sha256": "b16ba1a302228da5956f5aaf9ed310adda2667ce3c09097677e2517a6c751041",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/air_response_health_compatibility.gd": {
+      "v24_sha256": "09e043b9e8ce4b6560c8ff41a362d591d5394df01a00d9cf52b3c83a85ca43f9",
+      "current_sha256": "09e043b9e8ce4b6560c8ff41a362d591d5394df01a00d9cf52b3c83a85ca43f9",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/air_response_noise_compatibility.gd": {
+      "v24_sha256": "e7ad652bc747b39395e7e27d7aa6a4b827e1d502bd156ab187dbdd5a8a4b36bb",
+      "current_sha256": "e7ad652bc747b39395e7e27d7aa6a4b827e1d502bd156ab187dbdd5a8a4b36bb",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/air_response_owners.gd": {
+      "v24_sha256": "9b9dde54f2f3ecfbbe9ffd0e78f51b387400bc1581987743edc72f4b8eaba703",
+      "current_sha256": "9b9dde54f2f3ecfbbe9ffd0e78f51b387400bc1581987743edc72f4b8eaba703",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/air_response_regression.gd": {
+      "v24_sha256": "7411a6aec7b8366a6fb3c527321317b281485f3e0b37c4e0a05e0966490be6bc",
+      "current_sha256": "7411a6aec7b8366a6fb3c527321317b281485f3e0b37c4e0a05e0966490be6bc",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/air_response_run.py": {
+      "v24_sha256": "8ef4a1928ca87e6e89d6714b801a9550737a44543607a171d96de0b9ea5610af",
+      "current_sha256": "8ef4a1928ca87e6e89d6714b801a9550737a44543607a171d96de0b9ea5610af",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/air_response_verify_baseline.py": {
+      "v24_sha256": "2a91250ebedf488d0ff4923a9a1834a94d6e324cf695b95e01ecab25157cd1eb",
+      "current_sha256": "2a91250ebedf488d0ff4923a9a1834a94d6e324cf695b95e01ecab25157cd1eb",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/build_climb_report.py": {
+      "v24_sha256": "fd1ca1bc5dff0a266bceb7b5649b579ca587ce89a39f19a8689121e367fdd0ad",
+      "current_sha256": "fd1ca1bc5dff0a266bceb7b5649b579ca587ce89a39f19a8689121e367fdd0ad",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/build_combat_report.py": {
+      "v24_sha256": "7f4bc7762036ebeeccc0e30f9673a8bed081d30a7d36c7f7ea77fa3f56fb21a3",
+      "current_sha256": "7f4bc7762036ebeeccc0e30f9673a8bed081d30a7d36c7f7ea77fa3f56fb21a3",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/build_combo_report.py": {
+      "v24_sha256": "b54d2e42af9aa79dea0e74e03fad30896e5ec97a7afe3f9e722633ee6290a4d3",
+      "current_sha256": "b54d2e42af9aa79dea0e74e03fad30896e5ec97a7afe3f9e722633ee6290a4d3",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/build_entry_assist_report.py": {
+      "v24_sha256": "5f21b95a62e4feacd93f7ad111c2b10221a0789483621118c9cadefbc05f0a7c",
+      "current_sha256": "5f21b95a62e4feacd93f7ad111c2b10221a0789483621118c9cadefbc05f0a7c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/build_hard_landing_report.py": {
+      "v24_sha256": "09a4bfb99a27187ebaad6d9ff7a20ac1ed04303f078784df6903451c2859ba7d",
+      "current_sha256": "09a4bfb99a27187ebaad6d9ff7a20ac1ed04303f078784df6903451c2859ba7d",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/build_held_report.py": {
+      "v24_sha256": "80fab8c1e1061b13459c416370dd05bb9c6bd94e578035b24722028281f87482",
+      "current_sha256": "80fab8c1e1061b13459c416370dd05bb9c6bd94e578035b24722028281f87482",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/build_shield_report.py": {
+      "v24_sha256": "b10b07770aba61cbe2ce9e2da5d10d2892efa3c35c5549b4f59cc383a2da9079",
+      "current_sha256": "b10b07770aba61cbe2ce9e2da5d10d2892efa3c35c5549b4f59cc383a2da9079",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/build_soft_slope_report.py": {
+      "v24_sha256": "246c4f5a8934125e22781815cfb8310563b8bba9775180721cdd008dadfc807a",
+      "current_sha256": "246c4f5a8934125e22781815cfb8310563b8bba9775180721cdd008dadfc807a",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/build_traversal_report.py": {
+      "v24_sha256": "e9ceb766c891931cca09eded45277432758c7c69f0e6b9b1f867295e95fa1f04",
+      "current_sha256": "e9ceb766c891931cca09eded45277432758c7c69f0e6b9b1f867295e95fa1f04",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/build_wall_report.py": {
+      "v24_sha256": "c68deba0e2a23f783c87c2ff04e069b02844642ac690c5f26320228f2c6baab4",
+      "current_sha256": "c68deba0e2a23f783c87c2ff04e069b02844642ac690c5f26320228f2c6baab4",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/climb_regression.gd": {
+      "v24_sha256": "4ac1591fe2c7f8466aee7ab6a0ba330b746e6d2d5aff05be57aa000c760a74d0",
+      "current_sha256": "4ac1591fe2c7f8466aee7ab6a0ba330b746e6d2d5aff05be57aa000c760a74d0",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/combat_regression.gd": {
+      "v24_sha256": "37d962c54289827bac40ab5661b4b67591750c9d3f85f0078eb87260a4513030",
+      "current_sha256": "37d962c54289827bac40ab5661b4b67591750c9d3f85f0078eb87260a4513030",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/combo_confirmation_probe.gd": {
+      "v24_sha256": "e8d36fec9b436987c5238a0f5e24ff58f01fab35a599c387ee649b028bbf13a8",
+      "current_sha256": "e8d36fec9b436987c5238a0f5e24ff58f01fab35a599c387ee649b028bbf13a8",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/combo_fallback_switch_probe.gd": {
+      "v24_sha256": "ce1a09e58fc601bbfb064d89365a8041b465d7e4a1f0ab5be1f92b8981009b8b",
+      "current_sha256": "ce1a09e58fc601bbfb064d89365a8041b465d7e4a1f0ab5be1f92b8981009b8b",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/combo_regression.gd": {
+      "v24_sha256": "515e6b1baf93601ea535ab283c1fc51aa500881dd276654058ab881a4256485c",
+      "current_sha256": "515e6b1baf93601ea535ab283c1fc51aa500881dd276654058ab881a4256485c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/combo_response_build_report.py": {
+      "v24_sha256": "77cf22b81c261116168a1bf87983e48cc7f3f9597c946814cb1cb4607a98b962",
+      "current_sha256": "77cf22b81c261116168a1bf87983e48cc7f3f9597c946814cb1cb4607a98b962",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/combo_response_regression.gd": {
+      "v24_sha256": "baac4923b8fbcc1b1aa5f9a87cb1b7786bab202d01cc708b24226d531b532596",
+      "current_sha256": "baac4923b8fbcc1b1aa5f9a87cb1b7786bab202d01cc708b24226d531b532596",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/combo_response_run.py": {
+      "v24_sha256": "de32a20bf8fa60f21d5d2239bbf583fcd97d88b45df4d2c22a1b9ae4039ac27e",
+      "current_sha256": "de32a20bf8fa60f21d5d2239bbf583fcd97d88b45df4d2c22a1b9ae4039ac27e",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/combo_run_compatibility.py": {
+      "v24_sha256": "2f4a9fa95c5f5220d1076c6060843d6ac93aafa1999a8ff5b7ab381edb66eb5a",
+      "current_sha256": "2f4a9fa95c5f5220d1076c6060843d6ac93aafa1999a8ff5b7ab381edb66eb5a",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/combo_short_pause_probe.gd": {
+      "v24_sha256": "cee9b4a3d4e6374dbb022a6bd6c9476dbbabdada56144e561a51f43ac23f3608",
+      "current_sha256": "cee9b4a3d4e6374dbb022a6bd6c9476dbbabdada56144e561a51f43ac23f3608",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/contact_noise_physics_probe.gd": {
+      "v24_sha256": "91173418fd955ec48f76f28e55c6bdcb7046322cf1b5fe3cc34a23024f3d8829",
+      "current_sha256": "91173418fd955ec48f76f28e55c6bdcb7046322cf1b5fe3cc34a23024f3d8829",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/contact_noise_physics_regression.gd": {
+      "v24_sha256": "4681353c4b1d7b8ae8d813883f15755fcd43a33ce677f71a91780bf3bbd90fe7",
+      "current_sha256": "4681353c4b1d7b8ae8d813883f15755fcd43a33ce677f71a91780bf3bbd90fe7",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/contact_noise_verify_baseline.py": {
+      "v24_sha256": "0aa11ef7c70c857e9f851880a6c4826f80220bfa569c11780b2463696ec5762c",
+      "current_sha256": "0aa11ef7c70c857e9f851880a6c4826f80220bfa569c11780b2463696ec5762c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/defeat_health_compatibility.gd": {
+      "v24_sha256": "76dfb380316ca14987e9a93668cc627e896b145d99902dd6e54beb08920c05ce",
+      "current_sha256": "76dfb380316ca14987e9a93668cc627e896b145d99902dd6e54beb08920c05ce",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/defeat_regression.gd": {
+      "v24_sha256": "0d61d6890bf2ccad6b8636462a3a14276311867afdd261f39bfb1f96d76dc3af",
+      "current_sha256": "0d61d6890bf2ccad6b8636462a3a14276311867afdd261f39bfb1f96d76dc3af",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/entry_assist_regression.gd": {
+      "v24_sha256": "52417cbe52faaba4dec9fe339ed9f1d0bc73511e08fc7b73df989ac5ca9f724e",
+      "current_sha256": "52417cbe52faaba4dec9fe339ed9f1d0bc73511e08fc7b73df989ac5ca9f724e",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/entry_assist_run_compatibility.py": {
+      "v24_sha256": "1a8968e46c833a06c69b22cfdc923ae7c14330f1a2cbac7ec9d8776110925598",
+      "current_sha256": "1a8968e46c833a06c69b22cfdc923ae7c14330f1a2cbac7ec9d8776110925598",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/ground_response_compare_rates.py": {
+      "v24_sha256": "a74709db8ca46d961f3e13cd82eca6df897b575204dc9476ad5260b670d7c423",
+      "current_sha256": "a74709db8ca46d961f3e13cd82eca6df897b575204dc9476ad5260b670d7c423",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/ground_response_defeat_compatibility.gd": {
+      "v24_sha256": "756fbc18211a9e62f65eacf1641579006c454f8c4d4187e24c0593a04c1c584e",
+      "current_sha256": "756fbc18211a9e62f65eacf1641579006c454f8c4d4187e24c0593a04c1c584e",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/ground_response_health_compatibility.gd": {
+      "v24_sha256": "47581c230b705cc592c412d2b98ab26c0d0fa3fae0da152db498bd904866694f",
+      "current_sha256": "47581c230b705cc592c412d2b98ab26c0d0fa3fae0da152db498bd904866694f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/ground_response_noise_compatibility.gd": {
+      "v24_sha256": "b4d0a20d8ee4b03f9a242864cc56988cabcd590857c184c4abc0b4f27e74ec19",
+      "current_sha256": "b4d0a20d8ee4b03f9a242864cc56988cabcd590857c184c4abc0b4f27e74ec19",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/ground_response_regression.gd": {
+      "v24_sha256": "10faaf5ce26d3f67fbeee4074d996f61c1ba18c76c6f8bf3ea824d1364a3889d",
+      "current_sha256": "10faaf5ce26d3f67fbeee4074d996f61c1ba18c76c6f8bf3ea824d1364a3889d",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/ground_response_run.py": {
+      "v24_sha256": "2bdc14e5b895ca17d49d8813bcb498a36898df38f622c9e10ccba3a5c80f7f42",
+      "current_sha256": "2bdc14e5b895ca17d49d8813bcb498a36898df38f622c9e10ccba3a5c80f7f42",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/ground_response_verify_baseline.py": {
+      "v24_sha256": "c031e2cc738f03e025e56244ea1b53749fc9884e0959a869b2ee7d976e7c3bac",
+      "current_sha256": "c031e2cc738f03e025e56244ea1b53749fc9884e0959a869b2ee7d976e7c3bac",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/hard_landing_regression.gd": {
+      "v24_sha256": "5cbab081847874d72dd7c8d37d0dbdc42582d274021f822055ef693ecab9f361",
+      "current_sha256": "5cbab081847874d72dd7c8d37d0dbdc42582d274021f822055ef693ecab9f361",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/health_queue_free_probe.gd": {
+      "v24_sha256": "6457b06f26f0fa15e91b4f794ed24987f492b6ad7de8dd7d9b71a31e39dfcede",
+      "current_sha256": "6457b06f26f0fa15e91b4f794ed24987f492b6ad7de8dd7d9b71a31e39dfcede",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/health_regression.gd": {
+      "v24_sha256": "49324dc90b09c75f226e180ee9e5a3de7d24db1debbb4b0d0b39d87013726a0d",
+      "current_sha256": "49324dc90b09c75f226e180ee9e5a3de7d24db1debbb4b0d0b39d87013726a0d",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/health_shield_compatibility.gd": {
+      "v24_sha256": "b3242bd4d449394c8f77fc571378add5c8381960bf4e51715a80aa3d8ecbe0ca",
+      "current_sha256": "b3242bd4d449394c8f77fc571378add5c8381960bf4e51715a80aa3d8ecbe0ca",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/held_candidate_ca632f15/portable_validation/validate_host.gd": {
+      "v24_sha256": "145aa95e40f0a1bd42262f9fa7a846ea0cac3c0c0eeacf3e13078c19101b3b7c",
+      "current_sha256": "145aa95e40f0a1bd42262f9fa7a846ea0cac3c0c0eeacf3e13078c19101b3b7c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/held_regression.gd": {
+      "v24_sha256": "bb9ae076bf1738af164f78f2a48674d8a1dc17a528b9e69dcb852f6f7539b4f9",
+      "current_sha256": "bb9ae076bf1738af164f78f2a48674d8a1dc17a528b9e69dcb852f6f7539b4f9",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/held_run_compatibility.py": {
+      "v24_sha256": "935e1b4bc0faddbf1a3d8aee01121e77def6c4093ac3952b379255d252d45668",
+      "current_sha256": "935e1b4bc0faddbf1a3d8aee01121e77def6c4093ac3952b379255d252d45668",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/movement_regression.gd": {
+      "v24_sha256": "290f297c0d06c2783597f72c162e0278ce82578789085c2d88921ede051e5ca4",
+      "current_sha256": "290f297c0d06c2783597f72c162e0278ce82578789085c2d88921ede051e5ca4",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/noise_actor_lifecycle_probe.gd": {
+      "v24_sha256": "9ccd2d7baf76d6f5069e7c04b49bc100fcd27f0badc9cfa2b14031fd06a5452c",
+      "current_sha256": "9ccd2d7baf76d6f5069e7c04b49bc100fcd27f0badc9cfa2b14031fd06a5452c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/noise_defeat_compatibility.gd": {
+      "v24_sha256": "2196b21ad23c3aa41d5672cfff7610e08af90e21778c67ead3035d3ea5c0227f",
+      "current_sha256": "2196b21ad23c3aa41d5672cfff7610e08af90e21778c67ead3035d3ea5c0227f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/noise_health_compatibility.gd": {
+      "v24_sha256": "7a338ae047ecb0c497c466993c8215df66da3b878574e96d5cfab8556b888f84",
+      "current_sha256": "7a338ae047ecb0c497c466993c8215df66da3b878574e96d5cfab8556b888f84",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/noise_regression.gd": {
+      "v24_sha256": "9ef33d54150e6258c637d1c8174d030f908951358413200b32804b3338e3ee2c",
+      "current_sha256": "9ef33d54150e6258c637d1c8174d030f908951358413200b32804b3338e3ee2c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/npc_footstep_driver.gd": {
+      "v24_sha256": "23081951a7b4464cc815b5776b4170454a811a39a6898d99363c16d2f875afba",
+      "current_sha256": "23081951a7b4464cc815b5776b4170454a811a39a6898d99363c16d2f875afba",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/npc_footstep_late_air_probe.gd": {
+      "v24_sha256": "97be7c355c7a3ba5ff7affe16aa5acf520cb77e384d431151dc4dc2b788faaa5",
+      "current_sha256": "97be7c355c7a3ba5ff7affe16aa5acf520cb77e384d431151dc4dc2b788faaa5",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/npc_footstep_regression.gd": {
+      "v24_sha256": "5b2a7d942ccce65b3b1de2648e6657a51dc0d86ee157365d31fcf333694b89d1",
+      "current_sha256": "5b2a7d942ccce65b3b1de2648e6657a51dc0d86ee157365d31fcf333694b89d1",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/npc_footstep_summarize.py": {
+      "v24_sha256": "5e50beb701fab009a9bef64b3928c73eebd7e26baeaa7dd1b95fad1565ca0c35",
+      "current_sha256": "5e50beb701fab009a9bef64b3928c73eebd7e26baeaa7dd1b95fad1565ca0c35",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/npc_footstep_verify_baseline.py": {
+      "v24_sha256": "80f37d6406b7990df8f8ccf7e5820658758d2d508d63af0925aa1804f1259542",
+      "current_sha256": "80f37d6406b7990df8f8ccf7e5820658758d2d508d63af0925aa1804f1259542",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/shield_regression.gd": {
+      "v24_sha256": "575918904e7f52006f4eff0f42bd1805e6579d2021dacb5b3c15d8bda0d7261a",
+      "current_sha256": "575918904e7f52006f4eff0f42bd1805e6579d2021dacb5b3c15d8bda0d7261a",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/soft_slope_probe_player.gd": {
+      "v24_sha256": "e2ba5ad8d442ada025ba463055daa90636d89368e982943751a296bc2ca633d0",
+      "current_sha256": "e2ba5ad8d442ada025ba463055daa90636d89368e982943751a296bc2ca633d0",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/soft_slope_regression.gd": {
+      "v24_sha256": "f9c574437ffe396d22e9ad0b5f83fb83cd768db2e28b3e8232055039237708d1",
+      "current_sha256": "f9c574437ffe396d22e9ad0b5f83fb83cd768db2e28b3e8232055039237708d1",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/surface_regression.gd": {
+      "v24_sha256": "ee9560290364ae6841a71935a9b5fb2fae924a12c9300c7907fdab2efa039b43",
+      "current_sha256": "ee9560290364ae6841a71935a9b5fb2fae924a12c9300c7907fdab2efa039b43",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/surface_verify_baseline.py": {
+      "v24_sha256": "847aaadeb22c45ac959a5816a6f503c763cc08b55c81fd6aa824d6ad9038ba43",
+      "current_sha256": "847aaadeb22c45ac959a5816a6f503c763cc08b55c81fd6aa824d6ad9038ba43",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/traversal_regression.gd": {
+      "v24_sha256": "2ced3aa21cadf7cd4414360d4ecc3d8d29c7115a1315ead638b45d494cc24ff8",
+      "current_sha256": "2ced3aa21cadf7cd4414360d4ecc3d8d29c7115a1315ead638b45d494cc24ff8",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/tests/wall_regression.gd": {
+      "v24_sha256": "52f6a5d25565fb4b4212cb23411f2356424139c915c059a2e6974127ad7c2e1d",
+      "current_sha256": "52f6a5d25565fb4b4212cb23411f2356424139c915c059a2e6974127ad7c2e1d",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/charge_keys.gd": {
+      "v24_sha256": "9e696cace6b8dde780f01a70e69ae6a3ff38ddb698ad1e492d2dc22af8baacc8",
+      "current_sha256": "9e696cace6b8dde780f01a70e69ae6a3ff38ddb698ad1e492d2dc22af8baacc8",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/charge_pose.gd": {
+      "v24_sha256": "e7468d0d38c51e10d84f8802953d64c3f3cadebf58b702228bfc3383b2659385",
+      "current_sha256": "e7468d0d38c51e10d84f8802953d64c3f3cadebf58b702228bfc3383b2659385",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/climb_keys.gd": {
+      "v24_sha256": "a1cb3f9d4ae4ca4fabdd6cd6fb0f3a3a93fa06c71e6e968b35738db08b5cb34b",
+      "current_sha256": "a1cb3f9d4ae4ca4fabdd6cd6fb0f3a3a93fa06c71e6e968b35738db08b5cb34b",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/climb_pose.gd": {
+      "v24_sha256": "446de17d84b277c1ae540d194a868bd4d28c996d9c308672beab03e21fbf333b",
+      "current_sha256": "446de17d84b277c1ae540d194a868bd4d28c996d9c308672beab03e21fbf333b",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/combat_keys.gd": {
+      "v24_sha256": "8428323a846f4d3a7f861aa4998c9c55a7ca658a50252468caf726724ed9923e",
+      "current_sha256": "8428323a846f4d3a7f861aa4998c9c55a7ca658a50252468caf726724ed9923e",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/combat_pose.gd": {
+      "v24_sha256": "1d62a3646bca4efe14d2de79f3b09be4bc2b9488c39ec23fdd6f81771ac34f61",
+      "current_sha256": "1d62a3646bca4efe14d2de79f3b09be4bc2b9488c39ec23fdd6f81771ac34f61",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/combo_keys.gd": {
+      "v24_sha256": "41748db36cd580ccdeb11fb0e3a65c8def4d40560cb366f6662c431c8db911e4",
+      "current_sha256": "41748db36cd580ccdeb11fb0e3a65c8def4d40560cb366f6662c431c8db911e4",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/combo_pose.gd": {
+      "v24_sha256": "080b393496ead43f9604e6b700dad9619705a205bc3883ce1564c6a9ef51291c",
+      "current_sha256": "080b393496ead43f9604e6b700dad9619705a205bc3883ce1564c6a9ef51291c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/defeat_pose.gd": {
+      "v24_sha256": "74427952a134896b729f93e40c2441d03d215c21d3b47bb339859b2a19a5df97",
+      "current_sha256": "74427952a134896b729f93e40c2441d03d215c21d3b47bb339859b2a19a5df97",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/descent_keys.gd": {
+      "v24_sha256": "91d636f519b10798c065dd39fecc3acafd16e38a1c5d7f52f6c61f66cf826657",
+      "current_sha256": "91d636f519b10798c065dd39fecc3acafd16e38a1c5d7f52f6c61f66cf826657",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/descent_pose.gd": {
+      "v24_sha256": "671a1590ab598050d98613cc9efc69b9b6f5be64f7ddceee10a70e3291f988b3",
+      "current_sha256": "671a1590ab598050d98613cc9efc69b9b6f5be64f7ddceee10a70e3291f988b3",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/landing_keys.gd": {
+      "v24_sha256": "63ee37208ac8d27d368ef1d97bb6db820c11fa953192cf1d57add31c1944fb4e",
+      "current_sha256": "63ee37208ac8d27d368ef1d97bb6db820c11fa953192cf1d57add31c1944fb4e",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/landing_pose.gd": {
+      "v24_sha256": "04eab34b7ea4590a0f1cc610df8d6d82869fee2c8fb36e31df4efed541d689f8",
+      "current_sha256": "04eab34b7ea4590a0f1cc610df8d6d82869fee2c8fb36e31df4efed541d689f8",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/shield_keys.gd": {
+      "v24_sha256": "6bbf9e2cbe1dddfceef1d3fcf31770eecddb6fedd28d30edd1c2f38dc856e347",
+      "current_sha256": "6bbf9e2cbe1dddfceef1d3fcf31770eecddb6fedd28d30edd1c2f38dc856e347",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/shield_pose.gd": {
+      "v24_sha256": "a0fb1cd58c6f88f9eef2bd9f87dabde34bad04bd236aad6704ab5a4c333f87db",
+      "current_sha256": "a0fb1cd58c6f88f9eef2bd9f87dabde34bad04bd236aad6704ab5a4c333f87db",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/slope_pose.gd": {
+      "v24_sha256": "dcb3d7310df599752ccc9f6aba05046bba23a4b31e84f0786f6d428babdb6587",
+      "current_sha256": "dcb3d7310df599752ccc9f6aba05046bba23a4b31e84f0786f6d428babdb6587",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/charge_motor_visual_smoke.gd": {
+      "v24_sha256": "b83fa90ab2444f0df43052c621aa7e548da6097a0a7510bc97f42b992f48207f",
+      "current_sha256": "b83fa90ab2444f0df43052c621aa7e548da6097a0a7510bc97f42b992f48207f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/charge_visual_regression.gd": {
+      "v24_sha256": "003ecfbec2bdb59497b54837b36b5bbb4b3cd4cb931cccfacfa6b64dc6160709",
+      "current_sha256": "003ecfbec2bdb59497b54837b36b5bbb4b3cd4cb931cccfacfa6b64dc6160709",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/climb_visual_regression.gd": {
+      "v24_sha256": "d6e9efa8f74b43ecc265bc17b1815b7969253beb617eb144add9a529915373c9",
+      "current_sha256": "d6e9efa8f74b43ecc265bc17b1815b7969253beb617eb144add9a529915373c9",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/combat_visual_regression.gd": {
+      "v24_sha256": "0c0024e49ad700df0780a592faeee2bcb6f9178f87ca62cff0bec9d52706e79c",
+      "current_sha256": "0c0024e49ad700df0780a592faeee2bcb6f9178f87ca62cff0bec9d52706e79c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/combo_facing_motor_check.gd": {
+      "v24_sha256": "d3b1092593cb6ee70b42818ce42098903d645dcaacd93b2d9026c94b938b1e44",
+      "current_sha256": "d3b1092593cb6ee70b42818ce42098903d645dcaacd93b2d9026c94b938b1e44",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/combo_motor_visual_smoke.gd": {
+      "v24_sha256": "39f6a9e2096ed2fab9a04eefe5dcbc2a396dd389ffc9e17040507970db2b3ab9",
+      "current_sha256": "39f6a9e2096ed2fab9a04eefe5dcbc2a396dd389ffc9e17040507970db2b3ab9",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/combo_visual_regression.gd": {
+      "v24_sha256": "c3174c572e9345fc140b366183e037192c17dd484b9a620c862b4a2ac4488397",
+      "current_sha256": "c3174c572e9345fc140b366183e037192c17dd484b9a620c862b4a2ac4488397",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/descent_visual_regression.gd": {
+      "v24_sha256": "5548c38930a1cb0843101750670dd0f3b28ed5a98ed50a80ccb4dd5161bfd8b6",
+      "current_sha256": "5548c38930a1cb0843101750670dd0f3b28ed5a98ed50a80ccb4dd5161bfd8b6",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/ground_response_visual_baseline.gd": {
+      "v24_sha256": "daf60db2b6d4155ace6b94fe78f1c6b3417a21d762662dd99b3bfae937edd5f9",
+      "current_sha256": "daf60db2b6d4155ace6b94fe78f1c6b3417a21d762662dd99b3bfae937edd5f9",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/ground_response_visual_regression.gd": {
+      "v24_sha256": "73dfba42aa952f55815374532d3cff3ee113e211f1408ce23aaa695fcad7875f",
+      "current_sha256": "73dfba42aa952f55815374532d3cff3ee113e211f1408ce23aaa695fcad7875f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/landing_motor_visual_smoke.gd": {
+      "v24_sha256": "d1a3d82f2147efb1f7be5cf50ed881214fa684d14591354af0eebc949c34a68e",
+      "current_sha256": "d1a3d82f2147efb1f7be5cf50ed881214fa684d14591354af0eebc949c34a68e",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/landing_visual_regression.gd": {
+      "v24_sha256": "7c88f799b0733f5e365f21e506a1273d880df021e56726df2d8fe77d108210b9",
+      "current_sha256": "7c88f799b0733f5e365f21e506a1273d880df021e56726df2d8fe77d108210b9",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/render_charge_previews.py": {
+      "v24_sha256": "a6f0c30d8a589325f6af4469b97191cc95266bc1fa63d2c7ae9582f8483b4799",
+      "current_sha256": "a6f0c30d8a589325f6af4469b97191cc95266bc1fa63d2c7ae9582f8483b4799",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/render_climb_previews.py": {
+      "v24_sha256": "60bbae62e5144fd88aac30f535a29f26dbdbb09d2bdaac2ebabb2ad0ac505e8f",
+      "current_sha256": "60bbae62e5144fd88aac30f535a29f26dbdbb09d2bdaac2ebabb2ad0ac505e8f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/render_combat_previews.py": {
+      "v24_sha256": "1127c41b96fc6c9cd19d262282a5d16e79f669e8dcbd50112948c7d730210862",
+      "current_sha256": "1127c41b96fc6c9cd19d262282a5d16e79f669e8dcbd50112948c7d730210862",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/render_combo_previews.py": {
+      "v24_sha256": "ab88d10c0227ce5ab3cbcfed3a1342a890f5f96c88d56a231066c1c0c3548437",
+      "current_sha256": "ab88d10c0227ce5ab3cbcfed3a1342a890f5f96c88d56a231066c1c0c3548437",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/render_descent_previews.py": {
+      "v24_sha256": "0d3c9cd203c2701fe29527eed348a2fbf79e66f55c9264f6a7728139be1e677c",
+      "current_sha256": "0d3c9cd203c2701fe29527eed348a2fbf79e66f55c9264f6a7728139be1e677c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/render_landing_previews.py": {
+      "v24_sha256": "8db64e79ceff96cf8337348535a344eecd188db2e1758aa702a0a93229587cf6",
+      "current_sha256": "8db64e79ceff96cf8337348535a344eecd188db2e1758aa702a0a93229587cf6",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/render_previews.py": {
+      "v24_sha256": "f9eef7447866cbb163f3d21dac85585cf6c1cf1e55ecf1bcc88133c98281cb8b",
+      "current_sha256": "f9eef7447866cbb163f3d21dac85585cf6c1cf1e55ecf1bcc88133c98281cb8b",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/render_shield_previews.py": {
+      "v24_sha256": "a4a10ea12f4608a3d8c503cb2809e19ab1513082d0daf8a9dbd301c6790e3c3b",
+      "current_sha256": "a4a10ea12f4608a3d8c503cb2809e19ab1513082d0daf8a9dbd301c6790e3c3b",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/render_slope_previews.py": {
+      "v24_sha256": "7e0b9f71cf89984591673e022558da9aca5172b228b2751665461e48565f4293",
+      "current_sha256": "7e0b9f71cf89984591673e022558da9aca5172b228b2751665461e48565f4293",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/render_wall_previews.py": {
+      "v24_sha256": "cca4859567592e5cdeedc6c70e5b5c2a69dd8b6334568aeb23673dfdb6fe87b7",
+      "current_sha256": "cca4859567592e5cdeedc6c70e5b5c2a69dd8b6334568aeb23673dfdb6fe87b7",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/shield_motor_visual_smoke.gd": {
+      "v24_sha256": "479684afa44c1117e1a53fc0461d2e9414f92bc0b8f0bba8822aae0de7dd49f5",
+      "current_sha256": "479684afa44c1117e1a53fc0461d2e9414f92bc0b8f0bba8822aae0de7dd49f5",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/shield_visual_regression.gd": {
+      "v24_sha256": "4ff993a8a0a2f0bd0a9ed65c6de57342a28301bc6d7ae240aad978933fd63994",
+      "current_sha256": "4ff993a8a0a2f0bd0a9ed65c6de57342a28301bc6d7ae240aad978933fd63994",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/slope_motor_visual_smoke.gd": {
+      "v24_sha256": "189bfaf8eeab77d655107120c190bb298ed39410d10c55486a39b4d54fa17548",
+      "current_sha256": "189bfaf8eeab77d655107120c190bb298ed39410d10c55486a39b4d54fa17548",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/slope_special_pose_audit.gd": {
+      "v24_sha256": "549c932fe6be563a295dfa550dfa8e2c25fc661a34cc4db102987c4a03c35a36",
+      "current_sha256": "549c932fe6be563a295dfa550dfa8e2c25fc661a34cc4db102987c4a03c35a36",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/slope_visual_probe.gd": {
+      "v24_sha256": "560b5af1ae48036545ef6c9e2cfebfdf2e79e77c132f8cacb3170c56d3308199",
+      "current_sha256": "560b5af1ae48036545ef6c9e2cfebfdf2e79e77c132f8cacb3170c56d3308199",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/slope_visual_regression.gd": {
+      "v24_sha256": "e2054c696dcc2713f9804048d7b39309b0e1f17f22915b848946d3ee60395508",
+      "current_sha256": "e2054c696dcc2713f9804048d7b39309b0e1f17f22915b848946d3ee60395508",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/visual_regression.gd": {
+      "v24_sha256": "e7bfcd4073c94e93c5779cba5a9e478c93eaa5eee6e95c39eb66ea866a60e1c0",
+      "current_sha256": "e7bfcd4073c94e93c5779cba5a9e478c93eaa5eee6e95c39eb66ea866a60e1c0",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/tests/wall_visual_regression.gd": {
+      "v24_sha256": "9932584516d73c1e2cb256d5f4c6d8ba532e9eb9d7eaa24fb4c55f059133e51c",
+      "current_sha256": "9932584516d73c1e2cb256d5f4c6d8ba532e9eb9d7eaa24fb4c55f059133e51c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/wall_keys.gd": {
+      "v24_sha256": "1b94d567bafbfb71115800de3965107c0c0213d64bc40faa435195b803085cd0",
+      "current_sha256": "1b94d567bafbfb71115800de3965107c0c0213d64bc40faa435195b803085cd0",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/wall_pose.gd": {
+      "v24_sha256": "d83e4280c04b56d0ecaaa27a2588df87b3d6197b2b5e95d409ad2c4a93fd5129",
+      "current_sha256": "d83e4280c04b56d0ecaaa27a2588df87b3d6197b2b5e95d409ad2c4a93fd5129",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/wireframe.gd": {
+      "v24_sha256": "2ec42a86dd5a30c2132fe7ac3ada521fcb458a3354d8acd92c999992dcfcd319",
+      "current_sha256": "2ec42a86dd5a30c2132fe7ac3ada521fcb458a3354d8acd92c999992dcfcd319",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/wireframe_keys.gd": {
+      "v24_sha256": "a9a5d86e8a0785ee07508bf39ea4e43eb2a1edb41c9928d15bb82575b226290c",
+      "current_sha256": "a9a5d86e8a0785ee07508bf39ea4e43eb2a1edb41c9928d15bb82575b226290c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "combat_pc/visuals/wireframe_pose.gd": {
+      "v24_sha256": "0b1cf2f577a051f79cfbfe9c2d2963fc07f8c2537fe6675f1ba2beff6fddc74f",
+      "current_sha256": "0b1cf2f577a051f79cfbfe9c2d2963fc07f8c2537fe6675f1ba2beff6fddc74f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "enemy.gd": {
+      "v24_sha256": "967099b095236fce559219e85b43eb23b8ff7f8da83c522267dc4cc07903a510",
+      "current_sha256": "967099b095236fce559219e85b43eb23b8ff7f8da83c522267dc4cc07903a510",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "hud.gd": {
+      "v24_sha256": "ed103e44cb3a549f14a495c1d3a7057851f78533e8d25767b77d2e402d722680",
+      "current_sha256": "ed103e44cb3a549f14a495c1d3a7057851f78533e8d25767b77d2e402d722680",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "main.gd": {
+      "v24_sha256": "b0c7c4e4d9d4bd26266815b61c3c9edaccc32961e8a9ecb9266bb2352aa6493c",
+      "current_sha256": "b0c7c4e4d9d4bd26266815b61c3c9edaccc32961e8a9ecb9266bb2352aa6493c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "main.tscn": {
+      "v24_sha256": "68170bf7b7f140fa1d2fdd571575ffc262328849983ef85a1b9d7ddd5da5c584",
+      "current_sha256": "68170bf7b7f140fa1d2fdd571575ffc262328849983ef85a1b9d7ddd5da5c584",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/actors/npc.tscn": {
+      "v24_sha256": "7551f9589823528b802ff45299787ba4ac23f3af5885567bc3995c2383f1a73f",
+      "current_sha256": "7551f9589823528b802ff45299787ba4ac23f3af5885567bc3995c2383f1a73f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/actors/player.tscn": {
+      "v24_sha256": "e35f2a44d8b0c8c583c0b85c61128d628f9d882cde59098709a9bd9d6debf457",
+      "current_sha256": "e35f2a44d8b0c8c583c0b85c61128d628f9d882cde59098709a9bd9d6debf457",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/components/movement_motor.gd": {
+      "v24_sha256": "149e8eddeab852f44aa141924ddb75d86c0a66846dfe47c27241a4c9b422b1fb",
+      "current_sha256": "149e8eddeab852f44aa141924ddb75d86c0a66846dfe47c27241a4c9b422b1fb",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/components/npc_intent.gd": {
+      "v24_sha256": "d717fe5efb1758938b71fb03daa29bd350d1eaa977c5f79e47933af83b23899c",
+      "current_sha256": "d717fe5efb1758938b71fb03daa29bd350d1eaa977c5f79e47933af83b23899c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/components/player_intent.gd": {
+      "v24_sha256": "e024e4418f2873e72020405ce7d82635778a69dec4220ec5092d01718de9ca1b",
+      "current_sha256": "e024e4418f2873e72020405ce7d82635778a69dec4220ec5092d01718de9ca1b",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/components/wireframe.gd": {
+      "v24_sha256": "f7aff459ccb305ebcb314534d34cd77ab06d9ecc7a679f28a54ead77eaf6c11a",
+      "current_sha256": "f7aff459ccb305ebcb314534d34cd77ab06d9ecc7a679f28a54ead77eaf6c11a",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/geometry/test_surface.gd": {
+      "v24_sha256": "357bc73f0c4ceca9d41b08c8f3ae64f9480e2407abc2881f5767bd929dcca7b3",
+      "current_sha256": "357bc73f0c4ceca9d41b08c8f3ae64f9480e2407abc2881f5767bd929dcca7b3",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/geometry/test_surface.tscn": {
+      "v24_sha256": "8be0384803ac701c4128e38a4d4629ef2357e3c9e7e00833968bff79c7fcc50c",
+      "current_sha256": "8be0384803ac701c4128e38a4d4629ef2357e3c9e7e00833968bff79c7fcc50c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/lab.gd": {
+      "v24_sha256": "6d01e812a1c468eff55d249fb885dbaa882d2a75b9c44cc00d8c07f642cfb927",
+      "current_sha256": "6d01e812a1c468eff55d249fb885dbaa882d2a75b9c44cc00d8c07f642cfb927",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/lab_hud.gd": {
+      "v24_sha256": "6e4180129d06ac31ee018bc6d060f498ffc5d291620ccf497b58791be605c272",
+      "current_sha256": "6e4180129d06ac31ee018bc6d060f498ffc5d291620ccf497b58791be605c272",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/movement_lab.tscn": {
+      "v24_sha256": "6d5cddd1724ad0d8df442c74163f449eb4f44b9ccbedb3dface7cdaf99a51106",
+      "current_sha256": "6d5cddd1724ad0d8df442c74163f449eb4f44b9ccbedb3dface7cdaf99a51106",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/resources/movement_tuning.gd": {
+      "v24_sha256": "e1fe740595203dfc8e89a63054449931a744d77ea8bcbd10485b1a0411bc80c8",
+      "current_sha256": "e1fe740595203dfc8e89a63054449931a744d77ea8bcbd10485b1a0411bc80c8",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/resources/npc.tres": {
+      "v24_sha256": "c94d355ea322eb5abc3a8bcd0f8e404635a0bf4f43a44a82ef366a3673405a86",
+      "current_sha256": "c94d355ea322eb5abc3a8bcd0f8e404635a0bf4f43a44a82ef366a3673405a86",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/resources/player.tres": {
+      "v24_sha256": "b47f62483b8a493d24eb0f1069e783fa76a52ba2afa0afb3c9daf8f8970a0516",
+      "current_sha256": "b47f62483b8a493d24eb0f1069e783fa76a52ba2afa0afb3c9daf8f8970a0516",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/tests/lab_contracts.gd": {
+      "v24_sha256": "65031c115e13d57c87e65343259aed738de98bd70f5f1c630a6993026d5eb540",
+      "current_sha256": "65031c115e13d57c87e65343259aed738de98bd70f5f1c630a6993026d5eb540",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/tests/motor_regression.gd": {
+      "v24_sha256": "50a53e24a6d37a837c859923dc3b916e6a714553677443b1b510ac70731ba17d",
+      "current_sha256": "50a53e24a6d37a837c859923dc3b916e6a714553677443b1b510ac70731ba17d",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "movement/tests/npc_regression.gd": {
+      "v24_sha256": "b4dea18bb920b61b4ed8784ea08e7df3b37b1be1ca13e8a218cddbef9628d5ea",
+      "current_sha256": "b4dea18bb920b61b4ed8784ea08e7df3b37b1be1ca13e8a218cddbef9628d5ea",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "player.gd": {
+      "v24_sha256": "06920f08d91bc423e2def96115bd403bda420db1ef1d121fc2310d4fa92dc5a7",
+      "current_sha256": "06920f08d91bc423e2def96115bd403bda420db1ef1d121fc2310d4fa92dc5a7",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "project.godot": {
+      "v24_sha256": "763447d6da0fd4c6665e5d7ca9ac54ac1568e769ff9fad6d719e8181eea5613e",
+      "current_sha256": "ad1007eecc64f8e03224778ab977062fbd745a09d194ef989bd56f1829919739",
+      "unchanged": false,
+      "allowed_host_change": true
+    },
+    "prop.gd": {
+      "v24_sha256": "a51b5a170a45700c28c5db94ec707e2d507872851ecb505908307d30f164fcea",
+      "current_sha256": "a51b5a170a45700c28c5db94ec707e2d507872851ecb505908307d30f164fcea",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/graphics/attack_pose_profile.gd": {
+      "v24_sha256": "bc5c4a2b4afa6293f9a9f8c578481431629ea57aa576f06add33048d2022d604",
+      "current_sha256": "bc5c4a2b4afa6293f9a9f8c578481431629ea57aa576f06add33048d2022d604",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/graphics/operative_attack.tres": {
+      "v24_sha256": "e5c035cc371cca87774c96ef6bb1846c4ba0e6da24dfd28e54e2a722192037a8",
+      "current_sha256": "e5c035cc371cca87774c96ef6bb1846c4ba0e6da24dfd28e54e2a722192037a8",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/sensory/sonar_default.tres": {
+      "v24_sha256": "410a7e1b69e33b3a23470234cb6ae7b8e7adafbbd321d0a274bedfc8eeaf2a69",
+      "current_sha256": "410a7e1b69e33b3a23470234cb6ae7b8e7adafbbd321d0a274bedfc8eeaf2a69",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/sensory/sonar_tuning.gd": {
+      "v24_sha256": "a7c1388edf56f0c8ea442f35722f58119034639ff16cef1821e4178eebd6a015",
+      "current_sha256": "a7c1388edf56f0c8ea442f35722f58119034639ff16cef1821e4178eebd6a015",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/tuning/barrel_default.tres": {
+      "v24_sha256": "34c4c712c86bf17cbca428cc6bfae3f2e0d9e735576b3be1a59add1169e19824",
+      "current_sha256": "34c4c712c86bf17cbca428cc6bfae3f2e0d9e735576b3be1a59add1169e19824",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/tuning/canister_default.tres": {
+      "v24_sha256": "be17203b0b92a280fb0e66424c181f1a3e4144070fcabf117bb150a186525087",
+      "current_sha256": "be17203b0b92a280fb0e66424c181f1a3e4144070fcabf117bb150a186525087",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/tuning/crate_default.tres": {
+      "v24_sha256": "fb3a1593ace7198081cc4524056c146f22e0bb90f60870716a9133dab804b2b2",
+      "current_sha256": "fb3a1593ace7198081cc4524056c146f22e0bb90f60870716a9133dab804b2b2",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/tuning/enemy_default.tres": {
+      "v24_sha256": "32c0bbf142ffff84528ea45690c2919d789319436d7e36f8e50074c4988d3986",
+      "current_sha256": "32c0bbf142ffff84528ea45690c2919d789319436d7e36f8e50074c4988d3986",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/tuning/enemy_elite.tres": {
+      "v24_sha256": "0166bab9075ea1103ff38c4067ad9578d058cee1bfe003669a89ab15e7502b1d",
+      "current_sha256": "0166bab9075ea1103ff38c4067ad9578d058cee1bfe003669a89ab15e7502b1d",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/tuning/enemy_tuning.gd": {
+      "v24_sha256": "4e4c66cbef77bc2b9d3c1d1998eb2e5bc389128c0ee249e8d3c56da66210e2fa",
+      "current_sha256": "4e4c66cbef77bc2b9d3c1d1998eb2e5bc389128c0ee249e8d3c56da66210e2fa",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/tuning/player_default.tres": {
+      "v24_sha256": "1347cf78875aced0076fbb80e8e94cb3022cbddae9f0b68292776eb17424ac40",
+      "current_sha256": "1347cf78875aced0076fbb80e8e94cb3022cbddae9f0b68292776eb17424ac40",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/tuning/player_tuning.gd": {
+      "v24_sha256": "c924982eab61856e7bba37cc5b7c30b405a59ff5fb9836596e4d186dcdf9ba5a",
+      "current_sha256": "c924982eab61856e7bba37cc5b7c30b405a59ff5fb9836596e4d186dcdf9ba5a",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/tuning/prop_tuning.gd": {
+      "v24_sha256": "105d7cb32cbac3928064f5fe6efc1fa15c89840fa43c8b5353adc6e2f4a402bf",
+      "current_sha256": "105d7cb32cbac3928064f5fe6efc1fa15c89840fa43c8b5353adc6e2f4a402bf",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/tuning/strike_default.tres": {
+      "v24_sha256": "07c18d3351d47efb6206c43f5695b6398f5113158028e137fb7f22f4f2514cd8",
+      "current_sha256": "07c18d3351d47efb6206c43f5695b6398f5113158028e137fb7f22f4f2514cd8",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "resources/tuning/strike_tuning.gd": {
+      "v24_sha256": "82d5b55ec6d320d3857c40b6a2ad58a7ca840db7b06f8ecc53e42edfd393ee95",
+      "current_sha256": "82d5b55ec6d320d3857c40b6a2ad58a7ca840db7b06f8ecc53e42edfd393ee95",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/actors/elite_enemy.tscn": {
+      "v24_sha256": "d0f52a59af04ba7b727b7dcc6504d69c95d3cf23434b3e8552c6784b162e89da",
+      "current_sha256": "d0f52a59af04ba7b727b7dcc6504d69c95d3cf23434b3e8552c6784b162e89da",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/actors/enemy.tscn": {
+      "v24_sha256": "758ceba81de08b003b4256bd5b3cf94f68d597d33a4640fc9f560a0955b91a7a",
+      "current_sha256": "758ceba81de08b003b4256bd5b3cf94f68d597d33a4640fc9f560a0955b91a7a",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/actors/player.tscn": {
+      "v24_sha256": "9ece8137c67aeb6df653eafde2632623ef3a8e9fb50fc212620c974c375d8a3f",
+      "current_sha256": "9ece8137c67aeb6df653eafde2632623ef3a8e9fb50fc212620c974c375d8a3f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/environment/architecture.tscn": {
+      "v24_sha256": "df4c81085f3b65f8aa50cb2dde3fed8607d930dc4ea5e5fc2a11b1d1651f7721",
+      "current_sha256": "df4c81085f3b65f8aa50cb2dde3fed8607d930dc4ea5e5fc2a11b1d1651f7721",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/environment/platform.tscn": {
+      "v24_sha256": "efa9fe6f9d2fc7a8731ee00859af2811cb118e6876aeeb39727223067e3fd739",
+      "current_sha256": "efa9fe6f9d2fc7a8731ee00859af2811cb118e6876aeeb39727223067e3fd739",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/environment/world_sign.tscn": {
+      "v24_sha256": "2720ad1181fd89a1b83f94bb3ecfce4dba77e0ee67a8bed7c2ddbafd076e0829",
+      "current_sha256": "2720ad1181fd89a1b83f94bb3ecfce4dba77e0ee67a8bed7c2ddbafd076e0829",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/interactables/ascent_barrier.tscn": {
+      "v24_sha256": "1c24a4c8b942badc763726b12abec0c823f724f3ee45f4d51c19f97def84358f",
+      "current_sha256": "1c24a4c8b942badc763726b12abec0c823f724f3ee45f4d51c19f97def84358f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/interactables/gate.tscn": {
+      "v24_sha256": "d7f7c97ba100dae3497519fc8be7e82c0b4d7eda8e6373fa544e06846f6aaa3f",
+      "current_sha256": "d7f7c97ba100dae3497519fc8be7e82c0b4d7eda8e6373fa544e06846f6aaa3f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/interactables/sacrifice_station.tscn": {
+      "v24_sha256": "0a98f037ddff58fceef0443948e5bc791ee10c590b7d559264e1985b95a018ce",
+      "current_sha256": "0a98f037ddff58fceef0443948e5bc791ee10c590b7d559264e1985b95a018ce",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/levels/arcology_one.tscn": {
+      "v24_sha256": "c1894c913abab270559108d5a1b0ce87b318611d12344abe0af65f38d92a30bd",
+      "current_sha256": "c1894c913abab270559108d5a1b0ce87b318611d12344abe0af65f38d92a30bd",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/levels/city_prologue.tscn": {
+      "v24_sha256": "b5679fbf7cb7158d3adc6b2cd93e41200d7067c013b6f9828a26c17e9fd1f7a6",
+      "current_sha256": "b5679fbf7cb7158d3adc6b2cd93e41200d7067c013b6f9828a26c17e9fd1f7a6",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/props/barrel.tscn": {
+      "v24_sha256": "382246ec1e3664e06d6d6acc552c2cd26618cd3ccf86c7607ca9d2d1629bd388",
+      "current_sha256": "382246ec1e3664e06d6d6acc552c2cd26618cd3ccf86c7607ca9d2d1629bd388",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/props/canister.tscn": {
+      "v24_sha256": "8c9513c3b6d2bb1855aeba4c07770a16c729b8a78bde7b56755aa1a9491d01b2",
+      "current_sha256": "8c9513c3b6d2bb1855aeba4c07770a16c729b8a78bde7b56755aa1a9491d01b2",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/props/crate.tscn": {
+      "v24_sha256": "101fd39e09262261ce16ab93ba60a4dd0eb681c0e090919d177c13b3edf4258d",
+      "current_sha256": "101fd39e09262261ce16ab93ba60a4dd0eb681c0e090919d177c13b3edf4258d",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/sensory/sonar_view.tscn": {
+      "v24_sha256": "4edfdf6b222d37969ab78461d35a7b159aac64488d877c778280e5b7d5c682e1",
+      "current_sha256": "4edfdf6b222d37969ab78461d35a7b159aac64488d877c778280e5b7d5c682e1",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scenes/ui/hud.tscn": {
+      "v24_sha256": "a6e06666d903cf0c1178ce702314ac971601bff85415dec463635a8842535d5b",
+      "current_sha256": "a6e06666d903cf0c1178ce702314ac971601bff85415dec463635a8842535d5b",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/components/strike_component.gd": {
+      "v24_sha256": "5accecb3a76ba50c849c6f93d52b01a503dbdd0f9c53966307b2130022d10d53",
+      "current_sha256": "5accecb3a76ba50c849c6f93d52b01a503dbdd0f9c53966307b2130022d10d53",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/graphics/actor_graphics.gd": {
+      "v24_sha256": "d47517979c6325c95d48f18367195fd83eb8408c0d3fd01a603240d437097d2c",
+      "current_sha256": "d47517979c6325c95d48f18367195fd83eb8408c0d3fd01a603240d437097d2c",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/graphics/metal_baton.gd": {
+      "v24_sha256": "72f75eab181d597522ad51c5b2ad4b671a952d97ccd58986a4c955e12a0145f2",
+      "current_sha256": "72f75eab181d597522ad51c5b2ad4b671a952d97ccd58986a4c955e12a0145f2",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/sensory/noise_bus.gd": {
+      "v24_sha256": "c461c3615d72dd825a3d14076b0c39b0307503328e5fa5966bed5a9becbbed4b",
+      "current_sha256": "c461c3615d72dd825a3d14076b0c39b0307503328e5fa5966bed5a9becbbed4b",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/sensory/sonar_canvas.gd": {
+      "v24_sha256": "c6e1df86fde3183ae8ffbd4cbff855ade2b330cf96e02276626a530e99362cc4",
+      "current_sha256": "c6e1df86fde3183ae8ffbd4cbff855ade2b330cf96e02276626a530e99362cc4",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/sensory/sonar_geometry.gd": {
+      "v24_sha256": "c23316493b49724e6e74d2b0df23fb6a1e5ffb3bb6758d2bf08cc99b0e3a05b8",
+      "current_sha256": "c23316493b49724e6e74d2b0df23fb6a1e5ffb3bb6758d2bf08cc99b0e3a05b8",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/sensory/sonar_view.gd": {
+      "v24_sha256": "71392ea1c30095aa82583324894df6382efa7ba34ce927155bb354a1cf87606f",
+      "current_sha256": "71392ea1c30095aa82583324894df6382efa7ba34ce927155bb354a1cf87606f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/systems/audio_director.gd": {
+      "v24_sha256": "b0a9be1a1e6bf3f3b8493d7054d8674fe81cd0a13fe716949e3fdb2b1de72946",
+      "current_sha256": "b0a9be1a1e6bf3f3b8493d7054d8674fe81cd0a13fe716949e3fdb2b1de72946",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/systems/visual_effects.gd": {
+      "v24_sha256": "6fd59932aaaf63a42ad17f286193c1465492ef995d1e7752141f249cd2d4adb3",
+      "current_sha256": "6fd59932aaaf63a42ad17f286193c1465492ef995d1e7752141f249cd2d4adb3",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/world/architecture.gd": {
+      "v24_sha256": "1d76e9af1c6ecda4ea47f1ae5fbbd0314746ef6197daedee55f1a7e63e2a1944",
+      "current_sha256": "1d76e9af1c6ecda4ea47f1ae5fbbd0314746ef6197daedee55f1a7e63e2a1944",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/world/ascent_barrier.gd": {
+      "v24_sha256": "7e7e52e4e4c86e159fccf8497b60bedb1c616549ddfd151b29bc2b2091494249",
+      "current_sha256": "7e7e52e4e4c86e159fccf8497b60bedb1c616549ddfd151b29bc2b2091494249",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/world/gate_visual.gd": {
+      "v24_sha256": "eaa6d5e9773519f7c195f19046e64ae5dea9174dd63abfcbbc0ef4e8e257a6d5",
+      "current_sha256": "eaa6d5e9773519f7c195f19046e64ae5dea9174dd63abfcbbc0ef4e8e257a6d5",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/world/level.gd": {
+      "v24_sha256": "9cd3aad9202ed0fb627d9ff79126c37bb5eda73c714d6248e9593e922ffb2dd8",
+      "current_sha256": "9cd3aad9202ed0fb627d9ff79126c37bb5eda73c714d6248e9593e922ffb2dd8",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/world/platform.gd": {
+      "v24_sha256": "579d389bed5ea83dd91023a96e332af5ae36c66990d12b8ad5305959de7856e6",
+      "current_sha256": "579d389bed5ea83dd91023a96e332af5ae36c66990d12b8ad5305959de7856e6",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/world/sacrifice_station.gd": {
+      "v24_sha256": "d4818cd2621180885acc5766b8d3c7d91c78cc259de1870e2717985aefbc4eb7",
+      "current_sha256": "d4818cd2621180885acc5766b8d3c7d91c78cc259de1870e2717985aefbc4eb7",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "scripts/world/world_sign.gd": {
+      "v24_sha256": "9e234dfdf0fe4cfbc68c985a457ebe397d0288f0652844c66429613b13eac0f3",
+      "current_sha256": "9e234dfdf0fe4cfbc68c985a457ebe397d0288f0652844c66429613b13eac0f3",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/actors_compile.gd": {
+      "v24_sha256": "684e3726e5315f956d62f6b262042055048d762d92cfc1d8bf7a2e71154c65c5",
+      "current_sha256": "684e3726e5315f956d62f6b262042055048d762d92cfc1d8bf7a2e71154c65c5",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/actors_regression.gd": {
+      "v24_sha256": "348e84ca791c9d1f65cfb36577969fac5f7e291f632365bb432f571079a863e1",
+      "current_sha256": "348e84ca791c9d1f65cfb36577969fac5f7e291f632365bb432f571079a863e1",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/attack_pose_regression.gd": {
+      "v24_sha256": "fbd543c0ded34c18f62dc451c91c3a1eaccc0b4ff655cbc2b4d529625cd15841",
+      "current_sha256": "fbd543c0ded34c18f62dc451c91c3a1eaccc0b4ff655cbc2b4d529625cd15841",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/attack_showroom.gd": {
+      "v24_sha256": "5590303dd0b2c2d49d7c156c66bc270835f35668b8f09fe414e6cbb736ee7425",
+      "current_sha256": "5590303dd0b2c2d49d7c156c66bc270835f35668b8f09fe414e6cbb736ee7425",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/attack_showroom.tscn": {
+      "v24_sha256": "cadb6c24934e2da386a2b422d22deb8821b2c11959559f1e1eec1d0dd40b73aa",
+      "current_sha256": "cadb6c24934e2da386a2b422d22deb8821b2c11959559f1e1eec1d0dd40b73aa",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/blind_feedback_regression.gd": {
+      "v24_sha256": "c70aa25f5cfdac0908c53eab0ae88a72bdda84b9a64a60d34858b6ba2cffd04e",
+      "current_sha256": "c70aa25f5cfdac0908c53eab0ae88a72bdda84b9a64a60d34858b6ba2cffd04e",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/flow_preservation.py": {
+      "v24_sha256": "921700b1da10de2c45ec38db993ce7e9091e23817e56aa1614a4083669fb0935",
+      "current_sha256": "921700b1da10de2c45ec38db993ce7e9091e23817e56aa1614a4083669fb0935",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/flow_regression.gd": {
+      "v24_sha256": "8fb64087970b24558d4a5c3f43bf6b3a724ea6f5bcc908ec674e8323fa7d1383",
+      "current_sha256": "8fb64087970b24558d4a5c3f43bf6b3a724ea6f5bcc908ec674e8323fa7d1383",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/flow_scene_contracts.gd": {
+      "v24_sha256": "83bc87bf77a5e4bdce77d9a22403a0c7aac1408235556caa190b365f8891a6b0",
+      "current_sha256": "83bc87bf77a5e4bdce77d9a22403a0c7aac1408235556caa190b365f8891a6b0",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/graphics_regression.gd": {
+      "v24_sha256": "4a9bdfe92e4fd738f7bb0cabc9c8435567e284ef0b31ca1243badc99c90aad51",
+      "current_sha256": "4a9bdfe92e4fd738f7bb0cabc9c8435567e284ef0b31ca1243badc99c90aad51",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/levels_props_settle.gd": {
+      "v24_sha256": "2ab5bbe54129a95a0b9b769837d3d77cda79849de559c4195039fec75df1b1e9",
+      "current_sha256": "2ab5bbe54129a95a0b9b769837d3d77cda79849de559c4195039fec75df1b1e9",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/levels_validate.gd": {
+      "v24_sha256": "ff3845ae393f5f85b4cedda264ed63207c90a17516d930bae5f2cc68d9246a14",
+      "current_sha256": "ff3845ae393f5f85b4cedda264ed63207c90a17516d930bae5f2cc68d9246a14",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/native_feedback_capture.gd": {
+      "v24_sha256": "9f2aa86e68c022d3fd82d4cf8ac98d0b09c63ef6553b3b7db5dd0af14e8ffce1",
+      "current_sha256": "9f2aa86e68c022d3fd82d4cf8ac98d0b09c63ef6553b3b7db5dd0af14e8ffce1",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/native_feedback_run.tscn": {
+      "v24_sha256": "0f50fe14a34da3a1b4c5ea7bf417ea02cde8bb4aa4c0f3a40b0865d1d0bfe501",
+      "current_sha256": "0f50fe14a34da3a1b4c5ea7bf417ea02cde8bb4aa4c0f3a40b0865d1d0bfe501",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/polish_route_regression.gd": {
+      "v24_sha256": "87be40309ebec21c2bf392987fa840434954501d8f52c2076ddccd2478c60a1f",
+      "current_sha256": "87be40309ebec21c2bf392987fa840434954501d8f52c2076ddccd2478c60a1f",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/polish_sensory_regression.gd": {
+      "v24_sha256": "2ddd6b70b046ef26b2b2785a04c7cd9f5d51a36ac10f033636ca47b79ee4b921",
+      "current_sha256": "2ddd6b70b046ef26b2b2785a04c7cd9f5d51a36ac10f033636ca47b79ee4b921",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tests/sonar_regression.gd": {
+      "v24_sha256": "88faf1dc1a5184943d59657fbbbbd3558964fbf1f58d7a6e53ccaf218f739c99",
+      "current_sha256": "88faf1dc1a5184943d59657fbbbbd3558964fbf1f58d7a6e53ccaf218f739c99",
+      "unchanged": true,
+      "allowed_host_change": false
+    },
+    "tools/package_project.py": {
+      "v24_sha256": "82b1fe57f36bd7d022317fbba6ca308c1647f926bc9ad014a45fdd147c245bfa",
+      "current_sha256": "983500abab8d1ce49bfd5fbb089e5f2e8d92793822d35a7e980c13844c2a6651",
+      "unchanged": false,
+      "allowed_host_change": true
+    }
+  },
+  "passed": true
+}

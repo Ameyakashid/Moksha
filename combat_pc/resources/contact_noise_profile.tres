@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MokshaContactNoiseProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://combat_pc/resources/contact_noise_profile.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+kind = &"prop_impact"
+minimum_closing_speed = 85.0
+loudness_speed_scale = 240.0
+minimum_loudness = 0.45
+maximum_loudness = 1.9
+quiet_closing_speed = 20.0
+quiet_rearm_seconds = 0.05
+separation_rearm_seconds = 0.025
+max_contacts_reported = 16
+recent_receipt_limit = 32

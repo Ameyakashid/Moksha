@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/test_surface.tscn" id="1"]
+
+[node name="FallCourse" type="Node2D"]
+
+[node name="HighDrop" parent="." instance=ExtResource("1")]
+position = Vector2(1790, -150)
+size = Vector2(96, 8)
+one_way = true
+label = "B  HIGH FALL / DROP > DIVE > ROLL"
+
+[node name="SoftDrop" parent="." instance=ExtResource("1")]
+position = Vector2(1695, 80)
+size = Vector2(70, 8)
+one_way = true
+label = "N  LOW DROP / COMPARE LANDING"

@@ -1,0 +1,153 @@
+{
+  "completed_at_utc": "2026-10-19T22:48:43.026624+00:00",
+  "checkpoint": "Generic shared hurt/bracing capability",
+  "passed": true,
+  "scope": "Opt-in committed-step response; no Warden or production factory migration.",
+  "focused": [
+    {
+      "suite": "hurt_response",
+      "hz": 60,
+      "scenarios": 104,
+      "checks": 398,
+      "failures": 0
+    },
+    {
+      "suite": "hurt_response",
+      "hz": 120,
+      "scenarios": 104,
+      "checks": 398,
+      "failures": 0
+    },
+    {
+      "suite": "hurt_projectile",
+      "hz": 60,
+      "scenarios": 12,
+      "checks": 73,
+      "failures": 0
+    },
+    {
+      "suite": "hurt_projectile",
+      "hz": 120,
+      "scenarios": 12,
+      "checks": 73,
+      "failures": 0
+    }
+  ],
+  "aggregate": {
+    "foundation": {
+      "passed": 53,
+      "total": 53
+    },
+    "stock": {
+      "passed": 10,
+      "total": 10,
+      "checks": 5288
+    },
+    "held": [
+      {
+        "hz": 60,
+        "scenarios": 114,
+        "checks": 333,
+        "failures": 0
+      },
+      {
+        "hz": 120,
+        "scenarios": 114,
+        "checks": 333,
+        "failures": 0
+      }
+    ],
+    "historical": {
+      "passed": 19,
+      "total": 19
+    },
+    "routes": [
+      {
+        "hz": 60,
+        "sacrificed_sight": false,
+        "completed": true,
+        "simulated_active_seconds": 177.550000000033,
+        "deaths": 0,
+        "retry_count": 0,
+        "failures": [],
+        "exit_code": 0
+      },
+      {
+        "hz": 60,
+        "sacrificed_sight": true,
+        "completed": true,
+        "simulated_active_seconds": 166.866666666692,
+        "deaths": 0,
+        "retry_count": 0,
+        "failures": [],
+        "exit_code": 0
+      },
+      {
+        "hz": 120,
+        "sacrificed_sight": false,
+        "completed": true,
+        "simulated_active_seconds": 169.75000000001,
+        "deaths": 0,
+        "retry_count": 0,
+        "failures": [],
+        "exit_code": 0
+      },
+      {
+        "hz": 120,
+        "sacrificed_sight": true,
+        "completed": true,
+        "simulated_active_seconds": 163.483333333349,
+        "deaths": 0,
+        "retry_count": 0,
+        "failures": [],
+        "exit_code": 0
+      }
+    ]
+  },
+  "independent": {
+    "passed": true,
+    "runs": 22,
+    "checks": 2390,
+    "production_sha256": {
+      "combat_pc/player.gd": "73379e6292f2ced2f3a84817946e1b2f75334a6139b1d755fc1bde0dafdbfa8a",
+      "combat_pc/resources/melee_step.gd": "2f236aa76d35ff89f45c086da43c1a6a60f916a3a763fbfdca2e2565b4e73764",
+      "combat_pc/components/health_component.gd": "2d37aa6e073c7fcffb442e847e70d29ced40bae5447e88f76e6688e93d8c3883",
+      "simulation/components/shield_counter_receiver.gd": "9790b551a949101cfc40a1d686eef3848f90740901872d848bc1746267126dfb"
+    },
+    "ordinary_receive_hurt_byte_identical": true,
+    "report": "hurt_independent/final-green/final_review.json",
+    "evidence_files": 66
+  },
+  "freeze": {
+    "source_count": 554,
+    "unchanged_during_all_gates": true,
+    "live_matches_final_gate_map": true,
+    "live_matches_independent_production": true,
+    "source_map": "hurt_final_gates.json",
+    "source_map_file_sha256": "9fb7adf08b3f41a1df8d15926179723118bc4db1ca4c6b9e678d82c49fc847e5"
+  },
+  "source_delta": {
+    "unchanged": 540,
+    "modified": 8,
+    "added": 6,
+    "removed": 0
+  },
+  "archives_preserved": 12,
+  "prior_report_document_files_preserved": 645,
+  "native": {
+    "report": "native_bracing_review.md",
+    "capture_sha256": {
+      "native_bracing.png": "fed763b313de66d7837d62c1ded4030f3d71c2b04aa5383eb54b9c1816b7c0ac",
+      "native_gym.png": "cecc85107341193931805dace546b58b38faf8385cdb4767a0f8879ef2fd5c44"
+    },
+    "observed": "Seven-stage layout, committed gold shoulders, ordinary two-way damage, one Health-backed brace, reset and return.",
+    "not_established": "Continuous brace retention timeline, successful timed counter, cargo/projectile response, precise threshold timing, audio; Debugger 9 not exhaustively inspected."
+  },
+  "intentional_lifecycle_corrections": [
+    "same-generation Health replacement/rebinding receipt leak",
+    "boolean diagnostics outside stock scalar receipt format",
+    "stale post-claim incoming binding/shape/layers",
+    "stale post-claim source delivery/shield scope"
+  ],
+  "warden_migrated": false
+}

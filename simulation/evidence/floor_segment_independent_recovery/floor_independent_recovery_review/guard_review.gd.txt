@@ -1,0 +1,24 @@
+extends "res://demo/tests/expanded_mission_route_bot.gd"
+## POLICY-ONLY synthetic boundary matrix, not gameplay evidence.
+class Host extends Node2D:
+	var player: Node2D
+class ActorStub extends Node2D:
+	var grounded:=false
+	var main_action:=&"ledge"
+	var action_phase:=&"hang"
+	var profile:Dictionary={"collision_margin":0.02}
+func _initialize() -> void:run.call_deferred()
+func run() -> void:
+	host=Host.new();root.add_child(host);var actor:=ActorStub.new();host.add_child(actor);host.player=actor;actor.position=Vector2(100,200)
+	var checks:=0;var errors:Array=[]
+	for ground in [false,true]:
+		for action in [&"ledge",&"locomotion"]:
+			for phase in [&"hang",&"catch",&"pull",&"step"]:
+				for age in [0.0,0.45,0.45001,1.0]:
+					for dx in [-8.0,-7.999,0.0,7.999,8.0]:
+						for dy in [-20.0,0.0,20.0]:
+							actor.grounded=ground;actor.main_action=action;actor.action_phase=phase;stagnant=age
+							var got:=ledge_waypoint_recovery(actor.position+Vector2(dx,dy));var expected:Dictionary={}
+							if not ground and action==&"ledge" and phase==&"hang" and age>0.45 and absf(dx)<8:expected={"down":1.0} if dy>0.02 else {"up":1.0}
+							checks+=1;if got!=expected:errors.append({"grounded":ground,"action":action,"phase":phase,"age":age,"dx":dx,"dy":dy,"got":got,"expected":expected})
+	var result={"scope":"Synthetic helper-policy boundaries only. Actor fields assigned deliberately; no gameplay claim.","checks":checks,"failures":errors};FileAccess.open("res://guard_results.json",FileAccess.WRITE).store_string(JSON.stringify(result,"\t"));print(JSON.stringify(result));quit(0 if errors.is_empty() else 1)

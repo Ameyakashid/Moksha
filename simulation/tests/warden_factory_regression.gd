@@ -1,0 +1,88 @@
+extends "res://demo/tests/expanded_mission_route_bot.gd"
+const CampaignIdentity=preload("res://demo/tests/campaign_identity.gd")
+## Actual production factory. Full-room play reuses the preserved route planner
+## as a raw-input provider; no positions, Health, phases, AI or gates are edited.
+var checks: Array[Dictionary]=[]
+var gate_openings := 0
+var combat_samples: Array[Dictionary]=[]
+var defeat_counts := {}
+var warden_facts: Array[Dictionary]=[]
+func check(ok: bool, detail: String) -> void:
+	checks.append({"label":detail,"passed":ok})
+	if not ok: failures.append(detail)
+func frames(count: int) -> void:
+	for i in count:
+		await physics_frame; await process_frame
+func inherits_controller(actor: Node) -> bool:
+	var script: Script=actor.get_script()
+	while script!=null:
+		if script.resource_path=="res://combat_pc/player.gd": return true
+		script=script.get_base_script()
+	return false
+func run() -> void:
+	host=preload("res://demo/mission.tscn").instantiate(); host.save_enabled=false; root.add_child(host); host.start_new(true); host.input_override={}
+	var counts := {"sentinel":0,"listener":0,"sentry":0,"warden":0}
+	for index in host.sectors.size():
+		host.load_sector(index)
+		for actor in host.enemies: actor.ai_enabled=false
+		await frames(2)
+		check(inherits_controller(host.player) and host.player.get_node_or_null("IntentDriver")==null,"factory PC retains same controller and exactly its existing scheduler")
+		for actor in host.enemies:
+			counts[actor.kind]+=1
+			check(inherits_controller(actor) and actor.get_node("IntentDriver").get_script().resource_path=="res://simulation/components/actor_intent_driver.gd" and not actor.automatic_physics,"all four production kinds share actual controller/sole intent scheduler")
+			check(actor.get_node_or_null("StrikeHealth")==null and actor.get_node("Health").get_bound_actor()==actor,"single bound root Health; no legacy health shim")
+			check(actor.get_node("BodyShape/IncomingStrikeReceiver")._host()==actor and actor.get_node("ShieldCounterReceiver").get_bound_actor()==actor and actor.get_node("ProjectileReceiver").get_bound_actor()==actor and actor.get_node("PhysicalImpactReceiver").capture_generation()>=0,"each production actor uses registered actual melee/counter/projectile/cargo receivers")
+			check(actor.get_node("ProjectileReceiver").accepted_source_layers==2 and actor.get_node("ContactAdapter").target_mask==72,"explicit configured owner/contact masks prevent friendly damage")
+			if actor.kind=="warden":
+				check(actor.get_script().resource_path=="res://demo/components/shared_warden.gd" and actor.health==16 and actor._damage==18 and actor.profile.run_speed==70,"actual factory selects authored shared Warden16/18/70")
+				check(actor.committed_attacks==0 and actor.attack_style==&"cut" and actor.get_node("ShieldCounterReceiver").response_stun_seconds==.78,"factory starts fresh cut and configures genuine long counter")
+	check(counts.values().all(func(value):return value>0) and counts.warden==1,"all four authored archetypes inspected, one Warden")
+	host.queue_free(); await frames(3)
+	host=preload("res://demo/mission.tscn").instantiate(); host.save_enabled=false; root.add_child(host); host.start_new(true); host.load_sector(CampaignIdentity.index(host.sectors,"lift_warden")); host.input_override={}
+	var warden: Node=host.enemies.filter(func(actor):return actor.kind=="warden")[0]
+	for actor in host.enemies:
+		defeat_counts[actor.get_instance_id()]=0
+		actor.defeated.connect(func(who): defeat_counts[who.get_instance_id()]+=1)
+	warden.get_node("Health").damage_processed.connect(func(receipt):warden_facts.append(receipt.duplicate(true)))
+	check(not host.room.gate_open and host.remaining_enemies()==3,"authored final-room seal starts closed with all three real enemies")
+	var was_open := false
+	for tick in hz*100:
+		frame=tick
+		if host.state=="dead": failures.append("Full-room input route died"); break
+		if str(host.sectors[host.sector].id)!="lift_warden": failures.append("Room changed before gate observation"); break
+		if host.room.gate_open and not was_open: gate_openings+=1
+		was_open=host.room.gate_open
+		if host.remaining_enemies()>0: check(not host.room.gate_open,"gate remains physically closed while any enemy survives")
+		if host.room.gate_open: break
+		if sector_seen!=host.sector: begin_sector()
+		host.input_override=room_input()
+		await frames(1)
+	host.input_override={}
+	check(host.remaining_enemies()==0 and host.room.gate_open and gate_openings==1,"input-only authored room clears and gate opens once")
+	check(host.kills==3 and defeat_counts.values().all(func(value):return value==1),"exactly one kill/death receipt per factory enemy")
+	check(warden.health==0 and not warden_facts.is_empty() and is_equal_approx(warden_facts.reduce(func(total,receipt):return total+float(receipt.applied),0.0),16.0),"actual shared Health owns all sixteen Warden damage")
+	var old_warden_id: int=warden.get_instance_id()
+	# Explicit retry/lifecycle boundary after the complete physical room clear.
+	host.load_sector(CampaignIdentity.index(host.sectors,"lift_warden")); host.input_override={}
+	var retry: Node=host.enemies.filter(func(actor):return actor.kind=="warden")[0]
+	check(retry.get_instance_id()!=old_warden_id and retry.health==16 and not retry.pressure_phase and retry.committed_attacks==0 and retry.attack_style==&"cut","retry creates full fresh Warden without inherited action/phase")
+	check(not host.room.gate_open and host.remaining_enemies()==3,"retry restores closed seal and authored foes")
+	host.queue_free(); await frames(3)
+	check(get_nodes_in_group("shared_projectiles").is_empty(),"room disposal retires every owned projectile")
+	var report := {"hz":hz,"checks":checks,"failures":failures,"factory_counts":counts,"gate_openings":gate_openings,"warden_health_receipts":warden_facts,"player_damage_receipts":damage_receipts,"input_policy":"generic protected-capability-aware route planner","combat_samples":combat_samples,"execution":"Actual factory all four archetypes; initially selected stable-ID lift_warden then only inherited raw-input navigation/combat until full room clear. Explicit post-clear retry boundary."}
+	FileAccess.open("res://simulation/evidence/warden_factory_%d.json" % hz,FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
+	print("WARDEN FACTORY %d Hz: %d checks, %d failures" % [hz,checks.size(),failures.size()])
+	for failure in failures: printerr(failure)
+	quit(0 if failures.is_empty() else 1)
+
+func room_input() -> Dictionary:
+	var raw := decide()
+	# Observation only: the same generic route planner supplies every raw input.
+	# Actor identification here labels evidence; it never changes the controls.
+	for actor in host.enemies:
+		if actor.kind!="warden" or actor.dead: continue
+		var offset: Vector2=actor.position-host.player.position
+		if absf(offset.x)<100 and absf(offset.y)<40:
+			if frame % maxi(1,hz/20)==0:
+				combat_samples.append({"frame":frame,"raw_original":raw.duplicate(true),"pc_weapon":host.player.weapon_phase,"pc_action":host.player.main_action,"pc_shield":host.player.shield_phase,"pc_pause":host.player.hitpause_remaining,"warden_phase":actor.weapon_phase,"facade_elapsed":actor._phase_elapsed,"canonical_elapsed":actor._weapon_elapsed,"windup":actor._windup,"warden_pause":actor.hitpause_remaining,"serial":actor.attack_serial,"warden_health":actor.health,"player_health":host.health.current_health,"dx":offset.x})
+	return raw

@@ -1,0 +1,15 @@
+extends "res://simulation/tests/review_bracing_independent.gd"
+func _run() -> void:
+	for operation in ["detach","queued"]:
+		await _begin("capability liveness / "+operation,"raw","NPC")
+		_brace(right)
+		await _attack(right)
+		_check(right.hurt_response_snapshot().protected,"live committed actor advertises protection")
+		if operation=="detach": world.remove_child(right)
+		else: right.queue_free()
+		_check(not right.hurt_response_snapshot().protected,"retired actor cannot advertise live protection")
+		if operation=="detach": right.free()
+		await _end()
+	print("INDEPENDENT BRACING LIVENESS %dHz %d checks %d failures" % [hz, checks, failures.size()])
+	for failure in failures: printerr(failure)
+	quit(0 if failures.is_empty() else 1)

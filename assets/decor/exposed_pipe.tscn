@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/decor/exposed_pipe.tres" id="1_art"]
+
+[node name="ExposedPipe" type="Node2D"]
+metadata/art_only = true
+metadata/nominal_size = Vector2(72, 28)
+metadata/origin_kind = "bottom_center"
+metadata/source_pivot = Vector2(185.0, 143)
+
+[node name="Art" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-37.20670391, -29.22627737)
+scale = Vector2(0.20111732, 0.20437956)
+texture = ExtResource("1_art")
+centered = false

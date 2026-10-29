@@ -1,0 +1,200 @@
+extends SceneTree
+## Independent diagnostic probes. Direct lifecycle and injected-tick setup;
+## these do not substitute for physical-contact acceptance suites.
+const PLAYER = preload("res://combat_pc/player.tscn")
+const WARDEN = preload("res://demo/components/shared_warden.tscn")
+const WARDEN_CHAIN = preload("res://demo/resources/warden_melee.tres")
+var checks := 0
+var failures: Array[String] = []
+var hz := 60
+
+func _initialize() -> void:
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--hz="): hz = int(arg.trim_prefix("--hz="))
+	Engine.physics_ticks_per_second = hz
+	_run.call_deferred()
+
+func check(ok: bool, label: String, details: Variant = null) -> void:
+	checks += 1
+	print("PASS: " if ok else "FAIL: ", label, " ", details if details != null else "")
+	if not ok: failures.append(label)
+
+func actor(chain: Resource = null) -> Node:
+	var a = PLAYER.instantiate()
+	a.automatic_physics = false
+	a.melee_chain = chain if chain != null else WARDEN_CHAIN.duplicate(true)
+	root.add_child(a)
+	return a
+
+func warden() -> Node:
+	var a = WARDEN.instantiate()
+	a.ai_enabled = false
+	a.get_node("IntentDriver").automatic_driver = false
+	root.add_child(a)
+	return a
+
+func start(a: Node) -> void:
+	a.physics_tick(0.001, {"attack": true})
+	check(a.weapon_phase == &"windup", "injected fresh input commits windup", a.attack_plan_snapshot())
+
+func hit(a: Node, amount: float) -> void:
+	a.receive_attack({"amount": amount, "impulse": Vector2.ZERO, "stun_seconds": 0.1, "hitpause": 0.0, "rollable": false})
+
+func _run() -> void:
+	var a = warden()
+	var h = a.get_node("Health")
+	var phase := [0]
+	a.phase_changed.connect(func(_who, _phase): phase[0] += 1)
+	start(a)
+	var original = a.attack_plan_snapshot()
+	check(original.fresh_chain_commits == 1 and original.step_index == 0, "first commitment consumes cut before callbacks")
+	hit(a, 9.0)
+	var p = a.attack_plan_snapshot()
+	check(a.health == 7.0 and a.pressure_phase and phase[0] == 1, "genuine below-half receipt announces once")
+	check(p.windup_seconds == original.windup_seconds and p.active_seconds == original.active_seconds and p.rect == original.rect and p.recovery_seconds == 0.64, "phase changes only pending recovery")
+	check(a._chain_snapshot.steps[0].recovery_seconds == 0.90, "pending recovery detaches committed step from chain snapshot")
+	var receipt: Dictionary = a._last_health_receipt
+	check(not h.damage_receipt_is_current(receipt), "receipt retires after synchronous emission")
+	a._on_health_receipt(receipt)
+	a._on_health_receipt(receipt.duplicate(true))
+	check(phase[0] == 1 and a.braced_contacts == 1, "retired genuine and copied receipts are inert")
+	a.free()
+
+	a = warden(); h = a.get_node("Health")
+	start(a)
+	var rebind := [false]
+	a.noise_requested.connect(func(_origin, kind, _loudness, _source):
+		if kind == &"enemy_damage" and not rebind[0]:
+			rebind[0] = true
+			h.unbind_actor()
+			h.bind_actor(a))
+	hit(a, 9.0)
+	check(rebind[0] and a.health == 7 and not a.pressure_phase and a.braced_contacts == 0, "same-object same-value Health rebind retires phase authority")
+	hit(a, 1.0)
+	check(a.health == 6 and a.pressure_phase and a.braced_contacts == 1, "new genuine receipt after rebind remains usable")
+	a.free()
+
+	a = warden(); h = a.get_node("Health")
+	start(a)
+	var recursive := [0]
+	a.noise_requested.connect(func(_origin, kind, _loudness, _source):
+		if kind == &"enemy_damage":
+			recursive[0] += 1
+			a._on_health_receipt(a._last_health_receipt))
+	hit(a, 9.0)
+	check(recursive[0] == 1 and a.braced_contacts == 1 and a.pressure_phase, "same-genuine-dictionary reentry is reserved before noise")
+	a.free()
+
+	a = warden(); h = a.get_node("Health")
+	start(a)
+	var nested := [false]
+	phase = [0]
+	a.phase_changed.connect(func(_who, _phase): phase[0] += 1)
+	a.noise_requested.connect(func(_origin, kind, _loudness, _source):
+		if kind == &"enemy_damage" and not nested[0]:
+			nested[0] = true
+			hit(a, 1.0))
+	hit(a, 9.0)
+	check(a.health == 6 and a.pressure_phase and phase[0] == 1, "nested genuine damage retires outer scope and announces once")
+	a.free()
+
+	a = warden(); h = a.get_node("Health")
+	var identity := []
+	h.damage_processed.connect(func(r):
+		identity.append(h.damage_receipt_is_current(r))
+		identity.append(not h.damage_receipt_is_current(r.duplicate(true)))
+		h.reset_to_full()
+		identity.append(not h.damage_receipt_is_current(r)))
+	hit(a, 0.0)
+	check(identity == [true, true, true] and a.health == 16, "equal full-health reset retires exact scope; copies never authorize", identity)
+	a.free()
+
+	var chain = WARDEN_CHAIN.duplicate(true)
+	chain.steps[0].next_step = 1
+	chain.steps[0].windup_seconds = 0.01
+	chain.steps[0].active_seconds = 0.01
+	chain.steps[0].recovery_seconds = 0.01
+	chain.steps[0].followup_commit_recovery_seconds = 0.0
+	chain.idle_retention_seconds = 10.0
+	chain.steps[1].step_label = "OLD RETAINED SWEEP"
+	a = actor(chain)
+	start(a)
+	for i in 30: a.physics_tick(0.01, {})
+	check(a.weapon_phase == &"idle" and a._chain_snapshot != null, "direct setup reaches retained idle")
+	a.melee_chain = WARDEN_CHAIN.duplicate(true)
+	p = a.attack_plan_snapshot()
+	check(p.step_index == 0 and p.step_label == "Warden cut", "replacement immediately forecasts new configuration", p)
+	a.free()
+
+	chain = WARDEN_CHAIN.duplicate(true)
+	chain.chain_id = &""
+	a = actor(chain)
+	p = a.attack_plan_snapshot()
+	a.physics_tick(0.001, {"attack": true})
+	check(not p.valid and a.weapon_phase == &"idle", "invalid whole chain cannot expose valid upcoming plan", p)
+	a.free()
+
+	chain = WARDEN_CHAIN.duplicate(true)
+	chain.steps[0].next_step = 1
+	a = actor(chain)
+	start(a)
+	p = a.attack_plan_snapshot()
+	check(not a.set_pending_recovery_duration(p.serial, p.configuration_epoch, 0.001), "nonterminal recovery cannot become shorter than required follow-up commit")
+	a.free()
+
+	a = actor()
+	start(a)
+	p = a.attack_plan_snapshot()
+	a.set_physics_process(false)
+	check(not a.set_pending_recovery_duration(p.serial, p.configuration_epoch, 0.7), "suspended physics owner rejects pending recovery writes")
+	a.free()
+
+	a = warden()
+	start(a)
+	var before_reset = a.attack_plan_snapshot()
+	var reset_probe := [false]
+	a.movement_event.connect(func(kind, _payload):
+		if kind == &"chain_reset" and not reset_probe[0]:
+			reset_probe[0] = true
+			var now = a.attack_plan_snapshot()
+			check(now.fresh_chain_commits == 0 and not now.committed, "reset callback immediately observes retired plan and empty sequence")
+			check(not a.set_pending_recovery_duration(before_reset.serial, before_reset.configuration_epoch, 0.5), "reset callback cannot mutate retired pending recovery"))
+	a.reset_actor(Vector2.ZERO)
+	check(reset_probe[0] and not a.pressure_phase, "reset lifecycle callback ran")
+	a.free()
+
+	a = warden()
+	start(a)
+	var swapped := [false]
+	var replacement = WARDEN_CHAIN.duplicate(true)
+	replacement.steps[0].recovery_seconds = 2.0
+	replacement.steps[1].recovery_seconds = 3.0
+	a.noise_requested.connect(func(_origin, kind, _loudness, _source):
+		if kind == &"enemy_damage" and not swapped[0]:
+			swapped[0] = true
+			a.melee_chain = replacement)
+	hit(a, 9.0)
+	check(swapped[0] and replacement.steps[0].recovery_seconds == 2.0 and replacement.steps[1].recovery_seconds == 3.0, "retired receipt must not rewrite replacement chain tuning", [replacement.steps[0].recovery_seconds, replacement.steps[1].recovery_seconds])
+	a.free()
+
+	a = actor()
+	a.melee_input_profile = preload("res://combat_pc/resources/held_charge.tres").duplicate(true)
+	p = a.attack_plan_snapshot()
+	a.physics_tick(0.001, {"attack": true})
+	var actual = a.attack_plan_snapshot()
+	check(not p.valid or p.step_label == actual.step_label, "idle charge preview does not promise an unrelated chain opening", [p.step_label, actual.step_label])
+	check(actual.committed and actual.step_label == "Starter Slash" and actual.fresh_chain_commits == 0, "held-charge starter retains separate authority and sequence behavior")
+	a.free()
+
+	a = warden()
+	start(a)
+	phase = [0]
+	a.phase_changed.connect(func(_who, _phase):
+		phase[0] += 1
+		a.reset_actor(Vector2.ZERO))
+	hit(a, 9.0)
+	check(phase[0] == 1 and a.health == 16 and not a.pressure_phase and a.committed_attacks == 0 and a._recovery == 0.90, "phase callback reset is not overwritten by old receipt work")
+	a.free()
+
+	print("ISOLATED_WARDEN_API_REVIEW ", hz, " Hz: ", checks, " checks, ", failures.size(), " failures")
+	quit(0 if failures.is_empty() else 1)

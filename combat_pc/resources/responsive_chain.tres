@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="MokshaMeleeChainProfile" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://combat_pc/resources/melee_chain.gd" id="1"]
+[ext_resource type="Script" path="res://combat_pc/resources/melee_step.gd" id="2"]
+
+[sub_resource type="Resource" id="Slash"]
+script = ExtResource("2")
+step_label = "Slash"
+pose_id = &"slash"
+followup_open_seconds = 0.0
+next_step = 1
+
+[sub_resource type="Resource" id="Backhand"]
+script = ExtResource("2")
+step_label = "Backhand"
+pose_id = &"backhand"
+followup_open_seconds = 0.0
+next_step = 2
+windup_seconds = 0.065
+active_seconds = 0.07
+recovery_seconds = 0.17
+followup_close_seconds = 0.305
+followup_commit_recovery_seconds = 0.065
+windup_move_scale = 0.45
+recovery_move_scale = 0.75
+active_ground_speed = 55.0
+recovery_cancel_after = 0.02
+strike_size = Vector2(36, 26)
+strike_center_offset = Vector2(26, -21)
+damage = 1.15
+impulse = Vector2(260, -95)
+hitpause_seconds = 0.045
+loudness = 1.05
+
+[sub_resource type="Resource" id="Finisher"]
+script = ExtResource("2")
+step_label = "Finisher"
+pose_id = &"finisher"
+next_step = -1
+windup_seconds = 0.12
+active_seconds = 0.10
+recovery_seconds = 0.24
+followup_close_seconds = 0.46
+windup_move_scale = 0.25
+recovery_move_scale = 0.50
+active_ground_speed = 90.0
+recovery_cancel_after = 0.06
+strike_size = Vector2(42, 28)
+strike_center_offset = Vector2(29, -20)
+damage = 1.8
+impulse = Vector2(340, -125)
+prop_launch_scale = 1.25
+hitpause_seconds = 0.06
+loudness = 1.25
+
+[resource]
+script = ExtResource("1")
+chain_id = &"moksha_responsive_light"
+fresh_restart_window_seconds = 0.12
+steps = Array[ExtResource("2")]([SubResource("Slash"), SubResource("Backhand"), SubResource("Finisher")])

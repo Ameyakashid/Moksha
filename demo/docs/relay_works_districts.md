@@ -1,0 +1,30 @@
+# Relay Works districts
+
+## Authored change
+
+The existing `relay_works` chapter remains three independent circuits with the original 13 enemy kinds in their original array order and unchanged statistics. Width increases from 4,000 to 6,400. Spawn and the existing sight station share the hub at (2200, 300); the exit remains on the ground. Simulation, collision masks, motors, actor permissions, weapons, saves, and perception are unchanged.
+
+- **Service:** a ground gallery with movable props/listeners and a solid retaining step system, versus a maintenance catwalk. Its relay opens the actual lower shortcut. The west ladder and east fixed access steps remain usable while the shutter is closed.
+- **Machine floors:** two fixed working galleries and ladders, versus one optional existing 100×14 lift. The lift travels 420 px vertically over 7 seconds; it is not switched on by the relay and requires no moving-to-moving transfer. A raised overlapping lower dock and lower side landing allow ordinary boarding and departure. Both approaches join the fixed control ladder. The optional cache is on the fixed middle gallery.
+- **Dispatch:** an exposed high crossing from the machine branch, or lower working galleries and fixed floor access. Two suspended solids obstruct particular geometric lines but are **not universal projectile cover**; same-floor shots can pass underneath. Dispatch power opens a lower egress shortcut; catwalks and ladders retain a return on both sides.
+- **Useful connection:** Lift power opens the elevated bridge from machine floors directly into Dispatch at y−240. Floor access and ladders on both sides remain available when that connector is closed. There is no fourth relay, kill gate, wave, mandatory timer, or compulsory lift.
+
+## Exact optional-lift proof
+
+The lower pad ends at x2980/top240; lift origin (3000,260), travel (0,−420). The stationary destination spans x3070–3270 at top−155, 12 px below the lift's highest deck, with a 20 px lateral gap. Tests require actual lift support/carry and the exact destination StaticBody2D shape/position, rejecting any intervening cargo, ground, or other support. Dimensions alone are not acceptance.
+
+An initial authored crate at (3110,−155) was genuinely the first landing support. The strong check rejected this, even though traversal eventually continued. The exact carrier receipt and old module are preserved in external `dock_cargo_failure` evidence. The sole refinement moves that crate to (3250,−155), clearing the arrival and fixed ladder without changing shared physics or weakening the assertion. Four rate/sight docking pilots then passed with 412–415 px real carried ascent.
+
+## Reproduction and fixture boundaries
+
+`works_district_review.tscn` is an explicit chapter-start fixture. Unlike previous preconfigured-sight probes, the observer makes the **actual choice at the existing hub station**. All subsequent movement, circuit interactions and exit are ordinary production inputs. Bots know the layout and are not human or unfamiliar-route usability validation.
+
+Example: Godot `--headless --fixed-fps 60 --path . --script res://demo/tests/works_district_route.gd -- --scene=res://demo/tests/works_district_review.tscn --order=012 --approach=lift --hz=60`. Add `--sacrifice` for the actual traded choice. Match fixedfps/hz at 120 for 120 Hz. Circuit indices are 0 Service / 1 Lift / 2 Dispatch. Other orders are 021, 102, 120, 201, 210. `--approach=fixed` selects the fixed machine-floor route; Dispatch uses its high connection when immediately preceded by Lift, otherwise the lower galleries.
+
+`--order=012 --approach=fixed --recoveries` deliberately visits the closed Dispatch bypass/right-floor return, both sides of the closed elevated connector, and the Service right-floor/east-step return before opening any circuit. Receipts require exact FloorSegment support for floor landings and all three shutter colliders still enabled/closed. This proves these specified recoveries, not every arrival phase or every possible player error.
+
+`works_full_campaign_route.gd -- --full-campaign` composes the proven fixed circuit route with the existing Residential and Freight observers, preserving their policies and ordinary interactions. This changes test navigation only. Initial attached-ladder navigation that stopped supplying Up near a support was corrected locally in the Works observer; no actor logic was changed.
+
+The first full order matrix passed 23 of 24 cases; order210 retained60 completed all circuits but timed out while the observer repeatedly pushed displaced cargo during final floor egress. Traded60 eventually passed after238.42 seconds, including140.25 seconds of final-egress hesitation. That time is **not meaningful authored content**. Original logs and failed/slow reports are preserved. A narrowly scoped test-only correction, active only after all circuits on the final egress waypoint, uses a forward 12 px player-shape sweep query against real movable-body geometry to choose an ordinary jump. An isolated reproduction passed in122.05 seconds with three recorded sweep-query hits (not prior solver-contact events); no physics or outcomes were changed. The final 24-order plus 4-recovery matrix passes with zero deaths/retries, exact requested orders, actual onward transitions and 2–7 guards surviving. All 12 lift cases prove direct stationary docking after actual carriage; all 4 recovery cases preserve 20 required closed-shutter receipts each. The final observer sweep helper is explicitly counted per case, not assumed exercised everywhere. Native contrast footage uses the separately validated201 fixed order rather than hiding or trimming the known210 delay.
+
+Final order/recovery/full-campaign counts are recorded in the accompanying acceptance reports. The roughly 30-minute campaign goal remains unvalidated; optimized bot timings must not be multiplied into invented human duration. First-play readability and meaningful branch choice need independent unfamiliar-route assessment.

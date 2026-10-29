@@ -1,0 +1,15 @@
+extends "res://simulation/tests/boundary_regression.gd"
+func _run() -> void:
+	await begin("independent world swap and restore during guarded delivery")
+	var viewport=SubViewport.new();viewport.world_2d=World2D.new();root.add_child(viewport);world.reparent(viewport)
+	spawn_actor();health.unbind_actor();var once=[false];var epochs=[]
+	actor.damage_resolved.connect(func(receipt):
+		if once[0] or not receipt.has("guard_health_id"):return
+		once[0]=true
+		var original=viewport.world_2d;epochs.append(hazard._epoch);viewport.world_2d=World2D.new();viewport.world_2d=original;epochs.append(hazard._epoch))
+	health.bind_actor(actor)
+	check(await until(func():return once[0]),"real fall reaches world swap callback")
+	check(health.current_health==60 and not actor.is_defeated(),"world change and restore retires old reservation")
+	print("WORLD SWAP: health=%s epoch=%s checks=%d failures=%s"%[health.current_health,epochs,checks.size(),failures])
+	FileAccess.open("/tmp/moksha_boundary_independent/world_swap.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures,"epochs":epochs,"health":health.current_health},"  ")+"\n")
+	viewport.queue_free();await frames(3);quit(0 if failures.is_empty() else 1)

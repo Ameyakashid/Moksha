@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://simulation/ui/body_echo.gd" id="1"]
+[ext_resource type="Script" path="res://demo/views/body_echo_view.gd" id="2"]
+[node name="BodyEcho" type="Node2D"]
+script = ExtResource("1")
+[node name="View" type="Node2D" parent="."]
+modulate = Color(0.84, 0.94, 1, 0.9)
+script = ExtResource("2")

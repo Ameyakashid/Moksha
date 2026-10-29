@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3]
+[ext_resource type="PackedScene" path="res://scenes/props/crate.tscn" id="1"]
+[ext_resource type="Script" path="res://simulation/components/physical_cargo.gd" id="2"]
+[ext_resource type="Script" path="res://simulation/resources/physical_impact_profile.gd" id="3"]
+[sub_resource type="Resource" id="Impact"]
+resource_local_to_scene = true
+script = ExtResource("3")
+[node name="PhysicalCargo" instance=ExtResource("1")]
+script = ExtResource("2")
+collision_mask = 43
+impact_profile = SubResource("Impact")

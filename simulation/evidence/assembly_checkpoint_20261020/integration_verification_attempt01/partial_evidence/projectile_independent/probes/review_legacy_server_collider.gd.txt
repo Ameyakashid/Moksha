@@ -1,0 +1,26 @@
+extends SceneTree
+const Projectile=preload("res://combat_pc/fixtures/guard_projectile.gd")
+func _initialize()->void:_run.call_deferred()
+func _run()->void:
+	var world:=Node2D.new()
+	root.add_child(world)
+	var body:=PhysicsServer2D.body_create()
+	var shape:=PhysicsServer2D.rectangle_shape_create()
+	PhysicsServer2D.shape_set_data(shape,Vector2(5,30))
+	PhysicsServer2D.body_set_mode(body,PhysicsServer2D.BODY_MODE_STATIC)
+	PhysicsServer2D.body_set_space(body,world.get_world_2d().space)
+	PhysicsServer2D.body_set_collision_layer(body,1)
+	PhysicsServer2D.body_add_shape(body,shape)
+	PhysicsServer2D.body_set_state(body,PhysicsServer2D.BODY_STATE_TRANSFORM,Transform2D(0,Vector2(100,0)))
+	var carrier:=Projectile.new()
+	carrier.configure(world,Vector2(240,0))
+	world.add_child(carrier)
+	carrier.retired.connect(func(_carrier,reason):print("LEGACY RID RETIRED ",reason))
+	for i in 130:
+		await physics_frame
+		await process_frame
+	PhysicsServer2D.free_rid(body)
+	PhysicsServer2D.free_rid(shape)
+	world.queue_free()
+	await process_frame
+	quit()

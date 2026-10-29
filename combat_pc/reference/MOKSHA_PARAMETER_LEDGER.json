@@ -1,0 +1,2389 @@
+{
+  "purpose": "Explicit provenance for authored movement, combat and shield configuration",
+  "profiles": {
+    "resources/movement_profile.gd": "e97b21c8ce11c04aa3451a265ea9567312f43fa47832eb6873686c9900dfdbb5",
+    "resources/combat_profile.gd": "e3a35c3c0774f4f9f1bd2fa1587d8b37523daba45c39d07c42afd1297280a81f",
+    "resources/shield_profile.gd": "81b1227af14124ee2b836d0a6bef9271bb0a2dfb84e2902756416e455d109d16",
+    "resources/melee_step.gd": "ff1e5e7f78b5c5878a815dfb5b5febf884a213aadefd33f255d2a2f3abb91ae6",
+    "resources/melee_chain.gd": "cae6a07eeae298a6f5a000595c8311e07686e222d1b1b75b394d1da866e280ab",
+    "resources/melee_input_profile.gd": "5ca4bcd6268c7fd9337c0e3f2f1fb56fd44ebe340d29d52b23f90affa61b94ad",
+    "components/attack_entry_facing_host.gd": "954acdc61aa6ea97c5b954090e9795d986ef6f1ac538927c475c6101b5dd29ec",
+    "components/health_component.gd": "f9253a10ffe0aba42745006f9b61e4422b04a41ea9e1344690e6e06b5de7bb8c",
+    "components/defeat_response.gd": "5a4d4cfba65e77513e9b8ecd6e6a3eb65d3eb6631ac816b70579f4c885b36742",
+    "components/noise_relay.gd": "c95079da13ac1e0528f917e59d4918a2e7b6b67e72da4128d6cd0194f5f874bb",
+    "components/surface_pulse.gd": "ca948fbe41cfc8913c2f1f1f57901580f9138231ab0617888e1312eec6302993",
+    "components/physics_contact_noise.gd": "d6a69d4f47ed3db0987b62394479182c9a5852a7cd3c9353fbfdf9b158a9c012",
+    "resources/contact_noise_profile.gd": "b082e0fecd3e7603dd17416f867ba382f52f4d6eaaa5a9a6ad55f18bda291343",
+    "components/character_footsteps.gd": "1f2e506e43bc50668d63d26360185e41717591e4f08a4fd914fd9bc741def39e",
+    "resources/footstep_profile.gd": "68662a24f7d009d3417249f9c315966883991e44792429c90fa3b6f7cf4ba276",
+    "resources/ground_response_profile.gd": "ca86b8cf51854cffbf95e6eeb521b0235f61c94fd04c0012d4ea3bea4bb1f754",
+    "resources/ground_presentation_profile.gd": "604ce1c2d3a2504449dd64ff21c0aab6b79daf1d07642793a46c19b79eff4492",
+    "resources/air_response_profile.gd": "e31548e3749de5c92c113ddf4a1acd3e2617d550a27864afcb4d46026badf1ac",
+    "resources/knockback_profile.gd": "c88458e4cca9c5d49820d5eee036027a3f7cf308c868f8640f980ce43e9ca44d"
+  },
+  "reference_commit": "77c3ad263c4187ade6d048ba77bb61f79e6cec44",
+  "all_values_are_authored": true,
+  "exact_dead_cells_parity_claimed": false,
+  "parameters": [
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "body_width",
+      "default": 16.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "standing_height",
+      "default": 34.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "crouching_height",
+      "default": 20.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "collision_margin",
+      "default": 0.02,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "floor_probe",
+      "default": 2.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "maximum_floor_angle_degrees",
+      "default": 47.0,
+      "units": "degrees",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "run_speed",
+      "default": 218.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Seeded from the preserved MOKSHA controller's authored value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ground_acceleration",
+      "default": 3100.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ground_braking",
+      "default": 1850.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "reversal_acceleration",
+      "default": 3600.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "crouch_speed",
+      "default": 92.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "turn_pose_seconds",
+      "default": 0.11,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "landing_pose_seconds",
+      "default": 0.09,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "air_acceleration",
+      "default": 1450.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "air_idle_drag",
+      "default": 120.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "jump_speed",
+      "default": 365.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Seeded from the preserved MOKSHA controller's authored value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "air_jump_speed",
+      "default": 350.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "air_jump_count",
+      "default": 1,
+      "units": "count",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "gravity",
+      "default": 1100.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Seeded from the preserved MOKSHA controller's authored value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "falling_gravity_multiplier",
+      "default": 1.25,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "released_jump_gravity_multiplier",
+      "default": 1.6,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "jump_release_rise_cap",
+      "default": 165.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "terminal_fall_speed",
+      "default": 780.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "coyote_seconds",
+      "default": 0.05,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Authored candidate informed by the developer's historical approximate2\u20133-frame example; not an exact v35 constant."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "jump_buffer_seconds",
+      "default": 0.1,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "apex_pose_speed",
+      "default": 65.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_reach",
+      "default": 8.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_probe_above_head",
+      "default": 8.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_min_top_above_feet",
+      "default": 4.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_surface_inset",
+      "default": 1.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_max_rising_speed",
+      "default": 260.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_max_falling_speed",
+      "default": 560.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_outside_gap",
+      "default": 1.2,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_hang_drop",
+      "default": 29.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_top_clearance",
+      "default": 1.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_step_inset",
+      "default": 4.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_catch_seconds",
+      "default": 0.065,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_pull_seconds",
+      "default": 0.17,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_step_seconds",
+      "default": 0.14,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_regrab_delay",
+      "default": 0.2,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "blocked_pull_retry_seconds",
+      "default": 0.16,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_release_horizontal_speed",
+      "default": 48.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_release_fall_speed",
+      "default": 35.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "ledge_max_transport_speed",
+      "default": 420.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "automatic_arrival_pull",
+      "default": false,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "collision_path_step",
+      "default": 2.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "footstep_distance",
+      "default": 44.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "footstep_loudness",
+      "default": 0.65,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "landing_loudness",
+      "default": 1.0,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "down_action_buffer_seconds",
+      "default": 0.1,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "drop_release_seconds",
+      "default": 0.08,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "drop_initial_speed",
+      "default": 100.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "drop_preflight_distance",
+      "default": 4.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "drop_plane_clearance",
+      "default": 2.5,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "drop_max_ignore_seconds",
+      "default": 0.3,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "drop_coplanar_tolerance",
+      "default": 0.05,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "climb_entry_vertical_margin",
+      "default": 0.15,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "climb_up_speed",
+      "default": 115.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "climb_down_speed",
+      "default": 145.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "climb_acceleration",
+      "default": 1100.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "climb_braking",
+      "default": 1800.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "climb_align_speed",
+      "default": 160.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "climb_align_timeout",
+      "default": 0.25,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "climb_regrab_delay",
+      "default": 0.18,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "climb_jump_grace_seconds",
+      "default": 0.06,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "climb_max_transport_speed",
+      "default": 420.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "climb_end_tolerance",
+      "default": 0.15,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "climb_release_speed",
+      "default": 48.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_toward_threshold",
+      "default": 0.5,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_probe_reach",
+      "default": 3.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_separation_distance",
+      "default": 6.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_run_speed",
+      "default": 180.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_run_acceleration",
+      "default": 1500.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_run_max_rise",
+      "default": 72.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_run_max_seconds",
+      "default": 0.5,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_slide_speed",
+      "default": 90.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_slide_acceleration",
+      "default": 900.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_slide_max_seconds",
+      "default": 1.2,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_contact_push_speed",
+      "default": 24.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_kick_horizontal_speed",
+      "default": 230.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_kick_vertical_speed",
+      "default": 365.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_kick_commit_seconds",
+      "default": 0.09,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_kick_grace_seconds",
+      "default": 0.06,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_regrab_delay",
+      "default": 0.16,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_max_transport_speed",
+      "default": 420.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "wall_rearm_policy",
+      "default": 0,
+      "units": "enum: 0=separation and recontact, 1=ground contact only",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "hard_land_min_distance",
+      "default": 220.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "hard_land_min_relative_speed",
+      "default": 400.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "hard_land_impact_seconds",
+      "default": 0.06,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "hard_land_recovery_seconds",
+      "default": 0.12,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "hard_land_braking",
+      "default": 2800.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/movement_profile.gd",
+      "parameter": "hard_land_loudness",
+      "default": 1.4,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "roll_start_seconds",
+      "default": 0.04,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "roll_travel_seconds",
+      "default": 0.18,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "roll_recovery_seconds",
+      "default": 0.08,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "roll_start_speed",
+      "default": 385.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "roll_end_speed",
+      "default": 300.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "roll_exit_speed_limit",
+      "default": 218.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "roll_cooldown_seconds",
+      "default": 0.42,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "roll_jump_cancel_after",
+      "default": 0.18,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "roll_attack_cancel_after",
+      "default": 0.16,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "roll_invulnerable_from",
+      "default": 0.035,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "roll_invulnerable_until",
+      "default": 0.2,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "roll_buffer_seconds",
+      "default": 0.12,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "roll_loudness",
+      "default": 0.85,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "attack_windup_seconds",
+      "default": 0.09,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "attack_active_seconds",
+      "default": 0.075,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "attack_recovery_seconds",
+      "default": 0.18,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "attack_windup_move_scale",
+      "default": 0.35,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "attack_recovery_move_scale",
+      "default": 0.7,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "attack_buffer_seconds",
+      "default": 0.14,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "attack_active_ground_speed",
+      "default": 65.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "attack_air_drag",
+      "default": 950.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "strike_size",
+      "default": [
+        32.0,
+        24.0
+      ],
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "strike_center_offset",
+      "default": [
+        24.0,
+        -20.0
+      ],
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "strike_origin_offset",
+      "default": [
+        3.0,
+        -22.0
+      ],
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "strike_damage",
+      "default": 1.0,
+      "units": "authored damage/health units",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "strike_impulse",
+      "default": [
+        260.0,
+        -80.0
+      ],
+      "units": "target impulse adapter units",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "attack_loudness",
+      "default": 1.05,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "contact_hitpause_seconds",
+      "default": 0.045,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "hurt_hitpause_seconds",
+      "default": 0.06,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "hurt_seconds",
+      "default": 0.18,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "hurt_horizontal_speed",
+      "default": 180.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "hurt_vertical_speed",
+      "default": -130.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "hurt_drag",
+      "default": 650.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "hurt_loudness",
+      "default": 1.0,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "dive_startup_seconds",
+      "default": 0.08,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "dive_startup_vertical_braking",
+      "default": 4000.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "dive_min_floor_clearance",
+      "default": 8.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "dive_initial_speed",
+      "default": 180.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "dive_acceleration",
+      "default": 2000.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "dive_max_speed",
+      "default": 700.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "dive_horizontal_drag",
+      "default": 1800.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "dive_max_descent_seconds",
+      "default": 2.0,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "dive_impact_seconds",
+      "default": 0.06,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "dive_recovery_seconds",
+      "default": 0.14,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/combat_profile.gd",
+      "parameter": "dive_impact_loudness",
+      "default": 1.3,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "can_be_held",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "parry_window_from",
+      "default": 0.025,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "parry_window_until",
+      "default": 0.16,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "miss_recovery_seconds",
+      "default": 0.14,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "success_recovery_seconds",
+      "default": 0.08,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "release_recovery_seconds",
+      "default": 0.08,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "input_buffer_seconds",
+      "default": 0.12,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "use_lock_seconds",
+      "default": 0.22,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "hold_cancel_after",
+      "default": 0.16,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "ground_move_scale",
+      "default": 0.45,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "air_move_scale",
+      "default": 0.65,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "allow_turn_raise",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "allow_turn_parry",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "allow_turn_hold",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "allow_turn_recovery",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "contact_width",
+      "default": 10.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "contact_forward_offset",
+      "default": 3.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "contact_height_inset",
+      "default": 4.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "contact_height_ratio",
+      "default": 0.55,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "minimum_contact_height",
+      "default": 8.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "frontal_half_angle_degrees",
+      "default": 60.0,
+      "units": "degrees",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "minimum_incoming_dot",
+      "default": 0.25,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "incoming_history_window",
+      "default": 256,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "guard_absorption",
+      "default": 0.75,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Authored MOKSHA default informed by the developer's historical approximate75% absorption statement (Update4,2017); not a recovered v35 constant."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "guard_recoil_speed",
+      "default": 65.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "counter_damage",
+      "default": 3.0,
+      "units": "authored damage/health units",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "counter_impulse",
+      "default": [
+        280.0,
+        -90.0
+      ],
+      "units": "target impulse adapter units",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "counter_range",
+      "default": 52.0,
+      "units": "count",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "reflected_projectile_speed",
+      "default": 420.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "guard_hitpause_seconds",
+      "default": 0.025,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "parry_hitpause_seconds",
+      "default": 0.045,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "guard_loudness",
+      "default": 0.85,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/shield_profile.gd",
+      "parameter": "parry_loudness",
+      "default": 1.25,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "step_label",
+      "default": "Slash",
+      "units": "label or identifier",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "pose_id",
+      "default": "slash",
+      "units": "label or identifier",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "next_step",
+      "default": 1,
+      "units": "zero-based step index; -1 ends chain where allowed",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "windup_seconds",
+      "default": 0.07,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "active_seconds",
+      "default": 0.065,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "recovery_seconds",
+      "default": 0.16,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "reuse_lock_seconds",
+      "default": 0.0,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "followup_open_seconds",
+      "default": 0.035,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "followup_close_seconds",
+      "default": 0.295,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "followup_commit_recovery_seconds",
+      "default": 0.06,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "windup_move_scale",
+      "default": 0.5,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "recovery_move_scale",
+      "default": 0.8,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "active_ground_speed",
+      "default": 70.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "air_drag",
+      "default": 950.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "allow_turn_windup",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "allow_turn_active",
+      "default": false,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "allow_turn_recovery",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "windup_cancels",
+      "default": [
+        [
+          "roll",
+          "jump",
+          "air_jump",
+          "shield",
+          "drop",
+          "dive",
+          "climb",
+          "wall"
+        ]
+      ],
+      "units": "permitted action identifiers",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "active_cancels",
+      "default": [],
+      "units": "permitted action identifiers",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "recovery_cancels",
+      "default": [
+        [
+          "roll",
+          "jump",
+          "air_jump",
+          "shield",
+          "drop",
+          "dive",
+          "climb",
+          "wall"
+        ]
+      ],
+      "units": "permitted action identifiers",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "recovery_cancel_after",
+      "default": 0.0,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "strike_size",
+      "default": [
+        34.0,
+        24.0
+      ],
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "strike_center_offset",
+      "default": [
+        25.0,
+        -20.0
+      ],
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "strike_origin_offset",
+      "default": [
+        3.0,
+        -22.0
+      ],
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "damage",
+      "default": 1.0,
+      "units": "authored damage/health units",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "impulse",
+      "default": [
+        240.0,
+        -70.0
+      ],
+      "units": "target impulse adapter units",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "prop_launch_scale",
+      "default": 1.0,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "hitpause_seconds",
+      "default": 0.04,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_step.gd",
+      "parameter": "loudness",
+      "default": 1.0,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_chain.gd",
+      "parameter": "chain_id",
+      "default": "moksha_light",
+      "units": "label or identifier",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_chain.gd",
+      "parameter": "steps",
+      "default": [],
+      "units": "resource references",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_chain.gd",
+      "parameter": "start_step",
+      "default": 0,
+      "units": "zero-based step index; -1 ends chain where allowed",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_chain.gd",
+      "parameter": "followup_buffer_seconds",
+      "default": 0.22,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_chain.gd",
+      "parameter": "idle_retention_seconds",
+      "default": 0.3,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_chain.gd",
+      "parameter": "fresh_restart_window_seconds",
+      "default": 0.0,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_input_profile.gd",
+      "parameter": "mode",
+      "default": 0,
+      "units": "enum: 0=fresh only, 1=held repeat, 2=held charge",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_input_profile.gd",
+      "parameter": "repeat_restart_seconds",
+      "default": 0.08,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_input_profile.gd",
+      "parameter": "charge_branch_recovery_seconds",
+      "default": 0.06,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_input_profile.gd",
+      "parameter": "charge_seconds",
+      "default": 0.45,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_input_profile.gd",
+      "parameter": "charge_move_scale",
+      "default": 0.35,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/melee_input_profile.gd",
+      "parameter": "charge_allow_turn",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/attack_entry_facing_host.gd",
+      "parameter": "assist_enabled",
+      "default": false,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/attack_entry_facing_host.gd",
+      "parameter": "candidate_classification",
+      "default": "unknown",
+      "units": "label or identifier",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/attack_entry_facing_host.gd",
+      "parameter": "candidate_eligible",
+      "default": false,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/attack_entry_facing_host.gd",
+      "parameter": "candidate_perceived",
+      "default": false,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/attack_entry_facing_host.gd",
+      "parameter": "candidate_visible",
+      "default": false,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/attack_entry_facing_host.gd",
+      "parameter": "candidate_local_anchor",
+      "default": [
+        0.0,
+        -15.0
+      ],
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/health_component.gd",
+      "parameter": "maximum_health",
+      "default": 100.0,
+      "units": "authored damage/health units",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/health_component.gd",
+      "parameter": "reset_with_actor",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/defeat_response.gd",
+      "parameter": "collapse_seconds",
+      "default": 0.36,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/noise_relay.gd",
+      "parameter": "enabled",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/surface_pulse.gd",
+      "parameter": "enabled",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/physics_contact_noise.gd",
+      "parameter": "enabled",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/physics_contact_noise.gd",
+      "parameter": "simulation_enabled",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/contact_noise_profile.gd",
+      "parameter": "kind",
+      "default": "prop_impact",
+      "units": "label or identifier",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/contact_noise_profile.gd",
+      "parameter": "minimum_closing_speed",
+      "default": 85.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/contact_noise_profile.gd",
+      "parameter": "loudness_speed_scale",
+      "default": 240.0,
+      "units": "pixels/second per authored loudness unit",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/contact_noise_profile.gd",
+      "parameter": "minimum_loudness",
+      "default": 0.45,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/contact_noise_profile.gd",
+      "parameter": "maximum_loudness",
+      "default": 1.9,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/contact_noise_profile.gd",
+      "parameter": "quiet_closing_speed",
+      "default": 20.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/contact_noise_profile.gd",
+      "parameter": "quiet_rearm_seconds",
+      "default": 0.05,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/contact_noise_profile.gd",
+      "parameter": "separation_rearm_seconds",
+      "default": 0.025,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/contact_noise_profile.gd",
+      "parameter": "max_contacts_reported",
+      "default": 16,
+      "units": "count",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/contact_noise_profile.gd",
+      "parameter": "recent_receipt_limit",
+      "default": 32,
+      "units": "count",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/character_footsteps.gd",
+      "parameter": "enabled",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "components/character_footsteps.gd",
+      "parameter": "simulation_enabled",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "step_spacing",
+      "default": 28.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "minimum_speed",
+      "default": 3.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "step_kind",
+      "default": "enemy_step",
+      "units": "label or identifier",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "landing_kind",
+      "default": "enemy_land",
+      "units": "label or identifier",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "step_loudness",
+      "default": 0.8,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "minimum_landing_speed",
+      "default": 70.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "landing_speed_scale",
+      "default": 420.0,
+      "units": "pixels/second per authored loudness unit",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "minimum_landing_loudness",
+      "default": 0.8,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "maximum_landing_loudness",
+      "default": 1.6,
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "minimum_air_seconds",
+      "default": 0.06,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "minimum_air_travel",
+      "default": 6.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "probe_half_width",
+      "default": 6.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "probe_above",
+      "default": 12.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "probe_below",
+      "default": 12.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "maximum_sample_seconds",
+      "default": 0.1,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "maximum_sample_travel",
+      "default": 64.0,
+      "units": "pixels",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/footstep_profile.gd",
+      "parameter": "recent_receipt_limit",
+      "default": 32,
+      "units": "count",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/ground_response_profile.gd",
+      "parameter": "ground_acceleration",
+      "default": 4800.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/ground_response_profile.gd",
+      "parameter": "ground_braking",
+      "default": 2700.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/ground_response_profile.gd",
+      "parameter": "reversal_acceleration",
+      "default": 6200.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/ground_response_profile.gd",
+      "parameter": "turn_pose_seconds",
+      "default": 0.07,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/ground_presentation_profile.gd",
+      "parameter": "start_seconds",
+      "default": 0.075,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/ground_presentation_profile.gd",
+      "parameter": "brake_seconds",
+      "default": 0.1,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/ground_presentation_profile.gd",
+      "parameter": "turn_seconds",
+      "default": 0.085,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/ground_presentation_profile.gd",
+      "parameter": "retire_conflicting_intent",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/air_response_profile.gd",
+      "parameter": "air_acceleration",
+      "default": 2300.0,
+      "units": "pixels/second^2",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/knockback_profile.gd",
+      "parameter": "velocity_scale",
+      "default": [
+        0.55,
+        1.0
+      ],
+      "units": "unitless",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/knockback_profile.gd",
+      "parameter": "stun_seconds",
+      "default": 0.18,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/knockback_profile.gd",
+      "parameter": "maximum_speed",
+      "default": 420.0,
+      "units": "pixels/second",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/knockback_profile.gd",
+      "parameter": "copy_source_pause",
+      "default": true,
+      "units": "boolean",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    },
+    {
+      "resource": "resources/knockback_profile.gd",
+      "parameter": "maximum_pause_seconds",
+      "default": 0.12,
+      "units": "seconds",
+      "evidence": "MOKSHA",
+      "basis": "Original MOKSHA implementation/tuning choice; no recovered Dead Cells value."
+    }
+  ],
+  "example_melee_chain": {
+    "resource": "resources/light_chain.tres",
+    "sha256": "cfc88474288bb73c2c0f2ea73c99b1273c0563b61d68c9090215f91463e882f0",
+    "ordered_steps": [
+      "Slash",
+      "Backhand",
+      "Finisher"
+    ],
+    "overrides": {
+      "Slash": {
+        "step_label": "Slash",
+        "pose_id": "slash",
+        "next_step": 1
+      },
+      "Backhand": {
+        "step_label": "Backhand",
+        "pose_id": "backhand",
+        "next_step": 2,
+        "windup_seconds": 0.065,
+        "active_seconds": 0.07,
+        "recovery_seconds": 0.17,
+        "followup_close_seconds": 0.305,
+        "followup_commit_recovery_seconds": 0.065,
+        "windup_move_scale": 0.45,
+        "recovery_move_scale": 0.75,
+        "active_ground_speed": 55.0,
+        "recovery_cancel_after": 0.02,
+        "strike_size": [
+          36.0,
+          26.0
+        ],
+        "strike_center_offset": [
+          26.0,
+          -21.0
+        ],
+        "damage": 1.15,
+        "impulse": [
+          260.0,
+          -95.0
+        ],
+        "hitpause_seconds": 0.045,
+        "loudness": 1.05
+      },
+      "Finisher": {
+        "step_label": "Finisher",
+        "pose_id": "finisher",
+        "next_step": -1,
+        "windup_seconds": 0.12,
+        "active_seconds": 0.1,
+        "recovery_seconds": 0.24,
+        "followup_close_seconds": 0.46,
+        "windup_move_scale": 0.25,
+        "recovery_move_scale": 0.5,
+        "active_ground_speed": 90.0,
+        "recovery_cancel_after": 0.06,
+        "strike_size": [
+          42.0,
+          28.0
+        ],
+        "strike_center_offset": [
+          29.0,
+          -20.0
+        ],
+        "damage": 1.8,
+        "impulse": [
+          340.0,
+          -125.0
+        ],
+        "prop_launch_scale": 1.25,
+        "hitpause_seconds": 0.06,
+        "loudness": 1.25
+      },
+      "chain": {}
+    },
+    "basis": "Original MOKSHA example. Unspecified step fields inherit melee_step.gd defaults; unspecified chain fields inherit melee_chain.gd. No reference stage count or timing is claimed."
+  },
+  "example_melee_inputs": [
+    {
+      "resource": "resources/held_repeat.tres",
+      "sha256": "3049a1df6d20ad854eba4c416fc07ead8f2c08d338437178b33f7b74f8aed519",
+      "step_references": {},
+      "overrides": {
+        "input_profile": {
+          "mode": 1,
+          "repeat_restart_seconds": 0.08
+        }
+      },
+      "basis": "Original MOKSHA input policy and tuning. Unspecified fields inherit melee_input_profile.gd or melee_step.gd. The Dead Cells evidence establishes a held-input family, not these timings or execution/release semantics."
+    },
+    {
+      "resource": "resources/held_charge.tres",
+      "sha256": "1e9dee88ebe29619375c3c769867518ec3f0f6930a4d73a07cb7b96b87cf8159",
+      "step_references": {
+        "charge_starter": "Starter",
+        "charge_strike": "Thrust"
+      },
+      "overrides": {
+        "Starter": {
+          "step_label": "Starter Slash",
+          "pose_id": "slash",
+          "next_step": -1
+        },
+        "Thrust": {
+          "step_label": "Charged Thrust",
+          "pose_id": "charged_thrust",
+          "next_step": -1,
+          "windup_seconds": 0.06,
+          "active_seconds": 0.1,
+          "recovery_seconds": 0.24,
+          "windup_move_scale": 0.35,
+          "recovery_move_scale": 0.65,
+          "active_ground_speed": 260.0,
+          "recovery_cancel_after": 0.06,
+          "strike_size": [
+            44.0,
+            24.0
+          ],
+          "strike_center_offset": [
+            30.0,
+            -20.0
+          ],
+          "damage": 2.6,
+          "impulse": [
+            360.0,
+            -100.0
+          ],
+          "prop_launch_scale": 1.25,
+          "hitpause_seconds": 0.06,
+          "loudness": 1.25
+        },
+        "input_profile": {
+          "mode": 2,
+          "charge_branch_recovery_seconds": 0.06,
+          "charge_seconds": 0.45,
+          "charge_move_scale": 0.35,
+          "charge_allow_turn": true
+        }
+      },
+      "basis": "Original MOKSHA input policy and tuning. Unspecified fields inherit melee_input_profile.gd or melee_step.gd. The Dead Cells evidence establishes a held-input family, not these timings or execution/release semantics."
+    }
+  ],
+  "actor_ability_gates": {
+    "allow_shield": true,
+    "enable_attack_entry_assist": false,
+    "allow_drop_through": true,
+    "allow_dive": true,
+    "allow_climb": true,
+    "allow_wall_run": false,
+    "enable_hard_landing": false
+  },
+  "responsive_melee_chain": {
+    "resource": "resources/responsive_chain.tres",
+    "sha256": "27a0952bb28576e5d790391da3393e5bf13cc9c6cc30255e4f64b705deb465e0",
+    "base_resource": "resources/light_chain.tres",
+    "early_followup_seconds_in_step_order": [
+      0.0,
+      0.0
+    ],
+    "fresh_restart_window_seconds": 0.12,
+    "restart_deadline_resource": "combat_profile.gd:attack_buffer_seconds",
+    "basis": "Original MOKSHA admission tuning. Existing phase timing, poses, hitpause, power and movement are preserved. No recovered Dead Cells windows or scheduler claimed."
+  },
+  "surface_pulse": {
+    "engine_tuning_resource": "resources/sensory/sonar_tuning.gd",
+    "engine_tuning_sha256": "a7c1388edf56f0c8ea442f35722f58119034639ff16cef1821e4178eebd6a015",
+    "adapter_resource": "combat_pc/resources/surface_pulse_default.tres",
+    "adapter_resource_sha256": "8e4bee0cb20912064dc3324f654936adb040e2e66896771370db572574e19957",
+    "basis": "Preserved MOKSHA sensory engine defaults; adapter selects full-opacity surfaces and disables unrelated presentation. No timing, range, propagation or contour constants changed in M15; no recovered Dead Cells acoustics claimed."
+  }
+}

@@ -1,0 +1,113 @@
+extends "res://demo/tests/expanded_mission_route_bot.gd"
+## Generic input-only navigation recovery for a real unadmitted corner contact.
+const Actor = preload("res://simulation/actors/shared_actor.tscn")
+const Platform = preload("res://simulation/world/static_platform.tscn")
+class ProbeHost extends Node2D:
+	var player: Node2D
+	var sector := 0
+class Raw extends Node:
+	var raw := {}
+	func sample_raw(_actor: Node, _dt: float) -> Dictionary: return raw.duplicate(true)
+	func reset_intent() -> void: raw.clear()
+var checks := 0
+var records: Array = []
+func _initialize() -> void:
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--hz="): hz=int(arg.trim_prefix("--hz="))
+	Engine.physics_ticks_per_second=hz
+	run.call_deferred()
+func check(ok: bool, label: String) -> void:
+	checks+=1
+	if not ok: failures.append(label);print("FAIL ",label)
+func step(source: Node, raw: Dictionary) -> void:
+	source.raw=raw
+	await physics_frame;await process_frame
+	var pos: Vector2=host.player.position
+	if absf(pos.x-last_x)<0.3: stagnant+=1.0/hz
+	else: stagnant=0
+	last_x=pos.x
+func actor_at(point: Vector2) -> Node:
+	var actor=Actor.instantiate()
+	actor.profile=preload("res://combat_pc/resources/air_response_agile.tres").duplicate(true)
+	actor.get_node("ContactConfig").profile=preload("res://demo/resources/player_contact.tres")
+	actor.position=point
+	var source:=Raw.new();source.name="InputSource";actor.add_child(source)
+	host.add_child(actor);host.player=actor;last_x=point.x;stagnant=0
+	return source
+func observe() -> Dictionary:
+	var actor=host.player
+	var hit:=KinematicCollision2D.new()
+	var touches:bool=actor.test_move(actor.global_transform,Vector2.DOWN*actor.profile.floor_probe,hit,actor.profile.collision_margin)
+	var result:={"position":str(actor.position),"velocity":str(actor.velocity),"grounded":actor.grounded,"action":str(actor.main_action),"phase":str(actor.action_phase),"support_valid":is_instance_valid(actor._support),"stagnant":stagnant,"probe_hit":touches}
+	if touches: result.merge({"normal":str(hit.get_normal()),"contact":str(hit.get_position()),"walkable":actor._floor_normal(hit.get_normal()),"contact_offset":actor.global_position.x-hit.get_position().x})
+	return result
+func state_guard_probes(target: Vector2) -> void:
+	# Direct predicate probes only, with no physics frame between changes. Restore
+	# every field before the ordinary-input physical escape starts below.
+	var actor=host.player
+	var saved_stagnant:float=stagnant
+	stagnant=0.45;check(contact_waypoint_recovery(target).is_empty(),"short stagnation rejected");stagnant=saved_stagnant
+	check(contact_waypoint_recovery(target+Vector2(20,0)).is_empty(),"far horizontal target rejected")
+	check(contact_waypoint_recovery(Vector2(target.x,actor.position.y-20)).is_empty(),"above target rejected")
+	check(contact_waypoint_recovery(Vector2(target.x,actor.position.y+actor.profile.floor_probe)).is_empty(),"target within down probe rejected")
+	var saved_velocity:Vector2=actor.velocity
+	actor.velocity=Vector2(1,0);check(contact_waypoint_recovery(target).is_empty(),"moving actor rejected");actor.velocity=saved_velocity
+	var saved_action:StringName=actor.main_action
+	actor.main_action=&"ledge";check(contact_waypoint_recovery(target).is_empty(),"other action rejected");actor.main_action=saved_action
+	var saved_grounded:bool=actor.grounded
+	actor.grounded=true;check(contact_waypoint_recovery(target).is_empty(),"grounded actor rejected");actor.grounded=saved_grounded
+func physical_corner(direction: float, repeat: int) -> void:
+	host=ProbeHost.new();root.add_child(host)
+	var floor=Platform.instantiate();floor.position=Vector2(1496,276);floor.platform_size=Vector2(200,12);host.add_child(floor)
+	var obstacle=Platform.instantiate();obstacle.position=Vector2(1445.53,256.2433);obstacle.platform_size=Vector2(28,28);obstacle.rotation=-1.57485318183899*direction;host.add_child(obstacle)
+	var source=actor_at(Vector2(1445.53+19.558*direction,220))
+	var actor=host.player
+	var target:=Vector2(actor.position.x,270)
+	# At the initial position there is no nearby physical contact. The one direct
+	# stagnation assignment qualifies only this negative predicate probe.
+	stagnant=1;check(contact_waypoint_recovery(target).is_empty(),"absent contact rejected");stagnant=0
+	for i in range(ceili(hz*1.5)): await step(source,{})
+	var before:=observe()
+	check(not actor.grounded and actor.main_action==&"locomotion" and actor.velocity.length()<0.01 and not is_instance_valid(actor._support),"ordinary gravity produces stationary unadmitted corner contact")
+	check(before.probe_hit and before.walkable and absf(before.contact_offset)>actor.profile.collision_margin,"live down probe has off-center walkable contact")
+	check(project_supported_waypoint(target)==target and not reached_supported_waypoint(target,24),"no fabricated supported waypoint completion")
+	check(ledge_waypoint_recovery(target).is_empty(),"existing ledge helper does not qualify locomotion")
+	state_guard_probes(target)
+	check(observe()==before,"direct predicate probes restore every observed field before ordinary escape")
+	var recovery:=contact_waypoint_recovery(target)
+	check(recovery==({"right":1.0} if direction>0 else {"left":1.0}),"ordinary lateral input points away from actual contact")
+	var interventions:Array=[]
+	for i in range(hz*3):
+		var raw:=contact_waypoint_recovery(target)
+		if not raw.is_empty(): interventions.append({"frame":i,"raw":raw,"position":str(actor.position)})
+		await step(source,raw)
+	check(actor.grounded and is_instance_valid(actor._support) and actor.main_action==&"locomotion","ordinary recovery reaches actual floor support")
+	check(actor.position.y>260 and actor.position.y<271,"actual controller falls from corner onto lower floor")
+	check(not interventions.is_empty() and interventions.size()<hz,"bounded ordinary inputs escape without outcome assignment")
+	check(contact_waypoint_recovery(target).is_empty(),"actual grounded result needs no recovery")
+	records.append({"direction":direction,"repeat":repeat,"before":before,"after":observe(),"interventions":interventions})
+	host.free();await process_frame
+func central_contact_probe() -> void:
+	# A separate centered circular support supplies a real central contact. This
+	# is a predicate-only negative control, not an escape or route fixture.
+	host=ProbeHost.new();root.add_child(host)
+	var body:=StaticBody2D.new();body.collision_layer=1;body.position=Vector2(100,150)
+	var shape:=CollisionShape2D.new();var circle:=CircleShape2D.new();circle.radius=10;shape.shape=circle;body.add_child(shape);host.add_child(body)
+	actor_at(Vector2(100,139))
+	await physics_frame;await process_frame
+	var actor=host.player
+	var observed:=observe()
+	check(observed.probe_hit and observed.walkable and absf(observed.contact_offset)<=actor.profile.collision_margin,"actual circle supplies central walkable down contact")
+	var grounded:bool=actor.grounded;var velocity:Vector2=actor.velocity
+	actor.grounded=false;actor.velocity=Vector2.ZERO;stagnant=1
+	check(contact_waypoint_recovery(Vector2(100,170)).is_empty(),"central contact does not invent a lateral direction")
+	actor.grounded=grounded;actor.velocity=velocity
+	records.append({"central_negative_probe":observed})
+	host.free();await process_frame
+func run() -> void:
+	for direction in [1.0]:
+		for repeat in range(2): await physical_corner(direction,repeat)
+	await central_contact_probe()
+	var report={"hz":hz,"checks":checks,"failures":failures,"records":records,"scope":"Initial authored collider/actor placement; actual gravity, unchanged shared actor and ordinary helper-selected raw input produce all positive escape outcomes. Clearly labelled direct state predicate probes restore fields before physics resumes. Existing ledge and supported waypoint predicates are unchanged."}
+	FileAccess.open("res://simulation/evidence/relay_marker_route_%dhz.json"%hz,FileAccess.WRITE).store_string(JSON.stringify(report,"\t"))
+	print("RELAY CONTACT ROUTE RECOVERY ",checks," checks, ",failures.size()," failures");quit(0 if failures.is_empty() else 1)

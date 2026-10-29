@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EmberPropTuning" load_steps=2 format=3]
+[ext_resource type="Script" path="res://resources/tuning/prop_tuning.gd" id="1"]
+[resource]
+script = ExtResource("1")
+body_mass = 0.8
+launch_speed = 505.0
+damage = 3
+hard_impacts_to_break = 3

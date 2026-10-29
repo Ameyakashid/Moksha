@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EmberEnemyTuning" load_steps=2 format=3]
+[ext_resource type="Script" path="res://resources/tuning/enemy_tuning.gd" id="1"]
+[resource]
+script = ExtResource("1")
+max_health = 9
+move_speed = 53.0
+attack_distance = 46.0
+attack_seconds = 0.53
+hit_range = Vector2(57, 35)

@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="Script" path="res://simulation/footing_sandbox.gd" id="1"]
+[ext_resource type="PackedScene" path="res://combat_pc/player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://demo/components/enemy.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://movement/geometry/test_surface.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/props/crate.tscn" id="5"]
+[node name="FootingSandbox" type="Node2D"]
+script = ExtResource("1")
+[node name="UpperSupport" parent="." instance=ExtResource("4")]
+position = Vector2(20, 200)
+points = PackedVector2Array(0, 0, 210, 0, 210, 22, 0, 22)
+label = "Real ledge: no NPC forcefield"
+[node name="LowerSupport" parent="." instance=ExtResource("4")]
+position = Vector2(20, 320)
+points = PackedVector2Array(0, 0, 590, 0, 590, 25, 0, 25)
+label = "Shared terrain / physical cargo"
+[node name="Ramp" parent="." instance=ExtResource("4")]
+position = Vector2(420, 320)
+points = PackedVector2Array(0, 0, 90, -40, 90, 0)
+label = "Slope"
+[node name="Player" parent="." instance=ExtResource("2")]
+position = Vector2(120, 200)
+[node name="Enemy" parent="." instance=ExtResource("3")]
+position = Vector2(202, 200)
+max_health = 12.0
+patrol_radius = 52.0
+room_left = 20.0
+room_right = 610.0
+[node name="Cargo" parent="." instance=ExtResource("5")]
+position = Vector2(340, 300)
+collision_mask = 33
+[node name="HUD" type="CanvasLayer" parent="."]
+[node name="Instructions" type="Label" parent="HUD"]
+offset_left = 12.0
+offset_top = 8.0
+text = "FOOTING SANDBOX | A/D move, Space jump, J strike, K guard, R reset, Esc gym\nActors, supports and cargo are independent scene instances."
+theme_override_font_sizes/font_size = 12
+[node name="Status" type="Label" parent="HUD"]
+offset_left = 12.0
+offset_top = 46.0
+theme_override_font_sizes/font_size = 12

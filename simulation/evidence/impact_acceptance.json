@@ -1,0 +1,92 @@
+{
+  "module": "Opt-in shared physical cargo impact receiver/admission",
+  "date": "2026-10-19",
+  "status": "accepted_bounded_scope",
+  "targeted_checks_per_rate": 225,
+  "targeted_rates": [
+    60,
+    120
+  ],
+  "foundation_stages_passed": 20,
+  "historical_stages_passed": 19,
+  "gym_lifecycle_checks": 30,
+  "independent_review": "Approved read-only code/test review; reviewer did not execute tests",
+  "native_review": {
+    "verified": [
+      "third-button selector",
+      "equal real-gravity health27/hits1 for PC and NPC",
+      "ordinary D/Space movement and jump",
+      "J cargo launch/rotation",
+      "R full reset",
+      "Esc selector return",
+      "readable unclipped layout"
+    ],
+    "not_verified": [
+      "native shield absorption (automated real-contact coverage only)",
+      "audible mix (dummy audio device)"
+    ],
+    "warnings": "VSync/audio fallback and five lint warnings; no runtime gameplay fault observed",
+    "screenshots": [
+      "native_gym.png",
+      "native_impact.png"
+    ]
+  },
+  "routes": [
+    {
+      "hz": 60,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 148.683333333344,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 60,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 140.21666666667,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 148.816666666696,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 145.975000000032,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    }
+  ],
+  "source_delta": "impact_source_delta.json",
+  "source_changes_during_tests": {
+    "foundation": [],
+    "routes": []
+  },
+  "immutable_archives": {
+    "MOKSHA-Simulation-Gym-Foundations-2026-10-19.zip": "891c3f393f440fc626bb1f235890b0807252bcc71a4b5887a61c6a5ef4eeec9d",
+    "MOKSHA-The-First-Ascent-v28-Expanded.zip": "153fd2824303354b1f70dea66c7ba91b27bc204da9c16a05f9b1a27a29955937"
+  },
+  "remaining_limits": [
+    "Different existing PC/NPC motion and defense controllers",
+    "Default mission legacy cargo unchanged",
+    "Authored response, not mass-conserving injury physics",
+    "No reflection, counter, NPC shield AI, corpse or automatic repeat-contact episodes",
+    "Finite contact/source history capacity and trusted in-process custom sources"
+  ]
+}

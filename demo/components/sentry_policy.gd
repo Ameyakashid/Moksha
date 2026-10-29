@@ -1,0 +1,45 @@
+extends "res://demo/components/sentinel_policy.gd"
+## Observation and raw intention only. Decision delay is not an action clock.
+func _ready() -> void:
+	get_parent().movement_event.connect(_on_actor_event)
+func _on_actor_event(event: StringName, _packet: Dictionary) -> void:
+	if event == &"attack_finished": decision_cooldown = maxf(decision_cooldown, 0.30)
+func terrain_visible(actor: Node2D, point: Vector2) -> bool:
+	return Probe.ray(actor, actor.global_position + Vector2(0,-23), point, 9).is_empty()
+func sample_aim(actor: Node2D, muzzle: Vector2) -> Vector2:
+	return actor._player.global_position + Vector2(0,-20) if target_available(actor) else muzzle + Vector2(actor.facing * 400,0)
+func sample_intent(actor: Node2D, dt: float) -> Dictionary:
+	if actor.dead or not actor.enabled or actor.hitpause_remaining > 0: return {}
+	decision_cooldown = maxf(0, decision_cooldown - dt)
+	noise_memory = maxf(0, noise_memory - dt)
+	var was_requested := _requested_last_sample
+	_requested_last_sample = false
+	if actor.main_action == &"hurt":
+		_was_hurt = true
+		return {}
+	if _was_hurt:
+		_was_hurt = false
+		decision_cooldown = maxf(decision_cooldown,0.45)
+	if not actor.ai_enabled or actor.weapon_phase != &"idle": return {}
+	state = &"patrol"
+	if not actor.grounded or not target_available(actor): return {}
+	var offset: Vector2 = actor._player.global_position - actor.global_position
+	if absf(offset.x) > actor.detection_range or absf(offset.y) >= 80 or not terrain_visible(actor,actor._player.global_position + Vector2(0,-20)):
+		reason = "Hold lane without visible target"
+		return {}
+	state = &"aim"
+	var direction := -1 if offset.x < 0 else 1
+	if decision_cooldown <= 0 and not was_requested:
+		if actor.facing != direction:
+			reason = "Turn through ordinary movement intention before commitment"
+			return {"move":Vector2(direction * 0.1,0)}
+		_requested_last_sample = true
+		reason = "Visible target; commit full authored warning even at close range"
+		return {"attack":true}
+	if absf(offset.x) < actor.minimum_distance:
+		reason = "Observed close target during decision interval"
+		return _walk(actor,-direction,0.75,dt)
+	if absf(offset.x) > actor.preferred_distance + 65:
+		reason = "Observed distant target during decision interval"
+		return _walk(actor,direction,0.65,dt)
+	return {}

@@ -1,0 +1,112 @@
+{
+  "completed_at_utc": "2026-10-20T04:20:47.008974+00:00",
+  "status": "accepted_for_packaging",
+  "scope": "Placeable static physical platform and optional reusable appearance view; no floor/sign/interaction/HUD extraction or gameplay tuning.",
+  "baseline": {
+    "archive": "/workspace/shared/MOKSHA-Reusable-Room-Backdrop-2026-10-20.zip",
+    "archive_sha256": "8bb0bbefcecd635fed7f0f235ab22ba429f9d8d83da210084dc59f57323fa5b8",
+    "member": "MOKSHA/demo/components/mission_room.gd",
+    "member_sha256": "418a22f3c35da48b775df06b84705e74387b4d5ca69e20df0b901c911856c542"
+  },
+  "asset": "simulation/world/static_platform.tscn",
+  "view": "demo/views/platform_view.tscn",
+  "appearance": "demo/views/platform_appearance.gd",
+  "contract": "simulation/STATIC_PLATFORM_CONTRACT.md",
+  "showcase": "simulation/static_platform_review.tscn",
+  "pixel_scene": "simulation/static_platform_pixels.tscn",
+  "aggregate": {
+    "groups": 19,
+    "all_passed": true,
+    "terminal_exit": 0,
+    "source_files": 614,
+    "sources_unchanged": true,
+    "historical_reports_restored": true,
+    "report": "simulation/evidence/static_platform_final_gates.json",
+    "terminal_log": "simulation/evidence/static_platform_terminal_runner.log",
+    "fresh_reports_root": "simulation/evidence/static_platform_gates"
+  },
+  "focused": {
+    "60_hz_checks": 172,
+    "120_hz_checks": 292,
+    "failures": []
+  },
+  "native": {
+    "report": "simulation/evidence/static_platform_native_pixels.json",
+    "review": "simulation/evidence/static_platform_native_review.md",
+    "captures": "simulation/evidence/static_platform_capture_hashes.json",
+    "exact_comparisons": 100,
+    "reuse_checks": 6,
+    "sources_match": true,
+    "engine": "4.6.3-stable (official)",
+    "renderer": "gl_compatibility",
+    "display_server": "X11",
+    "literal_down_space_verified": false,
+    "s_space_drop_verified": true,
+    "diagnostic_limit": "Baseline audio initialization/fallback, V-Sync and script warnings; not a zero-warning claim.",
+    "superseded_framing_report": "simulation/evidence/static_platform_native_pixels_before_live_framing.json"
+  },
+  "routes": [
+    {
+      "hz": 60,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 170.300000000028,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 60,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 158.766666666685,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 177.200000000003,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 160.625000000018,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    }
+  ],
+  "independent_review": "simulation/evidence/static_platform_independent/recovery_review.md",
+  "attempt_history": {
+    "failed_full_attempts": [
+      "simulation/evidence/static_platform_recovered_interrupted_stock_run",
+      "simulation/evidence/static_platform_recovered_interrupted_stock_retry"
+    ],
+    "failure": "Stock combo120 SIGKILL (-9); cause unproven; each aggregate 18/19.",
+    "diagnostic": "simulation/evidence/static_platform_combo_diagnostic/diagnostic_summary.json",
+    "relocation": "simulation/evidence/static_platform_tmpfs_relocation.json",
+    "final_complete_attempt": "19/19 passed, terminal exit 0, original thresholds/timeouts and unchanged source."
+  },
+  "preservation": "simulation/evidence/static_platform_preservation.json",
+  "source_delta": "simulation/evidence/static_platform_source_delta.json",
+  "frozen_sources": "simulation/evidence/static_platform_frozen_sources.json",
+  "clean_verification": {
+    "status": "pending_separate_delivery_step"
+  },
+  "limitations": [
+    "Floor surfaces, world signs, interaction views and HUD remain mission-owned.",
+    "No acoustic-mix, general game-feel, frame-rate-budget or full human campaign-playthrough certification.",
+    "Literal Down+Space through native CUA route unverified; S+Space drop observed."
+  ]
+}

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://resources/sensory/sonar_tuning.gd" id="1"]
+[resource]
+script = ExtResource("1")
+quiet_preview_opacity = 1.0
+draw_proprioception = false
+draw_origin_labels = false
+draw_threat_direction = false
+draw_contact_feedback = false

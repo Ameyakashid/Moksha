@@ -1,0 +1,92 @@
+{
+  "status": "accepted_before_packaging",
+  "scope": "Fourteen independently placeable decorative world signs; no physics, contours, interaction, HUD or gameplay expansion.",
+  "source_files": 638,
+  "source_manifest_sha256": "add39628134052fb2f6e264bcb7e245d14943782f29d492910a17fb54d95435e",
+  "aggregate_groups": 27,
+  "terminal_exit": 0,
+  "native_exact_pairs": 134,
+  "native_reuse_checks": 14,
+  "focused_checks": {
+    "60hz": 85,
+    "120hz": 85
+  },
+  "historical_reports_restored": 2173,
+  "baseline_union": {
+    "baseline_archives": {
+      "MOKSHA-Placeable-Floors-2026-10-20-Project.zip": "3094a9008aa9ebfa993197152b5d85ec8ae51ba296ef22fea2f25fce5cb34c8e",
+      "MOKSHA-Placeable-Floors-2026-10-20-Verification.zip": "b8c1e0a07286416cd628c2e204bffd7ee5d249a695c6fe8e551a9cb4ba91164b"
+    },
+    "union_file_count": 3686,
+    "changed": [
+      "demo/components/mission_room.gd",
+      "simulation/MODULE_MAP.md",
+      "simulation/README.md"
+    ],
+    "missing": [],
+    "allowed_changes": [
+      "demo/components/mission_room.gd",
+      "simulation/MODULE_MAP.md",
+      "simulation/README.md"
+    ],
+    "passed": true
+  },
+  "source_delta": {
+    "changed": [
+      "demo/components/mission_room.gd"
+    ],
+    "removed": [],
+    "added": [
+      "simulation/world_sign_review.gd",
+      "simulation/world_sign_pixels.tscn",
+      "simulation/world_sign_review.tscn",
+      "simulation/world/world_sign.tscn",
+      "simulation/world/world_sign.gd",
+      "simulation/tests/world_sign_support.gd",
+      "simulation/tests/world_sign_regression.gd",
+      "simulation/tests/world_sign_pixel_regression.gd",
+      "simulation/tests/run_world_sign_acceptance.py",
+      "simulation/tests/world_sign_preservation.py",
+      "demo/views/sign_appearance.gd"
+    ]
+  },
+  "failed_attempt": {
+    "directory": "world_sign_failed_anchor_attempt",
+    "preserved_primary_files": 103,
+    "generated_import_sidecars": 80,
+    "original_manifest_entries": 183,
+    "original_failed_pairs": 7,
+    "original_pairs": 118,
+    "status": "Not accepted; superseded by explicit fixed authored raster-reference correction. All original anchor cases retained. Primary evidence unchanged; generated import metadata churn documented separately."
+  },
+  "independent_review": {
+    "reviewer": "/root/build_moksha_shared_simulation/review_placeable_world_sign",
+    "result": "Source/provenance/draw order/lifecycle/oracle review accepted; independent isolated 120 Hz 85/85 checks passed; final raster-reference semantics approved. Final parent-led audit is separate."
+  },
+  "evidence_sha256": {
+    "world_sign_final_gates.json": "21c756294b3837257e8078e5df065f38026d0b092900eac2e5a6071a3e9d09fe",
+    "world_sign_native_pixels.json": "654396842ee35c22d1319d0c8329b14aace1eb1a19e0664171ca5c1b4699c883",
+    "world_sign_pre_native_frozen_sources.json": "add39628134052fb2f6e264bcb7e245d14943782f29d492910a17fb54d95435e",
+    "world_sign_corrected_native_review.md": "463aa16eb07304621d17b2180252c5264f3d8868abc7c09f56f808eeef9fd43b",
+    "world_sign_preservation.json": "e8c2539d36544d24f78500f50406c4e2fbde98b3aad793a4746c8fb5c45ef72d",
+    "world_sign_source_delta.json": "0b7bd8dbc443af3311c1895e184e992cccea8934d72ec1ccaf6f0566009e58d7",
+    "world_sign_60hz.json": "4705de7ca8f4d3374c515fe5e532995fc9de5c9686b914cf296cec5dbc792891",
+    "world_sign_120hz.json": "ed389bb5a0b649cde761590b80be2f516f5b4239b6138086673838cd93231622",
+    "world_sign_terminal_runner.log": "dc33935ff80e71e99a2a3964d5e28f483322532c31e6766ceeb4ebc4567d451e",
+    "world_sign_failed_attempt_audit.json": "88217c28421f7f62641e8ebd0b59a98f0e9c8b9bb6f70c9b8e0774f33f6620af",
+    "world_sign_failed_anchor_attempt/preserved_manifest.json": "92bda02a072edc46cc66d8e9f9363b0ed90badf67e9617dca545810d5539746d",
+    "world_sign_corrected_live_recolor.jpg": "bc173dd82c97a942abafe92236a4d285ae9bb9fbf24f027bfbb389fd6bb483f8",
+    "world_sign_corrected_pixels_diagnostics.jpg": "d2134d4e9ada0067e5918af8a3495f788edf1bd919d264762b0722e093a133e1",
+    "world_sign_corrected_live_reset.jpg": "580a4f974ad07119dde0227392c33c413a9eac06bb28f1317dfb6c078127dee0",
+    "world_sign_corrected_live_initial.jpg": "580a4f974ad07119dde0227392c33c413a9eac06bb28f1317dfb6c078127dee0",
+    "world_sign_corrected_live_diagnostics.jpg": "eb11e7a58dffcf3d6e30e4c82b9e92ee5873bc40f20daf7b48de12694ec84169",
+    "world_sign_corrected_live_hidden.jpg": "3a5721a638236502e85fe26382783665a4e9bf83abc96c780d2de8565c1ca6d6",
+    "world_sign_corrected_pixels_complete.jpg": "a54eea2a57a4035e02b9eb8fba639449788baa210396c0bce2e25ffa38d00040"
+  },
+  "limitations": [
+    "Native diagnostics retain documented environment audio/VSync and lint entries; not warning-free.",
+    "Decorative text only; remaining interaction/HUD extraction still separate.",
+    "No new full human campaign playthrough, acoustic-mix quality, frame-rate budget, general game-feel or prior unverified guard/counter claims."
+  ],
+  "packaging": "Not performed by this worker; parent owns split packaging and clean-directory verification."
+}

@@ -1,0 +1,14 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="Script" path="res://simulation/world/floor_segment.gd" id="1"]
+[ext_resource type="PackedScene" path="res://simulation/world/static_platform.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://demo/views/floor_view.tscn" id="3"]
+[ext_resource type="Script" path="res://demo/views/floor_appearance.gd" id="4"]
+[sub_resource type="Resource" id="Appearance"]
+resource_local_to_scene = true
+script = ExtResource("4")
+[node name="FloorSegment" type="Node2D"]
+script = ExtResource("1")
+appearance = SubResource("Appearance")
+[node name="Support" parent="." instance=ExtResource("2")]
+appearance = null
+[node name="View" parent="." instance=ExtResource("3")]

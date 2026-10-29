@@ -1,0 +1,94 @@
+{
+  "commit": "77c3ad263c4187ade6d048ba77bb61f79e6cec44",
+  "facts": [
+    {
+      "id": "cell_units",
+      "value": 24,
+      "evidence": "implemented_body",
+      "source": "Entity.hx:145-189",
+      "meaning": "Coordinate-to-pixel getters multiply cell+fraction by24",
+      "not_established": "Collision stepping, hitbox dimensions or dx units per second"
+    },
+    {
+      "id": "wanted_fps",
+      "value": 60,
+      "evidence": "implemented_body",
+      "source": "Boot.hx:186-196",
+      "meaning": "Desired timing base",
+      "not_established": "Exact fixed-update substep algorithm; libs.Process remains incomplete"
+    },
+    {
+      "id": "timer_smoothing",
+      "value": 0,
+      "evidence": "implemented_body",
+      "source": "Boot.hx:186",
+      "meaning": "hxd.Timer.smoothFactor"
+    },
+    {
+      "id": "timer_max_delta",
+      "value": 0.1,
+      "evidence": "implemented_body",
+      "source": "Boot.hx:187",
+      "meaning": "hxd.Timer.maxDeltaTime"
+    },
+    {
+      "id": "dodge_no_cancel_ratio",
+      "value": 0.25,
+      "evidence": "implemented_body",
+      "source": "tool/mainSkills/DodgeRoll.hx:42-44",
+      "meaning": "Getter returns this number",
+      "not_established": "What consumer measures it against or which actions/windows it applies to"
+    },
+    {
+      "id": "active_roll_land_dx_add",
+      "value": 0.2,
+      "evidence": "implemented_body",
+      "source": "tool/mainSkills/DodgeRoll.hx:62-67",
+      "meaning": "On landing, if roll active, dx increases by facing*0.2 in native units",
+      "not_established": "Conversion to pixels/s without movement consumer"
+    },
+    {
+      "id": "ceiling_dy_multiplier",
+      "value": 0.8,
+      "evidence": "implemented_body",
+      "source": "Entity.hx:878-881",
+      "meaning": "Base ceiling handler zeros bdy and scales dy",
+      "not_established": "Collision detection/caller timing; Hero overrides if any"
+    },
+    {
+      "id": "late_jump_frames_historical",
+      "value": [
+        2,
+        3
+      ],
+      "evidence": "primary_developer_approximation",
+      "source": "https://arstechnica.com/video/watch/dead-cells-how-to-avoid-falling-to-your-death-war-stories/?c=series",
+      "meaning": "2019 speaker's approximate off-edge grace description",
+      "not_established": "v35 exact constant"
+    },
+    {
+      "id": "arrival_assist_pixels_historical",
+      "value": 5,
+      "evidence": "primary_developer_approximation",
+      "source": "https://arstechnica.com/video/watch/dead-cells-how-to-avoid-falling-to-your-death-war-stories/?c=series",
+      "meaning": "2019 speaker's approximate missed-arrival example",
+      "not_established": "Exact universal snap threshold or v35 algorithm"
+    }
+  ],
+  "unrecovered": [
+    "run speed",
+    "ground acceleration",
+    "braking/reversal duration",
+    "air acceleration",
+    "jump impulse/gravity/hold curve",
+    "air-jump impulse/count rules",
+    "input buffer length",
+    "roll duration/speed/cooldown/i-frame interval",
+    "roll cancel gates",
+    "ledge grab/mantle thresholds/timings",
+    "wall-climb unlock predicate and speeds",
+    "attack-specific movement/cancel/hitpause values",
+    "animation state priorities/transition clip durations"
+  ],
+  "rule": "Do not fill these with another game's values or label proposed MOKSHA tuning as decompiled Dead Cells"
+}

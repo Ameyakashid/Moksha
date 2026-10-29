@@ -1,0 +1,51 @@
+extends "/tmp/moksha-strike-independent/adversarial.gd"
+func _run() -> void:
+	for participant in ["source", "receiver"]:
+		for operation in ["queued", "removed", "mode"]:
+			await _begin("fence lifecycle " + participant + "/" + operation,"raw","raw")
+			var probe = _probe(right)
+			left.process_mode = Node.PROCESS_MODE_ALWAYS
+			right.process_mode = Node.PROCESS_MODE_ALWAYS
+			left.get_node("ContactAdapter").process_mode = Node.PROCESS_MODE_ALWAYS
+			probe.process_mode = Node.PROCESS_MODE_ALWAYS
+			var called: Array[bool] = []
+			var removed: Array[Node] = []
+			left.movement_event.connect(func(kind,_payload):
+				if kind != &"strike_confirmed" or not called.is_empty(): return
+				called.append(true)
+				var component: Node = left.get_node("ContactAdapter") if participant == "source" else probe
+				var fence: Node = component.get_node("PauseFence")
+				match operation:
+					"queued": fence.queue_free()
+					"removed":
+						component.remove_child(fence)
+						removed.append(fence)
+					"mode": fence.process_mode = Node.PROCESS_MODE_ALWAYS
+			)
+			await _frames(3)
+			await _attack(left)
+			await _frames(ceili(hz*.25))
+			_check(not called.is_empty(),"confirmation hook ran")
+			_check(_health(right)==30 and receipts.is_empty(),"changed/missing lifecycle fence fails closed")
+			for node in removed: node.queue_free()
+			await _end()
+	await _begin("explicit ALWAYS component pause cycle","raw","raw")
+	left.process_mode = Node.PROCESS_MODE_ALWAYS
+	right.process_mode = Node.PROCESS_MODE_ALWAYS
+	left.get_node("ContactAdapter").process_mode = Node.PROCESS_MODE_ALWAYS
+	_receiver(right).process_mode = Node.PROCESS_MODE_ALWAYS
+	var called: Array[bool] = []
+	left.movement_event.connect(func(kind,_payload):
+		if kind == &"strike_confirmed" and called.is_empty():
+			called.append(true)
+			paused=true
+			paused=false)
+	await _frames(3)
+	await _attack(left)
+	await _frames(ceili(hz*.25))
+	_check(not called.is_empty() and _health(right)==30 and receipts.is_empty(),"observer retires even explicitly ALWAYS components")
+	await _end()
+	print("INDEPENDENT PAUSE FENCE %d Hz: %d scenarios, %d checks, %d failures" % [hz,scenarios.size(),checks,failures.size()])
+	for failure in failures: printerr(failure)
+	FileAccess.open("/tmp/moksha-strike-independent/final/fence_%d.json" % hz,FileAccess.WRITE).store_string(JSON.stringify({"hz":hz,"checks":checks,"scenarios":scenarios,"failures":failures},"  "))
+	quit(0 if failures.is_empty() else 1)

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://demo/components/enemy.tscn" id="1"]
+[ext_resource type="Script" path="res://demo/components/warden.gd" id="2"]
+
+[node name="DemoWarden" instance=ExtResource("1")]
+script = ExtResource("2")
+kind = "warden"
+max_health = 16.0
+attack_damage_override = 18.0
+hearing_peer_group = &"mission_warden_hearing"

@@ -1,0 +1,13 @@
+extends SceneTree
+const WARDEN = preload("res://demo/components/shared_warden.tscn")
+func _initialize() -> void:
+	_run.call_deferred()
+func _run() -> void:
+	var actor = WARDEN.instantiate()
+	actor.ai_enabled = false
+	root.add_child(actor)
+	actor.melee_chain.steps[1] = null
+	actor.reset_actor(Vector2.ZERO)
+	print("NULL_CONFIGURATION_RESET_RETURNED")
+	actor.free()
+	quit()

@@ -1,0 +1,19 @@
+extends "res://simulation/tests/sentry_regression.gd"
+func run() -> void:
+	await begin("close spacing actual facing",1,20,100,170)
+	npc.ai_enabled=true
+	var samples:=[]; var flips:=0; var last_facing:int=npc.facing
+	for i in ceili(hz*0.35):
+		await frames(1)
+		if npc.facing!=last_facing: flips+=1
+		last_facing=npc.facing
+		samples.append({"x":npc.position.x,"vx":npc.velocity.x,"facing":npc.facing,"reason":npc.get_node("SentinelPolicy").reason,"phase":npc.weapon_phase})
+	print("SPACING ",JSON.stringify({"hz":hz,"flips":flips,"samples":samples}))
+	check(flips<=1,"ordinary retreat keeps a stable facing during cooldown")
+	check(npc.position.x>180,"ordinary retreat moves continuously away from close target")
+	check(await until(func(): return npc.weapon_phase==&"windup"),"ready decision still commits a genuine action")
+	check(npc.attack_facing==-1 and npc.facing==-1,"ordinary alignment faces target before commitment")
+	await finish()
+	FileAccess.open("/tmp/moksha_sentry_review/spacing_%d.json"%hz,FileAccess.WRITE).store_string(JSON.stringify({"hz":hz,"flips":flips,"checks":checks,"failures":failures},"  ")+"\n")
+	print("SPACING CHECKS ",checks.size()," FAILURES ",failures.size())
+	quit(0 if failures.is_empty() else 1)

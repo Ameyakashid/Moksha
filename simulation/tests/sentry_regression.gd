@@ -1,0 +1,359 @@
+extends SceneTree
+## Actual production composition/factory, ordinary controller intentions and real
+## Godot sweeps. Setup placement and explicit lifecycle probes are labelled.
+const SENTRY = preload("res://demo/components/shared_sentry.tscn")
+const SENTINEL = preload("res://demo/components/shared_sentinel.tscn")
+const PLAYER = preload("res://combat_pc/player.tscn")
+const HEALTH = preload("res://combat_pc/components/health_component.tscn")
+const DEFEAT = preload("res://combat_pc/components/defeat_response.tscn")
+const INCOMING = preload("res://simulation/components/incoming_strike_receiver.tscn")
+const RECEIVER = preload("res://simulation/components/projectile_receiver.gd")
+const CARGO = preload("res://simulation/components/physical_cargo.tscn")
+class Driver extends Node:
+	var actor: Node
+	var frame := {}
+	func _physics_process(dt: float) -> void:
+		if is_instance_valid(actor): actor.physics_tick(dt,frame)
+var hz := 120
+var world: Node2D
+var pc: Node2D
+var npc: Node2D
+var driver: Driver
+var label := ""
+var scenarios: Array[String] = []
+var checks: Array[Dictionary] = []
+var failures: Array[String] = []
+var emissions: Array[Dictionary] = []
+var shots: Array[WeakRef] = []
+var contacts: Array[Dictionary] = []
+var target_health: Array[Dictionary] = []
+var source_health: Array[Dictionary] = []
+var events: Array[Dictionary] = []
+var retirements: Array[StringName] = []
+var defeats := 0
+func _initialize() -> void:
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--hz="): hz = int(arg.trim_prefix("--hz="))
+	Engine.physics_ticks_per_second = hz
+	run.call_deferred()
+func check(ok: bool, detail: String) -> void:
+	checks.append({"scenario":label,"label":detail,"passed":ok})
+	if not ok: failures.append(label+": "+detail)
+func frames(count: int) -> void:
+	for i in count:
+		await physics_frame
+		await process_frame
+func until(predicate: Callable, seconds := 3.0) -> bool:
+	for i in ceili(hz*seconds):
+		await frames(1)
+		if predicate.call(): return true
+	return false
+func surface(at: Vector2,size: Vector2,layer := 1) -> StaticBody2D:
+	var body := StaticBody2D.new(); body.position=at; body.collision_layer=layer
+	var shape := CollisionShape2D.new(); var box := RectangleShape2D.new(); box.size=size; shape.shape=box
+	body.add_child(shape); world.add_child(body)
+	return body
+func player(at: Vector2) -> Node2D:
+	var actor := PLAYER.instantiate() as Node2D
+	actor.automatic_physics=false; actor.position=at
+	var health := HEALTH.instantiate(); health.name="Health"; health.maximum_health=60; actor.add_child(health)
+	var defeat := DEFEAT.instantiate(); defeat.name="DefeatResponse"; actor.add_child(defeat)
+	var incoming := INCOMING.instantiate(); incoming.counterable=true; actor.get_node("BodyShape").add_child(incoming)
+	var receiver := RECEIVER.new(); receiver.name="ProjectileReceiver"; receiver.accepted_source_layers=32; actor.add_child(receiver)
+	world.add_child(actor)
+	return actor
+func observe(actor: Node2D) -> void:
+	actor.projectile_launched.connect(func(_who,shot):
+		shots.append(weakref(shot))
+		shot.resolved.connect(func(_carrier,result): contacts.append(result.duplicate(true)))
+		shot.retired.connect(func(_carrier,reason): retirements.append(reason)))
+	actor.get_node("ProjectileEmitter").projectile_emitted.connect(func(receipt): emissions.append(receipt.duplicate(true)))
+	actor.get_node("Health").damage_processed.connect(func(receipt): source_health.append(receipt.duplicate(true)))
+	actor.defeated.connect(func(_who): defeats+=1)
+func begin(next: String,damage := 1.0,capacity := 2.0,px := 100.0,nx := 300.0,width := 1000.0) -> void:
+	label=next; scenarios.append(label)
+	emissions=[]; shots=[]; contacts=[]; target_health=[]; source_health=[]; events=[]; retirements=[]; defeats=0
+	world=Node2D.new(); root.add_child(world)
+	surface(Vector2(width/2,220),Vector2(width,40))
+	pc=player(Vector2(px,200))
+	pc.get_node("Health").damage_processed.connect(func(receipt): target_health.append(receipt.duplicate(true)))
+	driver=Driver.new(); driver.actor=pc; world.add_child(driver)
+	npc=SENTRY.instantiate(); npc.position=Vector2(nx,200); npc.initial_facing=-1; npc.attack_damage_override=damage; npc.max_health=capacity; npc.ai_enabled=false
+	world.add_child(npc); npc.configure(pc,root.get_node("NoiseBus")); observe(npc)
+	await frames(8)
+func noise(origin: Vector2,kind: StringName,loudness: float,source: Node) -> void:
+	events.append({"origin":origin,"kind":kind,"loudness":loudness,"source_id":source.get_instance_id() if is_instance_valid(source) else 0,"frame":Engine.get_physics_frames()})
+func noise_count(kind: StringName,actor: Node) -> int:
+	return events.filter(func(e): return e.kind==kind and e.source_id==actor.get_instance_id()).size()
+func first_shot() -> Node2D: return shots[0].get_ref() as Node2D if not shots.is_empty() else null
+func launch() -> bool:
+	npc.ai_enabled=true
+	var launched := await until(func(): return not shots.is_empty())
+	check(launched,"ordinary policy releases a physical carrier")
+	return launched
+func finish() -> void:
+	paused=false
+	if is_instance_valid(world): world.queue_free()
+	await frames(3)
+	check(get_nodes_in_group("shared_projectiles").is_empty(),"scene disposal leaves no sibling carrier")
+func cargo(at: Vector2) -> RigidBody2D:
+	var body := CARGO.instantiate() as RigidBody2D; body.position=at; world.add_child(body); return body
+func peer(kind: String,at: Vector2) -> Node2D:
+	var actor: Node2D
+	if kind=="PC":
+		actor=player(at)
+		var tick := Driver.new(); tick.actor=actor; world.add_child(tick)
+		return actor
+	actor=(preload("res://demo/components/shared_warden.tscn").instantiate() if kind=="warden" else SENTINEL.instantiate())
+	if kind=="listener": actor.archetype_profile=preload("res://demo/resources/listener_archetype.tres"); actor.kind="listener"
+	actor.position=at; actor.ai_enabled=false; actor.max_health=20; world.add_child(actor); actor.configure(pc,root.get_node("NoiseBus"))
+	return actor
+func reflected() -> bool:
+	if not await launch(): return false
+	npc.ai_enabled=false
+	check(await until(func(): return is_instance_valid(first_shot()) and first_shot().position.x-pc.position.x<38),"real bolt enters timed shield approach")
+	driver.frame={"shield":true}
+	var ok := await until(func(): return not contacts.is_empty())
+	check(ok and contacts[0].get("reflection_confirmed",false),"actual front shield physically reflects")
+	return ok
+func run() -> void:
+	root.get_node("NoiseBus").noise_emitted.connect(noise)
+	await begin("composition and authored physical shot")
+	check(npc is MokshaCombatPlayer and not npc.automatic_physics and npc.get_node("IntentDriver").tick_count>0,"same controller with one intent scheduler")
+	check(npc.get_node("Health").get_bound_actor()==npc and npc.get_node("ProjectileReceiver").get_bound_actor()==npc,"single root Health and registered actual-body receiver")
+	check(npc.health==2 and npc.profile.run_speed==58 and npc._windup==0.72 and npc.melee_chain.steps[0].recovery_seconds==0.95 and npc.melee_chain.steps[0].active_seconds==0.001,"standalone sentry tuning")
+	check(npc.collision_layer==32 and npc.collision_mask==9 and npc.get_node("BodyShape/IncomingStrikeReceiver").collision_layer==4,"mission body/hurtbox masks preserved")
+	check(not npc.get_node("ContactAdapter").enabled and npc.get_node("ProjectileEmitter").profile.outbound_mask==43 and npc.get_node("ProjectileEmitter").profile.reflected_mask==43,"no melee admission and all physical actors/cargo selected")
+	check(npc.get_node("ProjectileReceiver").accepted_source_layers==2 and pc.get_node("ProjectileReceiver").accepted_source_layers==32,"explicit configurable owner-layer damage admission")
+	check(not npc.weapon_permissions.can_jump and not npc.weapon_permissions.can_roll and not npc.allow_shield and not npc.allow_climb,"authored NPC capability limits")
+	var custom := SENTRY.instantiate()
+	custom.position=Vector2(800,200); custom.ai_enabled=false; custom.max_health=4; custom.movement_speed=71; custom.windup_override=0.4; custom.attack_damage_override=7; custom.projectile_speed=300; custom.projectile_lifetime=1.1
+	world.add_child(custom)
+	check(custom.health==4 and custom.profile.run_speed==71 and custom._windup==0.4 and custom._damage==7 and custom.get_node("ProjectileEmitter").profile.speed==300,"standalone encounter overrides retain precedence")
+	check(custom.archetype_profile!=npc.archetype_profile and custom.melee_chain!=npc.melee_chain and custom.get_node("ProjectileEmitter").profile!=npc.get_node("ProjectileEmitter").profile and npc._damage==1,"private per-instance authored and carrier data")
+	npc.ai_enabled=true
+	check(await until(func(): return npc.weapon_phase==&"windup"),"policy starts genuine controller windup")
+	var started := Engine.get_physics_frames()
+	await frames(floori(hz*0.60))
+	check(shots.is_empty() and pc.get_node("Health").current_health==60,"full readable warning before release")
+	check(await until(func(): return not target_health.is_empty()),"real sweep reaches player Health")
+	npc.ai_enabled=false
+	check(emissions.size()==1 and target_health.size()==1 and pc.get_node("Health").current_health==59,"one canonical damage1 shot")
+	check(float(emissions[0].physics_frame-started)/hz>=0.70 and float(emissions[0].physics_frame-started)/hz<=0.72+2.0/hz,"authored windup and bounded active-tick quantization")
+	check(noise_count(&"enemy_windup",npc)==1 and noise_count(&"enemy_attack",npc)==1 and noise_count(&"strike",npc)==0,"single warning/release owner and no phantom melee noise")
+	var release: Dictionary=events.filter(func(e): return e.kind==&"enemy_attack" and e.source_id==npc.get_instance_id())[0]
+	check(release.origin==emissions[0].muzzle,"committed release noise uses actual muzzle")
+	check(npc.last_attack_result.get("amount")==1 and npc.shots_fired==1,"facade reports genuine completed result")
+	await finish()
+	for mode in ["guard","reflection","mission reflection"]:
+		await begin(mode,12 if mode=="mission reflection" else 1,20 if mode=="mission reflection" else 2)
+		if mode=="guard": driver.frame={"shield":true}; await frames(ceili(hz*0.3)); await launch(); npc.ai_enabled=false
+		else: await reflected()
+		if mode=="guard":
+			check(await until(func(): return not target_health.is_empty()),"real held shield receives bolt")
+			check(pc.get_node("Health").current_health==59.75 and contacts[0].outcome==&"guarded","unchanged shared 75 percent guard")
+		else:
+			var shot := first_shot()
+			check(is_instance_valid(shot) and shot.reflection_count==1 and shot.attack_owner.get_ref()==pc and shot.attack_id==int(emissions[0].serial)+1,"same carrier updates owner/identity exactly once")
+			if is_instance_valid(shot): check(not shot.get_collision_exceptions().has(npc) and shot.get_collision_exceptions().has(pc),"old shooter eligible and current defender excluded")
+			check(await until(func(): return not source_health.is_empty()),"returned sweep reaches original source")
+			var expected := 12.0 if mode=="mission reflection" else 2.0
+			check(source_health.size()==1 and source_health[0].applied==expected and pc.get_node("Health").current_health==60,"return max(canonical damage,2) through one shared Health fact")
+			check(noise_count(&"enemy_damage",npc)==1,"one Health-confirmed returned HIT")
+			if mode=="reflection":
+				check(npc.dead and defeats==1 and noise_count(&"enemy_death",npc)==1,"lethal return one genuine DOWN")
+				check(npc.last_attack_result.get("amount")==2 and npc.last_attack_result.get("reflected",false),"same-life lethal receipt survives owned-shot retirement")
+		await finish()
+	for kind in ["sentinel","listener","warden"]:
+		await begin("outbound physical peer interception "+kind)
+		var other := peer(kind,Vector2(200,200)); await frames(3)
+		await launch(); npc.ai_enabled=false; await frames(hz)
+		check(other.health==20 and pc.get_node("Health").current_health==60 and not is_instance_valid(first_shot()),"peer collider stops shot without friendly damage")
+		check(contacts.size()==1 and contacts[0].get("intercepted",false) and contacts[0].get("reason")==&"source_layer_filtered","truthful explicit filter receipt")
+		await finish()
+	for kind in ["sentinel","listener","PC","warden"]:
+		await begin("reflected collision with another "+kind,12,20)
+		await launch(); npc.ai_enabled=false
+		await until(func(): return is_instance_valid(first_shot()) and first_shot().position.x<175)
+		# Explicit world setup after outbound passage; return still uses real sweep.
+		var other := peer(kind,Vector2(220,200)); await frames(2)
+		await until(func(): return is_instance_valid(first_shot()) and first_shot().position.x-pc.position.x<38)
+		driver.frame={"shield":true}
+		check(await until(func(): return not is_instance_valid(first_shot())),"return physically consumed by the intervening actor")
+		if kind in ["sentinel","listener","warden"]: check(other.health==8 and npc.health==20,"PC-owned return damages the other registered NPC exactly12")
+		elif kind=="PC": check(other.get_node("Health").current_health==60 and npc.health==20 and contacts.size()==2 and contacts[1].get("intercepted",false),"other PC physically intercepts return without friendly damage")
+		check(pc.get_node("Health").current_health==60,"reflector does not self-hit")
+		await finish()
+	for obstacle in ["wall acquisition","cargo acquisition","door windup","cargo windup","thin wall flight","falling cargo flight"]:
+		await begin(obstacle)
+		if obstacle=="wall acquisition": surface(Vector2(200,165),Vector2(4,70))
+		if obstacle=="cargo acquisition": cargo(Vector2(200,183))
+		await frames(3); npc.ai_enabled=true
+		if "windup" in obstacle:
+			await until(func(): return npc.weapon_phase==&"windup")
+			if obstacle=="door windup": surface(Vector2(200,165),Vector2(4,70))
+			else: cargo(Vector2(200,130))
+		elif "flight" in obstacle:
+			await until(func(): return not shots.is_empty()); npc.ai_enabled=false
+			if obstacle=="thin wall flight": surface(Vector2(200,165),Vector2(1,70))
+			else: cargo(Vector2(200,120))
+		await frames(ceili(hz*1.8)); npc.ai_enabled=false
+		check(pc.get_node("Health").current_health==60 and target_health.is_empty(),"actual terrain/cargo prevents actor damage")
+		check(emissions.size()==(1 if "flight" in obstacle else 0),"acquisition/release gate or flight sweep has correct release count")
+		check(noise_count(&"enemy_attack",npc)==(1 if "flight" in obstacle else 0),"blocked release cannot publish phantom attack sound")
+		await finish()
+	await begin("locked world aim and late ordinary jump")
+	npc.ai_enabled=true; await until(func(): return npc.weapon_phase==&"windup")
+	var pending: Dictionary=npc.get_node("ProjectileEmitter").pending_aim_snapshot()
+	var locked: Vector2=pending.aim
+	var copy:=pending.duplicate(true); copy.aim=Vector2.ZERO
+	check(npc.get_node("ProjectileEmitter").pending_aim_snapshot().aim==locked,"presentation copy cannot mutate pending aim")
+	driver.frame={"jump":true,"left":1.0}
+	check(await until(func(): return not emissions.is_empty()),"locked shot releases after target moves")
+	npc.ai_enabled=false
+	check(emissions[0].aim==locked and Vector2(emissions[0].velocity).is_equal_approx((locked-Vector2(emissions[0].muzzle)).normalized()*245),"real muzzle aims at old world point")
+	await frames(ceili(hz*2.4)); driver.frame={}
+	check(target_health.is_empty() and not is_instance_valid(first_shot()),"ordinary motion evades and missed carrier expires")
+	await finish()
+	await begin("real sword cancels warning",1,2,100,136)
+	await frames(ceili(hz*0.65)); npc.ai_enabled=true; await until(func(): return npc.weapon_phase==&"windup")
+	driver.frame={"attack":true}; await frames(1); driver.frame={}
+	check(await until(func(): return npc.health<2),"ordinary player sword reaches actual sentry hurtbox")
+	npc.ai_enabled=false; await frames(hz)
+	check(npc.health==1 and emissions.is_empty() and noise_count(&"enemy_damage",npc)==1,"shared incoming strike/Health cancels pending release")
+	await finish()
+	await begin("ordinary roll uses the same receiver defense",12,20)
+	await launch(); npc.ai_enabled=false
+	await until(func(): return is_instance_valid(first_shot()) and first_shot().position.x-pc.position.x<58)
+	driver.frame={"roll":true,"right":1.0}
+	check(await until(func(): return not contacts.is_empty()),"real projectile reaches ordinary rolling body")
+	check(contacts[0].get("outcome")==&"evaded" and pc.get_node("Health").current_health==60,"existing controller decides physical roll evasion")
+	await finish()
+	await begin("committed warning survives decision disable")
+	npc.ai_enabled=true; await until(func(): return npc.weapon_phase==&"windup")
+	npc.ai_enabled=false
+	check(await until(func(): return not target_health.is_empty()),"neutral decision input does not secretly cancel committed action")
+	check(emissions.size()==1 and pc.get_node("Health").current_health==59,"single committed carrier resolves normally")
+	await finish()
+	await begin("real incoming strike carries sentry beyond support",1,20,136,170,200)
+	driver.frame={"attack":true}; await frames(1); driver.frame={}
+	check(await until(func(): return npc.health<20),"real sword produces incoming recoil")
+	check(await until(func(): return npc.position.x>208 and npc.position.y>210),"AI edge observation cannot clamp external momentum or invent support")
+	await finish()
+	await begin("ordinary sword-charged production cargo interruption",1,20,30,160)
+	await frames(ceili(hz*0.65)); npc.ai_enabled=true
+	check(await until(func(): return npc.weapon_phase==&"windup"),"clear lane starts real warning before cargo setup")
+	# Insert production cargo after acquisition. Explicit deterministic fixture
+	# tuning removes random lift/spin; no position/velocity is written in flight.
+	var load_body := preload("res://scenes/props/crate.tscn").instantiate()
+	load_body.set_script(preload("res://demo/components/mission_prop.gd")); load_body.collision_mask=43
+	load_body.position=Vector2(66,183); load_body.tuning=load_body.tuning.duplicate(true)
+	load_body.tuning.launch_lift=0; load_body.tuning.launch_spin_range=Vector2.ZERO
+	var launches := [0]
+	load_body.launched.connect(func(_body): launches[0]+=1)
+	world.add_child(load_body); await frames(3)
+	driver.frame={"attack":true}; await frames(1); driver.frame={}
+	check(await until(func(): return npc.health<20),"ordinary sword charges and launches real mission cargo into sentry")
+	npc.ai_enabled=false
+	check(launches[0]==1 and npc.get_node("PhysicalImpactReceiver").accepted_count==1 and npc.health==17,"production shared cargo contact owns exactly one Health3 debit")
+	check(emissions.is_empty() and npc.weapon_phase==&"idle","physical cargo interrupts committed pending release")
+	await finish()
+	for operation in ["windup reset","flight reset","flight death","source exit","emitter disable","nonlethal hurt","AI disable","pause"]:
+		await begin("explicit lifecycle boundary "+operation,1,20,50,400)
+		if operation=="windup reset": npc.ai_enabled=true; await until(func(): return npc.weapon_phase==&"windup")
+		else: await launch()
+		npc.ai_enabled=false
+		match operation:
+			"windup reset","flight reset": npc.reset_at(npc.position); npc.ai_enabled=false
+			"flight death": npc.take_hit(99,1,true)
+			"source exit": npc.queue_free()
+			"emitter disable": npc.get_node("ProjectileEmitter").enabled=false
+			"nonlethal hurt": npc.receive_attack({"amount":1,"impulse":Vector2.ZERO,"rollable":false})
+			"pause":
+				var at: Vector2=first_shot().position; paused=true; await frames(12)
+				check(first_shot().position==at,"global pause freezes actual carrier"); paused=false
+		await frames(ceili(hz*1.8))
+		var should_hit: bool = operation in ["nonlethal hurt","AI disable","pause"]
+		check(pc.get_node("Health").current_health==(59 if should_hit else 60),"launched lease has authored independent lifetime")
+		check(get_nodes_in_group("shared_projectiles").is_empty(),"resolved or retired flight leaves no hazard")
+		await finish()
+	await begin("authored decision timing and close commitment",1,20,100,170)
+	npc.ai_enabled=true; var enabled_frame:=Engine.get_physics_frames()
+	await frames(ceili(hz*0.2))
+	check(npc.position.x>174 and npc.facing==1,"ordinary retreat is sustained instead of alternating with aim-turn input")
+	check(await until(func(): return npc.weapon_phase==&"windup"),"close target receives commitment instead of endless retreat")
+	var start_frame:=Engine.get_physics_frames()
+	check(float(start_frame-enabled_frame)/hz>=0.40,"initial0.6 decision interval counted from activation life")
+	await until(func(): return npc.weapon_phase==&"recovery")
+	var recovery_frame:=Engine.get_physics_frames()
+	check(await until(func(): return npc.weapon_phase==&"idle"),"controller completes authored recovery")
+	var idle_frame:=Engine.get_physics_frames()
+	check(float(idle_frame-recovery_frame)/hz>=0.95-2.0/hz,"sole controller recovery0.95")
+	check(npc.get_node("SentinelPolicy").decision_cooldown>=0.30-2.0/hz,"post-recovery interval begins after recovery")
+	check(await until(func(): return npc.weapon_phase==&"windup"),"later ordinary decision rearms fresh shot")
+	check(float(Engine.get_physics_frames()-idle_frame)/hz>=0.30-2.0/hz,"post-recovery0.30 not decremented inside action")
+	npc.ai_enabled=false; await finish()
+	await begin("lane hold, hearing partition and view",1,2,100,300)
+	npc.configure(null,root.get_node("NoiseBus")); npc.ai_enabled=true
+	var start: Vector2=npc.position
+	npc.hear_noise(Vector2(100,200),&"weapon_tap",1,pc)
+	check(npc._noise_memory>0,"real hearing evidence admitted")
+	await frames(hz)
+	check(npc.position.distance_to(start)<1 and npc.attack_serial==0,"hearing memory does not invent ranged chase")
+	var old:=preload("res://demo/components/ranged_enemy.tscn").instantiate(); old.position=Vector2(500,200); old.ai_enabled=false; world.add_child(old)
+	npc.get_node("SentinelPolicy").noise_memory=0; npc.hear_noise(npc.position,&"enemy_step",1,old)
+	check(npc._noise_memory==0,"legacy ranged peer ignored by explicit group")
+	old._noise_memory=0; old.hear_noise(old.position,&"enemy_step",1,npc)
+	check(old._noise_memory==0,"legacy peer partition also recognizes new sentry")
+	var other:=peer("sentinel",Vector2(600,200)); npc.hear_noise(npc.position,&"enemy_step",1,other)
+	check(npc._noise_memory>0,"cross-archetype hearing remains eligible")
+	check(npc.get_node("Visual").get_script().resource_path.ends_with("sentry_view.gd"),"separate cyan ranged observer view")
+	npc.set_blind_mode(true); check(npc.blind_mode,"inherited blind/reveal host contract")
+	await finish()
+	await begin("ledge observation cannot override physical support",1,20,100,170,200)
+	npc.ai_enabled=true; await frames(ceili(hz*0.4))
+	check(npc.position.x<199 and npc.position.y<201,"retreat brakes before real lip")
+	world.get_child(0).queue_free(); await frames(ceili(hz*0.4))
+	check(not npc.grounded and npc.position.y>210,"removing support produces genuine gravity fall")
+	await finish()
+	await mission_factory()
+	var report:={"hz":hz,"scenarios":scenarios,"checks":checks,"failures":failures,"scope":"Production shared sentry/factory and real physical contacts; direct lifecycle and setup changes explicitly labelled; legacy ranged suite preserved separately."}
+	FileAccess.open("res://simulation/evidence/sentry_%d.json"%hz,FileAccess.WRITE).store_string(JSON.stringify(report,"  ")+"\n")
+	print("SHARED SENTRY %d Hz: %d scenarios, %d checks, %d failures"%[hz,scenarios.size(),checks.size(),failures.size()])
+	for failure in failures: printerr(failure)
+	quit(0 if failures.is_empty() else 1)
+func mission_factory() -> void:
+	label="actual authored mission factory and reflected defeat"; scenarios.append(label)
+	var host:=preload("res://demo/mission.tscn").instantiate(); root.add_child(host); host.save_enabled=false; host.start_new(true); host.input_override={}
+	var count:=0
+	for index in host.sectors.size():
+		host.load_sector(index)
+		for actor in host.enemies: actor.ai_enabled=false
+		await frames(2)
+		check(host.player.get_node("ProjectileReceiver").get_bound_actor()==host.player and host.player.get_node_or_null("IntentDriver")==null,"factory PC receiver reuses current Health and existing scheduler")
+		for actor in host.enemies:
+			if actor.kind!="sentry": continue
+			count+=1
+			check(actor.get_script().resource_path=="res://demo/components/shared_sentry.gd" and actor._damage==12 and actor.health==2,"authored sentry placement selects shared scene with mission damage12")
+	check(count==13,"all thirteen authored sentry placements migrated")
+	host.load_sector(1)
+	for actor in host.enemies: actor.ai_enabled=false
+	await frames(3)
+	npc=host.enemies[2]; pc=host.player
+	emissions=[]; shots=[]; contacts=[]; source_health=[]; target_health=[]; events=[]; defeats=0; retirements=[]
+	observe(npc)
+	host.player.reset_actor(Vector2(790,135),1) # Explicit placement on same authored platform.
+	await frames(ceili(hz*0.7))
+	npc.ai_enabled=true
+	check(await until(func(): return not emissions.is_empty()),"real factory sentry acquires and releases on authored platform")
+	npc.ai_enabled=false
+	await until(func(): return is_instance_valid(first_shot()) and first_shot().position.x-pc.position.x<38)
+	host.input_override={"shield":true}
+	check(await until(func(): return not contacts.is_empty()),"factory player registered receiver handles real shield contact")
+	if is_instance_valid(first_shot()): check(first_shot().reflected and first_shot().attack_damage==12,"factory canonical damage12 remains12 on reflected carrier")
+	check(await until(func(): return npc.dead),"factory source defeated by real return")
+	check(host.kills==1 and defeats==1 and npc.health==0 and source_health.size()==1 and source_health[0].applied==2,"terminal Health clamp and mission defeat accounting exactly once")
+	host.load_sector(1); await frames(3)
+	check(host.health.current_health==60 and host.enemies[2].health==2 and get_nodes_in_group("shared_projectiles").is_empty(),"actual sector retry restores lives and retires old carriers")
+	host.queue_free(); paused=false; await frames(3)
+	check(get_nodes_in_group("shared_projectiles").is_empty(),"factory scene exit leaves no projectile")

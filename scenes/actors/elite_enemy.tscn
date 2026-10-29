@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/actors/enemy.tscn" id="1_enemy"]
+[ext_resource type="Resource" path="res://resources/tuning/enemy_elite.tres" id="2_tuning"]
+
+[sub_resource type="CapsuleShape2D" id="Shape_elite"]
+radius = 8.0
+height = 44.0
+
+[node name="EliteEnemy" instance=ExtResource("1_enemy")]
+tuning = ExtResource("2_tuning")
+elite = true
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, -22)
+shape = SubResource("Shape_elite")
+
+[node name="Sprite" parent="Graphics" index="0"]
+scale = Vector2(0.184, 0.184)
+
+[node name="HealthBar" parent="Graphics" index="1"]
+offset_top = -65.0
+offset_bottom = -62.0
+
+[node name="Telegraph" parent="Graphics" index="2"]
+offset_top = -82.0
+offset_bottom = -65.0

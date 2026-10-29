@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MokshaKnockbackProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://combat_pc/resources/knockback_profile.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+velocity_scale = Vector2(0.55, 1)
+stun_seconds = 0.18
+maximum_speed = 420.0
+copy_source_pause = true
+maximum_pause_seconds = 0.12

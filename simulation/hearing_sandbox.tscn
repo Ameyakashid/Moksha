@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=3]
+[ext_resource type="Script" path="res://simulation/hearing_sandbox.gd" id="1"]
+[ext_resource type="PackedScene" path="res://combat_pc/player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://demo/components/enemy.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://movement/geometry/test_surface.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/contact_noise_prop.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://simulation/components/hearing_sensor.tscn" id="6"]
+[ext_resource type="Script" path="res://simulation/resources/hearing_profile.gd" id="7"]
+[ext_resource type="PackedScene" path="res://combat_pc/components/noise_relay.tscn" id="8"]
+[sub_resource type="Resource" id="Hearing"]
+resource_local_to_scene = true
+script = ExtResource("7")
+terrain_attenuation_enabled = true
+[node name="HearingSandbox" type="Node2D"]
+script = ExtResource("1")
+[node name="Floor" parent="." instance=ExtResource("4")]
+position = Vector2(20, 320)
+points = PackedVector2Array(0, 0, 590, 0, 590, 25, 0, 25)
+label = "Actual footsteps, weapon and contact noise"
+[node name="Wall" parent="." instance=ExtResource("4")]
+position = Vector2(300, 240)
+points = PackedVector2Array(0, 0, 16, 0, 16, 80, 0, 80)
+label = "Wall"
+[node name="Player" parent="." instance=ExtResource("2")]
+position = Vector2(130, 320)
+[node name="HearingSensor" parent="Player" instance=ExtResource("6")]
+profile = SubResource("Hearing")
+[node name="NoiseRelay" parent="Player" instance=ExtResource("8")]
+event_bus_path = NodePath("/root/NoiseBus")
+[node name="Enemy" parent="." instance=ExtResource("3")]
+position = Vector2(430, 320)
+kind = "listener"
+hearing_profile = SubResource("Hearing")
+room_left = 20.0
+room_right = 610.0
+[node name="HearingSensor" parent="Enemy" instance=ExtResource("6")]
+profile = SubResource("Hearing")
+[node name="Cargo" parent="." instance=ExtResource("5")]
+position = Vector2(220, 160)
+[node name="HUD" type="CanvasLayer" parent="."]
+[node name="Instructions" type="Label" parent="HUD"]
+offset_left = 12.0
+offset_top = 8.0
+text = "HEARING GYM | A/D move, Space jump, J strike, Q tap, R reset, Esc gym\nDrop and launch cargo; move around the wall and compare observations."
+theme_override_font_sizes/font_size = 12
+[node name="Status" type="Label" parent="HUD"]
+offset_left = 12.0
+offset_top = 48.0
+theme_override_font_sizes/font_size = 12

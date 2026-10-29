@@ -1,0 +1,37 @@
+extends "res://demo/tests/expanded_mission_route_bot.gd"
+## Isolated diagnostic. Initial authored geometry/placement only; no action flags.
+const Actor = preload("res://simulation/actors/shared_actor.tscn")
+class ProbeHost extends Node2D:
+	var player: Node2D
+class Raw extends Node:
+	var raw := {}
+	func sample_raw(_actor: Node, _dt: float) -> Dictionary: return raw.duplicate(true)
+	func reset_intent() -> void: raw.clear()
+func _initialize() -> void:
+	Engine.physics_ticks_per_second=120
+	run.call_deferred()
+func run() -> void:
+	host=ProbeHost.new();root.add_child(host)
+	var room=load("res://demo/components/mission_room.gd").new();host.add_child(room)
+	room.build({"theme":"interior","width":2000,"platforms":[]})
+	# Solid authored crate-sized obstacle at the actual failed-route resting pose.
+	var obstacle=preload("res://simulation/world/static_platform.tscn").instantiate()
+	obstacle.position=Vector2(1447.381,256.1996);obstacle.platform_size=Vector2(28,28);obstacle.rotation=0.00206;host.add_child(obstacle)
+	var actor=Actor.instantiate();actor.position=Vector2(1478,250)
+	var source:=Raw.new();source.name="InputSource";actor.add_child(source);host.add_child(actor);host.player=actor
+	var samples: Array=[];var reached_hang:=false;var empty_ticks:=0
+	var target:=Vector2(1466,270)
+	for i in range(120*6):
+		if actor.main_action==&"ledge":
+			var projected:=project_supported_waypoint(target)
+			var direction:=signf(projected.x-actor.position.x)
+			if absf(projected.x-actor.position.x)<8: direction=0
+			source.raw={"right":maxf(direction,0),"left":maxf(-direction,0)} if direction!=0 else {}
+			if actor.action_phase==&"hang": reached_hang=true
+			if source.raw.is_empty():empty_ticks+=1
+		else:source.raw={"left":1.0}
+		if i%30==0:samples.append({"tick":i,"position":str(actor.position),"action":str(actor.main_action),"phase":str(actor.action_phase),"grounded":actor.grounded,"input":source.raw.duplicate(),"projection":str(project_supported_waypoint(target))})
+		await physics_frame;await process_frame
+	var report={"scope":"Initial authored static crate-sized obstacle and actor placement; ordinary raw left movement and gravity reach actual ledge. Calls unchanged bot waypoint projection and exact steering dead-zone rule; no action/motion outcomes assigned.","reached_hang":reached_hang,"empty_ticks":empty_ticks,"position":str(actor.position),"action":str(actor.main_action),"phase":str(actor.action_phase),"samples":samples}
+	FileAccess.open("res://demo/evidence/ledge_deadband_probe.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"))
+	print("LEDGE DEAD BAND ",JSON.stringify(report));quit()

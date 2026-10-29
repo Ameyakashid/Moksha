@@ -1,0 +1,29 @@
+{
+  "checks": 44,
+  "execution": "Actual Godot physics callbacks and production PC, contact adapter, motor, strike health and rigid-body prop. Explicit lifecycle probes labeled.",
+  "failures": [],
+  "hz": 60,
+  "preserved_hashes": {
+    "res://combat_pc/components/contact_adapter.gd": "8b1bb344c195c2bbb4247e4213bff300fb96b0e894aaadbe797a3b786752f97a",
+    "res://combat_pc/components/health_component.gd": "a24a01f6497ffbda15e510134c1a5fd613fb060f2f0b188621fb5021603a5dc3",
+    "res://combat_pc/components/strike_health.gd": "fdf3dd095bce22280cea6e0dd287b45bb030c57327a6c2826f60b190022d37fd",
+    "res://combat_pc/components/strike_knockback.gd": "c72f2b5b9fef51d5b0c74f49ba52aa28ebef46a93aa47a02247c8d0138eb998d",
+    "res://combat_pc/player.gd": "6cd582c819d5297096205754d30d7c7bbc25021822390117edc71378ecbe43ea",
+    "res://movement/components/movement_motor.gd": "149e8eddeab852f44aa141924ddb75d86c0a66846dfe47c27241a4c9b422b1fb",
+    "res://prop.gd": "8b0b1e06d6c76da455585318fecf02bc08e92e6917c2bf83a30f6cc72576cef0"
+  },
+  "scenarios": [
+    "physical melee hit and once-per-swing",
+    "front guard from physical melee",
+    "timed parry physical counter",
+    "physical parry lethal defeat lifecycle",
+    "swing misses escaped player",
+    "solid wall blocks enemy contact",
+    "real PC ContactAdapter health and knockback",
+    "windup interrupted by physical player attack",
+    "explicit depletion boundary and no ghost attack",
+    "listener sound pursuit and platform edge",
+    "real launched rigid-body prop impact"
+  ],
+  "suite": "demo enemy"
+}

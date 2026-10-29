@@ -1,0 +1,4896 @@
+{
+  "audit_date": "2026-10-04",
+  "repository": "N3rdL0rd/DeadCellsDecomp",
+  "commit": "77c3ad263c4187ade6d048ba77bb61f79e6cec44",
+  "target_build_from_repository_readme": "PC v35 / 50edff4",
+  "scope": "Melee chain, charge, interruption, animation and owner permissions; analysis metadata only",
+  "moksha_player_snapshot_sha256": "69b74005a5e2bae8e89287e1c089795de910bc4ebfcace2ecf880aad418cc7e4",
+  "snapshot_note": "M8 work was ongoing; re-read stable handoff before implementation.",
+  "classification_note": "Syntactic inventory, not a recovery percentage or runtime equivalence. Nonempty bodies include calls to missing callees and may remain incomplete.",
+  "method_counts": {
+    "EMPTY": 336,
+    "THROW_STUB": 190,
+    "NONEMPTY_BODY_OR_CALL": 65,
+    "LITERAL_DEFAULT": 14,
+    "CONSTRUCTOR_FORWARD": 26
+  },
+  "sources": [
+    {
+      "path": "deadcells/src/game/tool/Weapon.hx",
+      "blob_sha": "5515da6ac74a18b7188d1670e3611c14168e58ac",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Weapon.hx",
+      "line_count": 285,
+      "methods": [
+        {
+          "class": "Weapon",
+          "name": "new",
+          "start_line": 24,
+          "end_line": 25,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "create",
+          "start_line": 27,
+          "end_line": 29,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "get_curSkill",
+          "start_line": 31,
+          "end_line": 33,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "get_curSkillInf",
+          "start_line": 35,
+          "end_line": 37,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "get_cycle",
+          "start_line": 39,
+          "end_line": 41,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Weapon",
+          "name": "set_cycle",
+          "start_line": 44,
+          "end_line": 46,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "get_attackSpeed",
+          "start_line": 48,
+          "end_line": 50,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Weapon",
+          "name": "set_attackSpeed",
+          "start_line": 53,
+          "end_line": 56,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Weapon",
+          "name": "get_hudSkill",
+          "start_line": 59,
+          "end_line": 61,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "killEntities",
+          "start_line": 63,
+          "end_line": 64,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "onLevelChanged",
+          "start_line": 66,
+          "end_line": 67,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "isBow",
+          "start_line": 69,
+          "end_line": 71,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "asBow",
+          "start_line": 73,
+          "end_line": 75,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "isShield",
+          "start_line": 77,
+          "end_line": 79,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "asShield",
+          "start_line": 81,
+          "end_line": 83,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "initSkill",
+          "start_line": 85,
+          "end_line": 86,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "get_shootX",
+          "start_line": 88,
+          "end_line": 90,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Weapon",
+          "name": "get_shootY",
+          "start_line": 93,
+          "end_line": 95,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Weapon",
+          "name": "onOwnerTurned",
+          "start_line": 98,
+          "end_line": 99,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "getBowTargetAng",
+          "start_line": 101,
+          "end_line": 103,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "consumeAmmo",
+          "start_line": 105,
+          "end_line": 107,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "updateAmmoHud",
+          "start_line": 109,
+          "end_line": 110,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "setCritFeedback",
+          "start_line": 112,
+          "end_line": 113,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "stopCritFeedback",
+          "start_line": 115,
+          "end_line": 116,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "checkGroundHit",
+          "start_line": 118,
+          "end_line": 120,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "_executeImpl",
+          "start_line": 122,
+          "end_line": 123,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "incrementCycle",
+          "start_line": 125,
+          "end_line": 126,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "isLastCycle",
+          "start_line": 128,
+          "end_line": 130,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "isCharging",
+          "start_line": 132,
+          "end_line": 134,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "isReady",
+          "start_line": 136,
+          "end_line": 138,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Weapon",
+          "name": "allowTurnDuringCharge",
+          "start_line": 141,
+          "end_line": 143,
+          "syntactic_classification": "LITERAL_DEFAULT"
+        },
+        {
+          "class": "Weapon",
+          "name": "canComboNextSkillEarly",
+          "start_line": 146,
+          "end_line": 148,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "canStartChargeEarly",
+          "start_line": 150,
+          "end_line": 152,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "interrupt",
+          "start_line": 154,
+          "end_line": 155,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "dynOnInterrupt",
+          "start_line": 157,
+          "end_line": 158,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "autoAim",
+          "start_line": 160,
+          "end_line": 162,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "autoAimSpecialModeAuto",
+          "start_line": 164,
+          "end_line": 166,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "canHit",
+          "start_line": 168,
+          "end_line": 170,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "onOutOfAmmoTry",
+          "start_line": 172,
+          "end_line": 173,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "airControlOwner",
+          "start_line": 175,
+          "end_line": 176,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "onAnticipate",
+          "start_line": 178,
+          "end_line": 179,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "onBeforeCurSkillPrepare",
+          "start_line": 181,
+          "end_line": 182,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "prepare",
+          "start_line": 184,
+          "end_line": 185,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "setWeaponGlow",
+          "start_line": 187,
+          "end_line": 188,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "isPlayingAttackAnim",
+          "start_line": 190,
+          "end_line": 192,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "tryToUse",
+          "start_line": 194,
+          "end_line": 196,
+          "syntactic_classification": "LITERAL_DEFAULT"
+        },
+        {
+          "class": "Weapon",
+          "name": "tryToCancel",
+          "start_line": 199,
+          "end_line": 201,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "dynOnAttackAnim",
+          "start_line": 203,
+          "end_line": 204,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "customPlaySfx",
+          "start_line": 206,
+          "end_line": 207,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "playHitSfx",
+          "start_line": 209,
+          "end_line": 210,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "playChargeSfx",
+          "start_line": 212,
+          "end_line": 213,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "playReleaseSfx",
+          "start_line": 215,
+          "end_line": 216,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "dynOnFxFrame",
+          "start_line": 218,
+          "end_line": 219,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "areaCounterBullet",
+          "start_line": 221,
+          "end_line": 222,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "executeAffixes",
+          "start_line": 224,
+          "end_line": 225,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "onExecute",
+          "start_line": 227,
+          "end_line": 229,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "executeFromBackpack",
+          "start_line": 231,
+          "end_line": 233,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "doAreaEffect",
+          "start_line": 235,
+          "end_line": 236,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "hitFromWeapon",
+          "start_line": 238,
+          "end_line": 239,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "dispose",
+          "start_line": 241,
+          "end_line": 242,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "canCancel",
+          "start_line": 244,
+          "end_line": 246,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "cancelChain",
+          "start_line": 248,
+          "end_line": 249,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "postUpdate",
+          "start_line": 251,
+          "end_line": 252,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "fixedUpdate",
+          "start_line": 254,
+          "end_line": 255,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "setCycleLossCD",
+          "start_line": 257,
+          "end_line": 258,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Weapon",
+          "name": "hasCycleLossCD",
+          "start_line": 260,
+          "end_line": 262,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Weapon",
+          "name": "onCooldownEnd",
+          "start_line": 264,
+          "end_line": 268,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Weapon",
+          "name": "onOwnerCooldownEnd",
+          "start_line": 271,
+          "end_line": 272,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WeaponSkill",
+          "name": "new",
+          "start_line": 278,
+          "end_line": 280,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "WeaponSkill",
+          "name": "getCastSpeed",
+          "start_line": 282,
+          "end_line": 284,
+          "syntactic_classification": "THROW_STUB"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/skill/OldSkill.hx",
+      "blob_sha": "5790f28b83d361415972fdc2cbaf34c034d7415c",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/skill/OldSkill.hx",
+      "line_count": 156,
+      "methods": [
+        {
+          "class": "OldSkill",
+          "name": "new",
+          "start_line": 30,
+          "end_line": 32,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "OldSkill",
+          "name": "useSoundsFromMob",
+          "start_line": 34,
+          "end_line": 35,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "useSoundsFromWeapon",
+          "start_line": 37,
+          "end_line": 38,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "toString",
+          "start_line": 40,
+          "end_line": 42,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "OldSkill",
+          "name": "setTimers",
+          "start_line": 44,
+          "end_line": 45,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "getTimersState",
+          "start_line": 47,
+          "end_line": 49,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "OldSkill",
+          "name": "setTimersState",
+          "start_line": 51,
+          "end_line": 52,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "setChargeMul",
+          "start_line": 54,
+          "end_line": 55,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "setCooldownMul",
+          "start_line": 57,
+          "end_line": 58,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "useWeaponSkillInfos",
+          "start_line": 60,
+          "end_line": 61,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "useMobSkillInfos",
+          "start_line": 63,
+          "end_line": 64,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "useActiveItem",
+          "start_line": 66,
+          "end_line": 67,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "prepare",
+          "start_line": 69,
+          "end_line": 71,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "OldSkill",
+          "name": "execute",
+          "start_line": 73,
+          "end_line": 74,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "interrupt",
+          "start_line": 76,
+          "end_line": 77,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "startCooldown",
+          "start_line": 79,
+          "end_line": 80,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "resetCoolDown",
+          "start_line": 82,
+          "end_line": 83,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "resetCharge",
+          "start_line": 85,
+          "end_line": 86,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "playSfx",
+          "start_line": 88,
+          "end_line": 89,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "playChargeSfx",
+          "start_line": 91,
+          "end_line": 92,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "playReleaseSfx",
+          "start_line": 94,
+          "end_line": 95,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "playHitSfx",
+          "start_line": 97,
+          "end_line": 98,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "playCustomSfx",
+          "start_line": 100,
+          "end_line": 101,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "isReady",
+          "start_line": 103,
+          "end_line": 105,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "OldSkill",
+          "name": "isCharging",
+          "start_line": 107,
+          "end_line": 109,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "OldSkill",
+          "name": "update",
+          "start_line": 111,
+          "end_line": 112,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "getCastSpeed",
+          "start_line": 114,
+          "end_line": 116,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "OldSkill",
+          "name": "getCooldownSpeed",
+          "start_line": 118,
+          "end_line": 120,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "OldSkill",
+          "name": "onDispose",
+          "start_line": 122,
+          "end_line": 123,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "onSetCooldown",
+          "start_line": 125,
+          "end_line": 126,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "dynHasCooldown",
+          "start_line": 128,
+          "end_line": 130,
+          "syntactic_classification": "LITERAL_DEFAULT"
+        },
+        {
+          "class": "OldSkill",
+          "name": "dynOnInterrupt",
+          "start_line": 133,
+          "end_line": 134,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "dynOnFxFrame",
+          "start_line": 136,
+          "end_line": 137,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "dynOnAttackAnim",
+          "start_line": 139,
+          "end_line": 140,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "dynOnCoolDownComplete",
+          "start_line": 142,
+          "end_line": 143,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "dynOnExecute",
+          "start_line": 145,
+          "end_line": 146,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "dynOnChargeComplete",
+          "start_line": 148,
+          "end_line": 149,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "dynOnCharging",
+          "start_line": 151,
+          "end_line": 152,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "OldSkill",
+          "name": "dynOnChargeStart",
+          "start_line": 154,
+          "end_line": 155,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/Controller.hx",
+      "blob_sha": "852957d8ca0f202ec28e4d25832f906e4c9dc2b3",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Controller.hx",
+      "line_count": 109,
+      "methods": [
+        {
+          "class": "BindingProfiles",
+          "name": "new",
+          "start_line": 11,
+          "end_line": 12,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Controller",
+          "name": "new",
+          "start_line": 42,
+          "end_line": 43,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Controller",
+          "name": "beforeUpdate",
+          "start_line": 45,
+          "end_line": 46,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Controller",
+          "name": "get_bindings",
+          "start_line": 48,
+          "end_line": 53,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Controller",
+          "name": "onAnyPadEnabled",
+          "start_line": 56,
+          "end_line": 57,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Controller",
+          "name": "onAnyPadDisabled",
+          "start_line": 59,
+          "end_line": 60,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Controller",
+          "name": "bind",
+          "start_line": 62,
+          "end_line": 63,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Controller",
+          "name": "lock",
+          "start_line": 65,
+          "end_line": 67,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Controller",
+          "name": "unlock",
+          "start_line": 70,
+          "end_line": 71,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Controller",
+          "name": "createAccess",
+          "start_line": 73,
+          "end_line": 75,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Controller",
+          "name": "padIsDown",
+          "start_line": 77,
+          "end_line": 79,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Controller",
+          "name": "padIsPressed",
+          "start_line": 81,
+          "end_line": 83,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Controller",
+          "name": "defaultInputsForDir",
+          "start_line": 85,
+          "end_line": 87,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Controller",
+          "name": "updateMainMode",
+          "start_line": 89,
+          "end_line": 90,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Controller",
+          "name": "updateLongPress",
+          "start_line": 92,
+          "end_line": 93,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Controller",
+          "name": "syncTriggerDeadzone",
+          "start_line": 95,
+          "end_line": 96,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Controller",
+          "name": "onActPressed",
+          "start_line": 98,
+          "end_line": 99,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Controller",
+          "name": "onChange",
+          "start_line": 101,
+          "end_line": 102,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Controller",
+          "name": "onPadDisabled",
+          "start_line": 104,
+          "end_line": 105,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Controller",
+          "name": "onPadEnabled",
+          "start_line": 107,
+          "end_line": 108,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/Options.hx",
+      "blob_sha": "3c567a7806fb70beb2a988d177de57ff689e84a4",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/Options.hx",
+      "line_count": 332,
+      "methods": [
+        {
+          "class": "Options",
+          "name": "new",
+          "start_line": 150,
+          "end_line": 151,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Options",
+          "name": "keyName",
+          "start_line": 153,
+          "end_line": 155,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Options",
+          "name": "convKey",
+          "start_line": 157,
+          "end_line": 159,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Options",
+          "name": "dumpControllerConfig",
+          "start_line": 161,
+          "end_line": 162,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Options",
+          "name": "reset",
+          "start_line": 164,
+          "end_line": 165,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Options",
+          "name": "loadAndApply",
+          "start_line": 167,
+          "end_line": 169,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Options",
+          "name": "load",
+          "start_line": 171,
+          "end_line": 173,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Options",
+          "name": "get_gamepad",
+          "start_line": 175,
+          "end_line": 180,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Options",
+          "name": "set_gamepad",
+          "start_line": 183,
+          "end_line": 190,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Options",
+          "name": "get_keyboard",
+          "start_line": 193,
+          "end_line": 198,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Options",
+          "name": "set_keyboard",
+          "start_line": 201,
+          "end_line": 208,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Options",
+          "name": "get_foodKindEnum",
+          "start_line": 211,
+          "end_line": 213,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Options",
+          "name": "get_musicKind",
+          "start_line": 215,
+          "end_line": 217,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Options",
+          "name": "set_musicKind",
+          "start_line": 219,
+          "end_line": 221,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Options",
+          "name": "genUniqId",
+          "start_line": 223,
+          "end_line": 225,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Options",
+          "name": "applyLang",
+          "start_line": 227,
+          "end_line": 234,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Options",
+          "name": "apply",
+          "start_line": 237,
+          "end_line": 238,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Options",
+          "name": "applyVolumes",
+          "start_line": 240,
+          "end_line": 241,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Options",
+          "name": "save",
+          "start_line": 243,
+          "end_line": 244,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Options",
+          "name": "setPadMapping",
+          "start_line": 246,
+          "end_line": 247,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Options",
+          "name": "getPadMapping",
+          "start_line": 249,
+          "end_line": 251,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Options",
+          "name": "getKeyFromPadMapping",
+          "start_line": 253,
+          "end_line": 255,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Options",
+          "name": "getKeysFromKeyMapping",
+          "start_line": 257,
+          "end_line": 259,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Options",
+          "name": "setKeyMapping",
+          "start_line": 261,
+          "end_line": 262,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Options",
+          "name": "setTriggerDeadZone",
+          "start_line": 264,
+          "end_line": 265,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Options",
+          "name": "setDeadZoneLeftJoystick",
+          "start_line": 267,
+          "end_line": 269,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Options",
+          "name": "setDeadZoneRightJoystick",
+          "start_line": 272,
+          "end_line": 274,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Options",
+          "name": "setDeadZoneJoystick",
+          "start_line": 277,
+          "end_line": 278,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Options",
+          "name": "getKeyMapping",
+          "start_line": 280,
+          "end_line": 282,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Options",
+          "name": "resetKeyMapping",
+          "start_line": 284,
+          "end_line": 286,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Options",
+          "name": "resetPadMapping",
+          "start_line": 289,
+          "end_line": 294,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Options",
+          "name": "resetSticksMapping",
+          "start_line": 297,
+          "end_line": 301,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Options",
+          "name": "resetStickMapping",
+          "start_line": 304,
+          "end_line": 305,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Options",
+          "name": "configController",
+          "start_line": 307,
+          "end_line": 308,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Options",
+          "name": "ctrlBind",
+          "start_line": 310,
+          "end_line": 311,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Options",
+          "name": "getTierColor",
+          "start_line": 313,
+          "end_line": 315,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "SfxPrioPreset",
+          "name": "new",
+          "start_line": 327,
+          "end_line": 328,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "SfxPrioPreset",
+          "name": "reset",
+          "start_line": 330,
+          "end_line": 331,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/hero/HeroWeaponsManager.hx",
+      "blob_sha": "4d0481b00096601195e18ae3616630d253b9faf4",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/hero/HeroWeaponsManager.hx",
+      "line_count": 221,
+      "methods": [
+        {
+          "class": "HeroWeaponsManager",
+          "name": "new",
+          "start_line": 12,
+          "end_line": 14,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "init",
+          "start_line": 16,
+          "end_line": 17,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "findInMain",
+          "start_line": 19,
+          "end_line": 21,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "findInBackpack",
+          "start_line": 23,
+          "end_line": 25,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "findItemInMain",
+          "start_line": 27,
+          "end_line": 29,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "findItemInBackpack",
+          "start_line": 31,
+          "end_line": 33,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "findItemKindInMain",
+          "start_line": 35,
+          "end_line": 37,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "findItemKindInBackpack",
+          "start_line": 39,
+          "end_line": 41,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "findChargingWeapon",
+          "start_line": 43,
+          "end_line": 45,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "findFirstMeleeWeapon",
+          "start_line": 47,
+          "end_line": 49,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "disposeBackpackWeapon",
+          "start_line": 51,
+          "end_line": 53,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "hasInMain",
+          "start_line": 55,
+          "end_line": 57,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "hasInBackpack",
+          "start_line": 59,
+          "end_line": 61,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "hasItemKindInMain",
+          "start_line": 63,
+          "end_line": 65,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "hasItemKindInBackpack",
+          "start_line": 67,
+          "end_line": 69,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "hasChargingWeapon",
+          "start_line": 71,
+          "end_line": 73,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "hasChargingUninterruptibleWeapon",
+          "start_line": 75,
+          "end_line": 81,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "hasButtonDownForWeapon",
+          "start_line": 84,
+          "end_line": 86,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "hasButtonPressedForWeapon",
+          "start_line": 88,
+          "end_line": 90,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "getWeaponDamageMultiplier",
+          "start_line": 92,
+          "end_line": 94,
+          "syntactic_classification": "LITERAL_DEFAULT"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "dispose",
+          "start_line": 97,
+          "end_line": 98,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "addWeaponLock",
+          "start_line": 100,
+          "end_line": 101,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "removeWeaponLock",
+          "start_line": 103,
+          "end_line": 104,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "applyHudLockFade",
+          "start_line": 106,
+          "end_line": 107,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "refillAllAmmo",
+          "start_line": 109,
+          "end_line": 110,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "killEntities",
+          "start_line": 112,
+          "end_line": 113,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "onAffectChange",
+          "start_line": 115,
+          "end_line": 116,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "onEquippedItemsUpdated",
+          "start_line": 118,
+          "end_line": 119,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "onDropAndUpdateItem",
+          "start_line": 121,
+          "end_line": 122,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "onPickItem",
+          "start_line": 124,
+          "end_line": 125,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "onMobDeath",
+          "start_line": 127,
+          "end_line": 128,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "tryToCounterGrenade",
+          "start_line": 130,
+          "end_line": 131,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "cancelWeaponsAnticipation",
+          "start_line": 133,
+          "end_line": 134,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "allowCrouch",
+          "start_line": 136,
+          "end_line": 138,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "isPlayingAttackAnim",
+          "start_line": 140,
+          "end_line": 142,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "interrupt",
+          "start_line": 144,
+          "end_line": 145,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "tryToCancelCharge",
+          "start_line": 147,
+          "end_line": 149,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "updateWeapons",
+          "start_line": 151,
+          "end_line": 152,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "updateWeapon",
+          "start_line": 154,
+          "end_line": 155,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "canUseWeapon",
+          "start_line": 157,
+          "end_line": 159,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "onWeaponExecute",
+          "start_line": 161,
+          "end_line": 162,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "startBackpackEffects",
+          "start_line": 164,
+          "end_line": 165,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "onLevelChanged",
+          "start_line": 167,
+          "end_line": 168,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "resetTpItems",
+          "start_line": 170,
+          "end_line": 171,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "resetChargeDashItems",
+          "start_line": 173,
+          "end_line": 174,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "onOwnerCooldownEnd",
+          "start_line": 176,
+          "end_line": 177,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "preUpdate",
+          "start_line": 179,
+          "end_line": 180,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "fixedUpdate",
+          "start_line": 182,
+          "end_line": 183,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "postUpdate",
+          "start_line": 185,
+          "end_line": 186,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "getWeaponAttackSpeed",
+          "start_line": 188,
+          "end_line": 190,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "onWeaponUse",
+          "start_line": 192,
+          "end_line": 193,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "updateTutorials",
+          "start_line": 195,
+          "end_line": 196,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "canPerformAutoHit",
+          "start_line": 198,
+          "end_line": 200,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "autoBreakDoors",
+          "start_line": 202,
+          "end_line": 203,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "getCLID",
+          "start_line": 205,
+          "end_line": 207,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "serialize",
+          "start_line": 209,
+          "end_line": 210,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "getSerializeSchema",
+          "start_line": 212,
+          "end_line": 214,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "unserializeInit",
+          "start_line": 216,
+          "end_line": 217,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroWeaponsManager",
+          "name": "unserialize",
+          "start_line": 219,
+          "end_line": 220,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/hero/HeroActiveSkillsManager.hx",
+      "blob_sha": "38979eb5d9c674cc02a3d9f9ff01cab9df5100aa",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/hero/HeroActiveSkillsManager.hx",
+      "line_count": 275,
+      "methods": [
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "new",
+          "start_line": 12,
+          "end_line": 14,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "init",
+          "start_line": 16,
+          "end_line": 17,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "initSkills",
+          "start_line": 19,
+          "end_line": 20,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "dispose",
+          "start_line": 22,
+          "end_line": 23,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "preUpdate",
+          "start_line": 25,
+          "end_line": 28,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "fixedUpdate",
+          "start_line": 31,
+          "end_line": 32,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "addSkillLock",
+          "start_line": 34,
+          "end_line": 35,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "removeSkillLock",
+          "start_line": 37,
+          "end_line": 38,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "applyHudLockFade",
+          "start_line": 40,
+          "end_line": 41,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "onOwnerCooldownEnd",
+          "start_line": 43,
+          "end_line": 44,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "updateSkills",
+          "start_line": 46,
+          "end_line": 47,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "hasChargingSkill",
+          "start_line": 49,
+          "end_line": 51,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "getOldSkill",
+          "start_line": 53,
+          "end_line": 59,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "getActiveSkill",
+          "start_line": 62,
+          "end_line": 64,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "interrupt",
+          "start_line": 66,
+          "end_line": 67,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "reduceAllActiveCooldowns",
+          "start_line": 69,
+          "end_line": 70,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "prepareSave",
+          "start_line": 72,
+          "end_line": 74,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "interruptPowers",
+          "start_line": 76,
+          "end_line": 77,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "hasAnySpeedBuff",
+          "start_line": 79,
+          "end_line": 81,
+          "syntactic_classification": "LITERAL_DEFAULT"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "speedBuffTimeLeftS",
+          "start_line": 84,
+          "end_line": 86,
+          "syntactic_classification": "LITERAL_DEFAULT"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "getRunSpeedMul",
+          "start_line": 89,
+          "end_line": 91,
+          "syntactic_classification": "LITERAL_DEFAULT"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "getDodgeSpeedMul",
+          "start_line": 94,
+          "end_line": 96,
+          "syntactic_classification": "LITERAL_DEFAULT"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "getClimbSpeedMul",
+          "start_line": 99,
+          "end_line": 101,
+          "syntactic_classification": "LITERAL_DEFAULT"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "killEntities",
+          "start_line": 104,
+          "end_line": 105,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "saveItemCooldowns",
+          "start_line": 107,
+          "end_line": 108,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "_saveItemCooldown",
+          "start_line": 110,
+          "end_line": 111,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "restoreItemCooldowns",
+          "start_line": 113,
+          "end_line": 114,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "clearSavedItemCooldowns",
+          "start_line": 116,
+          "end_line": 117,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "onEquippedItemsUpdated",
+          "start_line": 119,
+          "end_line": 120,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "onItemTransformDone",
+          "start_line": 122,
+          "end_line": 123,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "onLevelChanged",
+          "start_line": 125,
+          "end_line": 126,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "hudGetSkillPower",
+          "start_line": 128,
+          "end_line": 130,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "resetCooldownForItem",
+          "start_line": 132,
+          "end_line": 133,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "startCooldownForItem",
+          "start_line": 135,
+          "end_line": 136,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "reduceCooldownForItem",
+          "start_line": 138,
+          "end_line": 139,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "resetPetItems",
+          "start_line": 141,
+          "end_line": 142,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "onTryApplyAttackResult",
+          "start_line": 144,
+          "end_line": 146,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "onActiveSkill",
+          "start_line": 148,
+          "end_line": 149,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "onSkillSuccess",
+          "start_line": 151,
+          "end_line": 152,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "useSkillItem",
+          "start_line": 154,
+          "end_line": 155,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "canUseActiveSkill",
+          "start_line": 157,
+          "end_line": 159,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "getCLID",
+          "start_line": 161,
+          "end_line": 163,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "serialize",
+          "start_line": 165,
+          "end_line": 166,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "getSerializeSchema",
+          "start_line": 168,
+          "end_line": 170,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "unserializeInit",
+          "start_line": 172,
+          "end_line": 173,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkillsManager",
+          "name": "unserialize",
+          "start_line": 175,
+          "end_line": 176,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "new",
+          "start_line": 193,
+          "end_line": 194,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "get_usesLeft",
+          "start_line": 196,
+          "end_line": 198,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "getNextUseCooldownF",
+          "start_line": 200,
+          "end_line": 202,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "getNextUseCooldownRatio",
+          "start_line": 204,
+          "end_line": 206,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "dispose",
+          "start_line": 209,
+          "end_line": 213,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "prepareSave",
+          "start_line": 216,
+          "end_line": 222,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "init",
+          "start_line": 225,
+          "end_line": 227,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "restoreTimers",
+          "start_line": 230,
+          "end_line": 234,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "registerEntity",
+          "start_line": 237,
+          "end_line": 238,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "gcEntities",
+          "start_line": 240,
+          "end_line": 241,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "killEntities",
+          "start_line": 243,
+          "end_line": 244,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "countEntities",
+          "start_line": 246,
+          "end_line": 248,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "useActiveItem",
+          "start_line": 250,
+          "end_line": 251,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "initCdPerUse",
+          "start_line": 253,
+          "end_line": 254,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "startCooldown",
+          "start_line": 256,
+          "end_line": 257,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "getCLID",
+          "start_line": 259,
+          "end_line": 261,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "serialize",
+          "start_line": 263,
+          "end_line": 264,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "getSerializeSchema",
+          "start_line": 266,
+          "end_line": 268,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "unserializeInit",
+          "start_line": 270,
+          "end_line": 271,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeroActiveSkill",
+          "name": "unserialize",
+          "start_line": 273,
+          "end_line": 274,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/skill/Skill.hx",
+      "blob_sha": "1c6b3cd1a4d749ffe75cd6312f43a6168a6e3212",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/skill/Skill.hx",
+      "line_count": 212,
+      "methods": [
+        {
+          "class": "Skill",
+          "name": "new",
+          "start_line": 40,
+          "end_line": 42,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "Skill",
+          "name": "onInfosInit",
+          "start_line": 44,
+          "end_line": 45,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "useMobSkillInfos",
+          "start_line": 47,
+          "end_line": 48,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "toString",
+          "start_line": 50,
+          "end_line": 52,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Skill",
+          "name": "getCastSpeed",
+          "start_line": 54,
+          "end_line": 56,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Skill",
+          "name": "onDispose",
+          "start_line": 58,
+          "end_line": 59,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "prepare",
+          "start_line": 61,
+          "end_line": 63,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Skill",
+          "name": "isReady",
+          "start_line": 65,
+          "end_line": 67,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Skill",
+          "name": "execute",
+          "start_line": 69,
+          "end_line": 70,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "interrupt",
+          "start_line": 72,
+          "end_line": 73,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "update",
+          "start_line": 75,
+          "end_line": 76,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "chargeUpdate",
+          "start_line": 78,
+          "end_line": 79,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "cooldownUpdate",
+          "start_line": 81,
+          "end_line": 82,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "setTimers",
+          "start_line": 84,
+          "end_line": 85,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "isCharging",
+          "start_line": 87,
+          "end_line": 89,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Skill",
+          "name": "resetCharge",
+          "start_line": 91,
+          "end_line": 92,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "hasCooldown",
+          "start_line": 94,
+          "end_line": 96,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Skill",
+          "name": "startCooldown",
+          "start_line": 98,
+          "end_line": 99,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "resetCooldown",
+          "start_line": 101,
+          "end_line": 102,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "getCooldownSpeed",
+          "start_line": 104,
+          "end_line": 106,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Skill",
+          "name": "isLockedAfter",
+          "start_line": 108,
+          "end_line": 110,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Skill",
+          "name": "lockOwner",
+          "start_line": 112,
+          "end_line": 115,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Skill",
+          "name": "lockOwnerMob",
+          "start_line": 118,
+          "end_line": 119,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "lockOwnerHero",
+          "start_line": 121,
+          "end_line": 122,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "onChargeStart",
+          "start_line": 124,
+          "end_line": 125,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "onExecute",
+          "start_line": 127,
+          "end_line": 128,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "onCooldownComplete",
+          "start_line": 130,
+          "end_line": 131,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "onInterrupt",
+          "start_line": 133,
+          "end_line": 134,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "onHit",
+          "start_line": 136,
+          "end_line": 137,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "onCharging",
+          "start_line": 139,
+          "end_line": 140,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "onLockedAfter",
+          "start_line": 142,
+          "end_line": 143,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "onCoolingdown",
+          "start_line": 145,
+          "end_line": 146,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "getSignalByTrigger",
+          "start_line": 148,
+          "end_line": 150,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Skill",
+          "name": "getLoopCondByTrigger",
+          "start_line": 152,
+          "end_line": 154,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Skill",
+          "name": "addEventToSignal",
+          "start_line": 156,
+          "end_line": 157,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "useSoundsFromMob",
+          "start_line": 159,
+          "end_line": 160,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "useAreasFromMob",
+          "start_line": 162,
+          "end_line": 163,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "executeAreas",
+          "start_line": 165,
+          "end_line": 166,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "tryHitArea",
+          "start_line": 168,
+          "end_line": 169,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "onTouchOpponents",
+          "start_line": 171,
+          "end_line": 173,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Skill",
+          "name": "onTouchAllies",
+          "start_line": 176,
+          "end_line": 177,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "onTouchQuadElements",
+          "start_line": 179,
+          "end_line": 180,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "tryHitEntities",
+          "start_line": 182,
+          "end_line": 183,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "createAttackData",
+          "start_line": 185,
+          "end_line": 187,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Skill",
+          "name": "useAnimsFromMob",
+          "start_line": 189,
+          "end_line": 190,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "useFxFromMob",
+          "start_line": 192,
+          "end_line": 193,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "useCommonEffectsFromMob",
+          "start_line": 195,
+          "end_line": 196,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "getCustomCommonEffectTarget",
+          "start_line": 198,
+          "end_line": 200,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Skill",
+          "name": "useProjectilesFromMob",
+          "start_line": 202,
+          "end_line": 203,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Skill",
+          "name": "getProjectile",
+          "start_line": 205,
+          "end_line": 207,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Skill",
+          "name": "getProjectiles",
+          "start_line": 209,
+          "end_line": 211,
+          "syntactic_classification": "THROW_STUB"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/Area.hx",
+      "blob_sha": "a3ba6809f2f6aaba3cc94a2218be1e487311ed38",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/Area.hx",
+      "line_count": 27,
+      "methods": [
+        {
+          "class": "Area",
+          "name": "new",
+          "start_line": 11,
+          "end_line": 12,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Area",
+          "name": "setAbsolutePos",
+          "start_line": 14,
+          "end_line": 18,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Area",
+          "name": "setRelativePos",
+          "start_line": 21,
+          "end_line": 25,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/skill/SkillArea.hx",
+      "blob_sha": "8898948de469d2a17277ea3c43fb1c8c11a6a473",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/skill/SkillArea.hx",
+      "line_count": 30,
+      "methods": [
+        {
+          "class": "SkillArea",
+          "name": "new",
+          "start_line": 11,
+          "end_line": 13,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "SkillArea",
+          "name": "getTouchingOpponents",
+          "start_line": 15,
+          "end_line": 17,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "SkillArea",
+          "name": "getTouchingAllies",
+          "start_line": 19,
+          "end_line": 21,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "SkillArea",
+          "name": "getTouchingQuadElements",
+          "start_line": 23,
+          "end_line": 25,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "SkillArea",
+          "name": "touches",
+          "start_line": 27,
+          "end_line": 29,
+          "syntactic_classification": "THROW_STUB"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/skill/SkillEvent.hx",
+      "blob_sha": "e656e687a14ae94a7ae1f413566e1cf1ee8ee425",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/skill/SkillEvent.hx",
+      "line_count": 32,
+      "methods": [
+        {
+          "class": "SkillEvent",
+          "name": "new",
+          "start_line": 13,
+          "end_line": 14,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "SkillEvent",
+          "name": "tryTrigger",
+          "start_line": 16,
+          "end_line": 18,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "SkillEvent",
+          "name": "isInRatioRange",
+          "start_line": 20,
+          "end_line": 22,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "SkillEvent",
+          "name": "trigger",
+          "start_line": 24,
+          "end_line": 25,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "SkillEvent",
+          "name": "update",
+          "start_line": 27,
+          "end_line": 28,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "SkillEvent",
+          "name": "onDispose",
+          "start_line": 30,
+          "end_line": 31,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/libs/heaps/slib/AnimManager.hx",
+      "blob_sha": "c8a602a55afdc97e8ce275571b1bd7bb98f64299",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/libs/heaps/slib/AnimManager.hx",
+      "line_count": 210,
+      "methods": [
+        {
+          "class": "AnimInstance",
+          "name": "new",
+          "start_line": 21,
+          "end_line": 22,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimInstance",
+          "name": "onEachLoop",
+          "start_line": 24,
+          "end_line": 25,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimInstance",
+          "name": "onEnd",
+          "start_line": 27,
+          "end_line": 28,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "StateAnim",
+          "name": "new",
+          "start_line": 39,
+          "end_line": 40,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Transition",
+          "name": "new",
+          "start_line": 51,
+          "end_line": 52,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "new",
+          "start_line": 70,
+          "end_line": 71,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "getDurationF",
+          "start_line": 73,
+          "end_line": 75,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "getPlayRatio",
+          "start_line": 77,
+          "end_line": 79,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "setPlayRatio",
+          "start_line": 81,
+          "end_line": 83,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "setFrame",
+          "start_line": 85,
+          "end_line": 87,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "getDurationS",
+          "start_line": 89,
+          "end_line": 91,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "AnimManager",
+          "name": "destroy",
+          "start_line": 94,
+          "end_line": 95,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "playCustomSequence",
+          "start_line": 97,
+          "end_line": 99,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "play",
+          "start_line": 101,
+          "end_line": 103,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "playOverlap",
+          "start_line": 105,
+          "end_line": 106,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "clearOverlapAnim",
+          "start_line": 108,
+          "end_line": 110,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "AnimManager",
+          "name": "hasOverlapAnim",
+          "start_line": 113,
+          "end_line": 115,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "loop",
+          "start_line": 117,
+          "end_line": 119,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "stopOnLastFrame",
+          "start_line": 121,
+          "end_line": 123,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "pauseOnLastFrame",
+          "start_line": 125,
+          "end_line": 126,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "reverse",
+          "start_line": 128,
+          "end_line": 130,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "killAfterPlay",
+          "start_line": 132,
+          "end_line": 134,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "onEnd",
+          "start_line": 136,
+          "end_line": 138,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "onEachLoop",
+          "start_line": 140,
+          "end_line": 142,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "unsync",
+          "start_line": 144,
+          "end_line": 146,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "pauseCurrentAnim",
+          "start_line": 148,
+          "end_line": 149,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "resumeCurrentAnim",
+          "start_line": 151,
+          "end_line": 152,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "stopWithStateAnims",
+          "start_line": 154,
+          "end_line": 155,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "stopWithoutStateAnims",
+          "start_line": 157,
+          "end_line": 158,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "suspend",
+          "start_line": 160,
+          "end_line": 163,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "AnimManager",
+          "name": "unsuspend",
+          "start_line": 166,
+          "end_line": 169,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "AnimManager",
+          "name": "suspendForF",
+          "start_line": 172,
+          "end_line": 175,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "AnimManager",
+          "name": "alwaysTrue",
+          "start_line": 178,
+          "end_line": 180,
+          "syntactic_classification": "LITERAL_DEFAULT"
+        },
+        {
+          "class": "AnimManager",
+          "name": "registerTransition",
+          "start_line": 183,
+          "end_line": 184,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "getTransition",
+          "start_line": 186,
+          "end_line": 188,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimManager",
+          "name": "registerStateAnim",
+          "start_line": 190,
+          "end_line": 191,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "registerStateAnimWithDuration",
+          "start_line": 193,
+          "end_line": 194,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "setStateAnimSpeed",
+          "start_line": 196,
+          "end_line": 197,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "removeStateAnim",
+          "start_line": 199,
+          "end_line": 200,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "removeAllStateAnims",
+          "start_line": 202,
+          "end_line": 203,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "applyStateAnims",
+          "start_line": 205,
+          "end_line": 206,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "AnimManager",
+          "name": "_update",
+          "start_line": 208,
+          "end_line": 209,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/AnimationTrack.hx",
+      "blob_sha": "887c99e537692e42f5b0bc11e54eaf7f75bd5379",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/AnimationTrack.hx",
+      "line_count": 15,
+      "methods": [
+        {
+          "class": "AnimationTrack_Impl_",
+          "name": "y",
+          "start_line": 4,
+          "end_line": 6,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimationTrack_Impl_",
+          "name": "x",
+          "start_line": 8,
+          "end_line": 10,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "AnimationTrack_Impl_",
+          "name": "_new",
+          "start_line": 12,
+          "end_line": 14,
+          "syntactic_classification": "THROW_STUB"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/StartSword.hx",
+      "blob_sha": "82c4b5eb70bd6dd151217d3da5e250aa9bcbbcd1",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/StartSword.hx",
+      "line_count": 15,
+      "methods": [
+        {
+          "class": "StartSword",
+          "name": "new",
+          "start_line": 4,
+          "end_line": 6,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "StartSword",
+          "name": "onExecute",
+          "start_line": 9,
+          "end_line": 11,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "StartSword",
+          "name": "hitFromWeapon",
+          "start_line": 13,
+          "end_line": 14,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/BroadSword.hx",
+      "blob_sha": "ade798068e188c4f352c41c86e63c2e14973754c",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/BroadSword.hx",
+      "line_count": 27,
+      "methods": [
+        {
+          "class": "BroadSword",
+          "name": "new",
+          "start_line": 4,
+          "end_line": 6,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "BroadSword",
+          "name": "onExecute",
+          "start_line": 9,
+          "end_line": 11,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "BroadSword",
+          "name": "set_cycle",
+          "start_line": 13,
+          "end_line": 19,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "BroadSword",
+          "name": "incrementCycle",
+          "start_line": 22,
+          "end_line": 23,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "BroadSword",
+          "name": "hitFromWeapon",
+          "start_line": 25,
+          "end_line": 26,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/DualDaggers.hx",
+      "blob_sha": "4d1fa1f48befe9243807b7d39880148684d4f44c",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/DualDaggers.hx",
+      "line_count": 27,
+      "methods": [
+        {
+          "class": "DualDaggers",
+          "name": "new",
+          "start_line": 4,
+          "end_line": 6,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "DualDaggers",
+          "name": "onExecute",
+          "start_line": 9,
+          "end_line": 11,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "DualDaggers",
+          "name": "set_cycle",
+          "start_line": 13,
+          "end_line": 19,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "DualDaggers",
+          "name": "incrementCycle",
+          "start_line": 22,
+          "end_line": 23,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "DualDaggers",
+          "name": "hitFromWeapon",
+          "start_line": 25,
+          "end_line": 26,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/QuickSword.hx",
+      "blob_sha": "7a54e62691e17a671a877e0dadcd5704ece843cf",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/QuickSword.hx",
+      "line_count": 22,
+      "methods": [
+        {
+          "class": "QuickSword",
+          "name": "new",
+          "start_line": 6,
+          "end_line": 8,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "QuickSword",
+          "name": "dispose",
+          "start_line": 10,
+          "end_line": 11,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "QuickSword",
+          "name": "onExecute",
+          "start_line": 13,
+          "end_line": 15,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "QuickSword",
+          "name": "hitFromWeapon",
+          "start_line": 17,
+          "end_line": 18,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "QuickSword",
+          "name": "onOwnerDamaged",
+          "start_line": 20,
+          "end_line": 21,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/Rapier.hx",
+      "blob_sha": "f83b05025e332ff1edd11eb69c594b78c5a7dca1",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Rapier.hx",
+      "line_count": 25,
+      "methods": [
+        {
+          "class": "Rapier",
+          "name": "new",
+          "start_line": 6,
+          "end_line": 8,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "Rapier",
+          "name": "onExecute",
+          "start_line": 10,
+          "end_line": 12,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Rapier",
+          "name": "hitFromWeapon",
+          "start_line": 14,
+          "end_line": 15,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Rapier",
+          "name": "onOwnerAttackResultDealt",
+          "start_line": 17,
+          "end_line": 18,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Rapier",
+          "name": "fixedUpdate",
+          "start_line": 20,
+          "end_line": 21,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Rapier",
+          "name": "dispose",
+          "start_line": 23,
+          "end_line": 24,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/HeavyAxe.hx",
+      "blob_sha": "24f4c16413b61b85619a74a338236e0bfd8f94a6",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/HeavyAxe.hx",
+      "line_count": 30,
+      "methods": [
+        {
+          "class": "HeavyAxe",
+          "name": "new",
+          "start_line": 7,
+          "end_line": 9,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "HeavyAxe",
+          "name": "set_cycle",
+          "start_line": 11,
+          "end_line": 13,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeavyAxe",
+          "name": "incrementCycle",
+          "start_line": 15,
+          "end_line": 16,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeavyAxe",
+          "name": "onExecute",
+          "start_line": 18,
+          "end_line": 20,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "HeavyAxe",
+          "name": "hitFromWeapon",
+          "start_line": 22,
+          "end_line": 23,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeavyAxe",
+          "name": "dynOnAttackAnim",
+          "start_line": 25,
+          "end_line": 26,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "HeavyAxe",
+          "name": "doGroundShake",
+          "start_line": 28,
+          "end_line": 29,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/Katana.hx",
+      "blob_sha": "7d36b147e2895919e3e27febfdb59f42c9f57f21",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Katana.hx",
+      "line_count": 79,
+      "methods": [
+        {
+          "class": "Katana",
+          "name": "new",
+          "start_line": 14,
+          "end_line": 16,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "Katana",
+          "name": "prepare",
+          "start_line": 18,
+          "end_line": 20,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Katana",
+          "name": "onExecute",
+          "start_line": 23,
+          "end_line": 25,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Katana",
+          "name": "hitFromWeapon",
+          "start_line": 27,
+          "end_line": 28,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Katana",
+          "name": "doAreaEffect",
+          "start_line": 30,
+          "end_line": 31,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Katana",
+          "name": "areaCounterBullet",
+          "start_line": 33,
+          "end_line": 34,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Katana",
+          "name": "tryTeleport",
+          "start_line": 36,
+          "end_line": 37,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Katana",
+          "name": "isWeaponButtonDown",
+          "start_line": 39,
+          "end_line": 41,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Katana",
+          "name": "interrupt",
+          "start_line": 43,
+          "end_line": 48,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Katana",
+          "name": "dynamicChargeExecute",
+          "start_line": 51,
+          "end_line": 52,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Katana",
+          "name": "fixedUpdate",
+          "start_line": 54,
+          "end_line": 55,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Katana",
+          "name": "playHitFx",
+          "start_line": 57,
+          "end_line": 58,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Katana",
+          "name": "tryHitDash",
+          "start_line": 60,
+          "end_line": 61,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Katana",
+          "name": "addDashKillWithoutHit",
+          "start_line": 63,
+          "end_line": 64,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Katana",
+          "name": "onOwnerAttackResultReceived",
+          "start_line": 66,
+          "end_line": 68,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Katana",
+          "name": "cancelDashCharge",
+          "start_line": 71,
+          "end_line": 74,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Katana",
+          "name": "dispose",
+          "start_line": 77,
+          "end_line": 78,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/RhythmicBlade.hx",
+      "blob_sha": "ebaa51c087fdfdcc26ce2a22f4633decdb45c57e",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/RhythmicBlade.hx",
+      "line_count": 63,
+      "methods": [
+        {
+          "class": "RhythmicBlade",
+          "name": "new",
+          "start_line": 15,
+          "end_line": 17,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "RhythmicBlade",
+          "name": "dispose",
+          "start_line": 19,
+          "end_line": 20,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "RhythmicBlade",
+          "name": "dynOnFxFrame",
+          "start_line": 22,
+          "end_line": 23,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "RhythmicBlade",
+          "name": "prepare",
+          "start_line": 25,
+          "end_line": 26,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "RhythmicBlade",
+          "name": "onAnticipate",
+          "start_line": 28,
+          "end_line": 29,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "RhythmicBlade",
+          "name": "updateBeatFx",
+          "start_line": 31,
+          "end_line": 32,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "RhythmicBlade",
+          "name": "resetBeatFx",
+          "start_line": 34,
+          "end_line": 35,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "RhythmicBlade",
+          "name": "getRealCurArea",
+          "start_line": 37,
+          "end_line": 39,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "RhythmicBlade",
+          "name": "onExecute",
+          "start_line": 41,
+          "end_line": 43,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "RhythmicBlade",
+          "name": "hitFromWeapon",
+          "start_line": 45,
+          "end_line": 46,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "RhythmicBlade",
+          "name": "cancelChain",
+          "start_line": 48,
+          "end_line": 51,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "RhythmicBlade",
+          "name": "postUpdate",
+          "start_line": 54,
+          "end_line": 55,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "RhythmicBlade",
+          "name": "isLastCycle",
+          "start_line": 57,
+          "end_line": 59,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "RhythmicBlade",
+          "name": "setWeaponGlow",
+          "start_line": 61,
+          "end_line": 62,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/PureNail.hx",
+      "blob_sha": "6ece91fd8ed61ea15fb1aeeacd952ab3a38c512f",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/PureNail.hx",
+      "line_count": 64,
+      "methods": [
+        {
+          "class": "PureNail",
+          "name": "new",
+          "start_line": 9,
+          "end_line": 11,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "PureNail",
+          "name": "onExecute",
+          "start_line": 13,
+          "end_line": 15,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "PureNail",
+          "name": "hitFromWeapon",
+          "start_line": 17,
+          "end_line": 18,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "PureNail",
+          "name": "fixedUpdate",
+          "start_line": 20,
+          "end_line": 21,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "PureNail",
+          "name": "checkLevelTrapsHit",
+          "start_line": 23,
+          "end_line": 24,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "PureNail",
+          "name": "checkFriendSkinUnlock",
+          "start_line": 26,
+          "end_line": 27,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "PureNail",
+          "name": "checkLevelCollisionsHit",
+          "start_line": 29,
+          "end_line": 30,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "PureNail",
+          "name": "canHit",
+          "start_line": 32,
+          "end_line": 34,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "PureNail",
+          "name": "dynOnAttackAnim",
+          "start_line": 36,
+          "end_line": 37,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "PureNail",
+          "name": "dynOnFxFrame",
+          "start_line": 39,
+          "end_line": 40,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "PureNail",
+          "name": "isPlayingAttackAnim",
+          "start_line": 42,
+          "end_line": 44,
+          "syntactic_classification": "LITERAL_DEFAULT"
+        },
+        {
+          "class": "PureNail",
+          "name": "dirInputValueHorizontal",
+          "start_line": 47,
+          "end_line": 49,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "PureNail",
+          "name": "dirInputValueVertical",
+          "start_line": 51,
+          "end_line": 53,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "PureNail",
+          "name": "onBeforeCurSkillPrepare",
+          "start_line": 55,
+          "end_line": 56,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "PureNail",
+          "name": "airControlOwner",
+          "start_line": 58,
+          "end_line": 59,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "PureNail",
+          "name": "isReady",
+          "start_line": 61,
+          "end_line": 63,
+          "syntactic_classification": "THROW_STUB"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/dual/SharedComboWeapon.hx",
+      "blob_sha": "f8d2e163081efd540abf51316fc8a37493fb0252",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/dual/SharedComboWeapon.hx",
+      "line_count": 38,
+      "methods": [
+        {
+          "class": "SharedComboWeapon",
+          "name": "new",
+          "start_line": 8,
+          "end_line": 10,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "SharedComboWeapon",
+          "name": "get_cycle",
+          "start_line": 12,
+          "end_line": 14,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "SharedComboWeapon",
+          "name": "set_cycle",
+          "start_line": 16,
+          "end_line": 22,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "SharedComboWeapon",
+          "name": "cancelChain",
+          "start_line": 25,
+          "end_line": 26,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "SharedComboWeapon",
+          "name": "incrementCycle",
+          "start_line": 28,
+          "end_line": 29,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "SharedComboWeapon",
+          "name": "setCycleLossCD",
+          "start_line": 31,
+          "end_line": 32,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "SharedComboWeapon",
+          "name": "hasCycleLossCD",
+          "start_line": 34,
+          "end_line": 36,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/WreckingBall.hx",
+      "blob_sha": "dc23d48ea822b246293852b0c67a7743267fd8e0",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/WreckingBall.hx",
+      "line_count": 137,
+      "methods": [
+        {
+          "class": "WreckingBall",
+          "name": "new",
+          "start_line": 11,
+          "end_line": 13,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "initSkill",
+          "start_line": 15,
+          "end_line": 16,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "registerAmmo",
+          "start_line": 18,
+          "end_line": 24,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "cancelChain",
+          "start_line": 27,
+          "end_line": 36,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "getChainStartX",
+          "start_line": 39,
+          "end_line": 41,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "getChainStartY",
+          "start_line": 43,
+          "end_line": 45,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "getChainEndX",
+          "start_line": 47,
+          "end_line": 49,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "getChainEndY",
+          "start_line": 52,
+          "end_line": 54,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "onExecute",
+          "start_line": 57,
+          "end_line": 59,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "set_cycle",
+          "start_line": 61,
+          "end_line": 67,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "incrementCycle",
+          "start_line": 70,
+          "end_line": 71,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "hitFromWeapon",
+          "start_line": 73,
+          "end_line": 74,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "dynOnAttackAnim",
+          "start_line": 76,
+          "end_line": 77,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "canComboNextSkillEarly",
+          "start_line": 79,
+          "end_line": 81,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "doGroundShake",
+          "start_line": 83,
+          "end_line": 84,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "ownerIsInWreckingBallAnim",
+          "start_line": 86,
+          "end_line": 88,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "onLevelChanged",
+          "start_line": 90,
+          "end_line": 91,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "onCooldownEnd",
+          "start_line": 93,
+          "end_line": 94,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "postUpdate",
+          "start_line": 96,
+          "end_line": 97,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "dispose",
+          "start_line": 99,
+          "end_line": 100,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "get_handTracks",
+          "start_line": 102,
+          "end_line": 104,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "get_handX",
+          "start_line": 106,
+          "end_line": 108,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "get_handY",
+          "start_line": 110,
+          "end_line": 112,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "get_ballTracks",
+          "start_line": 114,
+          "end_line": 116,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "get_ballX",
+          "start_line": 118,
+          "end_line": 120,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "get_ballY",
+          "start_line": 122,
+          "end_line": 124,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WreckingBall",
+          "name": "countSwingKills",
+          "start_line": 126,
+          "end_line": 135,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/SkulBone.hx",
+      "blob_sha": "ab4a1d97a62375fc160729707ae21e5fb73877a7",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/SkulBone.hx",
+      "line_count": 48,
+      "methods": [
+        {
+          "class": "SkulBone",
+          "name": "new",
+          "start_line": 8,
+          "end_line": 13,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "SkulBone",
+          "name": "initSkill",
+          "start_line": 16,
+          "end_line": 17,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "SkulBone",
+          "name": "onBeforeCurSkillPrepare",
+          "start_line": 19,
+          "end_line": 20,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "SkulBone",
+          "name": "launchWhirlwindAttack",
+          "start_line": 22,
+          "end_line": 24,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "SkulBone",
+          "name": "updateWhirlwindAttack",
+          "start_line": 27,
+          "end_line": 28,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "SkulBone",
+          "name": "onExecute",
+          "start_line": 30,
+          "end_line": 33,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "SkulBone",
+          "name": "playAttack",
+          "start_line": 36,
+          "end_line": 38,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "SkulBone",
+          "name": "playWhirlwindIntermediateAttack",
+          "start_line": 40,
+          "end_line": 41,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "SkulBone",
+          "name": "hitFromWeapon",
+          "start_line": 43,
+          "end_line": 44,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "SkulBone",
+          "name": "addWhirlwindDur",
+          "start_line": 46,
+          "end_line": 47,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/Club.hx",
+      "blob_sha": "ff0789d9586647d742d530cb79d7fc74e15acf73",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Club.hx",
+      "line_count": 69,
+      "methods": [
+        {
+          "class": "Club",
+          "name": "new",
+          "start_line": 10,
+          "end_line": 12,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "Club",
+          "name": "getTrueElapsedChargeS",
+          "start_line": 14,
+          "end_line": 16,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Club",
+          "name": "getFullChargeRatio",
+          "start_line": 19,
+          "end_line": 21,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Club",
+          "name": "isFullCharge",
+          "start_line": 23,
+          "end_line": 25,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Club",
+          "name": "initSkill",
+          "start_line": 27,
+          "end_line": 28,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Club",
+          "name": "onExecute",
+          "start_line": 30,
+          "end_line": 32,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Club",
+          "name": "hitFromWeapon",
+          "start_line": 34,
+          "end_line": 35,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Club",
+          "name": "dynOnAttackAnim",
+          "start_line": 37,
+          "end_line": 38,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "ClubBroken",
+          "name": "new",
+          "start_line": 44,
+          "end_line": 46,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "ClubBroken",
+          "name": "onExecute",
+          "start_line": 48,
+          "end_line": 50,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "ClubBroken",
+          "name": "hitFromWeapon",
+          "start_line": 52,
+          "end_line": 53,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "ClubBroken",
+          "name": "fixedUpdate",
+          "start_line": 55,
+          "end_line": 56,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "ClubBroken",
+          "name": "onAnticipate",
+          "start_line": 58,
+          "end_line": 59,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "ClubBroken",
+          "name": "woodRechargeFX",
+          "start_line": 61,
+          "end_line": 62,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "ClubBroken",
+          "name": "woodRechargeCompleteFX",
+          "start_line": 64,
+          "end_line": 65,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "ClubBroken",
+          "name": "postUpdate",
+          "start_line": 67,
+          "end_line": 68,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/BehemothHammer.hx",
+      "blob_sha": "7d31c0d4a7fa8fb4d3f3c3480a476d44c0a23498",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/BehemothHammer.hx",
+      "line_count": 32,
+      "methods": [
+        {
+          "class": "BehemothHammer",
+          "name": "new",
+          "start_line": 10,
+          "end_line": 12,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "BehemothHammer",
+          "name": "fixedUpdate",
+          "start_line": 14,
+          "end_line": 15,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "BehemothHammer",
+          "name": "interrupt",
+          "start_line": 17,
+          "end_line": 18,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "BehemothHammer",
+          "name": "dynamicChargeExecute",
+          "start_line": 20,
+          "end_line": 21,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "BehemothHammer",
+          "name": "hitFromWeapon",
+          "start_line": 23,
+          "end_line": 24,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "BehemothHammer",
+          "name": "onExecute",
+          "start_line": 26,
+          "end_line": 28,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "BehemothHammer",
+          "name": "dynOnAttackAnim",
+          "start_line": 30,
+          "end_line": 31,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/Trident.hx",
+      "blob_sha": "fd4958f2433dd3894021fb585ae1ebd8604a30f4",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Trident.hx",
+      "line_count": 79,
+      "methods": [
+        {
+          "class": "Trident",
+          "name": "new",
+          "start_line": 11,
+          "end_line": 17,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Trident",
+          "name": "canInterruptCharge",
+          "start_line": 20,
+          "end_line": 22,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Trident",
+          "name": "isReady",
+          "start_line": 24,
+          "end_line": 26,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Trident",
+          "name": "canStartChargeEarly",
+          "start_line": 28,
+          "end_line": 30,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Trident",
+          "name": "canCancel",
+          "start_line": 32,
+          "end_line": 34,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Trident",
+          "name": "allowTurnDuringCharge",
+          "start_line": 36,
+          "end_line": 38,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Trident",
+          "name": "onOwnerTurned",
+          "start_line": 40,
+          "end_line": 41,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Trident",
+          "name": "initSkill",
+          "start_line": 43,
+          "end_line": 44,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Trident",
+          "name": "onExecute",
+          "start_line": 46,
+          "end_line": 48,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Trident",
+          "name": "set_cycle",
+          "start_line": 50,
+          "end_line": 56,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Trident",
+          "name": "dynOnAttackAnim",
+          "start_line": 59,
+          "end_line": 60,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Trident",
+          "name": "hitFromWeapon",
+          "start_line": 62,
+          "end_line": 63,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Trident",
+          "name": "tryToCancel",
+          "start_line": 65,
+          "end_line": 68,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Trident",
+          "name": "fixedUpdate",
+          "start_line": 71,
+          "end_line": 74,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Trident",
+          "name": "doChargeAttack",
+          "start_line": 77,
+          "end_line": 78,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/TPSword.hx",
+      "blob_sha": "4bfd51f576b618009d59243c4b06cb0340690aa2",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/TPSword.hx",
+      "line_count": 68,
+      "methods": [
+        {
+          "class": "TPSword",
+          "name": "new",
+          "start_line": 8,
+          "end_line": 10,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "TPSword",
+          "name": "get_hasShield",
+          "start_line": 12,
+          "end_line": 14,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "TPSword",
+          "name": "get_shouldDoSpecialAtk",
+          "start_line": 16,
+          "end_line": 18,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "TPSword",
+          "name": "isLastCycle",
+          "start_line": 20,
+          "end_line": 22,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "TPSword",
+          "name": "dynOnAttackAnim",
+          "start_line": 24,
+          "end_line": 25,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "TPSword",
+          "name": "dynOnFxFrame",
+          "start_line": 27,
+          "end_line": 28,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "TPSword",
+          "name": "allowTurnDuringCharge",
+          "start_line": 30,
+          "end_line": 32,
+          "syntactic_classification": "LITERAL_DEFAULT"
+        },
+        {
+          "class": "TPSword",
+          "name": "dynOnInterrupt",
+          "start_line": 35,
+          "end_line": 36,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "TPSword",
+          "name": "prepareTeleport",
+          "start_line": 38,
+          "end_line": 39,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "TPSword",
+          "name": "onBeforeCurSkillPrepare",
+          "start_line": 41,
+          "end_line": 42,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "TPSword",
+          "name": "autoAim",
+          "start_line": 44,
+          "end_line": 46,
+          "syntactic_classification": "LITERAL_DEFAULT"
+        },
+        {
+          "class": "TPSword",
+          "name": "onExecute",
+          "start_line": 49,
+          "end_line": 51,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "TPSword",
+          "name": "tpOnion",
+          "start_line": 53,
+          "end_line": 54,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "TPSword",
+          "name": "teleportTo",
+          "start_line": 56,
+          "end_line": 58,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "TPSword",
+          "name": "hitFromWeapon",
+          "start_line": 60,
+          "end_line": 61,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "TPSword",
+          "name": "cancelChain",
+          "start_line": 63,
+          "end_line": 66,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/WiggleWhip.hx",
+      "blob_sha": "d9b01ca523901b86f2b9414e67e2c52d3efbed4e",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/WiggleWhip.hx",
+      "line_count": 132,
+      "methods": [
+        {
+          "class": "WiggleWhip",
+          "name": "new",
+          "start_line": 29,
+          "end_line": 31,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "isNewAngle",
+          "start_line": 33,
+          "end_line": 35,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "shouldBounceDirect",
+          "start_line": 37,
+          "end_line": 39,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "updateChainHitPos",
+          "start_line": 41,
+          "end_line": 42,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "getBoulderPosX",
+          "start_line": 44,
+          "end_line": 46,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "getBoulderPosY",
+          "start_line": 48,
+          "end_line": 50,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "displayBoulderPosX",
+          "start_line": 52,
+          "end_line": 54,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "displayBoulderPosY",
+          "start_line": 56,
+          "end_line": 58,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "get_whipTracks",
+          "start_line": 60,
+          "end_line": 62,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "getWhipPosX",
+          "start_line": 64,
+          "end_line": 66,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "getWhipPosY",
+          "start_line": 68,
+          "end_line": 70,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "allowTurnDuringCharge",
+          "start_line": 72,
+          "end_line": 74,
+          "syntactic_classification": "LITERAL_DEFAULT"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "onExecute",
+          "start_line": 77,
+          "end_line": 79,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "tick",
+          "start_line": 81,
+          "end_line": 82,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "updateBoulderPos",
+          "start_line": 84,
+          "end_line": 85,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "canTouch",
+          "start_line": 87,
+          "end_line": 89,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "doTick",
+          "start_line": 91,
+          "end_line": 92,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "segmentTouch",
+          "start_line": 94,
+          "end_line": 96,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "tryToHit",
+          "start_line": 98,
+          "end_line": 100,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "hitFromWeapon",
+          "start_line": 102,
+          "end_line": 103,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "dynOnInterrupt",
+          "start_line": 105,
+          "end_line": 106,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "stopWiggling",
+          "start_line": 108,
+          "end_line": 109,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "postUpdate",
+          "start_line": 111,
+          "end_line": 112,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "fixedUpdate",
+          "start_line": 114,
+          "end_line": 115,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "onCooldownEnd",
+          "start_line": 117,
+          "end_line": 118,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "dynOnAttackAnim",
+          "start_line": 120,
+          "end_line": 121,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "hasCycleLossCD",
+          "start_line": 123,
+          "end_line": 125,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "WiggleWhip",
+          "name": "dispose",
+          "start_line": 127,
+          "end_line": 130,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/QuickFists.hx",
+      "blob_sha": "6fd0dc83b03a65bd7badc80b3e8b47d1e7fdea62",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/QuickFists.hx",
+      "line_count": 24,
+      "methods": [
+        {
+          "class": "QuickFists",
+          "name": "new",
+          "start_line": 4,
+          "end_line": 6,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "QuickFists",
+          "name": "dynOnFxFrame",
+          "start_line": 9,
+          "end_line": 10,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "QuickFists",
+          "name": "dynOnAttackAnim",
+          "start_line": 12,
+          "end_line": 13,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "QuickFists",
+          "name": "onExecute",
+          "start_line": 15,
+          "end_line": 17,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "QuickFists",
+          "name": "hitFromWeapon",
+          "start_line": 19,
+          "end_line": 20,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "QuickFists",
+          "name": "explode",
+          "start_line": 22,
+          "end_line": 23,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/MultiKickBoots.hx",
+      "blob_sha": "4726a5c098e128c68921547943321111985f2799",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/MultiKickBoots.hx",
+      "line_count": 15,
+      "methods": [
+        {
+          "class": "MultiKickBoots",
+          "name": "new",
+          "start_line": 4,
+          "end_line": 6,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "MultiKickBoots",
+          "name": "onExecute",
+          "start_line": 9,
+          "end_line": 11,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "MultiKickBoots",
+          "name": "hitFromWeapon",
+          "start_line": 13,
+          "end_line": 14,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/DashSword.hx",
+      "blob_sha": "d5653124577e9b40bb50c30f7a781265d7613f2e",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/DashSword.hx",
+      "line_count": 18,
+      "methods": [
+        {
+          "class": "DashSword",
+          "name": "new",
+          "start_line": 4,
+          "end_line": 6,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "DashSword",
+          "name": "onExecute",
+          "start_line": 9,
+          "end_line": 11,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "DashSword",
+          "name": "hitFromWeapon",
+          "start_line": 13,
+          "end_line": 14,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "DashSword",
+          "name": "fixedUpdate",
+          "start_line": 16,
+          "end_line": 17,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/GiantKiller.hx",
+      "blob_sha": "59b1e5c0f1ab09f1af5b674fa601107240e50cd6",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/GiantKiller.hx",
+      "line_count": 41,
+      "methods": [
+        {
+          "class": "GiantKiller",
+          "name": "new",
+          "start_line": 6,
+          "end_line": 8,
+          "syntactic_classification": "CONSTRUCTOR_FORWARD"
+        },
+        {
+          "class": "GiantKiller",
+          "name": "dispose",
+          "start_line": 10,
+          "end_line": 11,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "GiantKiller",
+          "name": "dynOnAttackAnim",
+          "start_line": 13,
+          "end_line": 14,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "GiantKiller",
+          "name": "onExecute",
+          "start_line": 16,
+          "end_line": 18,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "GiantKiller",
+          "name": "hitFromWeapon",
+          "start_line": 20,
+          "end_line": 21,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "GiantKiller",
+          "name": "resetGodSlayerBuff",
+          "start_line": 23,
+          "end_line": 25,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "GiantKiller",
+          "name": "onCooldownEnd",
+          "start_line": 28,
+          "end_line": 32,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "GiantKiller",
+          "name": "onOwnerAttackResultReceived",
+          "start_line": 35,
+          "end_line": 39,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        }
+      ]
+    },
+    {
+      "path": "deadcells/src/game/tool/weap/Spear.hx",
+      "blob_sha": "d10705adcc9c7a01bbf739634b827f3a897e22f5",
+      "url": "https://github.com/N3rdL0rd/DeadCellsDecomp/blob/77c3ad263c4187ade6d048ba77bb61f79e6cec44/deadcells/src/game/tool/weap/Spear.hx",
+      "line_count": 21,
+      "methods": [
+        {
+          "class": "Spear",
+          "name": "new",
+          "start_line": 6,
+          "end_line": 9,
+          "syntactic_classification": "NONEMPTY_BODY_OR_CALL"
+        },
+        {
+          "class": "Spear",
+          "name": "onExecute",
+          "start_line": 12,
+          "end_line": 14,
+          "syntactic_classification": "THROW_STUB"
+        },
+        {
+          "class": "Spear",
+          "name": "doAreaEffect",
+          "start_line": 16,
+          "end_line": 17,
+          "syntactic_classification": "EMPTY"
+        },
+        {
+          "class": "Spear",
+          "name": "hitFromWeapon",
+          "start_line": 19,
+          "end_line": 20,
+          "syntactic_classification": "EMPTY"
+        }
+      ]
+    }
+  ],
+  "facts": [
+    {
+      "id": "weapon_inherits_oldskill",
+      "category": "DECL",
+      "source_path": "deadcells/src/game/tool/Weapon.hx",
+      "lines": [
+        275,
+        285
+      ],
+      "statement": "WeaponSkill is a secondary class extending OldSkill, not Skill."
+    },
+    {
+      "id": "turn_base_default",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/tool/Weapon.hx",
+      "lines": [
+        141,
+        143
+      ],
+      "statement": "The base charge-turn permission returns true."
+    },
+    {
+      "id": "turn_tpsword_override",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/tool/weap/TPSword.hx",
+      "lines": [
+        30,
+        32
+      ],
+      "statement": "TPSword returns false for charge-turn permission."
+    },
+    {
+      "id": "aim_tpsword_override",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/tool/weap/TPSword.hx",
+      "lines": [
+        44,
+        46
+      ],
+      "statement": "TPSword returns false for autoAim."
+    },
+    {
+      "id": "turn_wiggle_override",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/tool/weap/WiggleWhip.hx",
+      "lines": [
+        72,
+        74
+      ],
+      "statement": "WiggleWhip returns false for charge-turn permission."
+    },
+    {
+      "id": "broad_cycle_setter",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/tool/weap/BroadSword.hx",
+      "lines": [
+        13,
+        19
+      ],
+      "statement": "Cycle zero dispatches critical-feedback cleanup before cycle assignment; scheduler is unavailable."
+    },
+    {
+      "id": "katana_interrupt_order",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/tool/weap/Katana.hx",
+      "lines": [
+        43,
+        48
+      ],
+      "statement": "If nextIsChargeAtk is set, interruption dispatches missing dynamic-charge execution before missing base interrupt."
+    },
+    {
+      "id": "katana_cancel_order",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/tool/weap/Katana.hx",
+      "lines": [
+        71,
+        74
+      ],
+      "statement": "cancelDashCharge calls interrupt before clearing nextIsChargeAtk."
+    },
+    {
+      "id": "club_counter_conversion",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/tool/weap/Club.hx",
+      "lines": [
+        14,
+        16
+      ],
+      "statement": "Club divides trueChargeF by 60 for seconds; no charge threshold is established."
+    },
+    {
+      "id": "trident_cancel_reason",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/tool/weap/Trident.hx",
+      "lines": [
+        65,
+        74
+      ],
+      "statement": "Cancellation stores byWeapon before delegation; fixedUpdate clears that flag after base update."
+    },
+    {
+      "id": "shared_cycle_storage",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/tool/weap/dual/SharedComboWeapon.hx",
+      "lines": [
+        16,
+        22
+      ],
+      "statement": "Cycle assignment writes sharedCycle when share is true; otherwise delegates to missing base setter."
+    },
+    {
+      "id": "shared_cycle_cooldown_query",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/tool/weap/dual/SharedComboWeapon.hx",
+      "lines": [
+        34,
+        36
+      ],
+      "statement": "Cycle-loss query checks owner cooldown key 1451229184; no expiry duration or expanded key meaning inferred."
+    },
+    {
+      "id": "rhythm_chain_cleanup",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/tool/weap/RhythmicBlade.hx",
+      "lines": [
+        48,
+        51
+      ],
+      "statement": "Chain cancellation delegates then clears prevSkillInf; rhythm timing/input logic are missing."
+    },
+    {
+      "id": "nail_animation_query",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/tool/weap/PureNail.hx",
+      "lines": [
+        42,
+        44
+      ],
+      "statement": "PureNail reports false to isPlayingAttackAnim; no general permission/movement rule follows without consumers."
+    },
+    {
+      "id": "wreck_entity_cleanup",
+      "category": "BODY_CALL",
+      "source_path": "deadcells/src/game/tool/weap/WreckingBall.hx",
+      "lines": [
+        18,
+        36
+      ],
+      "statement": "World-ammo registration destroys existing entity before replacement. Chain cancel cleans live world ammo and linked entity."
+    },
+    {
+      "id": "anim_pause_storage",
+      "category": "BODY",
+      "source_path": "deadcells/src/game/libs/heaps/slib/AnimManager.hx",
+      "lines": [
+        172,
+        175
+      ],
+      "statement": "Timed suspension stores frames plus one. Missing update prevents deriving effective gameplay pause duration."
+    },
+    {
+      "id": "newer_skill_disclaimer",
+      "category": "CALL",
+      "source_path": "deadcells/src/game/tool/skill/Skill.hx",
+      "lines": [
+        171,
+        183
+      ],
+      "statement": "Opponent contact dispatches to missing tryHitEntities; Skill is not WeaponSkill's base."
+    }
+  ],
+  "unknowns": [
+    "Input edge ordering and queue semantics",
+    "Default and exceptions of hold-to-attack",
+    "Combo stage timing/count/reset/persistence for chosen ordinary sword",
+    "Anticipation versus held-charge threshold/release behavior",
+    "Early-combo and early-charge admission",
+    "Per-phase movement, turn, aim and cancel permissions",
+    "Voluntary cancellation versus damage/stun consequences",
+    "Aerial behavior and target-conditioned assistance",
+    "Strike lifetime, geometry, solver and deduplication",
+    "Attack-speed scaling and hitpause event order",
+    "Cooldown/control-lock and resource rules",
+    "Animation clips, root tracks, events and priority graph"
+  ],
+  "measured_gameplay_values": [],
+  "authored_tuning_values_in_this_artifact": []
+}

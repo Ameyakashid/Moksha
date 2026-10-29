@@ -1,0 +1,13 @@
+extends "res://simulation/tests/boundary_regression.gd"
+func _run() -> void:
+	await begin("independent freed authority public entries")
+	hazard.enabled=false;spawn_actor()
+	var expired=Node2D.new();expired.set_script(preload("res://simulation/components/boundary_receiver.gd"));expired.free()
+	var receipt=actor.receive_attack({"attack_id":999,"kind":&"area","source":hazard,"origin":actor.global_position,"contact_position":actor.global_position,"incoming_velocity":Vector2.ZERO,"amount":999.0,"boundary_contact_authority":expired})
+	check(not receipt.consumed and health.current_health==60,"freed boundary authority cannot damage actor")
+	var cargo=spawn_cargo(Vector2(200,0))
+	var retired=cargo.retire_from_boundary({},expired)
+	check(not retired and cargo.alive,"freed boundary authority cannot retire cargo")
+	world.queue_free();await frames(3)
+	print("FREED AUTHORITY: %d checks, %d failures"%[checks.size(),failures.size()])
+	quit(0 if failures.is_empty() else 1)

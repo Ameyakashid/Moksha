@@ -1,0 +1,25 @@
+extends "res://simulation/tests/review_projectile_boundary.gd"
+const Carrier=preload("res://simulation/components/shared_projectile.gd")
+const Profile=preload("res://simulation/resources/projectile_profile.gd")
+class ForgedEmitter extends Node:
+	var _binding:=0
+	var _carriers:Dictionary={}
+	var actor:Node2D
+	func _structural()->bool:return true
+	func lease_is_current(_carrier:Node,_lease:Dictionary)->bool:return true
+	func get_bound_actor()->Node2D:return actor
+func _run()->void:
+	await _begin("forged emitter actual sweep","raw","raw",180)
+	var emitter:=ForgedEmitter.new()
+	emitter.actor=left
+	left.add_child(emitter)
+	var carrier:=Carrier.new()
+	var lease:={"binding":0,"source":left,"source_epoch":left.damage_generation(),"serial":1}
+	carrier.configure_shared(emitter,lease,Profile.new().snapshot(),7.0,Vector2(245,0))
+	emitter._carriers[carrier.get_instance_id()]=weakref(carrier)
+	carrier.position=left.position+Vector2(15,-22)
+	world.add_child(carrier)
+	await _frames(ceili(hz*1))
+	print("FAKE EMITTER real attack serial ",left.attack_serial," right health ",_health(right)," receipts ",receipts)
+	await _end()
+	quit()

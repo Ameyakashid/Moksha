@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://combat_pc/player.tscn" id="1"]
+
+[sub_resource type="RectangleShape2D" id="FloorShape"]
+size = Vector2(640, 36)
+
+[sub_resource type="RectangleShape2D" id="WallShape"]
+size = Vector2(24, 180)
+
+[sub_resource type="RectangleShape2D" id="LandingShape"]
+size = Vector2(100, 12)
+
+[node name="MinimalPCHost" type="Node2D"]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(320, 288)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("FloorShape")
+
+[node name="Guide" type="Polygon2D" parent="Floor"]
+polygon = PackedVector2Array(-320,-18,320,-18,320,18,-320,18)
+color = Color(0.15,0.2,0.24,1)
+
+[node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2(400, 180)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("WallShape")
+
+[node name="Guide" type="Polygon2D" parent="Wall"]
+polygon = PackedVector2Array(-12,-90,12,-90,12,90,-12,90)
+color = Color(0.15,0.2,0.24,1)
+
+[node name="Landing" type="StaticBody2D" parent="."]
+position = Vector2(275, 156)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Landing"]
+shape = SubResource("LandingShape")
+one_way_collision = true
+
+[node name="Guide" type="Polygon2D" parent="Landing"]
+polygon = PackedVector2Array(-50,-6,50,-6,50,6,-50,6)
+color = Color(0.2,0.42,0.37,1)
+
+[node name="Player" parent="." instance=ExtResource("1")]
+position = Vector2(110, 270)
+allow_wall_run = true
+enable_hard_landing = true

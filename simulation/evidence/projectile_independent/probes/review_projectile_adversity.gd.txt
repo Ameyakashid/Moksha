@@ -1,0 +1,35 @@
+extends "res://simulation/tests/review_projectile_boundary.gd"
+const Probe=preload("res://simulation/tests/review_projectile_probe.gd")
+var emissions:Array[Dictionary]=[]
+var resolutions:Array[Dictionary]=[]
+var retirements:Array[Dictionary]=[]
+func _actor(at:Vector2,mode:String,facing:=1)->Node2D:
+	var actor:=super._actor(at,mode,facing)
+	actor.get_node("ProjectileEmitter").projectile_emitted.connect(func(event):
+		var carrier:Node2D=instance_from_id(event.carrier_id)
+		emissions.append(event.duplicate(true))
+		carrier.resolved.connect(func(_carrier,result):resolutions.append(result.duplicate(true)))
+		carrier.retired.connect(func(body,reason):retirements.append({"reason":reason,"age":body.age,"position":body.global_position})))
+	return actor
+func _run()->void:
+	for operation in ["ordinary","carrier_shape_shift","carrier_shape_queued","receiver_disable_after_final_claim","lethal","reflection"]:
+		await _begin(operation,"raw","raw",180)
+		emissions=[];resolutions=[];retirements=[]
+		if operation=="lethal":
+			left.melee_chain=left.melee_chain.duplicate(true)
+			left.melee_chain.steps[0].damage=40
+		if operation in ["carrier_shape_shift","carrier_shape_queued","receiver_disable_after_final_claim"]:
+			left.get_node("ProjectileEmitter").projectile_emitted.connect(func(event):
+				var carrier:Node2D=instance_from_id(event.carrier_id)
+				if operation=="carrier_shape_shift":carrier.get_node("CarrierShape").position.x=100
+				elif operation=="carrier_shape_queued":carrier.get_node("CarrierShape").queue_free()
+				else:
+					carrier.callback=func():right.get_node("ProjectileReceiver").enabled=false)
+		await _attack(left)
+		if operation=="reflection":
+			await _frames(ceili(hz*1.27))
+			_request(right,{"shield":true})
+		await _frames(ceili(hz*2.5))
+		print("CASE ",operation," LEFT ",_health(left)," RIGHT ",_health(right)," RECEIPTS ",receipts," RESOLVED ",resolutions," RETIRED ",retirements)
+		await _end()
+	quit()

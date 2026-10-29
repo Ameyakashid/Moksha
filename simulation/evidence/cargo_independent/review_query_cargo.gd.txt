@@ -1,0 +1,12 @@
+extends "res://demo/components/mission_prop.gd"
+## Independent extension callback around real captured authority.
+var before_query: Callable
+var query_count := 0
+func physical_impact_is_current(packet: Dictionary, target: Node) -> bool:
+	query_count += 1
+	if before_query.is_valid(): before_query.call(packet,target,query_count)
+	return super.physical_impact_is_current(packet,target)
+var before_charge_query: Callable
+func physical_charge_is_current(packet: Dictionary, target: Node) -> bool:
+	if before_charge_query.is_valid(): before_charge_query.call(packet,target)
+	return super.physical_charge_is_current(packet,target)

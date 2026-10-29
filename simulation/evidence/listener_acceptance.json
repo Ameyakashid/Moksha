@@ -1,0 +1,114 @@
+{
+  "passed": true,
+  "engine": "Godot4.6.3 stable 7d41c59c4",
+  "scope": "Bounded production listener configuration reuse; no ranged/Warden/cargo-source migration",
+  "source_count": 522,
+  "all_final_sources_match": true,
+  "source_manifest": "listener_final_gates.json",
+  "foundation_stages": 36,
+  "stock_stages": 10,
+  "historical_stages": 19,
+  "listener": {
+    "60": {
+      "scenarios": 38,
+      "checks": 173,
+      "failures": []
+    },
+    "120": {
+      "scenarios": 38,
+      "checks": 173,
+      "failures": []
+    }
+  },
+  "sentinel": {
+    "60": {
+      "scenarios": 26,
+      "checks": 111,
+      "failures": []
+    },
+    "120": {
+      "scenarios": 26,
+      "checks": 111,
+      "failures": []
+    }
+  },
+  "routes": [
+    {
+      "hz": 60,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 172.666666666696,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 60,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 163.266666666689,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": false,
+      "completed": true,
+      "simulated_active_seconds": 161.075000000018,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    },
+    {
+      "hz": 120,
+      "sacrificed_sight": true,
+      "completed": true,
+      "simulated_active_seconds": 150.816666666694,
+      "deaths": 0,
+      "retry_count": 0,
+      "failures": [],
+      "exit_code": 0
+    }
+  ],
+  "independent": {
+    "listener_independent_120": {
+      "hz": 120,
+      "scenarios": 8,
+      "checks": 35,
+      "failures": []
+    },
+    "listener_independent_60": {
+      "hz": 60,
+      "scenarios": 8,
+      "checks": 35,
+      "failures": []
+    },
+    "listener_120": {
+      "hz": 120,
+      "scenarios": 38,
+      "checks": 173,
+      "failures": []
+    },
+    "listener_60": {
+      "hz": 60,
+      "scenarios": 38,
+      "checks": 173,
+      "failures": []
+    }
+  },
+  "independent_hashes_verified": true,
+  "native_report": "native_listener_review.md",
+  "archive_count": 8,
+  "all_prior_archives_unchanged": true,
+  "remaining_limits": [
+    "Default hearing remains unoccluded; optional one-ray attenuation is not acoustic propagation",
+    "Legacy mission stock-prop take_hit compatibility remains",
+    "Ranged/Warden remain legacy; no physical corpse capability",
+    "Native blind/exact senses/timing/transition/audio mix unverified",
+    "Pre-existing blocked lowest70px of Quarantine Intake ladder drawing unchanged"
+  ]
+}

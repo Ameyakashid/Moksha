@@ -1,0 +1,381 @@
+{
+  "checks": [
+    {
+      "check": "main PackedScene loads",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "main starts a playing level",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "new run starts city prologue",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "city begins in normal vision",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "normal vision has no sonar preview",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "city uses unmodified speed",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "city cannot trade sight",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "D produces baseline movement speed",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "E away from city exit does not transition",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "standing at city exit alone does not transition",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "E near city exit loads arcology",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "transition frees the old level instance",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "second level requires sensory trade",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "arcology has distinct vertical bounds",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "arcology is the terminal second level",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "arcology enters sighted",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "E at arcology spawn does not trade sight",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "terminal exit rejects completion before trade",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "station rejects E outside interaction radius",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "station API also enforces proximity",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "station requires E even at contact",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "closed ascent barrier blocks a real physics ray",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "E at station trades sight and enables blind renderer",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "sight trade applies exactly 1.25 speed multiplier",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "sight trade leaves baseline movement and dash tuning unchanged",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "baseline shared tuning resource identity is retained",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "station visibly marks trade spent",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "trade opens physical barrier",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "trade emits one initial station pulse",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "initial pulse has station world position and source",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "initial station noise reaches bound sonar",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "repeated E at spent station does not compound speed",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "repeat trade API safely rejects",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "repeat trade produces no extra sacrifice event",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "post-trade movement actually runs 25 percent faster",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "holding Q repeats real weapon taps",
+      "detail": "4 taps",
+      "pass": true
+    },
+    {
+      "check": "Q noise originates at measured weapon contact with player provenance",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "Q contact stays at the visible weapon tip",
+      "detail": "largest distance 1.114 px",
+      "pass": true
+    },
+    {
+      "check": "held Q obeys cooldown",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "held Q noise reaches sonar",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "live level enemies emit footsteps",
+      "detail": "4 steps",
+      "pass": true
+    },
+    {
+      "check": "enemy step origins match emitting enemies' feet",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "enemy step origin is independent of player position",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "Escape pauses the run",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "pause freezes players, enemies and rigid props",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "pause freezes sonar propagation and decay",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "pause suppresses actor noise and run timer",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "Escape resumes actors and sonar",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "resume advances sonar and run timer",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "camera follows vertical ascent",
+      "detail": "lower (320.0, 920.0) upper (473.0, 192.0)",
+      "pass": true
+    },
+    {
+      "check": "camera stays within viewport-adjusted level bounds",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "camera clamps all four edges",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "lethal actor damage enters dead state",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "death stops actor and sonar simulation",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "R retries the current arcology room",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "retry frees the previous arcology",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "retry restores living full-health player",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "retry resets normal vision and speed",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "retry resets station and physical barrier",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "retry contains no old level event provenance",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "reload setup creates a live pulse",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "R synchronously clears pulses and both event histories",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "reloaded room does not retain old actor sources",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "reloaded sonar geometry belongs only to current room",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "traded sight plus E at terminal exit completes ascent",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "repeated terminal interaction is safe",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "terminal completion freezes simulation",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "N starts a fresh city run from terminal state",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "new run resets sight and speed",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "new run resets progression counters and timer",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "direct arcology editor-run scene loads",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "direct arcology editor-run scene starts indoors",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "N from direct arcology editor-run returns to city",
+      "detail": "",
+      "pass": true
+    }
+  ],
+  "engine": "4.6.3-stable (official)",
+  "failed": 0,
+  "observations": {
+    "baseline_dash_speed": 490.0,
+    "baseline_move_speed": 218.0,
+    "enemy_steps": 4,
+    "max_tap_tip_distance": 1.1136862039566,
+    "q_taps_during_hold": 4
+  },
+  "passed": 73,
+  "scope": "Focused real-input integration; interaction/camera teleports and lethal-damage setup; not a full native playthrough",
+  "suite": "flow_regression"
+}

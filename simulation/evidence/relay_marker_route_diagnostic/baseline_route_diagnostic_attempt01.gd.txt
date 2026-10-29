@@ -1,0 +1,21 @@
+extends "res://demo/tests/expanded_mission_route_bot.gd"
+var diagnostic_seed := 21479
+func _initialize() -> void:
+ for arg in OS.get_cmdline_user_args():
+  if arg.begins_with("--seed="):diagnostic_seed=int(arg.trim_prefix("--seed="))
+ seed(diagnostic_seed)
+ super._initialize()
+func snapshot() -> Dictionary:
+ var result:Dictionary=super.snapshot()
+ var actor=host.player
+ var hit:=KinematicCollision2D.new()
+ var touching:bool=actor.test_move(actor.global_transform,Vector2.DOWN*actor.profile.floor_probe,hit,actor.profile.collision_margin)
+ var state:={"seed":diagnostic_seed,"stagnant":stagnant,"body_width":actor.profile.body_width,"margin":actor.profile.collision_margin,"floor_probe":actor.profile.floor_probe,"ground_sweep":actor._floor_contact_sweep,"support_valid":is_instance_valid(actor._support),"wall_normal":str(actor._wall_normal),"floor_normal":str(actor._floor_contact_normal),"probe_hit":touching}
+ if touching:
+  var body=hit.get_collider()
+  state.merge({"normal":str(hit.get_normal()),"walkable":actor._floor_normal(hit.get_normal()),"hit_position":str(hit.get_position()),"travel":str(hit.get_travel()),"remainder":str(hit.get_remainder()),"collider_name":body.name,"collider_position":str(body.global_position),"collider_rotation":body.global_rotation,"collider_class":body.get_class()})
+ if is_instance_valid(host.room.freight_cradle):
+  var cargo=host.room.freight_cradle.cargo
+  if is_instance_valid(cargo):state.cargo_rotation=cargo.rotation
+ result.diagnostic=state
+ return result

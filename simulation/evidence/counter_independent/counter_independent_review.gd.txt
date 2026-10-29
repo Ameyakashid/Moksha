@@ -1,0 +1,136 @@
+extends "res://simulation/tests/shield_counter_regression.gd"
+## Independent boundary probes: raw contacts prove success; explicit malformed
+## payload/history fault injection tests prove rejection and retention only.
+func _different(value: Variant) -> Variant:
+	if value is Vector2: return value + Vector2(999,999)
+	if value is int: return value + 999
+	if value is float: return value + 999.0
+	if value is StringName: return StringName(String(value) + "_forged")
+	if value is String: return value + "_forged"
+	if value is Dictionary: return {}
+	return right if value == left else left
+func _run() -> void:
+	await _canonical_matrix()
+	await _permit_matrix()
+	await _claim_and_reentrant()
+	await _history_retention()
+	await _capacity_and_prune()
+	print("INDEPENDENT COUNTER %d Hz: %d scenarios, %d checks, %d failures" % [hz,scenarios.size(),checks,failures.size()])
+	for failure in failures: printerr(failure)
+	FileAccess.open("/tmp/moksha-counter-review/independent_%d.json" % hz,FileAccess.WRITE).store_string(JSON.stringify({"hz":hz,"checks":checks,"scenarios":scenarios,"failures":failures},"  "))
+	quit(0 if failures.is_empty() else 1)
+func _canonical_matrix() -> void:
+	var fields = ["shield_serial","attack_key","effect","source","source_id","carrier","carrier_id","target_id","origin","defender_origin","incoming_origin","contact_position","facing","normal","damage","impulse","reflect_direction","reflect_speed","max_range"]
+	for field in fields:
+		await _begin("independent canonical field / " + field,"NPC","PC")
+		var adapter: Node = right.get_node("ShieldContactAdapter")
+		adapter.bind_actor(null)
+		var snapshot_seen: Array[bool]=[]
+		right.shield_effect_requested.connect(func(owner,request):
+			var snapshot: Dictionary = owner.shield_effect_snapshot()
+			snapshot_seen.append(snapshot.is_read_only())
+			var copy := snapshot.duplicate(true)
+			copy.damage = 999
+			_check(owner.shield_effect_snapshot().damage == request.damage,"snapshot copy cannot alter controller authority")
+			var bad: Dictionary = request.duplicate(true)
+			bad[field] = _different(bad.get(field))
+			adapter.resolve_effect(owner,bad)
+			_check(_health(left)==30 and counters.is_empty(),"forged request cannot dispatch")
+			adapter.resolve_effect(owner,request))
+		adapter.actor = right
+		await _parry(left,right)
+		_check(snapshot_seen==[true] and right.shield_effect_snapshot().is_empty(),"snapshot is read-only and expires with scope")
+		_check(_health(left)==27 and counters.size()==1 and receipts.size()==1,"unchanged original remains a genuine one-time counter")
+		await _end()
+func _permit_matrix() -> void:
+	var fields = ["shield_serial","attack_key","effect","source","source_id","target_id","origin","defender_origin","incoming_origin","contact_position","facing","normal","damage","impulse","max_range","defender","defender_id","defender_epoch","counter_target","counter_receiver","counter_generation","counter_contact_position","counter_ticket","counter_adapter"]
+	for field in fields:
+		await _begin("independent permit field / " + field,"NPC","PC")
+		var probe := _probe(left)
+		var denied: Array[bool]=[]
+		probe.before_receive = func(packet):
+			probe.before_receive=Callable()
+			var bad: Dictionary = packet.duplicate(true)
+			bad[field] = _different(bad.get(field))
+			denied.append(not probe.receive_shield_counter(bad).get("accepted",false))
+		await _frames(3)
+		await _parry(left,right)
+		_check(denied==[true] and _health(left)==27 and counters.size()==1,"forged permit fails without spending genuine permit")
+		var original: Dictionary = probe.captured.duplicate(true)
+		_check(original.get("damage")==3.0 and not probe.receive_shield_counter(original).get("accepted",false) and _health(left)==27,"original successful packet cannot replay outside synchronous scope")
+		await _end()
+func _claim_and_reentrant() -> void:
+	await _begin("independent one-use claim fault injection","NPC","PC")
+	var probe := _probe(left)
+	var claims: Array[bool]=[]
+	probe.before_receive=func(packet):
+		claims.append(packet.counter_adapter.claim_counter_contact(packet,probe))
+		claims.append(packet.counter_adapter.claim_counter_contact(packet,probe))
+	await _frames(3)
+	await _parry(left,right)
+	_check(claims==[true,false] and _health(left)==30 and counters.is_empty(),"explicitly spent permit cannot apply a controller operation")
+	_check(receipts.size()==1 and receipts[0].outcome==&"parried","spent outgoing permit does not undo incoming parry")
+	await _end()
+	await _begin("independent reentrant Health callback","NPC","PC")
+	probe = _probe(left)
+	var reentrant: Array[Dictionary]=[]
+	left.get_node("Health").damage_processed.connect(func(_receipt): reentrant.append(probe.receive_shield_counter(probe.captured)))
+	await _frames(3)
+	await _parry(left,right)
+	_check(reentrant.size()==1 and reentrant[0].get("reason")==&"reentrant","Health callback cannot reenter consumed operation")
+	_check(_health(left)==27 and counters.size()==1,"reentrancy preserves single actual debit")
+	await _end()
+func _history_retention() -> void:
+	for replace in [false,true]:
+		await _begin("independent retained history replay after reset replacement="+str(replace),"NPC","PC")
+		await _parry(left,right)
+		var history: RefCounted = left.get_meta(&"_moksha_shield_counter_history")
+		var serial: int = right.shield_serial
+		_check(history.sources.size()==1 and history.sources[0].source is WeakRef and history.sources[0].source.get_ref()==right and history.sources[0].serial==serial,"committed history retains weak source and highest shield serial")
+		_request(right,{})
+		_request(left,{})
+		await _frames(2)
+		left.reset_actor(Vector2(200,200),1)
+		right.reset_actor(Vector2(236,200),-1)
+		if replace: _probe(left)
+		_check(left.get_meta(&"_moksha_shield_counter_history")==history,"host keeps exact history through reset/replacement")
+		# Explicit negative identity fault injection: production shield serials are
+		# monotonic. Force reuse, then let real raw input and ray make a new scope.
+		right.shield_serial=serial-1
+		await _frames(3)
+		counters=[];receipts=[];health_events=[]
+		await _parry(left,right)
+		print("HISTORY_REPLAY ",replace," ",_health(left)," ",counters," ",receipts," ",right.get_node("ShieldContactAdapter").last_report," shield=",right.shield_serial," phase=",right.shield_phase)
+		_check(_health(left)==30 and counters.is_empty() and right.get_node("ShieldContactAdapter").last_report.get("reason")==&"duplicate","old shield serial cannot revive in fresh genuine ray scope")
+		_check(receipts.size()==1 and receipts[0].outcome==&"parried","history rejection leaves independent parry intact")
+		_request(right,{})
+		_request(left,{})
+		await _frames(2)
+		left.reset_actor(Vector2(200,200),1)
+		right.reset_actor(Vector2(236,200),-1)
+		await _frames(3)
+		counters=[];receipts=[];health_events=[]
+		await _parry(left,right)
+		_check(_health(left)==27 and counters.size()==1,"later distinct real shield serial remains eligible")
+		await _end()
+func _capacity_and_prune() -> void:
+	await _begin("independent explicit live history capacity and weak pruning","NPC","PC")
+	var history: RefCounted = left.get_meta(&"_moksha_shield_counter_history")
+	var historical: Array[Node]=[]
+	for i in 64:
+		var source := Node2D.new();world.add_child(source);historical.append(source)
+		history.sources.append({"source":weakref(source),"serial":1})
+	await _parry(left,right)
+	_check(_health(left)==30 and counters.is_empty() and right.get_node("ShieldContactAdapter").last_report.get("reason")==&"source_capacity","capacity rejects a new live source without eviction")
+	_check(history.sources.size()==64,"all live replay entries remain retained")
+	historical[0].queue_free()
+	_request(right,{})
+	_request(left,{})
+	await _frames(2)
+	left.reset_actor(Vector2(200,200),1)
+	right.reset_actor(Vector2(236,200),-1)
+	await _frames(3)
+	counters=[];receipts=[];health_events=[]
+	await _parry(left,right)
+	_check(_health(left)==27 and counters.size()==1 and history.sources.size()==64,"freed weak source is pruned and fresh contact is admitted")
+	await _end()

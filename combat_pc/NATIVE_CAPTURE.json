@@ -1,0 +1,36 @@
+{
+  "milestone": 7,
+  "capture_end_utc": "2026-10-04T10:46:58.177249+00:00",
+  "kind": "native Godot viewport driven by actual keyboard input",
+  "controller_sha256": "4aa4132650037e5c975de27547ef06c6dd1e95a3c7384d9744524de048a8760a",
+  "target_fps": 60,
+  "achieved_capture_fps": 49.76764016299017,
+  "clip_seconds": 4.360263,
+  "audio": "No audio recorded in this PC fixture",
+  "events": {
+    "ground_jump": 3,
+    "landed": 3,
+    "crouch_enter": 2,
+    "roll_started": 2,
+    "roll_phase_changed": 4,
+    "roll_finished": 2,
+    "crouch_exit": 2,
+    "brake": 4,
+    "footstep": 2,
+    "attack_started": 1,
+    "attack_phase_changed": 3,
+    "attack_finished": 1
+  },
+  "primary_trace": "tests/slope_native_actions.json",
+  "continuous_hill_trace": "tests/slope_native_walk.json",
+  "landing_compatibility_traces": [
+    "tests/landing_native_ordinary_compat_m7.json",
+    "tests/landing_native_protected_roll_compat_m7.json"
+  ],
+  "scope": "Three ground jumps, airborne roll and landing, left-facing melee on an incline, grounded downhill roll. Separate continuous hill trial covers both directions. No station reset inside either clip.",
+  "visual_source_sha256": {
+    "wireframe.gd": "01ae0778ca944690c7eb54a0cb24afd5f399703a03ace56eeb7ec63ca91d7705",
+    "wireframe_pose.gd": "b42aeb61d149d5c08ba6b212d9e587afdf36ca8d8beaba9f8724527bcc0d0cde",
+    "slope_pose.gd": "29260ded4586a87f886f3f403d4cb29305bf49df67a4955478d9287ccc2b1c14"
+  }
+}

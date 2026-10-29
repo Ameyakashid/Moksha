@@ -1,0 +1,25 @@
+extends "res://simulation/tests/warden_regression.gd"
+class ProbeCargo extends "res://simulation/components/physical_cargo.gd":
+	var contact_facts: Array[Dictionary]=[]
+	func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+		for index in state.get_contact_count():
+			var other=state.get_contact_collider_object(index)
+			if other.has_method("attack_plan_snapshot"):
+				contact_facts.append({"normal":state.get_contact_local_normal(index),"source":state.get_contact_local_velocity_at_position(index),"target":state.get_contact_collider_velocity_at_position(index),"speed":maxf(0.0,-(state.get_contact_local_velocity_at_position(index)-state.get_contact_collider_velocity_at_position(index)).dot(state.get_contact_local_normal(index))),"state_velocity":state.linear_velocity,"last_velocity":_physics_previous_velocity})
+		super._integrate_forces(state)
+func _run() -> void:
+	var results: Array=[]
+	for side in [-1,1]:
+		for speed in [260,360]:
+			for distance in [45,60,100]:
+				await _begin("diagnostic")
+				# Explicit initial fixture; no movement or outcome writes after commit.
+				player.position=enemy.position+Vector2(-side*36,0)
+				enemy.facing=-side
+				_attack(); await _until(func():return enemy.weapon_phase==&"windup")
+				var cargo=preload("res://simulation/components/physical_cargo.tscn").instantiate(); cargo.set_script(ProbeCargo)
+				cargo.position=enemy.position+Vector2(side*distance,-26); cargo.tuning=cargo.tuning.duplicate(true); cargo.tuning.body_gravity_scale=0; cargo.tuning.hard_impacts_to_break=100; cargo.linear_velocity=Vector2(-side*speed,0)
+				world.add_child(cargo); await _seconds(.4)
+				results.append({"side":side,"speed":speed,"distance":distance,"health":enemy.health,"enemy":enemy.position,"cargo":cargo.position,"captured":cargo.captured_contacts,"facts":cargo.contact_facts})
+				await _finish()
+	FileAccess.open("/tmp/warden_cargo_probe_%d.json"%hz,FileAccess.WRITE).store_string(JSON.stringify(results,"  ")); print("CARGO PROBE ",hz," ",results.map(func(r):return [r.side,r.speed,r.distance,r.health,r.captured])); quit()

@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3]
+[ext_resource type="PackedScene" path="res://simulation/actors/shared_actor.tscn" id="1"]
+[ext_resource type="Script" path="res://simulation/components/player_input_source.gd" id="2"]
+[ext_resource type="Resource" path="res://demo/resources/player_contact.tres" id="3"]
+[node name="Player" instance=ExtResource("1")]
+modulate=Color(0.65,0.9,1,1)
+[node name="InputSource" type="Node" parent="."]
+script=ExtResource("2")
+[node name="ContactConfig" parent="."]
+profile=ExtResource("3")

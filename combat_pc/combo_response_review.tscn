@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3]
+[ext_resource type="PackedScene" path="res://combat_pc/ground_response_review.tscn" id="1"]
+[ext_resource type="Script" path="res://combat_pc/combo_response_review.gd" id="2"]
+[ext_resource type="PackedScene" path="res://combat_pc/fixtures/chain_target.tscn" id="3"]
+
+[node name="ComboResponseReview" instance=ExtResource("1")]
+script = ExtResource("2")
+
+[node name="Target" parent="." instance=ExtResource("3")]
+position = Vector2(326,270)
+size = Vector2(60,46)
+label = "PASSIVE CONTACT"
+
+[node name="ReviewCamera" type="Camera2D" parent="."]
+position = Vector2(320,225)
+zoom = Vector2(1.5,1.5)

@@ -1,0 +1,36 @@
+extends SceneTree
+var host: Node
+var events: Array=[]
+func _initialize() -> void:
+	Engine.physics_ticks_per_second=60
+	run.call_deferred()
+func run() -> void:
+	host=load("res://demo/mission.tscn").instantiate()
+	root.add_child(host)
+	host.save_enabled=false
+	host.start_new(true)
+	host.load_sector(1)
+	# Explicit diagnostic setup only; this is never full-route evidence.
+	host.player.reset_actor(Vector2(1548.02,300),-1)
+	host.player.movement_event.connect(func(kind,payload):
+		if str(kind) in ["climb_attached","climb_detached"]: events.append({"event":str(kind),"payload":str(payload)}))
+	host.input_override={}
+	for _i in 3:
+		await physics_frame
+		await process_frame
+	var collision:=KinematicCollision2D.new()
+	var blocked: bool=host.player.test_move(host.player.global_transform,Vector2(-8,0),collision,host.player.profile.collision_margin)
+	var blocker:={}
+	if blocked:
+		var body=collision.get_collider()
+		blocker={"node_type":body.get_class(),"position":str(body.global_position),"layer":body.collision_layer,"travel":str(collision.get_travel()),"remainder":str(collision.get_remainder())}
+		for shape in body.get_children():
+			if shape is CollisionShape2D and shape.shape is RectangleShape2D: blocker["rectangle"]=str(Rect2(shape.global_position-shape.shape.size*0.5,shape.shape.size))
+	for _i in 90:
+		host.input_override={} if host.player._climb_needs_neutral else {"up":1.0}
+		await physics_frame
+		await process_frame
+	var alignment_blocked:=events.filter(func(event):return "alignment_blocked" in event.payload).size()
+	var result={"method":"Explicit pre-run sector2 floor fixture, then ordinary production physics and Up/neutral input; all AI enabled. Not full-route evidence.","blocked":blocked,"blocker":blocker,"alignment_blocked_count":alignment_blocked,"final_position":str(host.player.global_position),"body_width":host.player.profile.body_width,"standing_height":host.player.profile.standing_height,"collision_mask":host.player.collision_mask,"events":events}
+	print("LADDER FLOOR FIXTURE ",JSON.stringify(result))
+	quit(0 if blocked and alignment_blocked>0 else 1)

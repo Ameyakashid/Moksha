@@ -1,0 +1,4 @@
+extends Node2D
+## Negative API probe: an unrelated descendant must not become contact authority.
+func physical_attack_is_current(_attack: Dictionary, _host: Node) -> bool:
+	return true

@@ -1,0 +1,36 @@
+[gd_scene load_steps=12 format=3]
+[ext_resource type="PackedScene" path="res://simulation/actors/shared_actor.tscn" id="1"]
+[ext_resource type="Script" path="res://demo/components/shared_sentinel.gd" id="2"]
+[ext_resource type="Script" path="res://demo/components/sentinel_policy.gd" id="3"]
+[ext_resource type="Script" path="res://simulation/components/npc_input_source.gd" id="4"]
+[ext_resource type="Script" path="res://demo/components/sentinel_view.gd" id="5"]
+[ext_resource type="Resource" path="res://demo/resources/sentinel_movement.tres" id="6"]
+[ext_resource type="Resource" path="res://demo/resources/sentinel_combat.tres" id="7"]
+[ext_resource type="Resource" path="res://demo/resources/sentinel_melee.tres" id="8"]
+[ext_resource type="Resource" path="res://demo/resources/sentinel_capabilities.tres" id="9"]
+[ext_resource type="Resource" path="res://demo/resources/sentinel_contact.tres" id="10"]
+[ext_resource type="Script" path="res://simulation/components/projectile_receiver.gd" id="11"]
+[node name="Sentinel" instance=ExtResource("1")]
+script = ExtResource("2")
+profile = ExtResource("6")
+combat_profile = ExtResource("7")
+melee_chain = ExtResource("8")
+[node name="Visual" parent="." index="1"]
+script = ExtResource("5")
+[node name="NoiseRelay" parent="."]
+event_bus_path = NodePath("")
+[node name="HearingSensor" parent="."]
+event_bus_path = NodePath("")
+[node name="IntentDriver" parent="."]
+capabilities = ExtResource("9")
+[node name="ContactConfig" parent="."]
+profile = ExtResource("10")
+[node name="InputSource" type="Node" parent="."]
+script = ExtResource("4")
+policy_path = NodePath("../SentinelPolicy")
+[node name="SentinelPolicy" type="Node" parent="."]
+script = ExtResource("3")
+
+[node name="ProjectileReceiver" type="Node" parent="."]
+script = ExtResource("11")
+accepted_source_layers = 2

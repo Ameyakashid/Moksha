@@ -1,0 +1,15 @@
+extends "res://simulation/tests/sentry_regression.gd"
+func run() -> void:
+	root.get_node("NoiseBus").noise_emitted.connect(noise)
+	await begin("charged cargo original fixture diagnosis",1,20,30,190)
+	var load_body:=cargo(Vector2(66,183)); await frames(ceili(hz*0.65))
+	print("CARGO BEFORE WAIT ",JSON.stringify({"pc":pc.position,"sentry":npc.position,"cargo":load_body.position,"phase":npc.weapon_phase,"state":npc.ai_state}))
+	npc.ai_enabled=true
+	var got_windup:=await until(func(): return npc.weapon_phase==&"windup")
+	print("CARGO AFTER WAIT ",JSON.stringify({"got_windup":got_windup,"pc":pc.position,"sentry":npc.position,"cargo":load_body.position,"phase":npc.weapon_phase,"state":npc.ai_state}))
+	driver.frame={"attack":true}; await frames(ceili(hz*0.30)); driver.frame={}
+	for i in 12:
+		await frames(ceili(hz*0.25))
+		print("CARGO FLIGHT ",JSON.stringify({"t":float(i+1)*0.25,"pc":pc.position,"sentry":npc.position,"cargo":load_body.position,"cargo_velocity":load_body.linear_velocity,"phase":npc.weapon_phase,"pc_phase":pc.weapon_phase,"state":npc.ai_state,"health":npc.health,"hits":load_body.hit_count,"accepted":npc.get_node("PhysicalImpactReceiver").accepted_count}))
+	check(npc.health<20,"original fixture actual cargo hit")
+	await finish(); quit(0 if failures.is_empty() else 1)

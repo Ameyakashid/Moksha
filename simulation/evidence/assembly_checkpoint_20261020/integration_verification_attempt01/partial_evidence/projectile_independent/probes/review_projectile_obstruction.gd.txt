@@ -1,0 +1,29 @@
+extends "res://simulation/tests/review_projectile_adversity.gd"
+func _run()->void:
+	for operation in ["terrain_path","cargo_layer_path","cargo_muzzle","same_value_profile_replace","disabled_receiver","removed_receiver","unscoped_reflection"]:
+		await _begin(operation,"raw","raw",180)
+		emissions=[];resolutions=[];retirements=[]
+		var outside:Array[Dictionary]=[]
+		match operation:
+			"terrain_path":_surface(Vector2(295,176),Vector2(2,45),1)
+			"cargo_layer_path":_surface(Vector2(295,176),Vector2(2,45),8)
+			"cargo_muzzle":_surface(Vector2(215,176),Vector2(2,45),8)
+			"disabled_receiver":right.get_node("ProjectileReceiver").enabled=false
+			"removed_receiver":right.get_node("ProjectileReceiver").queue_free()
+			"same_value_profile_replace","unscoped_reflection":
+				left.get_node("ProjectileEmitter").projectile_emitted.connect(func(event):
+					var carrier:Node=instance_from_id(event.carrier_id)
+					if operation=="same_value_profile_replace":
+						var emitter:Node=left.get_node("ProjectileEmitter")
+						emitter.profile=emitter.profile.duplicate(true)
+					else:outside.append(carrier.reflect_from_shield({"defender":right,"reflect_direction":Vector2.LEFT,"reflect_speed":500.0})))
+		await _frames(3)
+		await _attack(left)
+		await _frames(ceili(hz*3.1))
+		_check(_health(right)==(29.0 if operation=="unscoped_reflection" else 30.0),"expected Health")
+		if operation=="unscoped_reflection":_check(outside.size()==1 and not outside[0].accepted and _health(left)==30,"fake reflection denied")
+		_check(get_nodes_in_group("shared_projectiles").is_empty(),"no orphan carrier")
+		print("OBSTRUCTION ",operation," HEALTH ",_health(right)," EMISSIONS ",emissions.size()," REFLECTION ",outside," RETIRED ",retirements)
+		await _end()
+	print("REVIEW OBSTRUCTION ",hz," Hz: ",checks," checks, ",failures.size()," failures ",failures)
+	quit(0 if failures.is_empty() else 1)

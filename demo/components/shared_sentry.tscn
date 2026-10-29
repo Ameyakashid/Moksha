@@ -1,0 +1,29 @@
+[gd_scene load_steps=10 format=3]
+[ext_resource type="PackedScene" path="res://demo/components/shared_sentinel.tscn" id="1"]
+[ext_resource type="Script" path="res://demo/components/shared_sentry.gd" id="2"]
+[ext_resource type="Script" path="res://demo/components/sentry_policy.gd" id="3"]
+[ext_resource type="Script" path="res://demo/components/sentry_view.gd" id="4"]
+[ext_resource type="Resource" path="res://demo/resources/sentry_archetype.tres" id="5"]
+[ext_resource type="Resource" path="res://simulation/resources/projectile_chain.tres" id="6"]
+[ext_resource type="Resource" path="res://simulation/resources/projectile_input.tres" id="7"]
+[ext_resource type="Script" path="res://simulation/components/projectile_emitter.gd" id="8"]
+[ext_resource type="Resource" path="res://demo/resources/sentry_projectile.tres" id="9"]
+[node name="Sentry" instance=ExtResource("1")]
+script = ExtResource("2")
+kind = "sentry"
+archetype_profile = ExtResource("5")
+melee_chain = ExtResource("6")
+melee_input_profile = ExtResource("7")
+emits_attack_warning = false
+detection_range = 430.0
+hearing_peer_group = &"mission_ranged_hearing"
+[node name="ContactAdapter" parent="."]
+enabled = false
+[node name="Visual" parent="."]
+script = ExtResource("4")
+[node name="SentinelPolicy" parent="."]
+script = ExtResource("3")
+[node name="ProjectileEmitter" type="Node" parent="."]
+script = ExtResource("8")
+profile = ExtResource("9")
+aim_path = NodePath("../SentinelPolicy")

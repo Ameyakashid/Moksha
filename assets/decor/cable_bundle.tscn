@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/decor/cable_bundle.tres" id="1_art"]
+
+[node name="CableBundle" type="Node2D"]
+metadata/art_only = true
+metadata/nominal_size = Vector2(80, 28)
+metadata/origin_kind = "bottom_center"
+metadata/source_pivot = Vector2(176.0, 132)
+
+[node name="Art" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-41.41176471, -29.33333333)
+scale = Vector2(0.23529412, 0.22222222)
+texture = ExtResource("1_art")
+centered = false

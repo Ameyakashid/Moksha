@@ -1,0 +1,1606 @@
+{
+  "checks": 182,
+  "engine": "4.6.3-stable (official)",
+  "execution": "Real Godot physics callbacks and real player scene, optional component, swept melee/projectile fixtures",
+  "failures": [],
+  "generated_utc": "2026-10-20T10:17:37",
+  "limitations": [
+    "Headless integration checks; parent owns native visual review",
+    "No death, healing, persistence, combat AI, or exact Dead Cells numerical parity claim"
+  ],
+  "milestone": 12,
+  "physics_hz": 120,
+  "production_hash_stable_during_run": true,
+  "scenarios": [
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defense result remains the phase-specific consumed outcome",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "health applies only resolved residual damage",
+          "details": {
+            "actual": 80.0,
+            "expected": 80.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one accepted contact emits one damage receipt and one processed notification",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "public receipts are immutable scalar snapshots without actor/source references",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "receipt carries the live actor and reset generation",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "old defense notification precedes appended health receipt",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "duplicate ID adds no health debit or old/new notifications",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "events": [
+          "hurt_started",
+          "defense_resolved",
+          "damage_resolved"
+        ],
+        "health": 80.0,
+        "outcome": "hurt",
+        "residual": 20.0
+      },
+      "name": "resolved hurt and duplicate",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real input enters held guard",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defense result remains the phase-specific consumed outcome",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "health applies only resolved residual damage",
+          "details": {
+            "actual": 95.0,
+            "expected": 95.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one accepted contact emits one damage receipt and one processed notification",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "public receipts are immutable scalar snapshots without actor/source references",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "receipt carries the live actor and reset generation",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "old defense notification precedes appended health receipt",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "duplicate ID adds no health debit or old/new notifications",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "guard residual does not invoke full hurt ownership",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "events": [
+          "shield_started",
+          "shield_phase_changed",
+          "shield_phase_changed",
+          "shield_phase_changed",
+          "defense_resolved",
+          "hitpause_started",
+          "damage_resolved"
+        ],
+        "health": 95.0,
+        "outcome": "guarded",
+        "residual": 5.0
+      },
+      "name": "resolved guard and duplicate",
+      "physics_ticks": 24
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real input reaches open parry window",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defense result remains the phase-specific consumed outcome",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "health applies only resolved residual damage",
+          "details": {
+            "actual": 100.0,
+            "expected": 100.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one accepted contact emits one damage receipt and one processed notification",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "public receipts are immutable scalar snapshots without actor/source references",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "receipt carries the live actor and reset generation",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "old defense notification precedes appended health receipt",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "duplicate ID adds no health debit or old/new notifications",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "zero damage does not emit a spurious health change",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "events": [
+          "shield_started",
+          "shield_phase_changed",
+          "shield_phase_changed",
+          "defense_resolved",
+          "shield_phase_changed",
+          "hitpause_started",
+          "damage_resolved"
+        ],
+        "health": 100.0,
+        "outcome": "parried",
+        "residual": 0.0
+      },
+      "name": "resolved parry and duplicate",
+      "physics_ticks": 7
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real input reaches roll invulnerability",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "defense result remains the phase-specific consumed outcome",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "health applies only resolved residual damage",
+          "details": {
+            "actual": 100.0,
+            "expected": 100.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one accepted contact emits one damage receipt and one processed notification",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "public receipts are immutable scalar snapshots without actor/source references",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "receipt carries the live actor and reset generation",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "old defense notification precedes appended health receipt",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "duplicate ID adds no health debit or old/new notifications",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "zero damage does not emit a spurious health change",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "events": [
+          "crouch_enter",
+          "roll_started",
+          "roll_phase_changed",
+          "hit_evaded",
+          "defense_resolved",
+          "damage_resolved"
+        ],
+        "health": 100.0,
+        "outcome": "evaded",
+        "residual": 0.0
+      },
+      "name": "resolved roll and duplicate",
+      "physics_ticks": 9
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "fresh lower in-window ID and same ID from another source are accepted",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "reordered and independent-source hits each debit once",
+          "details": {
+            "actual": 88.0,
+            "expected": 88.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "reordered ID is still deduplicated on repeat",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "ID outside actor history window is rejected without debit",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "stale contact preserves health",
+          "details": {
+            "actual": 86.0,
+            "expected": 86.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "projectile identity uses each carrier even with shared owner and local ID",
+          "details": {
+            "actual": 82.0,
+            "expected": 82.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "only six fresh identities produce receipts",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "health": 82.0,
+        "receipts": 6
+      },
+      "name": "reordered identities and source namespaces",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "legacy receive_hit retains committed-hurt boolean",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "legacy contacts without identity remain independently applicable",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "legacy default amount and explicit amounts reach health",
+          "details": {
+            "actual": 85.0,
+            "expected": 85.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "malformed identified contact is rejected",
+          "details": {
+            "field": "attack_id"
+          },
+          "passed": true
+        },
+        {
+          "assertion": "malformed identified contact is rejected",
+          "details": {
+            "field": "attack_id"
+          },
+          "passed": true
+        },
+        {
+          "assertion": "malformed identified contact is rejected",
+          "details": {
+            "field": "source"
+          },
+          "passed": true
+        },
+        {
+          "assertion": "malformed identified contact is rejected",
+          "details": {
+            "field": "kind"
+          },
+          "passed": true
+        },
+        {
+          "assertion": "malformed identified contact is rejected",
+          "details": {
+            "field": "contact_position"
+          },
+          "passed": true
+        },
+        {
+          "assertion": "invalid contacts do not debit",
+          "details": {
+            "actual": 85.0,
+            "expected": 85.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "negative legacy amount cannot heal",
+          "details": {
+            "actual": 85.0,
+            "expected": 85.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "nonfinite amounts cannot corrupt stored health",
+          "details": {
+            "actual": 85.0,
+            "expected": 85.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "nonfinite residuals do not emit a damage receipt",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "health": 85.0
+      },
+      "name": "legacy compatibility and invalid contacts",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "callback resets during the original consumed defense",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "old resolution emits no new-life damage or depletion",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "actor reset leaves replacement life full",
+          "details": {
+            "actual": 100.0,
+            "expected": 100.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "reset synchronously during hurt_started",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real input enters held guard",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "callback resets during the original consumed defense",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "old resolution emits no new-life damage or depletion",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "actor reset leaves replacement life full",
+          "details": {
+            "actual": 100.0,
+            "expected": 100.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "reset synchronously during defense_resolved",
+      "physics_ticks": 24
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "original result distinguishes precommit replacement from committed hurt",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "only already-committed hurt can debit health after owner replacement",
+          "details": {
+            "actual": 100.0,
+            "expected": 100.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "health notification preserves newer owner state and callback commitment",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "hurt ownership replaced at action_changed",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "original result distinguishes precommit replacement from committed hurt",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "only already-committed hurt can debit health after owner replacement",
+          "details": {
+            "actual": 90.0,
+            "expected": 90.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "health notification preserves newer owner state and callback commitment",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "hurt ownership replaced at hurt_started",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "original committed defense result survives actor retirement",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "retired actor never emits a health receipt after callback returns",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "retired actor cannot debit its optional store",
+          "details": {
+            "actual": 100.0,
+            "expected": 100.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "actor removed during hurt callback",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "original committed defense result survives actor retirement",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "retired actor never emits a health receipt after callback returns",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "retired actor cannot debit its optional store",
+          "details": {
+            "actual": 100.0,
+            "expected": 100.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "actor queued during hurt callback",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "receipt emitted before reset is rejected by later observer generation check",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "in-flight old receipt does not debit fresh generation",
+          "details": {
+            "actual": 100.0,
+            "expected": 100.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "reset during receipt emission before health observer",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "both valid nested and outer receipts debit despite reverse delivery serials",
+          "details": {
+            "actual": 70.0,
+            "expected": 70.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "health observes nested serial N+1 then outer serial N without highest-serial filtering",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "processed snapshots describe the actual debit order",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "health": 70.0,
+        "processed_serials": [
+          2,
+          1
+        ]
+      },
+      "name": "nested higher receipt precedes outer lower receipt",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "health_changed reset replaces the zero state with full health",
+          "details": {
+            "actual": 100.0,
+            "expected": 100.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "outer damage/depleted notifications stop after synchronous reset",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "health_changed exposes damage then reset values in order",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "health_changed synchronously resets actor",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "health_changed observer queues component after the zero debit",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "queued-for-deletion component suppresses later processed and depleted notifications",
+          "details": {
+            "depletions": 0,
+            "processed": 0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "depletions": 0,
+        "processed": 0
+      },
+      "name": "component queued for deletion during health_changed",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "health_changed observer queues actor after the zero debit",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "queued-for-deletion actor suppresses later processed and depleted notifications",
+          "details": {
+            "depletions": 0,
+            "processed": 0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "depletions": 0,
+        "processed": 0
+      },
+      "name": "actor queued for deletion during health_changed",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "processed observer may explicitly restore health",
+          "details": {
+            "actual": 100.0,
+            "expected": 100.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "no stale depletion after processed observer replaces zero state",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "damage_processed synchronously resets health",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "detached component no longer receives actor damage",
+          "details": {
+            "actual": 90.0,
+            "expected": 90.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "reattached component explicitly rebinds to live actor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "retained callback from old binding is stale",
+          "details": {
+            "actual": 90.0,
+            "expected": 90.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "repeated bind creates one subscription and one debit",
+          "details": {
+            "actual": 80.0,
+            "expected": 80.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "component can observe a replacement actor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "old actor receipt is rejected on replacement binding",
+          "details": {
+            "actual": 80.0,
+            "expected": 80.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "old actor no longer controls rebound component",
+          "details": {
+            "actual": 80.0,
+            "expected": 80.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "replacement actor can debit the existing store",
+          "details": {
+            "actual": 75.0,
+            "expected": 75.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "binding rejects nodes without actor receipt contract",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "failed binding remains safely disconnected",
+          "details": {
+            "actual": 75.0,
+            "expected": 75.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "component detach rebind and stale callbacks",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "unbind during health_changed invalidates outer processed/depleted signals",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+
+      },
+      "name": "unbind during health change suppresses stale notifications",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "overkill clamps at zero and reports only actual health applied",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "further valid damage at zero never repeats depleted",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "depletion imposes no death, actor removal, or permanent input policy",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "opted-out actor reset does not refill health",
+          "details": {
+            "actual": 0.0,
+            "expected": 0.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "default actor reset restores configured capacity",
+          "details": {
+            "actual": 12.0,
+            "expected": 12.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "fresh full-to-zero transition emits one fresh depletion",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "invalid configured maximum resolves to finite default",
+          "details": {
+            "input": "0.0"
+          },
+          "passed": true
+        },
+        {
+          "assertion": "invalid configured maximum resolves to finite default",
+          "details": {
+            "input": "-1.0"
+          },
+          "passed": true
+        },
+        {
+          "assertion": "invalid configured maximum resolves to finite default",
+          "details": {
+            "input": "inf"
+          },
+          "passed": true
+        },
+        {
+          "assertion": "invalid configured maximum resolves to finite default",
+          "details": {
+            "input": "nan"
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "depletions": 2,
+        "health": 100.0
+      },
+      "name": "clamped health depletion and reset policy",
+      "physics_ticks": 3
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real melee fixture arms a fresh attack",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "swept fixture blade contacts actual actor collision body",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "physical fixture result reaches optional health exactly once",
+          "details": {
+            "actual": 80.0,
+            "expected": 80.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "fixture defense result and health receipt agree",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "retired fixture sweep does not repeat health debit",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "contacts": 1,
+        "health": 80.0,
+        "outcome": "hurt"
+      },
+      "name": "physical melee fixture hurt",
+      "physics_ticks": 44
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real input enters held guard",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real melee fixture arms a fresh attack",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "swept fixture blade contacts actual actor collision body",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "physical fixture result reaches optional health exactly once",
+          "details": {
+            "actual": 95.0,
+            "expected": 95.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "fixture defense result and health receipt agree",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "retired fixture sweep does not repeat health debit",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "contacts": 1,
+        "health": 95.0,
+        "outcome": "guarded"
+      },
+      "name": "physical melee fixture guard",
+      "physics_ticks": 65
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "live swept projectile collides and resolves damage",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "projectile fixture debits configured amount",
+          "details": {
+            "actual": 91.0,
+            "expected": 91.0
+          },
+          "passed": true
+        },
+        {
+          "assertion": "retired projectile leaves one immutable receipt",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "health": 91.0
+      },
+      "name": "physical projectile carrier contact",
+      "physics_ticks": 19
+    },
+    {
+      "assertions": [
+        {
+          "assertion": "real actor settles on the physical floor",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "attached and absent actors have exact per-tick motor/permission parity across run turn jump roll shield melee",
+          "details": {
+            "first_mismatches": [],
+            "samples": 432
+          },
+          "passed": true
+        },
+        {
+          "assertion": "component preserves original movement-event sequence",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "attached and absent actors retain identical hurt result and immediate motor state",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real input enters held guard",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "attached and absent actors retain identical guard result and immediate motor state",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real input reaches open parry window",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "attached and absent actors retain identical parry result and immediate motor state",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "real input reaches roll invulnerability",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "attached and absent actors retain identical roll result and immediate motor state",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "post-contact recoil pause and recovery stay identical with health attached",
+          "details": {
+
+          },
+          "passed": true
+        },
+        {
+          "assertion": "one driver sample per real engine callback at requested delta",
+          "details": {
+
+          },
+          "passed": true
+        }
+      ],
+      "measurements": {
+        "defense_modes": 4,
+        "maximum_recorded_mismatches": [],
+        "motor_samples": 432
+      },
+      "name": "optional component preserves motor and defense behavior",
+      "physics_ticks": 574
+    }
+  ],
+  "source_hashes": {
+    "res://combat_pc/components/health_component.gd": "a24a01f6497ffbda15e510134c1a5fd613fb060f2f0b188621fb5021603a5dc3",
+    "res://combat_pc/components/health_component.tscn": "ed2aaa454a45227adb939a5b0778001ae5ce2dd765ec2a61e1bdcda47ea60947",
+    "res://combat_pc/fixtures/guard_melee_fixture.gd": "c412d1aa3875281991230cf5a37ea4ef20147a599429b6363988d1e847f3ef69",
+    "res://combat_pc/fixtures/guard_projectile.gd": "81a24827896915710684fd61ddd180a3f9a3b6ce3fd8cfa487b3743c112d0cca",
+    "res://combat_pc/player.gd": "6cd582c819d5297096205754d30d7c7bbc25021822390117edc71378ecbe43ea",
+    "res://combat_pc/player.tscn": "66cdd188fbb7f495eb21399616ed14306283956306aa21384da5bdeb9bf59e06"
+  },
+  "total_physics_ticks": 817
+}

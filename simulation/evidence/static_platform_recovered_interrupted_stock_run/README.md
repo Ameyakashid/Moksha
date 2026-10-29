@@ -1,0 +1,1 @@
+Recovered aggregate attempt: 18 of 19 groups passed. Stock combo at 120 Hz ended with SIGKILL (-9), engine banner only, without a completed check report. Cause not established. Source hashes and original report restoration passed. Retained unchanged before retrying the full aggregate with the same sources, thresholds and timeouts.

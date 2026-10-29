@@ -1,0 +1,13 @@
+extends RefCounted
+## Intentional level-design revision: route choice replaces the original combat seal.
+static func sector() -> Dictionary:
+	return {"id":"quarantine_intake","title":"02 / QUARANTINE INTAKE", "subtitle":"Two approaches · one security relay", "width":2400, "top":-450,"gate_y":-280,"theme":"city",
+		"text":"Security controls the crossing, not every escape.\nTake the guarded ground lane or the upper maintenance route.\nRestore the same relay to open the crossing shutter.",
+		"hint":"Upper steps: cache and sentries. Ground lane: close combat. E restores the relay; W/S climbs.",
+		"platforms":[Rect2(310,245,140,55),Rect2(490,190,170,18),Rect2(720,135,220,18),Rect2(1020,80,170,18),Rect2(1280,20,200,18),Rect2(1540,-40,170,18),Rect2(1770,-100,170,18),Rect2(1980,-160,160,18),Rect2(2180,-220,120,18),Rect2(2290,-280,110,18),Rect2(1300,230,240,70),Rect2(1470,0,160,18)],
+		"enemies":[[600,"sentinel",300],[665,"sentinel",300],[870,"sentry",135],[1110,"sentinel",80],[1400,"sentry",230],[1630,"sentinel",-40],[1860,"sentry",-100],[2240,"sentinel",-220]],
+		"props":[360,760,1350,1590],"relay":Vector2(1430,230),"cache":Vector2(1110,80),
+		"ladders":[[1580,300,300]],
+		"shutters":[[Vector2(1730,-130),Vector2(24,260),0]],
+		"signs":[[Vector2(200,210),"UPPER MAINTENANCE ^"],[Vector2(500,270),"GROUND RELAY >"],[Vector2(1160,45),"RELAY BELOW >"],[Vector2(1420,158),"CROSSING CONTROL"],[Vector2(1590,260),"RECOVERY LADDER ^"],[Vector2(1760,260),"RETURN TO RELAY <"]],
+		"archive":"SECURITY LOG / The former squad leader has revoked your badge.\nSomeone kept the old route through the service ladders."}

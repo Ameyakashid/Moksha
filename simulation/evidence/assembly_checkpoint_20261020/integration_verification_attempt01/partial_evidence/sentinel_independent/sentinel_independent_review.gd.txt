@@ -1,0 +1,245 @@
+extends SceneTree
+# Independent real-contact and explicitly labelled lifecycle/API review.
+const SENTINEL = preload("res://demo/components/shared_sentinel.tscn")
+const PLAYER = preload("res://combat_pc/player.tscn")
+const HEALTH = preload("res://combat_pc/components/health_component.tscn")
+const DEFEAT = preload("res://combat_pc/components/defeat_response.tscn")
+const INCOMING = preload("res://simulation/components/incoming_strike_receiver.tscn")
+const LEGACY = preload("res://demo/components/enemy.tscn")
+const RANGED = preload("res://demo/components/ranged_enemy.tscn")
+const WARDEN = preload("res://demo/components/warden.tscn")
+class Driver extends Node:
+	var actor: Node
+	var frame := {}
+	func _physics_process(dt: float) -> void:
+		if is_instance_valid(actor): actor.physics_tick(dt, frame)
+var world: Node2D
+var player: Node2D
+var sentinel: Node2D
+var driver: Driver
+var bus: Node
+var hz := 60
+var checks := 0
+var failures: Array[String] = []
+var cases: Array[String] = []
+var receipts: Array[Dictionary] = []
+var resolutions: Array[Dictionary] = []
+var sounds: Array[Dictionary] = []
+var deaths := 0
+var label := ""
+func _initialize() -> void:
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--hz="): hz = int(arg.trim_prefix("--hz="))
+	Engine.physics_ticks_per_second = hz
+	_run.call_deferred()
+func check(ok: bool, message: String) -> void:
+	checks += 1
+	if not ok: failures.append(label + ": " + message)
+func frames(n: int) -> void:
+	for _i in n:
+		await physics_frame
+		await process_frame
+func until(predicate: Callable, seconds := 2.5) -> bool:
+	for _i in ceili(seconds * hz):
+		await frames(1)
+		if predicate.call(): return true
+	return false
+func _begin(name_: String, capacity := 3.0, incoming := true) -> void:
+	label = name_
+	cases.append(label)
+	receipts.clear(); resolutions.clear(); sounds.clear(); deaths = 0
+	world = Node2D.new()
+	root.add_child(world)
+	var floor_ := StaticBody2D.new()
+	floor_.position = Vector2(400,220)
+	var shape_ := CollisionShape2D.new()
+	var rectangle := RectangleShape2D.new()
+	rectangle.size = Vector2(800,40)
+	shape_.shape = rectangle
+	floor_.add_child(shape_)
+	world.add_child(floor_)
+	player = PLAYER.instantiate()
+	player.automatic_physics = false
+	player.position = Vector2(100,200)
+	var health := HEALTH.instantiate()
+	health.name = "Health"
+	health.maximum_health = 60
+	player.add_child(health)
+	var defeat := DEFEAT.instantiate()
+	defeat.name = "DefeatResponse"
+	player.add_child(defeat)
+	if incoming:
+		var receiver := INCOMING.instantiate()
+		receiver.counterable = true
+		player.get_node("BodyShape").add_child(receiver)
+		receiver.strike_resolved.connect(func(r): receipts.append(r.duplicate(true)))
+	world.add_child(player)
+	driver = Driver.new()
+	driver.actor = player
+	world.add_child(driver)
+	sentinel = SENTINEL.instantiate()
+	sentinel.position = Vector2(136,200)
+	sentinel.ai_enabled = false
+	sentinel.max_health = capacity
+	sentinel.attack_damage_override = 12
+	world.add_child(sentinel)
+	bus = root.get_node("NoiseBus")
+	sentinel.configure(player,bus)
+	sentinel.attack_resolved.connect(func(_who,r): resolutions.append(r.duplicate(true)))
+	sentinel.defeated.connect(func(_who): deaths += 1)
+	bus.noise_emitted.connect(_noise)
+	await frames(8)
+	sounds.clear()
+func _noise(origin: Vector2, kind: StringName, loudness: float, source: Node) -> void:
+	if source == sentinel: sounds.append({"origin":origin,"kind":kind,"loudness":loudness,"generation":sentinel.damage_generation()})
+func count_sound(kind: StringName) -> int:
+	return sounds.filter(func(s): return s.kind == kind).size()
+func _end() -> void:
+	if bus.noise_emitted.is_connected(_noise): bus.noise_emitted.disconnect(_noise)
+	world.queue_free()
+	await process_frame
+	await physics_frame
+func _pc_attack() -> void:
+	driver.frame = {"attack":true}
+	await frames(2)
+	driver.frame = {}
+func _start_sentinel() -> void:
+	sentinel.ai_enabled = true
+	check(await until(func(): return sentinel.weapon_phase == &"windup"), "ordinary intent enters inherited windup")
+func _run() -> void:
+	await _ordinary_contact()
+	await _guard()
+	await _lethal_parry()
+	await _no_receiver()
+	await _death_reset()
+	await _health_reset()
+	await _death_sound_reset()
+	await _hearing_matrix()
+	await _disable_pause()
+	var report := {"hz":hz,"checks":checks,"scenarios":cases,"failures":failures}
+	FileAccess.open("/tmp/sentinel_boundary_review/results_%d.json" % hz, FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
+	print("INDEPENDENT SENTINEL %d Hz: %d scenarios, %d checks, %d failures" % [hz,cases.size(),checks,failures.size()])
+	for failure in failures: printerr(failure)
+	quit(0 if failures.is_empty() else 1)
+func _ordinary_contact() -> void:
+	await _begin("actual PC strike / exactly one Health HIT")
+	await _pc_attack()
+	check(await until(func(): return sentinel.health < 3), "real stock PC contact debits shared sentinel")
+	check(sentinel.health == 2, "one physical strike applies exactly one")
+	check(count_sound(&"enemy_damage") == 1 and count_sound(&"hurt") == 0, "one positive Health receipt creates one semantic HIT")
+	check(sentinel.get_node("BodyShape/IncomingStrikeReceiver").accepted_count == 1, "one shared receiver admission")
+	check(sentinel.collision_layer == 32 and sentinel.get_node("BodyShape/IncomingStrikeReceiver").collision_layer == 4 and sentinel.get_node("ContactAdapter").target_mask == 64, "explicit production masks")
+	check(not sentinel.automatic_physics and sentinel.get_node("IntentDriver").tick_count > 0, "sole composed driver schedules inherited actor")
+	await _end()
+func _guard() -> void:
+	await _begin("actual sentinel strike / held PC guard")
+	driver.frame = {"shield":true}
+	await frames(ceili(hz*.3))
+	await _start_sentinel()
+	check(await until(func(): return not receipts.is_empty()), "physical sentinel sweep reaches mission-shaped PC receiver")
+	check(player.get_node("Health").current_health == 57, "12 damage guarded at 75 percent absorption")
+	check(receipts.size()==1 and receipts[0].outcome==&"guarded" and resolutions.size()==1, "one receiver and facade guarded observation")
+	check(count_sound(&"enemy_windup")==1 and count_sound(&"enemy_attack")==1, "one committed warning and active swing")
+	await _end()
+func _lethal_parry() -> void:
+	await _begin("actual timed parry / lethal physical counter")
+	await _start_sentinel()
+	check(await until(func(): return sentinel._phase_elapsed >= sentinel._windup-.07), "reach real late windup before timed shield")
+	driver.frame = {"shield":true}
+	check(await until(func(): return sentinel.dead), "real stock counter ray defeats sentinel")
+	check(sentinel.health==0 and deaths==1, "one Health depletion and mission defeat")
+	check(player.get_node("Health").current_health==60, "parry loses zero player Health")
+	check(receipts.size()==1 and receipts[0].outcome==&"parried" and receipts[0].counter_confirmed, "completed parry survives source counter retirement")
+	check(resolutions.size()==1 and resolutions[0].outcome==&"parried", "facade preserves lethal counter parry observation")
+	check(count_sound(&"enemy_damage")==1 and count_sound(&"enemy_death")==1 and count_sound(&"hurt")==0, "one Health HIT and one defeat sound")
+	await frames(3)
+	check(sentinel.collision_layer==0 and sentinel.get_node("BodyShape").disabled and sentinel.get_node("BodyShape/IncomingStrikeReceiver/Shape").disabled, "terminal colliders removed after receipt")
+	await frames(ceili(hz*.8))
+	check(receipts.size()==1 and deaths==1, "no post-defeat attack or duplicate defeat")
+	await _end()
+func _no_receiver() -> void:
+	await _begin("actual missing bridge / no direct damage fallback",3,false)
+	await _start_sentinel()
+	await frames(ceili(hz*1.0))
+	check(player.get_node("Health").current_health==60, "body overlap without incoming receiver never damages PC")
+	check(resolutions.is_empty(), "no fabricated attack_resolved success")
+	await _end()
+func _death_reset() -> void:
+	await _begin("actual lethal contact / synchronous defeat callback reset",1)
+	var reset_once := [false]
+	sentinel.defeated.connect(func(_who):
+		if not reset_once[0]:
+			reset_once[0] = true
+			sentinel.reset_at(Vector2(136,200)))
+	var generation: int = sentinel.damage_generation()
+	await _pc_attack()
+	check(await until(func(): return reset_once[0]), "actual lethal strike reaches resetting callback")
+	await frames(5)
+	check(sentinel.damage_generation()>generation and sentinel.health==1 and not sentinel.dead and not sentinel.is_defeated(), "new life remains live and full")
+	check(sentinel.collision_layer==32 and sentinel.get_node("BodyShape/IncomingStrikeReceiver").collision_layer==4, "retired cleanup cannot strip new-life layers")
+	check(not sentinel.get_node("BodyShape").disabled and not sentinel.get_node("BodyShape/IncomingStrikeReceiver/Shape").disabled, "deferred shape restoration survives stale death cleanup")
+	check(sentinel.is_physics_processing() and deaths==1, "new-life scheduler is live and defeat remains singular")
+	await _end()
+func _health_reset() -> void:
+	await _begin("actual lethal contact / Health-changed callback reset before receipt",1)
+	var reset_once := [false]
+	sentinel.get_node("Health").health_changed.connect(func(current,_maximum):
+		if current==0 and not reset_once[0]:
+			reset_once[0] = true
+			sentinel.reset_at(Vector2(136,200)))
+	await _pc_attack()
+	check(await until(func(): return reset_once[0]), "real Health accounting reaches reset callback")
+	await frames(3)
+	check(sentinel.health==1 and not sentinel.dead and deaths==0, "old depleted operation never kills new life")
+	check(count_sound(&"enemy_damage")==0 and count_sound(&"enemy_death")==0, "retired pre-receipt operation creates no false HIT or defeat sound")
+	await _end()
+func _death_sound_reset() -> void:
+	await _begin("actual lethal contact / death-sound callback reset",1)
+	var reset_once := [false]
+	var callback := func(_origin, kind, _loudness, source):
+		if source==sentinel and kind==&"enemy_death" and not reset_once[0]:
+			reset_once[0]=true
+			sentinel.reset_at(Vector2(136,200))
+	bus.noise_emitted.connect(callback)
+	await _pc_attack()
+	check(await until(func(): return reset_once[0]), "actual lethal receipt emits real death sound")
+	await frames(4)
+	check(sentinel.health==1 and not sentinel.dead and deaths==0, "old post-sound defeat signal is suppressed after new life")
+	check(sentinel.collision_layer==32 and not sentinel.get_node("BodyShape").disabled, "stale deferred cleanup cannot retire reset body")
+	bus.noise_emitted.disconnect(callback)
+	await _end()
+func _hearing_matrix() -> void:
+	await _begin("configured hearing peer matrix / direct real-bus events")
+	var listener := LEGACY.instantiate(); listener.kind="listener"; listener.ai_enabled=false; listener.position=Vector2(200,200); world.add_child(listener); listener.configure(player,bus)
+	var ranged := RANGED.instantiate(); ranged.ai_enabled=false; ranged.position=Vector2(220,200); world.add_child(ranged); ranged.configure(player,bus)
+	var warden := WARDEN.instantiate(); warden.ai_enabled=false; warden.position=Vector2(240,200); world.add_child(warden); warden.configure(player,bus)
+	var actors: Array = [sentinel,listener,ranged,warden]
+	await frames(3)
+	for source_index in actors.size():
+		for target in actors:
+			if target==sentinel: target.get_node("SentinelPolicy").noise_memory=0
+			else: target._noise_memory=0
+		var source: Node2D=actors[source_index]
+		bus.emit_noise(source.global_position,&"enemy_step",1.0,source)
+		for target_index in actors.size():
+			var expected: bool = target_index != source_index and not (source_index in [0,1] and target_index in [0,1])
+			check((actors[target_index]._noise_memory>0)==expected,"source%d target%d preserves legacy peer partition"%[source_index,target_index])
+	await _end()
+func _disable_pause() -> void:
+	await _begin("disabled and paused hearing / intent lifecycle")
+	sentinel.enabled=false
+	var old_position: Vector2=sentinel.position
+	bus.emit_noise(player.position,&"weapon_tap",1.0,player)
+	await frames(6)
+	check(sentinel.position==old_position and sentinel._noise_memory==0,"disabled host neither moves nor hears")
+	sentinel.enabled=true
+	bus.emit_noise(player.position,&"weapon_tap",1.0,player)
+	check(sentinel._noise_memory>0,"enabled host accepts real bus evidence")
+	sentinel.get_node("SentinelPolicy").noise_memory=0
+	paused=true
+	bus.emit_noise(player.position,&"weapon_tap",1.0,player)
+	check(sentinel._noise_memory==0,"paused host rejects hearing")
+	paused=false
+	await frames(4)
+	check(sentinel.collision_layer==32 and sentinel.health==3,"resume preserves independent physical and Health state")
+	await _end()
