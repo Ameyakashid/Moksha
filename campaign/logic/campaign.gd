@@ -206,8 +206,9 @@ func complete_run()->void:
 		if file:file.store_string(JSON.stringify({"ending":campaign_ending,"active_seconds":elapsed,"levels":level_receipts,"districts":metrics,"lens":lens,"upgrades":upgrades,"deaths":deaths,"kills":kills},"\t"))
 func _read_checkpoint()->Dictionary:
 	if not FileAccess.file_exists(CAMPAIGN_SAVE):return {"ok":false}
-	var raw=JSON.parse_string(FileAccess.get_file_as_string(CAMPAIGN_SAVE))
-	if not raw is Dictionary or raw.get("campaign_version")!=1:return {"ok":false}
+	# A truncated/corrupt checkpoint is an expected rejected input, not an engine error.
+	var raw=Checkpoint.parse(FileAccess.get_file_as_string(CAMPAIGN_SAVE))
+	if not raw is Dictionary or not Checkpoint.whole(raw.get("campaign_version")) or int(raw.campaign_version)!=1:return {"ok":false}
 	var decoded:Dictionary=Checkpoint.decode(raw.get("progress"),sectors)
 	if not decoded.ok:return decoded
 	if raw.get("lens") not in ["neutral","strength","agility"] or not raw.get("upgrades") is Array or not raw.get("rewards") is Dictionary:return {"ok":false}

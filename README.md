@@ -67,6 +67,10 @@ See `campaign/docs/EDITOR_WORKFLOW.md` and `campaign/docs/LAYOUT_CONTRACT.md`.
 
 The original Oct23 demo is still playable at `demo/mission.tscn`; its historical README is `docs/OCT23_BASELINE_README.md`. Original approved player/controller and simulation source remain preserved.
 
+## November 2 quality update
+
+See [`campaign/quality/README.md`](campaign/quality/README.md) for the reproducible quality gate, bounded state/replay checks and asset budgets. Two corrupt-checkpoint error paths are fixed in source. The prior Windows package has **not** been rebuilt and does not include those fixes. Earlier full-campaign evidence remains historical and hash-bound; this update has its own focused results.
+
 ## Evidence and limits
 
 See `campaign/docs/VERIFICATION.md` for current tests and exact source identity. Headless contracts, isolated chapter input routes, complete input campaigns and native visuals are different evidence categories. Actual native Godot screenshots and bounded manual-input review cover representative areas in all five levels, panels, combat telegraphs and blind concealment; visual defects were fixed and re-rendered. Direct scene fixtures are labelled separately from complete input runs. Full native campaign traversal, audible mix, Windows hardware behavior and first-play human timing remain unverified.

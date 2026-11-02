@@ -1,0 +1,508 @@
+{
+  "date": "2026-11-02",
+  "baseline_commit": "c6f1f92b65e03bfb84e9f09b466ec7bc15e4a9b8",
+  "passed": true,
+  "stages_passed": 20,
+  "godot_version": "4.6.3.stable.official.7d41c59c4",
+  "source_drift": [],
+  "aggregate_report": "results/2026-11-02/summary.json",
+  "aggregate_sha256": "adc8c38b30db315dc63529f7a1d4556a062bb05730d8018de4c239ae0e2efec0",
+  "state_exploration": {
+    "districts": 32,
+    "states": 626,
+    "edges": 3332,
+    "checks": 24285,
+    "physical_success_abstracted": true
+  },
+  "save_adversarial": {
+    "checks_per_rate": 173,
+    "rates": [
+      60,
+      120
+    ],
+    "malformed_schemas": 51,
+    "truncated_inputs": 4,
+    "district_roundtrips": 32
+  },
+  "negative_controls": {
+    "runner": 6,
+    "replay_observer": 8,
+    "assets": 12,
+    "state": 3
+  },
+  "existing_focused_checks": 444,
+  "replay": {
+    "cases": 6,
+    "seeds": [
+      7,
+      83,
+      2026
+    ],
+    "rates": [
+      60,
+      120
+    ],
+    "seconds_per_case": 12,
+    "processes": 12,
+    "scope": "Same source/build/environment, independent process pair per seed/rate. Opening-district bounded real-physics traces; not full-campaign balance, human timing, rendered FPS or cross-platform determinism.",
+    "case_receipts": [
+      {
+        "hz": 60,
+        "seed": 7,
+        "input_sha256": "8674dbe29edf48e89ac39fc6ddc481aa44824524e8b76caffdcf5e64cf780dc6",
+        "passed": true,
+        "runs": [
+          {
+            "run": "record",
+            "passed": true,
+            "exit_code": 0,
+            "engine_errors": [],
+            "engine": "4.6.3-stable (official)",
+            "ticks": 720,
+            "coverage": {
+              "x_span": 914.0264,
+              "actions": [
+                "air_jump",
+                "jump",
+                "ledge",
+                "locomotion"
+              ],
+              "weapon_phases": [
+                "active",
+                "idle",
+                "recovery",
+                "windup"
+              ],
+              "shield_phases": [
+                "hold",
+                "idle",
+                "parry",
+                "raise"
+              ],
+              "min_health": 60.0
+            },
+            "wall_seconds_not_fps": 12.909,
+            "trace_sha256": "37af825b18ce8588931af7238e5638a498352c79d18c475987049ffe7d47e548"
+          },
+          {
+            "run": "replay",
+            "passed": true,
+            "exit_code": 0,
+            "engine_errors": [],
+            "engine": "4.6.3-stable (official)",
+            "ticks": 720,
+            "coverage": {
+              "x_span": 914.0264,
+              "actions": [
+                "air_jump",
+                "jump",
+                "ledge",
+                "locomotion"
+              ],
+              "weapon_phases": [
+                "active",
+                "idle",
+                "recovery",
+                "windup"
+              ],
+              "shield_phases": [
+                "hold",
+                "idle",
+                "parry",
+                "raise"
+              ],
+              "min_health": 60.0
+            },
+            "wall_seconds_not_fps": 12.67,
+            "trace_sha256": "37af825b18ce8588931af7238e5638a498352c79d18c475987049ffe7d47e548"
+          }
+        ],
+        "first_divergence": null
+      },
+      {
+        "hz": 60,
+        "seed": 83,
+        "input_sha256": "3e305fc1d2cf2227f6356473e5a5435605cd20a44498335e3ea312e9241dd6be",
+        "passed": true,
+        "runs": [
+          {
+            "run": "record",
+            "passed": true,
+            "exit_code": 0,
+            "engine_errors": [],
+            "engine": "4.6.3-stable (official)",
+            "ticks": 720,
+            "coverage": {
+              "x_span": 576.7199,
+              "actions": [
+                "air_jump",
+                "jump",
+                "ledge",
+                "locomotion"
+              ],
+              "weapon_phases": [
+                "active",
+                "idle",
+                "recovery",
+                "windup"
+              ],
+              "shield_phases": [
+                "hold",
+                "idle",
+                "parry",
+                "raise"
+              ],
+              "min_health": 60.0
+            },
+            "wall_seconds_not_fps": 11.087,
+            "trace_sha256": "260488de99e7c2e1db8d03117abbd8cb6bc85bdcdaeb66dd223d08eaed0e5aca"
+          },
+          {
+            "run": "replay",
+            "passed": true,
+            "exit_code": 0,
+            "engine_errors": [],
+            "engine": "4.6.3-stable (official)",
+            "ticks": 720,
+            "coverage": {
+              "x_span": 576.7199,
+              "actions": [
+                "air_jump",
+                "jump",
+                "ledge",
+                "locomotion"
+              ],
+              "weapon_phases": [
+                "active",
+                "idle",
+                "recovery",
+                "windup"
+              ],
+              "shield_phases": [
+                "hold",
+                "idle",
+                "parry",
+                "raise"
+              ],
+              "min_health": 60.0
+            },
+            "wall_seconds_not_fps": 11.01,
+            "trace_sha256": "260488de99e7c2e1db8d03117abbd8cb6bc85bdcdaeb66dd223d08eaed0e5aca"
+          }
+        ],
+        "first_divergence": null
+      },
+      {
+        "hz": 60,
+        "seed": 2026,
+        "input_sha256": "4d3e68d629859a8694d697b08c7ed26d20f63b5bfd60e96638cbfcdfb66c8a62",
+        "passed": true,
+        "runs": [
+          {
+            "run": "record",
+            "passed": true,
+            "exit_code": 0,
+            "engine_errors": [],
+            "engine": "4.6.3-stable (official)",
+            "ticks": 720,
+            "coverage": {
+              "x_span": 342.4282,
+              "actions": [
+                "air_jump",
+                "jump",
+                "ledge",
+                "locomotion"
+              ],
+              "weapon_phases": [
+                "active",
+                "idle",
+                "recovery",
+                "windup"
+              ],
+              "shield_phases": [
+                "hold",
+                "idle",
+                "parry",
+                "raise"
+              ],
+              "min_health": 60.0
+            },
+            "wall_seconds_not_fps": 11.786,
+            "trace_sha256": "5dc0eb8f517ba263b0ac961fb7fb064e4543ded21efd1d94bea1c31d57cc1f3d"
+          },
+          {
+            "run": "replay",
+            "passed": true,
+            "exit_code": 0,
+            "engine_errors": [],
+            "engine": "4.6.3-stable (official)",
+            "ticks": 720,
+            "coverage": {
+              "x_span": 342.4282,
+              "actions": [
+                "air_jump",
+                "jump",
+                "ledge",
+                "locomotion"
+              ],
+              "weapon_phases": [
+                "active",
+                "idle",
+                "recovery",
+                "windup"
+              ],
+              "shield_phases": [
+                "hold",
+                "idle",
+                "parry",
+                "raise"
+              ],
+              "min_health": 60.0
+            },
+            "wall_seconds_not_fps": 11.6,
+            "trace_sha256": "5dc0eb8f517ba263b0ac961fb7fb064e4543ded21efd1d94bea1c31d57cc1f3d"
+          }
+        ],
+        "first_divergence": null
+      },
+      {
+        "hz": 120,
+        "seed": 7,
+        "input_sha256": "8d7399d9ff6f4826f89312112599c47032c57202f4eebb91c4e2dd1f7b3dc658",
+        "passed": true,
+        "runs": [
+          {
+            "run": "record",
+            "passed": true,
+            "exit_code": 0,
+            "engine_errors": [],
+            "engine": "4.6.3-stable (official)",
+            "ticks": 1440,
+            "coverage": {
+              "x_span": 729.0027,
+              "actions": [
+                "air_jump",
+                "jump",
+                "ledge",
+                "locomotion"
+              ],
+              "weapon_phases": [
+                "active",
+                "idle",
+                "recovery",
+                "windup"
+              ],
+              "shield_phases": [
+                "hold",
+                "idle",
+                "parry",
+                "raise"
+              ],
+              "min_health": 60.0
+            },
+            "wall_seconds_not_fps": 20.664,
+            "trace_sha256": "fed2f92108fcfece7c5aef9e680cf35ab387ba9d03be84dfd9f5fcef56e3bb6b"
+          },
+          {
+            "run": "replay",
+            "passed": true,
+            "exit_code": 0,
+            "engine_errors": [],
+            "engine": "4.6.3-stable (official)",
+            "ticks": 1440,
+            "coverage": {
+              "x_span": 729.0027,
+              "actions": [
+                "air_jump",
+                "jump",
+                "ledge",
+                "locomotion"
+              ],
+              "weapon_phases": [
+                "active",
+                "idle",
+                "recovery",
+                "windup"
+              ],
+              "shield_phases": [
+                "hold",
+                "idle",
+                "parry",
+                "raise"
+              ],
+              "min_health": 60.0
+            },
+            "wall_seconds_not_fps": 22.249,
+            "trace_sha256": "fed2f92108fcfece7c5aef9e680cf35ab387ba9d03be84dfd9f5fcef56e3bb6b"
+          }
+        ],
+        "first_divergence": null
+      },
+      {
+        "hz": 120,
+        "seed": 83,
+        "input_sha256": "4f5ce0f5e7a71f60a224527e91b2eaf1e0356536d83b4c06d56b044b78ccd84a",
+        "passed": true,
+        "runs": [
+          {
+            "run": "record",
+            "passed": true,
+            "exit_code": 0,
+            "engine_errors": [],
+            "engine": "4.6.3-stable (official)",
+            "ticks": 1440,
+            "coverage": {
+              "x_span": 745.7621,
+              "actions": [
+                "air_jump",
+                "jump",
+                "ledge",
+                "locomotion"
+              ],
+              "weapon_phases": [
+                "active",
+                "idle",
+                "recovery",
+                "windup"
+              ],
+              "shield_phases": [
+                "hold",
+                "idle",
+                "parry",
+                "raise"
+              ],
+              "min_health": 60.0
+            },
+            "wall_seconds_not_fps": 19.691,
+            "trace_sha256": "d2a2365a50c9603a9a0bcccf0df23d82d03993b7b8fd91909ad1b71fd6c21e36"
+          },
+          {
+            "run": "replay",
+            "passed": true,
+            "exit_code": 0,
+            "engine_errors": [],
+            "engine": "4.6.3-stable (official)",
+            "ticks": 1440,
+            "coverage": {
+              "x_span": 745.7621,
+              "actions": [
+                "air_jump",
+                "jump",
+                "ledge",
+                "locomotion"
+              ],
+              "weapon_phases": [
+                "active",
+                "idle",
+                "recovery",
+                "windup"
+              ],
+              "shield_phases": [
+                "hold",
+                "idle",
+                "parry",
+                "raise"
+              ],
+              "min_health": 60.0
+            },
+            "wall_seconds_not_fps": 23.901,
+            "trace_sha256": "d2a2365a50c9603a9a0bcccf0df23d82d03993b7b8fd91909ad1b71fd6c21e36"
+          }
+        ],
+        "first_divergence": null
+      },
+      {
+        "hz": 120,
+        "seed": 2026,
+        "input_sha256": "2861f733f016119207080e8f823be325cbd5e5875be713654610f3785bbb185e",
+        "passed": true,
+        "runs": [
+          {
+            "run": "record",
+            "passed": true,
+            "exit_code": 0,
+            "engine_errors": [],
+            "engine": "4.6.3-stable (official)",
+            "ticks": 1440,
+            "coverage": {
+              "x_span": 323.9413,
+              "actions": [
+                "air_jump",
+                "jump",
+                "ledge",
+                "locomotion"
+              ],
+              "weapon_phases": [
+                "active",
+                "idle",
+                "recovery",
+                "windup"
+              ],
+              "shield_phases": [
+                "hold",
+                "idle",
+                "parry",
+                "raise"
+              ],
+              "min_health": 60.0
+            },
+            "wall_seconds_not_fps": 20.101,
+            "trace_sha256": "8d1210e2bc617794cadceb44a7d56f7461ef7ad61bca67569ee72220e2ff0318"
+          },
+          {
+            "run": "replay",
+            "passed": true,
+            "exit_code": 0,
+            "engine_errors": [],
+            "engine": "4.6.3-stable (official)",
+            "ticks": 1440,
+            "coverage": {
+              "x_span": 323.9413,
+              "actions": [
+                "air_jump",
+                "jump",
+                "ledge",
+                "locomotion"
+              ],
+              "weapon_phases": [
+                "active",
+                "idle",
+                "recovery",
+                "windup"
+              ],
+              "shield_phases": [
+                "hold",
+                "idle",
+                "parry",
+                "raise"
+              ],
+              "min_health": 60.0
+            },
+            "wall_seconds_not_fps": 19.415,
+            "trace_sha256": "8d1210e2bc617794cadceb44a7d56f7461ef7ad61bca67569ee72220e2ff0318"
+          }
+        ],
+        "first_divergence": null
+      }
+    ]
+  },
+  "assets": {
+    "inventory_bytes": 10659926,
+    "file_count": 523,
+    "largest_file_bytes": 2145320,
+    "largest_png_pixels": 1573352,
+    "wav_pcm_bytes": 611446
+  },
+  "audio": "Nine procedural WAVs regenerate byte-for-byte; not audible playback.",
+  "native": "Bounded opening-district movement/jump/attack/journal/retry and final fresh-process Continue inspected; actual screenshot in native/continue.jpg. Mesa llvmpipe, dummy audio fallback.",
+  "not_verified": [
+    "Target-hardware FPS",
+    "Audible mix",
+    "Native Windows execution",
+    "Human 15\u201320 minutes per level",
+    "New full-campaign traversal; older receipts remain historical"
+  ],
+  "windows_rebuilt": false,
+  "independent_review": "Reported false-pass gaps fixed and verified with negative controls; reviewer found no remaining blocking finding in inspected diff.",
+  "initial_during_edit_run": "Rejected due to source drift during review fixes; never used as acceptance."
+}

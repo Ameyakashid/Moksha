@@ -1,10 +1,12 @@
 # Five Ascents delivery
 
+**November 2 compact source update:** this source includes new quality guards and two corrupt-save error-path fixes. The Windows EXE/PCK below is the earlier release and has not been rebuilt. See `campaign/quality/README.md` for current scope/results. Compact delivery omits the optional full history bundle/native screenshot archive, which remain in the preserved full-project Library artifact.
+
 ## Playable Windows package
 
 `MOKSHA-Windows-x64-9e22722.zip` contains a real64-bit Windows release export from gameplay/source commit `9e22722ebc5835bec0aed003ea71de47463fc324`. Extract the whole archive and run `MOKSHA-Windows/Run-MOKSHA.cmd` or `MOKSHA.exe`; keep the PCK beside it. Engine templates were verified against official release hashes; engine/project/font/Beehave licenses are included. Exported-pack smoke passed on Linux/headless. Native Windows execution/pixels were not verified.
 
-Later source commits may add final reports and documentation; gameplay bytes must remain identical to the Windows build commit. Exact archive hashes live in the final delivery manifest, not this descriptive file.
+The October 29 source freeze matched that Windows build. The November 2 source differs narrowly in checkpoint rejection and is not claimed byte-identical to that executable. Exact archive hashes live in the final delivery manifest, not this descriptive file.
 
 ## Source project
 
