@@ -33,10 +33,15 @@ var _build_force:=-1.0
 var _focus_pause_active:=false
 var _focus_resume_state:="playing"
 var _level_transition_snapshot:Dictionary={}
-var gamepad_navigation=preload("res://campaign/input/gamepad_navigation.gd").new()
+var _controller_bindings:Node
+var gamepad_navigation:Node
 func _ready()->void:
 	# Register the preserved device mapping before title/Continue can share C.
 	preload("res://combat_pc/player.gd").ensure_default_inputs()
+	_controller_bindings=preload("res://campaign/input/controller_bindings.gd").new()
+	_controller_bindings.bindings_ready.connect(_capture_input_boundary)
+	add_child(_controller_bindings)
+	gamepad_navigation=preload("res://campaign/input/gamepad_navigation.gd").new()
 	gamepad_navigation.bind(self);add_child(gamepad_navigation)
 	blackboard=preload("res://campaign/vendor/beehave/blackboard.gd").new()
 	add_child(blackboard)
@@ -169,7 +174,9 @@ func _apply_build()->void:
 		health.set_capacity(capacity,_loading_campaign)
 func _raw_campaign_input()->Dictionary:
 	var source:Variant=_input_tick_source if _input_tick_active else input_override
-	return source.duplicate() if source is Dictionary else _input_gate.sample_device()
+	if source is Dictionary:return source.duplicate()
+	var raw:=_input_gate.sample_device()
+	return _controller_bindings.extend_frame(raw) if is_instance_valid(_controller_bindings) else raw
 func _capture_input_boundary()->void:
 	_input_gate.suppress_held(_raw_campaign_input())
 func _physics_process(dt:float)->void:
@@ -240,6 +247,7 @@ func choose_sight(accept:bool)->void:
 	if is_instance_valid(actor_paint):actor_paint.set_sight_enabled(not blind)
 	if is_instance_valid(object_paint):object_paint.set_sight_enabled(not blind)
 func _on_window_focus_exited()->void:
+	if not is_inside_tree():return
 	if state not in ["playing","transition","intro"] and _pending_sector<0 and not _pending_retry:return
 	_capture_input_boundary()
 	_focus_resume_state="intro" if state=="intro" else "playing"
@@ -403,7 +411,7 @@ func _hud_snapshot()->Dictionary:
 	var snapshot:Dictionary=super._hud_snapshot()
 	var required:=goals.filter(func(goal):return is_instance_valid(goal) and not goal.optional)
 	snapshot.merge({"district_index":sector+1,"district_count":sectors.size(),
-		"level_index":int(sectors[sector].get("level",1)),"lens":lens,"input_device":gamepad_navigation.input_device,
+		"level_index":int(sectors[sector].get("level",1)),"lens":lens,"input_device":gamepad_navigation.input_device if is_instance_valid(gamepad_navigation) else "keyboard",
 		"required_done":required.filter(func(goal):return goal.completed).size(),
 		"required_total":required.size(),"gate_open":is_instance_valid(room) and room.gate_open,
 		"guidance":_journal_next_step() if is_instance_valid(room) else "Begin the ascent."})
@@ -427,7 +435,7 @@ func _hud_snapshot()->Dictionary:
 		snapshot.merge({"panel_override":true,"panel_title":"FIELD JOURNAL","panel_body":lines,"panel_footer":"A / D or arrows Pages    TAB / ESC Return"})
 	elif state=="playing":
 		if _input_gate.has_held_blocker(_raw_campaign_input()):
-			snapshot.guidance="Center the stick and release held buttons." if gamepad_navigation.input_device=="controller" else "Release held keys, then press again."
+			snapshot.guidance="Center the stick and release held buttons." if snapshot.input_device=="controller" else "Release held keys, then press again."
 		snapshot.sector_title="L%d · %s"%[sectors[sector].level,sectors[sector].title]
 		for goal in goals:
 			if not goal.completed and not goal.optional:snapshot.objective=goal.label+(" [J]" if goal.kind=="breaker" else " [E]")+" · TAB journal";break

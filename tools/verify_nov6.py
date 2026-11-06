@@ -26,6 +26,7 @@ SCRIPTS = [
     ("gameplay_build", "nov6_gameplay_build.gd", "NOV6_GAMEPLAY_BUILD_RESULT "),
     ("save_feedback", "nov6_gameplay_save_feedback.gd", "NOV6_GAMEPLAY_SAVE_FEEDBACK_RESULT "),
     ("gamepad_navigation", "nov6_gamepad_navigation.gd", "NOV6_GAMEPAD_NAVIGATION_RESULT "),
+    ("controller_devices", "nov6_controller_devices.gd", "NOV6_CONTROLLER_DEVICES_RESULT "),
     ("independent_review", "nov6_independent_review.gd", "NOV6_INDEPENDENT_RESULT "),
     ("independent_controller", "nov6_independent_controller.gd", "NOV6_INDEPENDENT_CONTROLLER "),
     ("independent_focus_upgrade", "nov6_independent_focus_upgrade.gd", "NOV6_INDEPENDENT_FOCUS_UPGRADE "),
