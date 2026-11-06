@@ -1,0 +1,24 @@
+{
+  "name": "presentation_120",
+  "command": [
+    "godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-01105eb/project",
+    "--fixed-fps",
+    "120",
+    "--script",
+    "res://campaign/quality/nov6_presentation_contract.gd",
+    "--",
+    "--hz=120"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "checks": 2519
+  },
+  "wall_seconds": 12.829,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-01105eb/focused/presentation_120/engine.log"
+}

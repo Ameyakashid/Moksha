@@ -1,0 +1,20 @@
+{
+  "name": "runner_negative_controls",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "campaign/quality/nov6_independent_runner_test.py"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "passed": true,
+      "checks": 15,
+      "failures": []
+    }
+  },
+  "wall_seconds": 0.099,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-f00bf23/focused/runner_negative_controls/engine.log"
+}

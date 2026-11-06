@@ -84,6 +84,21 @@ func run_ui_capture()->void:
 			get_tree().paused=true
 			for frame in 3:await get_tree().process_frame
 			await capture("ui-%s-%s"%[device,mode])
+	# Show genuine gate-derived guidance without advancing a positioned actor.
+	host.start_new(true);host.chapter_left=0;host.set_physics_process(false)
+	host.state="playing";get_tree().paused=true
+	host.input_override={"right":1.0};host._capture_input_boundary()
+	for device in ["keyboard","controller"]:
+		host.gamepad_navigation.input_device=device
+		for frame in 3:await get_tree().process_frame
+		await capture("ui-%s-release-guidance"%device)
+	host.gamepad_navigation.input_device="keyboard"
+	host._report_checkpoint_write_error("Fixture: checkpoint write failed.")
+	for frame in 3:await get_tree().process_frame
+	await capture("ui-release-guidance-save-warning")
+	host.input_override={};host._input_gate.filter_frame({})
+	host.notice="";host.notice_left=0;host._checkpoint_write_error=""
+	host.set_physics_process(true)
 	host.gamepad_navigation.input_device="keyboard"
 	host.state="title";host._checkpoint_error="The campaign checkpoint contains incomplete or invalid progress."
 	for frame in 3:await get_tree().process_frame
@@ -109,4 +124,7 @@ func finish_capture()->void:
 	host.queue_free()
 	get_tree().paused=false
 	for frame in 3:await get_tree().process_frame
+	# AudioServer retires active playback on its own mixer callback. Three fast
+	# render frames are not a synchronization barrier for the native audio thread.
+	await get_tree().create_timer(0.25,true).timeout
 	get_tree().quit()

@@ -7,6 +7,8 @@ Godot imports a separate stage and exports a new text-script PCK. Checks run
 against that PCK from a directory with no loose game resources, and again after
 extracting the finished Windows archive. Linux delivery optionally includes the
 installed official engine binary and a game-mode launcher, not an installer.
+Source delivery includes a complete editable-source ZIP, a separate full-history
+ZIP, and a canonical combined archive. No source/tests/docs are omitted for size.
 
 Example (only after the source owner declares a freeze):
   python3 tools/package_nov6.py --source-commit COMMIT --output NEW_DIRECTORY \
@@ -36,6 +38,7 @@ ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_WINDOWS_ZIP_SHA256 = "88ef3a4ea5a7379135207fb6fb308dd38e06cb0fddd086825ffdc92ba8b77541"
 EXPECTED_WINDOWS_EXE_SHA256 = "91724f15024a3a545e28ccd83134403d31ce2323a38e51c95e4dfa282f732ab6"
 EXPECTED_ENGINE = "4.6.3.stable.official.7d41c59c4"
+SMALL_ATTACHMENT_LIMIT = 18 * 1024 * 1024
 EXCLUDED_PARTS = {
     ".git", ".godot", "__pycache__", "tests", "enemy_tests", "qa_audit",
     "route_tests", "route_tests_45", "evidence", "docs", "quality", "reference",
@@ -93,7 +96,8 @@ func run()->void:
         if str(path).ends_with(".tscn") or str(path).ends_with(".tres") or str(path).ends_with(".gdshader"):
             check(ResourceLoader.exists(uri) and ResourceLoader.load(uri)!=null,"resource loads "+str(path))
             resources_checked+=1
-    check(not FileAccess.file_exists("res://campaign/tests/campaign_smoke.gd"),"developer tests excluded")
+    for path in ["res://campaign/tests/campaign_smoke.gd", "res://campaign/quality/nov6_gamepad_navigation.gd", "res://campaign/quality/nov6_independent_controller.gd"]:
+        check(not FileAccess.file_exists(path),"developer fixture excluded "+path)
     var packed=load("res://campaign/campaign.tscn")
     if packed==null:
         push_error("PACK_AUDIT missing main scene");quit(1);return
@@ -104,7 +108,7 @@ func run()->void:
     host.input_override={}
     var levels:Dictionary={}
     var districts:int=host.sectors.size()
-    check(districts>0,"nonempty campaign")
+    check(districts==32,"all 32 authored districts")
     for i in districts:
         host.load_sector(i)
         await physics_frame
@@ -199,8 +203,18 @@ def isolated_environment(parent: Path, name: str) -> dict[str, str]:
     return env
 
 
+def result_receipt(log: str, prefix: str) -> dict:
+    lines = [line.removeprefix(prefix) for line in log.splitlines() if line.startswith(prefix)]
+    require(len(lines) == 1, f"Expected exactly one {prefix.strip()} receipt")
+    receipt = json.loads(lines[0])
+    require(isinstance(receipt, dict) and receipt.get("passed") is True, "Fixture receipt did not pass")
+    require(receipt.get("failures") == [], "Fixture receipt contains failures or no explicit failure list")
+    require(isinstance(receipt.get("checks"), int) and receipt["checks"] > 0, "Fixture ran no checks")
+    return receipt
+
+
 def command_check(name: str, command: list[str], cwd: Path, env: dict[str, str], logs: Path,
-                  marker: str | None = None, timeout: int = 360) -> dict:
+                  marker: str | None = None, timeout: int = 360, result_prefix: str | None = None) -> dict:
     start = time.monotonic()
     try:
         proc = subprocess.run(command, cwd=cwd, env=env, capture_output=True, text=True, timeout=timeout)
@@ -216,7 +230,17 @@ def command_check(name: str, command: list[str], cwd: Path, env: dict[str, str],
            "marker_found": marker is None or marker in clean,
            "passed": code == 0 and not errors and (marker is None or marker in clean),
            "wall_seconds": round(time.monotonic() - start, 3), "log_sha256": sha(logs / (name + ".log"))}
-    print(json.dumps(row), flush=True)
+    if result_prefix is not None:
+        try:
+            row["fixture_receipt"] = result_receipt(clean, result_prefix)
+        except (RuntimeError, ValueError) as exc:
+            row["receipt_error"] = str(exc)
+            row["passed"] = False
+    progress = dict(row)
+    if "fixture_receipt" in progress:
+        progress["fixture_receipt"] = {key: value for key, value in progress["fixture_receipt"].items()
+                                       if key in {"passed", "checks", "failures", "hz", "scope"}}
+    print(json.dumps(progress), flush=True)
     write_json(logs / (name + ".json"), row)
     require(row["passed"], f"{name} failed; see {logs / (name + '.log')}")
     return row
@@ -244,6 +268,163 @@ def checksums(directory: Path) -> None:
     (directory / "CHECKSUMS.sha256").write_text("\n".join(rows) + "\n", encoding="utf-8")
 
 
+def copy_player_guides(frozen: Path, package: Path) -> dict[str, str]:
+    guides = {"README.md": "PROJECT_README.md",
+              "campaign/docs/LOCAL_PLAYTEST.md": "LOCAL_PLAYTEST.md",
+              "campaign/docs/NOV6_GAMEPAD.md": "NOV6_GAMEPAD.md",
+              "campaign/docs/NOV6_CHANGES.md": "NOV6_CHANGES.md"}
+    destination = package / "docs"
+    destination.mkdir()
+    included = {}
+    for relative, filename in guides.items():
+        require((frozen / relative).is_file(), f"Player guide missing from source freeze: {relative}")
+        shutil.copy2(frozen / relative, destination / filename)
+        included["docs/" + filename] = sha(destination / filename)
+        require(included["docs/" + filename] == sha(frozen / relative), f"Player guide changed while copying: {relative}")
+    return included
+
+
+def verify_source_members(archive: Path, root_name: str, source_hashes: dict[str, str]) -> None:
+    """Require every original Git file, including tests/docs, at its exact hash."""
+    with zipfile.ZipFile(archive) as zipped:
+        for relative, digest in source_hashes.items():
+            name = root_name + "/" + relative
+            require(name in zipped.namelist(), f"Source file omitted from archive: {relative}")
+            require(hashlib.sha256(zipped.read(name)).hexdigest() == digest, f"Source archive drift: {relative}")
+
+
+def verify_full_history(bundle: Path, commit: str, source_hashes: dict[str, str], destination: Path) -> dict:
+    """Restore into a new bare repository, with no dependence on the checkout."""
+    require(not destination.exists(), "History verification requires a new bare repository")
+    subprocess.run(["git", "clone", "--bare", "--quiet", str(bundle), str(destination)], check=True, capture_output=True)
+    subprocess.run(["git", "--git-dir", str(destination), "cat-file", "-e", commit + "^{commit}"], check=True, capture_output=True)
+    subprocess.run(["git", "--git-dir", str(destination), "fsck", "--full", "--no-reflogs"], check=True, capture_output=True)
+    restored = subprocess.run(["git", "--git-dir", str(destination), "archive", "--format=tar", commit], check=True, capture_output=True)
+    restored_hashes = {}
+    with tarfile.open(fileobj=io.BytesIO(restored.stdout)) as archive:
+        for member in archive.getmembers():
+            if member.isfile():
+                stream = archive.extractfile(member)
+                require(stream is not None, f"Missing restored history blob: {member.name}")
+                restored_hashes[member.name] = hashlib.sha256(stream.read()).hexdigest()
+    require(restored_hashes == source_hashes, "Full-history restoration does not reproduce every frozen source file")
+    return {"self_contained_bare_clone": True, "git_fsck_passed": True, "source_commit": commit,
+            "restored_source_files_verified": len(source_hashes), "bundle_sha256": sha(bundle)}
+
+
+def package_source_variants(frozen: Path, source_hashes: dict[str, str], commit: str,
+                            runtime_commit: str, bundle: Path, pck_sha256: str,
+                            dist: Path, output: Path) -> dict:
+    """Preserve full source/history while offering two naturally smaller files.
+
+    The `source` result is the complete editable source variant intended to
+    replace an existing source Library identity. `history` is its separate full
+    Git-history companion. `source_and_history` is the canonical combined copy.
+    No source/tests/docs are filtered and nothing is split into binary pieces.
+    """
+    source = dist / "MOKSHA-Source"
+    shutil.copytree(frozen, source)
+    for reserved in ("DELIVERY_SOURCE_MANIFEST.json", "START_HERE_SOURCE.txt"):
+        require(not (source / reserved).exists(), f"Generated source note would overwrite a Git file: {reserved}")
+    bundle_hash = sha(bundle)
+    source_filename = f"MOKSHA-Editable-Source-{commit[:7]}.zip"
+    history_filename = f"MOKSHA-Full-History-{commit[:7]}.zip"
+    canonical_filename = f"MOKSHA-Source-and-History-{commit[:7]}.zip"
+    manifest = {"source_commit": commit, "runtime_commit": runtime_commit, "runtime_matches_freeze": True,
+                "source_sha256": source_hashes, "pck_sha256": pck_sha256,
+                "history_bundle_sha256": bundle_hash, "history_bundle_bytes": bundle.stat().st_size,
+                "history_companion": history_filename, "canonical_archive": canonical_filename,
+                "variant": "complete editable source; full Git history is a separate companion",
+                "all_source_tests_and_docs_preserved": True}
+    write_json(source / "DELIVERY_SOURCE_MANIFEST.json", manifest)
+    (source / "START_HERE_SOURCE.txt").write_text(f"""MOKSHA / COMPLETE EDITABLE SOURCE
+
+Extract this entire ZIP and open project.godot in Godot 4.6.3.
+It contains every file from source commit {commit}, including all source code,
+assets, tests, documentation, and committed verification evidence.
+The playable Windows ZIP is a separate download; this is the editable project.
+
+To keep this download small, full Git history is delivered separately in:
+{history_filename}
+No source, tests, or documents were removed to reduce the ZIP size.
+The separate history companion is only needed to inspect or restore Git history.
+
+For a single archival copy containing both source and full history, use:
+{canonical_filename}
+DELIVERY_SOURCE_MANIFEST.json records every source-file checksum and the exact
+full-history bundle checksum. Existing source and prior deliveries are preserved.
+""", encoding="utf-8")
+    source_result = archive_tree(source, output / source_filename)
+    verify_source_members(Path(source_result["path"]), source.name, source_hashes)
+    source_result.update({"role": "complete_editable_source", "intended_library_identity": "existing_editable_source",
+                          "all_source_files_verified": len(source_hashes), "history_embedded": False})
+
+    history = dist / "MOKSHA-History"
+    history.mkdir()
+    shutil.copy2(bundle, history / "MOKSHA-source-history.bundle")
+    write_json(history / "HISTORY_MANIFEST.json", {"source_commit": commit, "runtime_commit": runtime_commit,
+                                                  "bundle_sha256": bundle_hash, "bundle_bytes": bundle.stat().st_size,
+                                                  "scope": "Complete self-contained Git bundle of all repository refs"})
+    (history / "START_HERE_HISTORY.txt").write_text(f"""MOKSHA / FULL GIT HISTORY COMPANION
+
+This is the complete repository history, not an incremental patch. The editable
+project is supplied separately in {source_filename}.
+You do not need this companion to open that project in Godot or play the game.
+
+If Git is installed, extract this ZIP and run from this folder:
+git clone MOKSHA-source-history.bundle MOKSHA-recovered
+cd MOKSHA-recovered
+git checkout {commit}
+
+This creates a new recovered folder without modifying your existing project.
+Bundle SHA-256: {bundle_hash}
+The canonical combined source-and-history archive is {canonical_filename}.
+""", encoding="utf-8")
+    checksums(history)
+    history_result = archive_tree(history, output / history_filename)
+    with zipfile.ZipFile(history_result["path"]) as zipped:
+        require(hashlib.sha256(zipped.read(history.name + "/MOKSHA-source-history.bundle")).hexdigest() == bundle_hash,
+                "History companion bundle differs from verified full bundle")
+    history_result.update({"role": "full_git_history_companion", "intended_library_identity": "new_history_companion",
+                           "bundle_sha256": bundle_hash, "self_contained_history": True})
+
+    canonical = dist / "MOKSHA-Source-and-History"
+    shutil.copytree(source, canonical)
+    (canonical / "history").mkdir(exist_ok=True)
+    require(not (canonical / "history/MOKSHA-source-history.bundle").exists(), "Refusing to replace a committed history file")
+    shutil.copy2(bundle, canonical / "history/MOKSHA-source-history.bundle")
+    manifest["variant"] = "canonical complete editable source plus embedded full Git history"
+    manifest["history_embedded_path"] = "history/MOKSHA-source-history.bundle"
+    write_json(canonical / "DELIVERY_SOURCE_MANIFEST.json", manifest)
+    (canonical / "START_HERE_SOURCE.txt").write_text(f"""MOKSHA / CANONICAL SOURCE AND FULL HISTORY
+
+This is the complete archival copy for source commit {commit}.
+Open project.godot in Godot 4.6.3 to edit the game. Every source file, asset,
+test, document, and committed verification record is preserved.
+Full repository history is included in history/MOKSHA-source-history.bundle.
+
+For smaller downloads containing the same material, use these two companions:
+{source_filename}
+{history_filename}
+
+DELIVERY_SOURCE_MANIFEST.json records source and full-history checksums.
+This is source material, not a native Windows execution verification.
+""", encoding="utf-8")
+    canonical_result = archive_tree(canonical, output / canonical_filename)
+    verify_source_members(Path(canonical_result["path"]), canonical.name, source_hashes)
+    with zipfile.ZipFile(canonical_result["path"]) as zipped:
+        require(hashlib.sha256(zipped.read(canonical.name + "/history/MOKSHA-source-history.bundle")).hexdigest() == bundle_hash,
+                "Canonical history bundle mismatch")
+    canonical_result.update({"role": "canonical_source_and_full_history", "intended_library_identity": "canonical_preservation_copy",
+                             "all_source_files_verified": len(source_hashes), "history_embedded": True,
+                             "bundle_sha256": bundle_hash})
+    results = {"source": source_result, "history": history_result, "source_and_history": canonical_result}
+    for result in results.values():
+        result["small_attachment_limit_bytes"] = SMALL_ATTACHMENT_LIMIT
+        result["under_small_attachment_limit"] = result["bytes"] < SMALL_ATTACHMENT_LIMIT
+    return results
+
+
 def readme(platform: str, commit: str, engine: str) -> str:
     start = ("Extract the complete ZIP to a folder, then double-click MOKSHA.exe.\n"
              "Keep MOKSHA.exe and MOKSHA.pck together. No editor install is needed.\n"
@@ -262,12 +443,16 @@ A/D: move. Space: jump. W/S: ladder. S+Space: drop/dive.
 J: attack. K: guard/parry. Shift: roll. E: interact. Q: sound pulse.
 Tab: journal/navigation. Esc: pause. R: retry district. M: mute.
 Follow the in-game prompts for choices, upgrades, and any newer controls.
+See docs/NOV6_GAMEPAD.md for controller button mappings and modal controls,
+docs/LOCAL_PLAYTEST.md for the play guide, and docs/NOV6_CHANGES.md for changes.
 
 Frozen source: {commit}
 Engine: {engine}
 The actual packed game passed isolated Linux/headless checks, including all
 district loads, script hashes, presentation concealment, incoming damage,
-save/Continue, and journal behavior. Detailed receipts are in BUILD_REPORT.json.
+save/Continue, journal behavior, and synthetic controller/menu events. Detailed
+receipts are in BUILD_REPORT.json. Controller events were synthesized through
+the real input pipeline, not tested on physical controller hardware.
 These are focused fixtures, not a complete human playthrough or a Windows test.
 Human completion time, native Windows operation, and other devices remain unverified.
 
@@ -281,6 +466,7 @@ normal Godot user-data directory, separate from these portable program files.
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-commit", required=True)
+    parser.add_argument("--runtime-commit", help="Earlier approved gameplay freeze; all packaged runtime paths must be unchanged")
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--windows-archive", required=True, type=Path)
     parser.add_argument("--godot", default=shutil.which("godot") or "godot")
@@ -293,6 +479,10 @@ def main() -> int:
     prior = args.windows_archive.resolve()
     require(prior.is_file() and sha(prior) == EXPECTED_WINDOWS_ZIP_SHA256, "Prior Windows archive does not match trusted provenance")
     commit = subprocess.check_output(["git", "rev-parse", "--verify", args.source_commit + "^{commit}"], cwd=ROOT, text=True).strip()
+    runtime_commit = subprocess.check_output(["git", "rev-parse", "--verify", (args.runtime_commit or commit) + "^{commit}"], cwd=ROOT, text=True).strip()
+    changed_paths = subprocess.check_output(["git", "diff", "--name-only", "--no-renames", runtime_commit, commit, "--"], cwd=ROOT, text=True).splitlines()
+    runtime_drift = [path for path in changed_paths if included_runtime(Path(path))]
+    require(not runtime_drift, f"Runtime changed after approved freeze {runtime_commit}: {runtime_drift}")
     engine = Path(args.godot).resolve()
     require(engine.is_file(), "Godot executable is missing")
     output.mkdir(parents=True)
@@ -313,7 +503,8 @@ def main() -> int:
             shutil.copy2(frozen / relative, target)
             production[relative] = digest
     require("project.godot" in production and "campaign/logic/campaign.gd" in production, "Missing campaign entry point")
-    provenance = {"source_commit": commit, "engine": version, "production_sha256": production,
+    provenance = {"source_commit": commit, "runtime_commit": runtime_commit,
+                  "runtime_matches_freeze": True, "engine": version, "production_sha256": production,
                   "scope": "Immutable Git snapshot; source resource inputs before Godot import/export"}
     write_json(stage / "BUILD_PROVENANCE.json", provenance)
     (stage / "export_presets.cfg").write_text(PRESET, encoding="utf-8")
@@ -326,9 +517,23 @@ def main() -> int:
     require(pack.is_file() and pack.read_bytes()[:4] == b"GDPC", "Invalid exported PCK")
     test_root = output / "pack-only-run"
     test_root.mkdir()
+    external_fixtures = output / "external-fixtures"
+    external_fixtures.mkdir()
+    fixture_hashes = {}
+
+    def frozen_fixture(relative: str) -> Path:
+        require(relative in source_hashes, f"Required frozen fixture missing: {relative}")
+        path = external_fixtures / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if not path.exists():
+            shutil.copy2(frozen / relative, path)
+        require(sha(path) == source_hashes[relative], f"External fixture differs from frozen commit: {relative}")
+        fixture_hashes[relative] = source_hashes[relative]
+        return path
 
     def packed_check(name: str, script: Path | None, marker: str | None, pck: Path = pack,
-                     binary: Path = engine, hz: int | None = None) -> None:
+                     binary: Path = engine, hz: int | None = None, result_prefix: str | None = None) -> None:
+        require(not any(test_root.iterdir()), "Packed test working directory must contain no loose resources")
         command = [str(binary), "--headless", "--path", str(test_root), "--main-pack", str(pck)]
         if script is None:
             command += ["--quit-after", "10"]
@@ -336,7 +541,14 @@ def main() -> int:
             command += ["--script", str(script)]
         if hz is not None:
             command += ["--fixed-fps", str(hz), "--", "--hz=" + str(hz)]
-        reports.append(command_check(name, command, test_root, isolated_environment(output / "isolated", name), logs, marker))
+        row = command_check(name, command, test_root, isolated_environment(output / "isolated", name), logs, marker, result_prefix=result_prefix)
+        row["pck_sha256"] = sha(pck)
+        row["resource_working_directory_empty"] = not any(test_root.iterdir())
+        require(row["resource_working_directory_empty"], "Packed fixture wrote loose resources into the test working directory")
+        if script is not None:
+            row["external_script_sha256"] = sha(script)
+        write_json(logs / (name + ".json"), row)
+        reports.append(row)
 
     packed_check("packed_title", None, None)
     packed_check("packed_audit", audit, "PACK_AUDIT_PASS")
@@ -347,19 +559,30 @@ def main() -> int:
     ]
     for hz in (60, 120):
         for name, relative, marker in fixtures:
-            require((frozen / relative).is_file(), f"Required frozen fixture missing: {relative}")
-            packed_check(f"packed_{name}_{hz}", frozen / relative, marker, hz=hz)
+            packed_check(f"packed_{name}_{hz}", frozen_fixture(relative), marker, hz=hz)
+        for name, relative, prefix in [
+            ("gamepad_navigation", "campaign/quality/nov6_gamepad_navigation.gd", "NOV6_GAMEPAD_NAVIGATION_RESULT "),
+            ("independent_controller", "campaign/quality/nov6_independent_controller.gd", "NOV6_INDEPENDENT_CONTROLLER "),
+            ("paused_release", "campaign/quality/nov6_independent_paused_release.gd", "NOV6_INDEPENDENT_PAUSED_RELEASE "),
+            ("runtime_lifecycle", "campaign/quality/nov6_runtime_lifecycle.gd", "NOV6_RUNTIME_LIFECYCLE_RESULT "),
+        ]:
+            packed_check(f"packed_{name}_{hz}", frozen_fixture(relative), prefix, hz=hz, result_prefix=prefix)
+    focus_prefix = "NOV6_INDEPENDENT_FOCUS_UPGRADE "
+    packed_check("packed_focus_upgrade", frozen_fixture("campaign/quality/nov6_independent_focus_upgrade.gd"), focus_prefix, result_prefix=focus_prefix)
     require(all(sha(frozen / name) == digest for name, digest in source_hashes.items()), "Frozen source drift during verification")
     prior_extracted = output / "prior-runtime"
     extract_zip(prior, prior_extracted)
     old = prior_extracted / "MOKSHA-Windows"
     require(sha(old / "MOKSHA.exe") == EXPECTED_WINDOWS_EXE_SHA256, "Windows runtime hash mismatch")
     base_report = {
-        "source_commit": commit, "engine": version, "pck_sha256": sha(pack),
+        "source_commit": commit, "runtime_commit": runtime_commit,
+        "runtime_matches_freeze": True, "engine": version, "pck_sha256": sha(pack),
         "source_files": len(source_hashes), "runtime_source_files": len(production),
         "linux_engine_sha256": sha(engine), "windows_runtime_sha256": sha(old / "MOKSHA.exe"),
         "prior_windows_archive_sha256": sha(prior), "windows_executed": False,
         "complete_campaign_playthrough": False, "human_duration_validated": False,
+        "physical_controller_hardware_tested": False,
+        "external_fixture_sha256": fixture_hashes,
         "checks": reports, "rehearsal": args.rehearsal,
     }
     if args.rehearsal:
@@ -381,6 +604,7 @@ def main() -> int:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(path, target)
     shutil.copy2(old / "template-verification.json", windows / "template-verification.json")
+    base_report["player_guide_sha256"] = copy_player_guides(frozen, windows)
     (windows / "START_HERE.txt").write_text(readme("Windows", commit, version), encoding="utf-8")
     (windows / "Run-MOKSHA.cmd").write_bytes(b'@echo off\r\nsetlocal\r\ncd /d "%~dp0"\r\nif not exist "MOKSHA.pck" (\r\n  echo Extract the complete ZIP first. MOKSHA.pck is missing.\r\n  pause\r\n  exit /b 1\r\n)\r\nstart "MOKSHA" /D "%~dp0" "%~dp0MOKSHA.exe" --rendering-method gl_compatibility\r\n')
     write_json(windows / "BUILD_REPORT.json", base_report)
@@ -400,6 +624,7 @@ def main() -> int:
         (linux / "MOKSHA").chmod(0o755)
         shutil.copy2(pack, linux / "MOKSHA.pck")
         shutil.copytree(windows / "licenses", linux / "licenses")
+        shutil.copytree(windows / "docs", linux / "docs")
         (linux / "Start-MOKSHA.sh").write_text('#!/bin/sh\nset -eu\nHERE=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)\ncd "$HERE"\nexec "$HERE/MOKSHA" --path "$HERE" --main-pack "$HERE/MOKSHA.pck" --rendering-method gl_compatibility "$@"\n', encoding="utf-8")
         (linux / "Start-MOKSHA.sh").chmod(0o755)
         (linux / "START_HERE.txt").write_text(readme("Linux", commit, version), encoding="utf-8")
@@ -411,17 +636,14 @@ def main() -> int:
         checksums(linux)
         archives["linux"] = archive_tree(linux, output / f"MOKSHA-Linux-x64-{commit[:7]}.zip")
 
-    source = dist / "MOKSHA-Source"
-    shutil.copytree(frozen, source)
-    (source / "history").mkdir(exist_ok=True)
-    bundle = source / "history/MOKSHA-source-history.bundle"
+    bundle = output / "MOKSHA-source-history.bundle"
     require(not bundle.exists(), "Refusing to overwrite historical source bundle")
     subprocess.run(["git", "bundle", "create", str(bundle), "--all"], cwd=ROOT, check=True, capture_output=True)
     subprocess.run(["git", "bundle", "verify", str(bundle)], cwd=ROOT, check=True, capture_output=True)
-    write_json(source / "DELIVERY_SOURCE_MANIFEST.json", {"source_commit": commit, "source_sha256": source_hashes,
-                                                        "history_bundle_sha256": sha(bundle), "pck_sha256": sha(pack)})
-    archives["source"] = archive_tree(source, output / f"MOKSHA-Source-and-History-{commit[:7]}.zip")
-    final = dict(base_report, archives=archives, checks=reports, passed=all(row["passed"] for row in reports))
+    history_verification = verify_full_history(bundle, commit, source_hashes, output / "history-verification.git")
+    archives.update(package_source_variants(frozen, source_hashes, commit, runtime_commit, bundle, sha(pack), dist, output))
+    final = dict(base_report, archives=archives, checks=reports, history_verification=history_verification,
+                 passed=all(row["passed"] for row in reports))
     write_json(output / "DELIVERY_REPORT.json", final)
     print(json.dumps({"passed": final["passed"], "source_commit": commit, "report": str(output / "DELIVERY_REPORT.json"),
                       "archives": {key: {k: v for k, v in row.items() if k != "members"} for key, row in archives.items()}}, indent=2))

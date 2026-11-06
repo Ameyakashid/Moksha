@@ -1,0 +1,40 @@
+{
+  "name": "independent_focus_upgrade_60",
+  "command": [
+    "godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-f00bf23/project",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "res://campaign/quality/nov6_independent_focus_upgrade.gd",
+    "--",
+    "--hz=60"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "checks": 13,
+      "failures": [],
+      "passed": true,
+      "retry_observation": {
+        "old_level_exit": 5,
+        "receipts": [],
+        "sector": 5,
+        "upgrades": []
+      },
+      "scope": "Initialized authored level completion plus genuine keyboard exit/focus commands, not boss/goal playthrough.",
+      "title_observation": {
+        "receipts": [],
+        "sector": 5,
+        "upgrades": []
+      }
+    }
+  },
+  "wall_seconds": 1.994,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-f00bf23/focused/independent_focus_upgrade_60/engine.log"
+}

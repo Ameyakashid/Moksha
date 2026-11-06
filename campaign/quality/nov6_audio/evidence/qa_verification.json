@@ -1,0 +1,105 @@
+{
+  "checks": [
+    {
+      "script": "contract",
+      "hz": 60,
+      "exit": 0,
+      "marker_count": 1,
+      "checks": 67,
+      "passed": true,
+      "diagnostics": [],
+      "log": "/tmp/moksha-nov6-audio-qa/contract_60.log"
+    },
+    {
+      "script": "contract",
+      "hz": 120,
+      "exit": 0,
+      "marker_count": 1,
+      "checks": 67,
+      "passed": true,
+      "diagnostics": [],
+      "log": "/tmp/moksha-nov6-audio-qa/contract_120.log"
+    },
+    {
+      "script": "event_routing",
+      "hz": 60,
+      "exit": 0,
+      "marker_count": 1,
+      "checks": 23,
+      "passed": true,
+      "diagnostics": [],
+      "log": "/tmp/moksha-nov6-audio-qa/event_routing_60.log"
+    },
+    {
+      "script": "event_routing",
+      "hz": 120,
+      "exit": 0,
+      "marker_count": 1,
+      "checks": 23,
+      "passed": true,
+      "diagnostics": [],
+      "log": "/tmp/moksha-nov6-audio-qa/event_routing_120.log"
+    },
+    {
+      "script": "native_headless_guard",
+      "exit": 1,
+      "marker_count": 1,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "runtime_sources_unchanged": true,
+  "runtime_sha256": {
+    "campaign/logic/campaign.gd": "00d4320a946148f50170d1738a7627e00ebb1851f021c7ae99cbb62574569371",
+    "campaign/logic/campaign_input_gate.gd": "41ba5f93cb6318f6740ed310be2f17d75ede4288bb8b6a8c3f5d0f570f5bf944",
+    "campaign/presentation/audio_feedback.gd": "98662a2fb0dadc830d26022a435c25862f749d93b9674dc78f1ef0b8f3b0cde5",
+    "scripts/systems/audio_director.gd": "b0a9be1a1e6bf3f3b8493d7054d8674fe81cd0a13fe716949e3fdb2b1de72946",
+    "demo/mission.gd": "7d60745fa9a0ed65c09ff9d6123021d53dede9523569c5c8cc983083cebbc317",
+    "combat_pc/player.gd": "6cd582c819d5297096205754d30d7c7bbc25021822390117edc71378ecbe43ea"
+  },
+  "scope": "Headless 60/120 Hz integration of adapted reproducible QA; native original/fixed evidence is separately preserved.",
+  "report_io_checks": [
+    {
+      "test": "invalid_hz",
+      "passed": true,
+      "exit": 1,
+      "marker_count": 1,
+      "failures": [
+        "--hz must be 60 or 120"
+      ],
+      "output": "/tmp/moksha-nov6-audio-qa/invalid_hz.json"
+    },
+    {
+      "test": "reject_source",
+      "passed": true,
+      "exit": 1,
+      "marker_count": 1,
+      "failures": [
+        "--output must be user:// or an absolute path outside the project"
+      ],
+      "output": null
+    },
+    {
+      "test": "default_user_data",
+      "passed": true,
+      "exit": 0,
+      "marker_count": 1,
+      "failures": [],
+      "output": "/tmp/moksha-nov6-audio-qa/data/godot/app_userdata/MOKSHA \u2014 Five Ascents/nov6_audio/contract_60hz.json"
+    }
+  ],
+  "native_adapted": {
+    "checks": 8,
+    "passed": true,
+    "failures": [],
+    "driver": "Dummy",
+    "display": "X11",
+    "receipt": "native_portable_final.json",
+    "scope": "Native playback lifecycle only, not listening or soundcard output. Window returned to the terminal."
+  },
+  "qa_source_sha256": {
+    "native_probe.gd": "17b41569623d5f343b054537d166a855ea6e0e4edb09d2ffffa97da5b7071c47",
+    "event_routing.gd": "e2ae3de22599668d2efff29a813c22d13de5fa282a2a63bd8a2ddc4815f2f1f0",
+    "contract.gd": "9452366c13560eec1a07be26b50d7781510ba876be6aef972262ef0ae61cf0ed"
+  }
+}

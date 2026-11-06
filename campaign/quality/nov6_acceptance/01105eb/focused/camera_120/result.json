@@ -1,0 +1,29 @@
+{
+  "name": "camera_120",
+  "command": [
+    "godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-01105eb/project",
+    "--fixed-fps",
+    "120",
+    "--script",
+    "res://campaign/quality/nov6_camera/camera_contract.gd",
+    "--",
+    "--hz=120"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "checks": 384,
+      "failures": [],
+      "passed": true,
+      "scope": "Presentation-only mathematical trajectory checks; not native motion acceptance"
+    }
+  },
+  "wall_seconds": 1.29,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-01105eb/focused/camera_120/engine.log"
+}

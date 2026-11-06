@@ -1,0 +1,231 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "name": "trace_helper_60_stale",
+      "hz": 60,
+      "repair": false,
+      "exit_code": 0,
+      "engine_errors": [],
+      "wall_seconds": 3.423733001999608,
+      "reached_next_district": false,
+      "delivered": false,
+      "rescue_strikes": 0,
+      "actual_seconds": 2.98333333333333,
+      "deaths": 0,
+      "failures": [],
+      "stall": {
+        "position": "(3214.519, 239.98)",
+        "freight": {
+          "hit_count": 3,
+          "id": 204799478725,
+          "intact": true,
+          "latched": false,
+          "position": "(3290.07, 226.211)",
+          "replacement_count": 1,
+          "spin": -2.91323942747113e-08,
+          "status": "in_transit",
+          "velocity": "(-0.0, 0.0)"
+        },
+        "blocked": {},
+        "raw_input": {},
+        "goals": [
+          {
+            "available": true,
+            "completed": false,
+            "id": "delivery_tag"
+          },
+          {
+            "available": false,
+            "completed": false,
+            "id": "receiver_bus"
+          },
+          {
+            "available": false,
+            "completed": false,
+            "id": "handoff"
+          },
+          {
+            "available": true,
+            "completed": false,
+            "id": "carrier_note"
+          }
+        ],
+        "receiver_status": "in_transit",
+        "receiver_supported_and_slow": false,
+        "cargo_receiver_local": "(-79.92969, -43.78897)"
+      },
+      "passed": true
+    },
+    {
+      "name": "trace_helper_60_repair",
+      "hz": 60,
+      "repair": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "wall_seconds": 24.44554146900009,
+      "reached_next_district": true,
+      "delivered": true,
+      "rescue_strikes": 1,
+      "actual_seconds": 32.5333333333327,
+      "deaths": 0,
+      "failures": [],
+      "stall": {
+        "position": "(3214.519, 239.98)",
+        "freight": {
+          "hit_count": 3,
+          "id": 204799478725,
+          "intact": true,
+          "latched": false,
+          "position": "(3290.07, 226.211)",
+          "replacement_count": 1,
+          "spin": -2.91323942747113e-08,
+          "status": "in_transit",
+          "velocity": "(-0.0, 0.0)"
+        },
+        "blocked": {},
+        "raw_input": {},
+        "goals": [
+          {
+            "available": true,
+            "completed": false,
+            "id": "delivery_tag"
+          },
+          {
+            "available": false,
+            "completed": false,
+            "id": "receiver_bus"
+          },
+          {
+            "available": false,
+            "completed": false,
+            "id": "handoff"
+          },
+          {
+            "available": true,
+            "completed": false,
+            "id": "carrier_note"
+          }
+        ],
+        "receiver_status": "in_transit",
+        "receiver_supported_and_slow": false,
+        "cargo_receiver_local": "(-79.92969, -43.78897)"
+      },
+      "passed": true
+    },
+    {
+      "name": "trace_helper_120_stale",
+      "hz": 120,
+      "repair": false,
+      "exit_code": 0,
+      "engine_errors": [],
+      "wall_seconds": 6.130867799000043,
+      "reached_next_district": false,
+      "delivered": false,
+      "rescue_strikes": 0,
+      "actual_seconds": 2.99166666666666,
+      "deaths": 0,
+      "failures": [],
+      "stall": {
+        "position": "(3214.519, 239.98)",
+        "freight": {
+          "hit_count": 3,
+          "id": 204799478725,
+          "intact": true,
+          "latched": false,
+          "position": "(3290.124, 226.1886)",
+          "replacement_count": 1,
+          "spin": 0.0,
+          "status": "in_transit",
+          "velocity": "(0.0, 0.0)"
+        },
+        "blocked": {},
+        "raw_input": {},
+        "goals": [
+          {
+            "available": true,
+            "completed": false,
+            "id": "delivery_tag"
+          },
+          {
+            "available": false,
+            "completed": false,
+            "id": "receiver_bus"
+          },
+          {
+            "available": false,
+            "completed": false,
+            "id": "handoff"
+          },
+          {
+            "available": true,
+            "completed": false,
+            "id": "carrier_note"
+          }
+        ],
+        "receiver_status": "in_transit",
+        "receiver_supported_and_slow": false,
+        "cargo_receiver_local": "(-79.87573, -43.81145)"
+      },
+      "passed": true
+    },
+    {
+      "name": "trace_helper_120_repair",
+      "hz": 120,
+      "repair": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "wall_seconds": 46.99852087999989,
+      "reached_next_district": true,
+      "delivered": true,
+      "rescue_strikes": 1,
+      "actual_seconds": 40.4583333333317,
+      "deaths": 0,
+      "failures": [],
+      "stall": {
+        "position": "(3214.519, 239.98)",
+        "freight": {
+          "hit_count": 3,
+          "id": 204799478725,
+          "intact": true,
+          "latched": false,
+          "position": "(3290.124, 226.1886)",
+          "replacement_count": 1,
+          "spin": 0.0,
+          "status": "in_transit",
+          "velocity": "(0.0, 0.0)"
+        },
+        "blocked": {},
+        "raw_input": {},
+        "goals": [
+          {
+            "available": true,
+            "completed": false,
+            "id": "delivery_tag"
+          },
+          {
+            "available": false,
+            "completed": false,
+            "id": "receiver_bus"
+          },
+          {
+            "available": false,
+            "completed": false,
+            "id": "handoff"
+          },
+          {
+            "available": true,
+            "completed": false,
+            "id": "carrier_note"
+          }
+        ],
+        "receiver_status": "in_transit",
+        "receiver_supported_and_slow": false,
+        "cargo_receiver_local": "(-79.87573, -43.81145)"
+      },
+      "passed": true
+    }
+  ],
+  "probe_sha256": "926e7357627a74f9cb17179af6c6f8fd51ee33edb82290dab7f873d3df4638cc",
+  "scope": "Explicit trace-position initial fixture, not exact save replay. Original full failure proves occurrence; paired measured recovery uses only ordinary inputs."
+}

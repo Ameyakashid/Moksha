@@ -1,0 +1,435 @@
+{
+  "passed": true,
+  "source_sha256": {
+    "campaign/logic/campaign.gd": "ff2327bd9f086032033cc40cea812f6a40aee28331d1d71c65fca5a15e4d9a2f",
+    "campaign/logic/campaign_input_gate.gd": "39e6202cf413a26a95b3c8319e568a67c7bf40aa6bed8ec4be1ffb1d115209df",
+    "combat_pc/player.gd": "6cd582c819d5297096205754d30d7c7bbc25021822390117edc71378ecbe43ea",
+    "campaign/quality/nov6_gameplay_exchange_probe.gd": "e0b39f791879f659c70cbc968edc24cd8fec7e44e1a666eebc59c7db0114338d",
+    "campaign/quality/nov6_modal_route_input.gd": "437b6871800db7991182990565f85a6ddbbf6b1ca378d809db4a3efd8af74c58",
+    "campaign/quality/nov6_modal_route_observer_test.gd": "fc106d71cdef3c3cdd8e2a5d78c7e005da5834d4c491f8c9fb4872ea580ee67d",
+    "campaign/quality/nov6_full_campaign_route.gd": "704dbb2e00ba29bbfb0812588cdb941b54b0daf070a9ec3d8fd9e59da8ee2fe2",
+    "campaign/quality/nov6_full_campaign_strength_route.gd": "028be9140c1401111b7708e61149078ac689a3b3d259a754822dd8eb743c63b1",
+    "campaign/quality/nov6_full_campaign_route_120_sonar.gd": "4c780cd6ae02cd24cccbceb0e4398f8ace05c2d2c90a8b8aa44ade2f2c2fbc66"
+  },
+  "source_drift": [],
+  "cases": [
+    {
+      "name": "l2_exchange_neutral_60_stale",
+      "passed": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "active_seconds": 13.9833333333336,
+      "reached_next_district": false,
+      "stall_position": "(1553.764, 28.70223)",
+      "blocked": {
+        "right": true
+      },
+      "raw": {
+        "jump": true,
+        "right": 1.0
+      },
+      "admitted_x": 0.0,
+      "wall_seconds": 9.721,
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://campaign/quality/nov6_gameplay_exchange_probe.gd",
+        "--",
+        "--hz=60",
+        "--lens=neutral",
+        "--district=l2_exchange",
+        "--seconds=240",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-modal-observer-checks-v1/l2_exchange_neutral_60_stale.json"
+      ]
+    },
+    {
+      "name": "l2_exchange_neutral_60_release",
+      "passed": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "active_seconds": 25.6333333333332,
+      "reached_next_district": true,
+      "stall_position": null,
+      "blocked": null,
+      "raw": null,
+      "admitted_x": null,
+      "wall_seconds": 15.821,
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://campaign/quality/nov6_gameplay_exchange_probe.gd",
+        "--",
+        "--hz=60",
+        "--lens=neutral",
+        "--district=l2_exchange",
+        "--seconds=240",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-modal-observer-checks-v1/l2_exchange_neutral_60_release.json",
+        "--release-after-modal"
+      ]
+    },
+    {
+      "name": "l2_exchange_strength_60_stale",
+      "passed": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "active_seconds": 13.2833333333336,
+      "reached_next_district": false,
+      "stall_position": "(1549.43, 28.70223)",
+      "blocked": {
+        "right": true
+      },
+      "raw": {
+        "jump": true,
+        "right": 1.0
+      },
+      "admitted_x": 0.0,
+      "wall_seconds": 9.999,
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://campaign/quality/nov6_gameplay_exchange_probe.gd",
+        "--",
+        "--hz=60",
+        "--lens=strength",
+        "--district=l2_exchange",
+        "--seconds=240",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-modal-observer-checks-v1/l2_exchange_strength_60_stale.json"
+      ]
+    },
+    {
+      "name": "l2_exchange_strength_60_release",
+      "passed": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "active_seconds": 27.5333333333331,
+      "reached_next_district": true,
+      "stall_position": null,
+      "blocked": null,
+      "raw": null,
+      "admitted_x": null,
+      "wall_seconds": 14.414,
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://campaign/quality/nov6_gameplay_exchange_probe.gd",
+        "--",
+        "--hz=60",
+        "--lens=strength",
+        "--district=l2_exchange",
+        "--seconds=240",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-modal-observer-checks-v1/l2_exchange_strength_60_release.json",
+        "--release-after-modal"
+      ]
+    },
+    {
+      "name": "l3_homes_agility_60_stale",
+      "passed": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "active_seconds": 17.2000000000003,
+      "reached_next_district": false,
+      "stall_position": "(2960.11, 299.98)",
+      "blocked": {
+        "left": true
+      },
+      "raw": {
+        "left": 1.0
+      },
+      "admitted_x": 0.0,
+      "wall_seconds": 13.077,
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://campaign/quality/nov6_gameplay_exchange_probe.gd",
+        "--",
+        "--hz=60",
+        "--lens=agility",
+        "--district=l3_homes",
+        "--seconds=240",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-modal-observer-checks-v1/l3_homes_agility_60_stale.json"
+      ]
+    },
+    {
+      "name": "l3_homes_agility_60_release",
+      "passed": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "active_seconds": 28.733333333333,
+      "reached_next_district": true,
+      "stall_position": null,
+      "blocked": null,
+      "raw": null,
+      "admitted_x": null,
+      "wall_seconds": 20.34,
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://campaign/quality/nov6_gameplay_exchange_probe.gd",
+        "--",
+        "--hz=60",
+        "--lens=agility",
+        "--district=l3_homes",
+        "--seconds=240",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-modal-observer-checks-v1/l3_homes_agility_60_release.json",
+        "--release-after-modal"
+      ]
+    },
+    {
+      "name": "l2_exchange_neutral_120_stale",
+      "passed": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "active_seconds": 13.5833333333332,
+      "reached_next_district": false,
+      "stall_position": "(1550.706, 23.57721)",
+      "blocked": {
+        "right": true
+      },
+      "raw": {
+        "jump": true,
+        "right": 1.0
+      },
+      "admitted_x": 0.0,
+      "wall_seconds": 15.685,
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "120",
+        "--script",
+        "res://campaign/quality/nov6_gameplay_exchange_probe.gd",
+        "--",
+        "--hz=120",
+        "--lens=neutral",
+        "--district=l2_exchange",
+        "--seconds=240",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-modal-observer-checks-v1/l2_exchange_neutral_120_stale.json"
+      ]
+    },
+    {
+      "name": "l2_exchange_neutral_120_release",
+      "passed": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "active_seconds": 25.9499999999992,
+      "reached_next_district": true,
+      "stall_position": null,
+      "blocked": null,
+      "raw": null,
+      "admitted_x": null,
+      "wall_seconds": 25.613,
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "120",
+        "--script",
+        "res://campaign/quality/nov6_gameplay_exchange_probe.gd",
+        "--",
+        "--hz=120",
+        "--lens=neutral",
+        "--district=l2_exchange",
+        "--seconds=240",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-modal-observer-checks-v1/l2_exchange_neutral_120_release.json",
+        "--release-after-modal"
+      ]
+    },
+    {
+      "name": "l2_exchange_strength_120_stale",
+      "passed": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "active_seconds": 13.3333333333332,
+      "reached_next_district": false,
+      "stall_position": "(1546.682, 22.97998)",
+      "blocked": {
+        "right": true
+      },
+      "raw": {
+        "jump": true,
+        "right": 1.0
+      },
+      "admitted_x": 0.0,
+      "wall_seconds": 16.125,
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "120",
+        "--script",
+        "res://campaign/quality/nov6_gameplay_exchange_probe.gd",
+        "--",
+        "--hz=120",
+        "--lens=strength",
+        "--district=l2_exchange",
+        "--seconds=240",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-modal-observer-checks-v1/l2_exchange_strength_120_stale.json"
+      ]
+    },
+    {
+      "name": "l2_exchange_strength_120_release",
+      "passed": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "active_seconds": 27.8999999999991,
+      "reached_next_district": true,
+      "stall_position": null,
+      "blocked": null,
+      "raw": null,
+      "admitted_x": null,
+      "wall_seconds": 33.028,
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "120",
+        "--script",
+        "res://campaign/quality/nov6_gameplay_exchange_probe.gd",
+        "--",
+        "--hz=120",
+        "--lens=strength",
+        "--district=l2_exchange",
+        "--seconds=240",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-modal-observer-checks-v1/l2_exchange_strength_120_release.json",
+        "--release-after-modal"
+      ]
+    },
+    {
+      "name": "l3_homes_agility_120_stale",
+      "passed": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "active_seconds": 17.1166666666663,
+      "reached_next_district": false,
+      "stall_position": "(2961.85, 299.98)",
+      "blocked": {
+        "left": true
+      },
+      "raw": {
+        "left": 1.0
+      },
+      "admitted_x": 0.0,
+      "wall_seconds": 23.522,
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "120",
+        "--script",
+        "res://campaign/quality/nov6_gameplay_exchange_probe.gd",
+        "--",
+        "--hz=120",
+        "--lens=agility",
+        "--district=l3_homes",
+        "--seconds=240",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-modal-observer-checks-v1/l3_homes_agility_120_stale.json"
+      ]
+    },
+    {
+      "name": "l3_homes_agility_120_release",
+      "passed": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "active_seconds": 28.6166666666657,
+      "reached_next_district": true,
+      "stall_position": null,
+      "blocked": null,
+      "raw": null,
+      "admitted_x": null,
+      "wall_seconds": 53.703,
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "120",
+        "--script",
+        "res://campaign/quality/nov6_gameplay_exchange_probe.gd",
+        "--",
+        "--hz=120",
+        "--lens=agility",
+        "--district=l3_homes",
+        "--seconds=240",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-modal-observer-checks-v1/l3_homes_agility_120_release.json",
+        "--release-after-modal"
+      ]
+    },
+    {
+      "name": "l2_exchange_neutral_60_rescue",
+      "passed": true,
+      "exit_code": 0,
+      "engine_errors": [],
+      "active_seconds": 29.8499999999996,
+      "reached_next_district": true,
+      "stall_position": "(1553.764, 28.70223)",
+      "blocked": {
+        "right": true
+      },
+      "raw": {
+        "jump": true,
+        "right": 1.0
+      },
+      "admitted_x": 0.0,
+      "wall_seconds": 18.971,
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://campaign/quality/nov6_gameplay_exchange_probe.gd",
+        "--",
+        "--hz=60",
+        "--lens=neutral",
+        "--district=l2_exchange",
+        "--seconds=240",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-modal-observer-checks-v1/l2_exchange_neutral_60_rescue.json",
+        "--rescue-after-stall"
+      ]
+    }
+  ],
+  "scope": "Explicit isolated district/build fixtures, measured ordinary input only. Stale-input failures are expected diagnostic controls. Automated times are not human duration or full campaign acceptance."
+}

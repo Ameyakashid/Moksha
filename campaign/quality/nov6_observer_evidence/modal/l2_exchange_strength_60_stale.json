@@ -1,0 +1,1756 @@
+{
+  "actual_seconds": 13.2833333333336,
+  "deaths": 0,
+  "did_rescue": false,
+  "district": "l2_exchange",
+  "events": [
+    {
+      "active_seconds": 0.0,
+      "enemy_tuning": [
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "listener"
+        },
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "listener"
+        },
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "listener"
+        },
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "sentry"
+        },
+        {
+          "damage": 12.0,
+          "health": 3.0,
+          "kind": "sentinel"
+        },
+        {
+          "damage": 12.0,
+          "health": 2.0,
+          "kind": "listener"
+        }
+      ],
+      "event": "sector_enter",
+      "health": 75.0,
+      "sector": 7,
+      "title": "02.1 / THE EXCHANGE"
+    },
+    {
+      "event": "climb_attached",
+      "frame": 452,
+      "payload": "{ \"target_id\": 179348440933, \"type\": \"ladder\", \"top_entry\": false, \"position\": (1268.659, 299.98), \"facing\": -1 }",
+      "position": "(1268.659, 299.98)",
+      "sector": 7
+    },
+    {
+      "event": "climb_detached",
+      "frame": 544,
+      "payload": "{ \"reason\": &\"top_exit\", \"target_id\": 179348440933, \"position\": (1260.0, 134.98), \"facing\": -1 }",
+      "position": "(1260.0, 134.98)",
+      "sector": 7
+    }
+  ],
+  "failures": [],
+  "gate_sha256": "39e6202cf413a26a95b3c8319e568a67c7bf40aa6bed8ec4be1ffb1d115209df",
+  "hz": 60,
+  "lens": "strength",
+  "logic_sha256": "ff2327bd9f086032033cc40cea812f6a40aee28331d1d71c65fca5a15e4d9a2f",
+  "modal_count": 2,
+  "observations": [
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 0.0,
+        "y": 0.0
+      },
+      "blocked": {
+
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (1458.0, 120.0), S: (24.0, 180.0)]",
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1000.0, 300.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1430.0, 300.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1770.0, 20.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2220.0, 300.0)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2380.0, 175.0)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 0,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 75.0,
+      "label": "sample",
+      "modal_count": 0,
+      "mode": "locomotion",
+      "navigation": {
+        "goal": "(430.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "station",
+        "steering": "(430.0, 300.0)",
+        "support": 0
+      },
+      "position": "(75.0, 300.0)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 1.0,
+        "y": 0.0
+      },
+      "blocked": {
+
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (1458.0, 120.0), S: (24.0, 180.0)]",
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1047.356, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1391.855, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1817.354, 19.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2262.69, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2427.361, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 60,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 75.0,
+      "label": "sample",
+      "modal_count": 0,
+      "mode": "locomotion",
+      "navigation": {
+        "goal": "(430.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "station",
+        "steering": "(430.0, 300.0)",
+        "support": 0
+      },
+      "position": "(277.089, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(204.92, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 1.0,
+        "y": 0.0
+      },
+      "blocked": {
+
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (1458.0, 120.0), S: (24.0, 180.0)]",
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1064.013, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1366.171, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1831.379, 19.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2281.495, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2444.021, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 93,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 75.0,
+      "label": "before modal close",
+      "modal_count": 1,
+      "mode": "locomotion",
+      "navigation": {
+        "goal": "(430.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "station",
+        "steering": "(430.0, 300.0)",
+        "support": 0
+      },
+      "position": "(386.381, 299.98)",
+      "raw_input": {
+
+      },
+      "sector": 7,
+      "state": "choice",
+      "velocity": "(204.92, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 1.0,
+        "y": 0.0
+      },
+      "blocked": {
+
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (1458.0, 120.0), S: (24.0, 180.0)]",
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1064.013, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1366.171, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1831.379, 19.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2281.495, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2444.021, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 93,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 75.0,
+      "label": "after modal close",
+      "modal_count": 1,
+      "mode": "locomotion",
+      "navigation": {
+        "goal": "(430.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "station",
+        "steering": "(430.0, 300.0)",
+        "support": 0
+      },
+      "position": "(386.381, 299.98)",
+      "raw_input": {
+
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(204.92, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 1.0,
+        "y": 0.0
+      },
+      "blocked": {
+
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (1458.0, 120.0), S: (24.0, 180.0)]",
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1051.974, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1387.237, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1821.522, 19.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2279.907, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2431.98, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 120,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 75.0,
+      "label": "sample",
+      "modal_count": 1,
+      "mode": "locomotion",
+      "navigation": {
+        "goal": "(1390.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "relay 0",
+        "steering": "(1390.0, 300.0)",
+        "support": 0
+      },
+      "position": "(477.8461, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(204.92, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "air_jump",
+      "action_phase": "",
+      "active_relays": [],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": true,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 1.0,
+        "y": 0.0
+      },
+      "blocked": {
+
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (1458.0, 120.0), S: (24.0, 180.0)]",
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1003.816, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1434.88, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1780.209, 19.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2244.648, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2383.816, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 180,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 75.0,
+      "label": "sample",
+      "modal_count": 1,
+      "mode": "air_jump",
+      "navigation": {
+        "goal": "(1390.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "relay 0",
+        "steering": "(1390.0, 300.0)",
+        "support": 0
+      },
+      "position": "(672.0704, 206.9689)",
+      "raw_input": {
+        "jump": true,
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(204.92, -203.3333)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "admitted_input": {
+        "attack": true,
+        "attack_pressed": true,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 1.0,
+        "y": 0.0
+      },
+      "blocked": {
+
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (1458.0, 120.0), S: (24.0, 180.0)]",
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(913.2998, 299.98)",
+          "state": "chase"
+        },
+        {
+          "health": 2.0,
+          "position": "(1386.814, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1828.366, 19.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2276.895, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2335.652, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 240,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 75.0,
+      "label": "sample",
+      "modal_count": 1,
+      "mode": "locomotion",
+      "navigation": {
+        "goal": "(913.2998, 299.98)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "enemy",
+        "steering": "(913.2998, 299.98)",
+        "support": 0
+      },
+      "position": "(868.8789, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(153.2533, 0.0)",
+      "waypoint": 0,
+      "weapon": "windup"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 1.0,
+        "y": 0.0
+      },
+      "blocked": {
+
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (1458.0, 120.0), S: (24.0, 180.0)]",
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1384.604, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1797.444, 19.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2264.142, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2335.047, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 300,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 75.0,
+      "label": "sample",
+      "modal_count": 1,
+      "mode": "locomotion",
+      "navigation": {
+        "goal": "(1390.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "relay 0",
+        "steering": "(1390.0, 300.0)",
+        "support": 0
+      },
+      "position": "(1005.731, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(204.92, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 1.0,
+        "y": 0.0
+      },
+      "blocked": {
+
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (1458.0, 120.0), S: (24.0, 180.0)]",
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1328.47, 299.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(1804.287, 19.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2257.604, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2383.211, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 360,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 75.0,
+      "label": "sample",
+      "modal_count": 1,
+      "mode": "locomotion",
+      "navigation": {
+        "goal": "(1390.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "relay 0",
+        "steering": "(1390.0, 300.0)",
+        "support": 0
+      },
+      "position": "(1179.605, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 1.0,
+        "y": 0.0
+      },
+      "blocked": {
+
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (1458.0, 120.0), S: (24.0, 180.0)]",
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1821.522, 19.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2283.636, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2431.375, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 420,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 75.0,
+      "label": "sample",
+      "modal_count": 1,
+      "mode": "locomotion",
+      "navigation": {
+        "goal": "(1390.0, 300.0)",
+        "goal_surface": 0,
+        "next": 0,
+        "objective": "relay 0",
+        "steering": "(1390.0, 300.0)",
+        "support": 0
+      },
+      "position": "(1332.529, 299.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(204.92, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "climb",
+      "action_phase": "ascend",
+      "active_relays": [
+        0
+      ],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": -1.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 0.0,
+        "y": -1.0
+      },
+      "blocked": {
+
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1780.209, 19.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2248.377, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2417.531, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 480,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 75.0,
+      "label": "sample",
+      "modal_count": 1,
+      "mode": "climb",
+      "navigation": {
+        "goal": "(1960.0, -40.0)",
+        "goal_surface": 11,
+        "ladder": true,
+        "next": 4,
+        "objective": "relay 1",
+        "steering": "(1260.0, -40.0)",
+        "support": 0
+      },
+      "position": "(1260.0, 259.0635)",
+      "raw_input": {
+        "up": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(0.0, -115.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "climb",
+      "action_phase": "top_exit",
+      "active_relays": [
+        0
+      ],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": -1.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 0.0,
+        "y": -1.0
+      },
+      "blocked": {
+
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1828.366, 19.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2273.573, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2369.367, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 540,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 75.0,
+      "label": "sample",
+      "modal_count": 1,
+      "mode": "climb",
+      "navigation": {
+        "goal": "(1960.0, -40.0)",
+        "goal_surface": 11,
+        "ladder": true,
+        "next": 4,
+        "objective": "relay 1",
+        "steering": "(1260.0, -40.0)",
+        "support": 0
+      },
+      "position": "(1260.0, 144.0632)",
+      "raw_input": {
+        "up": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(0.0, -115.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "air_jump",
+      "action_phase": "",
+      "active_relays": [
+        0
+      ],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": true,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 1.0,
+        "y": 0.0
+      },
+      "blocked": {
+
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1797.444, 19.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2267.871, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2321.203, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 600,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 75.0,
+      "label": "sample",
+      "modal_count": 1,
+      "mode": "air_jump",
+      "navigation": {
+        "goal": "(1960.0, -40.0)",
+        "goal_surface": 11,
+        "ladder": false,
+        "next": 5,
+        "objective": "relay 1",
+        "steering": "(1488.0, 80.0)",
+        "support": 4
+      },
+      "position": "(1445.01, 25.3189)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(204.92, 27.66669)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [
+        0
+      ],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 1.0,
+        "y": 0.0
+      },
+      "blocked": {
+        "right": true
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1782.997, 19.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2257.294, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2315.781, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 619,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 75.0,
+      "label": "before modal close",
+      "modal_count": 2,
+      "mode": "locomotion",
+      "navigation": {
+        "goal": "(1960.0, -40.0)",
+        "goal_surface": 11,
+        "ladder": false,
+        "next": 10,
+        "objective": "relay 1",
+        "steering": "(1655.0, 20.0)",
+        "support": 5
+      },
+      "position": "(1506.485, 52.04507)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "archive",
+      "velocity": "(204.92, 0.026582)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [
+        0
+      ],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 1.0,
+        "y": 0.0
+      },
+      "blocked": {
+        "right": true
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1782.997, 19.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2257.294, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2315.781, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 619,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 75.0,
+      "label": "after modal close",
+      "modal_count": 2,
+      "mode": "locomotion",
+      "navigation": {
+        "goal": "(1960.0, -40.0)",
+        "goal_surface": 11,
+        "ladder": false,
+        "next": 10,
+        "objective": "relay 1",
+        "steering": "(1655.0, 20.0)",
+        "support": 5
+      },
+      "position": "(1506.485, 52.04507)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(204.92, 0.026582)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "locomotion",
+      "action_phase": "",
+      "active_relays": [
+        0
+      ],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 0.0,
+        "y": 0.0
+      },
+      "blocked": {
+        "right": true
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1774.382, 19.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2281.212, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2348.693, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 660,
+      "freight": {
+
+      },
+      "grounded": true,
+      "health": 75.0,
+      "label": "sample",
+      "modal_count": 2,
+      "mode": "locomotion",
+      "navigation": {
+        "goal": "(1960.0, -40.0)",
+        "goal_surface": 11,
+        "ladder": false,
+        "next": 10,
+        "objective": "relay 1",
+        "steering": "(1655.0, 20.0)",
+        "support": 5
+      },
+      "position": "(1549.43, 79.98)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(0.0, 0.0)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "air_jump",
+      "action_phase": "",
+      "active_relays": [
+        0
+      ],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 0.0,
+        "y": 0.0
+      },
+      "blocked": {
+        "right": true
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1774.382, 19.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2260.232, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2396.857, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 720,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 75.0,
+      "label": "sample",
+      "modal_count": 2,
+      "mode": "air_jump",
+      "navigation": {
+        "goal": "(1960.0, -40.0)",
+        "goal_surface": 11,
+        "ladder": false,
+        "next": 10,
+        "objective": "relay 1",
+        "steering": "(1655.0, 20.0)",
+        "support": 5
+      },
+      "position": "(1549.43, 51.64947)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(0.0, 463.0833)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "air_jump",
+      "action_phase": "",
+      "active_relays": [
+        0
+      ],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 0.0,
+        "y": 0.0
+      },
+      "blocked": {
+        "right": true
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1774.382, 19.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2261.921, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2445.021, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 780,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 75.0,
+      "label": "sample",
+      "modal_count": 2,
+      "mode": "air_jump",
+      "navigation": {
+        "goal": "(1960.0, -40.0)",
+        "goal_surface": 11,
+        "ladder": false,
+        "next": 10,
+        "objective": "relay 1",
+        "steering": "(1655.0, 20.0)",
+        "support": 5
+      },
+      "position": "(1549.43, 36.59531)",
+      "raw_input": {
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(0.0, 417.25)",
+      "waypoint": 0,
+      "weapon": "idle"
+    },
+    {
+      "action": "jump",
+      "action_phase": "",
+      "active_relays": [
+        0
+      ],
+      "admitted_input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": true,
+        "jump_pressed": false,
+        "jump_released": false,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 0.0,
+        "y": 0.0
+      },
+      "blocked": {
+        "right": true
+      },
+      "climb_needs_neutral": false,
+      "closed_shutters": [
+        "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+        "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+      ],
+      "enemies": [
+        {
+          "health": 2.0,
+          "position": "(1774.382, 19.98)",
+          "state": "investigate"
+        },
+        {
+          "health": 2.0,
+          "position": "(1980.0, -40.02)",
+          "state": "patrol"
+        },
+        {
+          "health": 3.0,
+          "position": "(2273.086, 299.98)",
+          "state": "patrol"
+        },
+        {
+          "health": 2.0,
+          "position": "(2436.797, 174.98)",
+          "state": "patrol"
+        }
+      ],
+      "frame": 799,
+      "freight": {
+
+      },
+      "grounded": false,
+      "health": 75.0,
+      "label": "three seconds of held movement suppressed",
+      "modal_count": 2,
+      "mode": "jump",
+      "navigation": {
+        "goal": "(1960.0, -40.0)",
+        "goal_surface": 11,
+        "ladder": false,
+        "next": 10,
+        "objective": "relay 1",
+        "steering": "(1655.0, 20.0)",
+        "support": 5
+      },
+      "position": "(1549.43, 28.70223)",
+      "raw_input": {
+        "jump": true,
+        "right": 1.0
+      },
+      "sector": 7,
+      "state": "playing",
+      "velocity": "(0.0, -126.6666)",
+      "waypoint": 0,
+      "weapon": "idle"
+    }
+  ],
+  "reached_next_district": false,
+  "release_after_modal": false,
+  "rescue_after_stall": false,
+  "scope": "Explicit district/build starting fixture: l2_exchange, force. Measured route: unchanged production bot raw inputs and E/K/Q UI keys. Optional repair is one ordinary neutral input frame; no actor/health/enemy/goal writes.",
+  "stalled_evidence": {
+    "action": "jump",
+    "action_phase": "",
+    "active_relays": [
+      0
+    ],
+    "admitted_input": {
+      "attack": false,
+      "attack_pressed": false,
+      "attack_released": false,
+      "jump": true,
+      "jump_pressed": false,
+      "jump_released": false,
+      "physical_y": 0.0,
+      "roll": false,
+      "roll_pressed": false,
+      "roll_released": false,
+      "shield": false,
+      "shield_pressed": false,
+      "shield_released": false,
+      "x": 0.0,
+      "y": 0.0
+    },
+    "blocked": {
+      "right": true
+    },
+    "climb_needs_neutral": false,
+    "closed_shutters": [
+      "[P: (2223.0, 0.0), S: (24.0, 200.0)]",
+      "[P: (2506.0, -25.0), S: (28.0, 300.0)]"
+    ],
+    "enemies": [
+      {
+        "health": 2.0,
+        "position": "(1774.382, 19.98)",
+        "state": "investigate"
+      },
+      {
+        "health": 2.0,
+        "position": "(1980.0, -40.02)",
+        "state": "patrol"
+      },
+      {
+        "health": 3.0,
+        "position": "(2273.086, 299.98)",
+        "state": "patrol"
+      },
+      {
+        "health": 2.0,
+        "position": "(2436.797, 174.98)",
+        "state": "patrol"
+      }
+    ],
+    "frame": 799,
+    "freight": {
+
+    },
+    "grounded": false,
+    "health": 75.0,
+    "label": "three seconds of held movement suppressed",
+    "modal_count": 2,
+    "mode": "jump",
+    "navigation": {
+      "goal": "(1960.0, -40.0)",
+      "goal_surface": 11,
+      "ladder": false,
+      "next": 10,
+      "objective": "relay 1",
+      "steering": "(1655.0, 20.0)",
+      "support": 5
+    },
+    "position": "(1549.43, 28.70223)",
+    "raw_input": {
+      "jump": true,
+      "right": 1.0
+    },
+    "sector": 7,
+    "state": "playing",
+    "velocity": "(0.0, -126.6666)",
+    "waypoint": 0,
+    "weapon": "idle"
+  }
+}

@@ -25,6 +25,7 @@ var _loading_campaign:=false
 var _completed_snapshot:Dictionary={}
 var camera_follow=preload("res://campaign/presentation/camera_follow.gd").new()
 var _input_gate=CampaignInputGate.new()
+var _audio_feedback=preload("res://campaign/presentation/audio_feedback.gd").new()
 var _input_tick_active:=false
 var _input_tick_source:Variant=null
 var _build_actor_id:=0
@@ -71,6 +72,7 @@ func load_sector(index:int)->void:
 		if index==int(_level_transition_snapshot.to):_level_transition_snapshot.clear()
 		else:_cancel_sector_transition()
 	_capture_input_boundary()
+	_audio_feedback.retire_room(audio)
 	_pending_sector=-1;_pending_retry=false
 	_loading_campaign=true
 	goals.clear();completed_goals.clear();art=null;actor_paint=null;object_paint=null
@@ -227,7 +229,9 @@ func interact()->void:
 			metrics.append({"sector":sector,"seconds":sector_elapsed,"blind":blind,"health":health.current_health})
 			level_receipts.append({"level":d.level,"active_seconds":level_seconds.get(str(d.level),0),"completed_district":d.id})
 			state="upgrade";get_tree().paused=true;return
+	var audio_children_before:=audio.get_child_count()
 	super.interact()
+	if state=="archive":_audio_feedback.finish_modal_since(audio,audio_children_before,"tap")
 	if _pending_sector<0:_level_transition_snapshot.clear()
 func choose_sight(accept:bool)->void:
 	super.choose_sight(accept)
@@ -250,6 +254,9 @@ func _unhandled_key_input(event:InputEvent)->void:
 func _handle_campaign_key(event:InputEvent)->void:
 	if not event is InputEventKey or not event.pressed or event.echo:return
 	var key:int=event.physical_keycode if event.physical_keycode!=0 else event.keycode
+	# Mute is global, including journal/upgrade/final choice and queued loads.
+	if key==KEY_M:
+		audio.toggle_mute();return
 	if _focus_pause_active:
 		if key==KEY_ESCAPE:
 			_focus_pause_active=false
@@ -310,6 +317,16 @@ func complete_run()->void:
 	if save_enabled:
 		var file=FileAccess.open("user://moksha_five_levels_results.json",FileAccess.WRITE)
 		if file:file.store_string(JSON.stringify({"ending":campaign_ending,"active_seconds":elapsed,"levels":level_receipts,"districts":metrics,"lens":lens,"upgrades":upgrades,"deaths":deaths,"kills":kills},"\t"))
+func _on_noise(origin:Vector2,kind:StringName,loudness:float,source:Node)->void:
+	var audio_request_before:Dictionary=audio.last_spatial_sound if is_instance_valid(audio) else {}
+	var audio_children_before:=audio.get_child_count() if is_instance_valid(audio) else 0
+	super._on_noise(origin,kind,loudness,source)
+	if is_instance_valid(audio) and kind==&"player_damage" and not is_same(audio.last_spatial_sound,audio_request_before):
+		_audio_feedback.observe_damage(audio,audio_children_before)
+func _on_defeat()->void:
+	var was_playing:=state=="playing"
+	super._on_defeat()
+	if was_playing and state=="dead":_audio_feedback.finish_damage()
 func _read_checkpoint()->Dictionary:
 	var result:=_decode_campaign_checkpoint()
 	_checkpoint_error=""
@@ -409,6 +426,8 @@ func _hud_snapshot()->Dictionary:
 		lines+="\nNext: "+_journal_next_step()+"\nBuild: "+lens+(" / "+", ".join(upgrades) if not upgrades.is_empty() else "")
 		snapshot.merge({"panel_override":true,"panel_title":"FIELD JOURNAL","panel_body":lines,"panel_footer":"A / D or arrows Pages    TAB / ESC Return"})
 	elif state=="playing":
+		if _input_gate.has_held_blocker(_raw_campaign_input()):
+			snapshot.guidance="Center the stick and release held buttons." if gamepad_navigation.input_device=="controller" else "Release held keys, then press again."
 		snapshot.sector_title="L%d · %s"%[sectors[sector].level,sectors[sector].title]
 		for goal in goals:
 			if not goal.completed and not goal.optional:snapshot.objective=goal.label+(" [J]" if goal.kind=="breaker" else " [E]")+" · TAB journal";break

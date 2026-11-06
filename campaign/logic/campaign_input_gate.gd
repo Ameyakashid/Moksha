@@ -26,6 +26,13 @@ func suppress_held(frame: Dictionary) -> void:
 		else:
 			_blocked.erase(action)
 
+func has_held_blocker(frame: Dictionary) -> bool:
+	# Read-only UI query. Do not clear edge state or admit input from a snapshot.
+	for action in _blocked:
+		if float(frame.get(action, 0)) > 0.0 or bool(frame.get(action + "_pressed", false)):
+			return true
+	return false
+
 func filter_frame(frame: Dictionary) -> Dictionary:
 	var filtered := frame.duplicate()
 	for action in _blocked.keys():

@@ -1,0 +1,198 @@
+{
+	"checks": 8,
+	"engine": "4.6.3-stable (official)",
+	"expectation": "fixed",
+	"failures": [],
+	"observations": {
+		"actual_archive_after_250ms": {
+			"freed": true
+		},
+		"actual_archive_after_close": {
+			"freed": true
+		},
+		"actual_archive_before_close": {
+			"freed": true
+		},
+		"actual_archive_immediate": {
+			"can_process": true,
+			"playing": true,
+			"position": 0.0,
+			"process_mode": 3,
+			"stream": "res://audio/tap.wav",
+			"stream_paused": false,
+			"type": "AudioStreamPlayer2D"
+		},
+		"actual_victory_after_250ms": {
+			"can_process": false,
+			"playing": true,
+			"position": 0.179954648017883,
+			"process_mode": 0,
+			"stream": "res://audio/win.wav",
+			"stream_paused": false,
+			"type": "AudioStreamPlayer"
+		},
+		"audio_driver": "Dummy",
+		"capture_frames_total": 135168,
+		"display_driver": "X11",
+		"engine": "4.6.3-stable (official)",
+		"existing_spatial_before_pause": {
+			"can_process": true,
+			"playing": true,
+			"position": 0.0986848101019859,
+			"process_mode": 0,
+			"stream": "res://audio/win.wav",
+			"stream_paused": false,
+			"type": "AudioStreamPlayer2D"
+		},
+		"existing_spatial_paused": {
+			"can_process": false,
+			"playing": false,
+			"position": 0.110294781625271,
+			"process_mode": 0,
+			"stream": "res://audio/win.wav",
+			"stream_paused": true,
+			"type": "AudioStreamPlayer2D"
+		},
+		"existing_spatial_resumed": {
+			"can_process": true,
+			"playing": true,
+			"position": 0.203174605965614,
+			"process_mode": 0,
+			"stream": "res://audio/win.wav",
+			"stream_paused": false,
+			"type": "AudioStreamPlayer2D"
+		},
+		"lethal_after_250ms": [
+			{
+				"can_process": true,
+				"playing": true,
+				"position": 0.191564619541168,
+				"process_mode": 3,
+				"stream": "res://audio/hurt.wav",
+				"stream_paused": false,
+				"type": "AudioStreamPlayer2D"
+			}
+		],
+		"lethal_after_retry": [],
+		"lethal_immediate": [
+			{
+				"can_process": true,
+				"playing": true,
+				"position": 0.0,
+				"process_mode": 3,
+				"stream": "res://audio/hurt.wav",
+				"stream_paused": false,
+				"type": "AudioStreamPlayer2D"
+			}
+		],
+		"lethal_state": {
+			"health": 0.0,
+			"paused": true,
+			"state": "dead"
+		},
+		"modal_mute": {
+			"archive": {
+				"bus": true,
+				"flag": true
+			},
+			"choice": {
+				"bus": true,
+				"flag": true
+			},
+			"complete": {
+				"bus": true,
+				"flag": true
+			},
+			"dead": {
+				"bus": true,
+				"flag": true
+			},
+			"final_choice": {
+				"bus": true,
+				"flag": true
+			},
+			"intro": {
+				"bus": true,
+				"flag": true
+			},
+			"journal": {
+				"bus": true,
+				"flag": true
+			},
+			"paused": {
+				"bus": true,
+				"flag": true
+			},
+			"playing": {
+				"bus": true,
+				"flag": true
+			},
+			"title": {
+				"bus": true,
+				"flag": true
+			},
+			"upgrade": {
+				"bus": true,
+				"flag": true
+			}
+		},
+		"real_jump_audio_voices": [],
+		"real_jump_movement": [
+			{
+				"kind": "ground_jump",
+				"payload": {
+					"facing": 1,
+					"from_climb": false,
+					"position": "(75.0, 299.98)"
+				}
+			},
+			{
+				"kind": "air_jump",
+				"payload": {
+					"facing": 1,
+					"position": "(75.0, 290.8961)",
+					"remaining": 0
+				}
+			}
+		],
+		"real_jump_noise": []
+	},
+	"output": "/workspace/scratch/fd16273ade4b/moksha-nov6-evidence/native/data/godot/app_userdata/MOKSHA — Five Ascents/audio-portable-final.json",
+	"passed": true,
+	"physics_hz": 120,
+	"rows": [
+		{
+			"label": "original audio runtime native branch is active",
+			"passed": true
+		},
+		{
+			"label": "existing spatial voice pauses",
+			"passed": true
+		},
+		{
+			"label": "existing spatial voice resumes",
+			"passed": true
+		},
+		{
+			"label": "actual completion cue advances while campaign paused",
+			"passed": true
+		},
+		{
+			"label": "archive tap finishes during modal",
+			"passed": true
+		},
+		{
+			"label": "mute across all modal states",
+			"passed": true
+		},
+		{
+			"label": "lethal hurt advances during death",
+			"passed": true
+		},
+		{
+			"label": "no old hurt on retry",
+			"passed": true
+		}
+	],
+	"scope": "Native original audio-director branch. Automated interaction/state fixtures; lethal hit uses the public damage-admission boundary. Dummy audio is not soundcard output or listening verification. No runtime/source writes."
+}

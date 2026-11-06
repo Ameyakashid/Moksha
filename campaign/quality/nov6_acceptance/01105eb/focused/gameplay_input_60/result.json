@@ -1,0 +1,30 @@
+{
+  "name": "gameplay_input_60",
+  "command": [
+    "godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-01105eb/project",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "res://campaign/quality/nov6_gameplay_input.gd",
+    "--",
+    "--hz=60"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "checks": 28,
+      "failures": [],
+      "hz": 60,
+      "passed": true,
+      "scope": "Campaign modal boundaries plus actual shared actor physics; not full human playthrough."
+    }
+  },
+  "wall_seconds": 4.512,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-01105eb/focused/gameplay_input_60/engine.log"
+}

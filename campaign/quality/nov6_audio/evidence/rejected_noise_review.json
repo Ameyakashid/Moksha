@@ -1,0 +1,357 @@
+{
+  "passed": true,
+  "scope": "Synthetic nested outsider-noise hardening, not an authored gameplay defect. Headless public actor/NoiseBus/Health/death routing with explicit voice provider. No audible or physical-controller claim.",
+  "engine": "Godot 4.6.3-stable",
+  "reviewed_utc": "2026-11-06T22:46:32.039386+00:00",
+  "checks_total": 306,
+  "source_sha256": {
+    "campaign/logic/campaign.gd": "daf542caa77391967a8636d05e193a785e9748e593af8faae363ee3879f1bdfd",
+    "campaign/logic/campaign_input_gate.gd": "41ba5f93cb6318f6740ed310be2f17d75ede4288bb8b6a8c3f5d0f570f5bf944",
+    "campaign/presentation/audio_feedback.gd": "98662a2fb0dadc830d26022a435c25862f749d93b9674dc78f1ef0b8f3b0cde5",
+    "scripts/systems/audio_director.gd": "b0a9be1a1e6bf3f3b8493d7054d8674fe81cd0a13fe716949e3fdb2b1de72946",
+    "demo/mission.gd": "7d60745fa9a0ed65c09ff9d6123021d53dede9523569c5c8cc983083cebbc317",
+    "combat_pc/player.gd": "6cd582c819d5297096205754d30d7c7bbc25021822390117edc71378ecbe43ea",
+    "campaign/quality/nov6_audio/rejected_noise.gd": "334b3b83475d626a398758698ee9a0f102555680653d54da5ce6ffaa14eb1744"
+  },
+  "source_drift": {
+    "/workspace/scratch/fd16273ade4b/moksha-campaign": [],
+    "/tmp/moksha-independent-audio-integrated-20261106T224440Z/project": []
+  },
+  "integrated_regression": [
+    {
+      "hz": 60,
+      "exit": 0,
+      "errors": [],
+      "marker_count": 1,
+      "receipt": {
+        "checks": 13,
+        "engine": "4.6.3-stable (official)",
+        "failures": [],
+        "observations": [
+          {
+            "injection": [
+              {
+                "pending_after": true,
+                "pending_before": true,
+                "physics_frame": 1,
+                "request_unchanged": true,
+                "state_before": "playing"
+              }
+            ],
+            "mode": 3
+          }
+        ],
+        "output": "/tmp/moksha-independent-audio-integrated-20261106T224440Z/regression_60/receipt.json",
+        "passed": true,
+        "physics_hz": 60,
+        "rows": [
+          {
+            "label": "genuine lethal actor hit reaches real Health and death",
+            "passed": true
+          },
+          {
+            "label": "accepted real hurt precedes injected outsider before death",
+            "passed": true
+          },
+          {
+            "label": "superclass rejects outsider without a new sound request",
+            "passed": true
+          },
+          {
+            "label": "entire lethal chain occurs in one physics frame",
+            "passed": true
+          },
+          {
+            "label": "only genuine accepted hurt creates a voice",
+            "passed": true
+          },
+          {
+            "label": "rejected outsider cannot suppress same-frame lethal promotion",
+            "passed": true
+          },
+          {
+            "label": "accepted headless voice establishes pending identity",
+            "passed": true
+          },
+          {
+            "label": "identical accepted values still replace request identity",
+            "passed": true
+          },
+          {
+            "label": "repeated accepted request replaces pending voice",
+            "passed": true
+          },
+          {
+            "label": "accepted muted request still clears prior pending voice",
+            "passed": true
+          },
+          {
+            "label": "unmuted accepted request restores fresh pending",
+            "passed": true
+          },
+          {
+            "label": "accepted missing-cache request still clears prior pending voice",
+            "passed": true
+          },
+          {
+            "label": "null-source rejection cannot clear pending voice",
+            "passed": true
+          }
+        ],
+        "scope": "Synthetic nested outsider-noise hardening, not an authored gameplay bug. Actual public actor hit, NoiseBus admission, Health and defeat routing; explicit headless-only voice provider, not audible or physical-device evidence."
+      },
+      "passed": true
+    },
+    {
+      "hz": 120,
+      "exit": 0,
+      "errors": [],
+      "marker_count": 1,
+      "receipt": {
+        "checks": 13,
+        "engine": "4.6.3-stable (official)",
+        "failures": [],
+        "observations": [
+          {
+            "injection": [
+              {
+                "pending_after": true,
+                "pending_before": true,
+                "physics_frame": 1,
+                "request_unchanged": true,
+                "state_before": "playing"
+              }
+            ],
+            "mode": 3
+          }
+        ],
+        "output": "/tmp/moksha-independent-audio-integrated-20261106T224440Z/regression_120/receipt.json",
+        "passed": true,
+        "physics_hz": 120,
+        "rows": [
+          {
+            "label": "genuine lethal actor hit reaches real Health and death",
+            "passed": true
+          },
+          {
+            "label": "accepted real hurt precedes injected outsider before death",
+            "passed": true
+          },
+          {
+            "label": "superclass rejects outsider without a new sound request",
+            "passed": true
+          },
+          {
+            "label": "entire lethal chain occurs in one physics frame",
+            "passed": true
+          },
+          {
+            "label": "only genuine accepted hurt creates a voice",
+            "passed": true
+          },
+          {
+            "label": "rejected outsider cannot suppress same-frame lethal promotion",
+            "passed": true
+          },
+          {
+            "label": "accepted headless voice establishes pending identity",
+            "passed": true
+          },
+          {
+            "label": "identical accepted values still replace request identity",
+            "passed": true
+          },
+          {
+            "label": "repeated accepted request replaces pending voice",
+            "passed": true
+          },
+          {
+            "label": "accepted muted request still clears prior pending voice",
+            "passed": true
+          },
+          {
+            "label": "unmuted accepted request restores fresh pending",
+            "passed": true
+          },
+          {
+            "label": "accepted missing-cache request still clears prior pending voice",
+            "passed": true
+          },
+          {
+            "label": "null-source rejection cannot clear pending voice",
+            "passed": true
+          }
+        ],
+        "scope": "Synthetic nested outsider-noise hardening, not an authored gameplay bug. Actual public actor hit, NoiseBus admission, Health and defeat routing; explicit headless-only voice provider, not audible or physical-device evidence."
+      },
+      "passed": true
+    }
+  ],
+  "adjacent_suites": [
+    {
+      "name": "contract",
+      "hz": 60,
+      "checks": 67,
+      "passed": true,
+      "engine_errors": []
+    },
+    {
+      "name": "routing",
+      "hz": 60,
+      "checks": 23,
+      "passed": true,
+      "engine_errors": []
+    },
+    {
+      "name": "guidance",
+      "hz": 60,
+      "checks": 37,
+      "passed": true,
+      "engine_errors": []
+    },
+    {
+      "name": "device_guidance",
+      "hz": 60,
+      "checks": 13,
+      "passed": true,
+      "engine_errors": []
+    },
+    {
+      "name": "contract",
+      "hz": 120,
+      "checks": 67,
+      "passed": true,
+      "engine_errors": []
+    },
+    {
+      "name": "routing",
+      "hz": 120,
+      "checks": 23,
+      "passed": true,
+      "engine_errors": []
+    },
+    {
+      "name": "guidance",
+      "hz": 120,
+      "checks": 37,
+      "passed": true,
+      "engine_errors": []
+    },
+    {
+      "name": "device_guidance",
+      "hz": 120,
+      "checks": 13,
+      "passed": true,
+      "engine_errors": []
+    }
+  ],
+  "historical_negative_controls": [
+    {
+      "version": "baseline",
+      "hz": 60,
+      "checks": 13,
+      "passed": false,
+      "failures": [
+        {
+          "label": "rejected outsider cannot suppress same-frame lethal promotion",
+          "passed": false
+        },
+        {
+          "label": "null-source rejection cannot clear pending voice",
+          "passed": false
+        }
+      ],
+      "engine_errors": [],
+      "observations": [
+        {
+          "injection": [
+            {
+              "pending_after": false,
+              "pending_before": true,
+              "physics_frame": 1,
+              "request_unchanged": true,
+              "state_before": "playing"
+            }
+          ],
+          "mode": 0
+        }
+      ]
+    },
+    {
+      "version": "baseline",
+      "hz": 120,
+      "checks": 13,
+      "passed": false,
+      "failures": [
+        {
+          "label": "rejected outsider cannot suppress same-frame lethal promotion",
+          "passed": false
+        },
+        {
+          "label": "null-source rejection cannot clear pending voice",
+          "passed": false
+        }
+      ],
+      "engine_errors": [],
+      "observations": [
+        {
+          "injection": [
+            {
+              "pending_after": false,
+              "pending_before": true,
+              "physics_frame": 1,
+              "request_unchanged": true,
+              "state_before": "playing"
+            }
+          ],
+          "mode": 0
+        }
+      ]
+    },
+    {
+      "version": "candidate",
+      "hz": 60,
+      "checks": 15,
+      "passed": true,
+      "failures": [],
+      "engine_errors": [],
+      "observations": [
+        {
+          "injection": [
+            {
+              "pending_after": true,
+              "pending_before": true,
+              "physics_frame": 1,
+              "request_unchanged": true,
+              "state_before": "playing"
+            }
+          ],
+          "mode": 3
+        }
+      ]
+    },
+    {
+      "version": "candidate",
+      "hz": 120,
+      "checks": 15,
+      "passed": true,
+      "failures": [],
+      "engine_errors": [],
+      "observations": [
+        {
+          "injection": [
+            {
+              "pending_after": true,
+              "pending_before": true,
+              "physics_frame": 1,
+              "request_unchanged": true,
+              "state_before": "playing"
+            }
+          ],
+          "mode": 3
+        }
+      ]
+    }
+  ],
+  "historical_note": "Original unguarded immutable copy fails exactly the two rejected-source assertions at both rates. The in-memory guard candidate passes 15 checks including compilation; integrated test removes dynamic script replacement and has 13 checks. Original complete failed and candidate receipts remain unmodified in the independent review archive."
+}

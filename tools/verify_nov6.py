@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ERROR = re.compile(r"^\s*(?:SCRIPT ERROR:|ERROR:|FAIL\b|Parse Error|Compile Error)", re.M)
 SCRIPTS = [
     ("gameplay_input", "nov6_gameplay_input.gd", "NOV6_GAMEPLAY_INPUT_RESULT "),
+    ("input_guidance", "nov6_input_guidance.gd", "NOV6_INPUT_GUIDANCE_RESULT "),
     ("gameplay_objectives", "nov6_gameplay_objectives.gd", "NOV6_GAMEPLAY_OBJECTIVES_RESULT "),
     ("gameplay_build", "nov6_gameplay_build.gd", "NOV6_GAMEPLAY_BUILD_RESULT "),
     ("save_feedback", "nov6_gameplay_save_feedback.gd", "NOV6_GAMEPLAY_SAVE_FEEDBACK_RESULT "),
@@ -32,6 +33,11 @@ SCRIPTS = [
     ("independent_hud_pipeline", "nov6_independent_hud_pipeline.gd", "NOV6_INDEPENDENT_HUD_PIPELINE "),
     ("camera", "nov6_camera/camera_contract.gd", "CAMERA_CONTRACT_RESULT "),
     ("runtime_lifecycle", "nov6_runtime_lifecycle.gd", "NOV6_RUNTIME_LIFECYCLE_RESULT "),
+    ("audio_contract", "nov6_audio/contract.gd", "NOV6_AUDIO_CONTRACT_RESULT "),
+    ("audio_routing", "nov6_audio/event_routing.gd", "NOV6_AUDIO_ROUTING_RESULT "),
+    ("route_modal_observer", "nov6_modal_route_observer_test.gd", "NOV6_MODAL_ROUTE_OBSERVER_RESULT "),
+    ("route_freight_observer", "nov6_freight_observer_test.gd", "NOV6_FREIGHT_OBSERVER_RESULT "),
+    ("audio_rejected_noise", "nov6_audio/rejected_noise.gd", "NOV6_AUDIO_REJECTED_NOISE_RESULT "),
 ]
 
 

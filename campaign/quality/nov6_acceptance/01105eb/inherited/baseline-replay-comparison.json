@@ -1,0 +1,130 @@
+{
+  "scope": "Independent cross-commit comparison of the inherited seeded opening-district physics traces. Exact equality does not establish visual/audio parity, full-campaign behavior, human pacing or performance. This is extra evidence, not an additional inherited suite stage.",
+  "baseline_commit": "f00bf23031cf7c74882d47a855ebafc701024634",
+  "new_commit": "01105eb5f5e683297366e2c1f37c891b207c511f",
+  "passed": true,
+  "trace_files": 12,
+  "ticks_compared": 12960,
+  "rows": [
+    {
+      "case": "60hz-seed7",
+      "run": "record",
+      "input_equal": true,
+      "ticks": 720,
+      "baseline_ticks": 720,
+      "equal": true,
+      "first_divergence": null,
+      "trace_sha256": "37af825b18ce8588931af7238e5638a498352c79d18c475987049ffe7d47e548"
+    },
+    {
+      "case": "60hz-seed7",
+      "run": "replay",
+      "input_equal": true,
+      "ticks": 720,
+      "baseline_ticks": 720,
+      "equal": true,
+      "first_divergence": null,
+      "trace_sha256": "37af825b18ce8588931af7238e5638a498352c79d18c475987049ffe7d47e548"
+    },
+    {
+      "case": "60hz-seed83",
+      "run": "record",
+      "input_equal": true,
+      "ticks": 720,
+      "baseline_ticks": 720,
+      "equal": true,
+      "first_divergence": null,
+      "trace_sha256": "260488de99e7c2e1db8d03117abbd8cb6bc85bdcdaeb66dd223d08eaed0e5aca"
+    },
+    {
+      "case": "60hz-seed83",
+      "run": "replay",
+      "input_equal": true,
+      "ticks": 720,
+      "baseline_ticks": 720,
+      "equal": true,
+      "first_divergence": null,
+      "trace_sha256": "260488de99e7c2e1db8d03117abbd8cb6bc85bdcdaeb66dd223d08eaed0e5aca"
+    },
+    {
+      "case": "60hz-seed2026",
+      "run": "record",
+      "input_equal": true,
+      "ticks": 720,
+      "baseline_ticks": 720,
+      "equal": true,
+      "first_divergence": null,
+      "trace_sha256": "5dc0eb8f517ba263b0ac961fb7fb064e4543ded21efd1d94bea1c31d57cc1f3d"
+    },
+    {
+      "case": "60hz-seed2026",
+      "run": "replay",
+      "input_equal": true,
+      "ticks": 720,
+      "baseline_ticks": 720,
+      "equal": true,
+      "first_divergence": null,
+      "trace_sha256": "5dc0eb8f517ba263b0ac961fb7fb064e4543ded21efd1d94bea1c31d57cc1f3d"
+    },
+    {
+      "case": "120hz-seed7",
+      "run": "record",
+      "input_equal": true,
+      "ticks": 1440,
+      "baseline_ticks": 1440,
+      "equal": true,
+      "first_divergence": null,
+      "trace_sha256": "fed2f92108fcfece7c5aef9e680cf35ab387ba9d03be84dfd9f5fcef56e3bb6b"
+    },
+    {
+      "case": "120hz-seed7",
+      "run": "replay",
+      "input_equal": true,
+      "ticks": 1440,
+      "baseline_ticks": 1440,
+      "equal": true,
+      "first_divergence": null,
+      "trace_sha256": "fed2f92108fcfece7c5aef9e680cf35ab387ba9d03be84dfd9f5fcef56e3bb6b"
+    },
+    {
+      "case": "120hz-seed83",
+      "run": "record",
+      "input_equal": true,
+      "ticks": 1440,
+      "baseline_ticks": 1440,
+      "equal": true,
+      "first_divergence": null,
+      "trace_sha256": "d2a2365a50c9603a9a0bcccf0df23d82d03993b7b8fd91909ad1b71fd6c21e36"
+    },
+    {
+      "case": "120hz-seed83",
+      "run": "replay",
+      "input_equal": true,
+      "ticks": 1440,
+      "baseline_ticks": 1440,
+      "equal": true,
+      "first_divergence": null,
+      "trace_sha256": "d2a2365a50c9603a9a0bcccf0df23d82d03993b7b8fd91909ad1b71fd6c21e36"
+    },
+    {
+      "case": "120hz-seed2026",
+      "run": "record",
+      "input_equal": true,
+      "ticks": 1440,
+      "baseline_ticks": 1440,
+      "equal": true,
+      "first_divergence": null,
+      "trace_sha256": "8d1210e2bc617794cadceb44a7d56f7461ef7ad61bca67569ee72220e2ff0318"
+    },
+    {
+      "case": "120hz-seed2026",
+      "run": "replay",
+      "input_equal": true,
+      "ticks": 1440,
+      "baseline_ticks": 1440,
+      "equal": true,
+      "first_divergence": null,
+      "trace_sha256": "8d1210e2bc617794cadceb44a7d56f7461ef7ad61bca67569ee72220e2ff0318"
+    }
+  ]
+}

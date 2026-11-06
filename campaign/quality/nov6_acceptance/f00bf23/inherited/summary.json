@@ -1,0 +1,145 @@
+{
+  "scope": "Final headless inherited acceptance of exact committed runtime freeze f00bf23031cf7c74882d47a855ebafc701024634. Later changes require runtime hash equivalence or fresh tests.",
+  "commit": "f00bf23031cf7c74882d47a855ebafc701024634",
+  "committed_blob_verification": {
+    "scope": "Final inherited acceptance of exact immutable committed runtime freeze, not live working-tree state.",
+    "created_at_utc": "2026-11-06T22:00:45.385744+00:00",
+    "source_repository": "/workspace/scratch/fd16273ade4b/moksha-campaign",
+    "commit": "f00bf23031cf7c74882d47a855ebafc701024634",
+    "git_tree": "4f5678f4c58abb155fa0cf9d09b378758e21122c",
+    "archive_sha256": "7169f8d38c91495dac31688250c4d1ff3358a41e575c12e6a3031bb741d4d2fd",
+    "candidate": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-f00bf230/project",
+    "archive_file_count": 2533,
+    "verified_committed_blobs": 2533,
+    "blob_mismatches": [],
+    "accepted": true,
+    "candidate_manifest_sha256": "e1042a52925cd1cac74dc2cb485ad4a78398a441349926160211559bf6825a5b",
+    "candidate_code_manifest_sha256": "33d84455a67d98bbe4153d7eea305a7dea108843045381e08fe85350cb8461c7",
+    "exclusions": "None beyond git archive behavior; only committed files extracted. .git and untracked .godot cache are absent."
+  },
+  "committed_mode_verification": {
+    "mode_mismatches": [],
+    "symlinks": [],
+    "passed": true
+  },
+  "completed_at_utc": "2026-11-06T22:08:37.566534+00:00",
+  "candidate": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-f00bf230/project",
+  "source_of_candidate": "/workspace/scratch/fd16273ade4b/moksha-campaign",
+  "godot_version": "4.6.3.stable.official.7d41c59c4",
+  "candidate_manifest_sha256": "e1042a52925cd1cac74dc2cb485ad4a78398a441349926160211559bf6825a5b",
+  "candidate_code_manifest_sha256": "33d84455a67d98bbe4153d7eea305a7dea108843045381e08fe85350cb8461c7",
+  "verified_code_and_assets_manifest_sha256": "77a10fb9ec05038630cb4b7b9216f36af3726ba5162d26b4d7b6a62fe2841e8c",
+  "copy_receipt": "copy-receipt.json",
+  "source_manifest_files": 2533,
+  "protected_source_and_asset_files": 1022,
+  "protected_source_and_asset_drift": [],
+  "changed_baseline_files": [
+    "campaign/qa_audit/final_results/summary.json",
+    "demo/evidence/expanded_integration_120hz.json",
+    "demo/evidence/expanded_integration_60hz.json",
+    "simulation/evidence/foundation_report.json",
+    "tests/flow_all_report.json",
+    "tests/sonar_report.json"
+  ],
+  "suites": {
+    "foundation": {
+      "passed": true,
+      "passed_stages": 72,
+      "total_stages": 72,
+      "source_drift": [],
+      "report": "project/simulation/evidence/foundation_report.json"
+    },
+    "original": {
+      "passed": true,
+      "passed_stages": 19,
+      "total_stages": 19,
+      "all_stages_run": true,
+      "report": "project/tests/flow_all_report.json"
+    },
+    "audit": {
+      "passed": true,
+      "passed_stages": 14,
+      "total_stages": 14,
+      "assertions": 1454,
+      "source_drift": [],
+      "report": "project/campaign/qa_audit/final_results/summary.json"
+    },
+    "quality": {
+      "passed": true,
+      "passed_stages": 20,
+      "total_stages": 20,
+      "source_drift": [],
+      "report": "quality-results/summary.json"
+    }
+  },
+  "passed_stages": 125,
+  "total_stages": 125,
+  "replay": {
+    "passed": true,
+    "passed_cases": 6,
+    "total_cases": 6,
+    "seeds": [
+      7,
+      83,
+      2026
+    ],
+    "rates_hz": [
+      60,
+      120
+    ],
+    "ticks_total": 12960,
+    "divergences": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "source_drift": [],
+    "report": "quality-results/replay/replay_summary.json"
+  },
+  "original_preservation": [
+    {
+      "project": "emberwake",
+      "baseline_files": 155,
+      "missing": [],
+      "changed": [],
+      "pass": true
+    },
+    {
+      "project": "moksha-assets",
+      "baseline_files": 89,
+      "missing": [],
+      "changed": [],
+      "pass": true
+    }
+  ],
+  "v28_archive_preservation": {
+    "status": "verified",
+    "sha256": "153fd2824303354b1f70dea66c7ba91b27bc204da9c16a05f9b1a27a29955937"
+  },
+  "independent_raw_log_scan": {
+    "logs_scanned": 137,
+    "normalization": "ANSI escapes removed; whitespace-prefixed ERROR, SCRIPT ERROR, FAIL and WARNING diagnostics included.",
+    "diagnostics": []
+  },
+  "exit_codes": {
+    "foundation": 0,
+    "original": 0,
+    "audit": 0,
+    "quality": 0
+  },
+  "fixed_round1_findings": [
+    "Scenery identity API mismatch is absent in this candidate.",
+    "Missing district landmark font reference is corrected; asset reference audit passes without changing budgets."
+  ],
+  "limits": [
+    "No test was weakened or skipped. Original sibling preservation ran against actual linked originals.",
+    "Headless targeted fixtures and bounded replay are not complete campaign traversal. Complete-campaign route validation is separate.",
+    "Native rendered appearance, audible mix, Windows hardware behavior, and human first-play duration were not tested here.",
+    "Inherited output reports were overwritten only in this isolated candidate. Historical production reports were not used as fresh results.",
+    "All final-acceptance commands ran only in the isolated committed archive. Production was not edited."
+  ],
+  "passed": true
+}

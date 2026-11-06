@@ -1,0 +1,29 @@
+{
+  "name": "independent_hud_pipeline_60",
+  "command": [
+    "godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-01105eb/project",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "res://campaign/quality/nov6_independent_hud_pipeline.gd",
+    "--",
+    "--hz=60"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "checks": 1110,
+      "failures": [],
+      "passed": true,
+      "scope": "Real host-to-owner-to-View path, all32 authored scenes, malformed input atomicity and isolated base owner. No direct-to-View bypass."
+    }
+  },
+  "wall_seconds": 4.453,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-01105eb/focused/independent_hud_pipeline_60/engine.log"
+}

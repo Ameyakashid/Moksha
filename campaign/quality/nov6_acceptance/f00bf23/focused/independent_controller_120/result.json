@@ -1,0 +1,30 @@
+{
+  "name": "independent_controller_120",
+  "command": [
+    "godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-f00bf23/project",
+    "--fixed-fps",
+    "120",
+    "--script",
+    "res://campaign/quality/nov6_independent_controller.gd",
+    "--",
+    "--hz=120"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "checks": 32,
+      "failures": [],
+      "hz": 120,
+      "passed": true,
+      "scope": "Synthesized InputEventJoypadButton/Motion through actual campaign event pipeline and actor physics. Not physical controller hardware or full campaign traversal."
+    }
+  },
+  "wall_seconds": 3.542,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-f00bf23/focused/independent_controller_120/engine.log"
+}
