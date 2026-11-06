@@ -55,11 +55,13 @@ passes five motifs, exact surfaces, preserved gap, reconfiguration, whole-tree s
 hiding and no physics children. `--headless --path . --quit-after 5
 res://campaign/presentation/showroom.tscn` checks scene instantiation.
 
-Native rendered screenshot review is **not completed** here: the local Godot build
-advertises headless **dummy-only** rendering, and the executor has no DISPLAY,
-Xvfb, GPU device or Vulkan ICD. The separate cloud browser cannot supply a display
-to this filesystem. No emulated image is presented as a native game screenshot.
-Use the actual showroom on a supported Godot display for visual QA and F12 output.
+The initial presentation pass had no native display. That historical limitation
+was subsequently resolved: native Godot screenshots and bounded manual review are
+recorded in `campaign/evidence/native_visual/` and `campaign/docs/VERIFICATION.md`.
+Headless contract checks below still establish state/geometry only, not pixels or
+human readability. New changes require fresh native review rather than inheriting
+those historical screenshots. See `NOV6_READABILITY.md` for the later campaign HUD
+and objective-caption pass and its focused verification commands.
 
 Actual campaign integration regression also passes:
 `godot --headless --path . --script res://campaign/presentation/tests/runtime_sight_contract.gd`.

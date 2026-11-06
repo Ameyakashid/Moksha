@@ -1,0 +1,540 @@
+{
+  "date": "2026-11-06",
+  "engine": "Godot 4.6.3.stable.official.7d41c59c4",
+  "passed": true,
+  "runs": [
+    {
+      "hz": 60,
+      "passed": true,
+      "checks": 63,
+      "failures": [],
+      "records": [
+        {
+          "check": "title defaults to keyboard without controller hardware assumption",
+          "passed": true
+        },
+        {
+          "check": "stick noise and unused right stick do not change prompt device",
+          "passed": true
+        },
+        {
+          "check": "X without valid checkpoint cannot manufacture Continue",
+          "passed": true
+        },
+        {
+          "check": "title right selects exactly one lens until physical release",
+          "passed": true
+        },
+        {
+          "check": "title right selects agility after release",
+          "passed": true
+        },
+        {
+          "check": "title lenses wrap in both directions",
+          "passed": true
+        },
+        {
+          "check": "intentional joypad input reaches campaign HUD snapshot",
+          "passed": true
+        },
+        {
+          "check": "title A starts the campaign through root input pipeline",
+          "passed": true
+        },
+        {
+          "check": "held A cannot double-accept title then intro",
+          "passed": true
+        },
+        {
+          "check": "intro A skips without leaking held jump",
+          "passed": true
+        },
+        {
+          "check": "fresh A after release uses original actor jump",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "left stick still drives original actor movement",
+          "passed": true
+        },
+        {
+          "check": "LB retains original actor shield",
+          "passed": true
+        },
+        {
+          "check": "RB retains original actor roll",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "Y interacts once despite duplicate held press",
+          "passed": true
+        },
+        {
+          "check": "fresh Y cycles real route objective again",
+          "passed": true
+        },
+        {
+          "check": "B emits one real sonar tap without duplicate side effects",
+          "passed": true
+        },
+        {
+          "check": "Back opens paused field journal",
+          "passed": true
+        },
+        {
+          "check": "journal paging is one page per fresh press",
+          "passed": true
+        },
+        {
+          "check": "journal close suppresses held direction and strike",
+          "passed": true
+        },
+        {
+          "check": "fresh X rearms original actor strike after journal",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "Start pauses scene and active play clock",
+          "passed": true
+        },
+        {
+          "check": "paused B resumes",
+          "passed": true
+        },
+        {
+          "check": "paused X retries district once without striking new actor",
+          "passed": true
+        },
+        {
+          "check": "paused Y returns to title",
+          "passed": true
+        },
+        {
+          "check": "title Start also begins new campaign",
+          "passed": true
+        },
+        {
+          "check": "fresh Start skips intro",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "sight choice 1 uses same decision path without combat leakage",
+          "passed": true
+        },
+        {
+          "check": "sight choice 2 uses same decision path without combat leakage",
+          "passed": true
+        },
+        {
+          "check": "archive A returns without jumping",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "upgrade force applies once, ascends once, and suppresses held attack",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "upgrade agility applies once, ascends once, and suppresses held attack",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "upgrade vitality applies once, ascends once, and suppresses held attack",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "final public_record records exactly one ending",
+          "passed": true
+        },
+        {
+          "check": "completion A returns to title",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "final local_custody records exactly one ending",
+          "passed": true
+        },
+        {
+          "check": "completion A returns to title",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "death A retries without jump or lost death count",
+          "passed": true
+        },
+        {
+          "check": "death Y returns to title",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "active controller disconnect pauses and exposes keyboard fallback",
+          "passed": true
+        },
+        {
+          "check": "controller reconnect never silently resumes",
+          "passed": true
+        },
+        {
+          "check": "explicit resume suppresses held disconnected direction",
+          "passed": true
+        },
+        {
+          "check": "direction rearms after release following disconnect",
+          "passed": true
+        },
+        {
+          "check": "keyboard journal command coexists and restores keyboard prompts",
+          "passed": true
+        },
+        {
+          "check": "analog jitter cannot steal active keyboard prompts",
+          "passed": true
+        },
+        {
+          "check": "deliberate left-stick deflection changes prompt device",
+          "passed": true
+        },
+        {
+          "check": "unrelated controller disconnect preserves menu",
+          "passed": true
+        },
+        {
+          "check": "keyboard Escape still pauses after controller use",
+          "passed": true
+        },
+        {
+          "check": "keyboard Escape still resumes after controller use",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "real controller title return exposes saved checkpoint",
+          "passed": true
+        },
+        {
+          "check": "title X restores real checkpoint without attack leakage",
+          "passed": true
+        }
+      ],
+      "engine_errors": false,
+      "log_sha256": "3d3a4774f8fa322309250d542a58616b4b80ffbd86d2feff54728f32b1404106"
+    },
+    {
+      "hz": 120,
+      "passed": true,
+      "checks": 63,
+      "failures": [],
+      "records": [
+        {
+          "check": "title defaults to keyboard without controller hardware assumption",
+          "passed": true
+        },
+        {
+          "check": "stick noise and unused right stick do not change prompt device",
+          "passed": true
+        },
+        {
+          "check": "X without valid checkpoint cannot manufacture Continue",
+          "passed": true
+        },
+        {
+          "check": "title right selects exactly one lens until physical release",
+          "passed": true
+        },
+        {
+          "check": "title right selects agility after release",
+          "passed": true
+        },
+        {
+          "check": "title lenses wrap in both directions",
+          "passed": true
+        },
+        {
+          "check": "intentional joypad input reaches campaign HUD snapshot",
+          "passed": true
+        },
+        {
+          "check": "title A starts the campaign through root input pipeline",
+          "passed": true
+        },
+        {
+          "check": "held A cannot double-accept title then intro",
+          "passed": true
+        },
+        {
+          "check": "intro A skips without leaking held jump",
+          "passed": true
+        },
+        {
+          "check": "fresh A after release uses original actor jump",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "left stick still drives original actor movement",
+          "passed": true
+        },
+        {
+          "check": "LB retains original actor shield",
+          "passed": true
+        },
+        {
+          "check": "RB retains original actor roll",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "Y interacts once despite duplicate held press",
+          "passed": true
+        },
+        {
+          "check": "fresh Y cycles real route objective again",
+          "passed": true
+        },
+        {
+          "check": "B emits one real sonar tap without duplicate side effects",
+          "passed": true
+        },
+        {
+          "check": "Back opens paused field journal",
+          "passed": true
+        },
+        {
+          "check": "journal paging is one page per fresh press",
+          "passed": true
+        },
+        {
+          "check": "journal close suppresses held direction and strike",
+          "passed": true
+        },
+        {
+          "check": "fresh X rearms original actor strike after journal",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "Start pauses scene and active play clock",
+          "passed": true
+        },
+        {
+          "check": "paused B resumes",
+          "passed": true
+        },
+        {
+          "check": "paused X retries district once without striking new actor",
+          "passed": true
+        },
+        {
+          "check": "paused Y returns to title",
+          "passed": true
+        },
+        {
+          "check": "title Start also begins new campaign",
+          "passed": true
+        },
+        {
+          "check": "fresh Start skips intro",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "sight choice 1 uses same decision path without combat leakage",
+          "passed": true
+        },
+        {
+          "check": "sight choice 2 uses same decision path without combat leakage",
+          "passed": true
+        },
+        {
+          "check": "archive A returns without jumping",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "upgrade force applies once, ascends once, and suppresses held attack",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "upgrade agility applies once, ascends once, and suppresses held attack",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "upgrade vitality applies once, ascends once, and suppresses held attack",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "final public_record records exactly one ending",
+          "passed": true
+        },
+        {
+          "check": "completion A returns to title",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "final local_custody records exactly one ending",
+          "passed": true
+        },
+        {
+          "check": "completion A returns to title",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "death A retries without jump or lost death count",
+          "passed": true
+        },
+        {
+          "check": "death Y returns to title",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "active controller disconnect pauses and exposes keyboard fallback",
+          "passed": true
+        },
+        {
+          "check": "controller reconnect never silently resumes",
+          "passed": true
+        },
+        {
+          "check": "explicit resume suppresses held disconnected direction",
+          "passed": true
+        },
+        {
+          "check": "direction rearms after release following disconnect",
+          "passed": true
+        },
+        {
+          "check": "keyboard journal command coexists and restores keyboard prompts",
+          "passed": true
+        },
+        {
+          "check": "analog jitter cannot steal active keyboard prompts",
+          "passed": true
+        },
+        {
+          "check": "deliberate left-stick deflection changes prompt device",
+          "passed": true
+        },
+        {
+          "check": "unrelated controller disconnect preserves menu",
+          "passed": true
+        },
+        {
+          "check": "keyboard Escape still pauses after controller use",
+          "passed": true
+        },
+        {
+          "check": "keyboard Escape still resumes after controller use",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "real controller title return exposes saved checkpoint",
+          "passed": true
+        },
+        {
+          "check": "title X restores real checkpoint without attack leakage",
+          "passed": true
+        }
+      ],
+      "engine_errors": false,
+      "log_sha256": "e7c9a3250746e1ab9e8e985ea136c0f7daddd4f9cdff6a8f8f7622fbb1539f3a"
+    }
+  ],
+  "observed_source_sha256": {
+    "campaign/input/gamepad_navigation.gd": "04bd49dd82d58310c15ef1c0dfc92ddb1b6be0f9797f2260551eaa05e9afc591",
+    "campaign/quality/nov6_gamepad_navigation.gd": "e05a27b61c1da6b2d83da1a3611efc0708fac5ef37ca8b124ac40e0e14a71a0e",
+    "campaign/logic/campaign.gd": "2fef80cf76aed4e2d7e3f884e450e5020203107167d2f4c45ab02a4e56cd3744",
+    "campaign/logic/campaign_input_gate.gd": "c050b114624a57691cde08278041c0ced7f3142b04b11627a898a23934abd7ef",
+    "campaign/views/campaign_hud.gd": "5924d49ab270d916505c4301f60e0c4f48d9605bd8b0091b95f959da2988f935",
+    "campaign/views/campaign_hud_owner.gd": "1e2d857911a8ee7a5df18be869cb86a79414fbd42ed7c0a7e0b38e7bdf03eac7"
+  },
+  "scope": "Synthetic joypad/keyboard Input.parse_input_event integration with controlled scene/modal fixtures. No input_override, physical controller hardware, all-device compatibility, or full traversal claim. Source files owned by other workers may evolve after this receipt; rerun final acceptance on final hashes."
+}

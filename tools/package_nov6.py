@@ -1,0 +1,432 @@
+#!/usr/bin/env python3
+"""Build portable MOKSHA archives from one immutable, explicitly frozen Git commit.
+
+No network, source edits, template installs, or upload occurs here. A verified
+prior Windows package supplies its unchanged official 4.6.3 release runtime.
+Godot imports a separate stage and exports a new text-script PCK. Checks run
+against that PCK from a directory with no loose game resources, and again after
+extracting the finished Windows archive. Linux delivery optionally includes the
+installed official engine binary and a game-mode launcher, not an installer.
+
+Example (only after the source owner declares a freeze):
+  python3 tools/package_nov6.py --source-commit COMMIT --output NEW_DIRECTORY \
+    --windows-archive /absolute/MOKSHA-Windows-x64-9e22722.zip --with-linux
+
+--rehearsal validates a candidate without producing delivery ZIPs or a bundle.
+Every output directory must be new; historical deliveries are never replaced.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import io
+import json
+import os
+from pathlib import Path, PurePosixPath
+import re
+import shutil
+import stat
+import subprocess
+import tarfile
+import time
+import zipfile
+
+ROOT = Path(__file__).resolve().parents[1]
+EXPECTED_WINDOWS_ZIP_SHA256 = "88ef3a4ea5a7379135207fb6fb308dd38e06cb0fddd086825ffdc92ba8b77541"
+EXPECTED_WINDOWS_EXE_SHA256 = "91724f15024a3a545e28ccd83134403d31ce2323a38e51c95e4dfa282f732ab6"
+EXPECTED_ENGINE = "4.6.3.stable.official.7d41c59c4"
+EXCLUDED_PARTS = {
+    ".git", ".godot", "__pycache__", "tests", "enemy_tests", "qa_audit",
+    "route_tests", "route_tests_45", "evidence", "docs", "quality", "reference",
+    "native_visual_fixture", "historical_foundation", "history",
+}
+EXCLUDED_ROOTS = {
+    "tools", "export_templates", "feature_profiles", "script_templates",
+    "text_editor_themes", "delivery", "art_sources", "pc",
+}
+RUNTIME_SUFFIXES = {
+    ".gd", ".uid", ".tscn", ".scn", ".tres", ".res", ".gdshader", ".gdshaderinc",
+    ".png", ".jpg", ".jpeg", ".webp", ".svg", ".wav", ".ogg", ".mp3",
+    ".ttf", ".otf", ".json", ".import", ".glb", ".gltf", ".obj", ".mtl",
+}
+ERROR_PATTERN = re.compile(r"^\s*(?:SCRIPT ERROR:|ERROR:|FAIL\b)", re.MULTILINE)
+
+PRESET = '''[preset.0]
+name="Portable PCK"
+platform="Linux"
+runnable=true
+advanced_options=false
+dedicated_server=false
+custom_features=""
+export_filter="all_resources"
+include_filter="*.json"
+exclude_filter=""
+export_path=""
+script_export_mode=0
+
+[preset.0.options]
+binary_format/architecture="x86_64"
+binary_format/embed_pck=false
+texture_format/s3tc_bptc=true
+texture_format/etc2_astc=false
+'''
+
+PACK_AUDIT = '''extends SceneTree
+var failures:Array[String]=[]
+var scripts_checked:=0
+var resources_checked:=0
+func check(ok:bool,label:String)->void:
+    if not ok:failures.append(label)
+func _initialize()->void:call_deferred("run")
+func run()->void:
+    check(FileAccess.get_sha256("res://BUILD_PROVENANCE.json")=="@PROVENANCE_SHA@","embedded provenance bytes")
+    var provenance=JSON.parse_string(FileAccess.get_file_as_string("res://BUILD_PROVENANCE.json"))
+    if not provenance is Dictionary:
+        push_error("PACK_AUDIT missing provenance");quit(1);return
+    check(provenance.source_commit=="@SOURCE_COMMIT@","frozen commit")
+    for path in provenance.production_sha256:
+        var uri="res://"+str(path)
+        if str(path).ends_with(".gd"):
+            check(FileAccess.get_sha256(uri)==provenance.production_sha256[path],"script hash "+str(path))
+            scripts_checked+=1
+        if str(path).ends_with(".tscn") or str(path).ends_with(".tres") or str(path).ends_with(".gdshader"):
+            check(ResourceLoader.exists(uri) and ResourceLoader.load(uri)!=null,"resource loads "+str(path))
+            resources_checked+=1
+    check(not FileAccess.file_exists("res://campaign/tests/campaign_smoke.gd"),"developer tests excluded")
+    var packed=load("res://campaign/campaign.tscn")
+    if packed==null:
+        push_error("PACK_AUDIT missing main scene");quit(1);return
+    var host=packed.instantiate()
+    host.save_enabled=false
+    root.add_child(host)
+    host.start_new(true)
+    host.input_override={}
+    var levels:Dictionary={}
+    var districts:int=host.sectors.size()
+    check(districts>0,"nonempty campaign")
+    for i in districts:
+        host.load_sector(i)
+        await physics_frame
+        await process_frame
+        levels[int(host.sectors[i].level)]=true
+        check(is_instance_valid(host.player),"district player "+str(i))
+        check(is_instance_valid(host.art),"district scenery "+str(i))
+        check(is_instance_valid(host.actor_paint),"district actor paint "+str(i))
+        check(is_instance_valid(host.object_paint),"district object paint "+str(i))
+        check(host.player.get_node("BodyShape/IncomingStrikeReceiver")._health()==host.health,"district Health binding "+str(i))
+    check(levels.size()==5,"five level data sets")
+    host.state="choice"
+    host.choose_sight(true)
+    check(host.blind and host.sonar.blind,"real sight trade")
+    check(not host.art.visible and not host.actor_paint.operative.visible,"sight trade hides presentation")
+    host.load_sector(0)
+    await process_frame
+    check(not host.art.visible and not host.actor_paint.operative.visible,"sight trade survives district reload")
+    host.start_new(true)
+    await process_frame
+    check(not host.blind and host.art.visible and host.actor_paint.operative.visible,"new run restores sight")
+    host.queue_free()
+    await process_frame
+    var result={"source_commit":provenance.source_commit,"districts":districts,"levels":levels.size(),"script_hashes_checked":scripts_checked,"resources_loaded":resources_checked,"failures":failures}
+    print("PACK_AUDIT_RESULT "+JSON.stringify(result))
+    if failures.is_empty():print("PACK_AUDIT_PASS")
+    else:
+        for failure in failures:push_error(failure)
+    quit(0 if failures.is_empty() else 1)
+'''
+
+
+def require(condition: bool, message: str) -> None:
+    if not condition:
+        raise RuntimeError(message)
+
+
+def sha(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def write_json(path: Path, value: object) -> None:
+    path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def included_runtime(relative: Path) -> bool:
+    return not (EXCLUDED_PARTS.intersection(relative.parts) or relative.parts[0] in EXCLUDED_ROOTS) and (
+        relative.name == "project.godot" or relative.suffix in RUNTIME_SUFFIXES
+    ) and not relative.name.endswith("_pixels.tscn")
+
+
+def safe_member(name: str) -> bool:
+    path = PurePosixPath(name)
+    return bool(name) and not path.is_absolute() and ".." not in path.parts and "\\" not in name
+
+
+def extract_zip(archive: Path, destination: Path) -> None:
+    destination.mkdir(parents=True, exist_ok=False)
+    with zipfile.ZipFile(archive) as zipped:
+        require(zipped.testzip() is None, f"ZIP CRC failure: {archive}")
+        require(len(zipped.namelist()) == len(set(zipped.namelist())), "Duplicate ZIP members")
+        for member in zipped.infolist():
+            require(safe_member(member.filename), f"Unsafe ZIP path: {member.filename}")
+            mode = member.external_attr >> 16
+            require(not stat.S_ISLNK(mode), f"Unexpected archive link: {member.filename}")
+        zipped.extractall(destination)
+        for member in zipped.infolist():
+            if not member.is_dir() and member.external_attr >> 16:
+                (destination / member.filename).chmod((member.external_attr >> 16) & 0o777)
+
+
+def snapshot(commit: str, destination: Path) -> dict[str, str]:
+    destination.mkdir(parents=True, exist_ok=False)
+    result = subprocess.run(["git", "archive", "--format=tar", commit], cwd=ROOT, capture_output=True, check=True)
+    with tarfile.open(fileobj=io.BytesIO(result.stdout)) as archive:
+        for member in archive.getmembers():
+            require(safe_member(member.name) and (member.isfile() or member.isdir()), f"Unsupported Git archive entry: {member.name}")
+        archive.extractall(destination, filter="data")
+    return {p.relative_to(destination).as_posix(): sha(p) for p in sorted(destination.rglob("*")) if p.is_file()}
+
+
+def isolated_environment(parent: Path, name: str) -> dict[str, str]:
+    env = dict(os.environ, MOKSHA_QUALITY_ISOLATED="1")
+    for key in ("HOME", "XDG_DATA_HOME", "XDG_CONFIG_HOME", "XDG_CACHE_HOME"):
+        path = parent / name / key
+        path.mkdir(parents=True, exist_ok=True)
+        env[key] = str(path)
+    return env
+
+
+def command_check(name: str, command: list[str], cwd: Path, env: dict[str, str], logs: Path,
+                  marker: str | None = None, timeout: int = 360) -> dict:
+    start = time.monotonic()
+    try:
+        proc = subprocess.run(command, cwd=cwd, env=env, capture_output=True, text=True, timeout=timeout)
+        code, log = proc.returncode, proc.stdout + proc.stderr
+    except subprocess.TimeoutExpired as exc:
+        stdout = exc.stdout.decode(errors="replace") if isinstance(exc.stdout, bytes) else exc.stdout or ""
+        stderr = exc.stderr.decode(errors="replace") if isinstance(exc.stderr, bytes) else exc.stderr or ""
+        code, log = 124, stdout + stderr + "\nTIMEOUT\n"
+    (logs / (name + ".log")).write_text(log, encoding="utf-8")
+    clean = re.sub(r"\x1b\[[0-9;]*m", "", log)
+    errors = [line for line in clean.splitlines() if ERROR_PATTERN.match(line)]
+    row = {"name": name, "command": command, "exit_code": code, "errors": errors,
+           "marker_found": marker is None or marker in clean,
+           "passed": code == 0 and not errors and (marker is None or marker in clean),
+           "wall_seconds": round(time.monotonic() - start, 3), "log_sha256": sha(logs / (name + ".log"))}
+    print(json.dumps(row), flush=True)
+    write_json(logs / (name + ".json"), row)
+    require(row["passed"], f"{name} failed; see {logs / (name + '.log')}")
+    return row
+
+
+def archive_tree(directory: Path, archive: Path) -> dict:
+    require(not archive.exists(), f"Refusing to replace {archive}")
+    temporary = archive.with_suffix(".partial.zip")
+    require(not temporary.exists(), f"Refusing to replace {temporary}")
+    members = {p.relative_to(directory.parent).as_posix(): sha(p) for p in sorted(directory.rglob("*")) if p.is_file()}
+    with zipfile.ZipFile(temporary, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as zipped:
+        for name in members:
+            zipped.write(directory.parent / name, name)
+    with zipfile.ZipFile(temporary) as zipped:
+        require(zipped.testzip() is None, "Archive CRC failure")
+        for name, digest in members.items():
+            require(hashlib.sha256(zipped.read(name)).hexdigest() == digest, f"Archive byte mismatch: {name}")
+    temporary.rename(archive)
+    return {"path": str(archive), "bytes": archive.stat().st_size, "sha256": sha(archive), "members": members}
+
+
+def checksums(directory: Path) -> None:
+    rows = [f"{sha(p)}  {p.relative_to(directory).as_posix()}" for p in sorted(directory.rglob("*"))
+            if p.is_file() and p.name != "CHECKSUMS.sha256"]
+    (directory / "CHECKSUMS.sha256").write_text("\n".join(rows) + "\n", encoding="utf-8")
+
+
+def readme(platform: str, commit: str, engine: str) -> str:
+    start = ("Extract the complete ZIP to a folder, then double-click MOKSHA.exe.\n"
+             "Keep MOKSHA.exe and MOKSHA.pck together. No editor install is needed.\n"
+             "This unsigned development executable has NOT been executed on Windows.\n") if platform == "Windows" else (
+             "Extract the complete ZIP, then run ./Start-MOKSHA.sh.\n"
+             "If your extractor drops permissions: chmod +x Start-MOKSHA.sh MOKSHA\n"
+             "The bundled official Linux engine runs the game without an installation.\n"
+             "It includes editor functionality but the launcher starts game mode.\n")
+    return f"""MOKSHA: FIVE ASCENTS / {platform} x86_64 development build
+
+{start}
+Use an OpenGL 3.3-compatible driver. No installer, account, or online service is required.
+
+Enter: new campaign. C: continue when available. 1/2/3: select a build at the title.
+A/D: move. Space: jump. W/S: ladder. S+Space: drop/dive.
+J: attack. K: guard/parry. Shift: roll. E: interact. Q: sound pulse.
+Tab: journal/navigation. Esc: pause. R: retry district. M: mute.
+Follow the in-game prompts for choices, upgrades, and any newer controls.
+
+Frozen source: {commit}
+Engine: {engine}
+The actual packed game passed isolated Linux/headless checks, including all
+district loads, script hashes, presentation concealment, incoming damage,
+save/Continue, and journal behavior. Detailed receipts are in BUILD_REPORT.json.
+These are focused fixtures, not a complete human playthrough or a Windows test.
+Human completion time, native Windows operation, and other devices remain unverified.
+
+The source/history archive is the editable companion to this playable package.
+Godot's MIT license and third-party notices are included under licenses/.
+Existing saves are not altered by extracting this package. The game uses its
+normal Godot user-data directory, separate from these portable program files.
+"""
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--source-commit", required=True)
+    parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--windows-archive", required=True, type=Path)
+    parser.add_argument("--godot", default=shutil.which("godot") or "godot")
+    parser.add_argument("--with-linux", action="store_true")
+    parser.add_argument("--rehearsal", action="store_true")
+    args = parser.parse_args()
+    output = args.output.resolve()
+    require(not output.exists(), "Output must be a new directory; old builds are preserved")
+    require(not output.is_relative_to(ROOT), "Put build output outside the source checkout")
+    prior = args.windows_archive.resolve()
+    require(prior.is_file() and sha(prior) == EXPECTED_WINDOWS_ZIP_SHA256, "Prior Windows archive does not match trusted provenance")
+    commit = subprocess.check_output(["git", "rev-parse", "--verify", args.source_commit + "^{commit}"], cwd=ROOT, text=True).strip()
+    engine = Path(args.godot).resolve()
+    require(engine.is_file(), "Godot executable is missing")
+    output.mkdir(parents=True)
+    logs = output / "verification"
+    logs.mkdir()
+    env = isolated_environment(output / "isolated", "build")
+    version = subprocess.check_output([str(engine), "--version"], env=env, text=True).strip()
+    require(version == EXPECTED_ENGINE, f"Expected official {EXPECTED_ENGINE}, found {version}")
+    frozen = output / "frozen-source"
+    source_hashes = snapshot(commit, frozen)
+    stage = output / "export-stage"
+    stage.mkdir()
+    production = {}
+    for relative, digest in source_hashes.items():
+        if included_runtime(Path(relative)):
+            target = stage / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(frozen / relative, target)
+            production[relative] = digest
+    require("project.godot" in production and "campaign/logic/campaign.gd" in production, "Missing campaign entry point")
+    provenance = {"source_commit": commit, "engine": version, "production_sha256": production,
+                  "scope": "Immutable Git snapshot; source resource inputs before Godot import/export"}
+    write_json(stage / "BUILD_PROVENANCE.json", provenance)
+    (stage / "export_presets.cfg").write_text(PRESET, encoding="utf-8")
+    audit = output / "pack_audit.gd"
+    audit.write_text(PACK_AUDIT.replace("@PROVENANCE_SHA@", sha(stage / "BUILD_PROVENANCE.json")).replace("@SOURCE_COMMIT@", commit), encoding="utf-8")
+    reports = []
+    reports.append(command_check("import", [str(engine), "--headless", "--editor", "--import", "--path", str(stage)], output, env, logs))
+    pack = output / "MOKSHA.pck"
+    reports.append(command_check("export_pack", [str(engine), "--headless", "--path", str(stage), "--export-pack", "Portable PCK", str(pack)], output, env, logs))
+    require(pack.is_file() and pack.read_bytes()[:4] == b"GDPC", "Invalid exported PCK")
+    test_root = output / "pack-only-run"
+    test_root.mkdir()
+
+    def packed_check(name: str, script: Path | None, marker: str | None, pck: Path = pack,
+                     binary: Path = engine, hz: int | None = None) -> None:
+        command = [str(binary), "--headless", "--path", str(test_root), "--main-pack", str(pck)]
+        if script is None:
+            command += ["--quit-after", "10"]
+        else:
+            command += ["--script", str(script)]
+        if hz is not None:
+            command += ["--fixed-fps", str(hz), "--", "--hz=" + str(hz)]
+        reports.append(command_check(name, command, test_root, isolated_environment(output / "isolated", name), logs, marker))
+
+    packed_check("packed_title", None, None)
+    packed_check("packed_audit", audit, "PACK_AUDIT_PASS")
+    fixtures = [
+        ("incoming_health", "campaign/qa_audit/incoming_health.gd", "INCOMING_HEALTH_FAILURES []"),
+        ("save_continue", "campaign/qa_audit/save_draft.gd", "SAVE_FAILURES []"),
+        ("journal", "campaign/qa_audit/ui_dependencies.gd", "UI_DEPENDENCY_FAILURES []"),
+    ]
+    for hz in (60, 120):
+        for name, relative, marker in fixtures:
+            require((frozen / relative).is_file(), f"Required frozen fixture missing: {relative}")
+            packed_check(f"packed_{name}_{hz}", frozen / relative, marker, hz=hz)
+    require(all(sha(frozen / name) == digest for name, digest in source_hashes.items()), "Frozen source drift during verification")
+    prior_extracted = output / "prior-runtime"
+    extract_zip(prior, prior_extracted)
+    old = prior_extracted / "MOKSHA-Windows"
+    require(sha(old / "MOKSHA.exe") == EXPECTED_WINDOWS_EXE_SHA256, "Windows runtime hash mismatch")
+    base_report = {
+        "source_commit": commit, "engine": version, "pck_sha256": sha(pack),
+        "source_files": len(source_hashes), "runtime_source_files": len(production),
+        "linux_engine_sha256": sha(engine), "windows_runtime_sha256": sha(old / "MOKSHA.exe"),
+        "prior_windows_archive_sha256": sha(prior), "windows_executed": False,
+        "complete_campaign_playthrough": False, "human_duration_validated": False,
+        "checks": reports, "rehearsal": args.rehearsal,
+    }
+    if args.rehearsal:
+        write_json(output / "REHEARSAL_REPORT.json", base_report)
+        print(json.dumps({"rehearsal_passed": True, "report": str(output / "REHEARSAL_REPORT.json"), "pck_sha256": sha(pack)}))
+        return 0
+
+    dist = output / "distribution"
+    dist.mkdir()
+    windows = dist / "MOKSHA-Windows"
+    windows.mkdir()
+    shutil.copy2(old / "MOKSHA.exe", windows / "MOKSHA.exe")
+    shutil.copy2(pack, windows / "MOKSHA.pck")
+    shutil.copytree(old / "licenses", windows / "licenses")
+    # Keep current project notices, not just those in the older distribution.
+    for path in frozen.rglob("*"):
+        if path.is_file() and path.name.upper().startswith(("LICENSE", "COPYING", "NOTICE")):
+            target = windows / "licenses/project" / path.relative_to(frozen)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(path, target)
+    shutil.copy2(old / "template-verification.json", windows / "template-verification.json")
+    (windows / "START_HERE.txt").write_text(readme("Windows", commit, version), encoding="utf-8")
+    (windows / "Run-MOKSHA.cmd").write_bytes(b'@echo off\r\nsetlocal\r\ncd /d "%~dp0"\r\nif not exist "MOKSHA.pck" (\r\n  echo Extract the complete ZIP first. MOKSHA.pck is missing.\r\n  pause\r\n  exit /b 1\r\n)\r\nstart "MOKSHA" /D "%~dp0" "%~dp0MOKSHA.exe" --rendering-method gl_compatibility\r\n')
+    write_json(windows / "BUILD_REPORT.json", base_report)
+    shutil.copy2(stage / "BUILD_PROVENANCE.json", windows / "BUILD_PROVENANCE.json")
+    checksums(windows)
+    archives = {"windows": archive_tree(windows, output / f"MOKSHA-Windows-x64-{commit[:7]}.zip")}
+    fresh = output / "fresh-extraction"
+    extract_zip(Path(archives["windows"]["path"]), fresh)
+    fresh_pack = fresh / "MOKSHA-Windows/MOKSHA.pck"
+    require(sha(fresh_pack) == sha(pack), "Extracted delivery PCK differs from tested pack")
+    packed_check("fresh_windows_zip_pck", audit, "PACK_AUDIT_PASS", pck=fresh_pack)
+
+    if args.with_linux:
+        linux = dist / "MOKSHA-Linux"
+        linux.mkdir()
+        shutil.copy2(engine, linux / "MOKSHA")
+        (linux / "MOKSHA").chmod(0o755)
+        shutil.copy2(pack, linux / "MOKSHA.pck")
+        shutil.copytree(windows / "licenses", linux / "licenses")
+        (linux / "Start-MOKSHA.sh").write_text('#!/bin/sh\nset -eu\nHERE=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)\ncd "$HERE"\nexec "$HERE/MOKSHA" --path "$HERE" --main-pack "$HERE/MOKSHA.pck" --rendering-method gl_compatibility "$@"\n', encoding="utf-8")
+        (linux / "Start-MOKSHA.sh").chmod(0o755)
+        (linux / "START_HERE.txt").write_text(readme("Linux", commit, version), encoding="utf-8")
+        packed_check("relocated_linux_binary", audit, "PACK_AUDIT_PASS", pck=linux / "MOKSHA.pck", binary=linux / "MOKSHA")
+        reports.append(command_check("linux_launcher", [str(linux / "Start-MOKSHA.sh"), "--headless", "--quit-after", "10"], test_root,
+                                     isolated_environment(output / "isolated", "linux_launcher"), logs))
+        write_json(linux / "BUILD_REPORT.json", base_report)
+        shutil.copy2(stage / "BUILD_PROVENANCE.json", linux / "BUILD_PROVENANCE.json")
+        checksums(linux)
+        archives["linux"] = archive_tree(linux, output / f"MOKSHA-Linux-x64-{commit[:7]}.zip")
+
+    source = dist / "MOKSHA-Source"
+    shutil.copytree(frozen, source)
+    (source / "history").mkdir(exist_ok=True)
+    bundle = source / "history/MOKSHA-source-history.bundle"
+    require(not bundle.exists(), "Refusing to overwrite historical source bundle")
+    subprocess.run(["git", "bundle", "create", str(bundle), "--all"], cwd=ROOT, check=True, capture_output=True)
+    subprocess.run(["git", "bundle", "verify", str(bundle)], cwd=ROOT, check=True, capture_output=True)
+    write_json(source / "DELIVERY_SOURCE_MANIFEST.json", {"source_commit": commit, "source_sha256": source_hashes,
+                                                        "history_bundle_sha256": sha(bundle), "pck_sha256": sha(pack)})
+    archives["source"] = archive_tree(source, output / f"MOKSHA-Source-and-History-{commit[:7]}.zip")
+    final = dict(base_report, archives=archives, checks=reports, passed=all(row["passed"] for row in reports))
+    write_json(output / "DELIVERY_REPORT.json", final)
+    print(json.dumps({"passed": final["passed"], "source_commit": commit, "report": str(output / "DELIVERY_REPORT.json"),
+                      "archives": {key: {k: v for k, v in row.items() if k != "members"} for key, row in archives.items()}}, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

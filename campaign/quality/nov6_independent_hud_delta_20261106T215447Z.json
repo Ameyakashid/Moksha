@@ -1,0 +1,63 @@
+{
+  "scope": "Targeted independent verification of final duplicate-key-label presentation cleanup after broader clean review. Other production scope is recorded in nov6_independent_results_20261106T215149Z.json.",
+  "source_sha256": {
+    "campaign/views/campaign_hud.gd": "315a4e9747cff54bd16cb5c57cfeaa9e7e02a5c8cc2ad453c39c82c4d66cefa2",
+    "campaign/views/campaign_hud_owner.gd": "1e2d857911a8ee7a5df18be869cb86a79414fbd42ed7c0a7e0b38e7bdf03eac7",
+    "campaign/views/objective_caption.gd": "b59a9493e0277dc9121af2e1027565de929eac4074a2611392c8c03bafaae2df",
+    "campaign/quality/nov6_presentation_contract.gd": "5f96625d0f0180d6768e69c4a0058241f2a07281f8697f6443faac1719df8b76",
+    "campaign/quality/nov6_independent_hud_pipeline.gd": "4e1cc5fb076b0f0351c22e56390c09b6ae94ce9ca49197f115a3791e456de6a6"
+  },
+  "source_drift": [],
+  "stages": [
+    {
+      "name": "independent_hud_delta",
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "120",
+        "--script",
+        "res://campaign/quality/nov6_independent_hud_pipeline.gd"
+      ],
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "validation": {
+        "passed": true,
+        "receipt": {
+          "checks": 1110,
+          "failures": [],
+          "passed": true,
+          "scope": "Real host-to-owner-to-View path, all32 authored scenes, malformed input atomicity and isolated base owner. No direct-to-View bypass."
+        }
+      },
+      "wall_seconds": 4.87,
+      "log": "/tmp/moksha-independent-hud-delta-itd122j7/independent_hud_delta/engine.log"
+    },
+    {
+      "name": "presentation_delta",
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "120",
+        "--script",
+        "res://campaign/quality/nov6_presentation_contract.gd"
+      ],
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "validation": {
+        "passed": true,
+        "checks": 2496
+      },
+      "wall_seconds": 9.827,
+      "log": "/tmp/moksha-independent-hud-delta-itd122j7/presentation_delta/engine.log"
+    }
+  ],
+  "passed": true
+}

@@ -4,6 +4,7 @@ const CampaignData=preload("res://campaign/logic/campaign_data.gd")
 const ObjectiveScene=preload("res://campaign/logic/objective.tscn")
 const DoorScene=preload("res://campaign/logic/objective_door.tscn")
 const HazardScene=preload("res://campaign/logic/hazard.tscn")
+const CampaignInputGate=preload("res://campaign/logic/campaign_input_gate.gd")
 const CAMPAIGN_SAVE="user://moksha_five_levels_v1.json"
 var goals:Array[Node]=[]
 var blackboard:Node
@@ -22,17 +23,42 @@ var debug_wireframe:=false
 var map_open:=false
 var _loading_campaign:=false
 var _completed_snapshot:Dictionary={}
+var camera_follow=preload("res://campaign/presentation/camera_follow.gd").new()
+var _input_gate=CampaignInputGate.new()
+var _input_tick_active:=false
+var _input_tick_source:Variant=null
+var _build_actor_id:=0
+var _build_force:=-1.0
+var _focus_pause_active:=false
+var _focus_resume_state:="playing"
+var _level_transition_snapshot:Dictionary={}
+var gamepad_navigation=preload("res://campaign/input/gamepad_navigation.gd").new()
 func _ready()->void:
+	# Register the preserved device mapping before title/Continue can share C.
+	preload("res://combat_pc/player.gd").ensure_default_inputs()
+	gamepad_navigation.bind(self);add_child(gamepad_navigation)
 	blackboard=preload("res://campaign/vendor/beehave/blackboard.gd").new()
 	add_child(blackboard)
 	sectors=CampaignData.sectors()
 	super._ready()
+	var appearance:Resource=hud.appearance
+	hud.set_script(preload("res://campaign/views/campaign_hud_owner.gd"))
+	hud.appearance=appearance
 	hud.get_node("View").set_script(preload("res://campaign/views/campaign_hud.gd"))
+	hud.set_snapshot(_hud_snapshot())
+	get_window().focus_exited.connect(_on_window_focus_exited)
 func start_new(skip_intro:=false)->void:
+	_level_transition_snapshot.clear()
+	_focus_pause_active=false
 	rewards.clear();upgrades.clear();level_seconds.clear();level_receipts.clear();campaign_ending=""
 	_completed_snapshot.clear()
 	super.start_new(skip_intro)
 func load_sector(index:int)->void:
+	if not _level_transition_snapshot.is_empty():
+		if index==int(_level_transition_snapshot.to):_level_transition_snapshot.clear()
+		else:_cancel_sector_transition()
+	_capture_input_boundary()
+	_pending_sector=-1;_pending_retry=false
 	_loading_campaign=true
 	goals.clear();completed_goals.clear();art=null;actor_paint=null;object_paint=null
 	if is_instance_valid(blackboard):blackboard.set_value("objectives",{})
@@ -82,6 +108,7 @@ func load_sector(index:int)->void:
 	object_paint.bind(room);object_paint.set_sight_enabled(not blind);object_paint.set_debug_wireframe(debug_wireframe)
 	_apply_build()
 	_loading_campaign=false
+	camera.position=camera_follow.reset(player.global_position,sectors[sector])
 	_update_gate()
 	_save_checkpoint()
 func goal_done(id:String)->bool:
@@ -117,12 +144,35 @@ func _apply_build()->void:
 		elif value=="force":force+=0.25
 		elif value=="agility":speed+=0.1
 	player.profile.run_speed*=speed
-	player.melee_chain=preload("res://combat_pc/resources/responsive_chain.tres").duplicate(true)
-	for step in player.melee_chain.steps:step.damage*=force
-	health.set_capacity(capacity,_loading_campaign)
+	# Swapping an actor's melee resource legitimately retires its live strike.
+	# Health/speed-only pickups must not cancel a combo by swapping it needlessly.
+	if _build_actor_id!=player.get_instance_id() or not is_equal_approx(_build_force,force):
+		player.melee_chain=preload("res://combat_pc/resources/responsive_chain.tres").duplicate(true)
+		for step in player.melee_chain.steps:step.damage*=force
+		_build_actor_id=player.get_instance_id();_build_force=force
+	if _loading_campaign or not is_equal_approx(health.capacity,capacity):
+		health.set_capacity(capacity,_loading_campaign)
+func _raw_campaign_input()->Dictionary:
+	var source:Variant=_input_tick_source if _input_tick_active else input_override
+	return source.duplicate() if source is Dictionary else _input_gate.sample_device()
+func _capture_input_boundary()->void:
+	_input_gate.suppress_held(_raw_campaign_input())
 func _physics_process(dt:float)->void:
 	var before_elapsed:=elapsed
-	super._physics_process(dt)
+	var raw:=_raw_campaign_input()
+	if state!="playing" or _pending_sector>=0 or _pending_retry:
+		_input_gate.suppress_held(raw)
+	_input_tick_source=input_override
+	_input_tick_active=true
+	input_override=_input_gate.filter_frame(raw)
+	# Focus loss suspends queued retries and elevator transitions too. Loading
+	# a room unpauses the base scene, so no queued load may pass this boundary.
+	if not _focus_pause_active:
+		super._physics_process(dt)
+	input_override=_input_tick_source
+	_input_tick_source=null
+	_input_tick_active=false
+	if state=="playing":camera.position=camera_follow.follow(player.global_position,player.velocity,sectors[sector],dt)
 	var level:int=int(sectors[sector].get("level",1)) if not sectors.is_empty() else 1
 	var active_delta:=elapsed-before_elapsed
 	if active_delta>0:level_seconds[str(level)]=float(level_seconds.get(str(level),0))+active_delta
@@ -141,10 +191,14 @@ func _update_gate()->void:
 		if sectors[sector].get("captain_required",false):room.gate_open=room.gate_open and not enemies.any(func(enemy):return is_instance_valid(enemy) and not enemy.dead and str(enemy.kind).begins_with("captain_"))
 func interact()->void:
 	if state!="playing" or _pending_sector>=0 or _pending_retry:return
-	for goal in goals:
-		if _near(goal.global_position,52) and (not goal.completed or goal.kind=="route"):
-			if not goal.interact():announce("Requires: "+", ".join(goal.required_ids.map(func(id):return _objective_label(id))) if not goal.available else "Strike the circuit breaker [J]" if goal.kind=="breaker" else "Move a physical cargo onto the pressure plate",3)
-			return
+	var goal:=_nearby_objective()
+	if is_instance_valid(goal):
+		if not goal.interact():
+			var missing:Array[String]=[]
+			for id in goal.required_ids:
+				if not goal_done(id):missing.append(_objective_label(id))
+			announce("Requires: "+", ".join(missing) if not missing.is_empty() else "Strike the circuit breaker [J]" if goal.kind=="breaker" else "Move a physical cargo onto the pressure plate",3)
+		return
 	var d:Dictionary=sectors[sector]
 	var at_exit:=_near(Vector2(float(d.width)-45,float(d.get("gate_y",300))),65)
 	if at_exit and not room.gate_open and sectors[sector].get("captain_required",false) and enemies.any(func(enemy):return is_instance_valid(enemy) and not enemy.dead and str(enemy.kind).begins_with("captain_")):
@@ -154,21 +208,46 @@ func interact()->void:
 	if at_exit and room.gate_open:
 		if sector==sectors.size()-1:
 			state="final_choice";get_tree().paused=true;return
+		_level_transition_snapshot={"to":sector+1,"metrics":metrics.size(),"receipts":level_receipts.size(),"upgrades":upgrades.size()}
 		var next_level:int=int(sectors[sector+1].get("level",1))
 		if next_level!=int(d.get("level",1)):
 			metrics.append({"sector":sector,"seconds":sector_elapsed,"blind":blind,"health":health.current_health})
 			level_receipts.append({"level":d.level,"active_seconds":level_seconds.get(str(d.level),0),"completed_district":d.id})
 			state="upgrade";get_tree().paused=true;return
 	super.interact()
+	if _pending_sector<0:_level_transition_snapshot.clear()
 func choose_sight(accept:bool)->void:
 	super.choose_sight(accept)
 	_apply_build()
 	if is_instance_valid(art):art.set_sight_enabled(not blind)
 	if is_instance_valid(actor_paint):actor_paint.set_sight_enabled(not blind)
 	if is_instance_valid(object_paint):object_paint.set_sight_enabled(not blind)
+func _on_window_focus_exited()->void:
+	if state not in ["playing","transition","intro"] and _pending_sector<0 and not _pending_retry:return
+	_capture_input_boundary()
+	_focus_resume_state="intro" if state=="intro" else "playing"
+	_focus_pause_active=true
+	state="paused"
+	get_tree().paused=true
+
 func _unhandled_key_input(event:InputEvent)->void:
+	if state!="playing":_capture_input_boundary()
+	_handle_campaign_key(event)
+	if state!="playing" or _pending_sector>=0 or _pending_retry:_capture_input_boundary()
+func _handle_campaign_key(event:InputEvent)->void:
 	if not event is InputEventKey or not event.pressed or event.echo:return
 	var key:int=event.physical_keycode if event.physical_keycode!=0 else event.keycode
+	if _focus_pause_active:
+		if key==KEY_ESCAPE:
+			_focus_pause_active=false
+			state="transition" if _pending_sector>=0 else _focus_resume_state
+			get_tree().paused=state=="intro";return
+		if key==KEY_R:
+			_cancel_sector_transition()
+			_pending_sector=-1;_pending_retry=true;return
+		if key==KEY_N:
+			_pending_sector=-1;_pending_retry=false;_focus_pause_active=false
+			show_title();return
 	if _pending_sector>=0 or _pending_retry:return
 	if state=="title" and key in [KEY_1,KEY_2,KEY_3]:
 		lens={KEY_1:"neutral",KEY_2:"strength",KEY_3:"agility"}[key];return
@@ -196,7 +275,21 @@ func _unhandled_key_input(event:InputEvent)->void:
 			level_receipts.append({"level":5,"active_seconds":level_seconds.get("5",0),"completed_district":sectors[sector].id})
 			complete_run()
 		return
-	super._unhandled_key_input(event)
+	if event.physical_keycode==0:
+		var normalized:InputEventKey=event.duplicate()
+		normalized.physical_keycode=key
+		super._unhandled_key_input(normalized)
+	else:super._unhandled_key_input(event)
+func _cancel_sector_transition()->void:
+	if _level_transition_snapshot.is_empty():return
+	metrics.resize(mini(metrics.size(),int(_level_transition_snapshot.metrics)))
+	level_receipts.resize(mini(level_receipts.size(),int(_level_transition_snapshot.receipts)))
+	upgrades.resize(mini(upgrades.size(),int(_level_transition_snapshot.upgrades)))
+	_level_transition_snapshot.clear()
+func show_title()->void:
+	_cancel_sector_transition()
+	_pending_sector=-1;_pending_retry=false;_focus_pause_active=false
+	super.show_title()
 func complete_run()->void:
 	state="complete";get_tree().paused=true;sonar.set_blind(false)
 	if is_instance_valid(art):art.set_sight_enabled(true)
@@ -205,9 +298,18 @@ func complete_run()->void:
 		var file=FileAccess.open("user://moksha_five_levels_results.json",FileAccess.WRITE)
 		if file:file.store_string(JSON.stringify({"ending":campaign_ending,"active_seconds":elapsed,"levels":level_receipts,"districts":metrics,"lens":lens,"upgrades":upgrades,"deaths":deaths,"kills":kills},"\t"))
 func _read_checkpoint()->Dictionary:
+	var result:=_decode_campaign_checkpoint()
+	_checkpoint_error=""
+	if not result.get("ok",false) and FileAccess.file_exists(CAMPAIGN_SAVE):
+		_checkpoint_error=str(result.get("error","The campaign checkpoint contains incomplete or invalid progress."))
+	return result
+func _decode_campaign_checkpoint()->Dictionary:
 	if not FileAccess.file_exists(CAMPAIGN_SAVE):return {"ok":false}
+	var file:=FileAccess.open(CAMPAIGN_SAVE,FileAccess.READ)
+	if file==null:return {"ok":false,"error":"The campaign checkpoint could not be opened. Check folder access."}
+	var text:=file.get_as_text();file.close()
 	# A truncated/corrupt checkpoint is an expected rejected input, not an engine error.
-	var raw=Checkpoint.parse(FileAccess.get_file_as_string(CAMPAIGN_SAVE))
+	var raw=Checkpoint.parse(text)
 	if not raw is Dictionary or not Checkpoint.whole(raw.get("campaign_version")) or int(raw.campaign_version)!=1:return {"ok":false}
 	var decoded:Dictionary=Checkpoint.decode(raw.get("progress"),sectors)
 	if not decoded.ok:return decoded
@@ -227,18 +329,41 @@ func _read_checkpoint()->Dictionary:
 func _save_checkpoint()->void:
 	if not save_enabled or _loading_campaign:return
 	var encoded:Dictionary=Checkpoint.encode({"metrics":metrics,"sector":sector,"blind":blind,"caches":caches,"kills":kills,"deaths":deaths,"seconds":elapsed},sectors)
-	if not encoded.ok:return
+	if not encoded.ok:
+		_report_checkpoint_write_error("Campaign progress could not be encoded: "+str(encoded.get("error","invalid progress")))
+		return
+	if not _preserve_invalid_checkpoint():return
 	blackboard.set_value("build",{"lens":lens,"upgrades":upgrades.duplicate()})
 	var raw:Dictionary={"campaign_version":1,"progress":encoded.data,"lens":lens,"upgrades":upgrades,"rewards":rewards,"level_seconds":level_seconds,"level_receipts":level_receipts}
 	var file=FileAccess.open(CAMPAIGN_SAVE+".pending",FileAccess.WRITE)
-	if not file:_checkpoint_write_error="Campaign checkpoint write failed";return
+	if not file:_report_checkpoint_write_error("The campaign checkpoint could not be written.");return
 	file.store_string(JSON.stringify(raw));file.flush();var error=file.get_error();file.close()
 	if error!=OK or DirAccess.rename_absolute(ProjectSettings.globalize_path(CAMPAIGN_SAVE+".pending"),ProjectSettings.globalize_path(CAMPAIGN_SAVE))!=OK:
-		_checkpoint_write_error="Campaign checkpoint commit failed";return
-	continue_available=true;_checkpoint_write_error=""
+		_report_checkpoint_write_error("The campaign checkpoint could not be committed.");return
+	continue_available=true;_checkpoint_write_error="";_checkpoint_error=""
+func _report_checkpoint_write_error(message:String)->void:
+	_checkpoint_write_error=message
+	continue_available=_decode_campaign_checkpoint().get("ok",false)
+	announce("CHECKPOINT NOT SAVED · Keep the game open; check disk space and folder access.",8)
+func _preserve_invalid_checkpoint()->bool:
+	if not FileAccess.file_exists(CAMPAIGN_SAVE) or _decode_campaign_checkpoint().get("ok",false):return true
+	var digest:=FileAccess.get_sha256(CAMPAIGN_SAVE)
+	var backup:=CAMPAIGN_SAVE+".preserved-"+digest+".json"
+	if digest.is_empty():
+		_report_checkpoint_write_error("The existing checkpoint could not be read; it has not been replaced.")
+		return false
+	if not FileAccess.file_exists(backup) and DirAccess.copy_absolute(ProjectSettings.globalize_path(CAMPAIGN_SAVE),ProjectSettings.globalize_path(backup))!=OK:
+		_report_checkpoint_write_error("The previous checkpoint could not be preserved; it has not been replaced.")
+		return false
+	if FileAccess.get_sha256(backup)!=digest or FileAccess.get_sha256(CAMPAIGN_SAVE)!=digest:
+		_report_checkpoint_write_error("The previous checkpoint backup could not be verified; it has not been replaced.")
+		return false
+	return true
 func continue_run()->void:
 	var saved:=_read_checkpoint()
-	if not saved.get("ok",false):return
+	if not saved.get("ok",false):continue_available=false;return
+	_level_transition_snapshot.clear()
+	_focus_pause_active=false
 	var extra:Dictionary=saved.campaign
 	lens=extra.lens;upgrades.assign(extra.upgrades);rewards=extra.rewards
 	level_seconds=extra.get("level_seconds",{});level_receipts.assign(extra.get("level_receipts",[]))
@@ -246,6 +371,12 @@ func continue_run()->void:
 	load_sector(saved.sector)
 func _hud_snapshot()->Dictionary:
 	var snapshot:Dictionary=super._hud_snapshot()
+	var required:=goals.filter(func(goal):return is_instance_valid(goal) and not goal.optional)
+	snapshot.merge({"district_index":sector+1,"district_count":sectors.size(),
+		"level_index":int(sectors[sector].get("level",1)),"lens":lens,"input_device":gamepad_navigation.input_device,
+		"required_done":required.filter(func(goal):return goal.completed).size(),
+		"required_total":required.size(),"gate_open":is_instance_valid(room) and room.gate_open,
+		"guidance":_journal_next_step() if is_instance_valid(room) else "Begin the ascent."})
 	if state=="title":
 		snapshot.merge({"panel_override":true,"panel_title":"MOKSHA / FIVE ASCENTS","panel_body":"A city and four floors. One old operative.\n\nChoose a starting lens: 1 Neutral / 2 Strength / 3 Agility\nCURRENT: "+lens.to_upper()+"\nStrength: +40% strikes,75 health,-6% run\nAgility: +12% run,50 health. Neutral:60 health.\n\nOpen civilian routes. Reach the Crown. Decide who holds its keys.","panel_footer":"ENTER New campaign"+("   C Continue" if continue_available else "")})
 	elif state=="upgrade":
@@ -270,15 +401,23 @@ func _hud_snapshot()->Dictionary:
 			if not goal.completed and not goal.optional:snapshot.objective=goal.label+(" [J]" if goal.kind=="breaker" else " [E]")+" · TAB journal";break
 		if sectors[sector].get("captain_required",false) and enemies.any(func(enemy):return is_instance_valid(enemy) and not enemy.dead and str(enemy.kind).begins_with("captain_")):
 			snapshot.objective="Captain holds the seal · evade commitment, punish recovery"
-		for goal in goals:
-			if _near(goal.global_position,60):
-				var missing:Array[String]=[]
-				for id in goal.required_ids:
-					if not goal_done(id):missing.append(_objective_label(id))
-				if goal.completed and goal.kind!="route":snapshot.prompt="COMPLETE · "+goal.label
-				elif not missing.is_empty():snapshot.prompt="Requires: "+", ".join(missing)
-				else:snapshot.prompt=("[J] "+goal.label) if goal.kind=="breaker" else ("[E] "+goal.label) if goal.kind!="plate" else "Move a cargo onto the marked plate"
-				break
+		var nearby:=_nearby_objective(true)
+		if is_instance_valid(nearby):
+			var missing:Array[String]=[]
+			for id in nearby.required_ids:
+				if not goal_done(id):missing.append(_objective_label(id))
+			if nearby.completed and nearby.kind!="route":snapshot.prompt="COMPLETE · "+nearby.label
+			elif not missing.is_empty():snapshot.prompt="Requires: "+", ".join(missing)
+			else:snapshot.prompt=("[J] "+nearby.label) if nearby.kind=="breaker" else ("[E] "+nearby.label) if nearby.kind!="plate" else "Move a cargo onto the marked plate"
+	if state=="title" and not _checkpoint_write_error.is_empty():
+		var retained:="Continue uses the previous successfully saved district." if continue_available else "No new checkpoint was saved."
+		snapshot.merge({"panel_override":true,"panel_title":"CHECKPOINT NOT UPDATED",
+			"panel_body":_checkpoint_write_error+"\n\n"+retained+"\nKeep the game open. Check free disk space and folder access before closing.",
+			"panel_footer":"ENTER New campaign"+("   C Previous checkpoint" if continue_available else "")},true)
+	elif state=="title" and not _checkpoint_error.is_empty():
+		snapshot.merge({"panel_override":true,"panel_title":"CHECKPOINT UNAVAILABLE",
+			"panel_body":_checkpoint_error+"\n\nThe existing checkpoint has not been changed.\nStarting a new campaign preserves a separate copy before replacing it.",
+			"panel_footer":"ENTER New campaign"},true)
 	return snapshot
 
 func _journal_rows()->Array[String]:
@@ -306,3 +445,22 @@ func _objective_label(id:String)->String:
 	for goal in goals:
 		if goal.objective_id==id:return goal.label
 	return id
+
+func _nearby_objective(include_completed:=false)->Node:
+	# The prompt and E use one selector/radius, never authoring array order.
+	# An unusable housing must not steal E from a nearby active terminal.
+	if not is_instance_valid(player):return null
+	var candidate:Node=null
+	var candidate_rank:=3
+	var nearest:=INF
+	for goal in goals:
+		if not is_instance_valid(goal):continue
+		var finished:bool=goal.completed and goal.kind!="route"
+		if finished and not include_completed:continue
+		var distance:float=player.global_position.distance_to(goal.global_position)
+		if distance>=52:continue
+		var ready:bool=goal.required_ids.all(func(id):return goal_done(id))
+		var rank:=2 if finished else 0 if ready and goal.kind not in ["plate","breaker"] else 1
+		if rank<candidate_rank or (rank==candidate_rank and distance<nearest):
+			candidate=goal;candidate_rank=rank;nearest=distance
+	return candidate

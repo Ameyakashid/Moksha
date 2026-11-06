@@ -28,6 +28,8 @@ On the title, **1** Neutral, **2** Strength, **3** Agility selects a starting le
 | Original wireframe presentation toggle (no rule changes) | F8 |
 | Screenshot when a real renderer is available | F12 |
 
+Controllers use Xbox-style button names: left stick/D-pad move, A jump, X strike, LB guard, RB roll, Y use, B sound tap, Back journal and Start pause. Title and choice screens show their own controller prompts. See [`campaign/docs/NOV6_GAMEPAD.md`](campaign/docs/NOV6_GAMEPAD.md) for the complete map and validation limits.
+
 Routing consoles begin **UNROUTED** and cycle **0 → 1 → 2 → 0**. Match the engraved target; dependencies must be complete. **Marked breaker housings require real J strikes, not E.** Pressure plates accept physical cargo; they are optional so a broken prop cannot deadlock the campaign. Freight receivers require the intact marked cargo to land and settle from real movement/contact; E at its cradle replaces lost cargo without healing or resetting enemies.
 
 ## The five levels
@@ -67,9 +69,13 @@ See `campaign/docs/EDITOR_WORKFLOW.md` and `campaign/docs/LAYOUT_CONTRACT.md`.
 
 The original Oct23 demo is still playable at `demo/mission.tscn`; its historical README is `docs/OCT23_BASELINE_README.md`. Original approved player/controller and simulation source remain preserved.
 
-## November 2 quality update
+## November 6 improvement pass
 
-See [`campaign/quality/README.md`](campaign/quality/README.md) for the reproducible quality gate, bounded state/replay checks and asset budgets. Two corrupt-checkpoint error paths are fixed in source. The prior Windows package has **not** been rebuilt and does not include those fixes. Earlier full-campaign evidence remains historical and hash-bound; this update has its own focused results.
+This revision adds campaign-wide controller navigation, a steadier camera, readable progress and objective labels, safer modal input boundaries, focus-loss safety pause and visible checkpoint failures with preservation of invalid originals. Six authored layout corrections make optional cargo rewards require an actual push and clear unsafe or blocked routes. The original actor/controller and simulation rules remain unchanged. See [`campaign/docs/NOV6_CHANGES.md`](campaign/docs/NOV6_CHANGES.md) for the implementation and acceptance record.
+
+## November 2 quality update (historical)
+
+See [`campaign/quality/README.md`](campaign/quality/README.md) for the reproducible quality gate, bounded state/replay checks and asset budgets. Two corrupt-checkpoint error paths are fixed in source. At that time the prior Windows package had **not** been rebuilt and did not include those fixes. Newer package provenance must be read from its own build report. Earlier full-campaign evidence remains historical and hash-bound; this update has its own focused results.
 
 ## Evidence and limits
 

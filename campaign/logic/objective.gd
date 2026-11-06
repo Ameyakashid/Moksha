@@ -55,6 +55,7 @@ func _ready()->void:
 	collider.shape=shape;body.add_child(collider);add_child(body)
 	if kind=="breaker":
 		var contact:=Area2D.new();contact.set_script(preload("res://campaign/logic/breaker_contact.gd"));contact.name="StrikeContact"
+		contact.objective=self
 		contact.collision_layer=4;contact.collision_mask=0;contact.monitoring=false
 		var hit_shape:=CollisionShape2D.new();hit_shape.shape=shape;hit_shape.position=Vector2(0,-20)
 		contact.add_child(hit_shape);add_child(contact)
@@ -69,3 +70,8 @@ func _breaker_opened()->void:
 	completed=true
 	changed.emit()
 
+
+func physical_available()->bool:
+	# Contact-time check: a route can be changed by E before this node's next
+	# physics update. A cached enabled flag is not the current prerequisite.
+	return not completed and is_instance_valid(host) and host.state=="playing" and required_ids.all(func(id):return host.goal_done(id))

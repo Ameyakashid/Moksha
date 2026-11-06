@@ -8,6 +8,7 @@ const Themes = [
 	preload("res://campaign/assets/themes/04_memory.tres"),
 	preload("res://campaign/assets/themes/05_crown.tres")]
 const Backdrop = preload("res://campaign/presentation/scenery_backdrop.gd")
+const DistrictIdentity = preload("res://campaign/presentation/district_identity.gd")
 const SurfaceSkin = preload("res://campaign/presentation/terrain_skin.gd")
 var backdrop: Node2D
 var terrain_paint: Node2D
@@ -31,7 +32,9 @@ func configure_sector(data: Dictionary) -> void:
 	backdrop.name = "Architecture"
 	backdrop.bounds = Rect2(0,top-180,width,560-top)
 	backdrop.theme = palette
-	backdrop.seed_value = str(data.get("id","district")).hash() & 0x7fffffff
+	backdrop.identity = DistrictIdentity.profile_for(str(data.get("id","district")),palette.motif)
+	backdrop.seed_value = int(backdrop.identity.seed)
+	backdrop.landmark_origin = Vector2(clampf(float(data.get("spawn",Vector2(75,300)).x)+65.0+float(posmod(backdrop.seed_value,130)),24.0,maxf(24.0,width-170.0)),96.0+float(posmod(backdrop.seed_value/137,32)))
 	backdrop.z_index = -3
 	add_child(backdrop)
 	terrain_paint = Node2D.new()

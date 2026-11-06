@@ -1,0 +1,526 @@
+{
+  "utc": "20261106T214721Z",
+  "scope": "Independent Nov6 review of selected production files plus explicit menu, authored-level-completion, actual HUD-owner, and synthesized keyboard/Joypad event fixtures. Not physical controller, full campaign, native visual/audio, or human-pacing acceptance.",
+  "godot_version": "4.6.3.stable.official.7d41c59c4",
+  "reviewed_source_sha256": {
+    "campaign/logic/campaign.gd": "ff2327bd9f086032033cc40cea812f6a40aee28331d1d71c65fca5a15e4d9a2f",
+    "campaign/logic/campaign_input_gate.gd": "c050b114624a57691cde08278041c0ced7f3142b04b11627a898a23934abd7ef",
+    "campaign/logic/objective.gd": "f2bad89d8e598ed6cda8ee54b352eff21ae2368df0db5f0d31a47cea170b839b",
+    "campaign/logic/breaker_contact.gd": "83252eb0b74d8a5f70e42116d7212111a74255ed7d85dd69f1f5e3c172d08633",
+    "campaign/input/gamepad_navigation.gd": "04bd49dd82d58310c15ef1c0dfc92ddb1b6be0f9797f2260551eaa05e9afc591",
+    "campaign/presentation/camera_follow.gd": "821a2896ab8ced7995d5f50c88d1dbb1db32e568468328d2a7f82b08c27d0196",
+    "campaign/views/campaign_hud.gd": "5924d49ab270d916505c4301f60e0c4f48d9605bd8b0091b95f959da2988f935",
+    "campaign/views/campaign_hud_owner.gd": "1e2d857911a8ee7a5df18be869cb86a79414fbd42ed7c0a7e0b38e7bdf03eac7",
+    "campaign/views/objective_caption.gd": "b59a9493e0277dc9121af2e1027565de929eac4074a2611392c8c03bafaae2df",
+    "campaign/views/objective_view.gd": "7069bb08c80993e89379218f248346f48d23a499dbd5fc429114f79b13ee7176",
+    "campaign/layouts/level_01.gd": "9639f4eb63bb31e482f33f058d277c3970490229a5903dd04df106e97f7f28f2",
+    "campaign/layouts/level_02.gd": "c6614877eb33852ece2ac6bd7efc465312d2bbadcc7c1518b0a6ebb95c5690d3",
+    "campaign/layouts/level_03.gd": "707f183df3c359b73ba72a5653adc12767e8dbc4ebfd1810d97f57c04c7bec4a",
+    "campaign/logic/build_health.gd": "855b9c8fcac7e9081fbc76fef5fc9cf0b11b0270c2760045f57de72bce1d4589",
+    "campaign/logic/campaign_data.gd": "32fc38fcc5d58a7d56e5201dbf0a94b048336ce968263e06fcca35cf53fed08b",
+    "demo/mission.gd": "7d60745fa9a0ed65c09ff9d6123021d53dede9523569c5c8cc983083cebbc317",
+    "simulation/ui/mission_hud.gd": "170ac565c653ed893a7b5cb697b6acb9cc957b6ab8869d0cb36daeba64e456ad",
+    "combat_pc/player.gd": "6cd582c819d5297096205754d30d7c7bbc25021822390117edc71378ecbe43ea",
+    "tools/verify_nov6.py": "1d97097643d5889b1de4e789d6fe1132f02edcfce5046a54a05f742b0f747b2c",
+    "project.godot": "bcacbf08f3cafd206cbaf75154e8ff0faa089f50cc50183c5105749912417a2d",
+    "campaign/quality/nov6_independent_caption_overlap.gd": "44efb0a2d8ce5236db74afb86b6ad7c0792ad7b055706207f82ef85ef5188e91",
+    "campaign/quality/nov6_independent_caption_overlap.gd.uid": "cce8e7967995e298584447eefc5d416cc3c2c355162625fd999bafd86f46ab76",
+    "campaign/quality/nov6_independent_controller.gd": "7f760ca6d5d9a2be4a99b560c29082694208b22b6ca61a35f5428f90960cc958",
+    "campaign/quality/nov6_independent_controller.gd.uid": "9e97a9666788afeed8e30f080eaae66a4f0dc7ea2233a6775c4671588c6b31e7",
+    "campaign/quality/nov6_independent_focus_upgrade.gd": "4cfb79729bc7169e78ef85b4189f27421d689af4cef9648b4401a87ed93c492c",
+    "campaign/quality/nov6_independent_focus_upgrade.gd.uid": "ec736c6edf197bca45aac7322191945cbbfb1edc07e8677f7a522e365d507bbc",
+    "campaign/quality/nov6_independent_hud_pipeline.gd": "4e1cc5fb076b0f0351c22e56390c09b6ae94ce9ca49197f115a3791e456de6a6",
+    "campaign/quality/nov6_independent_hud_pipeline.gd.uid": "4f2dfa072397027099e66cb135e40d6ab445589cc7397dffcff6716ad40eafce",
+    "campaign/quality/nov6_independent_review.gd": "ffbffa995414e73cc4eba9eb52961dfb2c0ed4056f6185c66c870322617ea53f",
+    "campaign/quality/nov6_independent_review.gd.uid": "36f62a9a78327481e66a7835c04572e52d39b96368da376ec2dc567607b07778",
+    "campaign/quality/nov6_independent_run.py": "2ace83ed95a9f7c683eb399f39fe84b92a3735ee1edfb22833f3d32656a7c72a",
+    "campaign/quality/nov6_independent_runner_test.py": "b7735bcc547c20e7e7a6072238845ee853fdf9332ac3733f23807719b4afaa60"
+  },
+  "reviewed_source_drift": [],
+  "stages": [
+    {
+      "name": "nov6_independent_focus_upgrade_60",
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://campaign/quality/nov6_independent_focus_upgrade.gd",
+        "--",
+        "--hz=60"
+      ],
+      "exit_code": 0,
+      "errors": [
+        "ERROR: 2 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "ERROR: 10 resources still in use at exit (run with --verbose for details)."
+      ],
+      "passed": false,
+      "validation": {
+        "passed": true,
+        "receipt": {
+          "checks": 13,
+          "failures": [],
+          "passed": true,
+          "retry_observation": {
+            "old_level_exit": 5,
+            "receipts": [],
+            "sector": 5,
+            "upgrades": []
+          },
+          "scope": "Initialized authored level completion plus genuine keyboard exit/focus commands, not boss/goal playthrough.",
+          "title_observation": {
+            "receipts": [],
+            "sector": 5,
+            "upgrades": []
+          }
+        }
+      },
+      "wall_seconds": 1.899,
+      "log": "/tmp/moksha-independent-20261106T214721Z-ke2amays/nov6_independent_focus_upgrade_60/engine.log"
+    },
+    {
+      "name": "nov6_independent_review_60",
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://campaign/quality/nov6_independent_review.gd",
+        "--",
+        "--hz=60"
+      ],
+      "exit_code": 0,
+      "errors": [
+        "ERROR: 2 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "ERROR: 9 resources still in use at exit (run with --verbose for details)."
+      ],
+      "passed": false,
+      "validation": {
+        "passed": true,
+        "receipt": {
+          "checks": 67,
+          "failures": [],
+          "hz": 60,
+          "observations": [
+            {
+              "overlap": 0.0
+            }
+          ],
+          "passed": true,
+          "scope": "Explicit menu/scene fixtures with Input.parse_input_event device path, actor physics and static presentation overlap; not native acceptance or full campaign traversal."
+        }
+      },
+      "wall_seconds": 3.733,
+      "log": "/tmp/moksha-independent-20261106T214721Z-ke2amays/nov6_independent_review_60/engine.log"
+    },
+    {
+      "name": "nov6_independent_controller_60",
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://campaign/quality/nov6_independent_controller.gd",
+        "--",
+        "--hz=60"
+      ],
+      "exit_code": 0,
+      "errors": [
+        "ERROR: 2 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "ERROR: 9 resources still in use at exit (run with --verbose for details)."
+      ],
+      "passed": false,
+      "validation": {
+        "passed": true,
+        "receipt": {
+          "checks": 32,
+          "failures": [],
+          "hz": 60,
+          "passed": true,
+          "scope": "Synthesized InputEventJoypadButton/Motion through actual campaign event pipeline and actor physics. Not physical controller hardware or full campaign traversal."
+        }
+      },
+      "wall_seconds": 3.088,
+      "log": "/tmp/moksha-independent-20261106T214721Z-ke2amays/nov6_independent_controller_60/engine.log"
+    },
+    {
+      "name": "nov6_independent_hud_pipeline_60",
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://campaign/quality/nov6_independent_hud_pipeline.gd",
+        "--",
+        "--hz=60"
+      ],
+      "exit_code": 0,
+      "errors": [
+        "ERROR: 2 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "ERROR: 13 resources still in use at exit (run with --verbose for details)."
+      ],
+      "passed": false,
+      "validation": {
+        "passed": true,
+        "receipt": {
+          "checks": 1110,
+          "failures": [],
+          "passed": true,
+          "scope": "Real host-to-owner-to-View path, all32 authored scenes, malformed input atomicity and isolated base owner. No direct-to-View bypass."
+        }
+      },
+      "wall_seconds": 3.152,
+      "log": "/tmp/moksha-independent-20261106T214721Z-ke2amays/nov6_independent_hud_pipeline_60/engine.log"
+    },
+    {
+      "name": "nov6_independent_focus_upgrade_120",
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "120",
+        "--script",
+        "res://campaign/quality/nov6_independent_focus_upgrade.gd",
+        "--",
+        "--hz=120"
+      ],
+      "exit_code": 0,
+      "errors": [
+        "ERROR: 2 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "ERROR: 10 resources still in use at exit (run with --verbose for details)."
+      ],
+      "passed": false,
+      "validation": {
+        "passed": true,
+        "receipt": {
+          "checks": 13,
+          "failures": [],
+          "passed": true,
+          "retry_observation": {
+            "old_level_exit": 5,
+            "receipts": [],
+            "sector": 5,
+            "upgrades": []
+          },
+          "scope": "Initialized authored level completion plus genuine keyboard exit/focus commands, not boss/goal playthrough.",
+          "title_observation": {
+            "receipts": [],
+            "sector": 5,
+            "upgrades": []
+          }
+        }
+      },
+      "wall_seconds": 1.881,
+      "log": "/tmp/moksha-independent-20261106T214721Z-ke2amays/nov6_independent_focus_upgrade_120/engine.log"
+    },
+    {
+      "name": "nov6_independent_review_120",
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "120",
+        "--script",
+        "res://campaign/quality/nov6_independent_review.gd",
+        "--",
+        "--hz=120"
+      ],
+      "exit_code": 0,
+      "errors": [
+        "ERROR: 2 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "ERROR: 9 resources still in use at exit (run with --verbose for details)."
+      ],
+      "passed": false,
+      "validation": {
+        "passed": true,
+        "receipt": {
+          "checks": 67,
+          "failures": [],
+          "hz": 120,
+          "observations": [
+            {
+              "overlap": 0.0
+            }
+          ],
+          "passed": true,
+          "scope": "Explicit menu/scene fixtures with Input.parse_input_event device path, actor physics and static presentation overlap; not native acceptance or full campaign traversal."
+        }
+      },
+      "wall_seconds": 3.723,
+      "log": "/tmp/moksha-independent-20261106T214721Z-ke2amays/nov6_independent_review_120/engine.log"
+    },
+    {
+      "name": "nov6_independent_controller_120",
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "120",
+        "--script",
+        "res://campaign/quality/nov6_independent_controller.gd",
+        "--",
+        "--hz=120"
+      ],
+      "exit_code": 0,
+      "errors": [
+        "ERROR: 2 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "ERROR: 9 resources still in use at exit (run with --verbose for details)."
+      ],
+      "passed": false,
+      "validation": {
+        "passed": true,
+        "receipt": {
+          "checks": 32,
+          "failures": [],
+          "hz": 120,
+          "passed": true,
+          "scope": "Synthesized InputEventJoypadButton/Motion through actual campaign event pipeline and actor physics. Not physical controller hardware or full campaign traversal."
+        }
+      },
+      "wall_seconds": 2.591,
+      "log": "/tmp/moksha-independent-20261106T214721Z-ke2amays/nov6_independent_controller_120/engine.log"
+    },
+    {
+      "name": "nov6_independent_hud_pipeline_120",
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--fixed-fps",
+        "120",
+        "--script",
+        "res://campaign/quality/nov6_independent_hud_pipeline.gd",
+        "--",
+        "--hz=120"
+      ],
+      "exit_code": 0,
+      "errors": [
+        "ERROR: 2 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "SCRIPT ERROR: Invalid assignment of property or key 'identity' with value of type 'Dictionary' on a base object of type 'Node2D (scenery_backdrop.gd)'.",
+        "ERROR: 13 resources still in use at exit (run with --verbose for details)."
+      ],
+      "passed": false,
+      "validation": {
+        "passed": true,
+        "receipt": {
+          "checks": 1110,
+          "failures": [],
+          "passed": true,
+          "scope": "Real host-to-owner-to-View path, all32 authored scenes, malformed input atomicity and isolated base owner. No direct-to-View bypass."
+        }
+      },
+      "wall_seconds": 3.283,
+      "log": "/tmp/moksha-independent-20261106T214721Z-ke2amays/nov6_independent_hud_pipeline_120/engine.log"
+    },
+    {
+      "name": "caption_overlap_final",
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign",
+        "--script",
+        "res://campaign/quality/nov6_independent_caption_overlap.gd"
+      ],
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "validation": {
+        "passed": true
+      },
+      "wall_seconds": 0.58,
+      "log": "/tmp/moksha-independent-20261106T214721Z-ke2amays/caption_overlap_final/engine.log"
+    },
+    {
+      "name": "runner_negative_controls",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/scratch/fd16273ade4b/moksha-campaign/campaign/quality/nov6_independent_runner_test.py"
+      ],
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "validation": {
+        "passed": true,
+        "receipt": {
+          "passed": true,
+          "checks": 15,
+          "failures": []
+        }
+      },
+      "wall_seconds": 0.092,
+      "log": "/tmp/moksha-independent-20261106T214721Z-ke2amays/runner_negative_controls/engine.log"
+    }
+  ],
+  "passed": false,
+  "resolved_findings": [
+    "Pending retry, upgrade scene load and automatic intro expiration could resume off-focus; focus guard now suspends them until explicit resume.",
+    "Canceling a focus-paused level exit retained the chosen upgrade and completion receipts at the old exit; staged transition rollback now removes uncommitted upgrade, metric and receipt while successful onward load commits once.",
+    "Parent native review found additive HUD fields discarded by base owner; independent host-to-owner-to-View suite validates campaign-only adapter and rejection atomicity.",
+    "Multi-line floor completion notices overlapped12pixels of actor legs; revised layout has zero measured overlap with floor-body rectangle across authored floor objective notices.",
+    "Runner accepted empty, negative, boolean or absent assertion counts; independent negative controls now verify their rejection."
+  ],
+  "remaining_confirmed_review_findings": []
+}
