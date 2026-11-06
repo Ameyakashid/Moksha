@@ -57,6 +57,20 @@ RUNTIME_SUFFIXES = {
     ".ttf", ".otf", ".json", ".import", ".glb", ".gltf", ".obj", ".mtl",
 }
 ERROR_PATTERN = re.compile(r"^\s*(?:SCRIPT ERROR:|ERROR:|FAIL\b)", re.MULTILINE)
+PACKED_TEST_RATES = (60, 120)
+# Every receipt fixture is copied from the frozen Git snapshot, kept outside
+# the PCK, and validated by result_receipt rather than a success substring.
+RECEIPT_FIXTURES = (
+    ("gamepad_navigation", "campaign/quality/nov6_gamepad_navigation.gd", "NOV6_GAMEPAD_NAVIGATION_RESULT "),
+    ("independent_controller", "campaign/quality/nov6_independent_controller.gd", "NOV6_INDEPENDENT_CONTROLLER "),
+    ("controller_devices", "campaign/quality/nov6_controller_devices.gd", "NOV6_CONTROLLER_DEVICES_RESULT "),
+    ("paused_release", "campaign/quality/nov6_independent_paused_release.gd", "NOV6_INDEPENDENT_PAUSED_RELEASE "),
+    ("runtime_lifecycle", "campaign/quality/nov6_runtime_lifecycle.gd", "NOV6_RUNTIME_LIFECYCLE_RESULT "),
+    ("input_guidance", "campaign/quality/nov6_input_guidance.gd", "NOV6_INPUT_GUIDANCE_RESULT "),
+    ("audio_contract", "campaign/quality/nov6_audio/contract.gd", "NOV6_AUDIO_CONTRACT_RESULT "),
+    ("audio_routing", "campaign/quality/nov6_audio/event_routing.gd", "NOV6_AUDIO_ROUTING_RESULT "),
+    ("audio_rejected_noise", "campaign/quality/nov6_audio/rejected_noise.gd", "NOV6_AUDIO_REJECTED_NOISE_RESULT "),
+)
 
 PRESET = '''[preset.0]
 name="Portable PCK"
@@ -99,7 +113,7 @@ func run()->void:
         if str(path).ends_with(".tscn") or str(path).ends_with(".tres") or str(path).ends_with(".gdshader"):
             check(ResourceLoader.exists(uri) and ResourceLoader.load(uri)!=null,"resource loads "+str(path))
             resources_checked+=1
-    for path in ["res://campaign/tests/campaign_smoke.gd", "res://campaign/quality/nov6_gamepad_navigation.gd", "res://campaign/quality/nov6_independent_controller.gd"]:
+    for path in ["res://campaign/tests/campaign_smoke.gd", "res://campaign/quality/nov6_gamepad_navigation.gd", "res://campaign/quality/nov6_independent_controller.gd", "res://campaign/quality/nov6_controller_devices.gd"]:
         check(not FileAccess.file_exists(path),"developer fixture excluded "+path)
     var packed=load("res://campaign/campaign.tscn")
     if packed==null:
@@ -718,19 +732,10 @@ def main() -> int:
         ("save_continue", "campaign/qa_audit/save_draft.gd", "SAVE_FAILURES []"),
         ("journal", "campaign/qa_audit/ui_dependencies.gd", "UI_DEPENDENCY_FAILURES []"),
     ]
-    for hz in (60, 120):
+    for hz in PACKED_TEST_RATES:
         for name, relative, marker in fixtures:
             packed_check(f"packed_{name}_{hz}", frozen_fixture(relative), marker, hz=hz)
-        for name, relative, prefix in [
-            ("gamepad_navigation", "campaign/quality/nov6_gamepad_navigation.gd", "NOV6_GAMEPAD_NAVIGATION_RESULT "),
-            ("independent_controller", "campaign/quality/nov6_independent_controller.gd", "NOV6_INDEPENDENT_CONTROLLER "),
-            ("paused_release", "campaign/quality/nov6_independent_paused_release.gd", "NOV6_INDEPENDENT_PAUSED_RELEASE "),
-            ("runtime_lifecycle", "campaign/quality/nov6_runtime_lifecycle.gd", "NOV6_RUNTIME_LIFECYCLE_RESULT "),
-            ("input_guidance", "campaign/quality/nov6_input_guidance.gd", "NOV6_INPUT_GUIDANCE_RESULT "),
-            ("audio_contract", "campaign/quality/nov6_audio/contract.gd", "NOV6_AUDIO_CONTRACT_RESULT "),
-            ("audio_routing", "campaign/quality/nov6_audio/event_routing.gd", "NOV6_AUDIO_ROUTING_RESULT "),
-            ("audio_rejected_noise", "campaign/quality/nov6_audio/rejected_noise.gd", "NOV6_AUDIO_REJECTED_NOISE_RESULT "),
-        ]:
+        for name, relative, prefix in RECEIPT_FIXTURES:
             receipt_path = external_receipts / f"{name}_{hz}.json" if name.startswith("audio_") else None
             packed_check(f"packed_{name}_{hz}", frozen_fixture(relative), prefix, hz=hz, result_prefix=prefix, report_output=receipt_path)
     focus_prefix = "NOV6_INDEPENDENT_FOCUS_UPGRADE "

@@ -26,6 +26,7 @@ class PackagingTests(unittest.TestCase):
 
     def test_runtime_selection_excludes_developer_scenes_and_receipts(self):
         for name in ("campaign/tests/campaign_smoke.gd", "campaign/quality/replay_probe.gd",
+                     "campaign/quality/nov6_controller_devices.gd",
                      "campaign/qa_audit/incoming_health.gd", "campaign/route_tests/report.json",
                      "simulation/body_echo_pixels.tscn", "tools/package_nov6.py",
                      ".godot/imported/anything.ctex", "export_templates/windows_release_x86_64.exe"):
@@ -54,6 +55,28 @@ class PackagingTests(unittest.TestCase):
                     'TEST {"passed":true,"failures":[],"checks":3}\nTEST {"passed":true,"failures":[],"checks":3}'):
             with self.subTest(log=log), self.assertRaises(RuntimeError):
                 package.result_receipt(log, 'TEST ')
+
+    def test_controller_device_stage_preserves_receipt_matrix(self):
+        self.assertEqual(package.PACKED_TEST_RATES, (60, 120))
+        fixtures = {name: (relative, prefix) for name, relative, prefix in package.RECEIPT_FIXTURES}
+        self.assertEqual(len(fixtures), len(package.RECEIPT_FIXTURES))
+        self.assertEqual(set(fixtures), {"gamepad_navigation", "independent_controller", "controller_devices",
+                                        "paused_release", "runtime_lifecycle", "input_guidance", "audio_contract",
+                                        "audio_routing", "audio_rejected_noise"})
+        relative, prefix = fixtures["controller_devices"]
+        self.assertEqual(relative, "campaign/quality/nov6_controller_devices.gd")
+        self.assertEqual(prefix, "NOV6_CONTROLLER_DEVICES_RESULT ")
+        self.assertFalse(package.included_runtime(Path(relative)))
+        self.assertIn("res://" + relative, package.PACK_AUDIT)
+        self.assertEqual([f"packed_controller_devices_{hz}" for hz in package.PACKED_TEST_RATES],
+                         ["packed_controller_devices_60", "packed_controller_devices_120"])
+        self.assertEqual(package.result_receipt(prefix + '{"passed":true,"checks":213,"failures":[]}', prefix)["checks"], 213)
+        for bad in ('{"passed":true,"checks":0,"failures":[]}',
+                    '{"passed":true,"checks":true,"failures":[]}',
+                    '{"passed":false,"checks":213,"failures":[]}',
+                    '{"passed":true,"checks":213,"failures":["wrong device"]}'):
+            with self.subTest(bad=bad), self.assertRaises(RuntimeError):
+                package.result_receipt(prefix + bad, prefix)
 
     def test_zip_round_trip_and_executable_mode(self):
         with tempfile.TemporaryDirectory() as temporary:
