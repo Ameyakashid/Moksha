@@ -31,6 +31,7 @@ SCRIPTS = [
     ("independent_paused_release", "nov6_independent_paused_release.gd", "NOV6_INDEPENDENT_PAUSED_RELEASE "),
     ("independent_hud_pipeline", "nov6_independent_hud_pipeline.gd", "NOV6_INDEPENDENT_HUD_PIPELINE "),
     ("camera", "nov6_camera/camera_contract.gd", "CAMERA_CONTRACT_RESULT "),
+    ("runtime_lifecycle", "nov6_runtime_lifecycle.gd", "NOV6_RUNTIME_LIFECYCLE_RESULT "),
 ]
 
 

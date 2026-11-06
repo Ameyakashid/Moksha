@@ -1,0 +1,72 @@
+{
+  "frozen_source": "f00bf23031cf7c74882d47a855ebafc701024634",
+  "inherited_baseline": "20d164e",
+  "modified_tracked_files": [
+    "campaign/logic/campaign.gd",
+    "campaign/presentation/object_presentation.gd"
+  ],
+  "new_files": [
+    "campaign/presentation/campaign_sonar.gd",
+    "campaign/quality/nov6_runtime_lifecycle.gd"
+  ],
+  "patch_sha256": "89e6f2bdd0e1d41ce299c41e7f01c9dc4e13121d27e9f0cf90b3814f2f915f3b",
+  "file_sha256": {
+    "campaign/logic/campaign.gd": "737dcacc1717e585f81afedf9039af4f8670246f99734a17038b62e5f5590818",
+    "campaign/presentation/object_presentation.gd": "7112ec73b7cc7c186fd7f1cadfc0a25f63c27ffbfe7fa6b03d8461c737b17a62",
+    "campaign/presentation/campaign_sonar.gd": "ddf652c5f52d34bb5a9a8c893528bab912ada10667954143a73aa36cceb59f32",
+    "campaign/quality/nov6_runtime_lifecycle.gd": "1668dff30feb6900d1857d2aa957d03c7127e99e50a70f22762dac49a576c349"
+  },
+  "checks": {
+    "60": {
+      "checks": 294622,
+      "passed": true,
+      "failed_checks": 0,
+      "failure_counts": {},
+      "district_retry_title_loads": 384,
+      "cargo_replacements": 200,
+      "oracle_districts": 32
+    },
+    "120": {
+      "checks": 294622,
+      "passed": true,
+      "failed_checks": 0,
+      "failure_counts": {},
+      "district_retry_title_loads": 384,
+      "cargo_replacements": 200,
+      "oracle_districts": 32
+    },
+    "sonar_disabled": {
+      "checks": 6565678,
+      "passed": false,
+      "failed_checks": 6272108,
+      "failure_counts": {
+        "last collider retirement disconnects campaign callback": 1,
+        "load bounded shape watches": 128,
+        "load no dead shape ID": 978192,
+        "old retained shape unsubscribed": 1,
+        "old shape cannot invalidate current cache": 1,
+        "replacement bounded shape cache": 200,
+        "replacement bounded shape watches": 200,
+        "replacement constant shape_cache": 200,
+        "replacement no dead shape ID": 3301200,
+        "replacement no stale bounds": 20100,
+        "retired shared resource leaves current campaign cache intact": 1,
+        "retry bounded shape watches": 128,
+        "retry no dead shape ID": 983252,
+        "stable per-district watches": 64,
+        "title resume bounded shape watches": 128,
+        "title resume no dead shape ID": 988312
+      }
+    },
+    "paint_disabled": {
+      "checks": 314722,
+      "passed": false,
+      "failed_checks": 20300,
+      "failure_counts": {
+        "replacement constant paint": 200,
+        "replacement no stale paint record": 20100
+      }
+    },
+    "gameplay_gate": true
+  }
+}

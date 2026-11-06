@@ -39,9 +39,14 @@ func _consider(reference: WeakRef) -> void:
 func set_sight_enabled(value: bool) -> void:sight_enabled=value;_sync()
 func set_debug_wireframe(value: bool) -> void:debug_wireframe=value;_sync()
 func _sync() -> void:
-	for record in records:
+	# Cargo replacement retires a body inside the same room. Forget its weak
+	# paint record instead of scanning every historical replacement each tick.
+	for index in range(records.size()-1,-1,-1):
+		var record: Dictionary=records[index]
 		var node: Node=record.node.get_ref()
-		if not is_instance_valid(node):continue
+		if not is_instance_valid(node):
+			records.remove_at(index)
+			continue
 		if record.kind=="cargo":
 			# self_modulate changes root debug paint only, NOT child Sprite modulation.
 			node.self_modulate=record.self_modulate if debug_wireframe and sight_enabled else Color(1,1,1,0)

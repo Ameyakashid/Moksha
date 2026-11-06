@@ -41,6 +41,19 @@ func _ready()->void:
 	add_child(blackboard)
 	sectors=CampaignData.sectors()
 	super._ready()
+	# The base scene creates its sonar while still on the title, before a room
+	# exists. Replace that empty adapter, preserving its configured tuning and
+	# presentation order without resetting a live script instance.
+	var previous_sonar := sonar
+	var sonar_index := previous_sonar.get_index()
+	sonar = CanvasLayer.new()
+	sonar.set_script(preload("res://campaign/presentation/campaign_sonar.gd"))
+	sonar.tuning = previous_sonar.tuning
+	sonar.layer = previous_sonar.layer
+	sonar.process_mode = previous_sonar.process_mode
+	add_child(sonar)
+	move_child(sonar, sonar_index)
+	previous_sonar.free()
 	var appearance:Resource=hud.appearance
 	hud.set_script(preload("res://campaign/views/campaign_hud_owner.gd"))
 	hud.appearance=appearance
