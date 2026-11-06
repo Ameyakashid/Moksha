@@ -26,12 +26,15 @@ import io
 import json
 import os
 from pathlib import Path, PurePosixPath
+import posixpath
 import re
+import shlex
 import shutil
 import stat
 import subprocess
 import tarfile
 import time
+from urllib.parse import unquote, urlsplit
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -140,6 +143,32 @@ func run()->void:
     quit(0 if failures.is_empty() else 1)
 '''
 
+NATIVE_WRAPPER = '''extends SceneTree
+const FIXTURE_PATH = @FIXTURE_PATH@
+const FIXTURE_SHA = @FIXTURE_SHA@
+const PROVENANCE_SHA = @PROVENANCE_SHA@
+const SOURCE_COMMIT = @SOURCE_COMMIT@
+func _initialize()->void:call_deferred("start")
+func start()->void:
+    var failures:Array[String]=[]
+    if FileAccess.get_sha256(FIXTURE_PATH)!=FIXTURE_SHA:failures.append("external native fixture hash mismatch")
+    if FileAccess.get_sha256("res://BUILD_PROVENANCE.json")!=PROVENANCE_SHA:failures.append("packed provenance mismatch")
+    if FileAccess.file_exists("res://campaign/quality/nov6_native_review.gd"):failures.append("native fixture must not be a loose or packed runtime resource")
+    for arg in OS.get_cmdline_user_args():
+        if arg in ["--capture-ui","--capture-all"] and DisplayServer.get_name()=="headless":failures.append("native capture requires a real renderer")
+    if not failures.is_empty():
+        for failure in failures:push_error(failure)
+        quit(1);return
+    var fixture_script=load(FIXTURE_PATH)
+    if fixture_script==null:
+        push_error("Could not load frozen external native fixture");quit(1);return
+    var fixture=fixture_script.new()
+    if not fixture is Node:
+        push_error("Frozen native fixture is not a Node");quit(1);return
+    root.add_child(fixture)
+    print("PACKED_NATIVE_WRAPPER_READY "+JSON.stringify({"passed":true,"checks":4,"failures":[],"source_commit":SOURCE_COMMIT,"fixture_sha256":FIXTURE_SHA,"display_server":DisplayServer.get_name(),"scope":"Frozen external native fixture, production resources from verified PCK; controlled visual fixtures, not a route or Windows test."}))
+'''
+
 
 def require(condition: bool, message: str) -> None:
     if not condition:
@@ -203,13 +232,54 @@ def isolated_environment(parent: Path, name: str) -> dict[str, str]:
     return env
 
 
+def prepare_native_review(output: Path, engine: Path, pack: Path, fixture: Path,
+                          fixture_sha256: str, provenance_sha256: str, commit: str) -> dict:
+    """Prepare, but never launch, the parent's real-renderer capture session."""
+    require(sha(fixture) == fixture_sha256, "Native-review fixture differs from frozen Git source")
+    native = output / "native-review"
+    native.mkdir()
+    empty = native / "empty-resources"
+    empty.mkdir()
+    captures = native / "captures"
+    captures.mkdir()
+    wrapper = native / "native_review_wrapper.gd"
+    text = NATIVE_WRAPPER
+    for key, value in {"FIXTURE_PATH": str(fixture), "FIXTURE_SHA": fixture_sha256,
+                       "PROVENANCE_SHA": provenance_sha256, "SOURCE_COMMIT": commit}.items():
+        text = text.replace("@" + key + "@", json.dumps(value))
+    wrapper.write_text(text, encoding="utf-8")
+    command = [str(engine), "--display-driver", "x11", "--rendering-method", "gl_compatibility",
+               "--audio-driver", "Dummy", "--disable-vsync", "--path", str(empty),
+               "--main-pack", str(pack), "--script", str(wrapper), "--", "--capture-ui", "--output=" + str(captures)]
+    env = isolated_environment(output / "isolated", "native_capture")
+    launcher = native / "Start-native-review.sh"
+    lines = ["#!/bin/sh", "set -eu"]
+    for key in ("HOME", "XDG_DATA_HOME", "XDG_CONFIG_HOME", "XDG_CACHE_HOME"):
+        lines.append("export " + key + "=" + shlex.quote(env[key]))
+    lines += ["EMPTY=" + shlex.quote(str(empty)), "CAPTURES=" + shlex.quote(str(captures)),
+              'if [ -n "$(ls -A "$EMPTY")" ]; then echo "Native resource directory is not empty." >&2; exit 1; fi',
+              'if [ -n "$(ls -A "$CAPTURES")" ]; then echo "Capture files already exist. Preserve them and choose a new capture directory." >&2; exit 1; fi',
+              'cd "$EMPTY"', "exec " + shlex.join(command)]
+    launcher.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    launcher.chmod(0o755)
+    report = {"source_commit": commit, "fixture": str(fixture), "fixture_sha256": fixture_sha256,
+              "wrapper": str(wrapper), "wrapper_sha256": sha(wrapper), "pck": str(pack), "pck_sha256": sha(pack),
+              "resource_directory": str(empty), "capture_directory": str(captures), "expected_ui_frames": 31,
+              "launcher": str(launcher), "command": command, "native_session_launched": False,
+              "limitations": ["Dummy audio driver: this desktop has no soundcard; no audible-output verification",
+                              "Software graphics with V-Sync disabled; no target-hardware performance claim"],
+              "scope": "Prepared for parent native renderer capture; no UI automation or native execution performed by packager"}
+    write_json(native / "NATIVE_REVIEW_MANIFEST.json", report)
+    return report
+
+
 def result_receipt(log: str, prefix: str) -> dict:
     lines = [line.removeprefix(prefix) for line in log.splitlines() if line.startswith(prefix)]
     require(len(lines) == 1, f"Expected exactly one {prefix.strip()} receipt")
     receipt = json.loads(lines[0])
     require(isinstance(receipt, dict) and receipt.get("passed") is True, "Fixture receipt did not pass")
     require(receipt.get("failures") == [], "Fixture receipt contains failures or no explicit failure list")
-    require(isinstance(receipt.get("checks"), int) and receipt["checks"] > 0, "Fixture ran no checks")
+    require(type(receipt.get("checks")) is int and receipt["checks"] > 0, "Fixture ran no checks")
     return receipt
 
 
@@ -268,7 +338,25 @@ def checksums(directory: Path) -> None:
     (directory / "CHECKSUMS.sha256").write_text("\n".join(rows) + "\n", encoding="utf-8")
 
 
-def copy_player_guides(frozen: Path, package: Path) -> dict[str, str]:
+GUIDE_LINK = re.compile(r"\[([^\]\n]+)\]\(([^)\n]+)\)")
+
+
+def validate_guide_links(package: Path, paths: list[str]) -> None:
+    """Reject dangling or package-escaping relative Markdown guide links."""
+    root = package.resolve()
+    for relative in paths:
+        guide = package / relative
+        for match in GUIDE_LINK.finditer(guide.read_text(encoding="utf-8")):
+            target = urlsplit(match.group(2))
+            if target.scheme or target.netloc or not target.path:
+                continue
+            resolved = (guide.parent / unquote(target.path)).resolve()
+            require(resolved.is_relative_to(root) and resolved.is_file(),
+                    f"Broken package-local guide link in {relative}: {match.group(2)}")
+
+
+def copy_player_guides(frozen: Path, package: Path) -> dict[str, dict]:
+    """Adapt runtime references only; retain source and delivered hashes."""
     guides = {"README.md": "PROJECT_README.md",
               "campaign/docs/LOCAL_PLAYTEST.md": "LOCAL_PLAYTEST.md",
               "campaign/docs/NOV6_GAMEPAD.md": "NOV6_GAMEPAD.md",
@@ -278,9 +366,53 @@ def copy_player_guides(frozen: Path, package: Path) -> dict[str, str]:
     included = {}
     for relative, filename in guides.items():
         require((frozen / relative).is_file(), f"Player guide missing from source freeze: {relative}")
-        shutil.copy2(frozen / relative, destination / filename)
-        included["docs/" + filename] = sha(destination / filename)
-        require(included["docs/" + filename] == sha(frozen / relative), f"Player guide changed while copying: {relative}")
+        source_hash = sha(frozen / relative)
+        original = (frozen / relative).read_text(encoding="utf-8")
+        adaptations = []
+
+        def adapt_link(match: re.Match) -> str:
+            label, raw_target = match.groups()
+            target = urlsplit(raw_target)
+            if target.scheme or target.netloc or not target.path:
+                return match.group(0)
+            source_target = posixpath.normpath(str(PurePosixPath(relative).parent / unquote(target.path)))
+            if source_target in guides:
+                local = guides[source_target]
+                if target.fragment:
+                    local += "#" + target.fragment
+                label = label.replace(source_target, guides[source_target])
+                replacement = f"[{label}]({local})"
+                if replacement != match.group(0):
+                    adaptations.append(f"Linked {source_target} to package-local {local}")
+                return replacement
+            adaptations.append(f"Marked {raw_target} as a source-only reference")
+            reference = "`" + source_target + "`"
+            if label.strip("`") != source_target:
+                reference = label + " (" + reference + ")"
+            return reference + " (source reference; requires the editable-source download)"
+
+        delivered = GUIDE_LINK.sub(adapt_link, original)
+        if relative == "README.md":
+            for source_path, local_name in guides.items():
+                if source_path != "README.md" and "`" + source_path + "`" in delivered:
+                    delivered = delivered.replace("`" + source_path + "`", "`" + local_name + "`")
+                    adaptations.append(f"Updated included guide filename {source_path} to {local_name}")
+            delivered = ("Runtime-package reference adapted from the source README.\n"
+                         "For this portable build, follow ../START_HERE.txt. Opening project.godot\n"
+                         "and all other source/editor paths mentioned below require the separate\n"
+                         "editable-source download. Included player guides are in this docs folder;\n"
+                         "source-only references are labeled and are not package hyperlinks.\n"
+                         "The editable-source ZIP preserves the original README unchanged.\n\n" + delivered)
+            adaptations.insert(0, "Added runtime-package versus editable-source guidance")
+        if delivered == original:
+            shutil.copy2(frozen / relative, destination / filename)
+        else:
+            (destination / filename).write_text(delivered, encoding="utf-8")
+        require(sha(frozen / relative) == source_hash, f"Frozen player guide changed: {relative}")
+        included["docs/" + filename] = {"source_path": relative, "source_sha256": source_hash,
+                                       "delivered_sha256": sha(destination / filename),
+                                       "adapted": delivered != original, "adaptations": adaptations}
+    validate_guide_links(package, list(included))
     return included
 
 
@@ -429,8 +561,11 @@ def readme(platform: str, commit: str, engine: str) -> str:
     start = ("Extract the complete ZIP to a folder, then double-click MOKSHA.exe.\n"
              "Keep MOKSHA.exe and MOKSHA.pck together. No editor install is needed.\n"
              "This unsigned development executable has NOT been executed on Windows.\n") if platform == "Windows" else (
-             "Extract the complete ZIP, then run ./Start-MOKSHA.sh.\n"
-             "If your extractor drops permissions: chmod +x Start-MOKSHA.sh MOKSHA\n"
+             "Extract the complete ZIP. Open a terminal in the extracted MOKSHA-Linux folder\n"
+             "(or cd into that folder), then run ./Start-MOKSHA.sh.\n"
+             "If your extractor drops permissions, run from that same MOKSHA-Linux folder:\n"
+             "chmod +x Start-MOKSHA.sh MOKSHA\n"
+             "Then run ./Start-MOKSHA.sh again.\n"
              "The bundled official Linux engine runs the game without an installation.\n"
              "It includes editor functionality but the launcher starts game mode.\n")
     return f"""MOKSHA: FIVE ASCENTS / {platform} x86_64 development build
@@ -519,6 +654,11 @@ def main() -> int:
     test_root.mkdir()
     external_fixtures = output / "external-fixtures"
     external_fixtures.mkdir()
+    # Exported PCKs may have an empty globalized res:// path. Keep explicitly
+    # requested receipts in a separate sibling directory, never in the source
+    # tree or resource working directory; frozen fixtures validate that policy.
+    external_receipts = output.parent / (output.name + "-fixture-receipts")
+    external_receipts.mkdir(exist_ok=False)
     fixture_hashes = {}
 
     def frozen_fixture(relative: str) -> Path:
@@ -532,26 +672,47 @@ def main() -> int:
         return path
 
     def packed_check(name: str, script: Path | None, marker: str | None, pck: Path = pack,
-                     binary: Path = engine, hz: int | None = None, result_prefix: str | None = None) -> None:
+                     binary: Path = engine, hz: int | None = None, result_prefix: str | None = None,
+                     quit_after: int | None = None, report_output: Path | None = None) -> None:
         require(not any(test_root.iterdir()), "Packed test working directory must contain no loose resources")
         command = [str(binary), "--headless", "--path", str(test_root), "--main-pack", str(pck)]
         if script is None:
             command += ["--quit-after", "10"]
         else:
             command += ["--script", str(script)]
+        if quit_after is not None:
+            command += ["--quit-after", str(quit_after)]
+        user_args = []
         if hz is not None:
-            command += ["--fixed-fps", str(hz), "--", "--hz=" + str(hz)]
+            command += ["--fixed-fps", str(hz)]
+            user_args.append("--hz=" + str(hz))
+        if report_output is not None:
+            require(not report_output.resolve().is_relative_to(output), "Fixture report must be outside the PCK project directory")
+            user_args.append("--output=" + str(report_output))
+        if user_args:
+            command += ["--"] + user_args
         row = command_check(name, command, test_root, isolated_environment(output / "isolated", name), logs, marker, result_prefix=result_prefix)
         row["pck_sha256"] = sha(pck)
         row["resource_working_directory_empty"] = not any(test_root.iterdir())
         require(row["resource_working_directory_empty"], "Packed fixture wrote loose resources into the test working directory")
         if script is not None:
             row["external_script_sha256"] = sha(script)
+        if report_output is not None:
+            require(report_output.is_file(), "Fixture did not write its requested external receipt")
+            require(json.loads(report_output.read_text()) == row.get("fixture_receipt"), "Console and file fixture receipts disagree")
+            row["external_receipt_sha256"] = sha(report_output)
+            row["external_receipt_path"] = str(report_output)
         write_json(logs / (name + ".json"), row)
         reports.append(row)
 
     packed_check("packed_title", None, None)
     packed_check("packed_audit", audit, "PACK_AUDIT_PASS")
+    native_fixture = frozen_fixture("campaign/quality/nov6_native_review.gd")
+    native_review = prepare_native_review(output, engine, pack, native_fixture,
+                                          source_hashes["campaign/quality/nov6_native_review.gd"],
+                                          sha(stage / "BUILD_PROVENANCE.json"), commit)
+    packed_check("packed_native_wrapper_smoke", Path(native_review["wrapper"]), "PACKED_NATIVE_WRAPPER_READY ",
+                 result_prefix="PACKED_NATIVE_WRAPPER_READY ", quit_after=12)
     fixtures = [
         ("incoming_health", "campaign/qa_audit/incoming_health.gd", "INCOMING_HEALTH_FAILURES []"),
         ("save_continue", "campaign/qa_audit/save_draft.gd", "SAVE_FAILURES []"),
@@ -565,8 +726,13 @@ def main() -> int:
             ("independent_controller", "campaign/quality/nov6_independent_controller.gd", "NOV6_INDEPENDENT_CONTROLLER "),
             ("paused_release", "campaign/quality/nov6_independent_paused_release.gd", "NOV6_INDEPENDENT_PAUSED_RELEASE "),
             ("runtime_lifecycle", "campaign/quality/nov6_runtime_lifecycle.gd", "NOV6_RUNTIME_LIFECYCLE_RESULT "),
+            ("input_guidance", "campaign/quality/nov6_input_guidance.gd", "NOV6_INPUT_GUIDANCE_RESULT "),
+            ("audio_contract", "campaign/quality/nov6_audio/contract.gd", "NOV6_AUDIO_CONTRACT_RESULT "),
+            ("audio_routing", "campaign/quality/nov6_audio/event_routing.gd", "NOV6_AUDIO_ROUTING_RESULT "),
+            ("audio_rejected_noise", "campaign/quality/nov6_audio/rejected_noise.gd", "NOV6_AUDIO_REJECTED_NOISE_RESULT "),
         ]:
-            packed_check(f"packed_{name}_{hz}", frozen_fixture(relative), prefix, hz=hz, result_prefix=prefix)
+            receipt_path = external_receipts / f"{name}_{hz}.json" if name.startswith("audio_") else None
+            packed_check(f"packed_{name}_{hz}", frozen_fixture(relative), prefix, hz=hz, result_prefix=prefix, report_output=receipt_path)
     focus_prefix = "NOV6_INDEPENDENT_FOCUS_UPGRADE "
     packed_check("packed_focus_upgrade", frozen_fixture("campaign/quality/nov6_independent_focus_upgrade.gd"), focus_prefix, result_prefix=focus_prefix)
     require(all(sha(frozen / name) == digest for name, digest in source_hashes.items()), "Frozen source drift during verification")
@@ -583,6 +749,7 @@ def main() -> int:
         "complete_campaign_playthrough": False, "human_duration_validated": False,
         "physical_controller_hardware_tested": False,
         "external_fixture_sha256": fixture_hashes,
+        "prepared_native_review": native_review,
         "checks": reports, "rehearsal": args.rehearsal,
     }
     if args.rehearsal:
@@ -604,7 +771,8 @@ def main() -> int:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(path, target)
     shutil.copy2(old / "template-verification.json", windows / "template-verification.json")
-    base_report["player_guide_sha256"] = copy_player_guides(frozen, windows)
+    base_report["player_guides"] = copy_player_guides(frozen, windows)
+    base_report["player_guide_sha256"] = {name: row["delivered_sha256"] for name, row in base_report["player_guides"].items()}
     (windows / "START_HERE.txt").write_text(readme("Windows", commit, version), encoding="utf-8")
     (windows / "Run-MOKSHA.cmd").write_bytes(b'@echo off\r\nsetlocal\r\ncd /d "%~dp0"\r\nif not exist "MOKSHA.pck" (\r\n  echo Extract the complete ZIP first. MOKSHA.pck is missing.\r\n  pause\r\n  exit /b 1\r\n)\r\nstart "MOKSHA" /D "%~dp0" "%~dp0MOKSHA.exe" --rendering-method gl_compatibility\r\n')
     write_json(windows / "BUILD_REPORT.json", base_report)

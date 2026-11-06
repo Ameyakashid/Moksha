@@ -1,0 +1,30 @@
+{
+  "name": "gameplay_build_120",
+  "command": [
+    "godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/project",
+    "--fixed-fps",
+    "120",
+    "--script",
+    "res://campaign/quality/nov6_gameplay_build.gd",
+    "--",
+    "--hz=120"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "checks": 13,
+      "failures": [],
+      "hz": 120,
+      "passed": true,
+      "scope": "Live reward interaction and actual shared strike lifecycle; not full combat balance acceptance."
+    }
+  },
+  "wall_seconds": 3.691,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/gameplay_build_120/engine.log"
+}

@@ -48,6 +48,9 @@ class PackagingTests(unittest.TestCase):
         for log in ('', 'TEST {}', 'TEST {"passed":false,"failures":[],"checks":3}',
                     'TEST {"passed":true,"failures":["broken"],"checks":3}',
                     'TEST {"passed":true,"failures":[],"checks":0}',
+                    'TEST {"passed":true,"failures":[],"checks":true}',
+                    'TEST {"passed":true,"failures":[],"checks":1.5}',
+                    'TEST {"passed":true,"failures":[],"checks":"3"}',
                     'TEST {"passed":true,"failures":[],"checks":3}\nTEST {"passed":true,"failures":[],"checks":3}'):
             with self.subTest(log=log), self.assertRaises(RuntimeError):
                 package.result_receipt(log, 'TEST ')
@@ -173,7 +176,7 @@ class PackagingTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 package.verify_full_history(bundle, commit, {"project.godot": "wrong"}, base / "wrong.git")
 
-    def test_player_guides_are_exact_frozen_files(self):
+    def test_player_guides_adapt_links_and_preserve_source(self):
         with tempfile.TemporaryDirectory() as temporary:
             base = Path(temporary)
             frozen = base / "frozen"
@@ -183,11 +186,82 @@ class PackagingTests(unittest.TestCase):
                 path = frozen / name
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text("Exact frozen guide: " + name)
+            (frozen / "README.md").write_text(
+                "# Source README\nOpen `project.godot`.\n"
+                "[`campaign/docs/NOV6_GAMEPAD.md`](campaign/docs/NOV6_GAMEPAD.md)\n"
+                "[`campaign/docs/NOV6_CHANGES.md`](campaign/docs/NOV6_CHANGES.md)\n"
+                "[`campaign/quality/README.md`](campaign/quality/README.md)\n"
+                "See `campaign/docs/LOCAL_PLAYTEST.md`.\n")
+            (frozen / "campaign/docs/LOCAL_PLAYTEST.md").write_text(
+                "[Controller guide](NOV6_GAMEPAD.md)\n"
+                "[Official documentation](https://docs.godotengine.org/en/stable/)\n")
+            source_bytes = {p.relative_to(frozen).as_posix(): p.read_bytes() for p in frozen.rglob("*") if p.is_file()}
             included = package.copy_player_guides(frozen, dist)
             self.assertEqual(len(included), 4)
-            for name, digest in included.items():
-                self.assertEqual(package.sha(dist / name), digest)
+            for name, row in included.items():
+                self.assertEqual(package.sha(dist / name), row["delivered_sha256"])
+                self.assertEqual(package.sha(frozen / row["source_path"]), row["source_sha256"])
+            delivered = (dist / "docs/PROJECT_README.md").read_text()
+            self.assertIn("separate\neditable-source download", delivered)
+            self.assertIn("[\u0060NOV6_GAMEPAD.md\u0060](NOV6_GAMEPAD.md)", delivered)
+            self.assertIn("[\u0060NOV6_CHANGES.md\u0060](NOV6_CHANGES.md)", delivered)
+            self.assertIn("`LOCAL_PLAYTEST.md`", delivered)
+            self.assertIn("`campaign/quality/README.md` (source reference; requires the editable-source download)", delivered)
+            self.assertNotIn("](campaign/", delivered)
+            self.assertTrue(included["docs/PROJECT_README.md"]["adapted"])
+            self.assertNotEqual(included["docs/PROJECT_README.md"]["source_sha256"], included["docs/PROJECT_README.md"]["delivered_sha256"])
+            package.validate_guide_links(dist, list(included))
+            self.assertEqual({p.relative_to(frozen).as_posix(): p.read_bytes() for p in frozen.rglob("*") if p.is_file()}, source_bytes)
             self.assertEqual((dist / "docs/NOV6_GAMEPAD.md").read_bytes(), (frozen / "campaign/docs/NOV6_GAMEPAD.md").read_bytes())
+
+    def test_packaged_guide_link_check_rejects_missing_and_escaping_files(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            package_root = base / "package"
+            docs = package_root / "docs"
+            docs.mkdir(parents=True)
+            (base / "outside.md").write_text("Not delivered")
+            guide = docs / "guide.md"
+            for link in ("missing.md", "../../outside.md", "..%2F..%2Foutside.md"):
+                guide.write_text(f"[Broken guide]({link})")
+                with self.subTest(link=link), self.assertRaises(RuntimeError):
+                    package.validate_guide_links(package_root, ["docs/guide.md"])
+            (docs / "present.md").write_text("# Included")
+            guide.write_text("[Valid](present.md#included) [Top](#top) [Online](https://example.invalid/guide)")
+            package.validate_guide_links(package_root, ["docs/guide.md"])
+
+    def test_linux_readme_enters_extracted_folder_before_commands(self):
+        readme = package.readme("Linux", "commit", "engine")
+        self.assertLess(readme.index("extracted MOKSHA-Linux folder"), readme.index("./Start-MOKSHA.sh"))
+        self.assertLess(readme.index("same MOKSHA-Linux folder"), readme.index("chmod +x"))
+        self.assertIn("(or cd into that folder)", readme)
+
+    def test_native_wrapper_preserves_fixture_and_empty_resources(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            fixture = base / "frozen_native.gd"
+            fixture.write_text("extends Node\n")
+            pack = base / "game.pck"
+            pack.write_bytes(b"GDPC-test")
+            fixture_hash = package.sha(fixture)
+            report = package.prepare_native_review(base, Path("/official/godot"), pack, fixture, fixture_hash, "provenance", "commit")
+            self.assertEqual(package.sha(fixture), fixture_hash)
+            self.assertFalse(any(Path(report["resource_directory"]).iterdir()))
+            self.assertFalse(report["native_session_launched"])
+            self.assertEqual(report["expected_ui_frames"], 31)
+            wrapper = Path(report["wrapper"]).read_text()
+            self.assertIn(fixture_hash, wrapper)
+            self.assertIn("res://BUILD_PROVENANCE.json", wrapper)
+            self.assertIn("root.add_child(fixture)", wrapper)
+            self.assertNotIn("@FIXTURE", wrapper)
+            self.assertIn("--main-pack", report["command"])
+            self.assertIn("--capture-ui", report["command"])
+            self.assertIn("--display-driver", report["command"])
+            self.assertIn("x11", report["command"])
+            self.assertIn("--audio-driver", report["command"])
+            self.assertIn("Dummy", report["command"])
+            self.assertIn("--disable-vsync", report["command"])
+            self.assertNotIn("--headless", report["command"])
 
 
 if __name__ == "__main__":

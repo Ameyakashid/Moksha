@@ -1,0 +1,20 @@
+PASS import 
+PASS main_boot 
+PASS movement_motor 
+PASS movement_lab 
+PASS movement_npc 
+PASS archive_boot 
+PASS actors_compile 
+PASS actors_regression ACTOR REGRESSION: 48/48 passed
+PASS sonar_regression 
+PASS levels_validate LEVEL VALIDATION: 9 / 9 actual double jumps; 0 failures
+PASS levels_props_settle PLACED PROP SETTLING: 27 checked after 2 seconds; 0 failures
+PASS flow_scene_contracts SCENE RESULT 33/33 passed
+PASS flow_regression FLOW RESULT 73/73 passed
+PASS polish_sensory 
+PASS polish_route 
+PASS graphics_regression 
+PASS attack_pose_regression 
+PASS blind_feedback_regression 
+PASS flow_preservation 
+19/19 stages passed; tests/flow_all_report.json

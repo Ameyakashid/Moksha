@@ -1,0 +1,683 @@
+{
+  "copies": [
+    {
+      "bytes": 162719,
+      "destination": "CONTINUED_REHEARSAL_REPORT.json",
+      "sha256": "ef96c1585e386270cbb1954aaeb3f4351ab67237a03819c7e25a533ba4f6cace",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/CONTINUED_REHEARSAL_REPORT.json"
+    },
+    {
+      "bytes": 3059,
+      "destination": "AUDIO_FIXTURE_OVERRIDE_MANIFEST.json",
+      "sha256": "2e86191c31653f71001734f28601ad329e3bcf7a94a1529340246f5438022623",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/AUDIO_FIXTURE_OVERRIDE_MANIFEST.json"
+    },
+    {
+      "bytes": 45597,
+      "destination": "AUDIO_FIXTURE_OVERRIDE_RESULT.json",
+      "sha256": "ce3fc48192a072da531fd85d54de45a1039c2f107032e9155368ead1148c575c",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/AUDIO_FIXTURE_OVERRIDE_RESULT.json"
+    },
+    {
+      "bytes": 3506,
+      "destination": "pack_audit.gd",
+      "sha256": "b1a807eb40873ac52b9e2168a6f7b7cb4d57b4a5f57a3beb0db4d22a03cbac7e",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack_audit.gd"
+    },
+    {
+      "bytes": 215,
+      "destination": "resource_paths_probe.gd",
+      "sha256": "9f45e508a78ecca574f1e300c07ea442a48670996eec0406c9e72687495a61d1",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/resource_paths_probe.gd"
+    },
+    {
+      "bytes": 90696,
+      "destination": "BUILD_PROVENANCE.json",
+      "sha256": "96d789eb5da6442720df352d24ee0099e28fcf9e6543c14d6b85313c1ff4f992",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/export-stage/BUILD_PROVENANCE.json"
+    },
+    {
+      "bytes": 524,
+      "destination": "verification/export_pack.json",
+      "sha256": "b9c8056e5a69e6eaeb96ccecf2bedb1452d04aefbf1b72f850a1981a26f54b03",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/export_pack.json"
+    },
+    {
+      "bytes": 89884,
+      "destination": "verification/export_pack.log",
+      "sha256": "8413f53ddf5ae2ce15cab9050d9f4495b94d4b4763113a91d430ea53f5419fdc",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/export_pack.log"
+    },
+    {
+      "bytes": 431,
+      "destination": "verification/import.json",
+      "sha256": "e768549b37c37baff1bce8930688a80dda86cdf98088995a5d1748255bf3d08a",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/import.json"
+    },
+    {
+      "bytes": 22799,
+      "destination": "verification/import.log",
+      "sha256": "fd9ddf41a6c418685d675c6d920b791c1363d632daa07e09af95aaf208fec4d0",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/import.log"
+    },
+    {
+      "bytes": 8313,
+      "destination": "verification/packed_audio_contract_120_guard_fixed.json",
+      "sha256": "98d361c0743496af649950052620b32dca6d8fe175203514e7b6878c748a11df",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audio_contract_120_guard_fixed.json"
+    },
+    {
+      "bytes": 7132,
+      "destination": "verification/packed_audio_contract_120_guard_fixed.log",
+      "sha256": "5e41135e288d3ca480b67e9ef7a61f0db7c58347c4ed6bf4db54537b8b790915",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audio_contract_120_guard_fixed.log"
+    },
+    {
+      "bytes": 765,
+      "destination": "verification/packed_audio_contract_60.json",
+      "sha256": "558e77e98ffaf944c8883cbf06c769f50560355f8cffb90d5476780d03876b15",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audio_contract_60.json"
+    },
+    {
+      "bytes": 7073,
+      "destination": "verification/packed_audio_contract_60.log",
+      "sha256": "aa8cc717545b2f6d6b65b02758c05be4dd86154523a9657857ce3f13dc7a1e8b",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audio_contract_60.log"
+    },
+    {
+      "bytes": 8306,
+      "destination": "verification/packed_audio_contract_60_guard_fixed.json",
+      "sha256": "0b826afd6126bf1ce9e190643ae2a92a972192685449caea6c2b6b21c1df299c",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audio_contract_60_guard_fixed.json"
+    },
+    {
+      "bytes": 7130,
+      "destination": "verification/packed_audio_contract_60_guard_fixed.log",
+      "sha256": "4051cee54a50a2b22a066b3a62cc6fa54d628f079d1b135031eca9b0ffe8f4aa",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audio_contract_60_guard_fixed.log"
+    },
+    {
+      "bytes": 3873,
+      "destination": "verification/packed_audio_rejected_noise_120_guard_fixed.json",
+      "sha256": "677dc84a45bd854fd063be25a7c553ed700b87f2b264c57d53796c6fd9e4345e",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audio_rejected_noise_120_guard_fixed.json"
+    },
+    {
+      "bytes": 1767,
+      "destination": "verification/packed_audio_rejected_noise_120_guard_fixed.log",
+      "sha256": "04b22272e0d6d24662d25ff18d1bd832fe95aed58975fbd701e5a20a82f5526b",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audio_rejected_noise_120_guard_fixed.log"
+    },
+    {
+      "bytes": 3866,
+      "destination": "verification/packed_audio_rejected_noise_60_guard_fixed.json",
+      "sha256": "6287d061d7924349389157aae7c72e3d469cdba3e40c45f160892b0ede94cdad",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audio_rejected_noise_60_guard_fixed.json"
+    },
+    {
+      "bytes": 1765,
+      "destination": "verification/packed_audio_rejected_noise_60_guard_fixed.log",
+      "sha256": "bb1650b07e20dfd198978d37a7d173e647a9739727066652a492cc06ea0977a0",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audio_rejected_noise_60_guard_fixed.log"
+    },
+    {
+      "bytes": 7654,
+      "destination": "verification/packed_audio_routing_120_guard_fixed.json",
+      "sha256": "c09332429ab8920c215dcb2afd7633697ef7acb6183107acd204a85afebea421",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audio_routing_120_guard_fixed.json"
+    },
+    {
+      "bytes": 5031,
+      "destination": "verification/packed_audio_routing_120_guard_fixed.log",
+      "sha256": "a2351d92822d53227da635dfe269772faa0f82632d633f999dab8b675c7d413f",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audio_routing_120_guard_fixed.log"
+    },
+    {
+      "bytes": 7647,
+      "destination": "verification/packed_audio_routing_60_guard_fixed.json",
+      "sha256": "3e17c5a40cd04e07423d3bac93adde6c07fa57a2c16a6f453e8a30516e659cb6",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audio_routing_60_guard_fixed.json"
+    },
+    {
+      "bytes": 5029,
+      "destination": "verification/packed_audio_routing_60_guard_fixed.log",
+      "sha256": "8d5f2b200eb521dac70abd5dedbd168c4a14b583c00c45a42598d35e13c38c07",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audio_routing_60_guard_fixed.log"
+    },
+    {
+      "bytes": 827,
+      "destination": "verification/packed_audit.json",
+      "sha256": "1f0c3b2327e3ec98926c5c81dac894d55f6950c383e3ac508ba1c2a1007876e4",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audit.json"
+    },
+    {
+      "bytes": 259,
+      "destination": "verification/packed_audit.log",
+      "sha256": "7d658164027c45bb917cb365fe2bee2d0c90d95b92a476772c8046ab7583a3cc",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_audit.log"
+    },
+    {
+      "bytes": 1378,
+      "destination": "verification/packed_focus_upgrade_120.json",
+      "sha256": "547a9a064530224e25ac9ac3e1b6fc56ef2290642bad5f76e1b401dbc9fd0321",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_focus_upgrade_120.json"
+    },
+    {
+      "bytes": 405,
+      "destination": "verification/packed_focus_upgrade_120.log",
+      "sha256": "d796b8b5dd9508a7ba77eb43b2e08af473ddf558b4f55df369bc41b3b6abd476",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_focus_upgrade_120.log"
+    },
+    {
+      "bytes": 8038,
+      "destination": "verification/packed_gamepad_navigation_120.json",
+      "sha256": "f81f89c95eea625ae5898f115a76552d853ffc91fd9b77591621b125d6433bae",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_gamepad_navigation_120.json"
+    },
+    {
+      "bytes": 4986,
+      "destination": "verification/packed_gamepad_navigation_120.log",
+      "sha256": "e7c9a3250746e1ab9e8e985ea136c0f7daddd4f9cdff6a8f8f7622fbb1539f3a",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_gamepad_navigation_120.log"
+    },
+    {
+      "bytes": 8033,
+      "destination": "verification/packed_gamepad_navigation_60.json",
+      "sha256": "dde54f41675d451e09f53d38295af20dcf51935e1135a2b4d4899f33921f9761",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_gamepad_navigation_60.json"
+    },
+    {
+      "bytes": 4985,
+      "destination": "verification/packed_gamepad_navigation_60.log",
+      "sha256": "3d3a4774f8fa322309250d542a58616b4b80ffbd86d2feff54728f32b1404106",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_gamepad_navigation_60.log"
+    },
+    {
+      "bytes": 938,
+      "destination": "verification/packed_incoming_health_120.json",
+      "sha256": "0b5d8def2afbfa1179686ffdd308324140f364b1669c2d0320ae121c4ed63518",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_incoming_health_120.json"
+    },
+    {
+      "bytes": 8677,
+      "destination": "verification/packed_incoming_health_120.log",
+      "sha256": "3030938893b7fefb47b8e9caac7388e1f090f21b39ad0ea503f7d02bde210282",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_incoming_health_120.log"
+    },
+    {
+      "bytes": 935,
+      "destination": "verification/packed_incoming_health_60.json",
+      "sha256": "368abfa2be6fb60c1bb64ad2ad701c53f65deb234d02903587df507a6aeb5f12",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_incoming_health_60.json"
+    },
+    {
+      "bytes": 8677,
+      "destination": "verification/packed_incoming_health_60.log",
+      "sha256": "df39df8e89df6f8c6c905050366976143943ac45258b446b5ff65914705ec468",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_incoming_health_60.log"
+    },
+    {
+      "bytes": 1233,
+      "destination": "verification/packed_independent_controller_120.json",
+      "sha256": "e3c95a86b37d4c3575b6197d72b163cfad5fbb8f73e2735df88c74bb1bed4d19",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_independent_controller_120.json"
+    },
+    {
+      "bytes": 323,
+      "destination": "verification/packed_independent_controller_120.log",
+      "sha256": "e880f777d5053dcaf5e0b55a5d8f901d50e11e34b3f05dbe2c0250d687597baa",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_independent_controller_120.log"
+    },
+    {
+      "bytes": 1229,
+      "destination": "verification/packed_independent_controller_60.json",
+      "sha256": "5c459aec78ebbe5f92c653d529161f6f52c1a307ce4dc78e5822369c4c525933",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_independent_controller_60.json"
+    },
+    {
+      "bytes": 322,
+      "destination": "verification/packed_independent_controller_60.log",
+      "sha256": "99c1872ac81ce9777350716ed265c3171e1782b4a619829cb5a80554ec4ff787",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_independent_controller_60.log"
+    },
+    {
+      "bytes": 1162,
+      "destination": "verification/packed_input_guidance_120.json",
+      "sha256": "81c3c2e5b39165529c3af1d0c723a05fd4194be3ae09e6afb25018015b6e501f",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_input_guidance_120.json"
+    },
+    {
+      "bytes": 267,
+      "destination": "verification/packed_input_guidance_120.log",
+      "sha256": "3517aff94109d9dc9d0e7b228f1d2390a15f08389a426606ff704cb7c1ca73c0",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_input_guidance_120.log"
+    },
+    {
+      "bytes": 1158,
+      "destination": "verification/packed_input_guidance_60.json",
+      "sha256": "4376dd5c194ce13e73b5d3283e029f8b6aaf7e5491db62278c5f9f03de2d2c43",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_input_guidance_60.json"
+    },
+    {
+      "bytes": 266,
+      "destination": "verification/packed_input_guidance_60.log",
+      "sha256": "6994bb047a0e97b821e384a0eb8a3b4fce941e64cc662de923a22926d2cc6525",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_input_guidance_60.log"
+    },
+    {
+      "bytes": 930,
+      "destination": "verification/packed_journal_120.json",
+      "sha256": "a46e6f27c2eab506b4e5e852b13936a9247cb1856446a006a2d07e23d419acc6",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_journal_120.json"
+    },
+    {
+      "bytes": 750,
+      "destination": "verification/packed_journal_120.log",
+      "sha256": "ad514b1ee3925878876bba19c7b2fd693e9ae1145f150f1b6412e25bdaad851d",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_journal_120.log"
+    },
+    {
+      "bytes": 927,
+      "destination": "verification/packed_journal_60.json",
+      "sha256": "7aba4562211c87c79d755bb6dbfb04ded73ae628263787dac11a890d5fe5e214",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_journal_60.json"
+    },
+    {
+      "bytes": 750,
+      "destination": "verification/packed_journal_60.log",
+      "sha256": "ad514b1ee3925878876bba19c7b2fd693e9ae1145f150f1b6412e25bdaad851d",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_journal_60.log"
+    },
+    {
+      "bytes": 1315,
+      "destination": "verification/packed_native_wrapper_smoke.json",
+      "sha256": "ba23f29dcee01406be929918dd60cd8fbf3376f88fdfb05adba39fa344d088d0",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_native_wrapper_smoke.json"
+    },
+    {
+      "bytes": 555,
+      "destination": "verification/packed_native_wrapper_smoke.log",
+      "sha256": "ca99ba8a01fd812bf53de487a074c212f91c9e0852fd9b778f17a294f3dfc408",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_native_wrapper_smoke.log"
+    },
+    {
+      "bytes": 1568,
+      "destination": "verification/packed_paused_release_120.json",
+      "sha256": "f53c7962397f0153e79edb15de0fdbf7b7cd0528e1109b0db148878030a05b5a",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_paused_release_120.json"
+    },
+    {
+      "bytes": 523,
+      "destination": "verification/packed_paused_release_120.log",
+      "sha256": "0ed04e0736bd175f83a8f0048c3ef6f4541f92bc732a8bfc35760aea8bcb121b",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_paused_release_120.log"
+    },
+    {
+      "bytes": 1564,
+      "destination": "verification/packed_paused_release_60.json",
+      "sha256": "2409c8ad52ee23e79065390b631bd4361fe15f88b827c082d846d354e3537803",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_paused_release_60.json"
+    },
+    {
+      "bytes": 522,
+      "destination": "verification/packed_paused_release_60.log",
+      "sha256": "68dbf1cbc520dcaeff163970434c02b0c5040a76dc1a9a4544cd3826d79ce681",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_paused_release_60.log"
+    },
+    {
+      "bytes": 31176,
+      "destination": "verification/packed_runtime_lifecycle_120.json",
+      "sha256": "0e8ff4cb9d0e3ad01d396fa0d2876cc7d432dcccb185871408d7280c4ec21d5f",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_runtime_lifecycle_120.json"
+    },
+    {
+      "bytes": 16918,
+      "destination": "verification/packed_runtime_lifecycle_120.log",
+      "sha256": "381a9b16f1ea44af7aba434f7ce25df1af3e3f072dd72d69927ee20ff3c1d8d2",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_runtime_lifecycle_120.log"
+    },
+    {
+      "bytes": 31171,
+      "destination": "verification/packed_runtime_lifecycle_60.json",
+      "sha256": "0de5fd1230bf0242f1064401231d36d6a739d9a1190e7b70787f2765e1cdbc84",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_runtime_lifecycle_60.json"
+    },
+    {
+      "bytes": 16917,
+      "destination": "verification/packed_runtime_lifecycle_60.log",
+      "sha256": "6abd51a01019f59e088d26fbb4e69f71b2b76be6f125502061e1ce7060779f90",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_runtime_lifecycle_60.log"
+    },
+    {
+      "bytes": 931,
+      "destination": "verification/packed_save_continue_120.json",
+      "sha256": "4704c661a056bbca36779058a2a48e5b9f2532308a9aa973f232db90f8c43baf",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_save_continue_120.json"
+    },
+    {
+      "bytes": 1743,
+      "destination": "verification/packed_save_continue_120.log",
+      "sha256": "be70fb1b0af6fe5e940ee2846569b33b834be4ad5ce528bc11d59751b451c0b3",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_save_continue_120.log"
+    },
+    {
+      "bytes": 928,
+      "destination": "verification/packed_save_continue_60.json",
+      "sha256": "13bcff1545e32d8dc1ed9a6edfa14772807c2594e62641142c6eaf7d3d8cfd11",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_save_continue_60.json"
+    },
+    {
+      "bytes": 1743,
+      "destination": "verification/packed_save_continue_60.log",
+      "sha256": "be70fb1b0af6fe5e940ee2846569b33b834be4ad5ce528bc11d59751b451c0b3",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_save_continue_60.log"
+    },
+    {
+      "bytes": 662,
+      "destination": "verification/packed_title.json",
+      "sha256": "991620515dc8941a180197716b08ad09910aa074d78c2e25b39a9b65fb3ff519",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_title.json"
+    },
+    {
+      "bytes": 73,
+      "destination": "verification/packed_title.log",
+      "sha256": "a9912b85473f126d3f4f63ec824170c828df3473a292f866dde86cafda5b66da",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/packed_title.log"
+    },
+    {
+      "bytes": 577,
+      "destination": "verification/resource_paths_probe.json",
+      "sha256": "f855f82074fb1676c10b865767f3f2ac5816b3c7b2537473c6cc99dc287a6dcf",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/resource_paths_probe.json"
+    },
+    {
+      "bytes": 266,
+      "destination": "verification/resource_paths_probe.log",
+      "sha256": "265a2e3345b5471135abb612ebd674113da91edd29da8a795c54843b49c85562",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/verification/resource_paths_probe.log"
+    },
+    {
+      "bytes": 4724,
+      "destination": "frozen-fixtures/campaign/qa_audit/incoming_health.gd",
+      "sha256": "9e09487a225882edb80a5f2705b8ecd372be9467979df724075c7ccb69f37c04",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/qa_audit/incoming_health.gd"
+    },
+    {
+      "bytes": 3541,
+      "destination": "frozen-fixtures/campaign/qa_audit/save_draft.gd",
+      "sha256": "ba9189e31fdf7ea5e57ac223f8e3af7aa7aeb88a5727bb3695e8488fde05598e",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/qa_audit/save_draft.gd"
+    },
+    {
+      "bytes": 2413,
+      "destination": "frozen-fixtures/campaign/qa_audit/ui_dependencies.gd",
+      "sha256": "8d79f5ade9bde1660a824408a14c6ebc0acf87c68e2a76f6af283a5405c0c64e",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/qa_audit/ui_dependencies.gd"
+    },
+    {
+      "bytes": 6839,
+      "destination": "frozen-fixtures/campaign/quality/nov6_audio/contract.gd",
+      "sha256": "9452366c13560eec1a07be26b50d7781510ba876be6aef972262ef0ae61cf0ed",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_audio/contract.gd"
+    },
+    {
+      "bytes": 12547,
+      "destination": "frozen-fixtures/campaign/quality/nov6_gamepad_navigation.gd",
+      "sha256": "e05a27b61c1da6b2d83da1a3611efc0708fac5ef37ca8b124ac40e0e14a71a0e",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_gamepad_navigation.gd"
+    },
+    {
+      "bytes": 7421,
+      "destination": "frozen-fixtures/campaign/quality/nov6_independent_controller.gd",
+      "sha256": "7f760ca6d5d9a2be4a99b560c29082694208b22b6ca61a35f5428f90960cc958",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_independent_controller.gd"
+    },
+    {
+      "bytes": 4034,
+      "destination": "frozen-fixtures/campaign/quality/nov6_independent_focus_upgrade.gd",
+      "sha256": "4cfb79729bc7169e78ef85b4189f27421d689af4cef9648b4401a87ed93c492c",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_independent_focus_upgrade.gd"
+    },
+    {
+      "bytes": 1535,
+      "destination": "frozen-fixtures/campaign/quality/nov6_independent_paused_release.gd",
+      "sha256": "5b6432638ad03b0c4a7a6c0eda69c581c8748d61906bfd3b99d0c5d62ffeaff0",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_independent_paused_release.gd"
+    },
+    {
+      "bytes": 3923,
+      "destination": "frozen-fixtures/campaign/quality/nov6_input_guidance.gd",
+      "sha256": "42e27852e031916f6e0b613d8d83784ac6e7a9ee5a268a6ff3e5e73480169045",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_input_guidance.gd"
+    },
+    {
+      "bytes": 6582,
+      "destination": "frozen-fixtures/campaign/quality/nov6_native_review.gd",
+      "sha256": "77b25b36e6f71bfca306828f3b3f6307d0ca4f926bc17ddd26d37ded0ea9264a",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_native_review.gd"
+    },
+    {
+      "bytes": 13160,
+      "destination": "frozen-fixtures/campaign/quality/nov6_runtime_lifecycle.gd",
+      "sha256": "1668dff30feb6900d1857d2aa957d03c7127e99e50a70f22762dac49a576c349",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_runtime_lifecycle.gd"
+    },
+    {
+      "bytes": 4987,
+      "destination": "frozen-fixtures/campaign/quality/nov6_audio/event_routing.gd",
+      "sha256": "e2ae3de22599668d2efff29a813c22d13de5fa282a2a63bd8a2ddc4815f2f1f0",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/frozen-source/campaign/quality/nov6_audio/event_routing.gd"
+    },
+    {
+      "bytes": 7216,
+      "destination": "frozen-fixtures/campaign/quality/nov6_audio/rejected_noise.gd",
+      "sha256": "334b3b83475d626a398758698ee9a0f102555680653d54da5ce6ffaa14eb1744",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/frozen-source/campaign/quality/nov6_audio/rejected_noise.gd"
+    },
+    {
+      "bytes": 7347,
+      "destination": "corrected-fixtures/campaign/quality/nov6_audio/contract.gd",
+      "sha256": "5a4027f110d5e9aecbc0eff2dfde366cdd8f7dc27278398751cd40331c752754",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/contract.gd"
+    },
+    {
+      "bytes": 1987,
+      "destination": "corrected-fixtures/campaign/quality/nov6_audio/contract.gd.patch",
+      "sha256": "0f555ca89f71c1219366d95a65e0c7b535dfc80c09ae0c34d53f61384383492f",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/contract.gd.patch"
+    },
+    {
+      "bytes": 5495,
+      "destination": "corrected-fixtures/campaign/quality/nov6_audio/event_routing.gd",
+      "sha256": "da8100f7f230fc25f072a0203393b60028799a04e37de74bd08f52014903c0b7",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/event_routing.gd"
+    },
+    {
+      "bytes": 2007,
+      "destination": "corrected-fixtures/campaign/quality/nov6_audio/event_routing.gd.patch",
+      "sha256": "8cba5a01a49b8af6497ead08996b9cfd8d69bf308e9388c0573b13fbebeab819",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/event_routing.gd.patch"
+    },
+    {
+      "bytes": 7722,
+      "destination": "corrected-fixtures/campaign/quality/nov6_audio/rejected_noise.gd",
+      "sha256": "46a5c23097adb2873e8f549a29f9281e4c234cd6596bdad63701c8bf12db301d",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/rejected_noise.gd"
+    },
+    {
+      "bytes": 1906,
+      "destination": "corrected-fixtures/campaign/quality/nov6_audio/rejected_noise.gd.patch",
+      "sha256": "241999923ca592e6f7c215c08c5165e8518e6da895b77590e11863f4056474ea",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/rejected_noise.gd.patch"
+    },
+    {
+      "bytes": 753,
+      "destination": "source-root-negative/audio_output_guard_negative.json",
+      "sha256": "b7cfe5223c80db047bac802acad32a97691d8bceb106d3f2964e64f4311fa646",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-audio-guard-negative/audio_output_guard_negative.json"
+    },
+    {
+      "bytes": 329,
+      "destination": "source-root-negative/audio_output_guard_negative.log",
+      "sha256": "34a9bc0d313ada18882f6433b008fc3baac86fa56e5c202ebabc23b1cc1b2a58",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-audio-guard-negative/audio_output_guard_negative.log"
+    },
+    {
+      "bytes": 2496,
+      "destination": "source-root-negative/output_guard_negative.gd",
+      "sha256": "6a2c4b251bb48d622a480c89ae7ccaf690e2473ffdeb6c33bd7729062913a636",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-audio-guard-negative/output_guard_negative.gd"
+    },
+    {
+      "bytes": 5533,
+      "destination": "audio-json-receipts/packed_audio_contract_120_guard_fixed.json",
+      "sha256": "6a3d372934c18696d993728b912ca7375cd96b9225be54ef26091924aed7c5d3",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_contract_120_guard_fixed.json"
+    },
+    {
+      "bytes": 5531,
+      "destination": "audio-json-receipts/packed_audio_contract_60_guard_fixed.json",
+      "sha256": "3837e1fc5c69b9f58312be4749675cefd031752b7052101caf94930f07811fad",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_contract_60_guard_fixed.json"
+    },
+    {
+      "bytes": 1965,
+      "destination": "audio-json-receipts/packed_audio_rejected_noise_120_guard_fixed.json",
+      "sha256": "246efe07f5e618b06f66c5547d6d6d4ac1f424362735cd6bf89182a7c91a3832",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_rejected_noise_120_guard_fixed.json"
+    },
+    {
+      "bytes": 1963,
+      "destination": "audio-json-receipts/packed_audio_rejected_noise_60_guard_fixed.json",
+      "sha256": "7d7ec2df52e3379d80b758bceb724e367a37f48ec6567e67d0284027fbb75499",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_rejected_noise_60_guard_fixed.json"
+    },
+    {
+      "bytes": 4922,
+      "destination": "audio-json-receipts/packed_audio_routing_120_guard_fixed.json",
+      "sha256": "19d6970089dd8a5682277fd164d6927210f0b603d5e18bce63a5d4a6e3a85082",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_routing_120_guard_fixed.json"
+    },
+    {
+      "bytes": 4920,
+      "destination": "audio-json-receipts/packed_audio_routing_60_guard_fixed.json",
+      "sha256": "8c727984742ce9647ae84fbd3465733557e928ff6508b11f01f514160837f097",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_routing_60_guard_fixed.json"
+    },
+    {
+      "bytes": 44566,
+      "destination": "packaging-tool-snapshot/package_nov6.py",
+      "sha256": "7a710fe7c78c56bda92fb4bb28b6d45a4cac7424e8362eea3baea61862e904a1",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-campaign/tools/package_nov6.py"
+    },
+    {
+      "bytes": 6523,
+      "destination": "packaging-tool-snapshot/package_nov6_split.py",
+      "sha256": "65abf212144caaf0c60b1a526b02af866b643aac2c0ba1a09033e4a5de5594f6",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-campaign/tools/package_nov6_split.py"
+    },
+    {
+      "bytes": 13787,
+      "destination": "packaging-tool-snapshot/package_nov6_tests.py",
+      "sha256": "b3d51238af370c905e04e3f220711d8341aea436997df4a87209cd3ed3a201eb",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-campaign/tools/package_nov6_tests.py"
+    },
+    {
+      "bytes": 3682,
+      "destination": "packaging-tool-snapshot/package_nov6_audio_guard_test.py",
+      "sha256": "b56f832a42f1f3a867031c85f6265328d7c1f8fb166786438d9d4766231275ad",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-campaign/tools/package_nov6_audio_guard_test.py"
+    },
+    {
+      "bytes": 530,
+      "destination": "aborted-r2/verification/export_pack.json",
+      "sha256": "a627bc858601bd067452c74dd4ea04085e3f5df0a137e5af1262b22b1032022a",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/verification/export_pack.json"
+    },
+    {
+      "bytes": 89884,
+      "destination": "aborted-r2/verification/export_pack.log",
+      "sha256": "8413f53ddf5ae2ce15cab9050d9f4495b94d4b4763113a91d430ea53f5419fdc",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/verification/export_pack.log"
+    },
+    {
+      "bytes": 434,
+      "destination": "aborted-r2/verification/import.json",
+      "sha256": "76bb7163c2f45dc62abdfc5e56e4e5075c3680a3269dbca1716c831b0fccabd3",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/verification/import.json"
+    },
+    {
+      "bytes": 22735,
+      "destination": "aborted-r2/verification/import.log",
+      "sha256": "2203b13a2b95f67805f8f255618cace62b6793a664f815d2a714b4f64e56d15c",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/verification/import.log"
+    },
+    {
+      "bytes": 836,
+      "destination": "aborted-r2/verification/packed_audit.json",
+      "sha256": "f104111e07b541521a46ca7cb0b5ff200b162072f2899eb4ec27e523524840a2",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/verification/packed_audit.json"
+    },
+    {
+      "bytes": 259,
+      "destination": "aborted-r2/verification/packed_audit.log",
+      "sha256": "7d658164027c45bb917cb365fe2bee2d0c90d95b92a476772c8046ab7583a3cc",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/verification/packed_audit.log"
+    },
+    {
+      "bytes": 944,
+      "destination": "aborted-r2/verification/packed_incoming_health_60.json",
+      "sha256": "cfc39e540f61fd5ecca179c947a2187fd6340e933d6bd6e37eb07105af01c1d1",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/verification/packed_incoming_health_60.json"
+    },
+    {
+      "bytes": 8677,
+      "destination": "aborted-r2/verification/packed_incoming_health_60.log",
+      "sha256": "df39df8e89df6f8c6c905050366976143943ac45258b446b5ff65914705ec468",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/verification/packed_incoming_health_60.log"
+    },
+    {
+      "bytes": 1324,
+      "destination": "aborted-r2/verification/packed_native_wrapper_smoke.json",
+      "sha256": "83515e89c9aa87866d4101e59849c3869a9e197b592c3234b7c66dbc7d012d22",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/verification/packed_native_wrapper_smoke.json"
+    },
+    {
+      "bytes": 555,
+      "destination": "aborted-r2/verification/packed_native_wrapper_smoke.log",
+      "sha256": "ca99ba8a01fd812bf53de487a074c212f91c9e0852fd9b778f17a294f3dfc408",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/verification/packed_native_wrapper_smoke.log"
+    },
+    {
+      "bytes": 936,
+      "destination": "aborted-r2/verification/packed_save_continue_60.json",
+      "sha256": "d5f3b83e0c41ff39bb3eeaeee9528cf5da7ce460de861c7c663b56eb7cd0fbf1",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/verification/packed_save_continue_60.json"
+    },
+    {
+      "bytes": 1743,
+      "destination": "aborted-r2/verification/packed_save_continue_60.log",
+      "sha256": "be70fb1b0af6fe5e940ee2846569b33b834be4ad5ce528bc11d59751b451c0b3",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/verification/packed_save_continue_60.log"
+    },
+    {
+      "bytes": 668,
+      "destination": "aborted-r2/verification/packed_title.json",
+      "sha256": "0f3626442ff9c9f1f583654bd07fac51675a1c661808755b379edf6d25cc41fe",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/verification/packed_title.json"
+    },
+    {
+      "bytes": 73,
+      "destination": "aborted-r2/verification/packed_title.log",
+      "sha256": "a9912b85473f126d3f4f63ec824170c828df3473a292f866dde86cafda5b66da",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/verification/packed_title.log"
+    },
+    {
+      "bytes": 90696,
+      "destination": "aborted-r2/BUILD_PROVENANCE.json",
+      "sha256": "96d789eb5da6442720df352d24ee0099e28fcf9e6543c14d6b85313c1ff4f992",
+      "source": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/export-stage/BUILD_PROVENANCE.json"
+    }
+  ],
+  "scope": "Immutable copies plus explicitly labeled explanatory/index files. No PCK, engine binaries, or caches included."
+}

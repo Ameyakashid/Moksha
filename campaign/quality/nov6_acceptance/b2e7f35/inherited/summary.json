@@ -1,0 +1,149 @@
+{
+  "scope": "Final headless inherited acceptance of exact committed runtime freeze b2e7f352b96b11e9a5137145416ddeaf4a974e27. Later changes require runtime hash equivalence or fresh tests.",
+  "commit": "b2e7f352b96b11e9a5137145416ddeaf4a974e27",
+  "committed_blob_verification": {
+    "scope": "Final inherited acceptance of exact immutable committed audio feedback and read-only guidance runtime freeze. Not live working-tree state.",
+    "created_at_utc": "2026-11-06T22:48:33.470201+00:00",
+    "source_repository": "/workspace/scratch/fd16273ade4b/moksha-campaign",
+    "commit": "b2e7f352b96b11e9a5137145416ddeaf4a974e27",
+    "git_tree": "cd0c3dba0e7a1729a9f7d1523f791dce215731f1",
+    "archive_sha256": "16c47fcdfb23f360ada0e3df711c78bcedf986ea7fbde6f13464141da29465c5",
+    "candidate": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-b2e7f352/project",
+    "archive_file_count": 2724,
+    "verified_committed_blobs": 2724,
+    "blob_mismatches": [],
+    "accepted": true,
+    "candidate_manifest_sha256": "b37f32252ba5cb21dbee62e9f3ee5ac935deaa9d3e71b859881268bff9acadcf",
+    "candidate_code_manifest_sha256": "81c22467406105318b887a178918dd74fdd90f2123c9bacf97b49801e6602345",
+    "exclusions": "None beyond git archive behavior; only committed files extracted. .git and untracked .godot cache are absent."
+  },
+  "committed_mode_verification": {
+    "mode_mismatches": [],
+    "symlinks": [],
+    "passed": true
+  },
+  "completed_at_utc": "2026-11-06T22:59:23.813613+00:00",
+  "candidate": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-b2e7f352/project",
+  "source_of_candidate": "/workspace/scratch/fd16273ade4b/moksha-campaign",
+  "godot_version": "4.6.3.stable.official.7d41c59c4",
+  "candidate_manifest_sha256": "b37f32252ba5cb21dbee62e9f3ee5ac935deaa9d3e71b859881268bff9acadcf",
+  "candidate_code_manifest_sha256": "81c22467406105318b887a178918dd74fdd90f2123c9bacf97b49801e6602345",
+  "verified_code_and_assets_manifest_sha256": "bdf3d16228779d44f03dd93f05c408f823d1c328821321c29e69ebf84d19ab80",
+  "copy_receipt": "copy-receipt.json",
+  "source_manifest_files": 2724,
+  "protected_source_and_asset_files": 1053,
+  "protected_source_and_asset_drift": [],
+  "changed_baseline_files": [
+    "campaign/qa_audit/final_results/summary.json",
+    "demo/evidence/expanded_integration_120hz.json",
+    "demo/evidence/expanded_integration_60hz.json",
+    "simulation/evidence/foundation_report.json",
+    "tests/flow_all_report.json",
+    "tests/sonar_report.json"
+  ],
+  "suites": {
+    "foundation": {
+      "passed": true,
+      "passed_stages": 72,
+      "total_stages": 72,
+      "source_drift": [],
+      "report": "project/simulation/evidence/foundation_report.json"
+    },
+    "original": {
+      "passed": true,
+      "passed_stages": 19,
+      "total_stages": 19,
+      "all_stages_run": true,
+      "report": "project/tests/flow_all_report.json"
+    },
+    "audit": {
+      "passed": true,
+      "passed_stages": 14,
+      "total_stages": 14,
+      "assertions": 1454,
+      "source_drift": [],
+      "report": "project/campaign/qa_audit/final_results/summary.json"
+    },
+    "quality": {
+      "passed": true,
+      "passed_stages": 20,
+      "total_stages": 20,
+      "source_drift": [],
+      "report": "quality-results/summary.json"
+    }
+  },
+  "passed_stages": 125,
+  "total_stages": 125,
+  "replay": {
+    "passed": true,
+    "passed_cases": 6,
+    "total_cases": 6,
+    "seeds": [
+      7,
+      83,
+      2026
+    ],
+    "rates_hz": [
+      60,
+      120
+    ],
+    "ticks_total": 12960,
+    "divergences": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "source_drift": [],
+    "report": "quality-results/replay/replay_summary.json"
+  },
+  "original_preservation": [
+    {
+      "project": "emberwake",
+      "baseline_files": 155,
+      "missing": [],
+      "changed": [],
+      "pass": true
+    },
+    {
+      "project": "moksha-assets",
+      "baseline_files": 89,
+      "missing": [],
+      "changed": [],
+      "pass": true
+    }
+  ],
+  "v28_archive_preservation": {
+    "status": "verified",
+    "sha256": "153fd2824303354b1f70dea66c7ba91b27bc204da9c16a05f9b1a27a29955937"
+  },
+  "independent_raw_log_scan": {
+    "logs_scanned": 137,
+    "normalization": "ANSI escapes removed; whitespace-prefixed ERROR, SCRIPT ERROR, FAIL and WARNING diagnostics included.",
+    "diagnostics": []
+  },
+  "exit_codes": {
+    "foundation": 0,
+    "original": 0,
+    "audit": 0,
+    "quality": 0
+  },
+  "new_runtime_scope": "Campaign-only audio feedback, global M, and read-only held-control NEXT guidance. Specialized audio, guidance, device-HUD and noise checks are separate from this inherited matrix.",
+  "prior_baseline": {
+    "status": "Prior runtime baseline, superseded for latest source acceptance by b2e7f352 run. Prior reports are preserved without edits.",
+    "commit": "01105eb5f5e683297366e2c1f37c891b207c511f",
+    "evidence_directory": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-01105eb5",
+    "summary_sha256": "f8846c87c5b8ad2051726056aafa514486a05b699e34ec000e77e1fd8e05b715"
+  },
+  "prior_baseline_summary_unchanged": true,
+  "limits": [
+    "No test was weakened or skipped. Original sibling preservation ran against actual linked originals.",
+    "Headless targeted fixtures and bounded replay are not complete campaign traversal. Complete-campaign route validation is separate.",
+    "Native rendered appearance, audible mix, Windows hardware behavior, and human first-play duration were not tested here.",
+    "Inherited output reports were overwritten only in this isolated candidate. Historical production reports were not used as fresh results.",
+    "All final-acceptance commands ran only in the isolated committed archive. Production was not edited."
+  ],
+  "passed": true
+}

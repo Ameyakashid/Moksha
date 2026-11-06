@@ -1,0 +1,58 @@
+{
+  "fixtures": [
+    {
+      "external_script": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/contract.gd",
+      "frozen_b2_sha256": "9452366c13560eec1a07be26b50d7781510ba876be6aef972262ef0ae61cf0ed",
+      "marker": "NOV6_AUDIO_CONTRACT_RESULT ",
+      "name": "audio_contract",
+      "patch_sha256": "0f555ca89f71c1219366d95a65e0c7b535dfc80c09ae0c34d53f61384383492f",
+      "patched_sha256": "5a4027f110d5e9aecbc0eff2dfde366cdd8f7dc27278398751cd40331c752754",
+      "path": "campaign/quality/nov6_audio/contract.gd"
+    },
+    {
+      "external_script": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/event_routing.gd",
+      "frozen_b2_sha256": "e2ae3de22599668d2efff29a813c22d13de5fa282a2a63bd8a2ddc4815f2f1f0",
+      "marker": "NOV6_AUDIO_ROUTING_RESULT ",
+      "name": "audio_routing",
+      "patch_sha256": "8cba5a01a49b8af6497ead08996b9cfd8d69bf308e9388c0573b13fbebeab819",
+      "patched_sha256": "da8100f7f230fc25f072a0203393b60028799a04e37de74bd08f52014903c0b7",
+      "path": "campaign/quality/nov6_audio/event_routing.gd"
+    },
+    {
+      "external_script": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/rejected_noise.gd",
+      "frozen_b2_sha256": "334b3b83475d626a398758698ee9a0f102555680653d54da5ce6ffaa14eb1744",
+      "marker": "NOV6_AUDIO_REJECTED_NOISE_RESULT ",
+      "name": "audio_rejected_noise",
+      "patch_sha256": "241999923ca592e6f7c215c08c5165e8518e6da895b77590e11863f4056474ea",
+      "patched_sha256": "46a5c23097adb2873e8f549a29f9281e4c234cd6596bdad63701c8bf12db301d",
+      "path": "campaign/quality/nov6_audio/rejected_noise.gd"
+    }
+  ],
+  "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+  "runtime_commit": "b2e7f352b96b11e9a5137145416ddeaf4a974e27",
+  "scope": "Authorized test-only output guard correction. Original frozen audio contract failed output validation because globalized res:// is empty in exported PCK. No production source changes. Original failure preserved. These overrides are not the original b2 fixture blobs.",
+  "source_root_guard_negative": {
+    "command": [
+      "/usr/local/bin/godot",
+      "--headless",
+      "--path",
+      "/workspace/scratch/fd16273ade4b/moksha-campaign",
+      "--script",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-audio-guard-negative/output_guard_negative.gd"
+    ],
+    "errors": [],
+    "exit_code": 0,
+    "fixture_receipt": {
+      "checks": 37,
+      "failures": [],
+      "passed": true,
+      "scope": "Read-only predicate negative controls on all three actual audio fixture guards; no probe path is written.",
+      "source_root": "/workspace/scratch/fd16273ade4b/moksha-campaign"
+    },
+    "log_sha256": "34a9bc0d313ada18882f6433b008fc3baac86fa56e5c202ebabc23b1cc1b2a58",
+    "marker_found": true,
+    "name": "audio_output_guard_negative",
+    "passed": true,
+    "wall_seconds": 1.212
+  }
+}

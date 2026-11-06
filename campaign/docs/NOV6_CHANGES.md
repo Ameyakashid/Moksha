@@ -1,8 +1,8 @@
 # November 6 improvement pass
 
-This record describes the new implementation. Its final acceptance section is
-completed only after a stable source snapshot is tested. Earlier reports remain
-historical and keep their original hashes.
+The runtime is frozen at `b2e7f352b96b11e9a5137145416ddeaf4a974e27`.
+Delivery provenance separately identifies the final documentation/test commit.
+Earlier reports remain historical and keep their original hashes.
 
 ## Player-facing changes
 
@@ -12,13 +12,19 @@ historical and keep their original hashes.
   actor still owns movement, jumping, rolling, shields and strike admission.
 - Menu and scene boundaries release held gameplay actions. Skipping the opening,
   returning from the journal, choosing an upgrade or retrying cannot accidentally
-  turn the menu button into a jump, strike or guard. Release and press again.
+  turn the menu button into a jump, strike or guard. If a held key or stick is
+  still blocked, the NEXT line explains how to release it. Normal objective
+  guidance returns immediately when the input is released.
 - Losing window focus or disconnecting the active controller pauses active play.
   Returning does not silently resume. Pending transitions also stop at this
   boundary; choice and progression state must remain coherent.
 - A presentation-only camera follows sustained travel with bounded look-ahead and
   a vertical comfort window. Ordinary jumps no longer pull the whole room up and
   down. The camera does not change motion, collisions or inputs.
+- All 32 districts receive seeded, muted architectural identity: skyline crops
+  preserve their aspect ratio, industrial bays and machinery vary by location,
+  and small wall landmarks provide orientation. This decoration has no collision
+  or gameplay authority and disappears when sight is traded.
 - The HUD shows health numerically, district/lens/progress and a clear next step.
   Objective labels distinguish optional, unavailable and completed states. Menu
   prose is measured; pause controls use separate keycaps and aligned columns.
@@ -32,6 +38,14 @@ historical and keep their original hashes.
 - Health or speed augments no longer replace an unchanged melee chain and cancel
   a live strike. Upgrades still apply additively from base resources; capacity
   augments do not heal and retries do not multiply bonuses again.
+- Fresh archive and defeat sounds finish at the moment of their feedback, rather
+  than starting after the panel closes or a retry begins. Old-room spatial sounds
+  are retired on replacement; existing world sounds still pause normally. Mute
+  now works consistently in the journal, upgrade and final-choice panels too.
+- Long-session cleanup retires old sonar shape subscriptions and decorative-object
+  records after district changes and cargo replacements. Live contours, propagation
+  timing and sound-triggered reveal remain exactly equal to the inherited model.
+  This is a campaign-only adapter; the original demo and controller stay intact.
 - Checkpoint failures explain what happened. A failed write retains any last valid
   checkpoint. Starting New after an invalid checkpoint preserves and verifies an
   exact copy before replacing it; failed preservation leaves the original alone.
@@ -74,8 +88,37 @@ counts as a played campaign.
 
 ## Acceptance record
 
-Pending final source freeze and fresh acceptance reports. Do not treat this
-implementation list or an earlier green report as proof of the current source.
+On the exact runtime archive, with Godot 4.6.3:
+
+- **44/44 focused stages** passed at 60/120 Hz, including actual keyboard/joypad
+  event paths, modal/focus boundaries, upgrades, checkpoint feedback, HUD ownership,
+  camera, audio routing, cache lifecycle, scenery and deliberately regressed controls.
+- **125/125 inherited stages** passed: foundation 72, original suite 19, campaign
+  audit 14 and quality 20. All 244 original preservation hashes remain intact.
+  Twelve seeded replay traces match the preceding cache-fix runtime across
+  12,960 ticks. All 137 inherited engine logs are free of errors and warnings.
+- **24/24 optional-district routes** cover all 34 optional objectives and 31 reward
+  IDs. Twelve further 120 Hz retained/traded-sight routes, 40 real reward collections
+  through retry/Continue and six runner guards also passed. These are district-start
+  physics routes and persistence fixtures, not one continuous optional campaign.
+- **31 native interface/sight captures from the actual exported PCK** were reviewed
+  at full size. Menus, controller prompts, both held-input hints, checkpoint warnings
+  and blind concealment were readable. These use controlled scene setups, not route
+  traversal. All 31 capture receipts succeeded without game/resource/leak diagnostics.
+- A separate **ordinary packed-game keyboard smoke** exercised New, move, jump/air
+  jump, ladder descent/ascent, journal, real Alt-Tab focus pause and title/Continue.
+  It did not complete the opening district. Its ordinary-close diagnostic is retained
+  and explained below rather than presented as a clean-shutdown pass.
+
+The focused, inherited and optional runs each reverified all 2,724 archived Git
+blobs without drift. Evidence is under `campaign/quality/nov6_acceptance/b2e7f35/`.
+Reports distinguish raw observations, controlled fixtures, intentionally broken
+negative controls and genuine route completions. Failed earlier observer runs are
+preserved; they are not relabelled as passes.
+
+The final six continuous campaigns, expanded transition-stress archive and exact
+delivery-source packaging acceptance are still being finalized. Their completed
+receipts must be added before this becomes the final delivery record.
 
 ## Limits that remain
 
@@ -83,6 +126,16 @@ Physical gamepad hardware, native Windows execution, target-machine frame rate,
 audible mix, a complete human-controlled campaign and first-play human duration
 remain unverified unless a later report explicitly supplies that evidence.
 The 15–20-minute per-level goal remains a design target, not a measurement.
+
+On the tested Linux/X11 software-rendered runtime with Dummy audio, ordinary
+window-close can report an exit-only retained `AudioStreamWAV`/playback resource.
+The unchanged inherited audio director already clears its players and streams.
+A separate pure-Godot project with no game code/assets reproduces the same
+diagnostic; no campaign node is retained and the process exits successfully.
+Waiting for audio retirement in a test fixture avoids the warning, but that is
+not evidence of a clean ordinary close. This known engine/audio-environment
+diagnostic is preserved under `b2e7f35/exit_diagnostic`; Windows and soundcard
+behavior are not inferred from it. No global close-delay workaround was added.
 
 No repository publication, commercial asset import, new sensory-trade mechanic,
 roguelite adaptation or resolution of the unresolved time-loop/immortality story

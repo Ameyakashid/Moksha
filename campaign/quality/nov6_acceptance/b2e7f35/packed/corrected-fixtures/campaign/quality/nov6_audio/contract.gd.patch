@@ -1,0 +1,30 @@
+diff --git a/campaign/quality/nov6_audio/contract.gd b/campaign/quality/nov6_audio/contract.gd
+index a6a34e6..cd3ff10 100644
+--- a/campaign/quality/nov6_audio/contract.gd
++++ b/campaign/quality/nov6_audio/contract.gd
+@@ -13,13 +13,23 @@ func configure()->void:
+ 		elif arg.begins_with("--output="):
+ 			output_path=arg.trim_prefix("--output=")
+ 	Engine.physics_ticks_per_second=hz
++static func report_output_allowed(path:String,project_root:String)->bool:
++	# Exported PCKs have no physical res:// root. An empty root must not
++	# accidentally classify every absolute path as inside the source tree.
++	if path.begins_with("res://") or not (path.begins_with("user://") or path.is_absolute_path()):return false
++	var absolute:=ProjectSettings.globalize_path(path).simplify_path()
++	if project_root.is_empty():return true
++	var normalized_root:=project_root.simplify_path()
++	if normalized_root=="/":return false
++	normalized_root=normalized_root.trim_suffix("/")
++	return absolute!=normalized_root and not absolute.begins_with(normalized_root+"/")
+ func write_report(report:Dictionary,default_name:String)->void:
+ 	var path:=output_path if not output_path.is_empty() else "user://nov6_audio/"+default_name
+ 	# Reports may go to user data or an explicitly requested absolute path,
+ 	# never res:// or anywhere inside this project's source directory.
+ 	var absolute:=ProjectSettings.globalize_path(path).simplify_path()
+-	var project_root:=ProjectSettings.globalize_path("res://").simplify_path().trim_suffix("/")
+-	if not (path.begins_with("user://") or path.is_absolute_path()) or path.begins_with("res://") or absolute==project_root or absolute.begins_with(project_root+"/"):
++	var project_root:=ProjectSettings.globalize_path("res://")
++	if not report_output_allowed(path,project_root):
+ 		report.failures.append("--output must be user:// or an absolute path outside the project")
+ 		report.passed=false;return
+ 	var error:=DirAccess.make_dir_recursive_absolute(absolute.get_base_dir())

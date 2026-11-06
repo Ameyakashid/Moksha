@@ -1,0 +1,284 @@
+{
+  "name": "gamepad_navigation_60",
+  "command": [
+    "godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/project",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "res://campaign/quality/nov6_gamepad_navigation.gd",
+    "--",
+    "--hz=60"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "checks": 63,
+      "failures": [],
+      "hz": 60,
+      "passed": true,
+      "records": [
+        {
+          "check": "title defaults to keyboard without controller hardware assumption",
+          "passed": true
+        },
+        {
+          "check": "stick noise and unused right stick do not change prompt device",
+          "passed": true
+        },
+        {
+          "check": "X without valid checkpoint cannot manufacture Continue",
+          "passed": true
+        },
+        {
+          "check": "title right selects exactly one lens until physical release",
+          "passed": true
+        },
+        {
+          "check": "title right selects agility after release",
+          "passed": true
+        },
+        {
+          "check": "title lenses wrap in both directions",
+          "passed": true
+        },
+        {
+          "check": "intentional joypad input reaches campaign HUD snapshot",
+          "passed": true
+        },
+        {
+          "check": "title A starts the campaign through root input pipeline",
+          "passed": true
+        },
+        {
+          "check": "held A cannot double-accept title then intro",
+          "passed": true
+        },
+        {
+          "check": "intro A skips without leaking held jump",
+          "passed": true
+        },
+        {
+          "check": "fresh A after release uses original actor jump",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "left stick still drives original actor movement",
+          "passed": true
+        },
+        {
+          "check": "LB retains original actor shield",
+          "passed": true
+        },
+        {
+          "check": "RB retains original actor roll",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "Y interacts once despite duplicate held press",
+          "passed": true
+        },
+        {
+          "check": "fresh Y cycles real route objective again",
+          "passed": true
+        },
+        {
+          "check": "B emits one real sonar tap without duplicate side effects",
+          "passed": true
+        },
+        {
+          "check": "Back opens paused field journal",
+          "passed": true
+        },
+        {
+          "check": "journal paging is one page per fresh press",
+          "passed": true
+        },
+        {
+          "check": "journal close suppresses held direction and strike",
+          "passed": true
+        },
+        {
+          "check": "fresh X rearms original actor strike after journal",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "Start pauses scene and active play clock",
+          "passed": true
+        },
+        {
+          "check": "paused B resumes",
+          "passed": true
+        },
+        {
+          "check": "paused X retries district once without striking new actor",
+          "passed": true
+        },
+        {
+          "check": "paused Y returns to title",
+          "passed": true
+        },
+        {
+          "check": "title Start also begins new campaign",
+          "passed": true
+        },
+        {
+          "check": "fresh Start skips intro",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "sight choice 1 uses same decision path without combat leakage",
+          "passed": true
+        },
+        {
+          "check": "sight choice 2 uses same decision path without combat leakage",
+          "passed": true
+        },
+        {
+          "check": "archive A returns without jumping",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "upgrade force applies once, ascends once, and suppresses held attack",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "upgrade agility applies once, ascends once, and suppresses held attack",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "upgrade vitality applies once, ascends once, and suppresses held attack",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "final public_record records exactly one ending",
+          "passed": true
+        },
+        {
+          "check": "completion A returns to title",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "final local_custody records exactly one ending",
+          "passed": true
+        },
+        {
+          "check": "completion A returns to title",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "death A retries without jump or lost death count",
+          "passed": true
+        },
+        {
+          "check": "death Y returns to title",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "active controller disconnect pauses and exposes keyboard fallback",
+          "passed": true
+        },
+        {
+          "check": "controller reconnect never silently resumes",
+          "passed": true
+        },
+        {
+          "check": "explicit resume suppresses held disconnected direction",
+          "passed": true
+        },
+        {
+          "check": "direction rearms after release following disconnect",
+          "passed": true
+        },
+        {
+          "check": "keyboard journal command coexists and restores keyboard prompts",
+          "passed": true
+        },
+        {
+          "check": "analog jitter cannot steal active keyboard prompts",
+          "passed": true
+        },
+        {
+          "check": "deliberate left-stick deflection changes prompt device",
+          "passed": true
+        },
+        {
+          "check": "unrelated controller disconnect preserves menu",
+          "passed": true
+        },
+        {
+          "check": "keyboard Escape still pauses after controller use",
+          "passed": true
+        },
+        {
+          "check": "keyboard Escape still resumes after controller use",
+          "passed": true
+        },
+        {
+          "check": "fixture retains real InputMap actor source",
+          "passed": true
+        },
+        {
+          "check": "real controller title return exposes saved checkpoint",
+          "passed": true
+        },
+        {
+          "check": "title X restores real checkpoint without attack leakage",
+          "passed": true
+        }
+      ],
+      "scope": "Synthetic Input.parse_input_event joypad events through real campaign event pipeline; controlled modal/world fixtures; no input_override, physical controller, full traversal, or hardware compatibility claim."
+    }
+  },
+  "wall_seconds": 3.383,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/gamepad_navigation_60/engine.log"
+}

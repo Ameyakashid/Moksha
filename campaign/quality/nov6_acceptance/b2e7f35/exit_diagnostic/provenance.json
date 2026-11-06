@@ -1,0 +1,101 @@
+{
+  "runtime_commit": "b2e7f352b96b11e9a5137145416ddeaf4a974e27",
+  "classification": "Known non-blocking Linux Dummy-audio exit diagnostic; NOT a clean-shutdown pass or a demonstrated Windows issue.",
+  "engine": "Godot Engine v4.6.3.stable.official.7d41c59c4",
+  "engine_executable": "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+  "native_actual_pck": {
+    "count": 1,
+    "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+    "resource_directory_empty": true,
+    "external_fixture_script": false,
+    "input_and_scope": "Visually verified fresh title screen, then actual native Alt_L+F4. This focused reproduction does not repeat the separate gameplay smoke.",
+    "display_driver": "X11",
+    "audio_driver": "Dummy",
+    "rendering_method": "gl_compatibility",
+    "graphics": "OpenGL API 4.5 (Core Profile), Mesa 25.0.7-2+deb13u1, llvmpipe (LLVM 19.1.7, 256 bits)",
+    "vsync": "Requested disabled; driver still emits unsupported V-Sync mode warning.",
+    "home_xdg": "Isolated HOME, XDG_DATA_HOME, XDG_CONFIG_HOME, XDG_CACHE_HOME.",
+    "exit_code": 0,
+    "log": "native-ordinary-close.log",
+    "log_sha256": "d0bc66a7b73fcb9480259655e489dbc96436eb379e99ded325ee18d246696838",
+    "retained_resource": "res://audio/ambience.wav (AudioStreamWAV)",
+    "leaked_objects": [
+      {
+        "class": "AudioStreamWAV",
+        "reference_count": 1
+      },
+      {
+        "class": "AudioStreamPlaybackWAV",
+        "reference_count": 1
+      }
+    ],
+    "ordinary_close_warning_preserved": true,
+    "ordinary_close_error_preserved": true,
+    "clean_shutdown_pass": false
+  },
+  "pck_headless_controls": {
+    "count": 78,
+    "trials_per_cell": 6,
+    "display": "headless; no native rendering",
+    "audio_driver": "Dummy",
+    "external_fixture_script": true,
+    "ambience_started_explicitly": true,
+    "scope": "Exact packed assets/scripts; bare player, unchanged director, original demo and frozen campaign; direct quit versus explicit host cleanup versus cleanup plus 250 ms. Includes no-play negative control.",
+    "all_exit_codes_zero": true,
+    "not_native_close_evidence": true,
+    "raw_index_in_bundle": "matrix.json"
+  },
+  "pure_engine_controls": {
+    "count": 24,
+    "trials_per_cell": 6,
+    "display": "headless; no native rendering",
+    "audio_driver": "Dummy",
+    "game_scripts": false,
+    "game_assets": false,
+    "autoloads": false,
+    "pck_loaded": false,
+    "stream": "In-memory silent looping AudioStreamWAV, created by minimal diagnostic script.",
+    "scope": "Direct quit, stop/null/free plus 3 frames, same plus 250 ms, and no-play negative control.",
+    "all_exit_codes_zero": true,
+    "not_native_close_evidence": true,
+    "raw_index_in_bundle": "minimal-matrix.json"
+  },
+  "limits": [
+    "Linux X11/software graphics only for native reproduction.",
+    "Dummy audio only; no soundcard output, listening verification or hardware-audio-backend diagnosis.",
+    "Windows ordinary shutdown was not tested and this is not evidence of a Windows defect.",
+    "No target-hardware performance or long-session memory profile claim.",
+    "250 ms retirement wait is a demonstrated fixture control here, not a guarantee for every backend."
+  ],
+  "inherited_provenance": {
+    "scripts/systems/audio_director.gd": {
+      "baseline_sha256": "b0a9be1a1e6bf3f3b8493d7054d8674fe81cd0a13fe716949e3fdb2b1de72946",
+      "frozen_sha256": "b0a9be1a1e6bf3f3b8493d7054d8674fe81cd0a13fe716949e3fdb2b1de72946",
+      "working_sha256": "b0a9be1a1e6bf3f3b8493d7054d8674fe81cd0a13fe716949e3fdb2b1de72946",
+      "unchanged_since_baseline": true
+    },
+    "demo/mission.gd": {
+      "baseline_sha256": "7d60745fa9a0ed65c09ff9d6123021d53dede9523569c5c8cc983083cebbc317",
+      "frozen_sha256": "7d60745fa9a0ed65c09ff9d6123021d53dede9523569c5c8cc983083cebbc317",
+      "working_sha256": "7d60745fa9a0ed65c09ff9d6123021d53dede9523569c5c8cc983083cebbc317",
+      "unchanged_since_baseline": true
+    },
+    "audio/ambience.wav": {
+      "baseline_sha256": "e4df07362a3093f652cadaa472bb6e65c53f133eda19be401d3e727fd1526f16",
+      "frozen_sha256": "e4df07362a3093f652cadaa472bb6e65c53f133eda19be401d3e727fd1526f16",
+      "working_sha256": "e4df07362a3093f652cadaa472bb6e65c53f133eda19be401d3e727fd1526f16",
+      "unchanged_since_baseline": true
+    }
+  },
+  "runtime_files_edited": false,
+  "bundle": {
+    "file": "exit-diagnostic-evidence.tar.gz",
+    "sha256": "071b75f4ae3ceed628836d42b5aab2b9f9e9646ff7043913bce40e5b073b73e1",
+    "size_bytes": 39586,
+    "copied_byte_for_byte": true,
+    "internal_sha256_entries_verified": 114,
+    "original_provenance_path": "provenance.json",
+    "original_detailed_review_path": "REVIEW.md"
+  },
+  "handling": "Logs and original bundle copied unchanged. No diagnostics filtered or suppressed. No staging or commit performed by this worker."
+}

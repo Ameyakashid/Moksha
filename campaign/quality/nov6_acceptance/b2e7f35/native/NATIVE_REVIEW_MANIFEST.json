@@ -1,0 +1,38 @@
+{
+  "capture_directory": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/native-review/captures",
+  "command": [
+    "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+    "--display-driver",
+    "x11",
+    "--audio-driver",
+    "Dummy",
+    "--disable-vsync",
+    "--rendering-method",
+    "gl_compatibility",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/native-review/empty-resources",
+    "--main-pack",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+    "--script",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/native-review/native_review_wrapper.gd",
+    "--",
+    "--capture-ui",
+    "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/native-review/captures"
+  ],
+  "expected_ui_frames": 31,
+  "fixture": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_native_review.gd",
+  "fixture_sha256": "77b25b36e6f71bfca306828f3b3f6307d0ca4f926bc17ddd26d37ded0ea9264a",
+  "launcher": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/native-review/Start-native-review.sh",
+  "limitations": [
+    "Dummy audio driver: this desktop has no soundcard; no audible-output verification",
+    "Software graphics with V-Sync disabled; no target-hardware performance claim"
+  ],
+  "native_session_launched": false,
+  "pck": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+  "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+  "resource_directory": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/native-review/empty-resources",
+  "scope": "Prepared for parent native renderer capture; no UI automation or native execution performed by packager",
+  "source_commit": "b2e7f352b96b11e9a5137145416ddeaf4a974e27",
+  "wrapper": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/native-review/native_review_wrapper.gd",
+  "wrapper_sha256": "37b3f620346aaa11c4c3d081518d48b07629076712159e834784906220275ae5"
+}

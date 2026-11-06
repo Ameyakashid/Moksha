@@ -1,0 +1,21 @@
+{
+  "name": "layout_negative_controls",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "campaign/quality/nov6_layout_checks.py",
+    "--godot",
+    "godot",
+    "--negative-controls",
+    "--output",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/layout_receipts"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true
+  },
+  "wall_seconds": 120.342,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/layout_negative_controls/engine.log",
+  "nested_report": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/layout_receipts/summary.json"
+}

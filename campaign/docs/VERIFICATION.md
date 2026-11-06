@@ -1,5 +1,7 @@
 # Five Ascents verification — 2026-10-29
 
+This is a historical October 29 report. See [the November 6 improvement record](NOV6_CHANGES.md) for the current changes and their separately identified evidence. Historical hashes and failed runs below have not been relabelled as current passes.
+
 This record separates implementation, controlled input evidence, focused fixtures and unverified human/native qualities. The requested15–20minutes per level is a design target, **not verified human duration**. No bot multiplier is used.
 
 ## Source and preservation

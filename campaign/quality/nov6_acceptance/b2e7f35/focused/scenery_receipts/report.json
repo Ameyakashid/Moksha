@@ -1,0 +1,65 @@
+{
+  "scope": "32 district presentation contracts and bounded five-start input parity, not full campaign traversal or pixel approval",
+  "sources": {
+    "campaign/presentation/campaign_scenery.gd": "1ff79955845e74b0a776c9d908d4ab13735cb7faa153c5d54a96a63a7bf1fa33",
+    "campaign/presentation/scenery_backdrop.gd": "96eeceae3d6631d6a936fbff3f1c33c2ddfa9a2d48243ede6510ff2a2b0f4eb6",
+    "campaign/presentation/district_identity.gd": "4065c8b32b21405c6d559f36ed9924477caae140aa06c4b11e1c3a631c12a245",
+    "campaign/presentation/district_landmark.gd": "3149ef595e230b7aa214c28c2c06550be3aceacbb307cf1f4f5f345e5b39446b",
+    "campaign/presentation/campaign_scenery.tscn": "592801ce893098b31decbc6975717b7fbffb4e35b15c5f29c463c13cb6e6d2d4",
+    "campaign/logic/campaign.gd": "daf542caa77391967a8636d05e193a785e9748e593af8faae363ee3879f1bdfd",
+    "campaign/logic/campaign_data.gd": "32fc38fcc5d58a7d56e5201dbf0a94b048336ce968263e06fcca35cf53fed08b",
+    "campaign/layouts/level_01.gd": "9639f4eb63bb31e482f33f058d277c3970490229a5903dd04df106e97f7f28f2",
+    "campaign/layouts/level_02.gd": "c6614877eb33852ece2ac6bd7efc465312d2bbadcc7c1518b0a6ebb95c5690d3",
+    "campaign/layouts/level_03.gd": "707f183df3c359b73ba72a5653adc12767e8dbc4ebfd1810d97f57c04c7bec4a",
+    "campaign/layouts/level_04.gd": "fe484ce81ad740ba4630bb94abc3a4d9acb1bf950b9cc0160e8eb9623190707f",
+    "campaign/layouts/level_05.gd": "01a3f16004e6374a2e3999a8129b4912d1904f8fcc7d162e1406546b3c3abaad",
+    "campaign/quality/nov6_scenery/scenery_contract.gd": "b695e64c1a856b486238f10234926e824e7304b0527db2b8d28094f9dccc942d",
+    "campaign/quality/nov6_scenery/input_parity.gd": "e8d856eccd341c595d3e1d689ab465e6bf21759c4ccb2d9fe475ae4024937ef5",
+    "campaign/presentation/tests/presentation_contract.gd": "a23604ca67dddbd59fb044ceb6f99d87d7b68707145ded778319ed32e6c16533",
+    "campaign/presentation/tests/runtime_sight_contract.gd": "24727d7ad90aa9d84b3d353cc1b72fa83daec68fa0bf026673dbd480a268693a"
+  },
+  "tests": [
+    {
+      "name": "district_contract",
+      "passed": true,
+      "exit_code": 0,
+      "success_marker": true,
+      "engine_errors": false,
+      "timeout": false,
+      "seconds": 11.356,
+      "log": "district_contract.log"
+    },
+    {
+      "name": "input_parity",
+      "passed": true,
+      "exit_code": 0,
+      "success_marker": true,
+      "engine_errors": false,
+      "timeout": false,
+      "seconds": 44.782,
+      "log": "input_parity.log"
+    },
+    {
+      "name": "presentation_contract",
+      "passed": true,
+      "exit_code": 0,
+      "success_marker": true,
+      "engine_errors": false,
+      "timeout": false,
+      "seconds": 0.627,
+      "log": "presentation_contract.log"
+    },
+    {
+      "name": "runtime_sight",
+      "passed": true,
+      "exit_code": 0,
+      "success_marker": true,
+      "engine_errors": false,
+      "timeout": false,
+      "seconds": 3.493,
+      "log": "runtime_sight.log"
+    }
+  ],
+  "source_changed_during_run": false,
+  "passed": true
+}

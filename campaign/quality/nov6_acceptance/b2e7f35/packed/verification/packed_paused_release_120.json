@@ -1,0 +1,52 @@
+{
+  "command": [
+    "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+    "--main-pack",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+    "--script",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_independent_paused_release.gd",
+    "--fixed-fps",
+    "120",
+    "--",
+    "--hz=120"
+  ],
+  "errors": [],
+  "exit_code": 0,
+  "external_script_sha256": "5b6432638ad03b0c4a7a6c0eda69c581c8748d61906bfd3b99d0c5d62ffeaff0",
+  "fixture_receipt": {
+    "after_velocity": -150.33332824707,
+    "before_velocity": -346.666687011719,
+    "checks": 1,
+    "failures": [],
+    "hz": 120,
+    "input": {
+      "attack": false,
+      "attack_pressed": false,
+      "attack_released": false,
+      "jump": false,
+      "jump_pressed": false,
+      "jump_released": true,
+      "physical_y": 0.0,
+      "roll": false,
+      "roll_pressed": false,
+      "roll_released": false,
+      "shield": false,
+      "shield_pressed": false,
+      "shield_released": false,
+      "x": 0.0,
+      "y": 0.0
+    },
+    "passed": true,
+    "release_cap": 165.0
+  },
+  "log_sha256": "0ed04e0736bd175f83a8f0048c3ef6f4541f92bc732a8bfc35760aea8bcb121b",
+  "marker_found": true,
+  "name": "packed_paused_release_120",
+  "passed": true,
+  "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+  "resource_working_directory_empty": true,
+  "wall_seconds": 5.111
+}

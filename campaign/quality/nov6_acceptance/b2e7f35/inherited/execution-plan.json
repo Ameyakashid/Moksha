@@ -1,0 +1,41 @@
+{
+  "candidate": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-b2e7f352/project",
+  "cwd": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-b2e7f352/project",
+  "engine": "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+  "engine_version": "4.6.3.stable.official.7d41c59c4",
+  "engine_sha256": "f64d4ed19fc9df9440321653fcc80df8c6e365ba7b6de0a29e2cfa9fa71bfeb3",
+  "commands": {
+    "foundation": [
+      "python3",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-b2e7f352/project/simulation/tests/run_foundation.py"
+    ],
+    "original": [
+      "bash",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-b2e7f352/project/tests/run_all.sh",
+      "--require-preservation"
+    ],
+    "audit": [
+      "python3",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-b2e7f352/project/campaign/qa_audit/run_audit.py",
+      "--final"
+    ],
+    "quality": [
+      "python3",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-b2e7f352/project/campaign/quality/run_quality.py",
+      "--output",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-b2e7f352/quality-results"
+    ]
+  },
+  "concurrency": "Immutable archive imported first. Original, audit and quality have distinct in-project output ownership and isolated user-data directories. Foundation starts only after original completes to avoid movement_npc report collisions. No previous audit or foundation runner remains active.",
+  "preservation_siblings": {
+    "emberwake": "/workspace/scratch/fd16273ade4b/emberwake",
+    "moksha-assets": "/workspace/scratch/fd16273ade4b/moksha-assets"
+  },
+  "limits": "Final inherited headless gate for exact b2e7f352 commit. Not native rendered, human pacing, audible playback, Windows hardware or future source acceptance.",
+  "original_environment": {
+    "MOKSHA_TEST_DATA_HOME": "/tmp/moksha-nov6-inherited-b2e7f352-original-data",
+    "MOKSHA_TEST_CONFIG_HOME": "/tmp/moksha-nov6-inherited-b2e7f352-original-config",
+    "MOKSHA_TEST_CACHE_HOME": "/tmp/moksha-nov6-inherited-b2e7f352-original-cache"
+  },
+  "commit": "b2e7f352b96b11e9a5137145416ddeaf4a974e27"
+}

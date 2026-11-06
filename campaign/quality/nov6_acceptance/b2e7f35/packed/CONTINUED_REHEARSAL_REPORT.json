@@ -1,0 +1,5541 @@
+{
+  "aborted_attempts": [
+    {
+      "directory": "../moksha-nov6-rehearsal-b2e7f35-r2",
+      "reason": "Explicit sibling report path could not solve the same fixture guard defect; interrupted before completion. Not counted as a passed run."
+    }
+  ],
+  "all_fixtures_match_original_b2_commit": false,
+  "audible_output_verified": false,
+  "checks": [
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--editor",
+        "--import",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/export-stage"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "log_sha256": "fd9ddf41a6c418685d675c6d920b791c1363d632daa07e09af95aaf208fec4d0",
+      "marker_found": true,
+      "name": "import",
+      "passed": true,
+      "wall_seconds": 16.282
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/export-stage",
+        "--export-pack",
+        "Portable PCK",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "log_sha256": "8413f53ddf5ae2ce15cab9050d9f4495b94d4b4763113a91d430ea53f5419fdc",
+      "marker_found": true,
+      "name": "export_pack",
+      "passed": true,
+      "wall_seconds": 9.542
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--quit-after",
+        "10"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "log_sha256": "a9912b85473f126d3f4f63ec824170c828df3473a292f866dde86cafda5b66da",
+      "marker_found": true,
+      "name": "packed_title",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 1.759
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack_audit.gd"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "b1a807eb40873ac52b9e2168a6f7b7cb4d57b4a5f57a3beb0db4d22a03cbac7e",
+      "log_sha256": "7d658164027c45bb917cb365fe2bee2d0c90d95b92a476772c8046ab7583a3cc",
+      "marker_found": true,
+      "name": "packed_audit",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 9.522
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/native-review/native_review_wrapper.gd",
+        "--quit-after",
+        "12"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "37b3f620346aaa11c4c3d081518d48b07629076712159e834784906220275ae5",
+      "fixture_receipt": {
+        "checks": 4,
+        "display_server": "headless",
+        "failures": [],
+        "fixture_sha256": "77b25b36e6f71bfca306828f3b3f6307d0ca4f926bc17ddd26d37ded0ea9264a",
+        "passed": true,
+        "scope": "Frozen external native fixture, production resources from verified PCK; controlled visual fixtures, not a route or Windows test.",
+        "source_commit": "b2e7f352b96b11e9a5137145416ddeaf4a974e27"
+      },
+      "log_sha256": "ca99ba8a01fd812bf53de487a074c212f91c9e0852fd9b778f17a294f3dfc408",
+      "marker_found": true,
+      "name": "packed_native_wrapper_smoke",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 3.581
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/qa_audit/incoming_health.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--hz=60"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "9e09487a225882edb80a5f2705b8ecd372be9467979df724075c7ccb69f37c04",
+      "log_sha256": "df39df8e89df6f8c6c905050366976143943ac45258b446b5ff65914705ec468",
+      "marker_found": true,
+      "name": "packed_incoming_health_60",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 4.449
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/qa_audit/save_draft.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--hz=60"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "ba9189e31fdf7ea5e57ac223f8e3af7aa7aeb88a5727bb3695e8488fde05598e",
+      "log_sha256": "be70fb1b0af6fe5e940ee2846569b33b834be4ad5ce528bc11d59751b451c0b3",
+      "marker_found": true,
+      "name": "packed_save_continue_60",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 2.485
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/qa_audit/ui_dependencies.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--hz=60"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "8d79f5ade9bde1660a824408a14c6ebc0acf87c68e2a76f6af283a5405c0c64e",
+      "log_sha256": "ad514b1ee3925878876bba19c7b2fd693e9ae1145f150f1b6412e25bdaad851d",
+      "marker_found": true,
+      "name": "packed_journal_60",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 3.534
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_gamepad_navigation.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--hz=60"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "e05a27b61c1da6b2d83da1a3611efc0708fac5ef37ca8b124ac40e0e14a71a0e",
+      "fixture_receipt": {
+        "checks": 63,
+        "failures": [],
+        "hz": 60,
+        "passed": true,
+        "records": [
+          {
+            "check": "title defaults to keyboard without controller hardware assumption",
+            "passed": true
+          },
+          {
+            "check": "stick noise and unused right stick do not change prompt device",
+            "passed": true
+          },
+          {
+            "check": "X without valid checkpoint cannot manufacture Continue",
+            "passed": true
+          },
+          {
+            "check": "title right selects exactly one lens until physical release",
+            "passed": true
+          },
+          {
+            "check": "title right selects agility after release",
+            "passed": true
+          },
+          {
+            "check": "title lenses wrap in both directions",
+            "passed": true
+          },
+          {
+            "check": "intentional joypad input reaches campaign HUD snapshot",
+            "passed": true
+          },
+          {
+            "check": "title A starts the campaign through root input pipeline",
+            "passed": true
+          },
+          {
+            "check": "held A cannot double-accept title then intro",
+            "passed": true
+          },
+          {
+            "check": "intro A skips without leaking held jump",
+            "passed": true
+          },
+          {
+            "check": "fresh A after release uses original actor jump",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "left stick still drives original actor movement",
+            "passed": true
+          },
+          {
+            "check": "LB retains original actor shield",
+            "passed": true
+          },
+          {
+            "check": "RB retains original actor roll",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "Y interacts once despite duplicate held press",
+            "passed": true
+          },
+          {
+            "check": "fresh Y cycles real route objective again",
+            "passed": true
+          },
+          {
+            "check": "B emits one real sonar tap without duplicate side effects",
+            "passed": true
+          },
+          {
+            "check": "Back opens paused field journal",
+            "passed": true
+          },
+          {
+            "check": "journal paging is one page per fresh press",
+            "passed": true
+          },
+          {
+            "check": "journal close suppresses held direction and strike",
+            "passed": true
+          },
+          {
+            "check": "fresh X rearms original actor strike after journal",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "Start pauses scene and active play clock",
+            "passed": true
+          },
+          {
+            "check": "paused B resumes",
+            "passed": true
+          },
+          {
+            "check": "paused X retries district once without striking new actor",
+            "passed": true
+          },
+          {
+            "check": "paused Y returns to title",
+            "passed": true
+          },
+          {
+            "check": "title Start also begins new campaign",
+            "passed": true
+          },
+          {
+            "check": "fresh Start skips intro",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "sight choice 1 uses same decision path without combat leakage",
+            "passed": true
+          },
+          {
+            "check": "sight choice 2 uses same decision path without combat leakage",
+            "passed": true
+          },
+          {
+            "check": "archive A returns without jumping",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "upgrade force applies once, ascends once, and suppresses held attack",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "upgrade agility applies once, ascends once, and suppresses held attack",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "upgrade vitality applies once, ascends once, and suppresses held attack",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "final public_record records exactly one ending",
+            "passed": true
+          },
+          {
+            "check": "completion A returns to title",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "final local_custody records exactly one ending",
+            "passed": true
+          },
+          {
+            "check": "completion A returns to title",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "death A retries without jump or lost death count",
+            "passed": true
+          },
+          {
+            "check": "death Y returns to title",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "active controller disconnect pauses and exposes keyboard fallback",
+            "passed": true
+          },
+          {
+            "check": "controller reconnect never silently resumes",
+            "passed": true
+          },
+          {
+            "check": "explicit resume suppresses held disconnected direction",
+            "passed": true
+          },
+          {
+            "check": "direction rearms after release following disconnect",
+            "passed": true
+          },
+          {
+            "check": "keyboard journal command coexists and restores keyboard prompts",
+            "passed": true
+          },
+          {
+            "check": "analog jitter cannot steal active keyboard prompts",
+            "passed": true
+          },
+          {
+            "check": "deliberate left-stick deflection changes prompt device",
+            "passed": true
+          },
+          {
+            "check": "unrelated controller disconnect preserves menu",
+            "passed": true
+          },
+          {
+            "check": "keyboard Escape still pauses after controller use",
+            "passed": true
+          },
+          {
+            "check": "keyboard Escape still resumes after controller use",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "real controller title return exposes saved checkpoint",
+            "passed": true
+          },
+          {
+            "check": "title X restores real checkpoint without attack leakage",
+            "passed": true
+          }
+        ],
+        "scope": "Synthetic Input.parse_input_event joypad events through real campaign event pipeline; controlled modal/world fixtures; no input_override, physical controller, full traversal, or hardware compatibility claim."
+      },
+      "log_sha256": "3d3a4774f8fa322309250d542a58616b4b80ffbd86d2feff54728f32b1404106",
+      "marker_found": true,
+      "name": "packed_gamepad_navigation_60",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 9.56
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_independent_controller.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--hz=60"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "7f760ca6d5d9a2be4a99b560c29082694208b22b6ca61a35f5428f90960cc958",
+      "fixture_receipt": {
+        "checks": 32,
+        "failures": [],
+        "hz": 60,
+        "passed": true,
+        "scope": "Synthesized InputEventJoypadButton/Motion through actual campaign event pipeline and actor physics. Not physical controller hardware or full campaign traversal."
+      },
+      "log_sha256": "99c1872ac81ce9777350716ed265c3171e1782b4a619829cb5a80554ec4ff787",
+      "marker_found": true,
+      "name": "packed_independent_controller_60",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 8.892
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_independent_paused_release.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--hz=60"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "5b6432638ad03b0c4a7a6c0eda69c581c8748d61906bfd3b99d0c5d62ffeaff0",
+      "fixture_receipt": {
+        "after_velocity": -135.66667175293,
+        "before_velocity": -328.333312988281,
+        "checks": 1,
+        "failures": [],
+        "hz": 60,
+        "input": {
+          "attack": false,
+          "attack_pressed": false,
+          "attack_released": false,
+          "jump": false,
+          "jump_pressed": false,
+          "jump_released": true,
+          "physical_y": 0.0,
+          "roll": false,
+          "roll_pressed": false,
+          "roll_released": false,
+          "shield": false,
+          "shield_pressed": false,
+          "shield_released": false,
+          "x": 0.0,
+          "y": 0.0
+        },
+        "passed": true,
+        "release_cap": 165.0
+      },
+      "log_sha256": "68dbf1cbc520dcaeff163970434c02b0c5040a76dc1a9a4544cd3826d79ce681",
+      "marker_found": true,
+      "name": "packed_paused_release_60",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 4.592
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_runtime_lifecycle.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--hz=60"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "1668dff30feb6900d1857d2aa957d03c7127e99e50a70f22762dac49a576c349",
+      "fixture_receipt": {
+        "cargo_replacements": 200,
+        "checks": 294622,
+        "district_retry_title_loads": 384,
+        "district_sweeps": 4,
+        "failed_checks": 0,
+        "failure_counts": {},
+        "failures": [],
+        "hz": 60,
+        "oracle_districts": 32,
+        "passed": true,
+        "samples": [
+          {
+            "bounds_cache": 75,
+            "contours": 75,
+            "district": 0,
+            "nodes": 989,
+            "paint": 22,
+            "resources": 275.0,
+            "shape_cache": 75,
+            "sweep": 0,
+            "watches": 61
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 50,
+            "district": 1,
+            "nodes": 750,
+            "paint": 13,
+            "resources": 275.0,
+            "shape_cache": 50,
+            "sweep": 0,
+            "watches": 44
+          },
+          {
+            "bounds_cache": 48,
+            "contours": 54,
+            "district": 2,
+            "nodes": 526,
+            "paint": 15,
+            "resources": 275.0,
+            "shape_cache": 54,
+            "sweep": 0,
+            "watches": 48
+          },
+          {
+            "bounds_cache": 43,
+            "contours": 46,
+            "district": 3,
+            "nodes": 448,
+            "paint": 14,
+            "resources": 275.0,
+            "shape_cache": 46,
+            "sweep": 0,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 47,
+            "contours": 52,
+            "district": 4,
+            "nodes": 519,
+            "paint": 15,
+            "resources": 275.0,
+            "shape_cache": 52,
+            "sweep": 0,
+            "watches": 46
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 33,
+            "district": 5,
+            "nodes": 369,
+            "paint": 5,
+            "resources": 277.0,
+            "shape_cache": 33,
+            "sweep": 0,
+            "watches": 30
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 36,
+            "district": 6,
+            "nodes": 311,
+            "paint": 7,
+            "resources": 277.0,
+            "shape_cache": 36,
+            "sweep": 0,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 41,
+            "district": 7,
+            "nodes": 360,
+            "paint": 11,
+            "resources": 277.0,
+            "shape_cache": 41,
+            "sweep": 0,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 30,
+            "contours": 34,
+            "district": 8,
+            "nodes": 262,
+            "paint": 8,
+            "resources": 277.0,
+            "shape_cache": 34,
+            "sweep": 0,
+            "watches": 31
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 45,
+            "district": 9,
+            "nodes": 376,
+            "paint": 13,
+            "resources": 277.0,
+            "shape_cache": 45,
+            "sweep": 0,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 50,
+            "district": 10,
+            "nodes": 420,
+            "paint": 15,
+            "resources": 277.0,
+            "shape_cache": 50,
+            "sweep": 0,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 40,
+            "district": 11,
+            "nodes": 358,
+            "paint": 12,
+            "resources": 277.0,
+            "shape_cache": 40,
+            "sweep": 0,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 55,
+            "contours": 58,
+            "district": 12,
+            "nodes": 414,
+            "paint": 12,
+            "resources": 277.0,
+            "shape_cache": 58,
+            "sweep": 0,
+            "watches": 54
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 43,
+            "district": 13,
+            "nodes": 366,
+            "paint": 13,
+            "resources": 277.0,
+            "shape_cache": 43,
+            "sweep": 0,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 46,
+            "district": 14,
+            "nodes": 360,
+            "paint": 15,
+            "resources": 277.0,
+            "shape_cache": 46,
+            "sweep": 0,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 52,
+            "contours": 56,
+            "district": 15,
+            "nodes": 699,
+            "paint": 13,
+            "resources": 277.0,
+            "shape_cache": 56,
+            "sweep": 0,
+            "watches": 50
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 45,
+            "district": 16,
+            "nodes": 379,
+            "paint": 16,
+            "resources": 277.0,
+            "shape_cache": 45,
+            "sweep": 0,
+            "watches": 39
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 45,
+            "district": 17,
+            "nodes": 403,
+            "paint": 13,
+            "resources": 277.0,
+            "shape_cache": 45,
+            "sweep": 0,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 36,
+            "district": 18,
+            "nodes": 319,
+            "paint": 10,
+            "resources": 277.0,
+            "shape_cache": 36,
+            "sweep": 0,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 41,
+            "district": 19,
+            "nodes": 363,
+            "paint": 12,
+            "resources": 277.0,
+            "shape_cache": 41,
+            "sweep": 0,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 45,
+            "district": 20,
+            "nodes": 375,
+            "paint": 13,
+            "resources": 277.0,
+            "shape_cache": 45,
+            "sweep": 0,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 41,
+            "contours": 46,
+            "district": 21,
+            "nodes": 381,
+            "paint": 15,
+            "resources": 277.0,
+            "shape_cache": 46,
+            "sweep": 0,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 38,
+            "district": 22,
+            "nodes": 327,
+            "paint": 12,
+            "resources": 277.0,
+            "shape_cache": 38,
+            "sweep": 0,
+            "watches": 33
+          },
+          {
+            "bounds_cache": 76,
+            "contours": 76,
+            "district": 23,
+            "nodes": 629,
+            "paint": 22,
+            "resources": 277.0,
+            "shape_cache": 76,
+            "sweep": 0,
+            "watches": 67
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 44,
+            "district": 24,
+            "nodes": 399,
+            "paint": 15,
+            "resources": 277.0,
+            "shape_cache": 44,
+            "sweep": 0,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 25,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 277.0,
+            "shape_cache": 42,
+            "sweep": 0,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 43,
+            "district": 26,
+            "nodes": 373,
+            "paint": 15,
+            "resources": 277.0,
+            "shape_cache": 43,
+            "sweep": 0,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 40,
+            "contours": 48,
+            "district": 27,
+            "nodes": 418,
+            "paint": 16,
+            "resources": 277.0,
+            "shape_cache": 48,
+            "sweep": 0,
+            "watches": 42
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 40,
+            "district": 28,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 277.0,
+            "shape_cache": 40,
+            "sweep": 0,
+            "watches": 35
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 52,
+            "district": 29,
+            "nodes": 427,
+            "paint": 18,
+            "resources": 277.0,
+            "shape_cache": 52,
+            "sweep": 0,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 30,
+            "nodes": 350,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 42,
+            "sweep": 0,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 24,
+            "contours": 29,
+            "district": 31,
+            "nodes": 162,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 29,
+            "sweep": 0,
+            "watches": 24
+          },
+          {
+            "bounds_cache": 75,
+            "contours": 75,
+            "district": 0,
+            "nodes": 989,
+            "paint": 22,
+            "resources": 279.0,
+            "shape_cache": 75,
+            "sweep": 1,
+            "watches": 61
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 50,
+            "district": 1,
+            "nodes": 750,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 50,
+            "sweep": 1,
+            "watches": 44
+          },
+          {
+            "bounds_cache": 48,
+            "contours": 54,
+            "district": 2,
+            "nodes": 526,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 54,
+            "sweep": 1,
+            "watches": 48
+          },
+          {
+            "bounds_cache": 43,
+            "contours": 46,
+            "district": 3,
+            "nodes": 448,
+            "paint": 14,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 1,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 47,
+            "contours": 52,
+            "district": 4,
+            "nodes": 519,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 52,
+            "sweep": 1,
+            "watches": 46
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 33,
+            "district": 5,
+            "nodes": 369,
+            "paint": 5,
+            "resources": 279.0,
+            "shape_cache": 33,
+            "sweep": 1,
+            "watches": 30
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 36,
+            "district": 6,
+            "nodes": 311,
+            "paint": 7,
+            "resources": 279.0,
+            "shape_cache": 36,
+            "sweep": 1,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 41,
+            "district": 7,
+            "nodes": 360,
+            "paint": 11,
+            "resources": 279.0,
+            "shape_cache": 41,
+            "sweep": 1,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 30,
+            "contours": 34,
+            "district": 8,
+            "nodes": 262,
+            "paint": 8,
+            "resources": 279.0,
+            "shape_cache": 34,
+            "sweep": 1,
+            "watches": 31
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 45,
+            "district": 9,
+            "nodes": 376,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 1,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 50,
+            "district": 10,
+            "nodes": 420,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 50,
+            "sweep": 1,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 40,
+            "district": 11,
+            "nodes": 358,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 40,
+            "sweep": 1,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 55,
+            "contours": 58,
+            "district": 12,
+            "nodes": 414,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 58,
+            "sweep": 1,
+            "watches": 54
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 43,
+            "district": 13,
+            "nodes": 366,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 43,
+            "sweep": 1,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 46,
+            "district": 14,
+            "nodes": 360,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 1,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 52,
+            "contours": 56,
+            "district": 15,
+            "nodes": 699,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 56,
+            "sweep": 1,
+            "watches": 50
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 45,
+            "district": 16,
+            "nodes": 379,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 1,
+            "watches": 39
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 45,
+            "district": 17,
+            "nodes": 403,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 1,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 36,
+            "district": 18,
+            "nodes": 319,
+            "paint": 10,
+            "resources": 279.0,
+            "shape_cache": 36,
+            "sweep": 1,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 41,
+            "district": 19,
+            "nodes": 363,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 41,
+            "sweep": 1,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 45,
+            "district": 20,
+            "nodes": 375,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 1,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 41,
+            "contours": 46,
+            "district": 21,
+            "nodes": 381,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 1,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 38,
+            "district": 22,
+            "nodes": 327,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 38,
+            "sweep": 1,
+            "watches": 33
+          },
+          {
+            "bounds_cache": 76,
+            "contours": 76,
+            "district": 23,
+            "nodes": 629,
+            "paint": 22,
+            "resources": 279.0,
+            "shape_cache": 76,
+            "sweep": 1,
+            "watches": 67
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 44,
+            "district": 24,
+            "nodes": 399,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 44,
+            "sweep": 1,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 25,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 42,
+            "sweep": 1,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 43,
+            "district": 26,
+            "nodes": 373,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 43,
+            "sweep": 1,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 40,
+            "contours": 48,
+            "district": 27,
+            "nodes": 418,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 48,
+            "sweep": 1,
+            "watches": 42
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 40,
+            "district": 28,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 40,
+            "sweep": 1,
+            "watches": 35
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 52,
+            "district": 29,
+            "nodes": 427,
+            "paint": 18,
+            "resources": 279.0,
+            "shape_cache": 52,
+            "sweep": 1,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 30,
+            "nodes": 350,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 42,
+            "sweep": 1,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 24,
+            "contours": 29,
+            "district": 31,
+            "nodes": 162,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 29,
+            "sweep": 1,
+            "watches": 24
+          },
+          {
+            "bounds_cache": 75,
+            "contours": 75,
+            "district": 0,
+            "nodes": 989,
+            "paint": 22,
+            "resources": 279.0,
+            "shape_cache": 75,
+            "sweep": 2,
+            "watches": 61
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 50,
+            "district": 1,
+            "nodes": 750,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 50,
+            "sweep": 2,
+            "watches": 44
+          },
+          {
+            "bounds_cache": 48,
+            "contours": 54,
+            "district": 2,
+            "nodes": 526,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 54,
+            "sweep": 2,
+            "watches": 48
+          },
+          {
+            "bounds_cache": 43,
+            "contours": 46,
+            "district": 3,
+            "nodes": 448,
+            "paint": 14,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 2,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 47,
+            "contours": 52,
+            "district": 4,
+            "nodes": 519,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 52,
+            "sweep": 2,
+            "watches": 46
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 33,
+            "district": 5,
+            "nodes": 369,
+            "paint": 5,
+            "resources": 279.0,
+            "shape_cache": 33,
+            "sweep": 2,
+            "watches": 30
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 36,
+            "district": 6,
+            "nodes": 311,
+            "paint": 7,
+            "resources": 279.0,
+            "shape_cache": 36,
+            "sweep": 2,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 41,
+            "district": 7,
+            "nodes": 360,
+            "paint": 11,
+            "resources": 279.0,
+            "shape_cache": 41,
+            "sweep": 2,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 30,
+            "contours": 34,
+            "district": 8,
+            "nodes": 262,
+            "paint": 8,
+            "resources": 279.0,
+            "shape_cache": 34,
+            "sweep": 2,
+            "watches": 31
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 45,
+            "district": 9,
+            "nodes": 376,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 2,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 50,
+            "district": 10,
+            "nodes": 420,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 50,
+            "sweep": 2,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 40,
+            "district": 11,
+            "nodes": 358,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 40,
+            "sweep": 2,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 55,
+            "contours": 58,
+            "district": 12,
+            "nodes": 414,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 58,
+            "sweep": 2,
+            "watches": 54
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 43,
+            "district": 13,
+            "nodes": 366,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 43,
+            "sweep": 2,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 46,
+            "district": 14,
+            "nodes": 360,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 2,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 52,
+            "contours": 56,
+            "district": 15,
+            "nodes": 699,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 56,
+            "sweep": 2,
+            "watches": 50
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 45,
+            "district": 16,
+            "nodes": 379,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 2,
+            "watches": 39
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 45,
+            "district": 17,
+            "nodes": 403,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 2,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 36,
+            "district": 18,
+            "nodes": 319,
+            "paint": 10,
+            "resources": 279.0,
+            "shape_cache": 36,
+            "sweep": 2,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 41,
+            "district": 19,
+            "nodes": 363,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 41,
+            "sweep": 2,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 45,
+            "district": 20,
+            "nodes": 375,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 2,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 41,
+            "contours": 46,
+            "district": 21,
+            "nodes": 381,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 2,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 38,
+            "district": 22,
+            "nodes": 327,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 38,
+            "sweep": 2,
+            "watches": 33
+          },
+          {
+            "bounds_cache": 76,
+            "contours": 76,
+            "district": 23,
+            "nodes": 629,
+            "paint": 22,
+            "resources": 279.0,
+            "shape_cache": 76,
+            "sweep": 2,
+            "watches": 67
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 44,
+            "district": 24,
+            "nodes": 399,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 44,
+            "sweep": 2,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 25,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 42,
+            "sweep": 2,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 43,
+            "district": 26,
+            "nodes": 373,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 43,
+            "sweep": 2,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 40,
+            "contours": 48,
+            "district": 27,
+            "nodes": 418,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 48,
+            "sweep": 2,
+            "watches": 42
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 40,
+            "district": 28,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 40,
+            "sweep": 2,
+            "watches": 35
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 52,
+            "district": 29,
+            "nodes": 427,
+            "paint": 18,
+            "resources": 279.0,
+            "shape_cache": 52,
+            "sweep": 2,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 30,
+            "nodes": 350,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 42,
+            "sweep": 2,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 24,
+            "contours": 29,
+            "district": 31,
+            "nodes": 162,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 29,
+            "sweep": 2,
+            "watches": 24
+          },
+          {
+            "bounds_cache": 75,
+            "contours": 75,
+            "district": 0,
+            "nodes": 989,
+            "paint": 22,
+            "resources": 279.0,
+            "shape_cache": 75,
+            "sweep": 3,
+            "watches": 61
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 50,
+            "district": 1,
+            "nodes": 750,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 50,
+            "sweep": 3,
+            "watches": 44
+          },
+          {
+            "bounds_cache": 48,
+            "contours": 54,
+            "district": 2,
+            "nodes": 526,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 54,
+            "sweep": 3,
+            "watches": 48
+          },
+          {
+            "bounds_cache": 43,
+            "contours": 46,
+            "district": 3,
+            "nodes": 448,
+            "paint": 14,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 3,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 47,
+            "contours": 52,
+            "district": 4,
+            "nodes": 519,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 52,
+            "sweep": 3,
+            "watches": 46
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 33,
+            "district": 5,
+            "nodes": 369,
+            "paint": 5,
+            "resources": 279.0,
+            "shape_cache": 33,
+            "sweep": 3,
+            "watches": 30
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 36,
+            "district": 6,
+            "nodes": 311,
+            "paint": 7,
+            "resources": 279.0,
+            "shape_cache": 36,
+            "sweep": 3,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 41,
+            "district": 7,
+            "nodes": 360,
+            "paint": 11,
+            "resources": 279.0,
+            "shape_cache": 41,
+            "sweep": 3,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 30,
+            "contours": 34,
+            "district": 8,
+            "nodes": 262,
+            "paint": 8,
+            "resources": 279.0,
+            "shape_cache": 34,
+            "sweep": 3,
+            "watches": 31
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 45,
+            "district": 9,
+            "nodes": 376,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 3,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 50,
+            "district": 10,
+            "nodes": 420,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 50,
+            "sweep": 3,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 40,
+            "district": 11,
+            "nodes": 358,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 40,
+            "sweep": 3,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 55,
+            "contours": 58,
+            "district": 12,
+            "nodes": 414,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 58,
+            "sweep": 3,
+            "watches": 54
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 43,
+            "district": 13,
+            "nodes": 366,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 43,
+            "sweep": 3,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 46,
+            "district": 14,
+            "nodes": 360,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 3,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 52,
+            "contours": 56,
+            "district": 15,
+            "nodes": 699,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 56,
+            "sweep": 3,
+            "watches": 50
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 45,
+            "district": 16,
+            "nodes": 379,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 3,
+            "watches": 39
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 45,
+            "district": 17,
+            "nodes": 403,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 3,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 36,
+            "district": 18,
+            "nodes": 319,
+            "paint": 10,
+            "resources": 279.0,
+            "shape_cache": 36,
+            "sweep": 3,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 41,
+            "district": 19,
+            "nodes": 363,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 41,
+            "sweep": 3,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 45,
+            "district": 20,
+            "nodes": 375,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 3,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 41,
+            "contours": 46,
+            "district": 21,
+            "nodes": 381,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 3,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 38,
+            "district": 22,
+            "nodes": 327,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 38,
+            "sweep": 3,
+            "watches": 33
+          },
+          {
+            "bounds_cache": 76,
+            "contours": 76,
+            "district": 23,
+            "nodes": 629,
+            "paint": 22,
+            "resources": 279.0,
+            "shape_cache": 76,
+            "sweep": 3,
+            "watches": 67
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 44,
+            "district": 24,
+            "nodes": 399,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 44,
+            "sweep": 3,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 25,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 42,
+            "sweep": 3,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 43,
+            "district": 26,
+            "nodes": 373,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 43,
+            "sweep": 3,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 40,
+            "contours": 48,
+            "district": 27,
+            "nodes": 418,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 48,
+            "sweep": 3,
+            "watches": 42
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 40,
+            "district": 28,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 40,
+            "sweep": 3,
+            "watches": 35
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 52,
+            "district": 29,
+            "nodes": 427,
+            "paint": 18,
+            "resources": 279.0,
+            "shape_cache": 52,
+            "sweep": 3,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 30,
+            "nodes": 350,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 42,
+            "sweep": 3,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 24,
+            "contours": 29,
+            "district": 31,
+            "nodes": 162,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 29,
+            "sweep": 3,
+            "watches": 24
+          }
+        ],
+        "scope": "Deterministic lifecycle, inherited sonar output equality, finite noise/dt rejection. Not a gameplay traversal or target-hardware FPS claim."
+      },
+      "log_sha256": "6abd51a01019f59e088d26fbb4e69f71b2b76be6f125502061e1ce7060779f90",
+      "marker_found": true,
+      "name": "packed_runtime_lifecycle_60",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 34.78
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_input_guidance.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--hz=60"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "42e27852e031916f6e0b613d8d83784ac6e7a9ee5a268a6ff3e5e73480169045",
+      "fixture_receipt": {
+        "checks": 37,
+        "failures": [],
+        "hz": 60,
+        "passed": true,
+        "scope": "Controlled read-only gate and host-to-HUD fixtures, not a physical controller or campaign traversal test."
+      },
+      "log_sha256": "6994bb047a0e97b821e384a0eb8a3b4fce941e64cc662de923a22926d2cc6525",
+      "marker_found": true,
+      "name": "packed_input_guidance_60",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 4.594
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/contract.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--hz=60",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_contract_60_guard_fixed.json"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_receipt_path": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_contract_60_guard_fixed.json",
+      "external_receipt_sha256": "3837e1fc5c69b9f58312be4749675cefd031752b7052101caf94930f07811fad",
+      "external_script_sha256": "5a4027f110d5e9aecbc0eff2dfde366cdd8f7dc27278398751cd40331c752754",
+      "fixture_origin": "Authorized output-guard-only fixture correction, not original b2 blob",
+      "fixture_receipt": {
+        "checks": 67,
+        "engine": "4.6.3-stable (official)",
+        "failures": [],
+        "output": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_contract_60_guard_fixed.json",
+        "passed": true,
+        "physics_hz": 60,
+        "rows": [
+          {
+            "label": "physical M toggles on once: title",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: title",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: title",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: title",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: title",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: intro",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: intro",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: intro",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: intro",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: intro",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: playing",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: playing",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: playing",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: playing",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: playing",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: archive",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: archive",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: archive",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: archive",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: archive",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: choice",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: choice",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: choice",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: choice",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: choice",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: paused",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: paused",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: paused",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: paused",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: paused",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: journal",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: journal",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: journal",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: journal",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: journal",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: upgrade",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: upgrade",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: upgrade",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: upgrade",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: upgrade",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: final_choice",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: final_choice",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: final_choice",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: final_choice",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: final_choice",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: complete",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: complete",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: complete",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: complete",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: complete",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: dead",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: dead",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: dead",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: dead",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: dead",
+            "passed": true
+          },
+          {
+            "label": "M preserves pending/focus boundary",
+            "passed": true
+          },
+          {
+            "label": "new matching modal cue gets live physics while paused",
+            "passed": true
+          },
+          {
+            "label": "existing and unrelated cues keep inherited pause mode",
+            "passed": true
+          },
+          {
+            "label": "rejected external damage cannot promote old hurt",
+            "passed": true
+          },
+          {
+            "label": "nonlethal hurt retains pausable mode",
+            "passed": true
+          },
+          {
+            "label": "defeat promotes only freshly observed hurt",
+            "passed": true
+          },
+          {
+            "label": "defeat leaves earlier world hurt alone",
+            "passed": true
+          },
+          {
+            "label": "stale paused hurt remains at zero playback position",
+            "passed": true
+          },
+          {
+            "label": "later defeat cannot promote prior-frame zero-position hurt",
+            "passed": true
+          },
+          {
+            "label": "room retirement clears all old spatial one-shots",
+            "passed": true
+          },
+          {
+            "label": "room retirement preserves ambience player",
+            "passed": true
+          },
+          {
+            "label": "modal lifecycle does not fabricate noise events",
+            "passed": true
+          }
+        ],
+        "scope": "Headless key routing and lifecycle contract. Dummy players verify selective promotion, same-frame freshness and retirement. Native probe separately verifies playback. No runtime/source writes."
+      },
+      "frozen_b2_script_sha256": "9452366c13560eec1a07be26b50d7781510ba876be6aef972262ef0ae61cf0ed",
+      "log_sha256": "4051cee54a50a2b22a066b3a62cc6fa54d628f079d1b135031eca9b0ffe8f4aa",
+      "marker_found": true,
+      "name": "packed_audio_contract_60_guard_fixed",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 1.865
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/event_routing.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--hz=60",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_routing_60_guard_fixed.json"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_receipt_path": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_routing_60_guard_fixed.json",
+      "external_receipt_sha256": "8c727984742ce9647ae84fbd3465733557e928ff6508b11f01f514160837f097",
+      "external_script_sha256": "da8100f7f230fc25f072a0203393b60028799a04e37de74bd08f52014903c0b7",
+      "fixture_origin": "Authorized output-guard-only fixture correction, not original b2 blob",
+      "fixture_receipt": {
+        "authored_counts": {
+          "city_clinic": {
+            "enemies": 10,
+            "hazards": 0,
+            "props": 7
+          },
+          "city_evac_spine": {
+            "enemies": 12,
+            "hazards": 0,
+            "props": 7
+          },
+          "city_records": {
+            "enemies": 10,
+            "hazards": 0,
+            "props": 7
+          },
+          "city_tram_depot": {
+            "enemies": 12,
+            "hazards": 2,
+            "props": 7
+          },
+          "crown_ascent": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_choice_threshold": {
+            "enemies": 0,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_coolant_interlock": {
+            "enemies": 8,
+            "hazards": 1,
+            "props": 7
+          },
+          "crown_last_warden": {
+            "enemies": 6,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_manual_governor": {
+            "enemies": 8,
+            "hazards": 2,
+            "props": 7
+          },
+          "crown_refuge_channel": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_witness_galleries": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "l2_capacitor_mill": {
+            "enemies": 7,
+            "hazards": 1,
+            "props": 5
+          },
+          "l2_exchange": {
+            "enemies": 6,
+            "hazards": 0,
+            "props": 5
+          },
+          "l2_freight": {
+            "enemies": 4,
+            "hazards": 0,
+            "props": 3
+          },
+          "l2_stamping_galleries": {
+            "enemies": 7,
+            "hazards": 2,
+            "props": 6
+          },
+          "l2_thermal_foundry": {
+            "enemies": 8,
+            "hazards": 3,
+            "props": 6
+          },
+          "l2_union_dispatch": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 5
+          },
+          "l3_cistern": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 5
+          },
+          "l3_drainage_commons": {
+            "enemies": 8,
+            "hazards": 2,
+            "props": 6
+          },
+          "l3_homes": {
+            "enemies": 9,
+            "hazards": 0,
+            "props": 7
+          },
+          "l3_inundated_market": {
+            "enemies": 7,
+            "hazards": 2,
+            "props": 6
+          },
+          "l3_refuge_terraces": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 7
+          },
+          "l3_water_clinic": {
+            "enemies": 6,
+            "hazards": 2,
+            "props": 6
+          },
+          "quarantine_intake": {
+            "enemies": 9,
+            "hazards": 0,
+            "props": 4
+          },
+          "rainline": {
+            "enemies": 17,
+            "hazards": 0,
+            "props": 15
+          },
+          "works_baffle_hall": {
+            "enemies": 7,
+            "hazards": 2,
+            "props": 6
+          },
+          "works_cargo_exchange": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 5
+          },
+          "works_dispatch_refusal": {
+            "enemies": 8,
+            "hazards": 1,
+            "props": 7
+          },
+          "works_memory_loom": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "works_receiving": {
+            "enemies": 6,
+            "hazards": 0,
+            "props": 5
+          },
+          "works_service_refuge": {
+            "enemies": 6,
+            "hazards": 1,
+            "props": 6
+          },
+          "works_three_crews": {
+            "enemies": 13,
+            "hazards": 0,
+            "props": 10
+          }
+        },
+        "checks": 23,
+        "engine": "4.6.3-stable (official)",
+        "failures": [],
+        "output": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_routing_60_guard_fixed.json",
+        "passed": true,
+        "physics_hz": 60,
+        "rows": [
+          {
+            "label": "schema weapon_tap -> tap at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_windup -> guard_draw at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_damage -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_death -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema parry -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema guard -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema player_damage -> hurt at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema attack -> swing at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema swing -> swing at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_attack -> swing at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema prop_impact -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema prop_break -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema prop_launch -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema landing -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema jump -> jump at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema air_jump -> jump at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema roll -> dash at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema footstep -> step at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_step -> step at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema lift_motor -> step at committed origin",
+            "passed": true
+          },
+          {
+            "label": "unrelated-room source rejected",
+            "passed": true
+          },
+          {
+            "label": "missing source rejected",
+            "passed": true
+          },
+          {
+            "label": "retained old room rejected after replacement",
+            "passed": true
+          }
+        ],
+        "scope": "Headless exact event-to-cue/origin schema and stale-source rejection. Explicit injected NoiseBus requests, not physical gameplay or audible-output evidence. No runtime/source writes."
+      },
+      "frozen_b2_script_sha256": "e2ae3de22599668d2efff29a813c22d13de5fa282a2a63bd8a2ddc4815f2f1f0",
+      "log_sha256": "8d5f2b200eb521dac70abd5dedbd168c4a14b583c00c45a42598d35e13c38c07",
+      "marker_found": true,
+      "name": "packed_audio_routing_60_guard_fixed",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 2.849
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/rejected_noise.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--hz=60",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_rejected_noise_60_guard_fixed.json"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_receipt_path": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_rejected_noise_60_guard_fixed.json",
+      "external_receipt_sha256": "7d7ec2df52e3379d80b758bceb724e367a37f48ec6567e67d0284027fbb75499",
+      "external_script_sha256": "46a5c23097adb2873e8f549a29f9281e4c234cd6596bdad63701c8bf12db301d",
+      "fixture_origin": "Authorized output-guard-only fixture correction, not original b2 blob",
+      "fixture_receipt": {
+        "checks": 13,
+        "engine": "4.6.3-stable (official)",
+        "failures": [],
+        "observations": [
+          {
+            "injection": [
+              {
+                "pending_after": true,
+                "pending_before": true,
+                "physics_frame": 1,
+                "request_unchanged": true,
+                "state_before": "playing"
+              }
+            ],
+            "mode": 3
+          }
+        ],
+        "output": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_rejected_noise_60_guard_fixed.json",
+        "passed": true,
+        "physics_hz": 60,
+        "rows": [
+          {
+            "label": "genuine lethal actor hit reaches real Health and death",
+            "passed": true
+          },
+          {
+            "label": "accepted real hurt precedes injected outsider before death",
+            "passed": true
+          },
+          {
+            "label": "superclass rejects outsider without a new sound request",
+            "passed": true
+          },
+          {
+            "label": "entire lethal chain occurs in one physics frame",
+            "passed": true
+          },
+          {
+            "label": "only genuine accepted hurt creates a voice",
+            "passed": true
+          },
+          {
+            "label": "rejected outsider cannot suppress same-frame lethal promotion",
+            "passed": true
+          },
+          {
+            "label": "accepted headless voice establishes pending identity",
+            "passed": true
+          },
+          {
+            "label": "identical accepted values still replace request identity",
+            "passed": true
+          },
+          {
+            "label": "repeated accepted request replaces pending voice",
+            "passed": true
+          },
+          {
+            "label": "accepted muted request still clears prior pending voice",
+            "passed": true
+          },
+          {
+            "label": "unmuted accepted request restores fresh pending",
+            "passed": true
+          },
+          {
+            "label": "accepted missing-cache request still clears prior pending voice",
+            "passed": true
+          },
+          {
+            "label": "null-source rejection cannot clear pending voice",
+            "passed": true
+          }
+        ],
+        "scope": "Synthetic nested outsider-noise hardening, not an authored gameplay bug. Actual public actor hit, NoiseBus admission, Health and defeat routing; explicit headless-only voice provider, not audible or physical-device evidence."
+      },
+      "frozen_b2_script_sha256": "334b3b83475d626a398758698ee9a0f102555680653d54da5ce6ffaa14eb1744",
+      "log_sha256": "bb1650b07e20dfd198978d37a7d173e647a9739727066652a492cc06ea0977a0",
+      "marker_found": true,
+      "name": "packed_audio_rejected_noise_60_guard_fixed",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 2.061
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/qa_audit/incoming_health.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "9e09487a225882edb80a5f2705b8ecd372be9467979df724075c7ccb69f37c04",
+      "log_sha256": "3030938893b7fefb47b8e9caac7388e1f090f21b39ad0ea503f7d02bde210282",
+      "marker_found": true,
+      "name": "packed_incoming_health_120",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 5.715
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/qa_audit/save_draft.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "ba9189e31fdf7ea5e57ac223f8e3af7aa7aeb88a5727bb3695e8488fde05598e",
+      "log_sha256": "be70fb1b0af6fe5e940ee2846569b33b834be4ad5ce528bc11d59751b451c0b3",
+      "marker_found": true,
+      "name": "packed_save_continue_120",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 4.558
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/qa_audit/ui_dependencies.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "8d79f5ade9bde1660a824408a14c6ebc0acf87c68e2a76f6af283a5405c0c64e",
+      "log_sha256": "ad514b1ee3925878876bba19c7b2fd693e9ae1145f150f1b6412e25bdaad851d",
+      "marker_found": true,
+      "name": "packed_journal_120",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 3.089
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_gamepad_navigation.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "e05a27b61c1da6b2d83da1a3611efc0708fac5ef37ca8b124ac40e0e14a71a0e",
+      "fixture_receipt": {
+        "checks": 63,
+        "failures": [],
+        "hz": 120,
+        "passed": true,
+        "records": [
+          {
+            "check": "title defaults to keyboard without controller hardware assumption",
+            "passed": true
+          },
+          {
+            "check": "stick noise and unused right stick do not change prompt device",
+            "passed": true
+          },
+          {
+            "check": "X without valid checkpoint cannot manufacture Continue",
+            "passed": true
+          },
+          {
+            "check": "title right selects exactly one lens until physical release",
+            "passed": true
+          },
+          {
+            "check": "title right selects agility after release",
+            "passed": true
+          },
+          {
+            "check": "title lenses wrap in both directions",
+            "passed": true
+          },
+          {
+            "check": "intentional joypad input reaches campaign HUD snapshot",
+            "passed": true
+          },
+          {
+            "check": "title A starts the campaign through root input pipeline",
+            "passed": true
+          },
+          {
+            "check": "held A cannot double-accept title then intro",
+            "passed": true
+          },
+          {
+            "check": "intro A skips without leaking held jump",
+            "passed": true
+          },
+          {
+            "check": "fresh A after release uses original actor jump",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "left stick still drives original actor movement",
+            "passed": true
+          },
+          {
+            "check": "LB retains original actor shield",
+            "passed": true
+          },
+          {
+            "check": "RB retains original actor roll",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "Y interacts once despite duplicate held press",
+            "passed": true
+          },
+          {
+            "check": "fresh Y cycles real route objective again",
+            "passed": true
+          },
+          {
+            "check": "B emits one real sonar tap without duplicate side effects",
+            "passed": true
+          },
+          {
+            "check": "Back opens paused field journal",
+            "passed": true
+          },
+          {
+            "check": "journal paging is one page per fresh press",
+            "passed": true
+          },
+          {
+            "check": "journal close suppresses held direction and strike",
+            "passed": true
+          },
+          {
+            "check": "fresh X rearms original actor strike after journal",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "Start pauses scene and active play clock",
+            "passed": true
+          },
+          {
+            "check": "paused B resumes",
+            "passed": true
+          },
+          {
+            "check": "paused X retries district once without striking new actor",
+            "passed": true
+          },
+          {
+            "check": "paused Y returns to title",
+            "passed": true
+          },
+          {
+            "check": "title Start also begins new campaign",
+            "passed": true
+          },
+          {
+            "check": "fresh Start skips intro",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "sight choice 1 uses same decision path without combat leakage",
+            "passed": true
+          },
+          {
+            "check": "sight choice 2 uses same decision path without combat leakage",
+            "passed": true
+          },
+          {
+            "check": "archive A returns without jumping",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "upgrade force applies once, ascends once, and suppresses held attack",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "upgrade agility applies once, ascends once, and suppresses held attack",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "upgrade vitality applies once, ascends once, and suppresses held attack",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "final public_record records exactly one ending",
+            "passed": true
+          },
+          {
+            "check": "completion A returns to title",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "final local_custody records exactly one ending",
+            "passed": true
+          },
+          {
+            "check": "completion A returns to title",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "death A retries without jump or lost death count",
+            "passed": true
+          },
+          {
+            "check": "death Y returns to title",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "active controller disconnect pauses and exposes keyboard fallback",
+            "passed": true
+          },
+          {
+            "check": "controller reconnect never silently resumes",
+            "passed": true
+          },
+          {
+            "check": "explicit resume suppresses held disconnected direction",
+            "passed": true
+          },
+          {
+            "check": "direction rearms after release following disconnect",
+            "passed": true
+          },
+          {
+            "check": "keyboard journal command coexists and restores keyboard prompts",
+            "passed": true
+          },
+          {
+            "check": "analog jitter cannot steal active keyboard prompts",
+            "passed": true
+          },
+          {
+            "check": "deliberate left-stick deflection changes prompt device",
+            "passed": true
+          },
+          {
+            "check": "unrelated controller disconnect preserves menu",
+            "passed": true
+          },
+          {
+            "check": "keyboard Escape still pauses after controller use",
+            "passed": true
+          },
+          {
+            "check": "keyboard Escape still resumes after controller use",
+            "passed": true
+          },
+          {
+            "check": "fixture retains real InputMap actor source",
+            "passed": true
+          },
+          {
+            "check": "real controller title return exposes saved checkpoint",
+            "passed": true
+          },
+          {
+            "check": "title X restores real checkpoint without attack leakage",
+            "passed": true
+          }
+        ],
+        "scope": "Synthetic Input.parse_input_event joypad events through real campaign event pipeline; controlled modal/world fixtures; no input_override, physical controller, full traversal, or hardware compatibility claim."
+      },
+      "log_sha256": "e7c9a3250746e1ab9e8e985ea136c0f7daddd4f9cdff6a8f8f7622fbb1539f3a",
+      "marker_found": true,
+      "name": "packed_gamepad_navigation_120",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 8.968
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_independent_controller.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "7f760ca6d5d9a2be4a99b560c29082694208b22b6ca61a35f5428f90960cc958",
+      "fixture_receipt": {
+        "checks": 32,
+        "failures": [],
+        "hz": 120,
+        "passed": true,
+        "scope": "Synthesized InputEventJoypadButton/Motion through actual campaign event pipeline and actor physics. Not physical controller hardware or full campaign traversal."
+      },
+      "log_sha256": "e880f777d5053dcaf5e0b55a5d8f901d50e11e34b3f05dbe2c0250d687597baa",
+      "marker_found": true,
+      "name": "packed_independent_controller_120",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 8.996
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_independent_paused_release.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "5b6432638ad03b0c4a7a6c0eda69c581c8748d61906bfd3b99d0c5d62ffeaff0",
+      "fixture_receipt": {
+        "after_velocity": -150.33332824707,
+        "before_velocity": -346.666687011719,
+        "checks": 1,
+        "failures": [],
+        "hz": 120,
+        "input": {
+          "attack": false,
+          "attack_pressed": false,
+          "attack_released": false,
+          "jump": false,
+          "jump_pressed": false,
+          "jump_released": true,
+          "physical_y": 0.0,
+          "roll": false,
+          "roll_pressed": false,
+          "roll_released": false,
+          "shield": false,
+          "shield_pressed": false,
+          "shield_released": false,
+          "x": 0.0,
+          "y": 0.0
+        },
+        "passed": true,
+        "release_cap": 165.0
+      },
+      "log_sha256": "0ed04e0736bd175f83a8f0048c3ef6f4541f92bc732a8bfc35760aea8bcb121b",
+      "marker_found": true,
+      "name": "packed_paused_release_120",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 5.111
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_runtime_lifecycle.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "1668dff30feb6900d1857d2aa957d03c7127e99e50a70f22762dac49a576c349",
+      "fixture_receipt": {
+        "cargo_replacements": 200,
+        "checks": 294622,
+        "district_retry_title_loads": 384,
+        "district_sweeps": 4,
+        "failed_checks": 0,
+        "failure_counts": {},
+        "failures": [],
+        "hz": 120,
+        "oracle_districts": 32,
+        "passed": true,
+        "samples": [
+          {
+            "bounds_cache": 75,
+            "contours": 75,
+            "district": 0,
+            "nodes": 989,
+            "paint": 22,
+            "resources": 275.0,
+            "shape_cache": 75,
+            "sweep": 0,
+            "watches": 61
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 50,
+            "district": 1,
+            "nodes": 750,
+            "paint": 13,
+            "resources": 275.0,
+            "shape_cache": 50,
+            "sweep": 0,
+            "watches": 44
+          },
+          {
+            "bounds_cache": 48,
+            "contours": 54,
+            "district": 2,
+            "nodes": 526,
+            "paint": 15,
+            "resources": 275.0,
+            "shape_cache": 54,
+            "sweep": 0,
+            "watches": 48
+          },
+          {
+            "bounds_cache": 43,
+            "contours": 46,
+            "district": 3,
+            "nodes": 448,
+            "paint": 14,
+            "resources": 275.0,
+            "shape_cache": 46,
+            "sweep": 0,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 47,
+            "contours": 52,
+            "district": 4,
+            "nodes": 519,
+            "paint": 15,
+            "resources": 275.0,
+            "shape_cache": 52,
+            "sweep": 0,
+            "watches": 46
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 33,
+            "district": 5,
+            "nodes": 369,
+            "paint": 5,
+            "resources": 277.0,
+            "shape_cache": 33,
+            "sweep": 0,
+            "watches": 30
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 36,
+            "district": 6,
+            "nodes": 311,
+            "paint": 7,
+            "resources": 277.0,
+            "shape_cache": 36,
+            "sweep": 0,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 41,
+            "district": 7,
+            "nodes": 360,
+            "paint": 11,
+            "resources": 277.0,
+            "shape_cache": 41,
+            "sweep": 0,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 30,
+            "contours": 34,
+            "district": 8,
+            "nodes": 262,
+            "paint": 8,
+            "resources": 277.0,
+            "shape_cache": 34,
+            "sweep": 0,
+            "watches": 31
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 45,
+            "district": 9,
+            "nodes": 376,
+            "paint": 13,
+            "resources": 277.0,
+            "shape_cache": 45,
+            "sweep": 0,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 50,
+            "district": 10,
+            "nodes": 420,
+            "paint": 15,
+            "resources": 277.0,
+            "shape_cache": 50,
+            "sweep": 0,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 40,
+            "district": 11,
+            "nodes": 358,
+            "paint": 12,
+            "resources": 277.0,
+            "shape_cache": 40,
+            "sweep": 0,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 55,
+            "contours": 58,
+            "district": 12,
+            "nodes": 414,
+            "paint": 12,
+            "resources": 277.0,
+            "shape_cache": 58,
+            "sweep": 0,
+            "watches": 54
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 43,
+            "district": 13,
+            "nodes": 366,
+            "paint": 13,
+            "resources": 277.0,
+            "shape_cache": 43,
+            "sweep": 0,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 46,
+            "district": 14,
+            "nodes": 360,
+            "paint": 15,
+            "resources": 277.0,
+            "shape_cache": 46,
+            "sweep": 0,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 52,
+            "contours": 56,
+            "district": 15,
+            "nodes": 699,
+            "paint": 13,
+            "resources": 277.0,
+            "shape_cache": 56,
+            "sweep": 0,
+            "watches": 50
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 45,
+            "district": 16,
+            "nodes": 379,
+            "paint": 16,
+            "resources": 277.0,
+            "shape_cache": 45,
+            "sweep": 0,
+            "watches": 39
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 45,
+            "district": 17,
+            "nodes": 403,
+            "paint": 13,
+            "resources": 277.0,
+            "shape_cache": 45,
+            "sweep": 0,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 36,
+            "district": 18,
+            "nodes": 319,
+            "paint": 10,
+            "resources": 277.0,
+            "shape_cache": 36,
+            "sweep": 0,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 41,
+            "district": 19,
+            "nodes": 363,
+            "paint": 12,
+            "resources": 277.0,
+            "shape_cache": 41,
+            "sweep": 0,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 45,
+            "district": 20,
+            "nodes": 375,
+            "paint": 13,
+            "resources": 277.0,
+            "shape_cache": 45,
+            "sweep": 0,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 41,
+            "contours": 46,
+            "district": 21,
+            "nodes": 381,
+            "paint": 15,
+            "resources": 277.0,
+            "shape_cache": 46,
+            "sweep": 0,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 38,
+            "district": 22,
+            "nodes": 327,
+            "paint": 12,
+            "resources": 277.0,
+            "shape_cache": 38,
+            "sweep": 0,
+            "watches": 33
+          },
+          {
+            "bounds_cache": 76,
+            "contours": 76,
+            "district": 23,
+            "nodes": 629,
+            "paint": 22,
+            "resources": 277.0,
+            "shape_cache": 76,
+            "sweep": 0,
+            "watches": 67
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 44,
+            "district": 24,
+            "nodes": 399,
+            "paint": 15,
+            "resources": 277.0,
+            "shape_cache": 44,
+            "sweep": 0,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 25,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 277.0,
+            "shape_cache": 42,
+            "sweep": 0,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 43,
+            "district": 26,
+            "nodes": 373,
+            "paint": 15,
+            "resources": 277.0,
+            "shape_cache": 43,
+            "sweep": 0,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 40,
+            "contours": 48,
+            "district": 27,
+            "nodes": 418,
+            "paint": 16,
+            "resources": 277.0,
+            "shape_cache": 48,
+            "sweep": 0,
+            "watches": 42
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 40,
+            "district": 28,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 277.0,
+            "shape_cache": 40,
+            "sweep": 0,
+            "watches": 35
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 52,
+            "district": 29,
+            "nodes": 427,
+            "paint": 18,
+            "resources": 277.0,
+            "shape_cache": 52,
+            "sweep": 0,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 30,
+            "nodes": 350,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 42,
+            "sweep": 0,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 24,
+            "contours": 29,
+            "district": 31,
+            "nodes": 162,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 29,
+            "sweep": 0,
+            "watches": 24
+          },
+          {
+            "bounds_cache": 75,
+            "contours": 75,
+            "district": 0,
+            "nodes": 989,
+            "paint": 22,
+            "resources": 279.0,
+            "shape_cache": 75,
+            "sweep": 1,
+            "watches": 61
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 50,
+            "district": 1,
+            "nodes": 750,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 50,
+            "sweep": 1,
+            "watches": 44
+          },
+          {
+            "bounds_cache": 48,
+            "contours": 54,
+            "district": 2,
+            "nodes": 526,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 54,
+            "sweep": 1,
+            "watches": 48
+          },
+          {
+            "bounds_cache": 43,
+            "contours": 46,
+            "district": 3,
+            "nodes": 448,
+            "paint": 14,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 1,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 47,
+            "contours": 52,
+            "district": 4,
+            "nodes": 519,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 52,
+            "sweep": 1,
+            "watches": 46
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 33,
+            "district": 5,
+            "nodes": 369,
+            "paint": 5,
+            "resources": 279.0,
+            "shape_cache": 33,
+            "sweep": 1,
+            "watches": 30
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 36,
+            "district": 6,
+            "nodes": 311,
+            "paint": 7,
+            "resources": 279.0,
+            "shape_cache": 36,
+            "sweep": 1,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 41,
+            "district": 7,
+            "nodes": 360,
+            "paint": 11,
+            "resources": 279.0,
+            "shape_cache": 41,
+            "sweep": 1,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 30,
+            "contours": 34,
+            "district": 8,
+            "nodes": 262,
+            "paint": 8,
+            "resources": 279.0,
+            "shape_cache": 34,
+            "sweep": 1,
+            "watches": 31
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 45,
+            "district": 9,
+            "nodes": 376,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 1,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 50,
+            "district": 10,
+            "nodes": 420,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 50,
+            "sweep": 1,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 40,
+            "district": 11,
+            "nodes": 358,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 40,
+            "sweep": 1,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 55,
+            "contours": 58,
+            "district": 12,
+            "nodes": 414,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 58,
+            "sweep": 1,
+            "watches": 54
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 43,
+            "district": 13,
+            "nodes": 366,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 43,
+            "sweep": 1,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 46,
+            "district": 14,
+            "nodes": 360,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 1,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 52,
+            "contours": 56,
+            "district": 15,
+            "nodes": 699,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 56,
+            "sweep": 1,
+            "watches": 50
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 45,
+            "district": 16,
+            "nodes": 379,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 1,
+            "watches": 39
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 45,
+            "district": 17,
+            "nodes": 403,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 1,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 36,
+            "district": 18,
+            "nodes": 319,
+            "paint": 10,
+            "resources": 279.0,
+            "shape_cache": 36,
+            "sweep": 1,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 41,
+            "district": 19,
+            "nodes": 363,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 41,
+            "sweep": 1,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 45,
+            "district": 20,
+            "nodes": 375,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 1,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 41,
+            "contours": 46,
+            "district": 21,
+            "nodes": 381,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 1,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 38,
+            "district": 22,
+            "nodes": 327,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 38,
+            "sweep": 1,
+            "watches": 33
+          },
+          {
+            "bounds_cache": 76,
+            "contours": 76,
+            "district": 23,
+            "nodes": 629,
+            "paint": 22,
+            "resources": 279.0,
+            "shape_cache": 76,
+            "sweep": 1,
+            "watches": 67
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 44,
+            "district": 24,
+            "nodes": 399,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 44,
+            "sweep": 1,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 25,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 42,
+            "sweep": 1,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 43,
+            "district": 26,
+            "nodes": 373,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 43,
+            "sweep": 1,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 40,
+            "contours": 48,
+            "district": 27,
+            "nodes": 418,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 48,
+            "sweep": 1,
+            "watches": 42
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 40,
+            "district": 28,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 40,
+            "sweep": 1,
+            "watches": 35
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 52,
+            "district": 29,
+            "nodes": 427,
+            "paint": 18,
+            "resources": 279.0,
+            "shape_cache": 52,
+            "sweep": 1,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 30,
+            "nodes": 350,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 42,
+            "sweep": 1,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 24,
+            "contours": 29,
+            "district": 31,
+            "nodes": 162,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 29,
+            "sweep": 1,
+            "watches": 24
+          },
+          {
+            "bounds_cache": 75,
+            "contours": 75,
+            "district": 0,
+            "nodes": 989,
+            "paint": 22,
+            "resources": 279.0,
+            "shape_cache": 75,
+            "sweep": 2,
+            "watches": 61
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 50,
+            "district": 1,
+            "nodes": 750,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 50,
+            "sweep": 2,
+            "watches": 44
+          },
+          {
+            "bounds_cache": 48,
+            "contours": 54,
+            "district": 2,
+            "nodes": 526,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 54,
+            "sweep": 2,
+            "watches": 48
+          },
+          {
+            "bounds_cache": 43,
+            "contours": 46,
+            "district": 3,
+            "nodes": 448,
+            "paint": 14,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 2,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 47,
+            "contours": 52,
+            "district": 4,
+            "nodes": 519,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 52,
+            "sweep": 2,
+            "watches": 46
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 33,
+            "district": 5,
+            "nodes": 369,
+            "paint": 5,
+            "resources": 279.0,
+            "shape_cache": 33,
+            "sweep": 2,
+            "watches": 30
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 36,
+            "district": 6,
+            "nodes": 311,
+            "paint": 7,
+            "resources": 279.0,
+            "shape_cache": 36,
+            "sweep": 2,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 41,
+            "district": 7,
+            "nodes": 360,
+            "paint": 11,
+            "resources": 279.0,
+            "shape_cache": 41,
+            "sweep": 2,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 30,
+            "contours": 34,
+            "district": 8,
+            "nodes": 262,
+            "paint": 8,
+            "resources": 279.0,
+            "shape_cache": 34,
+            "sweep": 2,
+            "watches": 31
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 45,
+            "district": 9,
+            "nodes": 376,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 2,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 50,
+            "district": 10,
+            "nodes": 420,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 50,
+            "sweep": 2,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 40,
+            "district": 11,
+            "nodes": 358,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 40,
+            "sweep": 2,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 55,
+            "contours": 58,
+            "district": 12,
+            "nodes": 414,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 58,
+            "sweep": 2,
+            "watches": 54
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 43,
+            "district": 13,
+            "nodes": 366,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 43,
+            "sweep": 2,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 46,
+            "district": 14,
+            "nodes": 360,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 2,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 52,
+            "contours": 56,
+            "district": 15,
+            "nodes": 699,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 56,
+            "sweep": 2,
+            "watches": 50
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 45,
+            "district": 16,
+            "nodes": 379,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 2,
+            "watches": 39
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 45,
+            "district": 17,
+            "nodes": 403,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 2,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 36,
+            "district": 18,
+            "nodes": 319,
+            "paint": 10,
+            "resources": 279.0,
+            "shape_cache": 36,
+            "sweep": 2,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 41,
+            "district": 19,
+            "nodes": 363,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 41,
+            "sweep": 2,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 45,
+            "district": 20,
+            "nodes": 375,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 2,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 41,
+            "contours": 46,
+            "district": 21,
+            "nodes": 381,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 2,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 38,
+            "district": 22,
+            "nodes": 327,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 38,
+            "sweep": 2,
+            "watches": 33
+          },
+          {
+            "bounds_cache": 76,
+            "contours": 76,
+            "district": 23,
+            "nodes": 629,
+            "paint": 22,
+            "resources": 279.0,
+            "shape_cache": 76,
+            "sweep": 2,
+            "watches": 67
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 44,
+            "district": 24,
+            "nodes": 399,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 44,
+            "sweep": 2,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 25,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 42,
+            "sweep": 2,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 43,
+            "district": 26,
+            "nodes": 373,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 43,
+            "sweep": 2,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 40,
+            "contours": 48,
+            "district": 27,
+            "nodes": 418,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 48,
+            "sweep": 2,
+            "watches": 42
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 40,
+            "district": 28,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 40,
+            "sweep": 2,
+            "watches": 35
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 52,
+            "district": 29,
+            "nodes": 427,
+            "paint": 18,
+            "resources": 279.0,
+            "shape_cache": 52,
+            "sweep": 2,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 30,
+            "nodes": 350,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 42,
+            "sweep": 2,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 24,
+            "contours": 29,
+            "district": 31,
+            "nodes": 162,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 29,
+            "sweep": 2,
+            "watches": 24
+          },
+          {
+            "bounds_cache": 75,
+            "contours": 75,
+            "district": 0,
+            "nodes": 989,
+            "paint": 22,
+            "resources": 279.0,
+            "shape_cache": 75,
+            "sweep": 3,
+            "watches": 61
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 50,
+            "district": 1,
+            "nodes": 750,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 50,
+            "sweep": 3,
+            "watches": 44
+          },
+          {
+            "bounds_cache": 48,
+            "contours": 54,
+            "district": 2,
+            "nodes": 526,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 54,
+            "sweep": 3,
+            "watches": 48
+          },
+          {
+            "bounds_cache": 43,
+            "contours": 46,
+            "district": 3,
+            "nodes": 448,
+            "paint": 14,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 3,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 47,
+            "contours": 52,
+            "district": 4,
+            "nodes": 519,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 52,
+            "sweep": 3,
+            "watches": 46
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 33,
+            "district": 5,
+            "nodes": 369,
+            "paint": 5,
+            "resources": 279.0,
+            "shape_cache": 33,
+            "sweep": 3,
+            "watches": 30
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 36,
+            "district": 6,
+            "nodes": 311,
+            "paint": 7,
+            "resources": 279.0,
+            "shape_cache": 36,
+            "sweep": 3,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 41,
+            "district": 7,
+            "nodes": 360,
+            "paint": 11,
+            "resources": 279.0,
+            "shape_cache": 41,
+            "sweep": 3,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 30,
+            "contours": 34,
+            "district": 8,
+            "nodes": 262,
+            "paint": 8,
+            "resources": 279.0,
+            "shape_cache": 34,
+            "sweep": 3,
+            "watches": 31
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 45,
+            "district": 9,
+            "nodes": 376,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 3,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 50,
+            "district": 10,
+            "nodes": 420,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 50,
+            "sweep": 3,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 40,
+            "district": 11,
+            "nodes": 358,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 40,
+            "sweep": 3,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 55,
+            "contours": 58,
+            "district": 12,
+            "nodes": 414,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 58,
+            "sweep": 3,
+            "watches": 54
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 43,
+            "district": 13,
+            "nodes": 366,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 43,
+            "sweep": 3,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 35,
+            "contours": 46,
+            "district": 14,
+            "nodes": 360,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 3,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 52,
+            "contours": 56,
+            "district": 15,
+            "nodes": 699,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 56,
+            "sweep": 3,
+            "watches": 50
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 45,
+            "district": 16,
+            "nodes": 379,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 3,
+            "watches": 39
+          },
+          {
+            "bounds_cache": 33,
+            "contours": 45,
+            "district": 17,
+            "nodes": 403,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 3,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 31,
+            "contours": 36,
+            "district": 18,
+            "nodes": 319,
+            "paint": 10,
+            "resources": 279.0,
+            "shape_cache": 36,
+            "sweep": 3,
+            "watches": 32
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 41,
+            "district": 19,
+            "nodes": 363,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 41,
+            "sweep": 3,
+            "watches": 36
+          },
+          {
+            "bounds_cache": 39,
+            "contours": 45,
+            "district": 20,
+            "nodes": 375,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 45,
+            "sweep": 3,
+            "watches": 40
+          },
+          {
+            "bounds_cache": 41,
+            "contours": 46,
+            "district": 21,
+            "nodes": 381,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 46,
+            "sweep": 3,
+            "watches": 41
+          },
+          {
+            "bounds_cache": 32,
+            "contours": 38,
+            "district": 22,
+            "nodes": 327,
+            "paint": 12,
+            "resources": 279.0,
+            "shape_cache": 38,
+            "sweep": 3,
+            "watches": 33
+          },
+          {
+            "bounds_cache": 76,
+            "contours": 76,
+            "district": 23,
+            "nodes": 629,
+            "paint": 22,
+            "resources": 279.0,
+            "shape_cache": 76,
+            "sweep": 3,
+            "watches": 67
+          },
+          {
+            "bounds_cache": 37,
+            "contours": 44,
+            "district": 24,
+            "nodes": 399,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 44,
+            "sweep": 3,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 25,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 42,
+            "sweep": 3,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 43,
+            "district": 26,
+            "nodes": 373,
+            "paint": 15,
+            "resources": 279.0,
+            "shape_cache": 43,
+            "sweep": 3,
+            "watches": 38
+          },
+          {
+            "bounds_cache": 40,
+            "contours": 48,
+            "district": 27,
+            "nodes": 418,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 48,
+            "sweep": 3,
+            "watches": 42
+          },
+          {
+            "bounds_cache": 34,
+            "contours": 40,
+            "district": 28,
+            "nodes": 362,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 40,
+            "sweep": 3,
+            "watches": 35
+          },
+          {
+            "bounds_cache": 45,
+            "contours": 52,
+            "district": 29,
+            "nodes": 427,
+            "paint": 18,
+            "resources": 279.0,
+            "shape_cache": 52,
+            "sweep": 3,
+            "watches": 45
+          },
+          {
+            "bounds_cache": 38,
+            "contours": 42,
+            "district": 30,
+            "nodes": 350,
+            "paint": 16,
+            "resources": 279.0,
+            "shape_cache": 42,
+            "sweep": 3,
+            "watches": 37
+          },
+          {
+            "bounds_cache": 24,
+            "contours": 29,
+            "district": 31,
+            "nodes": 162,
+            "paint": 13,
+            "resources": 279.0,
+            "shape_cache": 29,
+            "sweep": 3,
+            "watches": 24
+          }
+        ],
+        "scope": "Deterministic lifecycle, inherited sonar output equality, finite noise/dt rejection. Not a gameplay traversal or target-hardware FPS claim."
+      },
+      "log_sha256": "381a9b16f1ea44af7aba434f7ce25df1af3e3f072dd72d69927ee20ff3c1d8d2",
+      "marker_found": true,
+      "name": "packed_runtime_lifecycle_120",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 27.071
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_input_guidance.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "42e27852e031916f6e0b613d8d83784ac6e7a9ee5a268a6ff3e5e73480169045",
+      "fixture_receipt": {
+        "checks": 37,
+        "failures": [],
+        "hz": 120,
+        "passed": true,
+        "scope": "Controlled read-only gate and host-to-HUD fixtures, not a physical controller or campaign traversal test."
+      },
+      "log_sha256": "3517aff94109d9dc9d0e7b228f1d2390a15f08389a426606ff704cb7c1ca73c0",
+      "marker_found": true,
+      "name": "packed_input_guidance_120",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 2.226
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/contract.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_contract_120_guard_fixed.json"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_receipt_path": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_contract_120_guard_fixed.json",
+      "external_receipt_sha256": "6a3d372934c18696d993728b912ca7375cd96b9225be54ef26091924aed7c5d3",
+      "external_script_sha256": "5a4027f110d5e9aecbc0eff2dfde366cdd8f7dc27278398751cd40331c752754",
+      "fixture_origin": "Authorized output-guard-only fixture correction, not original b2 blob",
+      "fixture_receipt": {
+        "checks": 67,
+        "engine": "4.6.3-stable (official)",
+        "failures": [],
+        "output": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_contract_120_guard_fixed.json",
+        "passed": true,
+        "physics_hz": 120,
+        "rows": [
+          {
+            "label": "physical M toggles on once: title",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: title",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: title",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: title",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: title",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: intro",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: intro",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: intro",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: intro",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: intro",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: playing",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: playing",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: playing",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: playing",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: playing",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: archive",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: archive",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: archive",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: archive",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: archive",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: choice",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: choice",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: choice",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: choice",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: choice",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: paused",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: paused",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: paused",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: paused",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: paused",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: journal",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: journal",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: journal",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: journal",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: journal",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: upgrade",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: upgrade",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: upgrade",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: upgrade",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: upgrade",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: final_choice",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: final_choice",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: final_choice",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: final_choice",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: final_choice",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: complete",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: complete",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: complete",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: complete",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: complete",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: dead",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: dead",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: dead",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: dead",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: dead",
+            "passed": true
+          },
+          {
+            "label": "M preserves pending/focus boundary",
+            "passed": true
+          },
+          {
+            "label": "new matching modal cue gets live physics while paused",
+            "passed": true
+          },
+          {
+            "label": "existing and unrelated cues keep inherited pause mode",
+            "passed": true
+          },
+          {
+            "label": "rejected external damage cannot promote old hurt",
+            "passed": true
+          },
+          {
+            "label": "nonlethal hurt retains pausable mode",
+            "passed": true
+          },
+          {
+            "label": "defeat promotes only freshly observed hurt",
+            "passed": true
+          },
+          {
+            "label": "defeat leaves earlier world hurt alone",
+            "passed": true
+          },
+          {
+            "label": "stale paused hurt remains at zero playback position",
+            "passed": true
+          },
+          {
+            "label": "later defeat cannot promote prior-frame zero-position hurt",
+            "passed": true
+          },
+          {
+            "label": "room retirement clears all old spatial one-shots",
+            "passed": true
+          },
+          {
+            "label": "room retirement preserves ambience player",
+            "passed": true
+          },
+          {
+            "label": "modal lifecycle does not fabricate noise events",
+            "passed": true
+          }
+        ],
+        "scope": "Headless key routing and lifecycle contract. Dummy players verify selective promotion, same-frame freshness and retirement. Native probe separately verifies playback. No runtime/source writes."
+      },
+      "frozen_b2_script_sha256": "9452366c13560eec1a07be26b50d7781510ba876be6aef972262ef0ae61cf0ed",
+      "log_sha256": "5e41135e288d3ca480b67e9ef7a61f0db7c58347c4ed6bf4db54537b8b790915",
+      "marker_found": true,
+      "name": "packed_audio_contract_120_guard_fixed",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 1.945
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/event_routing.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_routing_120_guard_fixed.json"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_receipt_path": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_routing_120_guard_fixed.json",
+      "external_receipt_sha256": "19d6970089dd8a5682277fd164d6927210f0b603d5e18bce63a5d4a6e3a85082",
+      "external_script_sha256": "da8100f7f230fc25f072a0203393b60028799a04e37de74bd08f52014903c0b7",
+      "fixture_origin": "Authorized output-guard-only fixture correction, not original b2 blob",
+      "fixture_receipt": {
+        "authored_counts": {
+          "city_clinic": {
+            "enemies": 10,
+            "hazards": 0,
+            "props": 7
+          },
+          "city_evac_spine": {
+            "enemies": 12,
+            "hazards": 0,
+            "props": 7
+          },
+          "city_records": {
+            "enemies": 10,
+            "hazards": 0,
+            "props": 7
+          },
+          "city_tram_depot": {
+            "enemies": 12,
+            "hazards": 2,
+            "props": 7
+          },
+          "crown_ascent": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_choice_threshold": {
+            "enemies": 0,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_coolant_interlock": {
+            "enemies": 8,
+            "hazards": 1,
+            "props": 7
+          },
+          "crown_last_warden": {
+            "enemies": 6,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_manual_governor": {
+            "enemies": 8,
+            "hazards": 2,
+            "props": 7
+          },
+          "crown_refuge_channel": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_witness_galleries": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "l2_capacitor_mill": {
+            "enemies": 7,
+            "hazards": 1,
+            "props": 5
+          },
+          "l2_exchange": {
+            "enemies": 6,
+            "hazards": 0,
+            "props": 5
+          },
+          "l2_freight": {
+            "enemies": 4,
+            "hazards": 0,
+            "props": 3
+          },
+          "l2_stamping_galleries": {
+            "enemies": 7,
+            "hazards": 2,
+            "props": 6
+          },
+          "l2_thermal_foundry": {
+            "enemies": 8,
+            "hazards": 3,
+            "props": 6
+          },
+          "l2_union_dispatch": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 5
+          },
+          "l3_cistern": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 5
+          },
+          "l3_drainage_commons": {
+            "enemies": 8,
+            "hazards": 2,
+            "props": 6
+          },
+          "l3_homes": {
+            "enemies": 9,
+            "hazards": 0,
+            "props": 7
+          },
+          "l3_inundated_market": {
+            "enemies": 7,
+            "hazards": 2,
+            "props": 6
+          },
+          "l3_refuge_terraces": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 7
+          },
+          "l3_water_clinic": {
+            "enemies": 6,
+            "hazards": 2,
+            "props": 6
+          },
+          "quarantine_intake": {
+            "enemies": 9,
+            "hazards": 0,
+            "props": 4
+          },
+          "rainline": {
+            "enemies": 17,
+            "hazards": 0,
+            "props": 15
+          },
+          "works_baffle_hall": {
+            "enemies": 7,
+            "hazards": 2,
+            "props": 6
+          },
+          "works_cargo_exchange": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 5
+          },
+          "works_dispatch_refusal": {
+            "enemies": 8,
+            "hazards": 1,
+            "props": 7
+          },
+          "works_memory_loom": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "works_receiving": {
+            "enemies": 6,
+            "hazards": 0,
+            "props": 5
+          },
+          "works_service_refuge": {
+            "enemies": 6,
+            "hazards": 1,
+            "props": 6
+          },
+          "works_three_crews": {
+            "enemies": 13,
+            "hazards": 0,
+            "props": 10
+          }
+        },
+        "checks": 23,
+        "engine": "4.6.3-stable (official)",
+        "failures": [],
+        "output": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_routing_120_guard_fixed.json",
+        "passed": true,
+        "physics_hz": 120,
+        "rows": [
+          {
+            "label": "schema weapon_tap -> tap at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_windup -> guard_draw at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_damage -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_death -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema parry -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema guard -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema player_damage -> hurt at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema attack -> swing at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema swing -> swing at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_attack -> swing at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema prop_impact -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema prop_break -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema prop_launch -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema landing -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema jump -> jump at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema air_jump -> jump at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema roll -> dash at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema footstep -> step at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_step -> step at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema lift_motor -> step at committed origin",
+            "passed": true
+          },
+          {
+            "label": "unrelated-room source rejected",
+            "passed": true
+          },
+          {
+            "label": "missing source rejected",
+            "passed": true
+          },
+          {
+            "label": "retained old room rejected after replacement",
+            "passed": true
+          }
+        ],
+        "scope": "Headless exact event-to-cue/origin schema and stale-source rejection. Explicit injected NoiseBus requests, not physical gameplay or audible-output evidence. No runtime/source writes."
+      },
+      "frozen_b2_script_sha256": "e2ae3de22599668d2efff29a813c22d13de5fa282a2a63bd8a2ddc4815f2f1f0",
+      "log_sha256": "a2351d92822d53227da635dfe269772faa0f82632d633f999dab8b675c7d413f",
+      "marker_found": true,
+      "name": "packed_audio_routing_120_guard_fixed",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 3.003
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/rejected_noise.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_rejected_noise_120_guard_fixed.json"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_receipt_path": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_rejected_noise_120_guard_fixed.json",
+      "external_receipt_sha256": "246efe07f5e618b06f66c5547d6d6d4ac1f424362735cd6bf89182a7c91a3832",
+      "external_script_sha256": "46a5c23097adb2873e8f549a29f9281e4c234cd6596bdad63701c8bf12db301d",
+      "fixture_origin": "Authorized output-guard-only fixture correction, not original b2 blob",
+      "fixture_receipt": {
+        "checks": 13,
+        "engine": "4.6.3-stable (official)",
+        "failures": [],
+        "observations": [
+          {
+            "injection": [
+              {
+                "pending_after": true,
+                "pending_before": true,
+                "physics_frame": 1,
+                "request_unchanged": true,
+                "state_before": "playing"
+              }
+            ],
+            "mode": 3
+          }
+        ],
+        "output": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_rejected_noise_120_guard_fixed.json",
+        "passed": true,
+        "physics_hz": 120,
+        "rows": [
+          {
+            "label": "genuine lethal actor hit reaches real Health and death",
+            "passed": true
+          },
+          {
+            "label": "accepted real hurt precedes injected outsider before death",
+            "passed": true
+          },
+          {
+            "label": "superclass rejects outsider without a new sound request",
+            "passed": true
+          },
+          {
+            "label": "entire lethal chain occurs in one physics frame",
+            "passed": true
+          },
+          {
+            "label": "only genuine accepted hurt creates a voice",
+            "passed": true
+          },
+          {
+            "label": "rejected outsider cannot suppress same-frame lethal promotion",
+            "passed": true
+          },
+          {
+            "label": "accepted headless voice establishes pending identity",
+            "passed": true
+          },
+          {
+            "label": "identical accepted values still replace request identity",
+            "passed": true
+          },
+          {
+            "label": "repeated accepted request replaces pending voice",
+            "passed": true
+          },
+          {
+            "label": "accepted muted request still clears prior pending voice",
+            "passed": true
+          },
+          {
+            "label": "unmuted accepted request restores fresh pending",
+            "passed": true
+          },
+          {
+            "label": "accepted missing-cache request still clears prior pending voice",
+            "passed": true
+          },
+          {
+            "label": "null-source rejection cannot clear pending voice",
+            "passed": true
+          }
+        ],
+        "scope": "Synthetic nested outsider-noise hardening, not an authored gameplay bug. Actual public actor hit, NoiseBus admission, Health and defeat routing; explicit headless-only voice provider, not audible or physical-device evidence."
+      },
+      "frozen_b2_script_sha256": "334b3b83475d626a398758698ee9a0f102555680653d54da5ce6ffaa14eb1744",
+      "log_sha256": "04b22272e0d6d24662d25ff18d1bd832fe95aed58975fbd701e5a20a82f5526b",
+      "marker_found": true,
+      "name": "packed_audio_rejected_noise_120_guard_fixed",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 2.197
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_independent_focus_upgrade.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_script_sha256": "4cfb79729bc7169e78ef85b4189f27421d689af4cef9648b4401a87ed93c492c",
+      "fixture_receipt": {
+        "checks": 13,
+        "failures": [],
+        "passed": true,
+        "retry_observation": {
+          "old_level_exit": 5,
+          "receipts": [],
+          "sector": 5,
+          "upgrades": []
+        },
+        "scope": "Initialized authored level completion plus genuine keyboard exit/focus commands, not boss/goal playthrough.",
+        "title_observation": {
+          "receipts": [],
+          "sector": 5,
+          "upgrades": []
+        }
+      },
+      "log_sha256": "d796b8b5dd9508a7ba77eb43b2e08af473ddf558b4f55df369bc41b3b6abd476",
+      "marker_found": true,
+      "name": "packed_focus_upgrade_120",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 6.639
+    }
+  ],
+  "engine": "4.6.3.stable.official.7d41c59c4",
+  "final_archives_created": false,
+  "fixture_override_manifest": "AUDIO_FIXTURE_OVERRIDE_MANIFEST.json",
+  "fixture_override_manifest_sha256": "2e86191c31653f71001734f28601ad329e3bcf7a94a1529340246f5438022623",
+  "full_campaign_playthrough": false,
+  "historical_failed_attempts": [
+    {
+      "path": "verification/packed_audio_contract_60.json",
+      "reason": "All 67 gameplay assertions passed, but old output guard rejected every absolute/user:// output path when exported res:// globalized to an empty string. Fail-closed runner correctly stopped.",
+      "result": {
+        "command": [
+          "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+          "--headless",
+          "--path",
+          "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+          "--main-pack",
+          "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+          "--script",
+          "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixtures/campaign/quality/nov6_audio/contract.gd",
+          "--fixed-fps",
+          "60",
+          "--",
+          "--hz=60"
+        ],
+        "errors": [],
+        "exit_code": 1,
+        "log_sha256": "aa8cc717545b2f6d6b65b02758c05be4dd86154523a9657857ce3f13dc7a1e8b",
+        "marker_found": true,
+        "name": "packed_audio_contract_60",
+        "passed": false,
+        "receipt_error": "Fixture receipt did not pass",
+        "wall_seconds": 4.149
+      },
+      "sha256": "558e77e98ffaf944c8883cbf06c769f50560355f8cffb90d5476780d03876b15"
+    }
+  ],
+  "kind": "continued rehearsal with explicitly hashed test-only output-guard corrections",
+  "native_capture_count": 31,
+  "native_capture_limits": [
+    "Controlled UI and sight fixtures, not campaign traversal or human-duration proof.",
+    "Software-rendered native Linux capture, not Windows execution or target-hardware performance.",
+    "Dummy audio driver because this desktop has no soundcard; no audible-output or audio-device verification.",
+    "Controller display states are fixtures, not physical-controller hardware testing."
+  ],
+  "native_capture_receipt": "native-review/NATIVE_CAPTURE_RECEIPT.json",
+  "native_capture_receipt_sha256": "97447b56611bf94060fdeddebf6127d1463c9b7dce3681168270a0827f78ece3",
+  "next_step": "Freeze corrected fixtures and final documentation, then rerun exact final source commit with unchanged b2 runtime provenance before final archives.",
+  "passed": true,
+  "pck_bytes": 8563072,
+  "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+  "physical_controller_tested": false,
+  "production_changed": false,
+  "production_files_verified_against_git": 816,
+  "resource_directory_empty_after_checks": true,
+  "runtime_commit": "b2e7f352b96b11e9a5137145416ddeaf4a974e27",
+  "source_commit": "b2e7f352b96b11e9a5137145416ddeaf4a974e27",
+  "source_root_negative_test": {
+    "command": [
+      "/usr/local/bin/godot",
+      "--headless",
+      "--path",
+      "/workspace/scratch/fd16273ade4b/moksha-campaign",
+      "--script",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-audio-guard-negative/output_guard_negative.gd"
+    ],
+    "errors": [],
+    "exit_code": 0,
+    "fixture_receipt": {
+      "checks": 37,
+      "failures": [],
+      "passed": true,
+      "scope": "Read-only predicate negative controls on all three actual audio fixture guards; no probe path is written.",
+      "source_root": "/workspace/scratch/fd16273ade4b/moksha-campaign"
+    },
+    "log_sha256": "34a9bc0d313ada18882f6433b008fc3baac86fa56e5c202ebabc23b1cc1b2a58",
+    "marker_found": true,
+    "name": "audio_output_guard_negative",
+    "passed": true,
+    "wall_seconds": 1.212
+  },
+  "stage_count": 28,
+  "uploaded": false,
+  "windows_executed": false
+}

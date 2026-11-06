@@ -1,0 +1,16 @@
+{
+  "available_checks": [
+    "export_pack.json",
+    "import.json",
+    "packed_audit.json",
+    "packed_incoming_health_60.json",
+    "packed_native_wrapper_smoke.json",
+    "packed_save_continue_60.json",
+    "packed_title.json"
+  ],
+  "completion_claim": false,
+  "included_in_accepted_28_stage_suite": false,
+  "pck_sha256": "328130b9f83a9381e6402c06212bd4e8506fc308c5b736c7fdb0652e0cc4ba54",
+  "reason": "The output-path hypothesis was disproved: exported res:// globalizes to an empty string. This retry was interrupted before completion; only the already written logs are retained.",
+  "status": "aborted"
+}

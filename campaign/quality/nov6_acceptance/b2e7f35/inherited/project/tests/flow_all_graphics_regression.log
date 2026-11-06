@@ -1,0 +1,44 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PASS: idle facing -1 keeps the foot origin/line fixed
+PASS: run facing -1 keeps the foot origin/line fixed
+PASS: jump facing -1 keeps the foot origin/line fixed
+PASS: fall facing -1 keeps the foot origin/line fixed
+PASS: hurt facing -1 keeps the foot origin/line fixed
+PASS: dash facing -1 keeps the foot origin/line fixed
+PASS: attack_1 facing -1 keeps the foot origin/line fixed
+PASS: idle facing 1 keeps the foot origin/line fixed
+PASS: run facing 1 keeps the foot origin/line fixed
+PASS: jump facing 1 keeps the foot origin/line fixed
+PASS: fall facing 1 keeps the foot origin/line fixed
+PASS: hurt facing 1 keeps the foot origin/line fixed
+PASS: dash facing 1 keeps the foot origin/line fixed
+PASS: attack_1 facing 1 keeps the foot origin/line fixed
+PASS: procedural poses never move the actor or collision
+PASS: combo 1 faces its contact forward at controller hit time (-1)
+PASS: combo 1 returns to a quiet carry at recovery (-1)
+PASS: combo 1 faces its contact forward at controller hit time (1)
+PASS: combo 1 returns to a quiet carry at recovery (1)
+PASS: combo 2 faces its contact forward at controller hit time (-1)
+PASS: combo 2 returns to a quiet carry at recovery (-1)
+PASS: combo 2 faces its contact forward at controller hit time (1)
+PASS: combo 2 returns to a quiet carry at recovery (1)
+PASS: combo 3 faces its contact forward at controller hit time (-1)
+PASS: combo 3 returns to a quiet carry at recovery (-1)
+PASS: combo 3 faces its contact forward at controller hit time (1)
+PASS: combo 3 returns to a quiet carry at recovery (1)
+PASS: moving attack has a restrained sweep
+PASS: interrupting a swing clears its sweep immediately
+PASS: roll visibly tucks the existing bent-knee pose
+PASS: local hitpause/simulation pause freezes procedural motion and frame cycles
+PASS: sight speed reward also increases the run cycle rate
+PASS: mirrored tap still aims at the actual contact
+PASS: death hides the separate weapon
+PASS: damage blink hides the body and weapon together
+PASS: Enemy walk rate follows actual speed
+PASS: Enemy windup keeps UI upright and feet anchored
+PASS: EliteEnemy walk rate follows actual speed
+PASS: EliteEnemy windup keeps UI upright and feet anchored
+PASS: a real fall onto a floor triggers the landing compression
+PASS: landing settle recovers fully without a residual scale
+GRAPHICS REGRESSION: 41/41 passed

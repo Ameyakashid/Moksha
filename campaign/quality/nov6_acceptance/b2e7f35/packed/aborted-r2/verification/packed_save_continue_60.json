@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/pack-only-run",
+    "--main-pack",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/MOKSHA.pck",
+    "--script",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/external-fixtures/campaign/qa_audit/save_draft.gd",
+    "--fixed-fps",
+    "60",
+    "--",
+    "--hz=60"
+  ],
+  "errors": [],
+  "exit_code": 0,
+  "external_script_sha256": "ba9189e31fdf7ea5e57ac223f8e3af7aa7aeb88a5727bb3695e8488fde05598e",
+  "log_sha256": "be70fb1b0af6fe5e940ee2846569b33b834be4ad5ce528bc11d59751b451c0b3",
+  "marker_found": true,
+  "name": "packed_save_continue_60",
+  "passed": true,
+  "pck_sha256": "328130b9f83a9381e6402c06212bd4e8506fc308c5b736c7fdb0652e0cc4ba54",
+  "resource_working_directory_empty": true,
+  "wall_seconds": 2.99
+}

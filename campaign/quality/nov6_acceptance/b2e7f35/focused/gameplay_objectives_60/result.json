@@ -1,0 +1,30 @@
+{
+  "name": "gameplay_objectives_60",
+  "command": [
+    "godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/project",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "res://campaign/quality/nov6_gameplay_objectives.gd",
+    "--",
+    "--hz=60"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "checks": 12,
+      "failures": [],
+      "hz": 60,
+      "passed": true,
+      "scope": "Controlled placements and real breaker contacts; not all authored puzzle traversal."
+    }
+  },
+  "wall_seconds": 2.442,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/gameplay_objectives_60/engine.log"
+}

@@ -1,0 +1,1435 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/contract.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--hz=60",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_contract_60_guard_fixed.json"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_receipt_path": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_contract_60_guard_fixed.json",
+      "external_receipt_sha256": "3837e1fc5c69b9f58312be4749675cefd031752b7052101caf94930f07811fad",
+      "external_script_sha256": "5a4027f110d5e9aecbc0eff2dfde366cdd8f7dc27278398751cd40331c752754",
+      "fixture_origin": "Authorized output-guard-only fixture correction, not original b2 blob",
+      "fixture_receipt": {
+        "checks": 67,
+        "engine": "4.6.3-stable (official)",
+        "failures": [],
+        "output": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_contract_60_guard_fixed.json",
+        "passed": true,
+        "physics_hz": 60,
+        "rows": [
+          {
+            "label": "physical M toggles on once: title",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: title",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: title",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: title",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: title",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: intro",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: intro",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: intro",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: intro",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: intro",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: playing",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: playing",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: playing",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: playing",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: playing",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: archive",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: archive",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: archive",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: archive",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: archive",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: choice",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: choice",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: choice",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: choice",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: choice",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: paused",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: paused",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: paused",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: paused",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: paused",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: journal",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: journal",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: journal",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: journal",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: journal",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: upgrade",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: upgrade",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: upgrade",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: upgrade",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: upgrade",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: final_choice",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: final_choice",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: final_choice",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: final_choice",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: final_choice",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: complete",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: complete",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: complete",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: complete",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: complete",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: dead",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: dead",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: dead",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: dead",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: dead",
+            "passed": true
+          },
+          {
+            "label": "M preserves pending/focus boundary",
+            "passed": true
+          },
+          {
+            "label": "new matching modal cue gets live physics while paused",
+            "passed": true
+          },
+          {
+            "label": "existing and unrelated cues keep inherited pause mode",
+            "passed": true
+          },
+          {
+            "label": "rejected external damage cannot promote old hurt",
+            "passed": true
+          },
+          {
+            "label": "nonlethal hurt retains pausable mode",
+            "passed": true
+          },
+          {
+            "label": "defeat promotes only freshly observed hurt",
+            "passed": true
+          },
+          {
+            "label": "defeat leaves earlier world hurt alone",
+            "passed": true
+          },
+          {
+            "label": "stale paused hurt remains at zero playback position",
+            "passed": true
+          },
+          {
+            "label": "later defeat cannot promote prior-frame zero-position hurt",
+            "passed": true
+          },
+          {
+            "label": "room retirement clears all old spatial one-shots",
+            "passed": true
+          },
+          {
+            "label": "room retirement preserves ambience player",
+            "passed": true
+          },
+          {
+            "label": "modal lifecycle does not fabricate noise events",
+            "passed": true
+          }
+        ],
+        "scope": "Headless key routing and lifecycle contract. Dummy players verify selective promotion, same-frame freshness and retirement. Native probe separately verifies playback. No runtime/source writes."
+      },
+      "frozen_b2_script_sha256": "9452366c13560eec1a07be26b50d7781510ba876be6aef972262ef0ae61cf0ed",
+      "log_sha256": "4051cee54a50a2b22a066b3a62cc6fa54d628f079d1b135031eca9b0ffe8f4aa",
+      "marker_found": true,
+      "name": "packed_audio_contract_60_guard_fixed",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 1.865
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/event_routing.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--hz=60",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_routing_60_guard_fixed.json"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_receipt_path": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_routing_60_guard_fixed.json",
+      "external_receipt_sha256": "8c727984742ce9647ae84fbd3465733557e928ff6508b11f01f514160837f097",
+      "external_script_sha256": "da8100f7f230fc25f072a0203393b60028799a04e37de74bd08f52014903c0b7",
+      "fixture_origin": "Authorized output-guard-only fixture correction, not original b2 blob",
+      "fixture_receipt": {
+        "authored_counts": {
+          "city_clinic": {
+            "enemies": 10,
+            "hazards": 0,
+            "props": 7
+          },
+          "city_evac_spine": {
+            "enemies": 12,
+            "hazards": 0,
+            "props": 7
+          },
+          "city_records": {
+            "enemies": 10,
+            "hazards": 0,
+            "props": 7
+          },
+          "city_tram_depot": {
+            "enemies": 12,
+            "hazards": 2,
+            "props": 7
+          },
+          "crown_ascent": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_choice_threshold": {
+            "enemies": 0,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_coolant_interlock": {
+            "enemies": 8,
+            "hazards": 1,
+            "props": 7
+          },
+          "crown_last_warden": {
+            "enemies": 6,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_manual_governor": {
+            "enemies": 8,
+            "hazards": 2,
+            "props": 7
+          },
+          "crown_refuge_channel": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_witness_galleries": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "l2_capacitor_mill": {
+            "enemies": 7,
+            "hazards": 1,
+            "props": 5
+          },
+          "l2_exchange": {
+            "enemies": 6,
+            "hazards": 0,
+            "props": 5
+          },
+          "l2_freight": {
+            "enemies": 4,
+            "hazards": 0,
+            "props": 3
+          },
+          "l2_stamping_galleries": {
+            "enemies": 7,
+            "hazards": 2,
+            "props": 6
+          },
+          "l2_thermal_foundry": {
+            "enemies": 8,
+            "hazards": 3,
+            "props": 6
+          },
+          "l2_union_dispatch": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 5
+          },
+          "l3_cistern": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 5
+          },
+          "l3_drainage_commons": {
+            "enemies": 8,
+            "hazards": 2,
+            "props": 6
+          },
+          "l3_homes": {
+            "enemies": 9,
+            "hazards": 0,
+            "props": 7
+          },
+          "l3_inundated_market": {
+            "enemies": 7,
+            "hazards": 2,
+            "props": 6
+          },
+          "l3_refuge_terraces": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 7
+          },
+          "l3_water_clinic": {
+            "enemies": 6,
+            "hazards": 2,
+            "props": 6
+          },
+          "quarantine_intake": {
+            "enemies": 9,
+            "hazards": 0,
+            "props": 4
+          },
+          "rainline": {
+            "enemies": 17,
+            "hazards": 0,
+            "props": 15
+          },
+          "works_baffle_hall": {
+            "enemies": 7,
+            "hazards": 2,
+            "props": 6
+          },
+          "works_cargo_exchange": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 5
+          },
+          "works_dispatch_refusal": {
+            "enemies": 8,
+            "hazards": 1,
+            "props": 7
+          },
+          "works_memory_loom": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "works_receiving": {
+            "enemies": 6,
+            "hazards": 0,
+            "props": 5
+          },
+          "works_service_refuge": {
+            "enemies": 6,
+            "hazards": 1,
+            "props": 6
+          },
+          "works_three_crews": {
+            "enemies": 13,
+            "hazards": 0,
+            "props": 10
+          }
+        },
+        "checks": 23,
+        "engine": "4.6.3-stable (official)",
+        "failures": [],
+        "output": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_routing_60_guard_fixed.json",
+        "passed": true,
+        "physics_hz": 60,
+        "rows": [
+          {
+            "label": "schema weapon_tap -> tap at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_windup -> guard_draw at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_damage -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_death -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema parry -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema guard -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema player_damage -> hurt at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema attack -> swing at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema swing -> swing at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_attack -> swing at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema prop_impact -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema prop_break -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema prop_launch -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema landing -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema jump -> jump at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema air_jump -> jump at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema roll -> dash at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema footstep -> step at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_step -> step at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema lift_motor -> step at committed origin",
+            "passed": true
+          },
+          {
+            "label": "unrelated-room source rejected",
+            "passed": true
+          },
+          {
+            "label": "missing source rejected",
+            "passed": true
+          },
+          {
+            "label": "retained old room rejected after replacement",
+            "passed": true
+          }
+        ],
+        "scope": "Headless exact event-to-cue/origin schema and stale-source rejection. Explicit injected NoiseBus requests, not physical gameplay or audible-output evidence. No runtime/source writes."
+      },
+      "frozen_b2_script_sha256": "e2ae3de22599668d2efff29a813c22d13de5fa282a2a63bd8a2ddc4815f2f1f0",
+      "log_sha256": "8d5f2b200eb521dac70abd5dedbd168c4a14b583c00c45a42598d35e13c38c07",
+      "marker_found": true,
+      "name": "packed_audio_routing_60_guard_fixed",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 2.849
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/rejected_noise.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--hz=60",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_rejected_noise_60_guard_fixed.json"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_receipt_path": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_rejected_noise_60_guard_fixed.json",
+      "external_receipt_sha256": "7d7ec2df52e3379d80b758bceb724e367a37f48ec6567e67d0284027fbb75499",
+      "external_script_sha256": "46a5c23097adb2873e8f549a29f9281e4c234cd6596bdad63701c8bf12db301d",
+      "fixture_origin": "Authorized output-guard-only fixture correction, not original b2 blob",
+      "fixture_receipt": {
+        "checks": 13,
+        "engine": "4.6.3-stable (official)",
+        "failures": [],
+        "observations": [
+          {
+            "injection": [
+              {
+                "pending_after": true,
+                "pending_before": true,
+                "physics_frame": 1,
+                "request_unchanged": true,
+                "state_before": "playing"
+              }
+            ],
+            "mode": 3
+          }
+        ],
+        "output": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_rejected_noise_60_guard_fixed.json",
+        "passed": true,
+        "physics_hz": 60,
+        "rows": [
+          {
+            "label": "genuine lethal actor hit reaches real Health and death",
+            "passed": true
+          },
+          {
+            "label": "accepted real hurt precedes injected outsider before death",
+            "passed": true
+          },
+          {
+            "label": "superclass rejects outsider without a new sound request",
+            "passed": true
+          },
+          {
+            "label": "entire lethal chain occurs in one physics frame",
+            "passed": true
+          },
+          {
+            "label": "only genuine accepted hurt creates a voice",
+            "passed": true
+          },
+          {
+            "label": "rejected outsider cannot suppress same-frame lethal promotion",
+            "passed": true
+          },
+          {
+            "label": "accepted headless voice establishes pending identity",
+            "passed": true
+          },
+          {
+            "label": "identical accepted values still replace request identity",
+            "passed": true
+          },
+          {
+            "label": "repeated accepted request replaces pending voice",
+            "passed": true
+          },
+          {
+            "label": "accepted muted request still clears prior pending voice",
+            "passed": true
+          },
+          {
+            "label": "unmuted accepted request restores fresh pending",
+            "passed": true
+          },
+          {
+            "label": "accepted missing-cache request still clears prior pending voice",
+            "passed": true
+          },
+          {
+            "label": "null-source rejection cannot clear pending voice",
+            "passed": true
+          }
+        ],
+        "scope": "Synthetic nested outsider-noise hardening, not an authored gameplay bug. Actual public actor hit, NoiseBus admission, Health and defeat routing; explicit headless-only voice provider, not audible or physical-device evidence."
+      },
+      "frozen_b2_script_sha256": "334b3b83475d626a398758698ee9a0f102555680653d54da5ce6ffaa14eb1744",
+      "log_sha256": "bb1650b07e20dfd198978d37a7d173e647a9739727066652a492cc06ea0977a0",
+      "marker_found": true,
+      "name": "packed_audio_rejected_noise_60_guard_fixed",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 2.061
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/contract.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_contract_120_guard_fixed.json"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_receipt_path": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_contract_120_guard_fixed.json",
+      "external_receipt_sha256": "6a3d372934c18696d993728b912ca7375cd96b9225be54ef26091924aed7c5d3",
+      "external_script_sha256": "5a4027f110d5e9aecbc0eff2dfde366cdd8f7dc27278398751cd40331c752754",
+      "fixture_origin": "Authorized output-guard-only fixture correction, not original b2 blob",
+      "fixture_receipt": {
+        "checks": 67,
+        "engine": "4.6.3-stable (official)",
+        "failures": [],
+        "output": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_contract_120_guard_fixed.json",
+        "passed": true,
+        "physics_hz": 120,
+        "rows": [
+          {
+            "label": "physical M toggles on once: title",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: title",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: title",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: title",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: title",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: intro",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: intro",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: intro",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: intro",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: intro",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: playing",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: playing",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: playing",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: playing",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: playing",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: archive",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: archive",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: archive",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: archive",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: archive",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: choice",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: choice",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: choice",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: choice",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: choice",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: paused",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: paused",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: paused",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: paused",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: paused",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: journal",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: journal",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: journal",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: journal",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: journal",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: upgrade",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: upgrade",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: upgrade",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: upgrade",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: upgrade",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: final_choice",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: final_choice",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: final_choice",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: final_choice",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: final_choice",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: complete",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: complete",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: complete",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: complete",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: complete",
+            "passed": true
+          },
+          {
+            "label": "physical M toggles on once: dead",
+            "passed": true
+          },
+          {
+            "label": "M echo ignored: dead",
+            "passed": true
+          },
+          {
+            "label": "M release ignored: dead",
+            "passed": true
+          },
+          {
+            "label": "logical M toggles off once: dead",
+            "passed": true
+          },
+          {
+            "label": "M preserves modal state: dead",
+            "passed": true
+          },
+          {
+            "label": "M preserves pending/focus boundary",
+            "passed": true
+          },
+          {
+            "label": "new matching modal cue gets live physics while paused",
+            "passed": true
+          },
+          {
+            "label": "existing and unrelated cues keep inherited pause mode",
+            "passed": true
+          },
+          {
+            "label": "rejected external damage cannot promote old hurt",
+            "passed": true
+          },
+          {
+            "label": "nonlethal hurt retains pausable mode",
+            "passed": true
+          },
+          {
+            "label": "defeat promotes only freshly observed hurt",
+            "passed": true
+          },
+          {
+            "label": "defeat leaves earlier world hurt alone",
+            "passed": true
+          },
+          {
+            "label": "stale paused hurt remains at zero playback position",
+            "passed": true
+          },
+          {
+            "label": "later defeat cannot promote prior-frame zero-position hurt",
+            "passed": true
+          },
+          {
+            "label": "room retirement clears all old spatial one-shots",
+            "passed": true
+          },
+          {
+            "label": "room retirement preserves ambience player",
+            "passed": true
+          },
+          {
+            "label": "modal lifecycle does not fabricate noise events",
+            "passed": true
+          }
+        ],
+        "scope": "Headless key routing and lifecycle contract. Dummy players verify selective promotion, same-frame freshness and retirement. Native probe separately verifies playback. No runtime/source writes."
+      },
+      "frozen_b2_script_sha256": "9452366c13560eec1a07be26b50d7781510ba876be6aef972262ef0ae61cf0ed",
+      "log_sha256": "5e41135e288d3ca480b67e9ef7a61f0db7c58347c4ed6bf4db54537b8b790915",
+      "marker_found": true,
+      "name": "packed_audio_contract_120_guard_fixed",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 1.945
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/event_routing.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_routing_120_guard_fixed.json"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_receipt_path": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_routing_120_guard_fixed.json",
+      "external_receipt_sha256": "19d6970089dd8a5682277fd164d6927210f0b603d5e18bce63a5d4a6e3a85082",
+      "external_script_sha256": "da8100f7f230fc25f072a0203393b60028799a04e37de74bd08f52014903c0b7",
+      "fixture_origin": "Authorized output-guard-only fixture correction, not original b2 blob",
+      "fixture_receipt": {
+        "authored_counts": {
+          "city_clinic": {
+            "enemies": 10,
+            "hazards": 0,
+            "props": 7
+          },
+          "city_evac_spine": {
+            "enemies": 12,
+            "hazards": 0,
+            "props": 7
+          },
+          "city_records": {
+            "enemies": 10,
+            "hazards": 0,
+            "props": 7
+          },
+          "city_tram_depot": {
+            "enemies": 12,
+            "hazards": 2,
+            "props": 7
+          },
+          "crown_ascent": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_choice_threshold": {
+            "enemies": 0,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_coolant_interlock": {
+            "enemies": 8,
+            "hazards": 1,
+            "props": 7
+          },
+          "crown_last_warden": {
+            "enemies": 6,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_manual_governor": {
+            "enemies": 8,
+            "hazards": 2,
+            "props": 7
+          },
+          "crown_refuge_channel": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "crown_witness_galleries": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "l2_capacitor_mill": {
+            "enemies": 7,
+            "hazards": 1,
+            "props": 5
+          },
+          "l2_exchange": {
+            "enemies": 6,
+            "hazards": 0,
+            "props": 5
+          },
+          "l2_freight": {
+            "enemies": 4,
+            "hazards": 0,
+            "props": 3
+          },
+          "l2_stamping_galleries": {
+            "enemies": 7,
+            "hazards": 2,
+            "props": 6
+          },
+          "l2_thermal_foundry": {
+            "enemies": 8,
+            "hazards": 3,
+            "props": 6
+          },
+          "l2_union_dispatch": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 5
+          },
+          "l3_cistern": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 5
+          },
+          "l3_drainage_commons": {
+            "enemies": 8,
+            "hazards": 2,
+            "props": 6
+          },
+          "l3_homes": {
+            "enemies": 9,
+            "hazards": 0,
+            "props": 7
+          },
+          "l3_inundated_market": {
+            "enemies": 7,
+            "hazards": 2,
+            "props": 6
+          },
+          "l3_refuge_terraces": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 7
+          },
+          "l3_water_clinic": {
+            "enemies": 6,
+            "hazards": 2,
+            "props": 6
+          },
+          "quarantine_intake": {
+            "enemies": 9,
+            "hazards": 0,
+            "props": 4
+          },
+          "rainline": {
+            "enemies": 17,
+            "hazards": 0,
+            "props": 15
+          },
+          "works_baffle_hall": {
+            "enemies": 7,
+            "hazards": 2,
+            "props": 6
+          },
+          "works_cargo_exchange": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 5
+          },
+          "works_dispatch_refusal": {
+            "enemies": 8,
+            "hazards": 1,
+            "props": 7
+          },
+          "works_memory_loom": {
+            "enemies": 7,
+            "hazards": 0,
+            "props": 6
+          },
+          "works_receiving": {
+            "enemies": 6,
+            "hazards": 0,
+            "props": 5
+          },
+          "works_service_refuge": {
+            "enemies": 6,
+            "hazards": 1,
+            "props": 6
+          },
+          "works_three_crews": {
+            "enemies": 13,
+            "hazards": 0,
+            "props": 10
+          }
+        },
+        "checks": 23,
+        "engine": "4.6.3-stable (official)",
+        "failures": [],
+        "output": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_routing_120_guard_fixed.json",
+        "passed": true,
+        "physics_hz": 120,
+        "rows": [
+          {
+            "label": "schema weapon_tap -> tap at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_windup -> guard_draw at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_damage -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_death -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema parry -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema guard -> hit at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema player_damage -> hurt at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema attack -> swing at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema swing -> swing at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_attack -> swing at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema prop_impact -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema prop_break -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema prop_launch -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema landing -> prop at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema jump -> jump at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema air_jump -> jump at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema roll -> dash at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema footstep -> step at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema enemy_step -> step at committed origin",
+            "passed": true
+          },
+          {
+            "label": "schema lift_motor -> step at committed origin",
+            "passed": true
+          },
+          {
+            "label": "unrelated-room source rejected",
+            "passed": true
+          },
+          {
+            "label": "missing source rejected",
+            "passed": true
+          },
+          {
+            "label": "retained old room rejected after replacement",
+            "passed": true
+          }
+        ],
+        "scope": "Headless exact event-to-cue/origin schema and stale-source rejection. Explicit injected NoiseBus requests, not physical gameplay or audible-output evidence. No runtime/source writes."
+      },
+      "frozen_b2_script_sha256": "e2ae3de22599668d2efff29a813c22d13de5fa282a2a63bd8a2ddc4815f2f1f0",
+      "log_sha256": "a2351d92822d53227da635dfe269772faa0f82632d633f999dab8b675c7d413f",
+      "marker_found": true,
+      "name": "packed_audio_routing_120_guard_fixed",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 3.003
+    },
+    {
+      "command": [
+        "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+        "--headless",
+        "--path",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/pack-only-run",
+        "--main-pack",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/MOKSHA.pck",
+        "--script",
+        "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35/external-fixture-overrides/campaign/quality/nov6_audio/rejected_noise.gd",
+        "--fixed-fps",
+        "120",
+        "--",
+        "--hz=120",
+        "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_rejected_noise_120_guard_fixed.json"
+      ],
+      "errors": [],
+      "exit_code": 0,
+      "external_receipt_path": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_rejected_noise_120_guard_fixed.json",
+      "external_receipt_sha256": "246efe07f5e618b06f66c5547d6d6d4ac1f424362735cd6bf89182a7c91a3832",
+      "external_script_sha256": "46a5c23097adb2873e8f549a29f9281e4c234cd6596bdad63701c8bf12db301d",
+      "fixture_origin": "Authorized output-guard-only fixture correction, not original b2 blob",
+      "fixture_receipt": {
+        "checks": 13,
+        "engine": "4.6.3-stable (official)",
+        "failures": [],
+        "observations": [
+          {
+            "injection": [
+              {
+                "pending_after": true,
+                "pending_before": true,
+                "physics_frame": 1,
+                "request_unchanged": true,
+                "state_before": "playing"
+              }
+            ],
+            "mode": 3
+          }
+        ],
+        "output": "/workspace/scratch/fd16273ade4b/moksha-nov6-b2-audio-override-receipts/packed_audio_rejected_noise_120_guard_fixed.json",
+        "passed": true,
+        "physics_hz": 120,
+        "rows": [
+          {
+            "label": "genuine lethal actor hit reaches real Health and death",
+            "passed": true
+          },
+          {
+            "label": "accepted real hurt precedes injected outsider before death",
+            "passed": true
+          },
+          {
+            "label": "superclass rejects outsider without a new sound request",
+            "passed": true
+          },
+          {
+            "label": "entire lethal chain occurs in one physics frame",
+            "passed": true
+          },
+          {
+            "label": "only genuine accepted hurt creates a voice",
+            "passed": true
+          },
+          {
+            "label": "rejected outsider cannot suppress same-frame lethal promotion",
+            "passed": true
+          },
+          {
+            "label": "accepted headless voice establishes pending identity",
+            "passed": true
+          },
+          {
+            "label": "identical accepted values still replace request identity",
+            "passed": true
+          },
+          {
+            "label": "repeated accepted request replaces pending voice",
+            "passed": true
+          },
+          {
+            "label": "accepted muted request still clears prior pending voice",
+            "passed": true
+          },
+          {
+            "label": "unmuted accepted request restores fresh pending",
+            "passed": true
+          },
+          {
+            "label": "accepted missing-cache request still clears prior pending voice",
+            "passed": true
+          },
+          {
+            "label": "null-source rejection cannot clear pending voice",
+            "passed": true
+          }
+        ],
+        "scope": "Synthetic nested outsider-noise hardening, not an authored gameplay bug. Actual public actor hit, NoiseBus admission, Health and defeat routing; explicit headless-only voice provider, not audible or physical-device evidence."
+      },
+      "frozen_b2_script_sha256": "334b3b83475d626a398758698ee9a0f102555680653d54da5ce6ffaa14eb1744",
+      "log_sha256": "04b22272e0d6d24662d25ff18d1bd832fe95aed58975fbd701e5a20a82f5526b",
+      "marker_found": true,
+      "name": "packed_audio_rejected_noise_120_guard_fixed",
+      "passed": true,
+      "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+      "resource_working_directory_empty": true,
+      "wall_seconds": 2.197
+    }
+  ],
+  "fixture_manifest_sha256": "2e86191c31653f71001734f28601ad329e3bcf7a94a1529340246f5438022623",
+  "passed": true,
+  "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282"
+}

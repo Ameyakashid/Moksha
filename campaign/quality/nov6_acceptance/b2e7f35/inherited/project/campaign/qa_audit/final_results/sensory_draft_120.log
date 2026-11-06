@@ -1,0 +1,324 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PASS real station choice activated from controlled placement
+PASS rainline blackout state/paint
+PASS city_clinic blackout state/paint
+PASS city_clinic sonar geometry cell
+PASS city_clinic hidden objective paint cell
+PASS city_clinic sonar geometry generator
+PASS city_clinic hidden objective paint generator
+PASS city_clinic sonar geometry patients
+PASS city_clinic hidden objective paint patients
+PASS city_clinic sonar geometry medic
+PASS city_clinic hidden objective paint medic
+PASS city_tram_depot blackout state/paint
+PASS city_tram_depot sonar geometry schematic
+PASS city_tram_depot hidden objective paint schematic
+PASS city_tram_depot sonar geometry auxiliary
+PASS city_tram_depot hidden objective paint auxiliary
+PASS city_tram_depot sonar geometry brake
+PASS city_tram_depot hidden objective paint brake
+PASS city_tram_depot real hazard warning event
+PASS city_tram_depot warning accepted by sonar
+PASS city_tram_depot real hazard warning event
+PASS city_tram_depot warning accepted by sonar
+PASS city_records blackout state/paint
+PASS city_records sonar geometry record
+PASS city_records hidden objective paint record
+PASS city_records sonar geometry antenna
+PASS city_records hidden objective paint antenna
+PASS city_records sonar geometry counterweight
+PASS city_records hidden objective paint counterweight
+PASS city_evac_spine blackout state/paint
+PASS city_evac_spine sonar geometry keys
+PASS city_evac_spine hidden objective paint keys
+PASS city_evac_spine sonar geometry west
+PASS city_evac_spine hidden objective paint west
+PASS city_evac_spine sonar geometry east
+PASS city_evac_spine hidden objective paint east
+PASS city_evac_spine sonar geometry runner
+PASS city_evac_spine hidden objective paint runner
+PASS quarantine_intake blackout state/paint
+PASS l2_exchange blackout state/paint
+PASS l2_exchange sonar geometry safety
+PASS l2_exchange hidden objective paint safety
+PASS l2_exchange sonar geometry access
+PASS l2_exchange hidden objective paint access
+PASS l2_capacitor_mill blackout state/paint
+PASS l2_capacitor_mill sonar geometry coil
+PASS l2_capacitor_mill hidden objective paint coil
+PASS l2_capacitor_mill sonar geometry breaker
+PASS l2_capacitor_mill hidden objective paint breaker
+PASS l2_capacitor_mill sonar geometry bus
+PASS l2_capacitor_mill hidden objective paint bus
+PASS l2_capacitor_mill sonar geometry crew
+PASS l2_capacitor_mill hidden objective paint crew
+PASS l2_capacitor_mill sonar geometry chart
+PASS l2_capacitor_mill hidden objective paint chart
+PASS l2_capacitor_mill real hazard warning event
+PASS l2_capacitor_mill warning accepted by sonar
+PASS l2_freight blackout state/paint
+PASS l2_freight sonar geometry ticket
+PASS l2_freight hidden objective paint ticket
+PASS l2_freight sonar geometry release
+PASS l2_freight hidden objective paint release
+PASS l2_stamping_galleries blackout state/paint
+PASS l2_stamping_galleries sonar geometry die
+PASS l2_stamping_galleries hidden objective paint die
+PASS l2_stamping_galleries sonar geometry stamp
+PASS l2_stamping_galleries hidden objective paint stamp
+PASS l2_stamping_galleries sonar geometry certify
+PASS l2_stamping_galleries hidden objective paint certify
+PASS l2_stamping_galleries sonar geometry release
+PASS l2_stamping_galleries hidden objective paint release
+PASS l2_stamping_galleries sonar geometry counterweight
+PASS l2_stamping_galleries hidden objective paint counterweight
+PASS l2_stamping_galleries sonar geometry letters
+PASS l2_stamping_galleries hidden objective paint letters
+PASS l2_stamping_galleries real hazard warning event
+PASS l2_stamping_galleries warning accepted by sonar
+PASS l2_stamping_galleries real hazard warning event
+PASS l2_stamping_galleries warning accepted by sonar
+PASS l2_thermal_foundry blackout state/paint
+PASS l2_thermal_foundry sonar geometry ceramic
+PASS l2_thermal_foundry hidden objective paint ceramic
+PASS l2_thermal_foundry sonar geometry return
+PASS l2_thermal_foundry hidden objective paint return
+PASS l2_thermal_foundry sonar geometry feed
+PASS l2_thermal_foundry hidden objective paint feed
+PASS l2_thermal_foundry sonar geometry coolant
+PASS l2_thermal_foundry hidden objective paint coolant
+PASS l2_thermal_foundry sonar geometry evac
+PASS l2_thermal_foundry hidden objective paint evac
+PASS l2_thermal_foundry sonar geometry service
+PASS l2_thermal_foundry hidden objective paint service
+PASS l2_thermal_foundry real hazard warning event
+PASS l2_thermal_foundry warning accepted by sonar
+PASS l2_thermal_foundry real hazard warning event
+PASS l2_thermal_foundry warning accepted by sonar
+PASS l2_thermal_foundry real hazard warning event
+PASS l2_thermal_foundry warning accepted by sonar
+PASS l2_union_dispatch blackout state/paint
+PASS l2_union_dispatch sonar geometry manifest
+PASS l2_union_dispatch hidden objective paint manifest
+PASS l2_union_dispatch sonar geometry channel
+PASS l2_union_dispatch hidden objective paint channel
+PASS l2_union_dispatch sonar geometry broadcast
+PASS l2_union_dispatch hidden objective paint broadcast
+PASS l2_union_dispatch sonar geometry pod
+PASS l2_union_dispatch hidden objective paint pod
+PASS l2_union_dispatch sonar geometry handoff
+PASS l2_union_dispatch hidden objective paint handoff
+PASS l2_union_dispatch sonar geometry locker
+PASS l2_union_dispatch hidden objective paint locker
+PASS l3_cistern blackout state/paint
+PASS l3_cistern sonar geometry survey
+PASS l3_cistern hidden objective paint survey
+PASS l3_cistern sonar geometry permit
+PASS l3_cistern hidden objective paint permit
+PASS l3_inundated_market blackout state/paint
+PASS l3_inundated_market sonar geometry key
+PASS l3_inundated_market hidden objective paint key
+PASS l3_inundated_market sonar geometry isolate
+PASS l3_inundated_market hidden objective paint isolate
+PASS l3_inundated_market sonar geometry bridge
+PASS l3_inundated_market hidden objective paint bridge
+PASS l3_inundated_market sonar geometry family
+PASS l3_inundated_market hidden objective paint family
+PASS l3_inundated_market sonar geometry records
+PASS l3_inundated_market hidden objective paint records
+PASS l3_inundated_market real hazard warning event
+PASS l3_inundated_market warning accepted by sonar
+PASS l3_inundated_market real hazard warning event
+PASS l3_inundated_market warning accepted by sonar
+PASS l3_water_clinic blackout state/paint
+PASS l3_water_clinic sonar geometry filter
+PASS l3_water_clinic hidden objective paint filter
+PASS l3_water_clinic sonar geometry assay
+PASS l3_water_clinic hidden objective paint assay
+PASS l3_water_clinic sonar geometry purge
+PASS l3_water_clinic hidden objective paint purge
+PASS l3_water_clinic sonar geometry clean
+PASS l3_water_clinic hidden objective paint clean
+PASS l3_water_clinic sonar geometry patients
+PASS l3_water_clinic hidden objective paint patients
+PASS l3_water_clinic sonar geometry bench
+PASS l3_water_clinic hidden objective paint bench
+PASS l3_water_clinic sonar geometry note
+PASS l3_water_clinic hidden objective paint note
+PASS l3_water_clinic real hazard warning event
+PASS l3_water_clinic warning accepted by sonar
+PASS l3_water_clinic real hazard warning event
+PASS l3_water_clinic warning accepted by sonar
+PASS l3_homes blackout state/paint
+PASS l3_homes sonar geometry list
+PASS l3_homes hidden objective paint list
+PASS l3_homes sonar geometry shelter
+PASS l3_homes hidden objective paint shelter
+PASS l3_homes sonar geometry roofs
+PASS l3_homes hidden objective paint roofs
+PASS l3_refuge_terraces blackout state/paint
+PASS l3_refuge_terraces sonar geometry winch
+PASS l3_refuge_terraces hidden objective paint winch
+PASS l3_refuge_terraces sonar geometry roof
+PASS l3_refuge_terraces hidden objective paint roof
+PASS l3_refuge_terraces sonar geometry open
+PASS l3_refuge_terraces hidden objective paint open
+PASS l3_refuge_terraces sonar geometry residents
+PASS l3_refuge_terraces hidden objective paint residents
+PASS l3_refuge_terraces sonar geometry beacon
+PASS l3_refuge_terraces hidden objective paint beacon
+PASS l3_refuge_terraces sonar geometry garden
+PASS l3_refuge_terraces hidden objective paint garden
+PASS l3_drainage_commons blackout state/paint
+PASS l3_drainage_commons sonar geometry map
+PASS l3_drainage_commons hidden objective paint map
+PASS l3_drainage_commons sonar geometry west
+PASS l3_drainage_commons hidden objective paint west
+PASS l3_drainage_commons sonar geometry east
+PASS l3_drainage_commons hidden objective paint east
+PASS l3_drainage_commons sonar geometry link
+PASS l3_drainage_commons hidden objective paint link
+PASS l3_drainage_commons sonar geometry crew
+PASS l3_drainage_commons hidden objective paint crew
+PASS l3_drainage_commons sonar geometry handoff
+PASS l3_drainage_commons hidden objective paint handoff
+PASS l3_drainage_commons sonar geometry spare
+PASS l3_drainage_commons hidden objective paint spare
+PASS l3_drainage_commons real hazard warning event
+PASS l3_drainage_commons warning accepted by sonar
+PASS l3_drainage_commons real hazard warning event
+PASS l3_drainage_commons warning accepted by sonar
+PASS works_receiving blackout state/paint
+PASS works_receiving sonar geometry origin
+PASS works_receiving hidden objective paint origin
+PASS works_receiving sonar geometry revision
+PASS works_receiving hidden objective paint revision
+PASS works_receiving sonar geometry compare
+PASS works_receiving hidden objective paint compare
+PASS works_receiving sonar geometry margin
+PASS works_receiving hidden objective paint margin
+PASS works_baffle_hall blackout state/paint
+PASS works_baffle_hall sonar geometry baffle_key
+PASS works_baffle_hall hidden objective paint baffle_key
+PASS works_baffle_hall sonar geometry quiet_bus
+PASS works_baffle_hall hidden objective paint quiet_bus
+PASS works_baffle_hall sonar geometry quiet_lock
+PASS works_baffle_hall hidden objective paint quiet_lock
+PASS works_baffle_hall sonar geometry echo_notes
+PASS works_baffle_hall hidden objective paint echo_notes
+PASS works_baffle_hall real hazard warning event
+PASS works_baffle_hall warning accepted by sonar
+PASS works_baffle_hall real hazard warning event
+PASS works_baffle_hall warning accepted by sonar
+PASS works_cargo_exchange blackout state/paint
+PASS works_cargo_exchange sonar geometry delivery_tag
+PASS works_cargo_exchange hidden objective paint delivery_tag
+PASS works_cargo_exchange sonar geometry receiver_bus
+PASS works_cargo_exchange hidden objective paint receiver_bus
+PASS works_cargo_exchange sonar geometry handoff
+PASS works_cargo_exchange hidden objective paint handoff
+PASS works_cargo_exchange sonar geometry carrier_note
+PASS works_cargo_exchange hidden objective paint carrier_note
+PASS works_memory_loom blackout state/paint
+PASS works_memory_loom sonar geometry first_account
+PASS works_memory_loom hidden objective paint first_account
+PASS works_memory_loom sonar geometry other_account
+PASS works_memory_loom hidden objective paint other_account
+PASS works_memory_loom sonar geometry preserve
+PASS works_memory_loom hidden objective paint preserve
+PASS works_memory_loom sonar geometry index
+PASS works_memory_loom hidden objective paint index
+PASS works_service_refuge blackout state/paint
+PASS works_service_refuge sonar geometry crew_key
+PASS works_service_refuge hidden objective paint crew_key
+PASS works_service_refuge sonar geometry shelter_power
+PASS works_service_refuge hidden objective paint shelter_power
+PASS works_service_refuge sonar geometry crew_release
+PASS works_service_refuge hidden objective paint crew_release
+PASS works_service_refuge sonar geometry side_pod
+PASS works_service_refuge hidden objective paint side_pod
+PASS works_service_refuge real hazard warning event
+PASS works_service_refuge warning accepted by sonar
+PASS works_three_crews blackout state/paint
+PASS works_dispatch_refusal blackout state/paint
+PASS works_dispatch_refusal sonar geometry stamp
+PASS works_dispatch_refusal hidden objective paint stamp
+PASS works_dispatch_refusal sonar geometry isolate
+PASS works_dispatch_refusal hidden objective paint isolate
+PASS works_dispatch_refusal sonar geometry refuse
+PASS works_dispatch_refusal hidden objective paint refuse
+PASS works_dispatch_refusal sonar geometry last_shift
+PASS works_dispatch_refusal hidden objective paint last_shift
+PASS works_dispatch_refusal real hazard warning event
+PASS works_dispatch_refusal warning accepted by sonar
+PASS crown_ascent blackout state/paint
+PASS crown_ascent sonar geometry intake_fuse
+PASS crown_ascent hidden objective paint intake_fuse
+PASS crown_ascent sonar geometry intake
+PASS crown_ascent hidden objective paint intake
+PASS crown_ascent sonar geometry weather_log
+PASS crown_ascent hidden objective paint weather_log
+PASS crown_witness_galleries blackout state/paint
+PASS crown_witness_galleries sonar geometry public_copy
+PASS crown_witness_galleries hidden objective paint public_copy
+PASS crown_witness_galleries sonar geometry annex_copy
+PASS crown_witness_galleries hidden objective paint annex_copy
+PASS crown_witness_galleries sonar geometry witness_passage
+PASS crown_witness_galleries hidden objective paint witness_passage
+PASS crown_witness_galleries sonar geometry private_letter
+PASS crown_witness_galleries hidden objective paint private_letter
+PASS crown_manual_governor blackout state/paint
+PASS crown_manual_governor sonar geometry bypass
+PASS crown_manual_governor hidden objective paint bypass
+PASS crown_manual_governor sonar geometry authority
+PASS crown_manual_governor hidden objective paint authority
+PASS crown_manual_governor sonar geometry supply
+PASS crown_manual_governor hidden objective paint supply
+PASS crown_manual_governor sonar geometry governor
+PASS crown_manual_governor hidden objective paint governor
+PASS crown_manual_governor sonar geometry tool_roll
+PASS crown_manual_governor hidden objective paint tool_roll
+PASS crown_manual_governor real hazard warning event
+PASS crown_manual_governor warning accepted by sonar
+PASS crown_manual_governor real hazard warning event
+PASS crown_manual_governor warning accepted by sonar
+PASS crown_refuge_channel blackout state/paint
+PASS crown_refuge_channel sonar geometry refuge_key
+PASS crown_refuge_channel hidden objective paint refuge_key
+PASS crown_refuge_channel sonar geometry refuge_bus
+PASS crown_refuge_channel hidden objective paint refuge_bus
+PASS crown_refuge_channel sonar geometry exit_link
+PASS crown_refuge_channel hidden objective paint exit_link
+PASS crown_refuge_channel sonar geometry refuge_release
+PASS crown_refuge_channel hidden objective paint refuge_release
+PASS crown_refuge_channel sonar geometry side_refuge
+PASS crown_refuge_channel hidden objective paint side_refuge
+PASS crown_coolant_interlock blackout state/paint
+PASS crown_coolant_interlock sonar geometry coolant_tag
+PASS crown_coolant_interlock hidden objective paint coolant_tag
+PASS crown_coolant_interlock sonar geometry divert
+PASS crown_coolant_interlock hidden objective paint divert
+PASS crown_coolant_interlock sonar geometry cold_lock
+PASS crown_coolant_interlock hidden objective paint cold_lock
+PASS crown_coolant_interlock sonar geometry service_drawing
+PASS crown_coolant_interlock hidden objective paint service_drawing
+PASS crown_coolant_interlock real hazard warning event
+PASS crown_coolant_interlock warning accepted by sonar
+PASS crown_last_warden blackout state/paint
+PASS crown_last_warden sonar geometry approach_key
+PASS crown_last_warden hidden objective paint approach_key
+PASS crown_last_warden sonar geometry dais_release
+PASS crown_last_warden hidden objective paint dais_release
+PASS crown_last_warden sonar geometry final_record
+PASS crown_last_warden hidden objective paint final_record
+PASS crown_choice_threshold blackout state/paint
+PASS crown_choice_threshold sonar geometry independent_exit
+PASS crown_choice_threshold hidden objective paint independent_exit
+PASS crown_choice_threshold sonar geometry testimony
+PASS crown_choice_threshold hidden objective paint testimony
+PASS crown_choice_threshold sonar geometry manual_threshold
+PASS crown_choice_threshold hidden objective paint manual_threshold
+PASS crown_choice_threshold sonar geometry blank_page
+PASS crown_choice_threshold hidden objective paint blank_page
+SENSORY_FAILURES []

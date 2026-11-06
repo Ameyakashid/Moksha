@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "name": "layout_60",
+      "passed": true,
+      "returncode": 0,
+      "expected_regression_rejection": false,
+      "report": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/layout_receipts/layout_60/report.json",
+      "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/layout_receipts/layout_60/engine.log"
+    },
+    {
+      "name": "layout_120",
+      "passed": true,
+      "returncode": 0,
+      "expected_regression_rejection": false,
+      "report": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/layout_receipts/layout_120/report.json",
+      "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/layout_receipts/layout_120/engine.log"
+    },
+    {
+      "name": "negative_preloaded_plate",
+      "passed": true,
+      "returncode": 1,
+      "expected_regression_rejection": true,
+      "report": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/layout_receipts/negative_preloaded_plate/report.json",
+      "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/layout_receipts/negative_preloaded_plate/engine.log"
+    },
+    {
+      "name": "negative_blocked_underpass",
+      "passed": true,
+      "returncode": 1,
+      "expected_regression_rejection": true,
+      "report": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/layout_receipts/negative_blocked_underpass/report.json",
+      "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/layout_receipts/negative_blocked_underpass/engine.log"
+    },
+    {
+      "name": "negative_unsafe_gate_staging",
+      "passed": true,
+      "returncode": 1,
+      "expected_regression_rejection": true,
+      "report": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/layout_receipts/negative_unsafe_gate_staging/report.json",
+      "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/layout_receipts/negative_unsafe_gate_staging/engine.log"
+    }
+  ],
+  "full_campaign_evidence": false,
+  "human_duration_validated": false,
+  "output": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/layout_receipts",
+  "runner_sha256": "777fe22bf9a1c5a7eeb82650016013abfaae311ba18764d5958b3b34537edb3c"
+}

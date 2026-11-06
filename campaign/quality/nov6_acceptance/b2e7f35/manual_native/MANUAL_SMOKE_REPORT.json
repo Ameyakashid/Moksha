@@ -1,0 +1,53 @@
+{
+  "source_commit": "b2e7f352b96b11e9a5137145416ddeaf4a974e27",
+  "pck_sha256": "262f3685fa8c1ec4c34c363de77e1b6ed8a3023971a908e66556d01ad2467282",
+  "scope": "Bounded native keyboard smoke of the actual PCK from an empty loose-resource directory, using the ordinary game main scene without a fixture script. Assistant-operated UI input, not a complete district traversal or human first-play timing.",
+  "observed_steps": [
+    {
+      "action": "Enter starts New with Neutral lens",
+      "observed": "Rainline gameplay and onboarding panel, HP60/60."
+    },
+    {
+      "action": "D, Space and fresh air-jump; pause/resume between observations",
+      "observed": "Moved from start to first and second roof; camera followed. No health loss."
+    },
+    {
+      "action": "S then W on first service ladder",
+      "observed": "Descended to street and returned to the roof."
+    },
+    {
+      "action": "Tab journal, then Tab return",
+      "observed": "Journal opened with current objectives and returned to play."
+    },
+    {
+      "action": "Real Alt-Tab away and back while playing",
+      "observed": "Game remained explicitly paused on return."
+    },
+    {
+      "action": "N from pause, then C on title",
+      "observed": "Title exposed Continue; Continue restored the district start with60HP and retained18seconds of unpaused time."
+    },
+    {
+      "action": "F12 during play",
+      "observed": "Game-generated screenshot saved successfully."
+    },
+    {
+      "action": "Alt-F4 from pause",
+      "observed": "Window closed, but native engine reported an exit-only ObjectDB leak warning and one resource still in use. This run is not a clean-shutdown acceptance pass."
+    }
+  ],
+  "gameplay_smoke_passed": true,
+  "shutdown_clean": false,
+  "runtime_engine_errors_before_shutdown": [],
+  "shutdown_diagnostics": [
+    "WARNING: ObjectDB instances leaked at exit (run with --verbose for details).",
+    "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+  ],
+  "limitations": [
+    "Linux X11 software graphics, not Windows or target hardware performance",
+    "Dummy audio, no soundcard or listening verification",
+    "Assistant controlled native input, not first-play human duration"
+  ],
+  "empty_resource_directory_verified": true,
+  "fixture_or_game_state_writes": false
+}

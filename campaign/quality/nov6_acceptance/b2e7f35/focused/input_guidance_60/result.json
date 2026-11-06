@@ -1,0 +1,30 @@
+{
+  "name": "input_guidance_60",
+  "command": [
+    "godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/project",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "res://campaign/quality/nov6_input_guidance.gd",
+    "--",
+    "--hz=60"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "checks": 37,
+      "failures": [],
+      "hz": 60,
+      "passed": true,
+      "scope": "Controlled read-only gate and host-to-HUD fixtures, not a physical controller or campaign traversal test."
+    }
+  },
+  "wall_seconds": 1.619,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-b2e7f35/focused/input_guidance_60/engine.log"
+}

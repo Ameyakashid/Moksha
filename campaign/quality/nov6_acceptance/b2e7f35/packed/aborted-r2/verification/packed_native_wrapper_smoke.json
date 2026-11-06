@@ -1,0 +1,33 @@
+{
+  "command": [
+    "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/pack-only-run",
+    "--main-pack",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/MOKSHA.pck",
+    "--script",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-b2e7f35-r2/native-review/native_review_wrapper.gd",
+    "--quit-after",
+    "12"
+  ],
+  "errors": [],
+  "exit_code": 0,
+  "external_script_sha256": "500990551606dcede9d1aae282d8befc48acd740571fdd17e0233dd68f3012f1",
+  "fixture_receipt": {
+    "checks": 4,
+    "display_server": "headless",
+    "failures": [],
+    "fixture_sha256": "77b25b36e6f71bfca306828f3b3f6307d0ca4f926bc17ddd26d37ded0ea9264a",
+    "passed": true,
+    "scope": "Frozen external native fixture, production resources from verified PCK; controlled visual fixtures, not a route or Windows test.",
+    "source_commit": "b2e7f352b96b11e9a5137145416ddeaf4a974e27"
+  },
+  "log_sha256": "ca99ba8a01fd812bf53de487a074c212f91c9e0852fd9b778f17a294f3dfc408",
+  "marker_found": true,
+  "name": "packed_native_wrapper_smoke",
+  "passed": true,
+  "pck_sha256": "328130b9f83a9381e6402c06212bd4e8506fc308c5b736c7fdb0652e0cc4ba54",
+  "resource_working_directory_empty": true,
+  "wall_seconds": 6.091
+}
