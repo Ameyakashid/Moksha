@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "positive_checks": 9226,
+  "main_checks_each_rate": 4582,
+  "cache_checks_each_rate": 31,
+  "rates": [
+    60,
+    120
+  ],
+  "controls": "v2 pass and v4 expected fail verified independently",
+  "base_commit": "b2e7f352b96b11e9a5137145416ddeaf4a974e27",
+  "candidate": {
+    "campaign/input/controller_bindings.gd": "8001ab7042cfc146a9a49bcf57a04ff2db529c330d3cf2ea16f4e53fb74862e4",
+    "campaign/input/gamepad_navigation.gd": "04bd49dd82d58310c15ef1c0dfc92ddb1b6be0f9797f2260551eaa05e9afc591",
+    "campaign/logic/campaign.gd": "d14adf19f101d6f22df9177db074f426236a84a2d5e713dad4fefd9942b8bd4a"
+  },
+  "fixture_hashes": {
+    "baseline_campaign.gd": "daf542caa77391967a8636d05e193a785e9748e593af8faae363ee3879f1bdfd",
+    "cache_lifecycle.gd": "b5ac4523a3e09717e2e5da4ee070c9fe865436c429bbae759481c19fda55d9d8",
+    "prepass_campaign.gd": "6abd12ef08361f4ff92f5ee1830dfe983b85fda65482cdb2aa8681405afae0fd",
+    "review.gd": "e8e4d2ef8f8aa29bf45f3e5936d73e7c7440933cc1b202e09dcec1f9344a75bc"
+  },
+  "runner_sha256": "ec582d3926017434e3eaad52e58bdeed9591db7862b37effbbe53e8431727897",
+  "archives": [
+    {
+      "file": "nov6-controller-independent-source.tar.gz",
+      "sha256": "44b8974632bb29459ce95b54efea75f5c19cc4d2c92cd4c7179a46ea2643e4d6",
+      "bytes": 26937,
+      "entries": 12
+    },
+    {
+      "file": "nov6-controller-independent-v5-evidence.tar.gz",
+      "sha256": "00fbc1f20ede3da2a635731c256abd32614ae969e58904a0cea67be4f892f58a",
+      "bytes": 1050891,
+      "entries": 101
+    }
+  ]
+}

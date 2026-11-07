@@ -1,0 +1,35 @@
+{
+  "name": "independent_review_60",
+  "command": [
+    "/usr/local/bin/godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-bf3ebd3/project",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "res://campaign/quality/nov6_independent_review.gd",
+    "--",
+    "--hz=60"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "checks": 67,
+      "failures": [],
+      "hz": 60,
+      "observations": [
+        {
+          "overlap": 0.0
+        }
+      ],
+      "passed": true,
+      "scope": "Explicit menu/scene fixtures with Input.parse_input_event device path, actor physics and static presentation overlap; not native acceptance or full campaign traversal."
+    }
+  },
+  "wall_seconds": 4.048,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-bf3ebd3/focused/independent_review_60/engine.log"
+}

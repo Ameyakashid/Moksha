@@ -1,5 +1,10 @@
 # Quality gates — November 2, 2026
 
+This is the historical November 2 gate and acceptance record. For the newer
+November 6 runtime and separate focused, full-campaign, controller, stress, native
+and packaged checks, see [`../docs/NOV6_CHANGES.md`](../docs/NOV6_CHANGES.md).
+The original gate below remains part of the inherited regression suite.
+
 Run from the project root with Python 3 and Godot 4.6.3:
 
 ```sh

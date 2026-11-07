@@ -1,0 +1,62 @@
+{
+  "runtime_commit": "f00bf23031cf7c74882d47a855ebafc701024634",
+  "derived_from_unchanged_raw_reports": true,
+  "cases": [
+    {
+      "name": "neutral60_traded",
+      "passed": true,
+      "metrics": 32,
+      "objective_receipts": 32,
+      "level_receipts": 5,
+      "failures": [],
+      "report_sha256": "d87717ac26471c715c04d999720dd1d9cc9d55ed4f20e89601ce1edfde7dfd3f"
+    },
+    {
+      "name": "neutral60_retained",
+      "passed": false,
+      "metrics": 20,
+      "objective_receipts": 20,
+      "level_receipts": 3,
+      "failures": [
+        "District timed out: works_cargo_exchange"
+      ],
+      "report_sha256": "8db9dcbf9c68fe3f77518067d6478db5d2b1b4d8d0e544083e464649454daac7"
+    },
+    {
+      "name": "neutral120_retained",
+      "passed": true,
+      "metrics": 32,
+      "objective_receipts": 32,
+      "level_receipts": 5,
+      "failures": [],
+      "report_sha256": "c7383a8c24650a8c95ba16b565446407014f443b8c0212dcf56a285415209df0"
+    },
+    {
+      "name": "strength60_retained",
+      "passed": true,
+      "metrics": 32,
+      "objective_receipts": 32,
+      "level_receipts": 5,
+      "failures": [],
+      "report_sha256": "a1598282b9b95b64ae2f88f0fcbb932dee1b7a52a72ae48c1f9428fc9358c9e7"
+    },
+    {
+      "name": "neutral120_traded",
+      "passed": true,
+      "metrics": 32,
+      "objective_receipts": 32,
+      "level_receipts": 5,
+      "failures": [],
+      "report_sha256": "39cb360144fa49d6bbafdb525a83b90b488c2b127708c3257c2392f11a887db0"
+    },
+    {
+      "name": "agility60_retained",
+      "passed": true,
+      "metrics": 32,
+      "objective_receipts": 32,
+      "level_receipts": 5,
+      "failures": [],
+      "report_sha256": "1b2da8377a275595275b536fba954cdd7563c702b6e4db7dd5b19c6330e24e73"
+    }
+  ]
+}

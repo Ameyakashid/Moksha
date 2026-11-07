@@ -1,0 +1,33 @@
+{
+  "command": [
+    "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885/pack-only-run",
+    "--main-pack",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885/MOKSHA.pck",
+    "--script",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885/external-fixtures/campaign/quality/nov6_input_guidance.gd",
+    "--fixed-fps",
+    "120",
+    "--",
+    "--hz=120"
+  ],
+  "errors": [],
+  "exit_code": 0,
+  "external_script_sha256": "42e27852e031916f6e0b613d8d83784ac6e7a9ee5a268a6ff3e5e73480169045",
+  "fixture_receipt": {
+    "checks": 37,
+    "failures": [],
+    "hz": 120,
+    "passed": true,
+    "scope": "Controlled read-only gate and host-to-HUD fixtures, not a physical controller or campaign traversal test."
+  },
+  "log_sha256": "3517aff94109d9dc9d0e7b228f1d2390a15f08389a426606ff704cb7c1ca73c0",
+  "marker_found": true,
+  "name": "packed_input_guidance_120",
+  "passed": true,
+  "pck_sha256": "490c51da2cb17b2d026d55af6e1739914837ae5e2fcefa0aac9fc861c08b04fa",
+  "resource_working_directory_empty": true,
+  "wall_seconds": 2.177
+}

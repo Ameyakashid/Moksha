@@ -1,0 +1,308 @@
+{
+  "command": [
+    "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885/pack-only-run",
+    "--main-pack",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885/MOKSHA.pck",
+    "--script",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885/external-fixtures/campaign/quality/nov6_audio/contract.gd",
+    "--fixed-fps",
+    "120",
+    "--",
+    "--hz=120",
+    "--output=/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885-fixture-receipts/audio_contract_120.json"
+  ],
+  "errors": [],
+  "exit_code": 0,
+  "external_receipt_path": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885-fixture-receipts/audio_contract_120.json",
+  "external_receipt_sha256": "3343c98c2de7d64b669eef1132cdae53d1bf7eccd08b133e972051798d45dec6",
+  "external_script_sha256": "5a4027f110d5e9aecbc0eff2dfde366cdd8f7dc27278398751cd40331c752754",
+  "fixture_receipt": {
+    "checks": 67,
+    "engine": "4.6.3-stable (official)",
+    "failures": [],
+    "output": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885-fixture-receipts/audio_contract_120.json",
+    "passed": true,
+    "physics_hz": 120,
+    "rows": [
+      {
+        "label": "physical M toggles on once: title",
+        "passed": true
+      },
+      {
+        "label": "M echo ignored: title",
+        "passed": true
+      },
+      {
+        "label": "M release ignored: title",
+        "passed": true
+      },
+      {
+        "label": "logical M toggles off once: title",
+        "passed": true
+      },
+      {
+        "label": "M preserves modal state: title",
+        "passed": true
+      },
+      {
+        "label": "physical M toggles on once: intro",
+        "passed": true
+      },
+      {
+        "label": "M echo ignored: intro",
+        "passed": true
+      },
+      {
+        "label": "M release ignored: intro",
+        "passed": true
+      },
+      {
+        "label": "logical M toggles off once: intro",
+        "passed": true
+      },
+      {
+        "label": "M preserves modal state: intro",
+        "passed": true
+      },
+      {
+        "label": "physical M toggles on once: playing",
+        "passed": true
+      },
+      {
+        "label": "M echo ignored: playing",
+        "passed": true
+      },
+      {
+        "label": "M release ignored: playing",
+        "passed": true
+      },
+      {
+        "label": "logical M toggles off once: playing",
+        "passed": true
+      },
+      {
+        "label": "M preserves modal state: playing",
+        "passed": true
+      },
+      {
+        "label": "physical M toggles on once: archive",
+        "passed": true
+      },
+      {
+        "label": "M echo ignored: archive",
+        "passed": true
+      },
+      {
+        "label": "M release ignored: archive",
+        "passed": true
+      },
+      {
+        "label": "logical M toggles off once: archive",
+        "passed": true
+      },
+      {
+        "label": "M preserves modal state: archive",
+        "passed": true
+      },
+      {
+        "label": "physical M toggles on once: choice",
+        "passed": true
+      },
+      {
+        "label": "M echo ignored: choice",
+        "passed": true
+      },
+      {
+        "label": "M release ignored: choice",
+        "passed": true
+      },
+      {
+        "label": "logical M toggles off once: choice",
+        "passed": true
+      },
+      {
+        "label": "M preserves modal state: choice",
+        "passed": true
+      },
+      {
+        "label": "physical M toggles on once: paused",
+        "passed": true
+      },
+      {
+        "label": "M echo ignored: paused",
+        "passed": true
+      },
+      {
+        "label": "M release ignored: paused",
+        "passed": true
+      },
+      {
+        "label": "logical M toggles off once: paused",
+        "passed": true
+      },
+      {
+        "label": "M preserves modal state: paused",
+        "passed": true
+      },
+      {
+        "label": "physical M toggles on once: journal",
+        "passed": true
+      },
+      {
+        "label": "M echo ignored: journal",
+        "passed": true
+      },
+      {
+        "label": "M release ignored: journal",
+        "passed": true
+      },
+      {
+        "label": "logical M toggles off once: journal",
+        "passed": true
+      },
+      {
+        "label": "M preserves modal state: journal",
+        "passed": true
+      },
+      {
+        "label": "physical M toggles on once: upgrade",
+        "passed": true
+      },
+      {
+        "label": "M echo ignored: upgrade",
+        "passed": true
+      },
+      {
+        "label": "M release ignored: upgrade",
+        "passed": true
+      },
+      {
+        "label": "logical M toggles off once: upgrade",
+        "passed": true
+      },
+      {
+        "label": "M preserves modal state: upgrade",
+        "passed": true
+      },
+      {
+        "label": "physical M toggles on once: final_choice",
+        "passed": true
+      },
+      {
+        "label": "M echo ignored: final_choice",
+        "passed": true
+      },
+      {
+        "label": "M release ignored: final_choice",
+        "passed": true
+      },
+      {
+        "label": "logical M toggles off once: final_choice",
+        "passed": true
+      },
+      {
+        "label": "M preserves modal state: final_choice",
+        "passed": true
+      },
+      {
+        "label": "physical M toggles on once: complete",
+        "passed": true
+      },
+      {
+        "label": "M echo ignored: complete",
+        "passed": true
+      },
+      {
+        "label": "M release ignored: complete",
+        "passed": true
+      },
+      {
+        "label": "logical M toggles off once: complete",
+        "passed": true
+      },
+      {
+        "label": "M preserves modal state: complete",
+        "passed": true
+      },
+      {
+        "label": "physical M toggles on once: dead",
+        "passed": true
+      },
+      {
+        "label": "M echo ignored: dead",
+        "passed": true
+      },
+      {
+        "label": "M release ignored: dead",
+        "passed": true
+      },
+      {
+        "label": "logical M toggles off once: dead",
+        "passed": true
+      },
+      {
+        "label": "M preserves modal state: dead",
+        "passed": true
+      },
+      {
+        "label": "M preserves pending/focus boundary",
+        "passed": true
+      },
+      {
+        "label": "new matching modal cue gets live physics while paused",
+        "passed": true
+      },
+      {
+        "label": "existing and unrelated cues keep inherited pause mode",
+        "passed": true
+      },
+      {
+        "label": "rejected external damage cannot promote old hurt",
+        "passed": true
+      },
+      {
+        "label": "nonlethal hurt retains pausable mode",
+        "passed": true
+      },
+      {
+        "label": "defeat promotes only freshly observed hurt",
+        "passed": true
+      },
+      {
+        "label": "defeat leaves earlier world hurt alone",
+        "passed": true
+      },
+      {
+        "label": "stale paused hurt remains at zero playback position",
+        "passed": true
+      },
+      {
+        "label": "later defeat cannot promote prior-frame zero-position hurt",
+        "passed": true
+      },
+      {
+        "label": "room retirement clears all old spatial one-shots",
+        "passed": true
+      },
+      {
+        "label": "room retirement preserves ambience player",
+        "passed": true
+      },
+      {
+        "label": "modal lifecycle does not fabricate noise events",
+        "passed": true
+      }
+    ],
+    "scope": "Headless key routing and lifecycle contract. Dummy players verify selective promotion, same-frame freshness and retirement. Native probe separately verifies playback. No runtime/source writes."
+  },
+  "log_sha256": "7f71e60551ef6eeeb25f4982eee043e40749ae3921c562b79cc825b8fe3581c7",
+  "marker_found": true,
+  "name": "packed_audio_contract_120",
+  "passed": true,
+  "pck_sha256": "490c51da2cb17b2d026d55af6e1739914837ae5e2fcefa0aac9fc861c08b04fa",
+  "resource_working_directory_empty": true,
+  "wall_seconds": 4.087
+}

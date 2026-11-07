@@ -1,0 +1,70 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PASS physical M toggles on once: title
+PASS M echo ignored: title
+PASS M release ignored: title
+PASS logical M toggles off once: title
+PASS M preserves modal state: title
+PASS physical M toggles on once: intro
+PASS M echo ignored: intro
+PASS M release ignored: intro
+PASS logical M toggles off once: intro
+PASS M preserves modal state: intro
+PASS physical M toggles on once: playing
+PASS M echo ignored: playing
+PASS M release ignored: playing
+PASS logical M toggles off once: playing
+PASS M preserves modal state: playing
+PASS physical M toggles on once: archive
+PASS M echo ignored: archive
+PASS M release ignored: archive
+PASS logical M toggles off once: archive
+PASS M preserves modal state: archive
+PASS physical M toggles on once: choice
+PASS M echo ignored: choice
+PASS M release ignored: choice
+PASS logical M toggles off once: choice
+PASS M preserves modal state: choice
+PASS physical M toggles on once: paused
+PASS M echo ignored: paused
+PASS M release ignored: paused
+PASS logical M toggles off once: paused
+PASS M preserves modal state: paused
+PASS physical M toggles on once: journal
+PASS M echo ignored: journal
+PASS M release ignored: journal
+PASS logical M toggles off once: journal
+PASS M preserves modal state: journal
+PASS physical M toggles on once: upgrade
+PASS M echo ignored: upgrade
+PASS M release ignored: upgrade
+PASS logical M toggles off once: upgrade
+PASS M preserves modal state: upgrade
+PASS physical M toggles on once: final_choice
+PASS M echo ignored: final_choice
+PASS M release ignored: final_choice
+PASS logical M toggles off once: final_choice
+PASS M preserves modal state: final_choice
+PASS physical M toggles on once: complete
+PASS M echo ignored: complete
+PASS M release ignored: complete
+PASS logical M toggles off once: complete
+PASS M preserves modal state: complete
+PASS physical M toggles on once: dead
+PASS M echo ignored: dead
+PASS M release ignored: dead
+PASS logical M toggles off once: dead
+PASS M preserves modal state: dead
+PASS M preserves pending/focus boundary
+PASS new matching modal cue gets live physics while paused
+PASS existing and unrelated cues keep inherited pause mode
+PASS rejected external damage cannot promote old hurt
+PASS nonlethal hurt retains pausable mode
+PASS defeat promotes only freshly observed hurt
+PASS defeat leaves earlier world hurt alone
+PASS stale paused hurt remains at zero playback position
+PASS later defeat cannot promote prior-frame zero-position hurt
+PASS room retirement clears all old spatial one-shots
+PASS room retirement preserves ambience player
+PASS modal lifecycle does not fabricate noise events
+NOV6_AUDIO_CONTRACT_RESULT {"checks":67,"engine":"4.6.3-stable (official)","failures":[],"output":"/workspace/scratch/fd16273ade4b/moksha-nov6-final-bf3ebd3/focused/audio_contract_60/xdg_data_home/godot/app_userdata/MOKSHA — Five Ascents/nov6_audio/contract_60hz.json","passed":true,"physics_hz":60,"rows":[{"label":"physical M toggles on once: title","passed":true},{"label":"M echo ignored: title","passed":true},{"label":"M release ignored: title","passed":true},{"label":"logical M toggles off once: title","passed":true},{"label":"M preserves modal state: title","passed":true},{"label":"physical M toggles on once: intro","passed":true},{"label":"M echo ignored: intro","passed":true},{"label":"M release ignored: intro","passed":true},{"label":"logical M toggles off once: intro","passed":true},{"label":"M preserves modal state: intro","passed":true},{"label":"physical M toggles on once: playing","passed":true},{"label":"M echo ignored: playing","passed":true},{"label":"M release ignored: playing","passed":true},{"label":"logical M toggles off once: playing","passed":true},{"label":"M preserves modal state: playing","passed":true},{"label":"physical M toggles on once: archive","passed":true},{"label":"M echo ignored: archive","passed":true},{"label":"M release ignored: archive","passed":true},{"label":"logical M toggles off once: archive","passed":true},{"label":"M preserves modal state: archive","passed":true},{"label":"physical M toggles on once: choice","passed":true},{"label":"M echo ignored: choice","passed":true},{"label":"M release ignored: choice","passed":true},{"label":"logical M toggles off once: choice","passed":true},{"label":"M preserves modal state: choice","passed":true},{"label":"physical M toggles on once: paused","passed":true},{"label":"M echo ignored: paused","passed":true},{"label":"M release ignored: paused","passed":true},{"label":"logical M toggles off once: paused","passed":true},{"label":"M preserves modal state: paused","passed":true},{"label":"physical M toggles on once: journal","passed":true},{"label":"M echo ignored: journal","passed":true},{"label":"M release ignored: journal","passed":true},{"label":"logical M toggles off once: journal","passed":true},{"label":"M preserves modal state: journal","passed":true},{"label":"physical M toggles on once: upgrade","passed":true},{"label":"M echo ignored: upgrade","passed":true},{"label":"M release ignored: upgrade","passed":true},{"label":"logical M toggles off once: upgrade","passed":true},{"label":"M preserves modal state: upgrade","passed":true},{"label":"physical M toggles on once: final_choice","passed":true},{"label":"M echo ignored: final_choice","passed":true},{"label":"M release ignored: final_choice","passed":true},{"label":"logical M toggles off once: final_choice","passed":true},{"label":"M preserves modal state: final_choice","passed":true},{"label":"physical M toggles on once: complete","passed":true},{"label":"M echo ignored: complete","passed":true},{"label":"M release ignored: complete","passed":true},{"label":"logical M toggles off once: complete","passed":true},{"label":"M preserves modal state: complete","passed":true},{"label":"physical M toggles on once: dead","passed":true},{"label":"M echo ignored: dead","passed":true},{"label":"M release ignored: dead","passed":true},{"label":"logical M toggles off once: dead","passed":true},{"label":"M preserves modal state: dead","passed":true},{"label":"M preserves pending/focus boundary","passed":true},{"label":"new matching modal cue gets live physics while paused","passed":true},{"label":"existing and unrelated cues keep inherited pause mode","passed":true},{"label":"rejected external damage cannot promote old hurt","passed":true},{"label":"nonlethal hurt retains pausable mode","passed":true},{"label":"defeat promotes only freshly observed hurt","passed":true},{"label":"defeat leaves earlier world hurt alone","passed":true},{"label":"stale paused hurt remains at zero playback position","passed":true},{"label":"later defeat cannot promote prior-frame zero-position hurt","passed":true},{"label":"room retirement clears all old spatial one-shots","passed":true},{"label":"room retirement preserves ambience player","passed":true},{"label":"modal lifecycle does not fabricate noise events","passed":true}],"scope":"Headless key routing and lifecycle contract. Dummy players verify selective promotion, same-frame freshness and retirement. Native probe separately verifies playback. No runtime/source writes."}

@@ -1,0 +1,1103 @@
+{
+  "name": "controller_devices_120",
+  "command": [
+    "/usr/local/bin/godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-bf3ebd3/project",
+    "--fixed-fps",
+    "120",
+    "--script",
+    "res://campaign/quality/nov6_controller_devices.gd",
+    "--",
+    "--hz=120"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "baseline": false,
+      "checks": 213,
+      "devices": [
+        0,
+        1,
+        3
+      ],
+      "failures": [],
+      "hz": 120,
+      "passed": true,
+      "records": [
+        {
+          "check": "initial prompt device is keyboard",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "title Dpad selects strength",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "duplicate held Dpad does not cycle twice",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "fresh Dpad cycles again",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "keyboard selection coexists with pad",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "pad A starts new campaign",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "held start A does not also skip intro",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "skip with A held does not jump",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "fresh A reaches real actor jump",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "pad Start pauses",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "pad retry X does not leak strike",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "fresh X still strikes after retry",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "pad Back opens journal",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "held Dpad does not repeatedly page",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "journal Dpad does not leak movement on B close",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "released journal Dpad rearms movement",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "archive close A does not jump",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "trade X accepts without strike",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "held upgrade X commits one force upgrade without strike",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "dead retry A does not jump",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "playing B produces sonar tap",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "playing Y reaches real objective interaction",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "final X selects public record",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "complete A returns title",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "stick drift does not steal keyboard prompt",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "intentional stick selects controller prompt",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "keyboard release does not steal controller prompt",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "controller device reaches real HUD View",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "inactive controller disconnect does not pause",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "active controller disconnect pauses",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "reconnection never silently resumes",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "pad B explicitly resumes disconnect pause",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "full axis left",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "actor axis left",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "axis release left",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "full axis right",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "actor axis right",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "axis release right",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "full axis up",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "actor axis up",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "axis release up",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "full axis down",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "actor axis down",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "axis release down",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "below source deadzone stays neutral",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "source deadzone preserves half-strength response",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "Dpad left",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "Dpad release left",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "Dpad right",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "Dpad release right",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "Dpad up",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "Dpad release up",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "Dpad down",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "Dpad release down",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "A admits real jump",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "jump release during pause cuts on resume",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "LB admits real guard",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "guard release during pause reaches actor",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "guard settles after release",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "RB admits real roll",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "X admits real strike",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "journal held jump suppressed",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "journal released jump rearms",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "journal held roll suppressed",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "journal released roll rearms",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "journal held attack suppressed",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "journal released attack rearms",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "journal held shield suppressed",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "journal released shield rearms",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "held analog direction suppressed after pause",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "analog direction rearms after release",
+          "device": 0,
+          "passed": true
+        },
+        {
+          "check": "initial prompt device is keyboard",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "title Dpad selects strength",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "duplicate held Dpad does not cycle twice",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "fresh Dpad cycles again",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "keyboard selection coexists with pad",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "pad A starts new campaign",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "held start A does not also skip intro",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "skip with A held does not jump",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "fresh A reaches real actor jump",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "pad Start pauses",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "pad retry X does not leak strike",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "fresh X still strikes after retry",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "pad Back opens journal",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "held Dpad does not repeatedly page",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "journal Dpad does not leak movement on B close",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "released journal Dpad rearms movement",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "archive close A does not jump",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "trade X accepts without strike",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "held upgrade X commits one force upgrade without strike",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "dead retry A does not jump",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "playing B produces sonar tap",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "playing Y reaches real objective interaction",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "final X selects public record",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "complete A returns title",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "stick drift does not steal keyboard prompt",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "intentional stick selects controller prompt",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "keyboard release does not steal controller prompt",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "controller device reaches real HUD View",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "inactive controller disconnect does not pause",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "active controller disconnect pauses",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "reconnection never silently resumes",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "pad B explicitly resumes disconnect pause",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "full axis left",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "actor axis left",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "axis release left",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "full axis right",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "actor axis right",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "axis release right",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "full axis up",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "actor axis up",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "axis release up",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "full axis down",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "actor axis down",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "axis release down",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "below source deadzone stays neutral",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "source deadzone preserves half-strength response",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "Dpad left",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "Dpad release left",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "Dpad right",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "Dpad release right",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "Dpad up",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "Dpad release up",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "Dpad down",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "Dpad release down",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "A admits real jump",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "jump release during pause cuts on resume",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "LB admits real guard",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "guard release during pause reaches actor",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "guard settles after release",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "RB admits real roll",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "X admits real strike",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "journal held jump suppressed",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "journal released jump rearms",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "journal held roll suppressed",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "journal released roll rearms",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "journal held attack suppressed",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "journal released attack rearms",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "journal held shield suppressed",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "journal released shield rearms",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "held analog direction suppressed after pause",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "analog direction rearms after release",
+          "device": 1,
+          "passed": true
+        },
+        {
+          "check": "initial prompt device is keyboard",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "title Dpad selects strength",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "duplicate held Dpad does not cycle twice",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "fresh Dpad cycles again",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "keyboard selection coexists with pad",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "pad A starts new campaign",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "held start A does not also skip intro",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "skip with A held does not jump",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "fresh A reaches real actor jump",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "pad Start pauses",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "pad retry X does not leak strike",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "fresh X still strikes after retry",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "pad Back opens journal",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "held Dpad does not repeatedly page",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "journal Dpad does not leak movement on B close",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "released journal Dpad rearms movement",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "archive close A does not jump",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "trade X accepts without strike",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "held upgrade X commits one force upgrade without strike",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "dead retry A does not jump",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "playing B produces sonar tap",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "playing Y reaches real objective interaction",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "final X selects public record",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "complete A returns title",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "stick drift does not steal keyboard prompt",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "intentional stick selects controller prompt",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "keyboard release does not steal controller prompt",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "controller device reaches real HUD View",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "inactive controller disconnect does not pause",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "active controller disconnect pauses",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "reconnection never silently resumes",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "pad B explicitly resumes disconnect pause",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "full axis left",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "actor axis left",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "axis release left",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "full axis right",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "actor axis right",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "axis release right",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "full axis up",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "actor axis up",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "axis release up",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "full axis down",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "actor axis down",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "axis release down",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "below source deadzone stays neutral",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "source deadzone preserves half-strength response",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "Dpad left",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "Dpad release left",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "Dpad right",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "Dpad release right",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "Dpad up",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "Dpad release up",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "Dpad down",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "Dpad release down",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "A admits real jump",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "jump release during pause cuts on resume",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "LB admits real guard",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "guard release during pause reaches actor",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "guard settles after release",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "RB admits real roll",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "X admits real strike",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "journal held jump suppressed",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "journal released jump rearms",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "journal held roll suppressed",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "journal released roll rearms",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "journal held attack suppressed",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "journal released attack rearms",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "journal held shield suppressed",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "journal released shield rearms",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "held analog direction suppressed after pause",
+          "device": 3,
+          "passed": true
+        },
+        {
+          "check": "analog direction rearms after release",
+          "device": 3,
+          "passed": true
+        }
+      ],
+      "scope": "Native synthetic input pipeline and actual campaign actor; no hardware or full-traversal claim."
+    }
+  },
+  "wall_seconds": 33.263,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-bf3ebd3/focused/controller_devices_120/engine.log"
+}

@@ -1,6 +1,6 @@
 # November 6 improvement pass
 
-The runtime is frozen at `b2e7f352b96b11e9a5137145416ddeaf4a974e27`.
+The runtime is frozen at `bf3ebd382eb9485eeaffcdff9fe9bfcfda8d3ad5`.
 Delivery provenance separately identifies the final documentation/test commit.
 Earlier reports remain historical and keep their original hashes.
 
@@ -10,6 +10,9 @@ Earlier reports remain historical and keep their original hashes.
   sonar, journal paging, pause, retry, sight trade, upgrades and both endings.
   Prompts change only after intentional keyboard/controller input. The original
   actor still owns movement, jumping, rolling, shields and strike admission.
+  Campaign-private default bindings also accept controllers assigned IDs above
+  zero. Native aggregate input edges, custom mappings and the original InputMap
+  remain authoritative; held input is suppressed on mounting and re-entry.
 - Menu and scene boundaries release held gameplay actions. Skipping the opening,
   returning from the journal, choosing an upgrade or retrying cannot accidentally
   turn the menu button into a jump, strike or guard. If a held key or stick is
@@ -88,7 +91,8 @@ counts as a played campaign.
 
 ## Acceptance record
 
-On the exact runtime archive, with Godot 4.6.3:
+The preceding `b2e7f35` runtime earned the following acceptance with Godot 4.6.3.
+These reports retain that exact identity and are not relabelled as later results:
 
 - **44/44 focused stages** passed at 60/120 Hz, including actual keyboard/joypad
   event paths, modal/focus boundaries, upgrades, checkpoint feedback, HUD ownership,
@@ -116,9 +120,44 @@ Reports distinguish raw observations, controlled fixtures, intentionally broken
 negative controls and genuine route completions. Failed earlier observer runs are
 preserved; they are not relabelled as passes.
 
-The final six continuous campaigns, expanded transition-stress archive and exact
-delivery-source packaging acceptance are still being finalized. Their completed
-receipts must be added before this becomes the final delivery record.
+- **Six continuous campaigns** passed on that exact runtime: Neutral at 60/120 Hz
+  with retained/traded sight, Strength at 60 Hz and Agility at 60 Hz. Every run
+  completed all 32 districts and required goals, five level receipts and four real
+  upgrade choices, with no deaths, engine errors or source drift.
+- **Eight transition-stress runs** passed, including seeded 60/120 Hz runs, replay,
+  negative controls, isolation refusal and cumulative upgrades. Each main run
+  checked 444 scenarios and 202,265 assertions. Cumulative cases checked 36
+  scenarios and 5,292 assertions per rate.
+
+The final controller follow-up was independently checked before integration:
+9,226 positive assertions across 60/120 Hz, preserved negative controls, 1,176
+focused source checks, and 426 checks against its exact exported PCK. The same
+standalone device fixture demonstrates the preceding runtime's failure on device
+IDs 1 and 3 while device 0 passes. This isolates the reason for the final change.
+All original actor/demo/simulation sources remain unchanged.
+
+### Final runtime checkpoints
+
+On the exact `bf3ebd3` archive, **46/46 focused stages** passed with no source
+drift; all 3,301 archived Git blobs were independently reverified afterwards.
+The default-controller device fixture passes all 213 checks at each rate.
+
+The immutable `c489885` tooling/documentation checkpoint contains the same
+production runtime. Its actual PCK passes **30 rehearsal stages plus a fresh
+Windows-ZIP extraction/resource audit**, with no fixture overlays. Both exported
+controller matrices pass, as do 37 output-guard checks and 16 packaging unit tests.
+All **31 final-runtime native captures** were individually reviewed at full size.
+Evidence is in `campaign/quality/nov6_acceptance/bf3ebd3/`.
+
+A separate ordinary final-PCK keyboard smoke reached the first ladder/roof and
+verified journal, pause, real focus-loss pause, Title/checkpoint Continue and F12.
+It saved 18.79 active seconds and did not complete a district. Ordinary Alt-F4
+exited successfully without resource-leak diagnostics in that particular run;
+the intermittent engine/audio close warning below remains documented.
+
+Fresh full campaign, inherited, optional and expanded stress matrices are still
+finishing. Final delivery-source/archive receipts remain separate and must be
+added before this becomes the final delivery record.
 
 ## Limits that remain
 

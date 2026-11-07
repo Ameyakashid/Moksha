@@ -1,0 +1,26 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PASS schema weapon_tap -> tap at committed origin
+PASS schema enemy_windup -> guard_draw at committed origin
+PASS schema enemy_damage -> hit at committed origin
+PASS schema enemy_death -> hit at committed origin
+PASS schema parry -> hit at committed origin
+PASS schema guard -> hit at committed origin
+PASS schema player_damage -> hurt at committed origin
+PASS schema attack -> swing at committed origin
+PASS schema swing -> swing at committed origin
+PASS schema enemy_attack -> swing at committed origin
+PASS schema prop_impact -> prop at committed origin
+PASS schema prop_break -> prop at committed origin
+PASS schema prop_launch -> prop at committed origin
+PASS schema landing -> prop at committed origin
+PASS schema jump -> jump at committed origin
+PASS schema air_jump -> jump at committed origin
+PASS schema roll -> dash at committed origin
+PASS schema footstep -> step at committed origin
+PASS schema enemy_step -> step at committed origin
+PASS schema lift_motor -> step at committed origin
+PASS unrelated-room source rejected
+PASS missing source rejected
+PASS retained old room rejected after replacement
+NOV6_AUDIO_ROUTING_RESULT {"authored_counts":{"city_clinic":{"enemies":10,"hazards":0,"props":7},"city_evac_spine":{"enemies":12,"hazards":0,"props":7},"city_records":{"enemies":10,"hazards":0,"props":7},"city_tram_depot":{"enemies":12,"hazards":2,"props":7},"crown_ascent":{"enemies":7,"hazards":0,"props":6},"crown_choice_threshold":{"enemies":0,"hazards":0,"props":6},"crown_coolant_interlock":{"enemies":8,"hazards":1,"props":7},"crown_last_warden":{"enemies":6,"hazards":0,"props":6},"crown_manual_governor":{"enemies":8,"hazards":2,"props":7},"crown_refuge_channel":{"enemies":7,"hazards":0,"props":6},"crown_witness_galleries":{"enemies":7,"hazards":0,"props":6},"l2_capacitor_mill":{"enemies":7,"hazards":1,"props":5},"l2_exchange":{"enemies":6,"hazards":0,"props":5},"l2_freight":{"enemies":4,"hazards":0,"props":3},"l2_stamping_galleries":{"enemies":7,"hazards":2,"props":6},"l2_thermal_foundry":{"enemies":8,"hazards":3,"props":6},"l2_union_dispatch":{"enemies":7,"hazards":0,"props":5},"l3_cistern":{"enemies":7,"hazards":0,"props":5},"l3_drainage_commons":{"enemies":8,"hazards":2,"props":6},"l3_homes":{"enemies":9,"hazards":0,"props":7},"l3_inundated_market":{"enemies":7,"hazards":2,"props":6},"l3_refuge_terraces":{"enemies":7,"hazards":0,"props":7},"l3_water_clinic":{"enemies":6,"hazards":2,"props":6},"quarantine_intake":{"enemies":9,"hazards":0,"props":4},"rainline":{"enemies":17,"hazards":0,"props":15},"works_baffle_hall":{"enemies":7,"hazards":2,"props":6},"works_cargo_exchange":{"enemies":7,"hazards":0,"props":5},"works_dispatch_refusal":{"enemies":8,"hazards":1,"props":7},"works_memory_loom":{"enemies":7,"hazards":0,"props":6},"works_receiving":{"enemies":6,"hazards":0,"props":5},"works_service_refuge":{"enemies":6,"hazards":1,"props":6},"works_three_crews":{"enemies":13,"hazards":0,"props":10}},"checks":23,"engine":"4.6.3-stable (official)","failures":[],"output":"/workspace/scratch/fd16273ade4b/moksha-nov6-final-bf3ebd3/focused/audio_routing_60/xdg_data_home/godot/app_userdata/MOKSHA — Five Ascents/nov6_audio/routing_60hz.json","passed":true,"physics_hz":60,"rows":[{"label":"schema weapon_tap -> tap at committed origin","passed":true},{"label":"schema enemy_windup -> guard_draw at committed origin","passed":true},{"label":"schema enemy_damage -> hit at committed origin","passed":true},{"label":"schema enemy_death -> hit at committed origin","passed":true},{"label":"schema parry -> hit at committed origin","passed":true},{"label":"schema guard -> hit at committed origin","passed":true},{"label":"schema player_damage -> hurt at committed origin","passed":true},{"label":"schema attack -> swing at committed origin","passed":true},{"label":"schema swing -> swing at committed origin","passed":true},{"label":"schema enemy_attack -> swing at committed origin","passed":true},{"label":"schema prop_impact -> prop at committed origin","passed":true},{"label":"schema prop_break -> prop at committed origin","passed":true},{"label":"schema prop_launch -> prop at committed origin","passed":true},{"label":"schema landing -> prop at committed origin","passed":true},{"label":"schema jump -> jump at committed origin","passed":true},{"label":"schema air_jump -> jump at committed origin","passed":true},{"label":"schema roll -> dash at committed origin","passed":true},{"label":"schema footstep -> step at committed origin","passed":true},{"label":"schema enemy_step -> step at committed origin","passed":true},{"label":"schema lift_motor -> step at committed origin","passed":true},{"label":"unrelated-room source rejected","passed":true},{"label":"missing source rejected","passed":true},{"label":"retained old room rejected after replacement","passed":true}],"scope":"Headless exact event-to-cue/origin schema and stale-source rejection. Explicit injected NoiseBus requests, not physical gameplay or audible-output evidence. No runtime/source writes."}

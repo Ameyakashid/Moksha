@@ -1,0 +1,436 @@
+--- /dev/null
++++ b/campaign/input/controller_bindings.gd
+@@ -0,0 +1,162 @@
++extends Node
++## Campaign-local aliases let Godot sample every controller without altering the
++## preserved actor mappings. Removing a global cp_* event clears its held state,
++## so aliases are private to each host and never share that lifecycle hazard.
++const DEFAULTS := {
++	"cp_left": [[KEY_A, KEY_LEFT], JOY_BUTTON_DPAD_LEFT, JOY_AXIS_LEFT_X, -1.0],
++	"cp_right": [[KEY_D, KEY_RIGHT], JOY_BUTTON_DPAD_RIGHT, JOY_AXIS_LEFT_X, 1.0],
++	"cp_up": [[KEY_W, KEY_UP], JOY_BUTTON_DPAD_UP, JOY_AXIS_LEFT_Y, -1.0],
++	"cp_down": [[KEY_S, KEY_DOWN], JOY_BUTTON_DPAD_DOWN, JOY_AXIS_LEFT_Y, 1.0],
++	"cp_jump": [[KEY_SPACE, KEY_C], JOY_BUTTON_A],
++	"cp_roll": [[KEY_SHIFT], JOY_BUTTON_RIGHT_SHOULDER],
++	"cp_attack": [[KEY_J], JOY_BUTTON_X],
++	"cp_shield": [[KEY_K], JOY_BUTTON_LEFT_SHOULDER],
++}
++signal bindings_ready
++const MAX_REMEMBERED_DEVICES := 64
++# Real connected devices are always discovered through Input. The bounded ID
++# cache also covers synthetic/disconnected devices observed by a previous host.
++# It owns no Nodes or InputEvents and prunes neutral devices when a host exits.
++static var _remembered_devices: Array[int] = []
++var _aliases: Dictionary = {}
++var _initial_devices: Array[int] = []
++
++func _enter_tree() -> void:
++	_initial_devices = Input.get_connected_joypads()
++	for device in _remembered_devices:
++		if device not in _initial_devices: _initial_devices.append(device)
++	for action in DEFAULTS:
++		if not _has_default_layout(action): continue
++		var alias := "__moksha_pad_%d_%s" % [get_instance_id(), action]
++		while InputMap.has_action(alias): alias += "_"
++		var deadzone := InputMap.action_get_deadzone(action)
++		InputMap.add_action(alias, deadzone)
++		var owned: Array[InputEvent] = []
++		for original in InputMap.action_get_events(action):
++			var wildcard: InputEvent = original.duplicate()
++			if wildcard is InputEventJoypadButton or wildcard is InputEventJoypadMotion:
++				wildcard.device = -1
++			InputMap.action_add_event(alias, wildcard)
++			owned.append(wildcard)
++		_aliases[action] = {"name": alias, "deadzone": deadzone, "events": owned, "shapes": owned.map(func(event): return event.duplicate()), "source": InputMap.action_get_events(action), "source_shapes": InputMap.action_get_events(action).map(func(event): return event.duplicate())}
++		_aliases[action].initial_hold = Input.is_action_pressed(action) or _physical_strength(_aliases[action]) > 0.0
++	# The host's existing modal gate, not this sampler, owns action suppression.
++	bindings_ready.emit()
++
++func _input(event: InputEvent) -> void:
++	if not (event is InputEventJoypadButton or event is InputEventJoypadMotion) or event.device < 0: return
++	_remembered_devices.erase(event.device)
++	_remembered_devices.append(event.device)
++	if _remembered_devices.size() > MAX_REMEMBERED_DEVICES: _remembered_devices.pop_front()
++
++func _physical_strength(record: Dictionary) -> float:
++	var strength := 0.0
++	for binding in record.source_shapes:
++		if binding is InputEventKey:
++			if Input.is_physical_key_pressed(binding.physical_keycode): return 1.0
++		elif binding is InputEventJoypadButton:
++			for device in _initial_devices:
++				if Input.is_joy_button_pressed(device, binding.button_index): return 1.0
++		elif binding is InputEventJoypadMotion:
++			for device in _initial_devices:
++				var value := Input.get_joy_axis(device, binding.axis) * signf(binding.axis_value)
++				var amount := 1.0 if value >= 1.0 else clampf((value - record.deadzone) / (1.0 - record.deadzone), 0.0, 1.0) if record.deadzone < 1.0 else 0.0
++				strength = maxf(strength, amount)
++	return strength
++
++static func _device_still_held(device: int) -> bool:
++	if Input.get_joy_axis(device, JOY_AXIS_LEFT_X) != 0.0 or Input.get_joy_axis(device, JOY_AXIS_LEFT_Y) != 0.0: return true
++	for spec in DEFAULTS.values():
++		if Input.is_joy_button_pressed(device, spec[1]): return true
++	return false
++
++
++func extend_frame(frame: Dictionary) -> Dictionary:
++	for action in _aliases:
++		var record: Dictionary = _aliases[action]
++		# Keep all keys and pads for an action in ONE native action state. ORing
++		# separate just-pressed flags creates extra edges when another source is
++		# already held. Godot owns aggregate held/edge semantics in this alias.
++		if not _source_unchanged(action, record) or not InputMap.has_action(record.name): continue
++		var name: String = action.trim_prefix("cp_")
++		if record.initial_hold:
++			# Newly registered actions do not inherit already-held physical state.
++			# Keep it visible to the modal gate until every initial/current source
++			# is neutral. This reads state only: no replay, press, or edge synthesis.
++			var held_strength := maxf(float(frame.get(name, 0)), maxf(Input.get_action_strength(record.name), _physical_strength(record)))
++			if held_strength > 0.0:
++				frame[name] = held_strength if name in ["left", "right", "up", "down"] else true
++				continue
++			record.initial_hold = false
++		if name in ["left", "right", "up", "down"]:
++			frame[name] = Input.get_action_strength(record.name)
++		else:
++			frame[name] = Input.is_action_pressed(record.name)
++			frame[name + "_pressed"] = Input.is_action_just_pressed(record.name)
++			frame.erase(name + "_released")
++			# As in the campaign gate, omit an expired release so the preserved
++			# actor can infer it after a pause from its last held sample.
++			if Input.is_action_just_released(record.name): frame[name + "_released"] = true
++	return frame
++
++func _source_unchanged(action: String, record: Dictionary) -> bool:
++	if not InputMap.has_action(action): return false
++	if InputMap.action_get_deadzone(action) != record.deadzone: return false
++	var events := InputMap.action_get_events(action)
++	if events.size() != record.source.size(): return false
++	for i in events.size():
++		if events[i] != record.source[i] or not _same_binding(events[i], record.source_shapes[i]): return false
++	return true
++
++func _exit_tree() -> void:
++	for record in _aliases.values():
++		# Erasing an event is by VALUE, not Resource identity. A caller can edit
++		# one event to equal another, making partial cleanup erase the wrong one.
++		# A modified private alias is therefore caller-owned as a whole. Leave
++		# its contents AND current action state untouched instead of restoring it.
++		if _alias_unchanged(record):
++			# erase_action alone retains held state if the same name is recreated.
++			# The complete untouched ownership check makes this native event cleanup
++			# safe; an adopted alias never reaches this branch.
++			for event in record.events: InputMap.action_erase_event(record.name, event)
++			InputMap.erase_action(record.name)
++	_aliases.clear()
++	_initial_devices.clear()
++	_remembered_devices = _remembered_devices.filter(_device_still_held)
++
++func _alias_unchanged(record: Dictionary) -> bool:
++	if not InputMap.has_action(record.name): return false
++	if InputMap.action_get_deadzone(record.name) != record.deadzone: return false
++	var events := InputMap.action_get_events(record.name)
++	if events.size() != record.events.size(): return false
++	for i in events.size():
++		if events[i] != record.events[i] or not _same_binding(events[i], record.shapes[i]): return false
++	return true
++
++static func _has_default_layout(action: String) -> bool:
++	if not InputMap.has_action(action): return false
++	var spec: Array = DEFAULTS[action]
++	var events := InputMap.action_get_events(action)
++	if events.size() != spec[0].size() + (2 if spec.size() == 4 else 1): return false
++	var expected: Array[InputEvent] = []
++	for code in spec[0]:
++		var key := InputEventKey.new()
++		key.physical_keycode = code
++		expected.append(key)
++	var button := InputEventJoypadButton.new()
++	button.button_index = spec[1]
++	expected.append(button)
++	if spec.size() == 4:
++		var axis := InputEventJoypadMotion.new()
++		axis.axis = spec[2]
++		axis.axis_value = spec[3]
++		expected.append(axis)
++	for wanted in expected:
++		if not events.any(func(event): return _same_binding(event, wanted)): return false
++	return true
++
++static func _same_binding(left: InputEvent, right: InputEvent) -> bool:
++	if left.get_class() != right.get_class() or left.device != right.device: return false
++	if not left.is_match(right, true): return false
++	if left is InputEventJoypadMotion: return left.axis_value == right.axis_value
++	return true
+--- a/campaign/logic/campaign.gd
++++ b/campaign/logic/campaign.gd
+@@ -33,10 +33,15 @@
+ var _focus_pause_active:=false
+ var _focus_resume_state:="playing"
+ var _level_transition_snapshot:Dictionary={}
+-var gamepad_navigation=preload("res://campaign/input/gamepad_navigation.gd").new()
++var _controller_bindings:Node
++var gamepad_navigation:Node
+ func _ready()->void:
+ 	# Register the preserved device mapping before title/Continue can share C.
+ 	preload("res://combat_pc/player.gd").ensure_default_inputs()
++	_controller_bindings=preload("res://campaign/input/controller_bindings.gd").new()
++	_controller_bindings.bindings_ready.connect(_capture_input_boundary)
++	add_child(_controller_bindings)
++	gamepad_navigation=preload("res://campaign/input/gamepad_navigation.gd").new()
+ 	gamepad_navigation.bind(self);add_child(gamepad_navigation)
+ 	blackboard=preload("res://campaign/vendor/beehave/blackboard.gd").new()
+ 	add_child(blackboard)
+@@ -169,7 +174,9 @@
+ 		health.set_capacity(capacity,_loading_campaign)
+ func _raw_campaign_input()->Dictionary:
+ 	var source:Variant=_input_tick_source if _input_tick_active else input_override
+-	return source.duplicate() if source is Dictionary else _input_gate.sample_device()
++	if source is Dictionary:return source.duplicate()
++	var raw:=_input_gate.sample_device()
++	return _controller_bindings.extend_frame(raw) if is_instance_valid(_controller_bindings) else raw
+ func _capture_input_boundary()->void:
+ 	_input_gate.suppress_held(_raw_campaign_input())
+ func _physics_process(dt:float)->void:
+@@ -240,6 +247,7 @@
+ 	if is_instance_valid(actor_paint):actor_paint.set_sight_enabled(not blind)
+ 	if is_instance_valid(object_paint):object_paint.set_sight_enabled(not blind)
+ func _on_window_focus_exited()->void:
++	if not is_inside_tree():return
+ 	if state not in ["playing","transition","intro"] and _pending_sector<0 and not _pending_retry:return
+ 	_capture_input_boundary()
+ 	_focus_resume_state="intro" if state=="intro" else "playing"
+@@ -403,7 +411,7 @@
+ 	var snapshot:Dictionary=super._hud_snapshot()
+ 	var required:=goals.filter(func(goal):return is_instance_valid(goal) and not goal.optional)
+ 	snapshot.merge({"district_index":sector+1,"district_count":sectors.size(),
+-		"level_index":int(sectors[sector].get("level",1)),"lens":lens,"input_device":gamepad_navigation.input_device,
++		"level_index":int(sectors[sector].get("level",1)),"lens":lens,"input_device":gamepad_navigation.input_device if is_instance_valid(gamepad_navigation) else "keyboard",
+ 		"required_done":required.filter(func(goal):return goal.completed).size(),
+ 		"required_total":required.size(),"gate_open":is_instance_valid(room) and room.gate_open,
+ 		"guidance":_journal_next_step() if is_instance_valid(room) else "Begin the ascent."})
+@@ -427,7 +435,7 @@
+ 		snapshot.merge({"panel_override":true,"panel_title":"FIELD JOURNAL","panel_body":lines,"panel_footer":"A / D or arrows Pages    TAB / ESC Return"})
+ 	elif state=="playing":
+ 		if _input_gate.has_held_blocker(_raw_campaign_input()):
+-			snapshot.guidance="Center the stick and release held buttons." if gamepad_navigation.input_device=="controller" else "Release held keys, then press again."
++			snapshot.guidance="Center the stick and release held buttons." if snapshot.input_device=="controller" else "Release held keys, then press again."
+ 		snapshot.sector_title="L%d · %s"%[sectors[sector].level,sectors[sector].title]
+ 		for goal in goals:
+ 			if not goal.completed and not goal.optional:snapshot.objective=goal.label+(" [J]" if goal.kind=="breaker" else " [E]")+" · TAB journal";break
+--- /dev/null
++++ b/campaign/quality/nov6_controller_devices.gd
+@@ -0,0 +1,212 @@
++extends SceneTree
++## Self-contained acceptance fixture. It can run from source or as an external
++## --script against the exported PCK. All res:// paths are production resources.
++## Synthetic Godot input events, not physical-controller hardware validation.
++var host: Node
++var device_id := 0
++var checks := 0
++var failures: Array[String] = []
++var records: Array[Dictionary] = []
++var baseline := false
++
++func _initialize() -> void:
++	for arg in OS.get_cmdline_user_args():
++		if arg.begins_with("--hz="): Engine.physics_ticks_per_second = int(arg.trim_prefix("--hz="))
++		if arg == "--baseline": baseline = true
++	run.call_deferred()
++
++func check(ok: bool, label: String) -> void:
++	checks += 1
++	var context := "device %d: %s" % [device_id, label]
++	records.append({"device": device_id, "check": label, "passed": ok})
++	if not ok: failures.append(context)
++
++func frames(count: int) -> void:
++	for i in count: await physics_frame; await process_frame
++
++func pad(code: int, down: bool, device := -2) -> void:
++	var event := InputEventJoypadButton.new()
++	event.device = device_id if device == -2 else device
++	event.button_index = code; event.pressed = down
++	Input.parse_input_event(event); Input.flush_buffered_events()
++
++func button(code: int, down: bool) -> void: pad(code, down)
++func tap(code: int, device := -2) -> void: pad(code, true, device); pad(code, false, device)
++
++func axis(code: int, value: float, device := -2) -> void:
++	var event := InputEventJoypadMotion.new()
++	event.device = device_id if device == -2 else device
++	event.axis = code; event.axis_value = value
++	Input.parse_input_event(event); Input.flush_buffered_events()
++
++func stick(value: float, device := -2) -> void: axis(JOY_AXIS_LEFT_X, value, device)
++
++func keyboard(code: int, down: bool) -> void:
++	var event := InputEventKey.new()
++	event.physical_keycode = code; event.pressed = down
++	Input.parse_input_event(event); Input.flush_buffered_events()
++
++func release_all() -> void:
++	for device in [0, 1, 3]:
++		for code in range(16): pad(code, false, device)
++		axis(JOY_AXIS_LEFT_X, 0, device); axis(JOY_AXIS_LEFT_Y, 0, device)
++	for code in [KEY_SPACE, KEY_J, KEY_K, KEY_SHIFT, KEY_D, KEY_TAB, KEY_ESCAPE, KEY_Z]: keyboard(code, false)
++
++func fresh() -> void:
++	release_all(); host.start_new(true); host.input_override = null
++	await frames(4)
++
++func run() -> void:
++	for device in [0, 1, 3]:
++		device_id = device
++		host = load("res://campaign/campaign.tscn").instantiate()
++		host.save_enabled = false; root.add_child(host)
++		await frames(3)
++		await controller_cases()
++		await gameplay_cases()
++		release_all(); host.free(); await frames(2)
++	print("NOV6_CONTROLLER_DEVICES_RESULT " + JSON.stringify({"passed": failures.is_empty(), "checks": checks, "hz": Engine.physics_ticks_per_second, "devices": [0, 1, 3], "baseline": baseline, "failures": failures, "records": records, "scope": "Native synthetic input pipeline and actual campaign actor; no hardware or full-traversal claim."}))
++	quit(0 if failures.is_empty() else 1)
++
++func controller_cases() -> void:
++	var adapter: Node = host.gamepad_navigation
++	check(adapter.input_device == "keyboard", "initial prompt device is keyboard")
++	pad(JOY_BUTTON_DPAD_RIGHT, true)
++	check(host.lens == "strength", "title Dpad selects strength")
++	pad(JOY_BUTTON_DPAD_RIGHT, true)
++	check(host.lens == "strength", "duplicate held Dpad does not cycle twice")
++	pad(JOY_BUTTON_DPAD_RIGHT, false)
++	tap(JOY_BUTTON_DPAD_RIGHT)
++	check(host.lens == "agility", "fresh Dpad cycles again")
++	keyboard(KEY_1, true); keyboard(KEY_1, false)
++	check(host.lens == "neutral" and adapter.input_device == "keyboard", "keyboard selection coexists with pad")
++	pad(JOY_BUTTON_A, true)
++	check(host.state == "intro", "pad A starts new campaign")
++	pad(JOY_BUTTON_A, true)
++	check(host.state == "intro", "held start A does not also skip intro")
++	tap(JOY_BUTTON_START)
++	await frames(3)
++	check(host.state == "playing" and not host.player._input.jump and host.player.velocity.y >= 0, "skip with A held does not jump")
++	pad(JOY_BUTTON_A, false); await frames(2)
++	pad(JOY_BUTTON_A, true); await frames(1)
++	check(host.player._input.jump and host.player.velocity.y < 0, "fresh A reaches real actor jump")
++	await fresh()
++	tap(JOY_BUTTON_START)
++	check(host.state == "paused" and paused, "pad Start pauses")
++	pad(JOY_BUTTON_X, true)
++	await frames(3)
++	check(host.state == "playing" and not host.player._input.attack and host.player.weapon_phase == &"idle", "pad retry X does not leak strike")
++	pad(JOY_BUTTON_X, false); await frames(2)
++	pad(JOY_BUTTON_X, true); await frames(2)
++	check(host.player.weapon_phase != &"idle", "fresh X still strikes after retry")
++	await fresh()
++	tap(JOY_BUTTON_BACK)
++	check(host.state == "journal", "pad Back opens journal")
++	pad(JOY_BUTTON_DPAD_RIGHT, true)
++	var page: int = host.journal_page
++	pad(JOY_BUTTON_DPAD_RIGHT, true)
++	check(host.journal_page == page, "held Dpad does not repeatedly page")
++	tap(JOY_BUTTON_B)
++	await frames(3)
++	check(host.state == "playing" and host.player._input.x == 0, "journal Dpad does not leak movement on B close")
++	pad(JOY_BUTTON_DPAD_RIGHT, false); await frames(2)
++	pad(JOY_BUTTON_DPAD_RIGHT, true); await frames(1)
++	check(host.player._input.x > 0, "released journal Dpad rearms movement")
++	await fresh()
++	host.state = "archive"; paused = true
++	pad(JOY_BUTTON_A, true); await frames(3)
++	check(host.state == "playing" and not host.player._input.jump, "archive close A does not jump")
++	await fresh()
++	host.state = "choice"; paused = true
++	pad(JOY_BUTTON_X, true); await frames(3)
++	check(host.blind and host.state == "playing" and host.player.weapon_phase == &"idle", "trade X accepts without strike")
++	await fresh()
++	host.state = "upgrade"; paused = true
++	pad(JOY_BUTTON_X, true); pad(JOY_BUTTON_X, true)
++	await frames(3)
++	check(host.sector == 1 and host.upgrades == ["force"] and host.player.weapon_phase == &"idle", "held upgrade X commits one force upgrade without strike")
++	await fresh()
++	host.state = "dead"; paused = true
++	pad(JOY_BUTTON_A, true); await frames(3)
++	check(host.state == "playing" and not host.player._input.jump, "dead retry A does not jump")
++	await fresh()
++	tap(JOY_BUTTON_B)
++	check(host.tap_cooldown > 0, "playing B produces sonar tap")
++	var goal = load("res://campaign/logic/objective.tscn").instantiate()
++	goal.configure({"id": "pad_fixture", "label": "Pad fixture", "kind": "recover", "at": host.player.position}, host)
++	host.room.add_child(goal); host.goals.append(goal); goal.changed.connect(host._goal_changed.bind(goal))
++	tap(JOY_BUTTON_Y)
++	check(goal.completed, "playing Y reaches real objective interaction")
++	await fresh()
++	host.state = "final_choice"; paused = true
++	pad(JOY_BUTTON_X, true)
++	check(host.state == "complete" and host.campaign_ending == "public_record", "final X selects public record")
++	tap(JOY_BUTTON_A)
++	check(host.state == "title", "complete A returns title")
++	# Device intent must survive harmless releases/noise and propagate all the way
++	# to the actual View rather than merely updating the adapter's local state.
++	await fresh()
++	keyboard(KEY_Z, true); keyboard(KEY_Z, false)
++	stick(.15)
++	check(adapter.input_device == "keyboard", "stick drift does not steal keyboard prompt")
++	stick(.8)
++	await frames(2)
++	check(adapter.input_device == "controller", "intentional stick selects controller prompt")
++	keyboard(KEY_Z, false)
++	check(adapter.input_device == "controller", "keyboard release does not steal controller prompt")
++	var view_data: Dictionary = host.hud.get_node("View").data
++	check(view_data.get("input_device") == "controller", "controller device reaches real HUD View")
++	stick(0)
++	Input.joy_connection_changed.emit(7, false)
++	check(host.state == "playing", "inactive controller disconnect does not pause")
++	Input.joy_connection_changed.emit(device_id, false)
++	check(host.state == "paused" and paused and adapter.input_device == "keyboard", "active controller disconnect pauses")
++	Input.joy_connection_changed.emit(device_id, true)
++	await frames(2)
++	check(host.state == "paused" and paused, "reconnection never silently resumes")
++	tap(JOY_BUTTON_B)
++	await frames(2)
++	check(host.state == "playing", "pad B explicitly resumes disconnect pause")
++
++func gameplay_cases() -> void:
++	await fresh()
++	for row in [[JOY_AXIS_LEFT_X,-1.0,"left"],[JOY_AXIS_LEFT_X,1.0,"right"],[JOY_AXIS_LEFT_Y,-1.0,"up"],[JOY_AXIS_LEFT_Y,1.0,"down"]]:
++		axis(row[0],row[1]); await frames(2)
++		check(is_equal_approx(host._raw_campaign_input()[row[2]],1.0),"full axis "+row[2])
++		if row[2] in ["left","right"]: check(is_equal_approx(host.player._input.x,row[1]),"actor axis "+row[2])
++		else: check(is_equal_approx(host.player._input.physical_y,row[1]),"actor axis "+row[2])
++		axis(row[0],0); await frames(2)
++		check(is_zero_approx(host._raw_campaign_input()[row[2]]),"axis release "+row[2])
++	axis(JOY_AXIS_LEFT_X,0.15); await frames(2)
++	check(is_zero_approx(host.player._input.x),"below source deadzone stays neutral")
++	axis(JOY_AXIS_LEFT_X,0.625); await frames(2)
++	check(is_equal_approx(host.player._input.x,0.5),"source deadzone preserves half-strength response")
++	axis(JOY_AXIS_LEFT_X,0)
++	for row in [[JOY_BUTTON_DPAD_LEFT,"left",-1.0],[JOY_BUTTON_DPAD_RIGHT,"right",1.0],[JOY_BUTTON_DPAD_UP,"up",-1.0],[JOY_BUTTON_DPAD_DOWN,"down",1.0]]:
++		button(row[0],true); await frames(2)
++		check(is_equal_approx(host._raw_campaign_input()[row[1]],1.0),"Dpad "+row[1])
++		button(row[0],false); await frames(2)
++		check(is_zero_approx(host._raw_campaign_input()[row[1]]),"Dpad release "+row[1])
++	await fresh(); button(JOY_BUTTON_A,true); await frames(2)
++	check(host.player._input.jump and host.player.velocity.y<0,"A admits real jump")
++	tap(JOY_BUTTON_START); button(JOY_BUTTON_A,false); await frames(5); tap(JOY_BUTTON_START); await frames(1)
++	check(not host.player._input.jump and host.player._input.jump_released and host.player.velocity.y>=-host.player.profile.jump_release_rise_cap-1.0,"jump release during pause cuts on resume")
++	await fresh(); button(JOY_BUTTON_LEFT_SHOULDER,true); await frames(2)
++	check(host.player._input.shield and host.player.shield_phase!=&"idle","LB admits real guard")
++	tap(JOY_BUTTON_START); button(JOY_BUTTON_LEFT_SHOULDER,false); await frames(5); tap(JOY_BUTTON_START); await frames(1)
++	check(not host.player._input.shield and host.player._input.shield_released,"guard release during pause reaches actor")
++	await frames(ceili(0.5 * Engine.physics_ticks_per_second)); check(host.player.shield_phase==&"idle","guard settles after release")
++	await fresh(); button(JOY_BUTTON_RIGHT_SHOULDER,true); await frames(2)
++	check(host.player._input.roll and host.player.roll_phase!=&"idle","RB admits real roll")
++	await fresh(); button(JOY_BUTTON_X,true); await frames(2)
++	check(host.player._input.attack and host.player.weapon_phase!=&"idle","X admits real strike")
++	# Every held action uses the same modal release/rearm boundary.
++	for row in [[JOY_BUTTON_A,"jump"],[JOY_BUTTON_RIGHT_SHOULDER,"roll"],[JOY_BUTTON_X,"attack"],[JOY_BUTTON_LEFT_SHOULDER,"shield"]]:
++		await fresh(); tap(JOY_BUTTON_BACK); button(row[0],true); tap(JOY_BUTTON_BACK); await frames(3)
++		check(not host.player._input[row[1]],"journal held "+row[1]+" suppressed")
++		button(row[0],false); await frames(2); button(row[0],true); await frames(2)
++		check(host.player._input[row[1]],"journal released "+row[1]+" rearms")
++	await fresh(); axis(JOY_AXIS_LEFT_X,1.0); tap(JOY_BUTTON_START); tap(JOY_BUTTON_START); await frames(2)
++	check(is_zero_approx(host.player._input.x),"held analog direction suppressed after pause")
++	axis(JOY_AXIS_LEFT_X,0); await frames(2); axis(JOY_AXIS_LEFT_X,1.0); await frames(2)
++	check(host.player._input.x>0,"analog direction rearms after release")

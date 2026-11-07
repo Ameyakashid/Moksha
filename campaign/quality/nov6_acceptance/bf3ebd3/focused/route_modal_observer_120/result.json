@@ -1,0 +1,71 @@
+{
+  "name": "route_modal_observer_120",
+  "command": [
+    "/usr/local/bin/godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-bf3ebd3/project",
+    "--fixed-fps",
+    "120",
+    "--script",
+    "res://campaign/quality/nov6_modal_route_observer_test.gd",
+    "--",
+    "--hz=120"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "checks": 7,
+      "failures": [],
+      "passed": true,
+      "release_events": [
+        {
+          "active_seconds": 0.0333333333333333,
+          "event": "observer_modal_controls_released",
+          "frame": 0,
+          "from_state": "journal",
+          "method": "Ordinary neutral raw input only; no actor/world/health/objective mutation.",
+          "neutral_physics_frames": 1,
+          "observer_revision": "nov6_modal_rearm_v1",
+          "position": "(77.8125, 299.98)",
+          "superseded_raw_frame": {
+            "right": 1.0
+          },
+          "to_state": "playing"
+        },
+        {
+          "active_seconds": 0.0583333333333333,
+          "event": "observer_modal_controls_released",
+          "frame": 0,
+          "from_state": "choice",
+          "method": "Ordinary neutral raw input only; no actor/world/health/objective mutation.",
+          "neutral_physics_frames": 1,
+          "observer_revision": "nov6_modal_rearm_v1",
+          "position": "(81.72918, 299.98)",
+          "superseded_raw_frame": {
+            "right": 1.0
+          },
+          "to_state": "playing"
+        },
+        {
+          "active_seconds": 0.0666666666666667,
+          "event": "observer_modal_controls_released",
+          "frame": 0,
+          "from_state": "upgrade",
+          "method": "Ordinary neutral raw input only; no actor/world/health/objective mutation.",
+          "neutral_physics_frames": 1,
+          "observer_revision": "nov6_modal_rearm_v1",
+          "position": "(75.0, 299.98)",
+          "superseded_raw_frame": {},
+          "to_state": "playing"
+        }
+      ],
+      "scope": "Explicit menu/scene fixtures for inherited route dispatcher; not full route evidence."
+    }
+  },
+  "wall_seconds": 5.423,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-bf3ebd3/focused/route_modal_observer_120/engine.log"
+}

@@ -1,0 +1,32 @@
+REHEARSAL ONLY. This archive is an extraction test, not the final delivery.
+
+MOKSHA: FIVE ASCENTS / Windows x86_64 development build
+
+Extract the complete ZIP to a folder, then double-click MOKSHA.exe.
+Keep MOKSHA.exe and MOKSHA.pck together. No editor install is needed.
+This unsigned development executable has NOT been executed on Windows.
+
+Use an OpenGL 3.3-compatible driver. No installer, account, or online service is required.
+
+Enter: new campaign. C: continue when available. 1/2/3: select a build at the title.
+A/D: move. Space: jump. W/S: ladder. S+Space: drop/dive.
+J: attack. K: guard/parry. Shift: roll. E: interact. Q: sound pulse.
+Tab: journal/navigation. Esc: pause. R: retry district. M: mute.
+Follow the in-game prompts for choices, upgrades, and any newer controls.
+See docs/NOV6_GAMEPAD.md for controller button mappings and modal controls,
+docs/LOCAL_PLAYTEST.md for the play guide, and docs/NOV6_CHANGES.md for changes.
+
+Frozen source: c489885befb2264bf2dc0afd2cac8e147d1c9730
+Engine: 4.6.3.stable.official.7d41c59c4
+The actual packed game passed isolated Linux/headless checks, including all
+district loads, script hashes, presentation concealment, incoming damage,
+save/Continue, journal behavior, and synthetic controller/menu events. Detailed
+receipts are in BUILD_REPORT.json. Controller events were synthesized through
+the real input pipeline, not tested on physical controller hardware.
+These are focused fixtures, not a complete human playthrough or a Windows test.
+Human completion time, native Windows operation, and other devices remain unverified.
+
+The source/history archive is the editable companion to this playable package.
+Godot's MIT license and third-party notices are included under licenses/.
+Existing saves are not altered by extracting this package. The game uses its
+normal Godot user-data directory, separate from these portable program files.

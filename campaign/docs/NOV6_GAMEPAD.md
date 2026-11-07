@@ -4,6 +4,8 @@ The campaign now has a controller-only path through its title, story panels,
 field journal, pause/reset, sight decision, level upgrades, endings, defeat, and
 checkpoint Continue. This is an additive campaign adapter. The original shared
 actor, its movement/combat code, and its existing InputMap remain unchanged.
+Default movement and combat now accept any connected controller ID, including
+when the operating system assigns a pad something other than device zero.
 
 ## Controls
 
@@ -31,6 +33,16 @@ does not add analog menu repeat or change its deadzone.
 
 ## Input and safety contract
 
+- `campaign/input/controller_bindings.gd` creates private copies of complete
+  default keyboard/controller actions, widening only the controller device filter.
+  Godot owns aggregate held/pressed/released edges. Original action events,
+  identities and deadzones are never edited. Custom original mappings remain
+  authoritative, including changes made while the campaign is running.
+- Helpers are created only when the campaign enters its ready lifecycle. Held
+  controls are suppressed on mounting and re-entry until released. Private actions
+  are removed on exit only if their complete contents remain unchanged; actions
+  explicitly edited by another caller are left intact. Off-tree focus/disconnect
+  callbacks cannot pause a detached campaign.
 - `campaign/input/gamepad_navigation.gd` is a campaign-owned Node. The campaign
   binds/adds it before its inherited title/HUD setup. It continues to process
   input while the scene tree is paused.
@@ -59,7 +71,7 @@ does not add analog menu repeat or change its deadzone.
 
 ## Reproducible regression
 
-Run from the project root using Godot 4.6.3. Each run must use a fresh HOME/XDG
+In Bash on Linux, run from the project root using Godot 4.6.3. Each run must use a fresh HOME/XDG
 sandbox because the Continue check intentionally writes and reads a checkpoint.
 The sandbox is temporary test data, not the player's normal save directory.
 
@@ -71,7 +83,7 @@ for hz in 60 120; do
   XDG_CACHE_HOME="$run_dir/cache" \
   XDG_DATA_HOME="$run_dir/data" \
   XDG_CONFIG_HOME="$run_dir/config" \
-  timeout 120 godot --headless --path . \
+  timeout 120 godot --headless --fixed-fps "$hz" --path . \
     --script res://campaign/quality/nov6_gamepad_navigation.gd \
     -- --hz="$hz" > "$run_dir/test.log" 2>&1; then
     cat "$run_dir/test.log"
@@ -100,6 +112,22 @@ to isolate the command under test. They establish correct menu acceptance and
 state transitions, not traversal of the authored campaign or automatic arrival
 at every decision. Disconnect tests emit Godot's connection signal and keep a
 synthetic held direction until release so the resume safety gate is exercised.
+
+The separate `campaign/quality/nov6_controller_devices.gd` fixture exercises
+actual actor movement, climbing, jumping, guard, roll and strike on synthetic
+devices 0, 1 and 3. It emits `NOV6_CONTROLLER_DEVICES_RESULT` with 213 checks per
+rate and can run unchanged outside an exported PCK. The aggregate
+`tools/verify_nov6.py` command runs both controller fixtures at matched fixed
+and physics rates, alongside keyboard and paused-release regressions.
+
+### Authoring and integration boundary
+
+Explicit campaign `input_override` dictionaries still bypass device sampling
+unchanged. Direct `Input.action_press/release("cp_*")` or an `InputEventAction`
+addressed to an original `cp_*` action is not mirrored into private aliases.
+Use the existing explicit override for simulated campaign input, or real
+keyboard/joypad events for device-path tests. This does not change the original
+actor or its standalone demo's input contract.
 
 ## Verification limits
 

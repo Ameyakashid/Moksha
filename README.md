@@ -28,7 +28,7 @@ On the title, **1** Neutral, **2** Strength, **3** Agility selects a starting le
 | Original wireframe presentation toggle (no rule changes) | F8 |
 | Gameplay screenshot when a real renderer is available | F12 |
 
-Controllers use Xbox-style button names: left stick/D-pad move, A jump, X strike, LB guard, RB roll, Y use, B sound tap, Back journal and Start pause. Title and choice screens show their own controller prompts. See [`campaign/docs/NOV6_GAMEPAD.md`](campaign/docs/NOV6_GAMEPAD.md) for the complete map and validation limits.
+Default controls accept any connected controller ID. Controllers use Xbox-style button names: left stick/D-pad move, A jump, X strike, LB guard, RB roll, Y use, B sound tap, Back journal and Start pause. Title and choice screens show their own controller prompts. See [`campaign/docs/NOV6_GAMEPAD.md`](campaign/docs/NOV6_GAMEPAD.md) for the complete map and validation limits.
 
 Routing consoles begin **UNROUTED** and cycle **0 → 1 → 2 → 0**. Match the engraved target; dependencies must be complete. **Marked breaker housings require real J strikes, not E.** Pressure plates accept physical cargo; they are optional so a broken prop cannot deadlock the campaign. Freight receivers require the intact marked cargo to land and settle from real movement/contact; E at its cradle replaces lost cargo without healing or resetting enemies.
 
@@ -62,7 +62,7 @@ See `campaign/docs/EDITOR_WORKFLOW.md` and `campaign/docs/LAYOUT_CONTRACT.md`.
 - `campaign/layouts/level_01.gd` … `level_05.gd`: district placements, dependency graphs, encounters and text.
 - `campaign/logic/`: orchestration/save/build state; reusable `.tscn` objective, door and hazard modules.
 - `campaign/enemies/`: isolated lancer/keeper policy, attack resources and scenes.
-- `campaign/input/`: campaign controller menus and device-aware prompts; the original actor still owns movement and combat.
+- `campaign/input/`: campaign controller menus, private default-device bindings and device-aware prompts; the original actor still owns movement and combat.
 - `campaign/presentation/`, `campaign/views/`, `campaign/assets/`: removable scenery, actor paint and theme resources, no collision/game rules.
 - `campaign/module_workbench.tscn`: editor-placeable instances of the reusable physical and campaign modules.
 - `campaign/district_entry.tscn`: choose a stable district ID in the Inspector and F6 for a save-disabled playable review.

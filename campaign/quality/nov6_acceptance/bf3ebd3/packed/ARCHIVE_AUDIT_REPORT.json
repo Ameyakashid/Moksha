@@ -1,0 +1,93 @@
+{
+  "accepted_stage_count_including_30_rehearsal_stages": 31,
+  "archive": {
+    "bytes": 43047061,
+    "members": {
+      "MOKSHA-Windows/BUILD_PROVENANCE.json": "f2c309ea3e1957214788a979f1a45cfcb77b3332578039b5835d237242be859d",
+      "MOKSHA-Windows/BUILD_REPORT.json": "732d1d8d171e74d07752912abd777a2312e4d755825aaa8da7c137ba00fdb35f",
+      "MOKSHA-Windows/CHECKSUMS.sha256": "0aec61f1a7792251dd4662c0a5916301878fd8b62ff41efe90d4f5b6c4de2a66",
+      "MOKSHA-Windows/MOKSHA.exe": "91724f15024a3a545e28ccd83134403d31ce2323a38e51c95e4dfa282f732ab6",
+      "MOKSHA-Windows/MOKSHA.pck": "490c51da2cb17b2d026d55af6e1739914837ae5e2fcefa0aac9fc861c08b04fa",
+      "MOKSHA-Windows/START_HERE.txt": "885727229c07c4a5c6d4f20a47a3bbe2ead1b47194e86667990ed0b232481565",
+      "MOKSHA-Windows/docs/LOCAL_PLAYTEST.md": "b508665550a14ef536744c8ceafaa771436c735430f15ca992c2804457cc1796",
+      "MOKSHA-Windows/docs/NOV6_CHANGES.md": "0617ab155bf2a384618f7426d0f5912ed279e84dcc5c06d754c59219b02a3ea8",
+      "MOKSHA-Windows/docs/NOV6_GAMEPAD.md": "1c07855ae56529392fb24f79f16de22c75ee0e883f12a84567858bbe8a1bbf97",
+      "MOKSHA-Windows/docs/PROJECT_README.md": "7fe1660b8d6cb95d2652cd89a5976a3fd950cae1f9946d9583f4d70f10c2a82b",
+      "MOKSHA-Windows/licenses/Godot-AUTHORS.md": "2eb271244aea70a5818c6c004892a74eecc129aed84e97656d5563be3769f560",
+      "MOKSHA-Windows/licenses/Godot-COPYRIGHT.txt": "b3330849267d56ddd3d62a513817506606c2195034411fe05859f0140bff9d8a",
+      "MOKSHA-Windows/licenses/Godot-LICENSE.txt": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
+      "MOKSHA-Windows/licenses/project/LICENSE.txt": "1fed00bdef323548b4dd22a2ec5f4f23cf5052df5bfcc578ce4b1f3e8818fc7b",
+      "MOKSHA-Windows/licenses/project/campaign/vendor/beehave/LICENSE": "b7b01f5f34016e8be5ba15ec3cbf88d64de580727647e6789986f11686e7a299",
+      "MOKSHA-Windows/licenses/project/fonts/LICENSE-DejaVu.txt": "63d3ba759d12804c5b31a9d5940d855c1820d1f5999e6b0872eb1c7ff045fbc9"
+    },
+    "path": "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885/archive-audit/REHEARSAL-ONLY-MOKSHA-Windows-c489885.zip",
+    "sha256": "eea2414a31e43104d5de739a0cc04f772c2113e5800dbbcebfefaf82ebe53722"
+  },
+  "fresh_archive_check": {
+    "command": [
+      "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+      "--headless",
+      "--path",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885/archive-audit/empty-resources",
+      "--main-pack",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885/archive-audit/fresh-extraction/MOKSHA-Windows/MOKSHA.pck",
+      "--script",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885/pack_audit.gd"
+    ],
+    "errors": [],
+    "exit_code": 0,
+    "external_script_sha256": "e392d8056ec4fd8bc0769b72b99c551a2a6cc9a6838c9ce045a2297293be4de7",
+    "log_sha256": "41fef6b3af3a721f63b78e2f06fb8194f74dc14c4bd4571ad50094fdaedcd4e5",
+    "marker_found": true,
+    "name": "fresh_rehearsal_windows_zip_pck",
+    "passed": true,
+    "pck_sha256": "490c51da2cb17b2d026d55af6e1739914837ae5e2fcefa0aac9fc861c08b04fa",
+    "resource_working_directory_empty": true,
+    "wall_seconds": 14.092
+  },
+  "local_guide_links_valid": true,
+  "passed": true,
+  "pck_sha256": "490c51da2cb17b2d026d55af6e1739914837ae5e2fcefa0aac9fc861c08b04fa",
+  "player_guides": {
+    "docs/LOCAL_PLAYTEST.md": {
+      "adaptations": [],
+      "adapted": false,
+      "delivered_sha256": "b508665550a14ef536744c8ceafaa771436c735430f15ca992c2804457cc1796",
+      "source_path": "campaign/docs/LOCAL_PLAYTEST.md",
+      "source_sha256": "b508665550a14ef536744c8ceafaa771436c735430f15ca992c2804457cc1796"
+    },
+    "docs/NOV6_CHANGES.md": {
+      "adaptations": [],
+      "adapted": false,
+      "delivered_sha256": "0617ab155bf2a384618f7426d0f5912ed279e84dcc5c06d754c59219b02a3ea8",
+      "source_path": "campaign/docs/NOV6_CHANGES.md",
+      "source_sha256": "0617ab155bf2a384618f7426d0f5912ed279e84dcc5c06d754c59219b02a3ea8"
+    },
+    "docs/NOV6_GAMEPAD.md": {
+      "adaptations": [],
+      "adapted": false,
+      "delivered_sha256": "1c07855ae56529392fb24f79f16de22c75ee0e883f12a84567858bbe8a1bbf97",
+      "source_path": "campaign/docs/NOV6_GAMEPAD.md",
+      "source_sha256": "1c07855ae56529392fb24f79f16de22c75ee0e883f12a84567858bbe8a1bbf97"
+    },
+    "docs/PROJECT_README.md": {
+      "adaptations": [
+        "Added runtime-package versus editable-source guidance",
+        "Linked campaign/docs/NOV6_GAMEPAD.md to package-local NOV6_GAMEPAD.md",
+        "Linked campaign/docs/NOV6_CHANGES.md to package-local NOV6_CHANGES.md",
+        "Marked campaign/quality/README.md as a source-only reference",
+        "Updated included guide filename campaign/docs/LOCAL_PLAYTEST.md to LOCAL_PLAYTEST.md",
+        "Updated included guide filename campaign/docs/NOV6_CHANGES.md to NOV6_CHANGES.md"
+      ],
+      "adapted": true,
+      "delivered_sha256": "7fe1660b8d6cb95d2652cd89a5976a3fd950cae1f9946d9583f4d70f10c2a82b",
+      "source_path": "README.md",
+      "source_sha256": "6e0b0e6376ba871b5875f3d7c6d9de688b87b294b0348a6255fa9267a3a40721"
+    }
+  },
+  "role": "rehearsal only; not final deliverable or upload",
+  "runtime_commit": "bf3ebd382eb9485eeaffcdff9fe9bfcfda8d3ad5",
+  "source_commit": "c489885befb2264bf2dc0afd2cac8e147d1c9730",
+  "windows_executed": false,
+  "windows_runtime_sha256": "91724f15024a3a545e28ccd83134403d31ce2323a38e51c95e4dfa282f732ab6"
+}

@@ -1,0 +1,49 @@
+{
+  "name": "independent_paused_release_120",
+  "command": [
+    "/usr/local/bin/godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-bf3ebd3/project",
+    "--fixed-fps",
+    "120",
+    "--script",
+    "res://campaign/quality/nov6_independent_paused_release.gd",
+    "--",
+    "--hz=120"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "after_velocity": -150.33332824707,
+      "before_velocity": -346.666687011719,
+      "checks": 1,
+      "failures": [],
+      "hz": 120,
+      "input": {
+        "attack": false,
+        "attack_pressed": false,
+        "attack_released": false,
+        "jump": false,
+        "jump_pressed": false,
+        "jump_released": true,
+        "physical_y": 0.0,
+        "roll": false,
+        "roll_pressed": false,
+        "roll_released": false,
+        "shield": false,
+        "shield_pressed": false,
+        "shield_released": false,
+        "x": 0.0,
+        "y": 0.0
+      },
+      "passed": true,
+      "release_cap": 165.0
+    }
+  },
+  "wall_seconds": 2.129,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-bf3ebd3/focused/independent_paused_release_120/engine.log"
+}

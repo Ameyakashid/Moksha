@@ -1,0 +1,30 @@
+{
+  "name": "route_freight_observer_120",
+  "command": [
+    "/usr/local/bin/godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-final-bf3ebd3/project",
+    "--fixed-fps",
+    "120",
+    "--script",
+    "res://campaign/quality/nov6_freight_observer_test.gd",
+    "--",
+    "--hz=120"
+  ],
+  "exit_code": 0,
+  "errors": [],
+  "passed": true,
+  "validation": {
+    "passed": true,
+    "receipt": {
+      "checks": 255,
+      "failures": [],
+      "hz": 120,
+      "passed": true,
+      "scope": "Explicit lightweight observer-state fixtures; real physical recovery is tested separately."
+    }
+  },
+  "wall_seconds": 1.289,
+  "log": "/workspace/scratch/fd16273ade4b/moksha-nov6-final-bf3ebd3/focused/route_freight_observer_120/engine.log"
+}

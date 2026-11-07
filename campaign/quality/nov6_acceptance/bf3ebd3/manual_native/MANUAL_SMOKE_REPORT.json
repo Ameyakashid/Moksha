@@ -1,0 +1,57 @@
+{
+  "runtime_commit": "bf3ebd382eb9485eeaffcdff9fe9bfcfda8d3ad5",
+  "source_commit": "c489885befb2264bf2dc0afd2cac8e147d1c9730",
+  "pck_sha256": "490c51da2cb17b2d026d55af6e1739914837ae5e2fcefa0aac9fc861c08b04fa",
+  "entry": "ordinary production main scene, no fixture or source fallback",
+  "observed": [
+    "Title New and opening skip",
+    "Keyboard movement and fresh jumps, reaching the first ladder/roof",
+    "Journal open/return and explicit pause/resume",
+    "Ladder ascent to first roof, shown by F12 screenshot",
+    "Actual desktop Alt-Tab caused pause, and switching back did not resume",
+    "Pause Title saved the checkpoint and exposed Continue",
+    "Continue restored Rainline start with retained elapsed time and no accidental jump",
+    "Ordinary Alt-F4 closed the window and exited 0"
+  ],
+  "input_only_not_strictly_asserted": [
+    "Guard, strike and roll keys were issued during the smoke; this does not certify combat timing, damage or a complete combo."
+  ],
+  "saved_progress": {
+    "campaign_version": 1,
+    "lens": "neutral",
+    "level_receipts": [],
+    "level_seconds": {
+      "1": 18.7916666666662
+    },
+    "progress": {
+      "blind": false,
+      "cache_ids": [],
+      "deaths": 0,
+      "kills": 0,
+      "metrics": [],
+      "seconds": 18.7916666666662,
+      "sector_id": "rainline",
+      "version": 4
+    },
+    "rewards": {},
+    "upgrades": []
+  },
+  "unpaused_seconds_at_title": 18.7916666666662,
+  "completed_districts": 0,
+  "screenshot": "first_ascent_130693.png",
+  "screenshot_sha256": "eec25ca441d9a71446c6db9b56ef5fd1f55a025a737b967b93bca3ced0b9d1cb",
+  "engine_errors": [],
+  "resource_leak_diagnostics_this_run": [],
+  "platform_notices": [
+    "V-Sync mode unsupported by Mesa driver",
+    "Verbose SDL database reports unrecognized misc2 mapping entries for some devices",
+    "Desktop cursor crossed_circle unavailable"
+  ],
+  "known_exit_warning": "The previously reproduced intermittent Linux/Dummy AudioStreamWAV retirement warning did not occur in this particular close. It remains documented; no runtime close workaround was added.",
+  "limitations": [
+    "Bounded manual keyboard smoke only, not a full district or campaign",
+    "Linux X11/Mesa llvmpipe, with concurrent headless work; no hardware performance claim",
+    "Dummy audio; no audible mix verification",
+    "No physical controller or native Windows verification"
+  ]
+}

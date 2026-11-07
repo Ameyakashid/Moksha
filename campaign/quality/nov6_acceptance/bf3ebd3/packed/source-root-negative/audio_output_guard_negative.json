@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/usr/local/bin/godot",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-campaign",
+    "--script",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885-guard-check/output_guard_negative.gd"
+  ],
+  "errors": [],
+  "exit_code": 0,
+  "fixture_receipt": {
+    "checks": 37,
+    "failures": [],
+    "passed": true,
+    "scope": "Read-only predicate negative controls on all three actual audio fixture guards; no probe path is written.",
+    "source_root": "/workspace/scratch/fd16273ade4b/moksha-campaign"
+  },
+  "log_sha256": "34a9bc0d313ada18882f6433b008fc3baac86fa56e5c202ebabc23b1cc1b2a58",
+  "marker_found": true,
+  "name": "audio_output_guard_negative",
+  "passed": true,
+  "wall_seconds": 1.491
+}

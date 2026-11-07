@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+    "--headless",
+    "--path",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885/pack-only-run",
+    "--main-pack",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885/MOKSHA.pck",
+    "--script",
+    "/workspace/scratch/fd16273ade4b/moksha-nov6-rehearsal-c489885/external-fixtures/campaign/qa_audit/incoming_health.gd",
+    "--fixed-fps",
+    "60",
+    "--",
+    "--hz=60"
+  ],
+  "errors": [],
+  "exit_code": 0,
+  "external_script_sha256": "9e09487a225882edb80a5f2705b8ecd372be9467979df724075c7ccb69f37c04",
+  "log_sha256": "cd3d464569043169f165917f9ec7d53e11380ea6e55529a8819bc7632a4889ef",
+  "marker_found": true,
+  "name": "packed_incoming_health_60",
+  "passed": true,
+  "pck_sha256": "490c51da2cb17b2d026d55af6e1739914837ae5e2fcefa0aac9fc861c08b04fa",
+  "resource_working_directory_empty": true,
+  "wall_seconds": 2.996
+}
