@@ -1,0 +1,51 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PASS: jump intent captured inside hitpause
+PASS: jump buffered tap executes after hitpause longer than buffer
+PASS: dash intent captured inside hitpause
+PASS: dash buffered tap executes after hitpause longer than buffer
+PASS: attack intent captured inside hitpause
+PASS: attack buffered tap executes after hitpause longer than buffer
+PASS: real pause clears stale input immediately
+PASS: facing responds during local hitpause
+PASS: dash case starts in explicit startup
+PASS: dash cancels pending strike without late hit
+PASS: damage case starts in explicit startup
+PASS: damage cancels pending strike without late hit
+PASS: death case starts in explicit startup
+PASS: death cancels pending strike without late hit
+PASS: light attack has explicit active phase after 40ms startup
+PASS: light attack enters explicit recovery
+PASS: attack recovers to idle
+PASS: forward melee contacts actual 40px torso collider
+PASS: melee never hits behind facing
+PASS: melee does not reach vertically distant body
+PASS: thin terrain blocks finisher melee
+PASS: wall immediately against player body still blocks melee
+PASS: enemy attack also respects thin terrain obstruction
+PASS: finisher preserves increased damage
+PASS: forward contact launches hittable props
+PASS: active melee window damages each body only once
+PASS: active melee window catches a body entering after startup
+PASS: cancel closes an already-active contact window
+PASS: sight sacrifice scales movement by 1.25
+PASS: speed modifier does not mutate shared tuning
+PASS: ground jump produces upward motion
+PASS: double jump remains available
+PASS: extreme-speed dash sweeps into a 2px wall without tunneling
+PASS: dash preserves roll duration and invulnerability
+PASS: high-speed dash cannot climb through an overhead ledge corner
+PASS: held Q/C action repeats at the tap cooldown
+PASS: weapon tap noise begins at actual ground contact
+PASS: falling physical prop emits impact noise
+PASS: translated rotated prop impact retains true world contact provenance
+PASS: hard physical collision breaks prop and emits one break
+PASS: break provenance is the physical prop location
+PASS: real launched rigid-body contact deals prop damage exactly once
+PASS: enemy contact consumes launched prop
+PASS: real prop chain transfers charge and physical momentum
+PASS: chain-launched second prop reaches and damages a real enemy
+PASS: chain kill prop emits its own single break source
+PASS: patrolling guard stays on a platform ledge
+PASS: blocked enemy emits no footsteps without real movement
+ACTOR REGRESSION: 48/48 passed

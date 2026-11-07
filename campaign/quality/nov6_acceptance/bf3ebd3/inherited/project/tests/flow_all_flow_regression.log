@@ -1,0 +1,76 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PASS main PackedScene loads 
+PASS main starts a playing level 
+PASS new run starts city prologue 
+PASS city begins in normal vision 
+PASS normal vision has no sonar preview 
+PASS city uses unmodified speed 
+PASS city cannot trade sight 
+PASS D produces baseline movement speed 
+PASS E away from city exit does not transition 
+PASS standing at city exit alone does not transition 
+PASS E near city exit loads arcology 
+PASS transition frees the old level instance 
+PASS second level requires sensory trade 
+PASS arcology has distinct vertical bounds 
+PASS arcology is the terminal second level 
+PASS arcology enters sighted 
+PASS E at arcology spawn does not trade sight 
+PASS terminal exit rejects completion before trade 
+PASS station rejects E outside interaction radius 
+PASS station API also enforces proximity 
+PASS station requires E even at contact 
+PASS closed ascent barrier blocks a real physics ray 
+PASS E at station trades sight and enables blind renderer 
+PASS sight trade applies exactly 1.25 speed multiplier 
+PASS sight trade leaves baseline movement and dash tuning unchanged 
+PASS baseline shared tuning resource identity is retained 
+PASS station visibly marks trade spent 
+PASS trade opens physical barrier 
+PASS trade emits one initial station pulse 
+PASS initial pulse has station world position and source 
+PASS initial station noise reaches bound sonar 
+PASS repeated E at spent station does not compound speed 
+PASS repeat trade API safely rejects 
+PASS repeat trade produces no extra sacrifice event 
+PASS post-trade movement actually runs 25 percent faster 
+PASS holding Q repeats real weapon taps 4 taps
+PASS Q noise originates at measured weapon contact with player provenance 
+PASS Q contact stays at the visible weapon tip largest distance 1.114 px
+PASS held Q obeys cooldown 
+PASS held Q noise reaches sonar 
+PASS live level enemies emit footsteps 4 steps
+PASS enemy step origins match emitting enemies' feet 
+PASS enemy step origin is independent of player position 
+PASS Escape pauses the run 
+PASS pause freezes players, enemies and rigid props 
+PASS pause freezes sonar propagation and decay 
+PASS pause suppresses actor noise and run timer 
+PASS Escape resumes actors and sonar 
+PASS resume advances sonar and run timer 
+PASS camera follows vertical ascent lower (320.0, 920.0) upper (473.0, 192.0)
+PASS camera stays within viewport-adjusted level bounds 
+PASS camera clamps all four edges 
+PASS lethal actor damage enters dead state 
+PASS death stops actor and sonar simulation 
+PASS R retries the current arcology room 
+PASS retry frees the previous arcology 
+PASS retry restores living full-health player 
+PASS retry resets normal vision and speed 
+PASS retry resets station and physical barrier 
+PASS retry contains no old level event provenance 
+PASS reload setup creates a live pulse 
+PASS R synchronously clears pulses and both event histories 
+PASS reloaded room does not retain old actor sources 
+PASS reloaded sonar geometry belongs only to current room 
+PASS traded sight plus E at terminal exit completes ascent 
+PASS repeated terminal interaction is safe 
+PASS terminal completion freezes simulation 
+PASS N starts a fresh city run from terminal state 
+PASS new run resets sight and speed 
+PASS new run resets progression counters and timer 
+PASS direct arcology editor-run scene loads 
+PASS direct arcology editor-run scene starts indoors 
+PASS N from direct arcology editor-run returns to city 
+FLOW RESULT 73/73 passed

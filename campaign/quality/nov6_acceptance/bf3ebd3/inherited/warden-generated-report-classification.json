@@ -1,0 +1,23 @@
+{
+  "path": "simulation/evidence/warden_factory_60.json",
+  "tracked_in_commit": true,
+  "classification": "Tracked historical generated report overwritten by its unchanged test writer during normal execution, not an untracked file or a runtime/test-source change.",
+  "writer": "simulation/tests/warden_factory_regression.gd",
+  "writer_line": 73,
+  "writer_statement": "simulation/tests/warden_factory_regression.gd line 73: \tFileAccess.open(\"res://simulation/evidence/warden_factory_%d.json\" % hz,FileAccess.WRITE).store_string(JSON.stringify(report,\"  \"))",
+  "identity_source_example": "combat_pc/player.gd:2887 sets receipt actor_id from get_instance_id().",
+  "semantic_differences": 26,
+  "identity_mapping": {
+    "443186941071": 443119832207,
+    "448253658945": 448186550081
+  },
+  "changed_fields": "Only actor_id and the same process-local instance ID prefix in attack_key. All attack-type/serial suffixes are unchanged.",
+  "all_other_json_data_exactly_equal": true,
+  "checks": 1012,
+  "failures": 0,
+  "raw_reports_preserved_in_inventory": true,
+  "observed_report_modified_for_review": false,
+  "tests_rerun": false,
+  "initial_audit_preserved": "initial-post-run-audit/",
+  "reason_initial_audit_failed": "The external audit initially named six previously observed generated-report outputs; it omitted this seventh output explicitly written by the test."
+}

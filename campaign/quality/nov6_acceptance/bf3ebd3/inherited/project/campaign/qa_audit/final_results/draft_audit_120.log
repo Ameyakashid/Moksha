@@ -1,0 +1,183 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PASS unique district rainline
+PASS rainline acyclic dependencies
+PASS unique district city_clinic
+PASS city_clinic prerequisite exists cell
+PASS city_clinic prerequisite exists generator
+PASS city_clinic acyclic dependencies
+PASS city_clinic door prerequisite exists generator
+PASS unique district city_tram_depot
+PASS city_tram_depot prerequisite exists schematic
+PASS city_tram_depot prerequisite exists auxiliary
+PASS city_tram_depot acyclic dependencies
+PASS city_tram_depot door prerequisite exists auxiliary
+PASS unique district city_records
+PASS city_records prerequisite exists record
+PASS city_records acyclic dependencies
+PASS unique district city_evac_spine
+PASS city_evac_spine prerequisite exists keys
+PASS city_evac_spine prerequisite exists keys
+PASS city_evac_spine acyclic dependencies
+PASS city_evac_spine door prerequisite exists west
+PASS unique district quarantine_intake
+PASS quarantine_intake acyclic dependencies
+PASS unique district l2_exchange
+PASS l2_exchange prerequisite exists safety
+PASS l2_exchange acyclic dependencies
+PASS l2_exchange door prerequisite exists access
+PASS unique district l2_capacitor_mill
+PASS l2_capacitor_mill prerequisite exists coil
+PASS l2_capacitor_mill prerequisite exists breaker
+PASS l2_capacitor_mill prerequisite exists bus
+PASS l2_capacitor_mill acyclic dependencies
+PASS l2_capacitor_mill door prerequisite exists bus
+PASS l2_capacitor_mill door prerequisite exists bus
+PASS unique district l2_freight
+PASS l2_freight prerequisite exists ticket
+PASS l2_freight acyclic dependencies
+PASS l2_freight door prerequisite exists release
+PASS unique district l2_stamping_galleries
+PASS l2_stamping_galleries prerequisite exists die
+PASS l2_stamping_galleries prerequisite exists stamp
+PASS l2_stamping_galleries prerequisite exists certify
+PASS l2_stamping_galleries acyclic dependencies
+PASS l2_stamping_galleries door prerequisite exists die
+PASS l2_stamping_galleries door prerequisite exists stamp
+PASS l2_stamping_galleries door prerequisite exists certify
+PASS unique district l2_thermal_foundry
+PASS l2_thermal_foundry prerequisite exists ceramic
+PASS l2_thermal_foundry prerequisite exists return
+PASS l2_thermal_foundry prerequisite exists feed
+PASS l2_thermal_foundry prerequisite exists coolant
+PASS l2_thermal_foundry acyclic dependencies
+PASS l2_thermal_foundry door prerequisite exists coolant
+PASS l2_thermal_foundry door prerequisite exists coolant
+PASS unique district l2_union_dispatch
+PASS l2_union_dispatch prerequisite exists manifest
+PASS l2_union_dispatch prerequisite exists channel
+PASS l2_union_dispatch prerequisite exists broadcast
+PASS l2_union_dispatch prerequisite exists pod
+PASS l2_union_dispatch acyclic dependencies
+PASS l2_union_dispatch door prerequisite exists broadcast
+PASS l2_union_dispatch door prerequisite exists handoff
+PASS unique district l3_cistern
+PASS l3_cistern prerequisite exists survey
+PASS l3_cistern acyclic dependencies
+PASS l3_cistern door prerequisite exists permit
+PASS unique district l3_inundated_market
+PASS l3_inundated_market prerequisite exists key
+PASS l3_inundated_market prerequisite exists isolate
+PASS l3_inundated_market prerequisite exists bridge
+PASS l3_inundated_market acyclic dependencies
+PASS l3_inundated_market door prerequisite exists bridge
+PASS l3_inundated_market door prerequisite exists family
+PASS unique district l3_water_clinic
+PASS l3_water_clinic prerequisite exists filter
+PASS l3_water_clinic prerequisite exists assay
+PASS l3_water_clinic prerequisite exists purge
+PASS l3_water_clinic prerequisite exists clean
+PASS l3_water_clinic acyclic dependencies
+PASS l3_water_clinic door prerequisite exists clean
+PASS l3_water_clinic door prerequisite exists patients
+PASS unique district l3_homes
+PASS l3_homes prerequisite exists list
+PASS l3_homes prerequisite exists shelter
+PASS l3_homes acyclic dependencies
+PASS l3_homes door prerequisite exists roofs
+PASS unique district l3_refuge_terraces
+PASS l3_refuge_terraces prerequisite exists winch
+PASS l3_refuge_terraces prerequisite exists roof
+PASS l3_refuge_terraces prerequisite exists open
+PASS l3_refuge_terraces prerequisite exists residents
+PASS l3_refuge_terraces acyclic dependencies
+PASS l3_refuge_terraces door prerequisite exists open
+PASS l3_refuge_terraces door prerequisite exists residents
+PASS unique district l3_drainage_commons
+PASS l3_drainage_commons prerequisite exists map
+PASS l3_drainage_commons prerequisite exists west
+PASS l3_drainage_commons prerequisite exists east
+PASS l3_drainage_commons prerequisite exists link
+PASS l3_drainage_commons prerequisite exists link
+PASS l3_drainage_commons acyclic dependencies
+PASS l3_drainage_commons door prerequisite exists link
+PASS l3_drainage_commons door prerequisite exists handoff
+PASS unique district works_receiving
+PASS works_receiving prerequisite exists origin
+PASS works_receiving prerequisite exists revision
+PASS works_receiving acyclic dependencies
+PASS works_receiving door prerequisite exists compare
+PASS unique district works_baffle_hall
+PASS works_baffle_hall prerequisite exists baffle_key
+PASS works_baffle_hall prerequisite exists quiet_bus
+PASS works_baffle_hall prerequisite exists baffle_key
+PASS works_baffle_hall acyclic dependencies
+PASS works_baffle_hall door prerequisite exists quiet_lock
+PASS unique district works_cargo_exchange
+PASS works_cargo_exchange prerequisite exists delivery_tag
+PASS works_cargo_exchange prerequisite exists delivery_tag
+PASS works_cargo_exchange prerequisite exists receiver_bus
+PASS works_cargo_exchange acyclic dependencies
+PASS works_cargo_exchange door prerequisite exists handoff
+PASS unique district works_memory_loom
+PASS works_memory_loom prerequisite exists first_account
+PASS works_memory_loom prerequisite exists other_account
+PASS works_memory_loom acyclic dependencies
+PASS works_memory_loom door prerequisite exists preserve
+PASS unique district works_service_refuge
+PASS works_service_refuge prerequisite exists crew_key
+PASS works_service_refuge prerequisite exists crew_key
+PASS works_service_refuge prerequisite exists shelter_power
+PASS works_service_refuge prerequisite exists shelter_power
+PASS works_service_refuge acyclic dependencies
+PASS works_service_refuge door prerequisite exists crew_release
+PASS unique district works_three_crews
+PASS works_three_crews acyclic dependencies
+PASS unique district works_dispatch_refusal
+PASS works_dispatch_refusal prerequisite exists isolate
+PASS works_dispatch_refusal acyclic dependencies
+PASS works_dispatch_refusal door prerequisite exists refuse
+PASS unique district crown_ascent
+PASS crown_ascent prerequisite exists intake_fuse
+PASS crown_ascent acyclic dependencies
+PASS crown_ascent door prerequisite exists intake
+PASS unique district crown_witness_galleries
+PASS crown_witness_galleries prerequisite exists public_copy
+PASS crown_witness_galleries prerequisite exists annex_copy
+PASS crown_witness_galleries acyclic dependencies
+PASS crown_witness_galleries door prerequisite exists witness_passage
+PASS unique district crown_manual_governor
+PASS crown_manual_governor prerequisite exists authority
+PASS crown_manual_governor prerequisite exists supply
+PASS crown_manual_governor acyclic dependencies
+PASS crown_manual_governor door prerequisite exists governor
+PASS unique district crown_refuge_channel
+PASS crown_refuge_channel prerequisite exists refuge_key
+PASS crown_refuge_channel prerequisite exists refuge_bus
+PASS crown_refuge_channel prerequisite exists exit_link
+PASS crown_refuge_channel prerequisite exists exit_link
+PASS crown_refuge_channel acyclic dependencies
+PASS crown_refuge_channel door prerequisite exists refuge_release
+PASS unique district crown_coolant_interlock
+PASS crown_coolant_interlock prerequisite exists coolant_tag
+PASS crown_coolant_interlock prerequisite exists coolant_tag
+PASS crown_coolant_interlock prerequisite exists divert
+PASS crown_coolant_interlock acyclic dependencies
+PASS crown_coolant_interlock door prerequisite exists cold_lock
+PASS unique district crown_last_warden
+PASS crown_last_warden prerequisite exists approach_key
+PASS crown_last_warden acyclic dependencies
+PASS crown_last_warden door prerequisite exists dais_release
+PASS unique district crown_choice_threshold
+PASS crown_choice_threshold prerequisite exists independent_exit
+PASS crown_choice_threshold prerequisite exists testimony
+PASS crown_choice_threshold acyclic dependencies
+PASS crown_choice_threshold door prerequisite exists manual_threshold
+PASS dependency rejects interaction before first physics tick
+PASS build speed idempotent
+PASS build damage idempotent
+PASS wounded reward does not heal
+PASS wounded reward updates effective capacity
+PASS level exit reaches upgrade
+PASS same-frame exit input cannot duplicate upgrade
+AUDIT_FAILURES []

@@ -1,0 +1,36 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PASS playable level directory contains exactly two scenes
+PASS load reusable level res://scenes/levels/city_prologue.tscn
+PASS level exports are available in editor CityPrologue
+PASS level owns placed player, terrain and exit CityPrologue
+PASS player remains a reusable scene instance CityPrologue
+PASS enemy and physical prop scenes retain tuning resources CityPrologue
+PASS terrain uses reusable physical platform scenes CityPrologue
+PASS platform width override updates collider CityPrologue
+PASS one-way override updates collider CityPrologue
+PASS edited instance packs CityPrologue
+PASS edited instance saves CityPrologue
+PASS level export survives editor-style save/reload CityPrologue
+PASS platform override survives save/reload CityPrologue
+PASS one-way override survives save/reload CityPrologue
+PASS per-instance tuning survives save/reload CityPrologue
+PASS per-instance tuning does not mutate baseline CityPrologue
+PASS fresh scene keeps default tuning and geometry CityPrologue
+PASS load reusable level res://scenes/levels/arcology_one.tscn
+PASS level exports are available in editor ArcologyOne
+PASS level owns placed player, terrain and exit ArcologyOne
+PASS player remains a reusable scene instance ArcologyOne
+PASS enemy and physical prop scenes retain tuning resources ArcologyOne
+PASS terrain uses reusable physical platform scenes ArcologyOne
+PASS platform width override updates collider ArcologyOne
+PASS one-way override updates collider ArcologyOne
+PASS edited instance packs ArcologyOne
+PASS edited instance saves ArcologyOne
+PASS level export survives editor-style save/reload ArcologyOne
+PASS platform override survives save/reload ArcologyOne
+PASS one-way override survives save/reload ArcologyOne
+PASS per-instance tuning survives save/reload ArcologyOne
+PASS per-instance tuning does not mutate baseline ArcologyOne
+PASS fresh scene keeps default tuning and geometry ArcologyOne
+SCENE RESULT 33/33 passed

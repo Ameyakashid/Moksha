@@ -1,0 +1,59 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PASS: real missed swing emits strike noise while leaving the distant guard unharmed
+PASS: a real miss never invents a successful contact mark
+PASS: terrain-obstructed swing still executes without reaching a guard behind the wall
+PASS: blocked melee contact never displays HIT through terrain
+PASS: real active melee contact produces one damage event from the struck guard
+PASS: HIT mark starts at the actual guard damage origin
+PASS: successful strike displays the distinct HIT label
+PASS: swing intent itself remains separate from confirmed contact feedback
+PASS: repeated active-window samples do not duplicate hit feedback
+PASS: contact mark remembers emission position after the guard moves
+PASS: contact feedback fades instead of following or permanently revealing the guard
+PASS: silence expires both the contact mark and its contour pulse
+PASS: lethal real finisher records damage and death before its queued source is freed
+PASS: close simultaneous damage and death labels resolve to DOWN
+PASS: label priority preserves both independent travelling contour waves
+PASS: lethal fixture actually frees the dead guard
+PASS: recorded DOWN feedback survives source deletion at the real death origin
+PASS: DOWN and its label expire even after their source has disappeared
+PASS: one real swing can contact two neighboring guards
+PASS: nearby equal-priority HIT labels stay readable while retaining both damage pulses
+PASS: real guard windup and attack produce player damage
+PASS: incoming damage has distinct HURT feedback at the damaged player's position
+PASS: HURT remains readable among the guard's nearby draw and strike noises
+PASS: second real guard attack resolves during player invulnerability
+PASS: an invulnerable dodge does not fabricate HURT or successful contact feedback
+PASS: real close guard AI emits a directional windup warning
+PASS: real melee damage interrupts the guard's active windup
+PASS: confirmed interrupt retires stale DRAW feedback while preserving its travelling wave
+PASS: real melee launches a prop without directly reaching the distant guard (nonlethal)
+PASS: launched rigid-body collision generates exactly one real prop damage event (nonlethal)
+PASS: consumed physical projectile records exactly one BREAK before deletion (nonlethal)
+PASS: prop damage feedback uses the collided guard's actual origin (nonlethal)
+PASS: physical projectile destruction retains its own BREAK mark (nonlethal)
+PASS: nonlethal prop damage never invents DOWN
+PASS: close physical damage and break labels do not pile up
+PASS: real melee launches a prop without directly reaching the distant guard (lethal)
+PASS: launched rigid-body collision generates exactly one real prop damage event (lethal)
+PASS: consumed physical projectile records exactly one BREAK before deletion (lethal)
+PASS: prop damage feedback uses the collided guard's actual origin (lethal)
+PASS: physical projectile destruction retains its own BREAK mark (lethal)
+PASS: physical prop can kill and free its real guard target
+PASS: nearby lethal prop damage, death and break labels resolve to DOWN across sources
+PASS: lethal prop label selection preserves all three independent waves
+PASS: hard real ground impact breaks a falling prop once
+PASS: isolated physical break visibly identifies the destroyed prop at its recorded origin
+PASS: physical stationary-prop fixture genuinely settles on terrain
+PASS: resting contact produces no recurring impact, BREAK or contact-feedback spam
+PASS: noisy overlap fixture consists of 24 actual simultaneous melee defeats
+PASS: dense real contact feedback obeys the shared finite pulse budget
+PASS: actual blind draw callback renders bounded contacts above the black cover
+PASS: noisy actual draw submits one readable DOWN label while retaining bounded travelling contours
+PASS: pause freezes a real post-deletion contact marker's origin and fade
+PASS: resume continues the same real contact marker's finite fade
+BLIND FEEDBACK METRIC: 18-pulse contact/label evaluation 724.5 us per pass; CPU instrumentation, not GPU/frame-rate proof
+PASS: contact glyphs and labels disappear before the remaining travelling waves finish
+PASS: level rebind clears every contact, label, pulse and prior event record
+BLIND FEEDBACK: 55/55 checks passed

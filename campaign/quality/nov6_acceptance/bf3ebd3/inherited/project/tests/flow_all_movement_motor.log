@@ -1,0 +1,22 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+CHECKED: ground acceleration, braking, reversal, facing
+CHECKED: source-grounded immediate response and reduced ledge-fall steering
+CHECKED: actual Godot input adapter event path
+CHECKED: variable jump; hold 67.62 px, tap 18.93 px
+CHECKED: release speed cap, one-shot cut, near-apex release, held gating
+CHECKED: air-jump, walk-off, ceiling, dash, and impulse apex exclusions
+CHECKED: actual ledge coyote and walkoff accounting
+CHECKED: landing buffer, expiry, release before launch
+CHECKED: double jump limit and landing reset
+CHECKED: air steering and reversal
+CHECKED: dash direction latch and neutral-facing fallback
+CHECKED: air dash budget and landing reset
+CHECKED: dash jump-cancel timing
+CHECKED: swept wall, ceiling, and floor collisions
+CHECKED: actual one-way upward passage and downward landing
+CHECKED: locomotion permissions, physical enforcement, and reset telemetry
+CHECKED: ascending, descending, floor snap, slope rest
+CHECKED: pause capture, buffer lifetime, release preservation
+CHECKED: knockback interruption and control return
+MOTOR REGRESSION: 143 checks, 0 failures

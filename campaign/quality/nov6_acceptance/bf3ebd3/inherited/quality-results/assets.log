@@ -1,0 +1,46 @@
+{
+  "metrics": {
+    "inventory_bytes": 10728228,
+    "file_count": 532,
+    "largest_file_bytes": 2145320,
+    "largest_png_pixels": 1573352,
+    "wav_pcm_bytes": 611446
+  },
+  "literal_references_checked": 855,
+  "errors": [],
+  "passed": true,
+  "budgets": {
+    "baseline_commit": "c6f1f92b65e03bfb84e9f09b466ec7bc15e4a9b8",
+    "baseline_metrics": {
+      "inventory_bytes": 10659790,
+      "file_count": 523,
+      "largest_file_bytes": 2145320,
+      "largest_png_pixels": 1573352,
+      "wav_pcm_bytes": 611446
+    },
+    "policy": "Reviewable growth guard, not target-hardware claim. Total bytes/count/PCM permit 10% growth; largest file and PNG pixels permit 20%. Rounded upward to whole units. Changes require explicit review of this file, never automatic rebasing.",
+    "limits": {
+      "inventory_bytes": 11725770,
+      "file_count": 576,
+      "largest_file_bytes": 2574384,
+      "largest_png_pixels": 1888023,
+      "wav_pcm_bytes": 672591
+    }
+  },
+  "scope": "Conservative source/runtime inventory, including legacy assets; not exported size, FPS, GPU memory, or full dynamic dependency resolution.",
+  "excluded_directory_names": [
+    ".git",
+    ".godot",
+    "__pycache__",
+    "docs",
+    "enemy_tests",
+    "evidence",
+    "export_templates",
+    "history",
+    "qa_audit",
+    "quality",
+    "route_tests",
+    "route_tests_45",
+    "tests"
+  ]
+}

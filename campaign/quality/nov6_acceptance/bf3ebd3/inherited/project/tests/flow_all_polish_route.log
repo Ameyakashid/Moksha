@@ -1,0 +1,56 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PASS: route starts naturally at arcology spawn
+PASS: arrival begins sighted at base movement speed
+PASS: first-landing tutorial begins uncompleted and hidden while sighted
+PASS: all four placed guards are present
+PASS: all placed actors are simulated during the route
+PASS: natural movement reaches sensory station
+PASS: actual E input trades sight before climbing
+PASS: trade opens physical ascent barrier
+PASS: sight trade presents the hold-and-repeat jump instruction
+PASS: blind player walks through opened barrier toward first ledge
+PASS: walking toward first ledge preserves jump instruction
+PASS: jump 1 reaches takeoff from previous landing without repositioning
+PASS: continuous jump 1 settles on its intended ledge
+PASS: crossing first-ledge height in the air does not prematurely complete tutorial
+PASS: actual first landing replaces jump instruction with threat-reading hint
+ROUTE LANDING 1 (443.0942, 903.9963) health=5
+PASS: jump 2 reaches takeoff from previous landing without repositioning
+PASS: continuous jump 2 settles on its intended ledge
+ROUTE LANDING 2 (835.9515, 807.9963) health=5
+PASS: jump 3 reaches takeoff from previous landing without repositioning
+PASS: continuous jump 3 settles on its intended ledge
+ROUTE LANDING 3 (733.7577, 711.9965) health=5
+PASS: jump 4 reaches takeoff from previous landing without repositioning
+PASS: continuous jump 4 settles on its intended ledge
+ROUTE LANDING 4 (835.9515, 615.9965) health=5
+PASS: jump 5 reaches takeoff from previous landing without repositioning
+PASS: continuous jump 5 settles on its intended ledge
+ROUTE LANDING 5 (733.7577, 519.9965) health=5
+PASS: jump 6 reaches takeoff from previous landing without repositioning
+PASS: continuous jump 6 settles on its intended ledge
+ROUTE LANDING 6 (835.9515, 423.9966) health=5
+PASS: jump 7 reaches takeoff from previous landing without repositioning
+PASS: continuous jump 7 settles on its intended ledge
+ROUTE LANDING 7 (733.7578, 327.9966) health=5
+PASS: jump 8 reaches takeoff from previous landing without repositioning
+PASS: continuous jump 8 settles on its intended ledge
+ROUTE LANDING 8 (835.9515, 231.9965) health=5
+PASS: jump 9 reaches takeoff from previous landing without repositioning
+PASS: continuous jump 9 settles on its intended ledge
+ROUTE LANDING 9 (733.7578, 135.9965) health=5
+PASS: all nine ascent landings connect in one live run
+PASS: last landing connects to exit interaction range
+PASS: actual E input completes the first ascent
+PASS: supported near-edge bypass route finishes with full health
+PASS: completion does not require defeating guards
+PASS: held Q generates repeated real navigation noises during the route
+PASS: live guards emit their own movement noises during the route
+PASS: tutorial completion stays remembered throughout ascent
+PASS: actual R input starts a fresh version of the same room
+PASS: room retry clears sensory tutorial completion
+PASS: room retry restores natural spawn
+PASS: retried player can naturally reach station again
+PASS: trading after retry restores hold-and-repeat instruction
+POLISH ROUTE: 44/44 checks; 9/9 continuous jumps; 0 failures

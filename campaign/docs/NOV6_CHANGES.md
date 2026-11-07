@@ -155,9 +155,24 @@ It saved 18.79 active seconds and did not complete a district. Ordinary Alt-F4
 exited successfully without resource-leak diagnostics in that particular run;
 the intermittent engine/audio close warning below remains documented.
 
-Fresh full campaign, inherited, optional and expanded stress matrices are still
-finishing. Final delivery-source/archive receipts remain separate and must be
-added before this becomes the final delivery record.
+The final runtime also passes **125/125 inherited stages**, with all 12 replay
+traces equal to b2 across 12,960 ticks and all 137 raw logs clean. The pristine
+archive matches all 3,301 Git blobs. Its executed copy changes seven generated
+historical reports, with no runtime/test-source changes; every before/after pair
+and exact test writer is preserved, including process-local IDs in the Warden
+report. These report writes are not hidden as unchanged-source claims.
+
+The complete optional matrix passes again: **24 district starts, 12 focused
+120 Hz routes, 40 real reward collections and six runner guards**. Expanded
+transition acceptance passes all **eight runs**, with 617,379 positive assertions
+across 1,404 cases including replay. Command/state digests match b2, and intentional
+negative controls and save-isolation refusal behave as expected. Both suites
+reverify all 3,301 source blobs without changes.
+
+The final six continuous source campaigns are still finishing. An additional
+actual-PCK continuous route is running separately with external QA only. Final
+delivery-source/archive receipts remain separate and must be added before this
+becomes the final delivery record.
 
 ## Limits that remain
 

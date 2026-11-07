@@ -1,0 +1,13 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PASS bounded patrol and facing x=213.542068481445 y=99.9668960571289 state=PATROL reason=World X 80 to 220
+PASS chase stopping distance x=216.083526611328 y=99.9669342041016 state=HOLD reason=Within 38 px stopping distance
+PASS hold hysteresis x=216.083526611328 y=99.9669342041016 state=HOLD reason=Within 38 px stopping distance
+PASS resume chase beyond hysteresis x=246.125137329102 y=99.966926574707 state=HOLD reason=Within 38 px stopping distance
+PASS target loss distance x=246.666793823242 y=99.966911315918 state=PATROL reason=World X 180 to 560
+PASS world LOS and wall turns x=119.625419616699 y=99.9666595458984 state=PATROL reason=World X 60 to 600
+PASS patrol edge safety without teleport x=142.500061035156 y=99.9668960571289 state=PATROL reason=World X 40 to 500
+PASS chase waits safely at gap x=179.625228881836 y=99.9669189453125 state=BLOCKED reason=Edge between NPC and target
+PASS AI toggle clears intent x=179.625228881836 y=99.9669189453125 state=DISABLED reason=AI paused
+PASS brain reset x=179.625228881836 y=99.9669189453125 state=PATROL reason=Reset
+NPC_CHECK_FAILURES=0

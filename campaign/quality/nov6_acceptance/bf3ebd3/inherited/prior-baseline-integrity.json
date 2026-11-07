@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "scope": "Read-only integrity verification of prior accepted outer baselines and the retained compact b2 repository record.",
+  "baselines": [
+    {
+      "commit": "b2e7f352b96b11e9a5137145416ddeaf4a974e27",
+      "logs_checked": 137,
+      "log_mismatches": [],
+      "summary_unchanged": true,
+      "source_archive_unchanged": true,
+      "passed": true
+    },
+    {
+      "commit": "01105eb5f5e683297366e2c1f37c891b207c511f",
+      "logs_checked": 137,
+      "log_mismatches": [],
+      "summary_unchanged": true,
+      "source_archive_unchanged": true,
+      "passed": true
+    },
+    {
+      "commit": "f00bf23031cf7c74882d47a855ebafc701024634",
+      "logs_checked": 137,
+      "log_mismatches": [],
+      "summary_unchanged": true,
+      "source_archive_unchanged": true,
+      "passed": true
+    }
+  ],
+  "b2_repository_record": {
+    "exit_code": 0,
+    "output": "PASS: 173 indexed files, 137 original raw logs, 168 copied originals, and 18 exact trace members\n"
+  }
+}

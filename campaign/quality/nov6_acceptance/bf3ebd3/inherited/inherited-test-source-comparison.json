@@ -1,0 +1,16 @@
+{
+  "baseline_commit": "b2e7f352b96b11e9a5137145416ddeaf4a974e27",
+  "new_commit": "bf3ebd382eb9485eeaffcdff9fe9bfcfda8d3ad5",
+  "runner_and_budget_files": [
+    "simulation/tests/run_foundation.py",
+    "tests/run_all.sh",
+    "campaign/qa_audit/run_audit.py",
+    "campaign/quality/run_quality.py",
+    "campaign/quality/assets_budgets.json"
+  ],
+  "changed_runners_or_budgets": [],
+  "original_noncampaign_source_audio_files_checked": 744,
+  "changed_original_noncampaign_source_audio_files": [],
+  "scope": "Source and audio extensions outside campaign/ and tools/, compared by SHA-256 with accepted b2. Excludes generated JSON evidence and documentation.",
+  "passed": true
+}

@@ -1,0 +1,49 @@
+{
+  "candidate": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/project",
+  "cwd": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/project",
+  "engine": "/opt/godot/4.6.3/Godot_v4.6.3-stable_linux.x86_64",
+  "engine_version": "4.6.3.stable.official.7d41c59c4",
+  "engine_sha256": "f64d4ed19fc9df9440321653fcc80df8c6e365ba7b6de0a29e2cfa9fa71bfeb3",
+  "commands": {
+    "foundation": [
+      "python3",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/project/simulation/tests/run_foundation.py"
+    ],
+    "original": [
+      "bash",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/project/tests/run_all.sh",
+      "--require-preservation"
+    ],
+    "audit": [
+      "python3",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/project/campaign/qa_audit/run_audit.py",
+      "--final"
+    ],
+    "quality": [
+      "python3",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/project/campaign/quality/run_quality.py",
+      "--output",
+      "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/quality-results"
+    ]
+  },
+  "concurrency": "Immutable archive imported first. Original, audit and quality have distinct in-project output ownership and isolated user-data directories. Foundation starts only after original completes to avoid movement_npc report collisions. No previous audit or foundation runner remains active.",
+  "preservation_siblings": {
+    "emberwake": "/workspace/scratch/fd16273ade4b/emberwake",
+    "moksha-assets": "/workspace/scratch/fd16273ade4b/moksha-assets"
+  },
+  "limits": "Headless inherited acceptance of exact bf3ebd3 only. Native visuals, audible playback, Windows hardware and human pacing remain separate.",
+  "original_environment": {
+    "MOKSHA_TEST_DATA_HOME": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/environments/original/data",
+    "MOKSHA_TEST_CONFIG_HOME": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/environments/original/config",
+    "MOKSHA_TEST_CACHE_HOME": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/environments/original/cache"
+  },
+  "commit": "bf3ebd382eb9485eeaffcdff9fe9bfcfda8d3ad5",
+  "suite_homes": {
+    "import": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/environments/import/home",
+    "original": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/environments/original/home",
+    "foundation": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/environments/foundation/home",
+    "audit": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/environments/audit/home",
+    "quality": "/workspace/scratch/fd16273ade4b/moksha-nov6-inherited-final-bf3ebd3/environments/quality/home"
+  },
+  "isolation_receipt": "environment-isolation.json"
+}
