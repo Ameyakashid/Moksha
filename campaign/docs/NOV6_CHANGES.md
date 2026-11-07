@@ -153,7 +153,12 @@ A separate ordinary final-PCK keyboard smoke reached the first ladder/roof and
 verified journal, pause, real focus-loss pause, Title/checkpoint Continue and F12.
 It saved 18.79 active seconds and did not complete a district. Ordinary Alt-F4
 exited successfully without resource-leak diagnostics in that particular run;
-the intermittent engine/audio close warning below remains documented.
+the intermittent engine/audio close warning below remains documented. A second
+ordinary keyboard attempt ended in real patrol defeat, not district completion.
+Its LOW-health warning, defeat panel and full-health R retry were observed, and
+Title saved one death. That close reproduced the same ambience/playback warning
+with exit code 0 and no input-helper or campaign-node retention. The attempted
+route is explicitly not counted as a traversal pass.
 
 The final runtime also passes **125/125 inherited stages**, with all 12 replay
 traces equal to b2 across 12,960 ticks and all 137 raw logs clean. The pristine
@@ -169,10 +174,37 @@ across 1,404 cases including replay. Command/state digests match b2, and intenti
 negative controls and save-isolation refusal behave as expected. Both suites
 reverify all 3,301 source blobs without changes.
 
-The final six continuous source campaigns are still finishing. An additional
-actual-PCK continuous route is running separately with external QA only. Final
-delivery-source/archive receipts remain separate and must be added before this
-becomes the final delivery record.
+All **six final continuous source campaigns passed**: Neutral at 60/120 Hz with
+retained/traded sight, Strength at 60 Hz and Agility at 60 Hz. Each completed all
+32 districts and required goals, five level receipts and four real upgrades with
+zero deaths or engine errors. All 3,301 archived blobs remained unchanged; no
+runtime or observer overlay was used. Exact receipts and a portable rerun wrapper
+are under `campaign/quality/nov6_acceptance/bf3ebd3/full_campaign/`.
+
+The actual `c489885` exported PCK also completed a separate **continuous 32-district
+route** at 60 Hz with sight traded: 89 required goals, eight relays, three freight
+deliveries, five level receipts and four upgrades, with zero deaths or failures.
+The external QA harness used an empty resource directory and no loose production
+fallback. All 817 production inputs, 275 packed script hashes and 228 resource
+loads were verified. Only six QA dependency/output-path lines were adapted; full
+physics, route assertions and district timeout were unchanged. The exact PCK
+SHA-256 is `490c51da2cb17b2d026d55af6e1739914837ae5e2fcefa0aac9fc861c08b04fa`.
+This headless exported-runtime result is not native Windows or human traversal.
+
+A bounded sampling benchmark compared the previous and final controller code in
+six balanced pairs. Raw sampling and a playing HUD snapshot add approximately
+0.08 ms together on this shared cloud CPU, with no retained object/resource or
+native-memory growth in the measured blocks. The raw microbenchmark is about
+nine times its small baseline; explicit overrides remain near baseline. These
+frozen-scene headless measurements are not a frame-rate or target-hardware claim.
+No speculative optimization was added after the runtime freeze.
+
+The final delivery manifests separately identify their source commit, archive
+hashes, packed-runtime checks and full-history restoration. Source and history
+retain all tracked tests, documentation and evidence. Optional small-attachment
+tools reconstruct the complete archives and check whole-file hashes. The source
+and source/history helper also checks each piece before assembly. These Windows
+assembly helpers were not executed on Windows here.
 
 ## Limits that remain
 

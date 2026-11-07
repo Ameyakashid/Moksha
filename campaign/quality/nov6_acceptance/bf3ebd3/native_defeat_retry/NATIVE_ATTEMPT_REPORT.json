@@ -1,0 +1,63 @@
+{
+  "runtime_commit": "bf3ebd382eb9485eeaffcdff9fe9bfcfda8d3ad5",
+  "source_commit": "c489885befb2264bf2dc0afd2cac8e147d1c9730",
+  "pck_sha256": "490c51da2cb17b2d026d55af6e1739914837ae5e2fcefa0aac9fc861c08b04fa",
+  "route_attempt_completed": false,
+  "completed_districts": 0,
+  "new_game": true,
+  "input_path": "Ordinary desktop keyboard holds between screenshots; no QA script, teleport, input_override or physics edits",
+  "observed": [
+    "Traversed first market ledge and rooftop platform using ordinary jumps",
+    "Dropped to street during further traversal and took real patrol damage",
+    "LOW 12/60 health warning was readable",
+    "Actual combat defeat displayed THE ASCENT CAN WAIT panel",
+    "Fresh R retry restored Rainline start and full 60/60 health, confirmed by saved F12 screenshot",
+    "Pause Title saved one death and exposed Continue",
+    "Ordinary Alt-F4 closed the window and exited 0"
+  ],
+  "saved_progress": {
+    "campaign_version": 1,
+    "lens": "neutral",
+    "level_receipts": [],
+    "level_seconds": {
+      "1": 43.1499999999982
+    },
+    "progress": {
+      "blind": false,
+      "cache_ids": [],
+      "deaths": 1,
+      "kills": 0,
+      "metrics": [],
+      "seconds": 43.1499999999982,
+      "sector_id": "rainline",
+      "version": 4
+    },
+    "rewards": {},
+    "upgrades": []
+  },
+  "active_seconds_at_title": 43.1499999999982,
+  "visual_capture": {
+    "file": "first_ascent_170816.png",
+    "sha256": "1fafa0a27ca7c6201c40b6d430d354ab515a22ba1eb5cbc8600e37c0ae1b9357",
+    "shows": "Full-health Rainline reset after real defeat; not a completed route"
+  },
+  "shutdown": {
+    "exit_code": 0,
+    "clean_shutdown_claim": false,
+    "engine_error_lines": [
+      "ERROR: 1 resources still in use at exit."
+    ],
+    "leaked_instances": [
+      "Leaked instance: AudioStreamPlaybackWAV:9223372137400633165 - Reference count: 1",
+      "Leaked instance: AudioStreamWAV:9223372136863762261 - Reference count: 1"
+    ],
+    "resource": "res://audio/ambience.wav",
+    "interpretation": "Matches the previously reproduced retirement diagnostic in the tested Linux/Dummy-audio environment. No controller helper, InputEvent, campaign Node or other resource leak was reported."
+  },
+  "assessment": "The route attempt ended in combat defeat and is not counted as a traversal pass. The genuine low-health/defeat/retry/Title boundaries were observed successfully. No gameplay defect or balance change is inferred from one delayed keyboard-control attempt.",
+  "limits": [
+    "Assistant already knew the layout; not a blind human first play",
+    "Desktop/tool turn latency and deliberate pauses prevent pacing inference",
+    "No physical gamepad, native Windows, audible mix or hardware FPS test"
+  ]
+}

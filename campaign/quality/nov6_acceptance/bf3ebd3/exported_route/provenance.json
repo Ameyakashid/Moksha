@@ -1,0 +1,57 @@
+{
+  "checks": {
+    "engine_errors": [],
+    "external_qa_scripts": 6,
+    "full_actor_physics": true,
+    "integrity_drift": [],
+    "packed_resources_loaded": 228,
+    "packed_script_hashes": 275,
+    "production_inputs_matched_both_frozen_commits": 817,
+    "production_runtime_drift_on_integration": [],
+    "qa_path_adaptations": 6,
+    "resource_working_directory_empty": true,
+    "route_assertions_unchanged": true,
+    "route_source_hashes": 238,
+    "source_drift": []
+  },
+  "engine": "4.6.3.stable.official.7d41c59c4",
+  "engine_sha256": "f64d4ed19fc9df9440321653fcc80df8c6e365ba7b6de0a29e2cfa9fa71bfeb3",
+  "evidence_archive": {
+    "bytes": 218656,
+    "members": 32,
+    "path": "MOKSHA-exported-route-evidence-c489885.zip",
+    "raw_evidence_preserved_byte_for_byte": true,
+    "sha256": "a193a8e3a33b4b3377b371f0d1409e632a20edf062694e4c6e06f21e59095bc9"
+  },
+  "packed_provenance_sha256": "f2c309ea3e1957214788a979f1a45cfcb77b3332578039b5835d237242be859d",
+  "passed": true,
+  "pck_sha256": "490c51da2cb17b2d026d55af6e1739914837ae5e2fcefa0aac9fc861c08b04fa",
+  "reproduction": "Extract the archive outside the active source/QA tree. Run its Python runner with the exact pinned PCK and official Godot 4.6.3, using a new evidence directory. A different PCK requires a separate identity-specific harness preparation and new run; this receipt applies only to the pinned PCK.",
+  "route": {
+    "actual_blind": true,
+    "actual_gate_receipts": 32,
+    "deaths": 0,
+    "district_timeout_seconds": 480,
+    "districts_completed": 32,
+    "ending": "public_record",
+    "freight_deliveries_completed": 3,
+    "hz": 60,
+    "lens": "neutral",
+    "level_receipts": 5,
+    "requested_sight_trade": true,
+    "required_goals_completed": 89,
+    "required_relays_completed": 8,
+    "upgrade_choices": [
+      "force",
+      "agility",
+      "vitality",
+      "force"
+    ]
+  },
+  "route_wall_seconds": 622.567,
+  "run_started_utc": "2026-11-07T00:14:49.498464+00:00",
+  "runtime_commit": "bf3ebd382eb9485eeaffcdff9fe9bfcfda8d3ad5",
+  "scope": "One continuous automated Linux/headless route against the actual exported PCK, using frozen layout-aware raw inputs and dispatched ordinary keys. No loose production fallback. Not human traversal, Windows execution, physical-controller, audible-output, or target-hardware performance validation.",
+  "simulated_active_seconds": 1209.44999999923,
+  "source_commit": "c489885befb2264bf2dc0afd2cac8e147d1c9730"
+}
