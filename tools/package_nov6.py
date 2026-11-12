@@ -773,6 +773,10 @@ def main() -> int:
         if quit_after is not None:
             command += ["--quit-after", str(quit_after)]
         user_args = []
+        # This destructive synthetic save fixture requires explicit opt-in even
+        # though every packed invocation already owns isolated HOME/XDG roots.
+        if script is not None and script.name == "save_draft.gd":
+            user_args.append("--isolated-save-tests")
         if hz is not None:
             command += ["--fixed-fps", str(hz)]
             user_args.append("--hz=" + str(hz))
