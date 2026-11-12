@@ -33,6 +33,7 @@ import shutil
 import stat
 import subprocess
 import tarfile
+import tempfile
 import time
 from urllib.parse import unquote, urlsplit
 import zipfile
@@ -78,6 +79,16 @@ RECEIPT_FIXTURES = (
     ("audio_contract", "campaign/quality/nov6_audio/contract.gd", "NOV6_AUDIO_CONTRACT_RESULT "),
     ("audio_routing", "campaign/quality/nov6_audio/event_routing.gd", "NOV6_AUDIO_ROUTING_RESULT "),
     ("audio_rejected_noise", "campaign/quality/nov6_audio/rejected_noise.gd", "NOV6_AUDIO_REJECTED_NOISE_RESULT "),
+)
+
+
+# Additional milestone gates; legacy31 checks below remain unchanged.
+REACTIVE_RECEIPT_FIXTURES = (
+    ("history_store", "campaign/quality/nov12_run_history/store_contract.gd", "RUN_HISTORY_STORE_RESULT ", True),
+    ("history_lifecycle", "campaign/quality/nov12_run_history/lifecycle_contract.gd", "RUN_LIFECYCLE_RESULT ", True),
+    ("companion_director", "campaign/quality/nov12_companion_contract.gd", "COMPANION_CONTRACT_RESULT ", False),
+    ("companion_observer", "campaign/quality/nov12_companion_observer_contract.gd", "OBSERVER_FIXTURE_RESULT ", False),
+    ("reactive_integration", "campaign/quality/nov12_reactive_integration.gd", "REACTIVE_INTEGRATION_RESULT ", True),
 )
 
 PRESET = '''[preset.0]
@@ -245,6 +256,8 @@ def write_json(path: Path, value: object) -> None:
 
 
 def included_runtime(relative: Path) -> bool:
+    if relative.name in {"moksha_five_levels_v1.json", "moksha_five_levels_results.json"} or "moksha_run_history" in relative.parts:
+        return False  # User data is never a runtime resource; source/history archives remain complete.
     return not (EXCLUDED_PARTS.intersection(relative.parts) or relative.parts[0] in EXCLUDED_ROOTS) and (
         relative.name == "project.godot" or relative.suffix in RUNTIME_SUFFIXES
     ) and not relative.name.endswith("_pixels.tscn")
@@ -420,7 +433,10 @@ def copy_player_guides(frozen: Path, package: Path) -> dict[str, dict]:
               "campaign/docs/NOV6_CHANGES.md": "NOV6_CHANGES.md",
               "campaign/docs/PC_QUICKSTART.md": "PC_QUICKSTART.md",
               "campaign/docs/NOV12_EXTENDED_CHECKPOINT.md": "NOV12_EXTENDED_CHECKPOINT.md",
-              "campaign/docs/NOV12_VISUAL_CHECKPOINT.md": "NOV12_VISUAL_CHECKPOINT.md"}
+              "campaign/docs/NOV12_VISUAL_CHECKPOINT.md": "NOV12_VISUAL_CHECKPOINT.md",
+              "campaign/docs/RUN_HISTORY_BOUNDARY.md": "RUN_HISTORY_BOUNDARY.md",
+              "campaign/docs/REACTIVE_RUN_MILESTONE.md": "REACTIVE_RUN_MILESTONE.md",
+              "campaign/docs/INTELLECT_SLICE.md": "INTELLECT_SLICE.md"}
     destination = package / "docs"
     destination.mkdir()
     included = {}
@@ -633,13 +649,26 @@ def readme(platform: str, commit: str, engine: str) -> str:
 {start}
 Use an OpenGL 3.3-compatible driver. No installer, account, or online service is required.
 
-Enter: new campaign. C: continue when available. 1/2/3: select a build at the title.
+Enter: new campaign. C: Continue an active run, or View last result after completion.
+Controller X follows the same title prompt. 1/2/3: select a build at the title.
 A/D: move. Space: jump. W/S: ladder. S+Space: drop/dive.
 J: attack. K: guard/parry. Shift: roll. E: interact. Q: sound pulse.
 Tab: journal/navigation. Esc: pause. R: retry district. M: mute.
 Follow the in-game prompts for choices, upgrades, and any newer controls.
 See docs/NOV6_GAMEPAD.md for controller button mappings and modal controls,
 docs/LOCAL_PLAYTEST.md for the play guide, and docs/NOV6_CHANGES.md for changes.
+
+SAVE COMPATIBILITY: back up the entire existing user-data folder before switching builds.
+The checkpoint is still named moksha_five_levels_v1.json, but this build writes
+version-2 envelopes. Valid v1 saves migrate only after an exact preserved backup.
+New runs preserve the prior checkpoint; completed records are immutable in
+moksha_run_history/completed, with backups in moksha_run_history/preserved.
+Older builds cannot read v2. Keep current files safe and restore a separate v1
+backup for an older build; never edit the version number. See docs/LOCAL_PLAYTEST.md
+for the save-folder location and docs/RUN_HISTORY_BOUNDARY.md for exact guarantees.
+Run only one game instance against a save folder. No concurrent-writer or
+power-loss transaction guarantee is claimed. A failed completion save stays on
+the ending screen; keep the game open and follow its retry/error message.
 
 Frozen source: {commit}
 Engine: {engine}
@@ -733,7 +762,8 @@ def main() -> int:
 
     def packed_check(name: str, script: Path | None, marker: str | None, pck: Path = pack,
                      binary: Path = engine, hz: int | None = None, result_prefix: str | None = None,
-                     quit_after: int | None = None, report_output: Path | None = None) -> None:
+                     quit_after: int | None = None, report_output: Path | None = None,
+                     fixture_root: Path | None = None) -> None:
         require(not any(test_root.iterdir()), "Packed test working directory must contain no loose resources")
         command = [str(binary), "--headless", "--path", str(test_root), "--main-pack", str(pck)]
         if script is None:
@@ -749,6 +779,9 @@ def main() -> int:
         if report_output is not None:
             require(not report_output.resolve().is_relative_to(output), "Fixture report must be outside the PCK project directory")
             user_args.append("--output=" + str(report_output))
+        if fixture_root is not None:
+            require(not fixture_root.exists(), "Fixture root must be fresh")
+            user_args.append("--root=" + str(fixture_root))
         if user_args:
             command += ["--"] + user_args
         row = command_check(name, command, test_root, isolated_environment(output / "isolated", name), logs, marker, result_prefix=result_prefix)
@@ -784,6 +817,14 @@ def main() -> int:
         for name, relative, prefix in RECEIPT_FIXTURES:
             receipt_path = external_receipts / f"{name}_{hz}.json" if name.startswith("audio_") else None
             packed_check(f"packed_{name}_{hz}", frozen_fixture(relative), prefix, hz=hz, result_prefix=prefix, report_output=receipt_path)
+    # Store fixture deliberately requires /tmp. Each case also gets independent
+    # HOME/XDG roots via packed_check; no fixture history enters delivery trees.
+    with tempfile.TemporaryDirectory(prefix="moksha-packed-reactive-", dir="/tmp") as temporary:
+        for hz in PACKED_TEST_RATES:
+            for name, relative, prefix, needs_root in REACTIVE_RECEIPT_FIXTURES:
+                fixture_root = Path(temporary) / f"{name}_{hz}" if needs_root else None
+                packed_check(f"packed_{name}_{hz}", frozen_fixture(relative), prefix,
+                             hz=hz, result_prefix=prefix, fixture_root=fixture_root)
     focus_prefix = "NOV6_INDEPENDENT_FOCUS_UPGRADE "
     packed_check("packed_focus_upgrade", frozen_fixture("campaign/quality/nov6_independent_focus_upgrade.gd"), focus_prefix, result_prefix=focus_prefix)
     require(all(sha(frozen / name) == digest for name, digest in source_hashes.items()), "Frozen source drift during verification")

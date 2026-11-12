@@ -4,10 +4,10 @@
 
 For cloning this repository and running editable source with Godot 4.6.3, use the [PC quickstart](PC_QUICKSTART.md). The steps below are for the separately exported portable build.
 
-1. Extract **all** files from the Windows x64 archive supplied with this November 6 build. `CHECKSUMS.sha256` inside the package lists its extracted files; the package's `BUILD_REPORT.json` describes the tested content. If you received split ZIP parts, read the parts’ `START_HERE.txt` first and verify the reconstructed archive before extracting.
+1. Extract **all** files from the Windows x64 archive supplied with this versioned build. `CHECKSUMS.sha256` inside the package lists its extracted files; the package's `BUILD_REPORT.json` describes the tested content. If you received split ZIP parts, read the parts’ `START_HERE.txt` first and verify the reconstructed archive before extracting.
 2. Open its `MOKSHA-Windows` folder.
 3. Run **`Run-MOKSHA.cmd`** or **`MOKSHA.exe`**. Keep `MOKSHA.pck` beside the EXE. No Godot editor installation is needed for this export.
-4. Choose 1 Neutral, 2 Strength or 3 Agility; Enter starts a new campaign. C continues a checkpoint. With a controller, use the D-pad to choose a lens, A or Start to begin, and X to continue.
+4. Choose 1 Neutral, 2 Strength or 3 Agility; Enter starts a new campaign. C continues an active checkpoint or shows View last result after completion. With a controller, use the D-pad to choose a lens, A or Start to begin, and X to follow Continue/View last result.
 
 The executable was exported from verified official Godot 4.6.3 templates. It is not code-signed; do not disable antivirus/security controls to run it. The package contains checksums, engine/project licenses and build notes. The export and its actual packed content were tested on Linux/headless; native Windows execution remains unverified. Separately, representative source scenes and real inputs were reviewed in native Godot on the supported cloud desktop, with recorded screenshots; that is not a full human playthrough.
 
@@ -20,6 +20,8 @@ Controller menus use the on-screen prompts. See [the controller guide](NOV6_GAME
 If you have the optional Linux x86-64 package, extract the entire archive, open a terminal in its `MOKSHA-Linux` folder and run `./Start-MOKSHA.sh`. It includes the same verified game content and its Godot runtime. No editor installation is needed. On a system that does not preserve executable permissions when extracting ZIPs, run `chmod +x Start-MOKSHA.sh MOKSHA` inside that same folder first. The package does not install anything or request administrator access.
 
 ## Saves and automatic timing
+
+Before switching builds, close the game and copy this entire save folder somewhere safe. Run only one game instance against it: the store is a single-writer design, not a concurrent-writer or power-loss transaction.
 
 This project uses Godot's default user-data directory, with project name **MOKSHA — Five Ascents** (the character between MOKSHA and Five is an em dash). On Windows paste this into File Explorer's address bar:
 

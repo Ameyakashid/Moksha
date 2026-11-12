@@ -16,7 +16,7 @@ func settle()->void:
 func run()->void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--root="):base=arg.trim_prefix("--root=")
-	if base.is_empty() or not base.is_absolute_path() or base.begins_with(ProjectSettings.globalize_path("res://")) or DirAccess.dir_exists_absolute(base) or FileAccess.file_exists(base):
+	if not valid_fixture_root(base,ProjectSettings.globalize_path("res://")) or DirAccess.dir_exists_absolute(base) or FileAccess.file_exists(base):
 		push_error("Fresh external --root required");quit(2);return
 	DirAccess.make_dir_recursive_absolute(base)
 	host=load("res://campaign/campaign.tscn").instantiate();host.save_enabled=false
@@ -59,3 +59,9 @@ func run()->void:
 	check(not host.hud.set_snapshot({"state":"playing","last_result_available":true,"companion_line_id":9}),"Companion fields remain typed alongside history fields")
 	print("REACTIVE_INTEGRATION_RESULT ",JSON.stringify({"passed":failures.is_empty(),"checks":checks,"failures":failures,"scope":"Isolated lifecycle/HUD/chatter fixtures, not traversal or pixel proof"}))
 	host.free();await process_frame;quit(0 if failures.is_empty() else 1)
+
+static func valid_fixture_root(path:String,source_root:String)->bool:
+	if source_root=="/":return false
+	if path.is_empty() or not path.is_absolute_path() or path.begins_with("res://") or path.begins_with("user://") or path.simplify_path()!=path:return false
+	var source:=source_root.simplify_path().trim_suffix("/")
+	return source.is_empty() or (path!=source and not path.begins_with(source+"/"))

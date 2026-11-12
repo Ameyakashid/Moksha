@@ -1,0 +1,150 @@
+{
+  "scope": "Source-only fixture wiring and pure path controls; no PCK exported or tested",
+  "base_commit": "75134662296145ace91d943d792c41670a08efa1",
+  "runtime_origin": "565cf1ed049be2248e881cdc94c2893d05b60b28",
+  "runtime_selected_files": 864,
+  "runtime_files_identical": true,
+  "runtime_map_sha256": "9ef5328b518cd6dbd456cc7af19045f81c0985f679c003021370ada899a7be0b",
+  "tests": [
+    {
+      "name": "history_store_60",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "96b36d145fef4d49e317a222014dee9257ba4a1459eacdb5b2fb24ebf63d7f71",
+      "fixture_receipt": {
+        "checks": 72,
+        "failures": [],
+        "passed": true
+      }
+    },
+    {
+      "name": "history_lifecycle_60",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "d0f0758955d109920e1a8e7e7e990a439c252259e4884ab74b50ca7b1ded2539",
+      "fixture_receipt": {
+        "checks": 85,
+        "failures": [],
+        "passed": true
+      }
+    },
+    {
+      "name": "companion_director_60",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "694ce215f9ea9638c4e002327940d6ccb4fbd6e1726bde8960b532ee963d3a92",
+      "fixture_receipt": {
+        "checks": 55,
+        "failures": [],
+        "passed": true
+      }
+    },
+    {
+      "name": "companion_observer_60",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "797e4f47d4421d7dfed129acfa015745b37f333f76a39dd581b0b78e486df1fa",
+      "fixture_receipt": {
+        "checks": 29,
+        "failures": [],
+        "passed": true
+      }
+    },
+    {
+      "name": "reactive_integration_60",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "0fa295c372e19aeaa59dc4e3c82e23b4a2748f8cf3c6c4f2c0da346a1ccaf44f",
+      "fixture_receipt": {
+        "checks": 16,
+        "failures": [],
+        "passed": true,
+        "scope": "Isolated lifecycle/HUD/chatter fixtures, not traversal or pixel proof"
+      }
+    },
+    {
+      "name": "history_store_120",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "abbf7705c6efb738faeedde0f2df1c241977bce7d5b8f54d5069665cda99de0f",
+      "fixture_receipt": {
+        "checks": 72,
+        "failures": [],
+        "passed": true
+      }
+    },
+    {
+      "name": "history_lifecycle_120",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "d0f0758955d109920e1a8e7e7e990a439c252259e4884ab74b50ca7b1ded2539",
+      "fixture_receipt": {
+        "checks": 85,
+        "failures": [],
+        "passed": true
+      }
+    },
+    {
+      "name": "companion_director_120",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "694ce215f9ea9638c4e002327940d6ccb4fbd6e1726bde8960b532ee963d3a92",
+      "fixture_receipt": {
+        "checks": 55,
+        "failures": [],
+        "passed": true
+      }
+    },
+    {
+      "name": "companion_observer_120",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "797e4f47d4421d7dfed129acfa015745b37f333f76a39dd581b0b78e486df1fa",
+      "fixture_receipt": {
+        "checks": 29,
+        "failures": [],
+        "passed": true
+      }
+    },
+    {
+      "name": "reactive_integration_120",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "0fa295c372e19aeaa59dc4e3c82e23b4a2748f8cf3c6c4f2c0da346a1ccaf44f",
+      "fixture_receipt": {
+        "checks": 16,
+        "failures": [],
+        "passed": true,
+        "scope": "Isolated lifecycle/HUD/chatter fixtures, not traversal or pixel proof"
+      }
+    },
+    {
+      "name": "path_negative",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "d5ea6d3b8b3c6537ae63e7392807027963c3e748be88c04a6651e66ba89bed26",
+      "fixture_receipt": {
+        "checks": 33,
+        "failures": [],
+        "passed": true
+      }
+    }
+  ],
+  "packaging_units": 21,
+  "source_split_units": 11,
+  "audio_guard_controls": 37,
+  "guide_copy_and_link_validation": 10,
+  "packed_export_not_run": true,
+  "windows_not_executed": true
+}
