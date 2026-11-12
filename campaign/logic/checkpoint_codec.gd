@@ -20,5 +20,5 @@ static func decode(raw:Variant,sectors:Array)->Dictionary:
 		if not Checkpoint.number(value):return {"ok":false}
 	for receipt in raw.get("level_receipts",[]):
 		if not receipt is Dictionary or not Checkpoint.whole(receipt.get("level")) or int(receipt.level)<1 or int(receipt.level)>5 or not Checkpoint.number(receipt.get("active_seconds")):return {"ok":false}
-	decoded["campaign"]=raw
+	decoded["campaign"]=raw.duplicate(true)
 	return decoded

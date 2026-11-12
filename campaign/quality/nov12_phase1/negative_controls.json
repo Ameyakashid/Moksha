@@ -1,0 +1,18 @@
+[
+  {
+    "mutation": "restore_alias",
+    "exit_code": 1,
+    "caught": true,
+    "result": [
+      "NOV12_CONTENT_RESULT {\"checks\":17,\"failures\":[\"restore result detached from source envelope\"],\"passed\":false}"
+    ]
+  },
+  {
+    "mutation": "duplicate_ids",
+    "exit_code": 1,
+    "caught": true,
+    "result": [
+      "NOV12_CONTENT_RESULT {\"checks\":17,\"failures\":[\"duplicate stable ID rejected\"],\"passed\":false}"
+    ]
+  }
+]

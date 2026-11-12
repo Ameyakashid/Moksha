@@ -2,6 +2,7 @@ extends "res://demo/mission.gd"
 ## Campaign orchestrator. Original controller, damage pipeline and demo stay intact.
 const BuildRules=preload("res://campaign/logic/build_rules.gd")
 const CampaignCheckpoint=preload("res://campaign/logic/checkpoint_codec.gd")
+const RunSnapshot=preload("res://campaign/state/run_snapshot.gd")
 const CampaignData=preload("res://campaign/logic/campaign_data.gd")
 const ObjectiveScene=preload("res://campaign/logic/objective.tscn")
 const DoorScene=preload("res://campaign/logic/objective_door.tscn")
@@ -38,6 +39,11 @@ var _level_transition_snapshot:Dictionary={}
 var _controller_bindings:Node
 var gamepad_navigation:Node
 func _ready()->void:
+	var catalog:=_load_catalog()
+	if not catalog.ok:
+		_show_content_error(str(catalog.error))
+		return
+	sectors.assign(catalog.sectors)
 	# Register the preserved device mapping before title/Continue can share C.
 	preload("res://combat_pc/player.gd").ensure_default_inputs()
 	_controller_bindings=preload("res://campaign/input/controller_bindings.gd").new()
@@ -47,7 +53,6 @@ func _ready()->void:
 	gamepad_navigation.bind(self);add_child(gamepad_navigation)
 	blackboard=preload("res://campaign/vendor/beehave/blackboard.gd").new()
 	add_child(blackboard)
-	sectors=CampaignData.sectors()
 	super._ready()
 	# The base scene creates its sonar while still on the title, before a room
 	# exists. Replace that empty adapter, preserving its configured tuning and
@@ -68,6 +73,17 @@ func _ready()->void:
 	hud.get_node("View").set_script(preload("res://campaign/views/campaign_hud.gd"))
 	hud.set_snapshot(_hud_snapshot())
 	get_window().focus_exited.connect(_on_window_focus_exited)
+func _load_catalog()->Dictionary:
+	return CampaignData.load_catalog()
+
+func _show_content_error(message:String)->void:
+	# Fail closed before creating actors, reading saves or starting the demo host.
+	set_process(false);set_physics_process(false);set_process_input(false);set_process_unhandled_input(false);set_process_unhandled_key_input(false)
+	var layer:=CanvasLayer.new();layer.layer=100;add_child(layer)
+	var panel:=ColorRect.new();panel.color=Color(0.04,0.04,0.06);panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);layer.add_child(panel)
+	var label:=Label.new();label.text="CAMPAIGN CONTENT ERROR\n\n"+message+"\n\nNo campaign was started and no save was changed.\nRestore the complete game files, then restart."
+	label.position=Vector2(24,32);label.size=Vector2(590,280);label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;panel.add_child(label)
+
 func start_new(skip_intro:=false)->void:
 	_level_transition_snapshot.clear()
 	_focus_pause_active=false
@@ -351,7 +367,8 @@ func _save_checkpoint()->void:
 		return
 	if not _preserve_invalid_checkpoint():return
 	blackboard.set_value("build",{"lens":lens,"upgrades":upgrades.duplicate()})
-	var raw:Dictionary={"campaign_version":CampaignCheckpoint.VERSION,"progress":encoded.data,"lens":lens,"upgrades":upgrades,"rewards":rewards,"level_seconds":level_seconds,"level_receipts":level_receipts}
+	var raw:Dictionary={"campaign_version":CampaignCheckpoint.VERSION,"progress":encoded.data}
+	raw.merge(RunSnapshot.capture({"lens":lens,"upgrades":upgrades,"rewards":rewards,"level_seconds":level_seconds,"level_receipts":level_receipts}))
 	var file=FileAccess.open(CAMPAIGN_SAVE+".pending",FileAccess.WRITE)
 	if not file:_report_checkpoint_write_error("The campaign checkpoint could not be written.");return
 	file.store_string(JSON.stringify(raw));file.flush();var error=file.get_error();file.close()

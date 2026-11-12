@@ -1,0 +1,96 @@
+{
+  "scope": "Phase1a content validation and detached snapshots. Not a complete session/level ownership migration, rendered UI review, Windows test or full playthrough.",
+  "source_sha256": {
+    "campaign/logic/campaign.gd": "b3120563cefb4692085f7df95f035c4b483362b68aff7dc579c16ebe2be437c3",
+    "campaign/logic/campaign_data.gd": "05fa0623b88ec58e367628139a0391556f0d0f44ce209c61c9c874452e68f60d",
+    "campaign/logic/checkpoint_codec.gd": "9222cde05c8ff257cf5aba1f50e2bf7a96a873c6d8eff7887cd5275af2c5e43f",
+    "campaign/content/campaign_catalog.gd": "562dbe768be84048ab8eb044cf8a9c1bc869153440fb77b78fd7662e2a61294f",
+    "campaign/state/run_snapshot.gd": "88d8dc22d5d86af983bd4fbd78c3123b5f26834d83560d0bfa573e70ce422248",
+    "campaign/quality/nov12_content_contracts.gd": "698a89fa76b9419c310b32184f3856ddad735c2093f21ee81143185412629dcc",
+    "campaign/quality/nov12_domain_checks.py": "84c98f6dee8bcb705e5ce0ed12abb81fba56adb742d2c6a451c2e2c91763e6f7"
+  },
+  "source_drift": [],
+  "stages": [
+    {
+      "name": "import",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 9.135
+    },
+    {
+      "name": "content_contract",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 1.685
+    },
+    {
+      "name": "pure_domain",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 0.296
+    },
+    {
+      "name": "district_smoke",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 5.328
+    },
+    {
+      "name": "live_build_60",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 2.6
+    },
+    {
+      "name": "save_feedback_60",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 1.867
+    },
+    {
+      "name": "adversarial_save_60",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 4.001
+    },
+    {
+      "name": "live_build_120",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 3.714
+    },
+    {
+      "name": "save_feedback_120",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 1.768
+    },
+    {
+      "name": "adversarial_save_120",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 3.903
+    }
+  ],
+  "passed": true
+}
