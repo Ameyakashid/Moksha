@@ -4,9 +4,11 @@ func _initialize()->void:call_deferred("run")
 func run()->void:
 	root.size=Vector2i(1280,720)
 	var prefix:=""
+	var output:="user://foundry-review"
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--prefix="):prefix=arg.trim_prefix("--prefix=")
-	var output="/workspace/scratch/fd16273ade4b/moksha-foundry-review"
+		if arg.begins_with("--output="):output=arg.trim_prefix("--output=")
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
 	var host=load("res://campaign/campaign.tscn").instantiate();host.save_enabled=false;root.add_child(host)
 	host.start_new(true);host.input_override={}
 	for id in ["l2_thermal_foundry","l2_freight"]:
