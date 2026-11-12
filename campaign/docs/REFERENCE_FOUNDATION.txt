@@ -1,0 +1,76 @@
+MOKSHA: evidence-led foundation blueprint
+Status: Incremental migration plan. Existing gameplay remains the compatibility baseline; individual phases require their stated proof gates.
+
+WHAT WAS ACTUALLY STUDIED
+
+Official REA CLI 6.8.0 was run on public shapez.io source at 8a79de5255fb6756f3a1d26579b1e9bc36e0c811. The generated focused evidence was cross-checked against the source below. This is source analysis of a sparse public checkout, not binary decompilation. Shapez is a released factory game, not a side-scroller or Dead Cells substitute: it supplies inspectable full-game responsibility boundaries, not combat feel or level design.
+
+Focused REA evidence: 16 selected JS files parsed, zero parse failures/integrity contradictions and no resource-limit hit, 481 findings, graph 1,082 nodes/1,113 edges. Coverage remains PARTIAL: 300 inventoried files unselected, dynamic relationships unresolved, no runtime execution. Graph counts include inventory/unresolved nodes and do not measure architecture quality. The earlier broad scan parsed 298 files with resource limits and one parse failure. REA's static relationship observations guide navigation; the ownership descriptions below come from reading constructors and lifecycle methods, not from treating import edges as ownership.
+
+Shapez license file is GPLv3. No implementation or assets are copied or proposed for copying. This report maps responsibilities into original Godot code; adopting code later would require a separate license review. Dead Cells observations below are attributed community hlbc investigations, not our REA analysis and not verified original source folders.
+
+SOURCE INDEX (all shapez links pinned)
+Base: https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/
+S1 src/js/game/core.js: initializeRoot creates root and services; postLoadHook marks initialization; tick, updateLogic and draw have distinct entrypoints; destruct retires root.
+S2 src/js/game/root.js: session-wide service/state holder and signals; destruct dispatches retirement then cleanup. Nearly all services receive this broad root: this is not strict dependency isolation.
+S3 src/js/game/entity_manager.js; src/js/game/entity.js; src/js/game/component.js: entities own component storage; manager registers identities/component indexes and queues destruction until update; components expose serialization schemas.
+S4 src/js/game/game_system_manager.js: explicit update order, including documented before/after constraints. This order belongs to factory simulation; do not transplant it into action combat.
+S5 src/js/game/map.js; src/js/game/map_view.js: map/chunk data responsibilities and a derived view with cached drawing resources and retirement listeners. BaseMap itself references view chunks: not a perfectly pure model/view split.
+S6 src/js/game/hud/hud.js: HUD parts are constructed, initialized, updated/drawn and cleaned up as owned parts.
+S7 src/js/savegame/savegame_serializer.js; src/js/savegame/savegame.js: explicit dump fields, UID/component validation, deserialize sequence and versioned save interface. Deserialization mutates services in sequence; do not call it transactional rollback.
+S8 src/js/game/time/game_time.js: separate game/realtime counters and logic-time budget. Time also consults HUD pause state, so dependency purity must not be overstated.
+
+Dead Cells field notes, pinned separately:
+D1 https://github.com/rehan-remade/universal-modder/blob/3c4ac6c38e411b8c543bce217eae197039516bfc/knowledge/games/dead-cells/decoupled-timed-door-scaling-environmental-rally-immunity-an.md
+D2 https://github.com/rehan-remade/universal-modder/blob/3c4ac6c38e411b8c543bce217eae197039516bfc/knowledge/games/dead-cells/libgdx-rebuild-from-res-pak.md
+D1 reports run-wide pr.Game/tool.GameData, pr.Level door construction, HUD clock reads and Hero cooldown restoration. Its supposedly unused __uid field has a stated hxbit serialization hazard and unverified save/continue. D2 reports CastleDB tuning versus runtime logic, and room collision/link/marker data; the reconstruction is partial, not frame-matched, with guessed lighting and no complete save/boss implementation. These are useful bounded observations, not independently reproduced facts here. We have NOT recovered Dead Cells' original complete directory tree.
+
+ONE-TO-ONE RESPONSIBILITY MAP
+Each row maps an inspected responsibility, not an assertion of identical source architecture. Paths after 'proposed' do not exist yet unless noted.
+
+1. S1 composition/lifecycle -> current campaign/logic/campaign.gd inheriting demo/mission.gd -> proposed campaign/runtime/campaign_session.gd plus campaign/campaign.tscn. Session creates services and one LevelRuntime; it does not implement damage, UI paint or save parsing. Replace inheritance incrementally with composition, not a one-shot rewrite.
+2. S2 session state + D1 run state -> current campaign.gd rewards/upgrades/completed snapshots/receipts -> proposed campaign/state/run_state.gd. Explicit run-owned values, separate from live node references. Never reuse object identity as gameplay currency/state.
+3. D1 level lifetime + D2 rooms -> current flat sectors, load_sector and demo room construction -> proposed campaign/runtime/level_runtime.gd and district_runtime.gd. Level owns current district and level progress; district owns actor instances, objectives, geometry and transient effects. This is our Godot mapping, not an inspected shapez level system.
+4. S3 identity/component lifetime -> current combat_pc actors, scripts/components and campaign health adapter replacement -> retain those reusable modules; proposed campaign/runtime/actor_factory.gd configures correct components BEFORE activation. Godot nodes own component lifetime. Stable authored IDs remain distinct from instance IDs; do not introduce a second ECS registry merely to resemble shapez.
+5. S4 ordered simulation -> current player/controller, simulation/, movement/, campaign input gate and objective callbacks -> retain controller/simulation modules; proposed campaign/runtime/simulation_order.md and explicit boundary coordination. Document existing order before altering it; queue transitions/retirement after gameplay events, rather than freeing owners inside callbacks.
+6. D2 data/runtime boundary + S3 schema principle -> current campaign/layouts/level_01.gd through level_05.gd and campaign_data.gd -> proposed campaign/content/definitions/{campaign,level,district,objective}_definition.gd and campaign/content/levels/*.tres. First use a validating adapter over current dictionaries; preserve IDs, coordinates, dependencies and tuning. Later convert to editable resources. Missing levels must fail visibly, not silently disappear. Schema validation is our acceptance requirement, not a claim recovered from D2.
+7. S5 world/view -> current campaign/presentation/, camera_follow and actor/object paint -> KEEP these folders; proposed district_view scene binds to district state/events. Render art cannot decide hits, objective completion or rewards. Godot handles camera transform/culling/canvas; no copied shapez chunk renderer.
+8. S6 UI parts -> current campaign/views/, HUD snapshots and campaign-host menu state -> KEEP views; proposed campaign/ui/campaign_ui_controller.gd owns title/journal/upgrade/ending flow and issues commands. Views display snapshots, not mutate world nodes. Pause is an explicit session command, not inferred by simulation reading widgets.
+9. S7 persistence -> current campaign.gd checkpoint I/O, demo stable-ID codec; preserved local 97873cd extracts campaign/checkpoint validation and build policy -> proposed campaign/save/checkpoint_codec.gd, checkpoint_store.gd and restore_plan.gd. Codec validates detached data; store alone touches disk; session applies a validated plan with rollback. Preserve v1 bytes/meaning until an explicitly versioned migration is needed.
+10. S8/D1 clocks -> current level_seconds and gameplay timers -> proposed campaign/state/run_clock.gd only if ownership audit warrants extraction. Distinguish play time, UI realtime and cooldown time; pausing/focus/reload semantics are explicit. Do not replace tested Godot physics cadence with Dead Cells' reported 30 Hz or shapez tick rates.
+
+DEPENDENCY AND LIFECYCLE CONTRACT
+
+Boot -> session composition -> content validation -> RunState + LevelRuntime -> DistrictRuntime -> actors/objectives/simulation. Presentation observes snapshots/signals; input/UI sends commands to session. Save store <-> codec/restore plan; only session commits a restored state. Pure build/objective rules consume values, not UI or filesystem services. Inject narrow objective-query/command interfaces instead of passing the entire campaign host. These stricter interfaces are proposed improvements, not a claim shapez already enforces them.
+
+New game: validate complete content, create state, configure district off active gameplay, bind components/views, activate once. Transition: close input boundary, freeze outgoing district, validate/build destination, commit progress, activate new district, retire old district once; failure retains the old valid state. Death/retry restores district checkpoint without duplicating rewards. Quit/reload releases subscriptions, sounds and children. Save uses detached stable-ID data, not arbitrary node serialization. Node parent/child lifetime and queue_free are supplied by Godot; transition transaction semantics are not.
+
+GODOT ALREADY SUPPLIES
+SceneTree ownership, PackedScene instantiation, deferred node deletion, signals, physics/collision queries, frame/physics callbacks, input mapping, CanvasLayer/Camera2D, resource loading and file APIs. MOKSHA still owns content schemas, run/level progression, objective/combat rules, save compatibility, activation order, UI flow, asset provenance and acceptance tests. Do not rewrite engine facilities to achieve superficial folder parity.
+
+CURRENT GAPS AND MIGRATION GATES
+
+Observed baseline c73159b: campaign host inherits demo host, substitutes HUD scripts at runtime, replaces/rebinds health after actor construction, combines save I/O/UI/progression/build application; campaign_data silently skips missing level files; objective.gd accesses host.state/goal_done/room and scans room children. Existing combat/simulation/presentation modules and stable-ID save protections are valuable, not disposable.
+
+Phase 0: Freeze verified baseline and existing save fixtures; approve this responsibility map. Record measured behavior, not architectural claims. This document does not claim any migration phase has passed.
+Phase 1: Content validation adapter + detached state/persistence boundaries. Gates: identical 5-level/32-district content manifest, stable IDs/objective graphs, old save roundtrip, malformed/foreign saves rejected before mutation, missing-file failure visible.
+Phase 2: Actor factory and district ownership behind existing host facade. Gates: exact original controller/movement/damage behavior, one health binding per actor, no duplicate signals/rewards, repeated retry/transition/cancel/focus loss and cleanup proven.
+Phase 3: Replace campaign inheritance with explicit session/level composition, one path at a time. Gates: existing full campaign contracts, 60/120 Hz input/contact regressions, interrupted transition rollback, save/quit/continue in mid-level, ending reachable. Tests use isolated HOME/XDG/save folders.
+Phase 4: UI/controller/view split and editable Resource conversion. Gates: content equivalence, no rule changes when visuals disabled, keyboard/gamepad UI parity, real recorded gameplay with combat/death/retry/transition/save-continue, Windows clone/install/run verification and performance checks.
+
+Each phase is a separately reversible commit; maintain compatibility adapters until replacement passes. No mass rename, controller rewrite, imported commercial assets, or newly invented ECS. Existing 97873cd is preserved separately and is not evidence this migration has happened. Five 15-20 minute levels remain a playtesting target, not a consequence of adopting these folders. Architecture alone cannot guarantee a full polished game.
+
+EXACT SOURCE LINKS
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/core.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/root.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/entity_manager.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/entity.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/component.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/game_system_manager.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/map.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/map_view.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/hud/hud.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/savegame/savegame_serializer.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/savegame/savegame.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/time/game_time.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/LICENSE
