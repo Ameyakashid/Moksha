@@ -1,0 +1,120 @@
+{
+  "baseline": "9c1e901",
+  "script_hashes": {
+    "simulation/hearing_sandbox.gd": "90ae8b897f8c3003d69daeffbc14b5a84b7b4f514f8a95d239ea67c3c6ef4c9d",
+    "simulation/tests/hearing_regression.gd": "78403592c6617f32cca93b8f2b3502b6d5e38d9ba9e98c568f34a82bf3dd4ee7",
+    "simulation/tests/hearing_persistence_schema.gd": "9e7cb187acc03afcfb5f6eb6816695dc7bfdf6f24ed578fef9c381318d409688",
+    "simulation/components/hearing_sensor.gd": "d271369fa22d2ddeddfc2d8a547aa26d339d8e549b38bfcfc9db57a48f83bf02",
+    "simulation/components/hearing_query.gd": "20831ca22a9e18cd600a20e9db47a851b7e71b416cb534df2eb10e430ed044a2",
+    "simulation/components/ai_hearing_filter.gd": "4e939b5be7bfcfaf35dea49803743311e439bacc0197f5520b2d349da0182334",
+    "simulation/resources/hearing_profile.gd": "5f2cd3f407ea8d1873ff8a6a92c0ef78e675f4719f1eda8f11e9cacbc7b83be0",
+    "campaign/state/sense_state.gd": "057cde65baf35138b80aa9f9f3cabc77f34b8ae2d56756030040050306c17b08",
+    "campaign/perception/focus_observer.gd": "5cd179fd462aa2b1d5c5f3533645e82de45095d6a7083cbb8461767937a34741",
+    "campaign/presentation/hearing_audio.gd": "a6681fbafae748f8d30b0ffc56808a0b247a9cbe92e3f28ec37884143a97e72e",
+    "campaign/presentation/focus_view.gd": "bf1c47b4ab8375aa3ff12f98ef11c306dc66c4f9d4704768e2a30780775bc4f8",
+    "campaign/quality/hearing_encounter_trace.gd": "bd80d1125f465c7aaef94e7034841266182d346c840152a8a3c31d4c49ac48c7",
+    "campaign/quality/hearing_host_contract.gd": "f9226fe4904225a85f1a1ae2f1ecf4001079e7cf617ef03539aa11939ac5789b",
+    "campaign/quality/hearing_perception_contract.gd": "a94e7ffe2b9e8fbda50caff359ad671c76db4e9d8faa53ee59b8b895863e6e29"
+  },
+  "host_sha256": "95fd7bae2dcc5aee64256eeb072fb7552e3d89d2c2de189eea2a34172980d664",
+  "results": [
+    {
+      "path": "final-focus02/host-0/log",
+      "sha256": "75e0259835dd749c8ec5281be14b87ce3413b919b68bd2f2352f1bd7f8159e52",
+      "result": {
+        "checks": 39,
+        "failures": [],
+        "passed": true,
+        "scope": "seeded host lifecycle fixtures"
+      }
+    },
+    {
+      "path": "final-focus02/perception-0/log",
+      "sha256": "49ab8fb52420f2102b7e1bfa03356cc2a7034ef4e6e1cdd6d69652d4d3c21892",
+      "result": {
+        "checks": 24,
+        "failures": [],
+        "passed": true,
+        "scope": "seeded perception/audio boundaries; real physics input commits, no native/audio listening claim"
+      }
+    },
+    {
+      "path": "focus-upgrade01/log",
+      "sha256": "55a604a61659e4c383f2972bcd4d2f763a6a74bd12c89c43244a8b307a8a25d9",
+      "result": {
+        "checks": 16,
+        "failures": [],
+        "passed": true,
+        "retry_observation": {
+          "old_level_exit": 5,
+          "receipts": [],
+          "sector": 5,
+          "upgrades": []
+        },
+        "scope": "Initialized authored level completion plus genuine keyboard exit/focus commands, not boss/goal playthrough.",
+        "title_observation": {
+          "receipts": [],
+          "sector": 5,
+          "upgrades": []
+        }
+      }
+    },
+    {
+      "physics_hz": 60,
+      "retained_exact_baseline_equality": true,
+      "baseline_sha256": "fe9be6e1eb3b4b595a945a3a23d499eb729e71b51d426298eee217dbe1ee6210",
+      "candidate_sha256": "372bfbf55362182544dc714a6eba7177e2ac45224bf68558e36cbae894ce4f35",
+      "encounter_sha256": "372bfbf55362182544dc714a6eba7177e2ac45224bf68558e36cbae894ce4f35",
+      "retained_health": 48,
+      "traded_health": 60,
+      "traded_defense": "parried",
+      "scope": "staged Clinic encounter; ordinary inputs and real AI after setup, not earned traversal"
+    },
+    {
+      "physics_hz": 120,
+      "retained_exact_baseline_equality": true,
+      "baseline_sha256": "b34f5c7cb04e59e2488514e4270042ca73e44e72ee8f8f4ad99aa7b16f380465",
+      "candidate_sha256": "53491e530f44977f62a51757cb321c73d973467b2da016d8fe0a8af8ce6485f9",
+      "encounter_sha256": "53491e530f44977f62a51757cb321c73d973467b2da016d8fe0a8af8ce6485f9",
+      "retained_health": 48,
+      "traded_health": 60,
+      "traded_defense": "parried",
+      "scope": "staged Clinic encounter; ordinary inputs and real AI after setup, not earned traversal"
+    },
+    {
+      "path": "moksha-hearing-persistence-review/pure-final2.log",
+      "sha256": "09eff9c4e1b5331bfed32d5361addcf70479bd7a6f5847a7e2e7c8956ebae28a",
+      "last_line": "{\"checks\":120,\"failures\":[],\"passed\":true,\"suite\":\"hearing_persistence_schema\"}"
+    },
+    {
+      "path": "moksha-hearing-persistence-review/lifecycle-v3.log",
+      "sha256": "0f539330ddd45ea48c861239e726a712959bf01af93c90ab3d05205d52024bd3",
+      "last_line": "RUN_LIFECYCLE_RESULT {\"checks\":92,\"failures\":[],\"passed\":true}"
+    },
+    {
+      "path": "moksha-hearing-persistence-review/state-save-v3.log",
+      "sha256": "71f71e9a534a6c8bfb4790798ea6fd980c682d050b57004ba2ef946729df0e25",
+      "last_line": "STATE_SAVE_RESULT {\"checks\":174,\"district_roundtrips\":32,\"failures\":[],\"malformed_cases\":51,\"passed\":true,\"scope\":\"Isolated save corruption and scene fixtures; not full gameplay traversal or filesystem power-loss simulation.\"}"
+    }
+  ],
+  "failed_attempts": [
+    {
+      "path": "perception01",
+      "reason": "QA assumed Rainline has campaign goals[0]; it has base relays. Corrected fixture to Clinic, preserving failure."
+    },
+    {
+      "path": "final-focus01",
+      "reason": "QA tried to skip pinned committed onward transition during seeded completion. Corrected fixture to load committed destination first; no production bypass."
+    },
+    {
+      "path": "neutral-parity01",
+      "reason": "Baseline had no imported global-class cache. Repeated in own detached9c baseline after isolated official editor import."
+    }
+  ],
+  "limitations": [
+    "No native/pixel/audible-mix or Windows test yet.",
+    "No earned Quarantine-to-offer-to-Level2 route claimed by these seeded tests.",
+    "No balance/whole-game-completion/performance claim.",
+    "Dual-loss data is preserved but normal UI temporarily prevents second loss pending real playability validation."
+  ]
+}

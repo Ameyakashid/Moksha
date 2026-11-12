@@ -45,6 +45,8 @@ func run()->void:
 		elif host.state=="archive":await key(KEY_E)
 		elif host.state=="choice":
 			await key(KEY_J if sacrifice else KEY_K);choice_done=true
+		elif host.state=="hearing_choice":
+			await key(KEY_K) # Historical route explicitly retains hearing.
 		elif host.state=="upgrade":
 			area_samples.append({"level":host.sectors[host.sector].level,"seconds":host.level_seconds.get(str(host.sectors[host.sector].level),0),"blind":host.blind})
 			await key([KEY_J,KEY_K,KEY_L,KEY_J][host.upgrades.size()])
@@ -64,6 +66,7 @@ func run()->void:
 	if host.state=="complete" and host.blind!=sacrifice:failures.append("Requested actual sight decision did not persist")
 	if host.state=="complete":
 		if host.lens!=requested_lens:failures.append("Wrong selected lens")
+		if not host.hearing_retained:failures.append("Historical route unexpectedly traded hearing")
 		if host.upgrades.size()!=4:failures.append("Expected four genuine level upgrade choices")
 		if host.metrics.size()!=host.sectors.size():failures.append("District metric count does not match campaign")
 		else:
@@ -72,7 +75,7 @@ func run()->void:
 		if host.level_receipts.map(func(receipt):return int(receipt.level))!=[1,2,3,4,5]:failures.append("Five level completion receipts missing")
 		if host.deaths!=0:failures.append("Unexpected death/retry")
 		if objective_receipts.size()!=host.sectors.size():failures.append("Missing actual open-gate objective receipt")
-	var report:Dictionary={"passed":host.state=="complete" and failures.is_empty(),"completed":host.state=="complete","hz":hz,"lens":requested_lens,"requested_sight_trade":sacrifice,"actual_blind":host.blind,"actual_upgrade_choices":host.upgrades,"active_seconds":host.elapsed,"levels":host.level_receipts,"district_metrics":host.metrics,"ending":host.campaign_ending,"deaths":host.deaths,"kills":host.kills,"events":events,"damage_receipts":damage_receipts,"objective_receipts":objective_receipts,"last_trace":trace,"source_hashes":full_sources,"source_drift":drift,"failures":failures,"human_duration_validated":false,"method":"Normal title lens key, Enter, opening skip; raw PC input plus idle-dispatched ordinary E/Q/choice/upgrade/finale keys. No gameplay state/position/health/enemy writes, no forced goals. Layout-aware bot timing is not human timing."}
+	var report:Dictionary={"passed":host.state=="complete" and failures.is_empty(),"completed":host.state=="complete","hz":hz,"lens":requested_lens,"requested_sight_trade":sacrifice,"actual_blind":host.blind,"hearing_retained":host.hearing_retained,"actual_upgrade_choices":host.upgrades,"active_seconds":host.elapsed,"levels":host.level_receipts,"district_metrics":host.metrics,"ending":host.campaign_ending,"deaths":host.deaths,"kills":host.kills,"events":events,"damage_receipts":damage_receipts,"objective_receipts":objective_receipts,"last_trace":trace,"source_hashes":full_sources,"source_drift":drift,"failures":failures,"human_duration_validated":false,"method":"Normal title lens key, Enter, opening skip; raw PC input plus idle-dispatched ordinary E/Q/choice/upgrade/finale keys. No gameplay state/position/health/enemy writes, no forced goals. Layout-aware bot timing is not human timing."}
 	var output:="res://campaign/tests/full_route_%d_%s_%s.json"%[hz,requested_lens,"traded" if sacrifice else "retained"]
 	FileAccess.open(output,FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
 	print("FULL_CAMPAIGN_RESULT ",output," completed=",report.completed," seconds=",host.elapsed," failures=",failures)

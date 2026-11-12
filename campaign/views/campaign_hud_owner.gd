@@ -4,7 +4,7 @@ extends "res://simulation/ui/mission_hud.gd"
 ## Unknown keys are still discarded. Invalid campaign input leaves both snapshots
 ## untouched, and the original owner remains the validator for all shared fields.
 signal companion_presentation_accepted(id:String,blocked:bool)
-const CAMPAIGN_FIELDS := {"last_result_available":false,"completion_save_failed":false,"companion_line_id":"", "guidance":"", "district_index":0, "district_count":0, "level_index":0, "lens":"", "required_done":0, "required_total":0, "gate_open":false, "input_device":""}
+const CAMPAIGN_FIELDS := {"hearing_retained":true,"focus_specialization":"","last_result_available":false,"completion_save_failed":false,"companion_line_id":"", "guidance":"", "district_index":0, "district_count":0, "level_index":0, "lens":"", "required_done":0, "required_total":0, "gate_open":false, "input_device":""}
 var _campaign_snapshot:Dictionary={}
 func set_snapshot(value:Dictionary)->bool:
 	var next:Dictionary={}

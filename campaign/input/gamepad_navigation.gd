@@ -100,7 +100,7 @@ func _command_key(state: String, button: int, lens: String) -> int:
 			if button in [JOY_BUTTON_START, JOY_BUTTON_B]: return KEY_ESCAPE
 			if button == JOY_BUTTON_X: return KEY_R
 			if button == JOY_BUTTON_Y: return KEY_N
-		"choice":
+		"choice", "hearing_choice":
 			if button == JOY_BUTTON_X: return KEY_J
 			if button == JOY_BUTTON_B: return KEY_K
 		"upgrade":

@@ -35,3 +35,29 @@ func _collect_cached_geometry() -> Array[Dictionary]:
 	for key in _bounds_cache.keys():
 		if not live_bounds.has(key): _bounds_cache.erase(key)
 	return result
+
+# Listener capability, separate from blind styling and global NoiseBus emission.
+var hearing_enabled := true
+func set_hearing_enabled(value: bool) -> void:
+	hearing_enabled=value
+	if not value:
+		clear_pulses()
+		event_history.clear()
+		geometry.clear()
+		_bounds_cache.clear();_shape_cache.clear()
+		for shape_id in _watched_shapes.keys():_retire_shape_watch(shape_id)
+	_redraw()
+func _on_noise_emitted(origin: Vector2, kind: StringName, loudness: float, source: Node = null) -> void:
+	if hearing_enabled:super._on_noise_emitted(origin,kind,loudness,source)
+func refresh_geometry() -> void:
+	if hearing_enabled:super.refresh_geometry()
+	else:geometry.clear()
+func render_on(canvas: Node2D) -> void:
+	if hearing_enabled:
+		super.render_on(canvas)
+		return
+	last_draw_segments=0;last_draw_origins=0;last_draw_threats=0;last_draw_contacts=0;last_draw_labels=0
+	last_draw_blackout=blind;last_draw_proprioception=false
+	if blind:
+		canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
+		canvas.draw_rect(Rect2(Vector2.ZERO,get_viewport().get_visible_rect().size),Color.BLACK)

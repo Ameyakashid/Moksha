@@ -2,7 +2,7 @@ extends RefCounted
 ## Observer-only accommodation of the campaign's intentional modal input rearm.
 ## Release controls just as a player would before fresh movement after a menu.
 ## The normal route key dispatcher still owns E/choice/upgrade commands.
-const MODALS := ["title","intro","archive","choice","upgrade","journal","paused","dead"]
+const MODALS := ["title","intro","archive","choice","hearing_choice","upgrade","journal","paused","dead"]
 
 static func release_after_resume(host:Node,previous_state:String,events:Array[Dictionary],frame:int)->void:
 	if previous_state not in MODALS or host.state not in ["playing","transition"]:return

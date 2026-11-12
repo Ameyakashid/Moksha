@@ -33,6 +33,8 @@ func completed_level_fixture() -> void:
 	host.interact()
 	check(host.state == "upgrade", "real authored exit enters upgrade from completed-level fixture")
 	key(KEY_L)
+	check(host.state=="hearing_choice", "first cleared floor offers separate hearing choice")
+	key(KEY_K) # Retain hearing for the historical upgrade rollback checks.
 	check(host._pending_sector == before_sector + 1 and host.upgrades == ["vitality"], "one selected upgrade queued with next level")
 func run() -> void:
 	host = load("res://campaign/campaign.tscn").instantiate(); host.save_enabled = false

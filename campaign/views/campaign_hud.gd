@@ -85,7 +85,7 @@ func _panel_eyebrow()->String:
 		"journal":return "FIELD RECORDS / TIME PAUSED"
 		"paused":return "TAKE A BREATH / TIME PAUSED"
 		"upgrade":return "BUILD YOUR ASCENT / CHOICE PERSISTS"
-		"choice":return "OPTIONAL EXCHANGE / TIME PAUSED"
+		"choice", "hearing_choice":return "OPTIONAL EXCHANGE / TIME PAUSED"
 		"final_choice":return "THE CROWN / YOUR DECISION"
 		"dead":return "CHECKPOINT READY"
 		"complete":return "CAMPAIGN COMPLETE"
@@ -180,7 +180,9 @@ func _draw_header(c:Node2D,layout:Dictionary)->void:
 	c.draw_line(Vector2(0,layout.header_height),Vector2(640,layout.header_height),LINE,1)
 	_text(c,fit_text(str(data.get("sector_title","")),11,398),Vector2(14,16),11,GOLD)
 	var detail:=("SIGHT TRADED · B TAP" if data.get("input_device","")=="controller" else "SIGHT TRADED · Q TAP") if bool(data.get("blind",false)) else "SIGHT INTACT"
+	if not data.get("hearing_retained",true):detail="SIGHT + HEARING TRADED" if data.get("blind",false) else "HEARING TRADED"
 	if data.has("lens"):detail+=" · "+str(data.lens).to_upper()
+	if not str(data.get("focus_specialization","")).is_empty():detail+=" / FOCUS"
 	if data.has("district_index"):detail+=" · DISTRICT %d/%d"%[int(data.district_index),int(data.get("district_count",32))]
 	if int(data.get("required_total",0))>0:detail+=" · GOALS %d/%d"%[int(data.get("required_done",0)),int(data.required_total)]
 	_text(c,fit_text(detail,9,400),Vector2(14,30),9,QUIET)
@@ -221,7 +223,7 @@ func _draw_controls(c:Node2D)->void:
 	c.draw_rect(Rect2(0,339,640,21),SURFACE)
 	c.draw_line(Vector2(0,339),Vector2(640,339),LINE,1)
 	if data.get("input_device","keyboard")=="controller":
-		_text(c,"Stick / D-pad move   A jump   X strike   LB guard   RB roll   B sonar   Y use",Vector2(14,353),9,QUIET)
+		_text(c,("Stick / D-pad move   A jump   X strike   LB guard   RB roll   B sonar   Y use" if data.get("hearing_retained",true) else "Stick / D-pad move   A jump   X strike   LB guard   RB roll   B tap   Y use"),Vector2(14,353),9,QUIET)
 		_text(c,"BACK journal   START pause",Vector2(478,353),9,ACCENT)
 	else:
 		_text(c,"A/D move   Space jump   J strike   K guard   Shift roll   Q tap   E use",Vector2(14,353),9,QUIET)
@@ -276,7 +278,8 @@ func controller_footer(state:String,fallback:String)->String:
 		"title":return "A / START New campaign"+("   X Continue" if bool(data.get("continue_available",false)) else "   X View last result" if bool(data.get("last_result_available",false)) else "")
 		"intro":return "A / START Skip opening"
 		"journal":return "D-pad left / right Pages · BACK / B Return"
-		"choice":return "X Trade sight · B Keep sight"
+		"choice":return "X Trade sight · B Keep sight" if data.get("hearing_retained",true) else "B Keep sight"
+		"hearing_choice":return "B Keep hearing and ascend" if data.get("blind",false) else "X Hearing → FOCUS · B Keep hearing"
 		"archive":return "Y / A / B Return to the mission"
 		"upgrade":return "X Force · Y Agility · B Vitality"
 		"final_choice":return "X Public record · Y Local custody"
