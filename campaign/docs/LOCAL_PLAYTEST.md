@@ -31,17 +31,17 @@ This project uses Godot's default user-data directory, with project name **MOKSH
 
 Godot documents the default Windows location as `%APPDATA%\Godot\app_userdata\[project_name]`. No custom user-directory setting is enabled in this build. [Official Godot data-path documentation](https://docs.godotengine.org/en/stable/tutorials/io/data_paths.html)
 
-- `moksha_five_levels_v1.json`: current district checkpoint, lens, sight choice, upgrades, per-level unpaused seconds and completed-level receipts.
+- `moksha_five_levels_v1.json`: current district checkpoint, lens, sight/hearing choices, upgrades, per-level unpaused seconds and completed-level receipts.
 - `moksha_run_history/completed/<run_id>.json`: immutable keyed completion, including ending, active time, level/district receipts, build totals and a detached completed checkpoint snapshot.
 - `moksha_run_history/preserved/`: exact prior checkpoint/legacy-result bytes, content-addressed and never automatically deleted.
 - `moksha_five_levels_results.json`: legacy-only; preserved independently and no longer overwritten.
 - F12 screenshots during gameplay, when supported by the renderer, also go in this directory. For journal, upgrade and final-choice panels, use your operating system's screenshot shortcut instead.
 
-**What the clock means:** it runs during unpaused gameplay, including standing still or thinking in the world. Pauses, archive panels, the journal, upgrade screens and sight/final choices are excluded. It is not an automatic detector of attention or purposeful action. Checkpoint data reflects the most recent checkpoint/objective save; final results record the completed run. Retrying adds further unpaused time rather than erasing the attempt.
+**What the clock means:** it runs during unpaused gameplay, including standing still or thinking in the world. Pauses, archive panels, the journal, upgrade screens and sensory/final choices are excluded. It is not an automatic detector of attention or purposeful action. Checkpoint data reflects the most recent checkpoint/objective save; final results record the completed run. Retrying adds further unpaused time rather than erasing the attempt.
 
 Continue resumes an active district start. After completion, both Title and restart offer View last result instead of resuming the final district. Reviewing a result never adds metrics or plays a district. Completion persistence failures remain on the ending screen with an Enter/controller-A retry prompt; keep the game open until saved.
 
-New stages a fresh identity and opening checkpoint before replacing live progress. Prior checkpoint bytes and completion records are retained. Legacy v1 migration preserves repeated historical receipts exactly and marks the resumed run as legacy-origin; it does not claim those old metrics are a clean first completion. The existing checkpoint filename now contains envelope v2. Older builds cannot read v2: preserve the current files and restore a separate v1 backup if returning to an older build. Never merely change the version number. Legacy demo save filenames are never modified.
+New stages a fresh identity and opening checkpoint before replacing live progress. Prior checkpoint bytes and completion records are retained. Legacy v1 migration preserves repeated historical receipts exactly and marks the resumed run as legacy-origin; it does not claim those old metrics are a clean first completion. The existing checkpoint filename now contains envelope v3 with explicit sight/hearing state. Valid v1/v2 checkpoints remain readable and their exact original bytes are preserved before migration; v2 identity and receipt prefixes remain intact. New immutable completions use schema 2. Older builds cannot read v3: preserve the entire current folder and restore a separate backup matching the older build. Never merely change the version number. Legacy demo save filenames are never modified.
 
 ## Simple first-play notes (optional)
 
@@ -55,6 +55,6 @@ The 15–20-minute target for each level is **unverified**. To assess it without
 | Works | | | | | | |
 | Crown | | | | | | |
 
-Record whether this is a first encounter with the layouts, lens/sight choices, and any long idle interruption. Preserve the final results JSON if sharing feedback. Useful feedback is a district name, what you tried, what you expected and what happened, rather than a forced playtime estimate.
+Record whether this is a first encounter with the layouts, lens/sight/hearing choices, and any long idle interruption. Preserve the final results JSON if sharing feedback. Useful feedback is a district name, what you tried, what you expected and what happened, rather than a forced playtime estimate.
 
 The automated tests know geometry and enemy behavior. Their times prove controlled traversal, not how long a human will need or whether unfamiliar players understand every route.

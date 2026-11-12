@@ -18,6 +18,11 @@ and [extended source changes](NOV12_EXTENDED_CHECKPOINT.md).
 
 ## Clone and run the editable source
 
+A clone contains only what has actually reached GitHub. It does not fetch later
+Library checkpoints or update an older download. Check `git log -1 --oneline`
+and the delivered source checkpoint instructions before assuming the latest
+features are present. See [the current source/release distinction](CURRENT_PLAYABLE_STATE.md).
+
 1. Install Git if you do not already have it. Sign in with a GitHub account that
    has access to the private repository, then run:
 

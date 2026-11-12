@@ -1,6 +1,6 @@
 # Original scent foundation: current prototype, not the whole game
 
-The delivered baseline is a five-level, 32-district prototype with sight sacrifice, reactive intellect text and durable run history. Historical staged-build plans are historical, not the current feature inventory. Hearing sacrifice, scent sacrifice, tactile navigation, adaptive runs and unresolved original lore branches are not implemented by this slice. Blind plus deaf is not enabled or prohibited as permanent canon.
+The delivered baseline is a five-level, 32-district prototype with sight sacrifice, reactive intellect text and durable run history. Historical staged-build plans are historical, not the current feature inventory. At this slice's original baseline, hearing sacrifice and local ladder touch had not yet been added. Later source integrates both, as described in [the current inventory](CURRENT_PLAYABLE_STATE.md). Scent sacrifice, general blind/deaf navigation, adaptive runs and unresolved original lore branches remain incomplete. Blind plus deaf is not enabled or prohibited as permanent canon.
 
 ## Source intent and responsibility mapping
 

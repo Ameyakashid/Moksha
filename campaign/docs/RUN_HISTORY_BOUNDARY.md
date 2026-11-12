@@ -1,5 +1,11 @@
 # Durable run completion: original implementation plan
 
+Historical v2 foundation record. Current checkpoints use v3 and new completion
+records use schema 2 for explicit sensory facts; v1/v2 and schema 1 history remain
+supported. See [Hearing save compatibility](HEARING_FOCUS_SLICE.md#save-compatibility).
+The version-2 statements below describe this earlier implementation, not the
+current format to restore when switching builds.
+
 Base895a6e4. Preserve released files and every legacy checkpoint/result byte.
 No time-loop/immortality resolution, destructive ending, controller or geometry change.
 

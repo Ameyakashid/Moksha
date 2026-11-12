@@ -46,16 +46,17 @@ Ordinary guards may survive most district exits. Four captain seals require only
 
 For a packaged Windows launch, save-file location and a simple real pacing worksheet, see `campaign/docs/LOCAL_PLAYTEST.md`.
 
-## Builds, sight and checkpoints
+## Builds, senses and checkpoints
 
 - Neutral: 60 health, ordinary run/damage.
 - Strength: 75 health, +40% base strike damage, −6% run speed.
 - Agility: 50 health, +12% run speed.
 - At each of the four level exits choose **J Force** (+25% base strike), **K Agility** (+10% base run), or **L Vitality** (+15 capacity).
 - Optional one-time augments add +8% base strike, +3% base run, or +5 capacity. Live capacity augments do not heal. Changes apply from base resources, never multiply again on retry.
-- Sight trade remains optional: +25% run/roll and stronger sound traces, while ordinary world paint disappears. Objective contours and machinery warnings are genuine sound-revealed geometry. No hearing/smell/intellect trade is claimed implemented.
+- Sight trade remains optional: +25% run/roll and stronger sound traces, while ordinary world paint disappears. Objective contours and machinery warnings are genuine sound-revealed geometry. The optional hearing exchange after the first level removes player sound-map/world audio and grants bounded visible-melee FOCUS opportunities. It gives no extra heal, speed or damage bonus. Normal UI temporarily prevents combined sight/hearing loss while that navigation remains unvalidated.
+- Scent provides capped nearby life, blood and supply categories, not exact enemies or safe terrain. The Intellect companion gives restrained contextual guidance. Smell and Intellect sacrifices are not implemented. See the [current playable inventory and limits](campaign/docs/CURRENT_PLAYABLE_STATE.md).
 
-Retry resets local district objectives, guards and cargo while keeping the same run identity, build, sight choice and archives. Continue resumes an active district checkpoint. Completed runs instead offer **C / controller X: View last result**, without replaying the final district. New creates a distinct run and preserves previous checkpoint bytes and completed history. The checkpoint filename remains `user://moksha_five_levels_v1.json`, but new saves use envelope version 2; version 1 is migrated only after an exact backup. Older builds need the preserved version-1 backup, not a relabelled version-2 save. Legacy demo saves and the old single results file remain untouched. See `campaign/docs/RUN_HISTORY_BOUNDARY.md` and `campaign/docs/LOCAL_PLAYTEST.md`.
+Retry resets local district objectives, guards and cargo while keeping the same run identity, build, sight choice and archives. Continue resumes an active district checkpoint. Completed runs instead offer **C / controller X: View last result**, without replaying the final district. New creates a distinct run and preserves previous checkpoint bytes and completed history. The checkpoint filename remains `user://moksha_five_levels_v1.json`, but new saves use envelope version 3 with explicit sight/hearing state. Valid v1/v2 checkpoints migrate only after their original bytes are preserved; v2 run identity and prior metrics remain intact. New completions use schema 2. Older builds need a preserved backup matching their supported format, not a relabelled v3 save. Legacy demo saves and the old single results file remain untouched. See `campaign/docs/RUN_HISTORY_BOUNDARY.md` and `campaign/docs/LOCAL_PLAYTEST.md`.
 
 ## Build with the modules
 
@@ -70,7 +71,7 @@ See `campaign/docs/EDITOR_WORKFLOW.md` and `campaign/docs/LAYOUT_CONTRACT.md`.
 - `campaign/district_entry.tscn`: choose a stable district ID in the Inspector and F6 for a save-disabled playable review.
 - `sandbox/assembly.tscn`: original independent physics/actor module bench.
 
-The original Oct23 demo is still playable at `demo/mission.tscn`; its historical README is `docs/OCT23_BASELINE_README.md`. Original approved player/controller and simulation source remain preserved.
+The original Oct23 demo is still playable at `demo/mission.tscn`; its historical README is `docs/OCT23_BASELINE_README.md`. The original movement/combat/simulation modules remain the foundation. The documented bounded attack-clock lease was added for FOCUS; campaign presentation and lifecycle adapters remain separate from movement authority.
 
 ## November 12 five-environment visual checkpoint
 
@@ -102,6 +103,6 @@ See [`campaign/quality/README.md`](campaign/quality/README.md) for the reproduci
 
 ## Evidence and limits
 
-See `campaign/docs/NOV12_PLAYABLE_CHECKPOINT.md` for current source tests and limits; `campaign/docs/NOV6_CHANGES.md` records the earlier build evidence; `campaign/docs/VERIFICATION.md` preserves the historical October 29 report. Headless contracts, isolated chapter input routes, complete input campaigns and native visuals are different evidence categories. Actual native Godot screenshots and bounded manual-input review cover representative areas in all five levels, panels, combat telegraphs and blind concealment; visual defects were fixed and re-rendered. Direct scene fixtures are labelled separately from complete input runs. Full native campaign traversal, audible mix, Windows hardware behavior and first-play human timing remain unverified.
+See [the current playable state](campaign/docs/CURRENT_PLAYABLE_STATE.md) for feature and acceptance scope; `campaign/docs/NOV12_PLAYABLE_CHECKPOINT.md` records an earlier source checkpoint; `campaign/docs/NOV6_CHANGES.md` records the earlier build evidence; `campaign/docs/VERIFICATION.md` preserves the historical October 29 report. Headless contracts, isolated chapter input routes, complete input campaigns and native visuals are different evidence categories. Actual native Godot screenshots and bounded manual-input review cover representative areas in all five levels, panels, combat telegraphs and blind concealment; visual defects were fixed and re-rendered. Direct scene fixtures are labelled separately from complete input runs. Full native campaign traversal, audible mix, Windows hardware behavior and first-play human timing remain unverified.
 
 Original MOKSHA assets are reused separately from gameplay. Actual MIT Beehave blackboard code is wired into campaign objective/build context with its license and pinned source recorded in `campaign/vendor/beehave/`. No proprietary game/decompiled commercial art or code is included; REA is tooling, not a license to copy a commercial game. See `campaign/docs/REUSE.md`.
