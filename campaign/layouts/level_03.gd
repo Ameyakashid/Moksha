@@ -24,6 +24,9 @@ static func sectors() -> Array[Dictionary]:
 		if sign[1] == "OPTIONAL SUPPLIES":
 			sign[0] = Vector2(3000, 250)
 			sign[1] = "COURTYARD SHELTER"
+		elif sign[1] == "ROOFS ^   SUPPLIES >":
+			# Keep the inherited direction text left of the recovery ladder.
+			sign[0] = Vector2(2590, 265)
 	homes["signs"].append([Vector2(2790, 155), "OPTIONAL SUPPLIES"])
 	homes["signs"].append([Vector2(3100, 265), "EAST ROOFS > ^"])
 	homes["objective_doors"] = [{"at": Vector2(4780, 100), "size": Vector2(28, 400), "requires": ["roofs"]}]
