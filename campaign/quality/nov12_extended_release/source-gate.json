@@ -1,0 +1,91 @@
+{
+  "commit": "45a6c2b2d1502f6a8d045ae33c1bcb1f6e020917",
+  "passed": true,
+  "stages": [
+    {
+      "name": "foundry",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "seconds": 0.969
+    },
+    {
+      "name": "cistern",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "seconds": 0.529
+    },
+    {
+      "name": "atmosphere",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "seconds": 0.675
+    },
+    {
+      "name": "scenery",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "seconds": 5.72
+    },
+    {
+      "name": "residential",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "seconds": 0.366
+    },
+    {
+      "name": "label",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "seconds": 0.316
+    },
+    {
+      "name": "thermal_layout",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "seconds": 0.316
+    },
+    {
+      "name": "thermal_observer",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "seconds": 0.373
+    },
+    {
+      "name": "report_guards",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "seconds": 3.649
+    },
+    {
+      "name": "domain",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "seconds": 58.702,
+      "sub_stages": 16
+    },
+    {
+      "name": "quality",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "seconds": 372.379,
+      "sub_stages": 20
+    }
+  ],
+  "tracked_file_count": 4299,
+  "source_drift": [],
+  "scope": "Combined source/feature fixtures; separate full-campaign, native visual and packed delivery evidence required.",
+  "archive_omitted_fields": {
+    "tracked_sha256": 4299
+  }
+}

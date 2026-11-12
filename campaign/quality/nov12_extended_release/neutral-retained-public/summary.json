@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "commit": "45a6c2b2d1502f6a8d045ae33c1bcb1f6e020917",
+  "stages": [
+    {
+      "name": "import",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "wall_seconds": 14.763142948000677
+    },
+    {
+      "name": "campaign",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true,
+      "wall_seconds": 1165.0532155630008
+    }
+  ],
+  "receipt_errors": [],
+  "source_drift": [],
+  "observer_sha256": "486adca99f8d6fe956eaae7a40e7d81a64a722e62ff2b487f84cae8933aa4aef",
+  "parameters": {
+    "lens": "neutral",
+    "sight": "retained",
+    "ending": "public_record"
+  },
+  "scope": "Continuous normal-title60Hz automated campaign; no manual pacing or optional branch acceptance.",
+  "archive_omitted_fields": {
+    "tracked_sha256": 4299
+  }
+}
