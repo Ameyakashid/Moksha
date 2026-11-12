@@ -4,7 +4,7 @@ func _process(_dt: float) -> void:queue_redraw()
 static func placement(at: Vector2,width: float,font_size: int,canvas: Transform2D,viewport: Rect2) -> Dictionary:
 	return place_block(at,Vector2(width+6,font_size+4),font_size,canvas,viewport)
 
-static func place_block(at:Vector2,size:Vector2,font_size:int,canvas:Transform2D,viewport:Rect2,safe_rect:Variant=null,painted_rect:Variant=null,caption_side:Variant=null)->Dictionary:
+static func place_block(at:Vector2,size:Vector2,font_size:int,canvas:Transform2D,viewport:Rect2,safe_rect:Variant=null,painted_rect:Variant=null,caption_side:Variant=null,avoid_rects:Array=[])->Dictionary:
 	if viewport.size.x<=16 or absf(canvas.determinant())<.00001:return {"draw":false}
 	# Cull the actual object BEFORE moving its caption. Never drag distant labels
 	# into view, and move all caption lines together so edge clamping cannot stack them.
@@ -46,8 +46,46 @@ static func place_block(at:Vector2,size:Vector2,font_size:int,canvas:Transform2D
 				if inner.encloses(candidate) and not candidate.intersects(exclusion):
 					shift=candidate.position-screen_box.position;found=true;break
 			if not found:return {"draw":false}
+	# Notices are irregular occupied regions, not a taller global header. Keep
+	# all lines together and test every candidate against all occupied regions.
+	if not avoid_rects.is_empty():
+		var occupied:Array[Rect2]=[]
+		if painted_rect is Rect2:occupied.append(painted_rect.grow(4.0))
+		for rect in avoid_rects:
+			if rect is Rect2 and rect.has_area():occupied.append(rect.grow(4.0))
+		var resolved:=avoid_occupied(Rect2(screen_box.position+shift,screen_box.size),bounds.grow(-8),occupied)
+		if not resolved.draw:return {"draw":false}
+		shift=resolved.box.position-screen_box.position
 	var baseline:Vector2=canvas.affine_inverse()*(canvas*at+shift)
 	return {"draw":true,"at":baseline,"screen_box":Rect2(screen_box.position+shift,screen_box.size)}
+
+static func avoid_occupied(box:Rect2,inner:Rect2,occupied:Array[Rect2])->Dictionary:
+	if _clear_box(box,inner,occupied):return {"draw":true,"box":box}
+	var candidates:Array[Vector2]=[]
+	var xs:Array[float]=[box.position.x,inner.position.x,inner.end.x-box.size.x]
+	var ys:Array[float]=[box.position.y,inner.position.y,inner.end.y-box.size.y]
+	for rect in occupied:
+		candidates.append(Vector2(box.position.x,rect.position.y-box.size.y))
+		candidates.append(Vector2(rect.end.x,box.position.y))
+		candidates.append(Vector2(rect.position.x-box.size.x,box.position.y))
+		candidates.append(Vector2(box.position.x,rect.end.y))
+		xs.append(rect.position.x-box.size.x);xs.append(rect.end.x)
+		ys.append(rect.position.y-box.size.y);ys.append(rect.end.y)
+	# Corners handle simultaneous object + notice obstruction without sliding
+	# a caption back through the other exclusion. Deterministic finite search.
+	for y in ys:
+		for x in xs:candidates.append(Vector2(x,y))
+	for position in candidates:
+		var candidate:=Rect2(position,box.size)
+		if _clear_box(candidate,inner,occupied):return {"draw":true,"box":candidate}
+	return {"draw":false}
+
+static func _clear_box(box:Rect2,inner:Rect2,occupied:Array[Rect2])->bool:
+	if not inner.encloses(box):return false
+	for rect in occupied:
+		if box.intersects(rect):return false
+	return true
+
 static func describe(kind:String,label:String,completed:bool,available:bool,setting:int,target:int,optional:=false,controller:=false)->Dictionary:
 	var detail:=""
 	var color:=Color("67e0be") if completed else Color("ffc278") if available else Color("bac7cd")
@@ -86,9 +124,11 @@ func _draw() -> void:
 	var safe:Variant=null
 	var hud:Variant=host.get("hud") if is_instance_valid(host) else null
 	if is_instance_valid(hud) and hud.has_method("caption_safe_rect"):safe=hud.caption_safe_rect()
+	var avoid:Array=[]
+	if is_instance_valid(hud) and hud.has_method("caption_exclusion_rects"):avoid=hud.caption_exclusion_rects()
 	var spec:Variant=o.get("specification")
 	var side:Variant=spec.get("caption_side") if spec is Dictionary else null
-	var placed:=place_block(at,Vector2(actual_width+6,total_height+4),size,get_global_transform_with_canvas(),get_viewport_rect(),safe,get_parent().caption_exclusion_rect(),side)
+	var placed:=place_block(at,Vector2(actual_width+6,total_height+4),size,get_global_transform_with_canvas(),get_viewport_rect(),safe,get_parent().caption_exclusion_rect(),side,avoid)
 	if not placed.draw:return
 	at=placed.at
 	for line in lines:

@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "import-final",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "9572934ad4d57fbab2c09b2c82f3821584fba7ba71d7e1dec5055bc7fa531f3f"
+    },
+    {
+      "name": "notice",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "822f88c50bf588f97a936e9358cfde6f60f015ebb0c714d8b06a729a053e0394"
+    },
+    {
+      "name": "caption",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "4b3098ab32179a9624da2e32b0781f870fd7020c7d4cfac6709bdbae5ec6c3ac"
+    },
+    {
+      "name": "caption-hint",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "7988d86179bc1aed9640b745ba40e6750acde37dfa7dc01c6fae6f0b14e82a75"
+    },
+    {
+      "name": "presentation",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "d8daec5608a5dbe09b352761b8b8b37d18332c5bd9e71a3073c7fb5255834718"
+    },
+    {
+      "name": "scent",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "log_sha256": "11754c7868af0b87ac75f161caf679f9687dee34f36a825de979694f3d5d5488"
+    }
+  ],
+  "base_commit": "c9772b07ce44de94be94e25b48ee250197566162",
+  "scope": "Presentation-only notice-aware caption placement. Seeded/source checks, not native acceptance.",
+  "focused_checks": 259,
+  "native_acceptance": false,
+  "prior_failed_attempt": "contract01.log: fixture-only type inference error, preserved and rejected; explicit bool annotation corrected.",
+  "production_sha256": {
+    "campaign/views/campaign_hud_owner.gd": "9546dd9a52f419a81d7d20a8aa8e869179a09ace0f787005dec24af78beb8b39",
+    "campaign/views/objective_caption.gd": "052f12442482f23c270982f4a3c1673584f293ae9aec0dce36ee6b9d102ab7a4",
+    "campaign/views/campaign_hud.gd": "64a1d50fbcecde00bc9b460db5d5225860a5c844780775e54a30838fe742aa6d"
+  },
+  "protected_roots_unchanged": [
+    "combat_pc",
+    "simulation",
+    "scripts",
+    "campaign/layouts",
+    "campaign/state",
+    "campaign/save"
+  ]
+}

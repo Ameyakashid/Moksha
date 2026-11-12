@@ -296,3 +296,13 @@ func caption_safe_rect()->Rect2:
 	if not layout.context_notice and layout.context_height>0:bottom=minf(bottom,layout.context_top)
 	var local:=Rect2(0,layout.header_height,640,maxf(0,bottom-layout.header_height))
 	return get_global_transform_with_canvas()*local
+
+func caption_exclusion_rects()->Array[Rect2]:
+	var empty:Array[Rect2]=[]
+	if data.get("state","")!="playing" or not data.get("player_present",false) or data.get("panel_override",false):return empty
+	# Exactly the currently painted notice; never reserve vanished toast space.
+	var layout:=playing_layout(data)
+	var result:Array[Rect2]=[]
+	if layout.context_notice and layout.context_height>0:
+		result.append(get_global_transform_with_canvas()*Rect2(layout.context_x,layout.context_top,layout.context_width,layout.context_height))
+	return result

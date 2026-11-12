@@ -31,3 +31,9 @@ func _sync_view()->void:
 func caption_safe_rect()->Rect2:
 	var view:=get_node_or_null("View")
 	return view.caption_safe_rect() if view!=null and view.has_method("caption_safe_rect") else get_viewport_rect()
+
+func caption_exclusion_rects()->Array[Rect2]:
+	var view=get_node_or_null("View")
+	if is_instance_valid(view) and view.has_method("caption_exclusion_rects"):return view.caption_exclusion_rects()
+	var empty:Array[Rect2]=[]
+	return empty
