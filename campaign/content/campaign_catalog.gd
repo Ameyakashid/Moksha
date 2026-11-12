@@ -1,6 +1,9 @@
 extends RefCounted
 ## Validated, detached authored definitions. No live nodes or filesystem writes.
 ## Unknown fields remain available to presentation and future content adapters.
+## Shipped-content integrity manifest, not an engine capacity limit.
+## Intentional expansion must update content, this manifest, save compatibility
+## fixtures and acceptance counts together; see campaign/docs/CONTENT_MANIFEST.txt.
 const EXPECTED_DISTRICTS := 32
 
 static func validate(levels:Array)->Dictionary:

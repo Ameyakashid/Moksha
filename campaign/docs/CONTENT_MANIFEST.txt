@@ -1,0 +1,23 @@
+Editing and expanding campaign content
+
+The current shipped campaign contains five levels and32 districts. The catalog's
+EXPECTED_DISTRICTS value protects that delivery from missing or accidentally added
+files/content. It is NOT a permanent engine limit or a recommendation for all games.
+
+Routine edits can change art, layout, tuning and presentation fields without
+changing this count. Preserve existing district/objective stable IDs and dependency
+meaning where saved progress refers to them. Objective dependency graphs must be
+acyclic, including optional objectives; array order need not be topological.
+
+An intentional expansion must coordinate:
+1. Authored level definitions and campaign/content/campaign_catalog.gd manifest.
+2. Any five-level assumptions in progression, ending and checkpoint validation.
+3. Stable-ID save compatibility: preserve old identifiers, add explicit migration
+   or compatibility handling when old content is removed/reinterpreted. Do not
+   silently accept foreign saves or relabel existing progress by array position.
+4. Campaign smoke/contract counts, recorded-route coverage and acceptance evidence.
+
+Do not disable validation to make an incomplete installation load. Validate the
+complete new manifest, retain old save fixtures and test Continue/retry/transitions
+before shipping the expansion. Engine/controller changes are not inherently needed
+just to increase the district count.
