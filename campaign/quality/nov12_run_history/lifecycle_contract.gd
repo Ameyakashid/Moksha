@@ -10,8 +10,8 @@ func check(ok:bool,label:String)->void:
  checks+=1
  if not ok:failures.append(label);push_error(label)
 func _initialize()->void:call_deferred("run")
-func host_at(label:String,save:=true)->Node:
- var h=Host.instantiate();h.save_enabled=false
+func host_at(label:String,save:=true,read_on_ready:=false)->Node:
+ var h=Host.instantiate();h.save_enabled=save if read_on_ready else false
  h.campaign_save_path=base.path_join(label+".json")
  h.history_path=base.path_join(label+"-history")
  h.legacy_results_path=base.path_join(label+"-legacy.json")
@@ -214,6 +214,30 @@ func run()->void:
   malformed.result.levels=malformed.snapshot.level_receipts.duplicate(true)
   malformed.result.districts=malformed.snapshot.progress.metrics.duplicate(true)
   check(not h._validated_terminal(malformed),"Missing final proof rejected: "+remove_kind)
+ h.free();await process_frame
+ # Fresh _ready must prefer checkpoint-owned terminal over a future-dated older record.
+ h=host_at("startup-clock");h.start_new(true);final_fixture(h)
+ var current_record:Dictionary=h.completion_record.duplicate(true)
+ var current_path:String=History.get_record(h.history_path,h.run_id).path
+ var current_hash:=FileAccess.get_sha256(current_path)
+ var terminal_hash:=FileAccess.get_sha256(h.campaign_save_path)
+ var older:Dictionary=current_record.duplicate(true)
+ older.run_id="cccccccccccccccccccccccccccccccc";older.snapshot.run_id=older.run_id
+ older.completed_at=current_record.completed_at+86400
+ check(History.put(h.history_path,older).ok,"Later-timestamp historical fixture stored")
+ var older_path:String=History.get_record(h.history_path,older.run_id).path
+ var older_hash:=FileAccess.get_sha256(older_path)
+ h.free();await process_frame
+ h=host_at("startup-clock",true,true)
+ check(h.last_result.get("run_id")==current_record.run_id and not h.continue_available,"Fresh ready prefers current terminal checkpoint under clock rollback")
+ check(not is_instance_valid(h.room) and h.session_generation==0,"Fresh terminal Title loads no room or session")
+ press(h,KEY_C)
+ check(h._reviewing_result and h.last_result.get("run_id")==current_record.run_id and not is_instance_valid(h.room) and h.session_generation==0,"Initial C reviews checkpoint-owned result without replay")
+ check(FileAccess.get_sha256(h.campaign_save_path)==terminal_hash and FileAccess.get_sha256(current_path)==current_hash and FileAccess.get_sha256(older_path)==older_hash,"Ready and initial C preserve checkpoint and both immutable records")
+ h.free();await process_frame
+ h=host_at("startup-clock",false,true)
+ check(h.last_result.is_empty() and not h.continue_available and not h._valid_save(),"No-save ready does not discover existing checkpoint or history")
+ check(FileAccess.get_sha256(h.campaign_save_path)==terminal_hash and FileAccess.get_sha256(current_path)==current_hash,"No-save ready leaves existing bytes unchanged")
  h.free();await process_frame
  h=host_at("nosave",false);h.start_new(true);final_fixture(h);h.show_title()
  check(not FileAccess.file_exists(h.campaign_save_path) and not DirAccess.dir_exists_absolute(h.history_path),"No-save fixtures write nothing")

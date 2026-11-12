@@ -1,0 +1,24 @@
+{
+  "base": "cce3feaccfeff832a1e8c6569c30c61b3df57465",
+  "scope": "Seeded lifecycle and presentation only. No native/full-campaign claim.",
+  "checks": [
+    {
+      "log": "/tmp/startup-preference-before.log",
+      "exit": 1,
+      "sha256": "4384b9a180124c0e5bf2d353ba57ded4eae45e9e16b8c560e2f03d35e14aa3f1",
+      "result": "RUN_LIFECYCLE 92 checks; failures=[\"Fresh ready prefers current terminal checkpoint under clock rollback\", \"Initial C reviews checkpoint-owned result without replay\"]"
+    },
+    {
+      "log": "/tmp/startup-preference-after.log",
+      "exit": 0,
+      "sha256": "9a33b4ce8dfff7cc6ddd0132889161ef86efd77feb15b66575599fdd24f97527",
+      "result": "RUN_LIFECYCLE 92 checks; failures=[]"
+    },
+    {
+      "log": "/tmp/startup-preference-presentation.log",
+      "exit": 0,
+      "sha256": "add29168febbbb4ddfb66787677707922fccd60d7ceb9375e45b9676c25006f2",
+      "result": "NOV6_PRESENTATION checks=2537 failures=[] worst_header=57.0 worst_panel_baseline=235.0"
+    }
+  ]
+}

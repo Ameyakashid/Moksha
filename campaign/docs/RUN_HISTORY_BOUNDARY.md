@@ -129,3 +129,17 @@ JSON representation; new-origin controls reject each. Initial-district completio
 missing suffixes and wrong final metric/receipt identities are rejected. No native
 or actual-input full campaign claim. The first run exposed only a fixture's
 int-versus-parsed-float dictionary comparison; its log is retained separately.
+
+### Initial Title ordering under clock rollback
+Startup now discovers timestamp-sorted history before the base host reconciles
+the current checkpoint. The current terminal checkpoint therefore determines
+the initial View last result target, just as it already did on later Title visits.
+This reorders existing reads; it does not add a read or write, start a session,
+load a district or change no-save short-circuiting.
+
+A seeded fresh-host fixture with two valid terminal-shaped records reproduces
+the old ordering failure (later timestamp belongs to the other historical run).
+After correction, initial Title and C review the checkpoint-owned result with
+zero session generation, no room, and unchanged checkpoint/both record hashes.
+The same existing files remain undiscovered and unchanged with save_enabled false.
+These are lifecycle fixtures, not evidence of two newly played campaigns.

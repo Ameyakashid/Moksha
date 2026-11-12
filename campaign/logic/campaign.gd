@@ -70,6 +70,9 @@ func _ready()->void:
 	gamepad_navigation.bind(self);add_child(gamepad_navigation)
 	blackboard=preload("res://campaign/vendor/beehave/blackboard.gd").new()
 	add_child(blackboard)
+	# Discover history first: base ready reconciles the current checkpoint next,
+	# so its terminal identity wins over timestamps even after clock rollback.
+	_refresh_run_history()
 	super._ready()
 	# The base scene creates its sonar while still on the title, before a room
 	# exists. Replace that empty adapter, preserving its configured tuning and
@@ -88,7 +91,6 @@ func _ready()->void:
 	hud.set_script(preload("res://campaign/views/campaign_hud_owner.gd"))
 	hud.appearance=appearance
 	hud.get_node("View").set_script(preload("res://campaign/views/campaign_hud.gd"))
-	_refresh_run_history()
 	hud.set_snapshot(_hud_snapshot())
 	get_window().focus_exited.connect(_on_window_focus_exited)
 	companion=preload("res://campaign/narrative/companion_observer.gd").new()
