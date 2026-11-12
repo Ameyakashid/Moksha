@@ -7,11 +7,13 @@ const Themes = [
 	preload("res://campaign/assets/themes/03_residences.tres"),
 	preload("res://campaign/assets/themes/04_memory.tres"),
 	preload("res://campaign/assets/themes/05_crown.tres")]
+const ArcologyAtmosphere = preload("res://campaign/presentation/arcology_atmosphere.gd")
 const Backdrop = preload("res://campaign/presentation/scenery_backdrop.gd")
 const DistrictIdentity = preload("res://campaign/presentation/district_identity.gd")
 const SurfaceSkin = preload("res://campaign/presentation/terrain_skin.gd")
 var backdrop: Node2D
 var terrain_paint: Node2D
+var atmosphere: Node2D
 var configured := false
 var sight_enabled := true
 var view_center := Vector2(320,180)
@@ -23,6 +25,7 @@ func configure_sector(data: Dictionary) -> void:
 	for child in get_children():
 		remove_child(child)
 		child.queue_free()
+	atmosphere = null
 	var width: float = maxf(1.0,float(data.get("width",640)))
 	var top: float = minf(240.0,float(data.get("top",-100)))
 	var level: int = clampi(int(data.get("level",1)),1,5)
@@ -37,6 +40,13 @@ func configure_sector(data: Dictionary) -> void:
 	backdrop.landmark_origin = Vector2(clampf(float(data.get("spawn",Vector2(75,300)).x)+65.0+float(posmod(backdrop.seed_value,130)),24.0,maxf(24.0,width-170.0)),96.0+float(posmod(backdrop.seed_value/137,32)))
 	backdrop.z_index = -3
 	add_child(backdrop)
+	# Inhabited city/residential views are district-owned, entirely behind gameplay.
+	if level in [1,3]:
+		atmosphere=ArcologyAtmosphere.new()
+		atmosphere.name="InhabitedArcology"
+		backdrop.add_child(atmosphere)
+		atmosphere.configure({"id":str(data.get("id","district")),"width":width})
+		atmosphere.set_view(view_center,view_size)
 	terrain_paint = Node2D.new()
 	terrain_paint.set_script(SurfaceSkin)
 	terrain_paint.name = "ExactSurfaceSkins"
@@ -64,3 +74,4 @@ func update_view(camera_center: Vector2, viewport_size: Vector2) -> void:
 	# Stable optional adapter API; static composition needs no camera tick.
 	view_center = camera_center
 	view_size = viewport_size
+	if is_instance_valid(atmosphere):atmosphere.set_view(camera_center,viewport_size)
