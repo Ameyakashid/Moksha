@@ -1,0 +1,27 @@
+{
+  "production_commit": "cab42a72b532dee59f98f19b34acb7ae1834ee16",
+  "source_before": "cab42a72b532dee59f98f19b34acb7ae1834ee16",
+  "source_after": "cab42a72b532dee59f98f19b34acb7ae1834ee16",
+  "tracked_diff_before_receipt": "",
+  "scope": "Staged1280x720 Linux visual fixtures, enemies paused, wrapped HUD synthetic, available/completed explicitly staged. No gameplay/progression/controller-device or performance claim.",
+  "accepted_images": {
+    "lower-ladder.png": "1a21c116ccb4a5c73ec449bc079c939ab86ddab905e4d96018af4b565fd04d77",
+    "upper-ladder.png": "373d0a668eff744f5a668f6a1a7c468e8a4e8759d37c1b185d52bc0e7927b409",
+    "manifold-west.png": "826cbe9d19d4c6533705684adb985ee9e8db59e93aa148cd4919806fa0d1f920",
+    "manifold-east.png": "b8ed5b3fc720696700d495546529e2812433e06e08c781d93a658e3583ad951a",
+    "thermal-wrapped.png": "800c17c4e1274a1bf1fc4b6c4207c44a637f1ff58cf0f886b7831db2562a233b",
+    "controller-available-explicit.png": "f12a7378136bc97367b52424338692638c6297600ab059791c2f5c2ac9cba710",
+    "crown-blind.png": "08e8cf0f7d749beb5133cf10610818333bd39716bdeef5ba99c572b5cc5218be"
+  },
+  "logs": {
+    "native.log": 0,
+    "controller-explicit.log": 0
+  },
+  "warnings": "Only unsupported VSync driver warning; no script/resource/ObjectDB errors.",
+  "rejected_available_state_attempts": [
+    "controller-available.png",
+    "controller-available-fixed.png"
+  ],
+  "rejection_reason": "Both rendered locked, not available; preserve them as failed fixture-state setup, not production failures. Explicit visual availability capture accepted separately.",
+  "findings": "Coolant lower-ladder box moves from x374\u2013710 to x115\u2013455 at y496\u2013549, clearing player/ladder nearx640. Left/right manifold labels stay above actors/terrain and clear own terminal. Upper ladder naturally culls coolant offscreen. Wrapped HUD, controller Y text and blind hiding retained. SERVICE ROUTE and FEED signs not newly obscured by coolant. Existing harness partially under HUD at manifold approach unchanged; no new broad placement change."
+}
