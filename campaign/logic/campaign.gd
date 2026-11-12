@@ -38,6 +38,7 @@ var _focus_pause_active:=false
 var _focus_resume_state:="playing"
 var _level_transition_snapshot:Dictionary={}
 var _controller_bindings:Node
+var companion:Node
 var gamepad_navigation:Node
 func _ready()->void:
 	var catalog:=_load_catalog()
@@ -74,6 +75,8 @@ func _ready()->void:
 	hud.get_node("View").set_script(preload("res://campaign/views/campaign_hud.gd"))
 	hud.set_snapshot(_hud_snapshot())
 	get_window().focus_exited.connect(_on_window_focus_exited)
+	companion=preload("res://campaign/narrative/companion_observer.gd").new()
+	add_child(companion);companion.bind(self)
 func _load_catalog()->Dictionary:
 	return CampaignData.load_catalog()
 
@@ -248,6 +251,7 @@ func interact()->void:
 	if state=="archive":_audio_feedback.finish_modal_since(audio,audio_children_before,"tap")
 	if _pending_sector<0:_level_transition_snapshot.clear()
 func choose_sight(accept:bool)->void:
+	if state=="choice" and is_instance_valid(companion):companion.sight_chosen(accept)
 	super.choose_sight(accept)
 	_apply_build()
 	if is_instance_valid(art):art.set_sight_enabled(not blind)
@@ -433,6 +437,7 @@ func _hud_snapshot()->Dictionary:
 		snapshot.merge({"panel_override":true,"panel_title":"CHECKPOINT UNAVAILABLE",
 			"panel_body":_checkpoint_error+"\n\nThe existing checkpoint has not been changed.\nStarting a new campaign preserves a separate copy before replacing it.",
 			"panel_footer":"ENTER New campaign"},true)
+	if is_instance_valid(companion):companion.decorate(snapshot)
 	return snapshot
 
 func _journal_rows()->Array[String]:
