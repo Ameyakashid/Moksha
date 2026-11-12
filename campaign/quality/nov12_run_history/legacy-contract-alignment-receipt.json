@@ -39,5 +39,14 @@
       "pass_lines": 38
     }
   ],
-  "unchanged": "All production/runtime files byte-identical to 565cf1e. _save_checkpoint corrupt-backup failure assertion remains on original SAVE.preserved path. Only explicit New expectation uses history preserved checkpoint-before-new SHA path."
+  "unchanged": "All production/runtime files byte-identical to 565cf1e. _save_checkpoint corrupt-backup failure assertion remains on original SAVE.preserved path. Only explicit New expectation uses history preserved checkpoint-before-new SHA path.",
+  "runner_followup": {
+    "scope": "Executed actual main command construction with unrelated stages intercepted/skipped; only save_draft stages invoked through original run_stage. NOT full runner acceptance.",
+    "positive": "60 and 120 Hz exit0, no errors, expected marker",
+    "negative": "same constructed commands with isolation argument removed exit2 at both rates",
+    "probe": "/tmp/check-quality-save-entry.py",
+    "probe_sha256": "0b342a1d25264f12a0a7404efb58581350acaea057119798c5c4c5349d5fee28",
+    "log": "/tmp/quality-save-entry-probe.log",
+    "log_sha256": "c836fd9165673f2cb78b240a8ee28e5c60a42b36d70fe28e9179626ece4831c9"
+  }
 }

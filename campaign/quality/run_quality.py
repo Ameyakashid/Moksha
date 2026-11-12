@@ -56,7 +56,7 @@ def main():
         for hz in (60, 120):
             stage(f'state_save_{hz}', [godot, '--headless', '--path', str(ROOT), '--fixed-fps', str(hz), '--script', 'res://campaign/quality/state_save_adversarial.gd', '--', '--isolated-save-tests', f'--hz={hz}'], 'STATE_SAVE_RESULT ')
             for script in ('incoming_health','save_draft','lifecycle_draft','ui_dependencies'):
-                stage(f'{script}_{hz}', [godot, '--headless', '--path', str(ROOT), '--fixed-fps', str(hz), '--script', f'res://campaign/qa_audit/{script}.gd', '--', f'--hz={hz}'], '_FAILURES []')
+                stage(f'{script}_{hz}', [godot, '--headless', '--path', str(ROOT), '--fixed-fps', str(hz), '--script', f'res://campaign/qa_audit/{script}.gd', '--', f'--hz={hz}'] + (['--isolated-save-tests'] if script == 'save_draft' else []), '_FAILURES []')
         stage('replay', [sys.executable, 'campaign/quality/replay_checks.py', '--output', str(output / 'replay')], timeout=900)
     after = hashes()
     drift = sorted(p for p in before.keys() | after.keys() if before.get(p) != after.get(p))
