@@ -53,6 +53,7 @@ var _focus_pause_active:=false
 var _focus_resume_state:="playing"
 var _level_transition_snapshot:Dictionary={}
 var _controller_bindings:Node
+var ladder_touch:Node
 var scent:Node
 var companion:Node
 var gamepad_navigation:Node
@@ -98,6 +99,8 @@ func _ready()->void:
 	add_child(companion);companion.bind(self)
 	scent=preload("res://campaign/perception/scent_observer.gd").new()
 	add_child(scent);scent.bind(self)
+	ladder_touch=preload("res://campaign/perception/ladder_touch_observer.gd").new()
+	add_child(ladder_touch);ladder_touch.bind(self)
 func _load_catalog()->Dictionary:
 	return CampaignData.load_catalog()
 
@@ -160,6 +163,7 @@ func _create_player_health()->Node:
 	return adapter
 
 func load_sector(index:int)->void:
+	if is_instance_valid(ladder_touch):ladder_touch.retire()
 	if is_instance_valid(scent):scent.retire()
 	if not _level_transition_snapshot.is_empty():
 		if index==int(_level_transition_snapshot.to):_level_transition_snapshot.clear()

@@ -1,0 +1,41 @@
+{
+  "base_commit": "460c180c0a044f6abc934aa65f3e7cd06db21b49",
+  "scope": "Focused source contract, real physics input-frame fixtures, not native readability or full campaign traversal",
+  "rows": [
+    {
+      "physics_hz": 60,
+      "receipt": {
+        "checks": 41,
+        "failures": [],
+        "passed": true,
+        "physics_hz": 60,
+        "scope": "Real actor/ladder physics with input-frame driver and explicitly seeded negatives; not screen-only play acceptance"
+      },
+      "log_sha256": "3e855c624b7a67164674d11e8e5b875c80bf35f5f6c8cfa7100a1d54c03c46f1"
+    },
+    {
+      "physics_hz": 120,
+      "receipt": {
+        "checks": 41,
+        "failures": [],
+        "passed": true,
+        "physics_hz": 120,
+        "scope": "Real actor/ladder physics with input-frame driver and explicitly seeded negatives; not screen-only play acceptance"
+      },
+      "log_sha256": "97fccb7b31af9b81089e6f3cb674bbc189d04b0dab4cb605ab8a096156d20ae0"
+    }
+  ],
+  "smoke_districts": 32,
+  "inherited_scent_checks": 64,
+  "inherited_scent_physics_hz": 120,
+  "protected_tracked_files_unchanged": 1408,
+  "protected_roots": [
+    "combat_pc",
+    "simulation",
+    "scripts",
+    "campaign/save",
+    "campaign/layouts",
+    "campaign/state"
+  ],
+  "failed_attempt": "final02 fixed-render-cadence fixture failed120 because approach duration was expressed in fixed steps and engine physics rate was not explicitly set; preserved, rejected, replaced by rates03"
+}
