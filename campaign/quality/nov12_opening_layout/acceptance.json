@@ -1,0 +1,33 @@
+{
+  "60": {
+    "passed": true,
+    "failures": [],
+    "deaths": 0,
+    "active_seconds": 230.433333333409,
+    "clinic_closed_seen": true,
+    "clinic_open_seen": true,
+    "clinic_roof_crossed": true,
+    "clinic_street_crossed": true
+  },
+  "120": {
+    "passed": true,
+    "failures": [],
+    "deaths": 0,
+    "active_seconds": 151.516666666693,
+    "clinic_closed_seen": true,
+    "clinic_open_seen": true,
+    "clinic_roof_crossed": true,
+    "clinic_street_crossed": true
+  },
+  "native": {
+    "renderer": "Linux native OpenGL compatibility",
+    "fixtures": [
+      "clinic-return-headroom.png",
+      "clinic-outbound-roof.png",
+      "clinic-street-closed.png"
+    ],
+    "scope": "Explicit actor placement with enemies stopped, not manual playthrough. Headroom, upper route, closed shutter and complete readable hint observed. Open-state fixture discarded because goal assignment did not update shutter before capture; real opening proven only by continuous input routes."
+  },
+  "iteration": "First 60Hz trial exposed 40px headroom at return terrace; raised terrace to140 giving105px clearance. Corrected 60Hz and120Hz routes passed.",
+  "production_sha256": "5a485770919168ae0ddcafebff7cf860fdea1ca2beaabbbea4a8c0097260b36e"
+}

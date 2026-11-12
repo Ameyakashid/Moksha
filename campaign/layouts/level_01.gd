@@ -3,6 +3,9 @@ extends RefCounted
 static func sectors()->Array[Dictionary]:
 	var market:Dictionary=preload("res://demo/areas/rainline_neighbourhood.gd").sector().duplicate(true)
 	market.title="RAINLINE / THE LAST BADGE";market.level=1;market.level_name="CITY WITHOUT A MASTER"
+	# Read one ground attack before the later paired patrol. The roof bypass remains.
+	market.enemies[1]=[1170,"sentinel",300]
+	market.signs.append([Vector2(450,240),"MARKET STREET > / QUIETER ROOFTOPS ^"])
 	market.route=[Vector2(710,300),Vector2(1870,-40),Vector2(2590,-160),Vector2(3500,-280),Vector2(6155,300)]
 	var intake:Dictionary=preload("res://demo/areas/quarantine_intake.gd").sector().duplicate(true)
 	intake.title="QUARANTINE / TWO WAYS THROUGH";intake.level=1;intake.level_name="CITY WITHOUT A MASTER"
@@ -12,26 +15,26 @@ static func sectors()->Array[Dictionary]:
 	return [market,_clinic(),_tram(),_archives(),_evacuation(),intake]
 static func _clinic()->Dictionary:
 	return {"id":"city_clinic","level":1,"level_name":"CITY WITHOUT A MASTER","title":"THE NIGHT CLINIC","subtitle":"Supply line · sheltered court · ambulance roof","width":6400,"top":-400,"theme":"city","backdrop_scene":preload("res://demo/views/favela_backdrop.tscn"),
-	"text":"The clinic's reserve power is stranded beyond the patrol line.\nBring the cell back to its generator, then unlock the evacuation pod.\nThe shelter is not a security target: you can leave its guards behind.","hint":"TAB opens the objective journal. E recovers and installs items. Rooftops bypass crossfire.",
-	"platforms":[Rect2(320,245,180,55),Rect2(570,180,290,18),Rect2(980,115,340,18),Rect2(1450,50,310,18),Rect2(1890,-15,350,18),Rect2(2380,-80,420,18),Rect2(2940,-145,380,18),Rect2(3440,-80,310,18),Rect2(3900,-15,360,18),Rect2(4420,50,300,18),Rect2(4880,115,380,18),Rect2(5400,180,400,18),Rect2(5980,245,180,55),Rect2(1750,245,180,55),Rect2(3050,220,280,80),Rect2(4100,245,160,55)],
+	"text":"The clinic's reserve power is stranded beyond the patrol line.\nBring the cell back to its generator, then unlock the evacuation pod.\nThe shelter is not a security target: you can leave its guards behind.","hint":"TAB opens the objective journal. E recovers and installs items. Rooftops bypass crossfire. Restoring reserve power opens the street shortcut.",
+	"platforms":[Rect2(320,245,180,55),Rect2(570,180,290,18),Rect2(980,115,340,18),Rect2(1450,50,310,18),Rect2(1890,-15,350,18),Rect2(2380,-80,420,18),Rect2(2940,-145,380,18),Rect2(3440,-80,310,18),Rect2(3900,-15,360,18),Rect2(4420,50,300,18),Rect2(4880,115,380,18),Rect2(5400,180,400,18),Rect2(5980,245,180,55),Rect2(1750,245,180,55),Rect2(3050,220,280,80),Rect2(4100,245,160,55),Rect2(2240,175,430,18),Rect2(1760,140,340,18)],
 	"ladders":[[710,300,120],[1590,300,250],[2570,300,380],[3100,220,365],[4020,300,315],[5550,300,120]],"lifts":[[Vector2(4560,240),Vector2(0,-220),5.0]],
 	"enemies":[[920,"sentinel",300],[1160,"sentry",115],[1700,"listener",300],[2100,"sentinel",-15],[2700,"sentry",-80],[3650,"listener",300],[4200,"sentinel",-15],[4720,"sentry",300],[5150,"sentinel",115],[5880,"listener",300]],
 	"props":[[650,300],[1300,300],[2010,-15],[2820,300],[3500,-80],[4450,300],[5600,180]],
 	"objectives":[{"id":"cell","label":"Recover clinic power cell","kind":"recover","at":Vector2(3190,-145),"text":"A portable cell, still charged."},{"id":"generator","label":"Restore clinic reserve","kind":"install","at":Vector2(1590,50),"requires":["cell"],"text":"The stairwell lights return."},{"id":"patients","label":"Release clinic evacuation pod","kind":"rescue","at":Vector2(5640,180),"requires":["generator"]},{"id":"medic","label":"Recover medic's augment","kind":"recover","at":Vector2(2530,-80),"optional":true,"reward":"vitality"}],
-	"objective_doors":[{"at":Vector2(5300,205),"size":Vector2(24,190),"requires":["generator"]}],"cache":Vector2(4020,-15),"archive":"CLINIC / The young medic remembers your name. You do not remember teaching it to her. She hands you the keys anyway.",
-	"signs":[[Vector2(250,210),"CLINIC RESERVE ^ / POWER CELL EAST >"],[Vector2(1450,0),"GENERATOR [E] · CELL FROM ROOFS"],[Vector2(2940,-190),"POWER CELL [E]"],[Vector2(5300,140),"EVACUATION POD >"]],
+	"objective_doors":[{"at":Vector2(2850,150),"size":Vector2(24,300),"requires":["generator"]},{"at":Vector2(5300,205),"size":Vector2(24,190),"requires":["generator"]}],"cache":Vector2(4020,-15),"archive":"CLINIC / The young medic remembers your name. You do not remember teaching it to her. She hands you the keys anyway.",
+	"signs":[[Vector2(250,210),"CLINIC RESERVE ^ / POWER CELL EAST >"],[Vector2(1450,0),"GENERATOR [E] · CELL FROM ROOFS"],[Vector2(2940,-190),"POWER CELL [E] / CLINIC BACK WEST <"],[Vector2(2700,250),"RESERVE POWER OPENS STREET SHORTCUT"],[Vector2(5300,140),"EVACUATION POD >"]],
 	"route":[Vector2(710,180),Vector2(2570,-80),Vector2(3100,-145),Vector2(1590,50),Vector2(5550,180),Vector2(6355,300)]}
 static func _tram()->Dictionary:
 	return {"id":"city_tram_depot","level":1,"level_name":"CITY WITHOUT A MASTER","title":"THE SILENT TRAM","subtitle":"Electrical depot · roof connector · rail trench","width":7200,"top":-420,"theme":"city",
 	"text":"A stalled tram blocks the civilian route. Route auxiliary current\nthrough the depot, then strike the welded brake housing in its upper cabin.\nLive rails flash before discharge; the service catwalk stays safe.","hint":"A routing console cycles three circuits. Its panel names the target. Jump the live strips or take the roofs.",
 	"platforms":[Rect2(300,245,170,55),Rect2(550,180,280,18),Rect2(960,115,420,18),Rect2(1520,50,350,18),Rect2(2030,-15,410,18),Rect2(2600,-80,420,18),Rect2(3180,-145,410,18),Rect2(3750,-210,430,18),Rect2(4340,-145,400,18),Rect2(4900,-80,430,18),Rect2(5500,-15,400,18),Rect2(6060,50,430,18),Rect2(6650,145,300,18),Rect2(2200,240,200,60),Rect2(3700,235,240,65),Rect2(5050,240,200,60)],
 	"ladders":[[700,300,120],[1700,300,250],[2800,300,380],[3400,300,445],[3910,235,445],[4550,300,445],[5730,300,315],[6780,300,155]],
-	"enemies":[[1000,"sentinel",300],[1280,"sentry",115],[1860,"listener",300],[2280,"sentinel",-15],[2900,"sentry",-80],[3500,"listener",300],[4000,"sentry",-210],[4490,"sentinel",-145],[5070,"listener",300],[5700,"sentry",-15],[6290,"sentinel",50],[6800,"listener",300]],
+	"enemies":[[1320,"sentinel",300],[1810,"sentry",50],[2700,"listener",300],[2280,"sentinel",-15],[2900,"sentry",-80],[3500,"listener",300],[4000,"sentry",-210],[4490,"sentinel",-145],[5070,"listener",300],[5700,"sentry",-15],[6290,"sentinel",50],[6800,"listener",300]],
 	"props":[[780,300],[1640,50],[2500,300],[3330,-145],[4300,300],[5220,-80],[6200,50]],
 	"objectives":[{"id":"schematic","label":"Recover depot circuit map","kind":"recover","at":Vector2(1710,50)},{"id":"auxiliary","label":"Route tram auxiliary current","kind":"route","target":2,"at":Vector2(3410,-145),"requires":["schematic"]},{"id":"brake","label":"Break the welded tram brake","kind":"breaker","at":Vector2(6250,50),"requires":["auxiliary"]}],
 	"objective_doors":[{"at":Vector2(5900,210),"size":Vector2(24,180),"requires":["auxiliary"]}],
 	"hazards":[{"at":Vector2(2460,294),"size":Vector2(100,12),"period":3.4},{"at":Vector2(4780,294),"size":Vector2(100,12),"period":3.9,"phase":1.0}],
-	"cache":Vector2(3990,-210),"archive":"TRAM RECORD / The city used to run on timetables. Now every departure requires permission from above.","signs":[[Vector2(500,135),"SERVICE CATWALK ^ / ELECTRIFIED TRACK >"],[Vector2(3260,-190),"AUXILIARY TARGET: CIRCUIT 2"],[Vector2(6100,5),"BRAKE HOUSING"]],
+	"cache":Vector2(3990,-210),"archive":"TRAM RECORD / The city used to run on timetables. Now every departure requires permission from above.","signs":[[Vector2(500,135),"SERVICE CATWALK ^ / ELECTRIFIED TRACK >"],[Vector2(2250,200),"LIVE RAIL > / SAFE MAINTENANCE ABOVE"],[Vector2(3260,-190),"AUXILIARY TARGET: CIRCUIT 2"],[Vector2(6100,5),"BRAKE HOUSING"]],
 	"route":[Vector2(1700,50),Vector2(3400,-145),Vector2(6250,50),Vector2(7155,300)]}
 static func _archives()->Dictionary:
 	return {"id":"city_records","level":1,"level_name":"CITY WITHOUT A MASTER","title":"RECORDS UNDER THE RAIN","subtitle":"Old squad archive · channel crossing · roof antenna","width":5600,"top":-500,"theme":"city",
