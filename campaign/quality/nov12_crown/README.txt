@@ -19,4 +19,11 @@ Native640x360 Ascent intake-balcony and Last Warden area frames inspected: city
 recedes far below; enemy/player silhouettes and foreground platforms remain clear.
 Blind fixture shows no plate/bridge/staff leakage. Staged positions, not traversal.
 Native exit0; only unsupported-driver VSync warning, no script/error/leak lines.
-Actual-input checkpoint excerpt pending.
+Actual native ordinary-input excerpt on frozen7fa6206:30.033seconds,640x360,
+Linux gl_compatibility/llvmpipe, fixed60 capture and1x playback. Explicit district
+start seed; no in-play position/health/goal writes. Intake fuse recovered at
+frame1127, upper intake ladder climbed,0deaths, no source drift. NOT district
+completion, full-level, manual-play, controller or Windows acceptance.
+Full MP4 decode passed;15/28second frames visually inspected. No clean matched
+performance comparison in this pass; captured movie timing is not target FPS.
+Video3,674,575bytes; Library libfile_fde3_f-f112acf8bedc8191aa55b7e7f1d88351_589c955ab7c0819185cbffed88f3eb53.
