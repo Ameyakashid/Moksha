@@ -4,7 +4,7 @@ func _process(_dt: float) -> void:queue_redraw()
 static func placement(at: Vector2,width: float,font_size: int,canvas: Transform2D,viewport: Rect2) -> Dictionary:
 	return place_block(at,Vector2(width+6,font_size+4),font_size,canvas,viewport)
 
-static func place_block(at:Vector2,size:Vector2,font_size:int,canvas:Transform2D,viewport:Rect2,safe_rect:Variant=null,painted_rect:Variant=null)->Dictionary:
+static func place_block(at:Vector2,size:Vector2,font_size:int,canvas:Transform2D,viewport:Rect2,safe_rect:Variant=null,painted_rect:Variant=null,caption_side:Variant=null)->Dictionary:
 	if viewport.size.x<=16 or absf(canvas.determinant())<.00001:return {"draw":false}
 	# Cull the actual object BEFORE moving its caption. Never drag distant labels
 	# into view, and move all caption lines together so edge clamping cannot stack them.
@@ -27,6 +27,12 @@ static func place_block(at:Vector2,size:Vector2,font_size:int,canvas:Transform2D
 	var placed_box:=Rect2(screen_box.position+shift,screen_box.size)
 	if painted_rect!=null:
 		var exclusion:Rect2=painted_rect.grow(4.0)
+		# Optional authored presentation preference, never moving-player tracking.
+		# Invalid hints or insufficient room preserve the existing default algorithm.
+		if caption_side is String and caption_side=="left":
+			var preferred:=Rect2(Vector2(exclusion.position.x-placed_box.size.x,placed_box.position.y),placed_box.size)
+			if bounds.grow(-8).encloses(preferred) and not preferred.intersects(exclusion):
+				placed_box=preferred;shift=preferred.position-screen_box.position
 		if placed_box.intersects(exclusion):
 			var inner:=bounds.grow(-8.0)
 			var options:Array[Vector2]=[
@@ -80,7 +86,9 @@ func _draw() -> void:
 	var safe:Variant=null
 	var hud:Variant=host.get("hud") if is_instance_valid(host) else null
 	if is_instance_valid(hud) and hud.has_method("caption_safe_rect"):safe=hud.caption_safe_rect()
-	var placed:=place_block(at,Vector2(actual_width+6,total_height+4),size,get_global_transform_with_canvas(),get_viewport_rect(),safe,get_parent().caption_exclusion_rect())
+	var spec:Variant=o.get("specification")
+	var side:Variant=spec.get("caption_side") if spec is Dictionary else null
+	var placed:=place_block(at,Vector2(actual_width+6,total_height+4),size,get_global_transform_with_canvas(),get_viewport_rect(),safe,get_parent().caption_exclusion_rect(),side)
 	if not placed.draw:return
 	at=placed.at
 	for line in lines:
