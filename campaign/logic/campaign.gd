@@ -91,6 +91,14 @@ func start_new(skip_intro:=false)->void:
 	rewards.clear();upgrades.clear();level_seconds.clear();level_receipts.clear();campaign_ending=""
 	_completed_snapshot.clear()
 	super.start_new(skip_intro)
+func _create_player_health()->Node:
+	# Bind the campaign depletion policy before DefeatResponse's _ready binding,
+	# preserving the existing policy order without replacing a live authority.
+	var adapter:=Node.new()
+	adapter.set_script(preload("res://campaign/logic/build_health.gd"))
+	adapter.depleted.connect(_on_defeat)
+	return adapter
+
 func load_sector(index:int)->void:
 	if not _level_transition_snapshot.is_empty():
 		if index==int(_level_transition_snapshot.to):_level_transition_snapshot.clear()
@@ -102,18 +110,6 @@ func load_sector(index:int)->void:
 	goals.clear();completed_goals.clear();art=null;actor_paint=null;object_paint=null
 	if is_instance_valid(blackboard):blackboard.set_value("objectives",{})
 	super.load_sector(index)
-	# Swap only the optional health quantity adapter; the actor stays unchanged.
-	var defeat=player.get_node("DefeatResponse")
-	defeat.unbind()
-	health.free()
-	health=Node.new();health.set_script(preload("res://campaign/logic/build_health.gd"));health.name="Health"
-	player.add_child(health);health.depleted.connect(_on_defeat);defeat.bind(player,health)
-	# Every contact adapter caches its health authority. Replacing the optional
-	# quantity store requires explicit rebinds, otherwise physical hits retire.
-	player.get_node("BodyShape/IncomingStrikeReceiver").bind(player)
-	player.get_node("PhysicalImpactReceiver").bind(player,health,player)
-	player.get_node("BoundaryReceiver").bind(player,health)
-	player.get_node("ProjectileReceiver").bind(player)
 	var d:Dictionary=sectors[sector]
 	for spec in d.get("captains",[]):
 		var scene_path:String="res://campaign/enemies/lancer.tscn" if spec.kind=="captain_lancer" else "res://campaign/enemies/keeper.tscn"

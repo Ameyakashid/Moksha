@@ -95,6 +95,10 @@ func start_new(skip_intro := false) -> void:
 		intro_caught = false
 		get_tree().paused = true
 
+func _create_player_health() -> Node:
+	# Assembly hook: select the health authority before the actor enters the tree.
+	return HealthScene.instantiate()
+
 func load_sector(index: int) -> void:
 	get_tree().paused = false
 	if is_instance_valid(room):
@@ -123,7 +127,7 @@ func load_sector(index: int) -> void:
 	var lithe = load("res://combat_pc/visuals/lithe_wireframe.gd") if ResourceLoader.exists("res://combat_pc/visuals/lithe_wireframe.gd") else null
 	if lithe != null: player.get_node("Visual").set_script(lithe)
 	player.get_node("Visual").ground_presentation = preload("res://combat_pc/resources/ground_presentation_agile.tres")
-	health = HealthScene.instantiate()
+	health = _create_player_health()
 	health.name = "Health"
 	health.maximum_health = 60.0
 	player.add_child(health)

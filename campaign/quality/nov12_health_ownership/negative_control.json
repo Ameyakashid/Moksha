@@ -1,0 +1,8 @@
+{
+  "mutation": "defer campaign depletion policy (changes callback order)",
+  "caught": true,
+  "exit_code": 1,
+  "result": [
+    "NOV12_ASSEMBLY_RESULT {\"checks\":67,\"failures\":[\"preserved campaign depletion then defeat policy ordering\"],\"hz\":60,\"passed\":false,\"trace\":[{\"active\":true,\"state\":\"playing\"},{\"active\":true,\"state\":\"dead\"}]}"
+  ]
+}

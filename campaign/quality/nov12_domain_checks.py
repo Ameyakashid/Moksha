@@ -32,6 +32,8 @@ def main():
         ]
         for rate in (60, 120):
             for label, script, marker, save in (
+                ('health_assembly', 'nov12_health_assembly.gd', 'NOV12_ASSEMBLY_RESULT ', True),
+                ('incoming_health', '../qa_audit/incoming_health.gd', 'INCOMING_HEALTH_FAILURES []', True),
                 ('live_build', 'nov6_gameplay_build.gd', 'NOV6_GAMEPLAY_BUILD_RESULT ', False),
                 ('save_feedback', 'nov6_gameplay_save_feedback.gd', 'NOV6_GAMEPLAY_SAVE_FEEDBACK_RESULT ', True),
                 ('adversarial_save', 'state_save_adversarial.gd', 'STATE_SAVE_RESULT ', True),
@@ -48,7 +50,7 @@ def main():
                 break
     after = hashes()
     drift = sorted(p for p in before.keys() | after.keys() if before.get(p) != after.get(p))
-    report = {'scope': 'Pure domain contracts plus inherited live-build/save fixtures and district smoke; not a full playthrough or platform acceptance.', 'source_sha256': before, 'source_drift': drift, 'stages': rows, 'passed': len(rows) == 10 and not drift and all(r['passed'] for r in rows)}
+    report = {'scope': 'Pure domain contracts plus inherited live-build/save fixtures and district smoke; not a full playthrough or platform acceptance.', 'source_sha256': before, 'source_drift': drift, 'stages': rows, 'passed': len(rows) == 14 and not drift and all(r['passed'] for r in rows)}
     (output / 'summary.json').write_text(json.dumps(report, indent=2) + '\n')
     print('Report:', output / 'summary.json')
     return 0 if report['passed'] else 1
