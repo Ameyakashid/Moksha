@@ -1,7 +1,8 @@
 # Current playable state
 
-This inventory describes accepted source `7be2c80` and its documentation-only
-follow-up. It is a **five-level, 32-district prototype**, not the entire original
+This inventory describes this source checkpoint, built on accepted `7be2c80`
+with the separately verified ladder-clarity follow-up. It is a
+**five-level, 32-district prototype**, not the entire original
 MOKSHA vision. Historical milestone documents retain their original evidence.
 An unpushed source checkpoint does not change a GitHub clone or an older export.
 
@@ -21,6 +22,28 @@ Normal menus currently withhold a second irreversible sight/hearing loss. The
 save/domain can represent both lost without secretly restoring sonar, but full
 blind-and-deaf traversal is not validated. The temporary restriction is explained
 in the offer, not asserted as permanent game canon.
+
+## Ladder-clarity follow-up
+
+The contextual footer now teaches both climbing directions, holding Up until
+standing on the ledge, sideways release and jumping off. Near the known ladder
+top, the operator stays in a compact pull-up silhouette before rising into the
+supported ready pose. This is presentation only: no root/boot displacement,
+collision assistance, automatic input or new traversal rule.
+
+The first pose experiment was rejected after native review despite passing its
+mechanics checks. The second, `7fb59a8`, was reviewed at actual size and in genuine
+retained-sight and blind Market checkpoint routes. Their 1,588/1,615 recorded
+gameplay samples exactly match the accepted baseline; key collection, descent,
+75 HP and ordinary closure are unchanged. The original failed experiment remains
+historical evidence, not part of the selected runtime. Twenty-five interruption
+checks are seeded visual-event assertions, not new native combat testing.
+
+The compact pose reads more distinctly in those captures, but fresh human
+usability remains untested. A suspected missing-letter artifact during full-frame
+inspection was rechecked: the source header pixels exactly matched the older
+baseline and enlarged inspection showed complete text. No font fix was made.
+This source follow-up does not change the previously delivered Windows runtime.
 
 ## Still incomplete
 
