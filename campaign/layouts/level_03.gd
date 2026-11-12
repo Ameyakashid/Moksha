@@ -21,7 +21,9 @@ static func sectors() -> Array[Dictionary]:
 	homes["cache"] = Vector2(2840, 190)
 	homes["platforms"].append(Rect2(2770, 190, 150, 18))
 	for sign in homes["signs"]:
-		if sign[1] == "OPTIONAL SUPPLIES": sign[1] = "COURTYARD SHELTER"
+		if sign[1] == "OPTIONAL SUPPLIES":
+			sign[0] = Vector2(3000, 250)
+			sign[1] = "COURTYARD SHELTER"
 	homes["signs"].append([Vector2(2790, 155), "OPTIONAL SUPPLIES"])
 	homes["signs"].append([Vector2(3100, 265), "EAST ROOFS > ^"])
 	homes["objective_doors"] = [{"at": Vector2(4780, 100), "size": Vector2(28, 400), "requires": ["roofs"]}]
