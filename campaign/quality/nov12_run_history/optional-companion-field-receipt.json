@@ -1,0 +1,30 @@
+{
+  "base": "75134662296145ace91d943d792c41670a08efa1",
+  "runtime": "All runtime files unchanged. Synthetic typed-HUD presentation fixtures, not native/gameplay evidence.",
+  "checks": [
+    {
+      "log": "/tmp/optional-nov6_presentation_contract.log",
+      "sha256": "add29168febbbb4ddfb66787677707922fccd60d7ceb9375e45b9676c25006f2",
+      "exit": 0,
+      "result": "NOV6_PRESENTATION checks=2537 failures=[] worst_header=57.0 worst_panel_baseline=235.0"
+    },
+    {
+      "log": "/tmp/optional-nov12_companion_contract.log",
+      "sha256": "694ce215f9ea9638c4e002327940d6ccb4fbd6e1726bde8960b532ee963d3a92",
+      "exit": 0,
+      "result": "COMPANION_CONTRACT_RESULT {\"checks\":55,\"failures\":[],\"passed\":true}"
+    },
+    {
+      "log": "/tmp/optional-nov12_companion_observer_contract.log",
+      "sha256": "797e4f47d4421d7dfed129acfa015745b37f333f76a39dd581b0b78e486df1fa",
+      "exit": 0,
+      "result": "OBSERVER_FIXTURE_RESULT {\"checks\":29,\"failures\":[],\"passed\":true}"
+    },
+    {
+      "log": "/tmp/optional-companion-negative.log",
+      "sha256": "7761b80ed1f521649746cb27b470aa64edf0e95ecda03082e4bb6623debb5a06",
+      "exit": 1,
+      "result": "NOV6_PRESENTATION checks=2537 failures=[\"offered ID reaches owner and actual View\", \"offered line acknowledged through typed pipeline\"] worst_header=57.0 worst_panel_baseline=235.0"
+    }
+  ]
+}

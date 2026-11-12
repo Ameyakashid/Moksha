@@ -36,13 +36,32 @@ func run()->void:
 		for field in ["text","hint"]:
 			check(keyboard_token.search(HUD.device_text(str(district.get(field,"")),true))==null,"controller chapter prose no stale keyboard keys "+str(district.id)+"/"+field)
 	var host=load("res://campaign/campaign.tscn").instantiate()
-	root.add_child(host);host.save_enabled=false;host.start_new(true)
+	host.save_enabled=false;root.add_child(host);host.start_new(true)
 	var real_view:Node2D=host.hud.get_node("View")
 	await process_frame;await process_frame
 	check(host.hud.get_script()==Owner,"production campaign uses typed campaign HUD owner")
+	var quiet:Dictionary=host._hud_snapshot()
 	for key in Owner.CAMPAIGN_FIELDS:
-		check(real_view.data.has(key),"real host owner view pipeline retains "+key)
-		check(real_view.data.get(key)==host._hud_snapshot().get(key),"real pipeline value "+key)
+		if key=="companion_line_id":
+			check(not quiet.has(key) and not real_view.data.has(key),"quiet host and View omit optional companion line ID")
+		else:check(real_view.data.has(key),"real host owner view pipeline retains "+key)
+		check(real_view.data.get(key)==quiet.get(key),"real pipeline value "+key)
+	# Synthetic presentation only; no observation/event consumption is inferred.
+	var delivered:Array=[]
+	var capture:Callable=func(id:String,blocked:bool):delivered.append([id,blocked])
+	host.hud.companion_presentation_accepted.connect(capture)
+	var offered:Dictionary=quiet.duplicate(true)
+	offered.merge({"state":"playing","chapter_visible":false,"prompt":"","notice_visible":true,"notice":"Intellect: Presentation fixture.","companion_line_id":"fixture_line"},true)
+	if "--negative-companion-fixture" in OS.get_cmdline_user_args():offered.erase("companion_line_id")
+	check(host.hud.set_snapshot(offered),"typed pipeline accepts optional offered line")
+	check(host.hud.get_snapshot().get("companion_line_id")=="fixture_line" and real_view.data.get("companion_line_id")=="fixture_line","offered ID reaches owner and actual View")
+	check(delivered==[["fixture_line",false]],"offered line acknowledged through typed pipeline")
+	var delivery_count:int=delivered.size()
+	host.hud.get_snapshot();host._hud_snapshot()
+	check(delivered.size()==delivery_count,"snapshot queries do not deliver or consume line")
+	check(host.hud.set_snapshot(quiet),"typed pipeline accepts quiet clearing snapshot")
+	check(not host.hud.get_snapshot().has("companion_line_id") and not real_view.data.has("companion_line_id"),"quiet snapshot clears prior offered ID in owner and View")
+	host.hud.companion_presentation_accepted.disconnect(capture)
 	var accepted:Dictionary=host.hud.get_snapshot()
 	for key in Owner.CAMPAIGN_FIELDS:
 		var rejected:Dictionary=host._hud_snapshot();rejected[key]=[]
