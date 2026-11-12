@@ -1,0 +1,138 @@
+{
+  "runtime_commit": "25e96d1b7eb50ee9b82bb506a395852adb44ae1a",
+  "evidence_directory": "/workspace/scratch/fd16273ade4b/moksha-caption-review",
+  "method": "Linux native gl_compatibility rendering; Dummy audio; staged district/player/camera fixtures, not exact replay of original frame30975; wrapped case uses synthetic HUD guidance snapshot",
+  "cases": [
+    {
+      "case": "ladder-approach",
+      "screenshot": {
+        "file": "refined-ladder-approach.png",
+        "bytes": 746153,
+        "sha256": "27e2bd8034f7b1a36293abcd4a235087cd7613a74a307e50fe690b0127cbe80e"
+      },
+      "log": {
+        "file": "after-refined.log",
+        "bytes": 17578,
+        "sha256": "90b52a9e2e25d9256a32da47b8ca028dd077a59c06b9e49c89687e5f79de09a0"
+      },
+      "exit_receipt": {
+        "file": "after-refined-exit.txt",
+        "bytes": 2,
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      "fixture": {
+        "file": "after-refined.gd",
+        "bytes": 1569,
+        "sha256": "b4c4842013b0719ae9a9af07e635060ffcb4d0888584cd4d50ef61957b9d124c"
+      },
+      "launcher": {
+        "file": "after-refined.sh",
+        "bytes": 459,
+        "sha256": "478e013a0032a5f4d931a13da3ce964d6dd5aa9a9db002fdfa891a5f7eb0a546"
+      },
+      "exit": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "capture_marker": [
+        "CAPTION_FRAME ladder-approach player=(3210.0, 23.4375)"
+      ]
+    },
+    {
+      "case": "lower-ladder",
+      "screenshot": {
+        "file": "refined-lower-ladder.png",
+        "bytes": 756328,
+        "sha256": "2ab925254032a3df43ffd63c014031131e16c9976bea3099dc65ec90add00e29"
+      },
+      "log": {
+        "file": "after-lower-refined.log",
+        "bytes": 17581,
+        "sha256": "30fd4cbaba9a481bb4381a368ff95705768db34a148554c7e88e25230bf09a79"
+      },
+      "exit_receipt": {
+        "file": "after-lower-refined-exit.txt",
+        "bytes": 2,
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      "fixture": {
+        "file": "after-lower-refined.gd",
+        "bytes": 1566,
+        "sha256": "4774d169f1edcc4eaf071ab08cf8db2c0a49a5f8a0d4dd917df24d5e0bbb3a48"
+      },
+      "launcher": {
+        "file": "after-lower-refined.sh",
+        "bytes": 477,
+        "sha256": "5676b054bcd4e4996f4c2947face1f74f7794839ca66c2d3192b5b2a94b9dcd1"
+      },
+      "exit": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "capture_marker": [
+        "CAPTION_FRAME lower-ladder player=(3210.0, 83.4375)"
+      ]
+    },
+    {
+      "case": "wrapped-guidance-fixed",
+      "screenshot": {
+        "file": "refined-wrapped-guidance-fixed.png",
+        "bytes": 732489,
+        "sha256": "fc2d766ad410d3ad434946cf04aeb316b8993ae7c58a029a2df85573f5a6e8fd"
+      },
+      "log": {
+        "file": "after-wrapped-fixed-refined.log",
+        "bytes": 17599,
+        "sha256": "ce2acd8eface9ae92aef40beda74233dc5cd5644a77a9871ef8bdb376bb5d64a"
+      },
+      "exit_receipt": {
+        "file": "after-wrapped-fixed-refined-exit.txt",
+        "bytes": 2,
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      "fixture": {
+        "file": "after-wrapped-fixed-refined.gd",
+        "bytes": 1924,
+        "sha256": "cf4fe4af0f9784dd7fc45e07a9266c28bc31c80cadc5b7938a7da624baf66e45"
+      },
+      "launcher": {
+        "file": "after-wrapped-fixed-refined.sh",
+        "bytes": 501,
+        "sha256": "6a32cddb4146bd5195b4b37cdaa72f90d66c063411a7b43bd86083ec9fd162f6"
+      },
+      "exit": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "capture_marker": [
+        "CAPTION_FRAME wrapped-guidance-fixed player=(3210.0, 83.4375)"
+      ]
+    }
+  ],
+  "accepted_scope": "Harness caption clears HUD header, its own recovery ring, SERVICE ROUTE sign and ladder/player in these three views",
+  "remaining_limitation": "Existing coolant-caption/player upper-body overlap appears in both baseline and candidate and remains outside this own-object/HUD fix",
+  "not_claimed": [
+    "Full campaign rerun",
+    "Windows acceptance",
+    "Universal other-object/actor/caption occlusion avoidance",
+    "Exact frame30975 replay",
+    "New build or push"
+  ],
+  "preserved_failed_evidence": [
+    {
+      "file": "after-lower-ladder.png",
+      "bytes": 757121,
+      "sha256": "15cc342413ac853bb47c5dd9572b6ac932849f8c9c2582adc303c6214c8d99f1"
+    },
+    {
+      "file": "after-wrapped-guidance-fixed.png",
+      "bytes": 733477,
+      "sha256": "626072e8ee3adbe598c020d178717b10a3790eda7ed0b412e8b33d13ff39cfd1"
+    },
+    {
+      "file": "after-wrapped.log",
+      "bytes": 17741,
+      "sha256": "cf3729d331c881b1be65365db90609c4ceea5e68885ac7981f968d7480aa166b"
+    }
+  ]
+}

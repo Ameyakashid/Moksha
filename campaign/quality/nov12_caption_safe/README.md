@@ -78,3 +78,37 @@ objective paint and19 object-skin checks. All exited0 without warnings/errors.
 See `headless-own-icon-receipt.json`; this does not claim native acceptance.
 This remains a local own-object/HUD fix, not universal actor, other-object or
 caption-to-caption occlusion avoidance. Full campaigns were not rerun.
+
+## Scoped native acceptance of25e96d1
+
+Three Linux native staged comparisons on runtime commit
+`25e96d1b7eb50ee9b82bb506a395852adb44ae1a` now verify the harness caption clears
+the HUD, its own recovery ring, SERVICE ROUTE sign and ladder/player. The upper
+ladder view remains readable; the lower ladder and synthetic wrapped-guidance
+views use right-side placement. In the latter views the caption starts around
+x695, about8 rendered pixels beyond the ring's right edge at687.
+
+Evidence is in `moksha-caption-review/`:
+- `refined-ladder-approach.png`: log `after-refined.log`, exit receipt
+  `after-refined-exit.txt`.
+- `refined-lower-ladder.png`: log `after-lower-refined.log`, exit receipt
+  `after-lower-refined-exit.txt`.
+- `refined-wrapped-guidance-fixed.png`: log `after-wrapped-fixed-refined.log`,
+  exit receipt `after-wrapped-fixed-refined-exit.txt`.
+
+`native-receipt.json` records exact screenshot, log, exit, fixture and launcher
+SHA-256 hashes. All three exited0, with no script/runtime errors or leak lines.
+Each log contains the graphics-driver warning that changing V-Sync mode is not
+supported. These use GL compatibility rendering and Dummy audio; they are not
+performance or audio validation.
+
+These are staged positions/camera comparisons, NOT an exact replay of the live
+movie's frame30975. The wrapped case deliberately injects a longer HUD guidance
+snapshot. The initial incorrect wrapped fixture accessed owner.data and failed;
+its log remains preserved and is not acceptance evidence. Both0f52083 icon-
+occluding images remain preserved, as do the negative geometry controls.
+
+The pre-existing coolant-caption overlap with the player's upper body is still
+visible in baseline and candidate. This is expressly outside the scoped fix;
+we do not claim general actor, other-object or caption-overlap avoidance.
+No full-campaign rerun, Windows acceptance, new build or push is claimed.
