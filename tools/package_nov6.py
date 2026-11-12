@@ -91,6 +91,32 @@ REACTIVE_RECEIPT_FIXTURES = (
     ("reactive_integration", "campaign/quality/nov12_reactive_integration.gd", "REACTIVE_INTEGRATION_RESULT ", True),
 )
 
+# Single executions at the fixtures' authored default cadence. Camera checks
+# explicitly integrate both 60/120 trajectories internally; do not fake --hz.
+HEARING_RECEIPT_FIXTURES = (
+    ("hearing_schema", "simulation/tests/hearing_persistence_schema.gd", False),
+    ("hearing_host", "campaign/quality/hearing_host_contract.gd", True),
+    ("hearing_perception", "campaign/quality/hearing_perception_contract.gd", False),
+    ("hearing_load_boundary", "campaign/quality/hearing_load_boundary_contract.gd", False),
+    ("hearing_copy", "campaign/quality/hearing_copy_contract.gd", False),
+)
+
+
+def externalize_camera_contract(contract: Path, baseline: Path, destination: Path) -> dict:
+    original = contract.read_text(encoding="utf-8")
+    old = 'preload("res://campaign/quality/nov12_fall_framing/baseline.gd")'
+    require(original.count(old) == 1, "Camera dependency must match exactly once")
+    require(not destination.exists(), "Camera adapter destination must be fresh")
+    destination.mkdir(parents=True)
+    copied = destination / "baseline.gd"
+    shutil.copy2(baseline, copied)
+    adapted = destination / "contract.gd"
+    adapted.write_text(original.replace(old, 'preload("baseline.gd")'), encoding="utf-8")
+    return {"script": str(adapted), "original_sha256": sha(contract),
+            "adapted_sha256": sha(adapted), "baseline_sha256": sha(copied),
+            "adaptation": "Only QA baseline preload relocated to external sibling; runtime camera remains res://"}
+
+
 PRESET = '''[preset.0]
 name="Portable PCK"
 platform="Linux"
@@ -354,7 +380,11 @@ def prepare_native_review(output: Path, engine: Path, pack: Path, fixture: Path,
 
 
 def result_receipt(log: str, prefix: str) -> dict:
-    lines = [line.removeprefix(prefix) for line in log.splitlines() if line.startswith(prefix)]
+    # Empty prefix explicitly selects bare JSON, not every engine banner line.
+    require(not ERROR_PATTERN.search(log), "Engine errors invalidate fixture receipt")
+    lines = ([line.strip() for line in log.splitlines() if line.lstrip().startswith("{")]
+             if prefix == "" else
+             [line.removeprefix(prefix) for line in log.splitlines() if line.startswith(prefix)])
     require(len(lines) == 1, f"Expected exactly one {prefix.strip()} receipt")
     receipt = json.loads(lines[0])
     require(isinstance(receipt, dict) and receipt.get("passed") is True, "Fixture receipt did not pass")
@@ -446,7 +476,8 @@ def copy_player_guides(frozen: Path, package: Path) -> dict[str, dict]:
               "campaign/docs/NOV12_VISUAL_CHECKPOINT.md": "NOV12_VISUAL_CHECKPOINT.md",
               "campaign/docs/RUN_HISTORY_BOUNDARY.md": "RUN_HISTORY_BOUNDARY.md",
               "campaign/docs/REACTIVE_RUN_MILESTONE.md": "REACTIVE_RUN_MILESTONE.md",
-              "campaign/docs/INTELLECT_SLICE.md": "INTELLECT_SLICE.md"}
+              "campaign/docs/INTELLECT_SLICE.md": "INTELLECT_SLICE.md",
+              "campaign/docs/HEARING_FOCUS_SLICE.md": "HEARING_FOCUS_SLICE.md"}
     destination = package / "docs"
     destination.mkdir()
     included = {}
@@ -670,15 +701,23 @@ docs/LOCAL_PLAYTEST.md for the play guide, and docs/NOV6_CHANGES.md for changes.
 
 SAVE COMPATIBILITY: back up the entire existing user-data folder before switching builds.
 The checkpoint is still named moksha_five_levels_v1.json, but this build writes
-version-2 envelopes. Valid v1 saves migrate only after an exact preserved backup.
+version-3 envelopes. Valid v1/v2 saves migrate only after an exact preserved backup.
 New runs preserve the prior checkpoint; completed records are immutable in
 moksha_run_history/completed, with backups in moksha_run_history/preserved.
-Older builds cannot read v2. Keep current files safe and restore a separate v1
-backup for an older build; never edit the version number. See docs/LOCAL_PLAYTEST.md
+Older builds cannot read v3. Keep current files safe and restore a separate
+backup compatible with the older build; never edit the version number. See docs/LOCAL_PLAYTEST.md
 for the save-folder location and docs/RUN_HISTORY_BOUNDARY.md for exact guarantees.
 Run only one game instance against a save folder. No concurrent-writer or
 power-loss transaction guarantee is claimed. A failed completion save stays on
 the ending screen; keep the game open and follow its retry/error message.
+
+Optional HEARING -> FOCUS is offered after the first floor: accept or decline.
+Hearing loss removes informative world/body sound, ambience and the sound-map;
+visible melee can receive a brief late-windup opportunity, not automatic defense.
+Combined sight/hearing loss is temporarily unavailable through normal choice UI.
+This is a prototype limit, not a permanent design ban. See docs/HEARING_FOCUS_SLICE.md.
+Fall framing changes camera presentation only, not actor movement or collision.
+Neither the original whole-game vision nor combat balance is claimed complete.
 
 Frozen source: {commit}
 Engine: {engine}
@@ -839,6 +878,17 @@ def main() -> int:
                 fixture_root = Path(temporary) / f"{name}_{hz}" if needs_root else None
                 packed_check(f"packed_{name}_{hz}", frozen_fixture(relative), prefix,
                              hz=hz, result_prefix=prefix, fixture_root=fixture_root)
+    # New milestone fixtures remain outside the PCK and never share user data.
+    for name, relative, needs_root in HEARING_RECEIPT_FIXTURES:
+        fixture_root = external_receipts / (name + "-store") if needs_root else None
+        packed_check("packed_" + name, frozen_fixture(relative), None,
+                     result_prefix="", fixture_root=fixture_root)
+    camera_adapter = externalize_camera_contract(
+        frozen_fixture("campaign/quality/nov12_fall_framing/contract.gd"),
+        frozen_fixture("campaign/quality/nov12_fall_framing/baseline.gd"),
+        external_fixtures / "camera-adapted")
+    packed_check("packed_fall_framing", Path(camera_adapter["script"]), None,
+                 result_prefix="FALL_FRAMING_RESULT ")
     focus_prefix = "NOV6_INDEPENDENT_FOCUS_UPGRADE "
     packed_check("packed_focus_upgrade", frozen_fixture("campaign/quality/nov6_independent_focus_upgrade.gd"), focus_prefix, result_prefix=focus_prefix)
     require(all(sha(frozen / name) == digest for name, digest in source_hashes.items()), "Frozen source drift during verification")
@@ -856,6 +906,8 @@ def main() -> int:
         "physical_controller_hardware_tested": False,
         "external_fixture_sha256": fixture_hashes,
         "prepared_native_review": native_review,
+        "camera_external_adapter": camera_adapter,
+        "hearing_fixture_cadence": "Authored default physics cadence; camera internally integrates 60/120 trajectories",
         "checks": reports, "rehearsal": args.rehearsal,
     }
     if args.rehearsal:

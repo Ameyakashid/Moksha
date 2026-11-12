@@ -92,7 +92,7 @@ class PackagingTests(unittest.TestCase):
 
     def test_release_readme_warns_about_save_compatibility(self):
         text=package.readme("Windows", "a"*40, package.EXPECTED_ENGINE)
-        for expected in ["View last result", "version-2", "exact preserved backup", "Older builds cannot read v2", "one game instance", "RUN_HISTORY_BOUNDARY.md", "a"*40]:
+        for expected in ["View last result", "version-3", "exact preserved backup", "Older builds cannot read v3", "one game instance", "RUN_HISTORY_BOUNDARY.md", "a"*40]:
             self.assertIn(expected,text)
         self.assertNotIn("November 6 build",text)
 
@@ -295,7 +295,7 @@ class PackagingTests(unittest.TestCase):
             frozen.mkdir(); dist.mkdir()
             for name in ("README.md", "campaign/docs/LOCAL_PLAYTEST.md", "campaign/docs/NOV6_GAMEPAD.md", "campaign/docs/NOV6_CHANGES.md",
                          "campaign/docs/PC_QUICKSTART.md", "campaign/docs/NOV12_EXTENDED_CHECKPOINT.md", "campaign/docs/NOV12_VISUAL_CHECKPOINT.md", "campaign/docs/RUN_HISTORY_BOUNDARY.md",
-                         "campaign/docs/REACTIVE_RUN_MILESTONE.md", "campaign/docs/INTELLECT_SLICE.md"):
+                         "campaign/docs/REACTIVE_RUN_MILESTONE.md", "campaign/docs/INTELLECT_SLICE.md", "campaign/docs/HEARING_FOCUS_SLICE.md"):
                 path = frozen / name
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text("Exact frozen guide: " + name)
@@ -312,7 +312,7 @@ class PackagingTests(unittest.TestCase):
                 "[Official documentation](https://docs.godotengine.org/en/stable/)\n")
             source_bytes = {p.relative_to(frozen).as_posix(): p.read_bytes() for p in frozen.rglob("*") if p.is_file()}
             included = package.copy_player_guides(frozen, dist)
-            self.assertEqual(len(included), 10)
+            self.assertEqual(len(included), 11)
             for name, row in included.items():
                 self.assertEqual(package.sha(dist / name), row["delivered_sha256"])
                 self.assertEqual(package.sha(frozen / row["source_path"]), row["source_sha256"])
