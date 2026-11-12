@@ -72,13 +72,17 @@ See `campaign/docs/EDITOR_WORKFLOW.md` and `campaign/docs/LAYOUT_CONTRACT.md`.
 
 The original Oct23 demo is still playable at `demo/mission.tscn`; its historical README is `docs/OCT23_BASELINE_README.md`. Original approved player/controller and simulation source remain preserved.
 
-## November 12 playable-source checkpoint
+## November 12 extended source checkpoint
+
+Distinct original Foundry and Cistern depth, an opened-return route in Thermal Foundry, clearly separated Residential supplies/shelter, detached player assembly and clean editor metadata extend the earlier release. See the [extended changes and exact evidence scopes](campaign/docs/NOV12_EXTENDED_CHECKPOINT.md). Check each download’s `BUILD_PROVENANCE.json` for its actual runtime; later source work does not update an older portable build automatically.
+
+## November 12 playable-source checkpoint (historical)
 
 Original neon arcology and background crowds, more deliberate opening routes, validated content/save boundaries and pre-activation health assembly are integrated. See [changes, evidence and remaining limits](campaign/docs/NOV12_PLAYABLE_CHECKPOINT.md). The original controller/simulation is preserved; demo assembly has a small behavior-tested hook.
 
-## November 12 verified delivery
+## November 12 fe9936a verified delivery (historical)
 
-The portable Windows package is exported from `fe9936a`. Its packed content passed Linux verification; native Windows execution remains unverified. Two full automated campaigns cover retained sight/public record and traded sight/local custody, each traversing all 32 districts. The six-part Level 1 movie is continuous; later-level videos are labelled checkpoint excerpts. See the [release receipts and reproduction instructions](campaign/quality/nov12_release_validation/). This does not establish human pacing or commercial completeness.
+The earlier November 12 portable Windows package was exported from `fe9936a`. Its packed content passed Linux verification; native Windows execution remains unverified. Two full automated campaigns cover retained sight/public record and traded sight/local custody, each traversing all 32 districts. The six-part Level 1 movie is continuous; later-level videos are labelled checkpoint excerpts. See the [release receipts and reproduction instructions](campaign/quality/nov12_release_validation/). This does not establish human pacing or commercial completeness.
 
 ## November 12 early foundation checkpoint (historical)
 

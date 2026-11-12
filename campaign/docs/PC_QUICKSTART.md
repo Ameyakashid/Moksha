@@ -8,11 +8,13 @@ open `MOKSHA-Windows`, and run `MOKSHA.exe`. Keep `MOKSHA.pck` beside it. You do
 not need Git, Python, an editor, an installer, or administrator access for this
 portable build. Do not try to run the game inside a ZIP.
 
-The November 12 portable build is checkpoint `fe9936a`. Its ZIP and three
-reassembly parts are separate from the older November 6 `c73159b` delivery.
-Use all three parts from the same dated build and extract into a new folder.
-Later source changes do not automatically update an already-delivered executable.
-See the [release verification record](../quality/nov12_release_validation/).
+Use the commit named by your ZIP and its `BUILD_PROVENANCE.json`. The earlier
+November 12 `fe9936a` package and November 6 `c73159b` package are preserved
+historical deliveries, not names for every later source revision. Use all parts
+from the same dated/hash-labelled build and extract into a new folder. Later
+source changes do not automatically update an already-delivered executable.
+See the [historical release verification record](../quality/nov12_release_validation/)
+and [extended source changes](NOV12_EXTENDED_CHECKPOINT.md).
 
 ## Clone and run the editable source
 

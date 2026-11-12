@@ -78,3 +78,12 @@ completion, source drift, ordinary failure and incomplete-route acceptance cases
 Eight cheap subprocess rejection cases prove exit2 before gameplay and preserve
 an existing sentinel and every archived receipt. See `report-safety-receipt.json`
 for fresh external rerun results. No production code changed in this follow-up.
+
+## Direction-label clearance
+
+The inherited roof/supplies sign originally crossed the recovery ladder. A first
+left-only move was rejected by native review because it hid behind the retaining
+wall. The revised position is (2625,230), above that wall and left of the ladder.
+`label_clearance.gd` checks the actual fallback-font bounds: six assertions,
+including both rejected placements as negative controls. This is a geometric
+text check, not a replacement for the separately recorded native visual review.
