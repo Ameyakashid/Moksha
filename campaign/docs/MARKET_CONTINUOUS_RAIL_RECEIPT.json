@@ -64,10 +64,12 @@
       "final_health": 75.0,
       "deaths": 0,
       "provenance": {
-        "checkpoint": "/workspace/scratch/fd16273ade4b/moksha-market-checkpoint-preparation-910/strength-retained-02/market-entry.json",
         "checkpoint_sha256": "3072a7f687105b7a95e4d5c986227584b1b21fcbf67427c2a38bb6241a7ceb58",
         "input_schedule_sha256": "e43443e63ffea128465ee1f452c99500811edaa8fca5c29e10398146be8bb816",
-        "scope": "Exact pre-existing ordinary input replay from verified genuine Market checkpoint; no dynamic private neutral steering"
+        "scope": "Exact pre-existing ordinary input replay from verified genuine Market checkpoint; no dynamic private neutral steering",
+        "checkpoint_label": "Genuine Market entry, retained sight",
+        "checkpoint_file_name": "market-entry.json",
+        "checkpoint_bundled_here": false
       },
       "trace_sha256": "26967932323a770169064ffaf6787bc93b100ae1e972a08a196cff5f6b704d02",
       "input_path": "host.input_override movement dictionaries; InputEventKey startup/modal only"
@@ -94,10 +96,12 @@
       "final_health": 75.0,
       "deaths": 0,
       "provenance": {
-        "checkpoint": "/workspace/scratch/fd16273ade4b/moksha-market-checkpoint-preparation-910/strength-traded-02/market-entry.json",
         "checkpoint_sha256": "4ee1d9d8bc4e4cdae8db785aeb8c1080b2f2c5631561885d9c6fdb64fbf8f739",
         "input_schedule_sha256": "adbabeefbcc91897f77810fa8e080b71f045979f44c0b595315fe97b2dea0fb2",
-        "scope": "Exact pre-existing ordinary input replay from verified genuine Market checkpoint; no dynamic private neutral steering"
+        "scope": "Exact pre-existing ordinary input replay from verified genuine Market checkpoint; no dynamic private neutral steering",
+        "checkpoint_label": "Genuine Market entry, blind",
+        "checkpoint_file_name": "market-entry.json",
+        "checkpoint_bundled_here": false
       },
       "trace_sha256": "16fed43616db659225ddf10011ca38dd4a62c3e27fd4725412be76ae7af993aa",
       "input_path": "host.input_override movement dictionaries; InputEventKey startup/modal only"
@@ -117,9 +121,11 @@
     "result_sha256": "a6d15004834978c688ce206a4825a8c87595c39c64c42c4e977252f708c7c1c8",
     "script_sha256": "614efcec00575de736a91babf035029ebb6356a89d550411eafd40ceb6fe6836",
     "provenance": {
-      "checkpoint": "/workspace/scratch/fd16273ade4b/moksha-market-checkpoint-preparation-910/strength-retained-02/market-entry.json",
       "sha256": "3072a7f687105b7a95e4d5c986227584b1b21fcbf67427c2a38bb6241a7ceb58",
-      "scope": "Genuine checkpoint; known-route observer-steered ordinary inputs, no neutral flag read; not fresh screen play"
+      "scope": "Genuine checkpoint; known-route observer-steered ordinary inputs, no neutral flag read; not fresh screen play",
+      "checkpoint_label": "Genuine Market entry, retained sight",
+      "checkpoint_file_name": "market-entry.json",
+      "checkpoint_bundled_here": false
     },
     "input_path": "host.input_override movement dictionaries and host key-handler proximity interactions; InputEventKey startup. Known-route state/layout planning, not OS movement replay."
   },
