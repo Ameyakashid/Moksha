@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "baseline": "45a6c2b2d1502f6a8d045ae33c1bcb1f6e020917",
+  "only_production_change": "campaign/layouts/level_05.gd",
+  "exact_allowed_replacements": 2,
+  "central_sign_position_before": [
+    2490,
+    250
+  ],
+  "central_sign_position_after": [
+    2350,
+    250
+  ],
+  "reason": "Native baseline text overlaps THE EXCHANGE caption; candidate cleared it.",
+  "protected": "All other bytes identical, including all objective/dependency/enemy/platform/ladder/hazard/save IDs and scripts.",
+  "baseline_sha256": "01a3f16004e6374a2e3999a8129b4912d1904f8fcc7d162e1406546b3c3abaad",
+  "candidate_sha256": "0588ee6f100a0eaa7ae2aaf4cc9b972b0eb0cea329b08341c69b8b729ee4b23b"
+}
