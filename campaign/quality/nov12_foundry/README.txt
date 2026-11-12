@@ -33,7 +33,7 @@ FINAL VALIDATION
 -8 foundry contract checks,34 explicit adapter checks,2,581 unchanged scenery checks
  passed. Adapter keeps exact Level 1 renderer/144 population assertions, adds exact
  Level 2 renderer/max 9 worker assertions and retains exclusion of Levels 3–5.
--Asset audit passed. Inventory15,481,686 bytes versus16,460,637 reviewed limit;
+-Asset audit passed. Inventory15,482,658 bytes versus16,460,637 reviewed limit;
  largest-file/pixel/count/audio limits unchanged.
 -Identically positioned1280x720 Thermal/Freight fixtures compared with fe9936a;
  original bitmap lower boundary softened with gradient/dim service structures.
@@ -56,9 +56,7 @@ FINAL VALIDATION
  it is not target-PC FPS, a broad benchmark or complete-game performance parity.
 
 Reproduce isolated sweep:
-godot --path <project> --rendering-method gl_compatibility --fixed-fps 60
- --disable-vsync --audio-driver Dummy --write-movie <output.avi>
- --script <absolute-path-to-render_sweep.gd>
+godot --path <project> --rendering-method gl_compatibility --fixed-fps 60 --disable-vsync --audio-driver Dummy --write-movie <output.avi> --script <absolute-path-to-render_sweep.gd>
 Both project
 window/size/window_width_override and height must be640/360 for comparison;
 --resolution alone can be overridden by project configuration.
