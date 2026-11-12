@@ -1,0 +1,10 @@
+{
+  "base": "a32f543b8912a399bfb6e46e82223c9b20778d5a",
+  "new_contract": {"checks": 90, "exit": 0},
+  "existing_atmosphere_contract": {"checks": 52, "exit": 0},
+  "existing_scenery_contract": {"checks": 2602, "exit": 0},
+  "engine": "4.6.3.stable.official.7d41c59c4",
+  "scope": "Author headless ownership/culling/sight/data checks; existing scenery contract includes physics/actor invariance. Layout/catalog and gameplay implementation files unchanged.",
+  "pending": ["Native staged visual inspection", "Actual retained/blind input traversal", "Independent review"],
+  "limitations": "No Windows, performance, screen-only discovery or native visual acceptance established here. Staged frame fixture is external and not yet executed."
+}

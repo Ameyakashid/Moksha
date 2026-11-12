@@ -12,12 +12,14 @@ const MemoryAtmosphere = preload("res://campaign/presentation/memory_atmosphere.
 const CisternAtmosphere = preload("res://campaign/presentation/cistern_atmosphere.gd")
 const FoundryAtmosphere = preload("res://campaign/presentation/foundry_atmosphere.gd")
 const ArcologyAtmosphere = preload("res://campaign/presentation/arcology_atmosphere.gd")
+const MarketHabitat = preload("res://campaign/presentation/market_habitat.gd")
 const Backdrop = preload("res://campaign/presentation/scenery_backdrop.gd")
 const DistrictIdentity = preload("res://campaign/presentation/district_identity.gd")
 const SurfaceSkin = preload("res://campaign/presentation/terrain_skin.gd")
 var backdrop: Node2D
 var terrain_paint: Node2D
 var atmosphere: Node2D
+var habitat: Node2D
 var configured := false
 var sight_enabled := true
 var view_center := Vector2(320,180)
@@ -30,6 +32,7 @@ func configure_sector(data: Dictionary) -> void:
 		remove_child(child)
 		child.queue_free()
 	atmosphere = null
+	habitat = null
 	var width: float = maxf(1.0,float(data.get("width",640)))
 	var top: float = minf(240.0,float(data.get("top",-100)))
 	var level: int = clampi(int(data.get("level",1)),1,5)
@@ -82,6 +85,13 @@ func configure_sector(data: Dictionary) -> void:
 		backdrop.add_child(atmosphere)
 		atmosphere.configure({"id":str(data.get("id","district"))})
 		atmosphere.set_view(view_center,view_size)
+	if level == 3 and str(data.get("id","")) == MarketHabitat.DISTRICT_ID:
+		habitat = MarketHabitat.new()
+		habitat.name = "MarketHabitat"
+		habitat.z_index = 1
+		backdrop.add_child(habitat)
+		habitat.configure({"id":str(data.id)})
+		habitat.set_view(view_center,view_size)
 	terrain_paint = Node2D.new()
 	terrain_paint.set_script(SurfaceSkin)
 	terrain_paint.name = "ExactSurfaceSkins"
@@ -110,3 +120,4 @@ func update_view(camera_center: Vector2, viewport_size: Vector2) -> void:
 	view_center = camera_center
 	view_size = viewport_size
 	if is_instance_valid(atmosphere):atmosphere.set_view(camera_center,viewport_size)
+	if is_instance_valid(habitat):habitat.set_view(camera_center,viewport_size)

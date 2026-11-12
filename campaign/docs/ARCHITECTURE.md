@@ -77,8 +77,10 @@ another game's directory names or add a general framework before it is needed.
   `preserve_invalid()` retains and verifies invalid bytes before replacement.
   These are the existing disk semantics, not a new crash-durability guarantee or
   transactional live-state restore. The host decides when to save, presents errors,
-  and applies Continue results. Campaign saves remain version **1**; no migration
-  is required for existing valid checkpoints. Other host I/O, such as results
+  and applies Continue results. Current campaign envelopes are version **3**, including explicit sensory state.
+  Valid v1/v2 checkpoints remain readable through the current codec; migration
+  preserves the old bytes before a committed replacement. Older builds cannot
+  read v3: keep the matching backup rather than hand-editing or downgrading saves. Other host I/O, such as results
   export, is not claimed to have moved into this checkpoint-only store.
 - The host instantiates and assigns the player. `PlayerAssembler.configure_actor()`
   configures profiles and the optional visual while detached. The host then
