@@ -1,0 +1,168 @@
+{
+  "baseline": "895a6e4",
+  "implementation": [
+    "8e13b2d",
+    "be7bfcb",
+    "ab6a943",
+    "657247c"
+  ],
+  "source_scope": {
+    "native_video": "ab6a943",
+    "retained_and_disabled": "be7bfcb",
+    "strength_actual_trade": "ab6a943",
+    "final_ordering_contract": "657247c"
+  },
+  "native": {
+    "passed": true,
+    "seconds": 40.033333,
+    "frames_at_60hz": 2402,
+    "encoded_frames_at_30fps": 1201,
+    "sha256": "1b4587d18cb525826d41b7b8812fa7a61a6f3845f6d2894ed4ef46c16647fdcd",
+    "method": "Normal title; deliberate quiet wait then ordinary automated movement/jump. Not district completion. Original audio non-silent; no audible-mix review."
+  },
+  "failed_attempts": [
+    {
+      "source": "8e13b2d",
+      "attempt": "initial_import",
+      "outcome": "Missing XDG isolation produced data-directory errors; clean isolated import rerun."
+    },
+    {
+      "source": "be7bfcb",
+      "attempt": "native01",
+      "outcome": "Reminder absent: native is_on_floor did not reflect custom solver. Exit0 was not feature acceptance. Corrected only companion adapter to player.grounded; fresh native02 passed."
+    }
+  ],
+  "limits": [
+    "No full manual playthrough or Windows runtime claim.",
+    "Not all14 authored beats were delivered by these routes. Captain introduction eligible fixture passed, but its full exchange not yet observed in actual traversal.",
+    "Retained sight choice was exercised; its companion response did not find a quiet slot in the fast retained route. Traded response was accepted naturally.",
+    "Accepted headless HUD delivery is not painted pixels. Native reminder frame separately inspected.",
+    "Completion/lifecycle integration must keep one authoritative session_generation increment, replacing baseline hooks."
+  ],
+  "retained02": {
+    "passed": true,
+    "active_seconds": 372.866666666656,
+    "deaths": 0,
+    "actual_blind": false,
+    "companion_receipts": [
+      {
+        "blind": false,
+        "district": "rainline",
+        "id": "rain_relay",
+        "position": "(4008.731, 244.98)",
+        "seconds": 28.7999999999996
+      },
+      {
+        "blind": false,
+        "district": "city_clinic",
+        "id": "clinic_cell",
+        "position": "(2249.097, 299.98)",
+        "seconds": 65.7166666666642
+      },
+      {
+        "blind": false,
+        "district": "city_clinic",
+        "id": "clinic_power",
+        "position": "(3850.461, 299.98)",
+        "seconds": 82.7999999999966
+      },
+      {
+        "blind": false,
+        "district": "city_tram_depot",
+        "id": "tram_map",
+        "position": "(3404.64, 299.98)",
+        "seconds": 203.083333333387
+      },
+      {
+        "blind": false,
+        "district": "city_records",
+        "id": "records",
+        "position": "(3243.832, 299.98)",
+        "seconds": 247.150000000089
+      },
+      {
+        "blind": false,
+        "district": "quarantine_intake",
+        "id": "captain_down",
+        "position": "(1849.939, 299.98)",
+        "seconds": 326.016666666699
+      }
+    ],
+    "presentation_disabled": false,
+    "source_drift": [],
+    "failures": [],
+    "receipt_sha256": "77742756907ab57892a472a62a5fc9edcd14d21d190decdb4b7cadede921014d"
+  },
+  "disabled02": {
+    "passed": true,
+    "active_seconds": 373.083333333323,
+    "deaths": 0,
+    "actual_blind": false,
+    "companion_receipts": [],
+    "presentation_disabled": true,
+    "source_drift": [],
+    "failures": [],
+    "receipt_sha256": "b37b054ef9e261b1b439395646d11afc4d20f4b80140de333f08f2e6a40e3f01"
+  },
+  "final-traded": {
+    "passed": true,
+    "active_seconds": 331.666666666694,
+    "deaths": 0,
+    "actual_blind": true,
+    "companion_receipts": [
+      {
+        "blind": false,
+        "district": "rainline",
+        "id": "rain_relay",
+        "position": "(3936.0, 211.2329)",
+        "seconds": 29.8499999999996
+      },
+      {
+        "blind": false,
+        "district": "city_clinic",
+        "id": "clinic_cell",
+        "position": "(2294.505, 299.98)",
+        "seconds": 68.916666666664
+      },
+      {
+        "blind": false,
+        "district": "city_clinic",
+        "id": "clinic_power",
+        "position": "(3728.026, 299.98)",
+        "seconds": 86.1666666666631
+      },
+      {
+        "blind": false,
+        "district": "city_tram_depot",
+        "id": "tram_map",
+        "position": "(3400.0, 295.3967)",
+        "seconds": 155.383333333349
+      },
+      {
+        "blind": false,
+        "district": "city_records",
+        "id": "records",
+        "position": "(3682.875, 299.98)",
+        "seconds": 205.750000000056
+      },
+      {
+        "blind": false,
+        "district": "quarantine_intake",
+        "id": "captain_down",
+        "position": "(1778.696, 299.98)",
+        "seconds": 283.833333333404
+      },
+      {
+        "blind": true,
+        "district": "l2_exchange",
+        "id": "sight_traded",
+        "position": "(2346.623, 174.98)",
+        "seconds": 331.083333333361
+      }
+    ],
+    "presentation_disabled": false,
+    "source_drift": [],
+    "failures": [],
+    "receipt_sha256": "b8ef34f342a7f38e654751b41f51515d8140a47b827154af99dfc4c556c3c740"
+  }
+}
