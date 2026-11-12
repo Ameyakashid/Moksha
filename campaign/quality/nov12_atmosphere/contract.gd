@@ -35,6 +35,7 @@ func run()->void:
 	for level in range(1,6):
 		s.configure({"id":"rainline","width":4800,"level":level})
 		check(s.get_child_count()==2,"Stable scenery host shape")
+		check(s.backdrop.drawing_enabled==(level!=1),"No hidden duplicate backdrop drawing")
 		check(is_instance_valid(s.atmosphere)==(level == 1),"Only inhabited visual profiles")
 		if is_instance_valid(s.atmosphere):
 			check(s.atmosphere.get_parent()==s.backdrop,"District ownership")

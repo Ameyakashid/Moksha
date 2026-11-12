@@ -3,6 +3,7 @@ extends Node2D
 ## Draws immutable district identity. It never reads actors, objective state or RNG.
 const Identity = preload("res://campaign/presentation/district_identity.gd")
 const Landmark = preload("res://campaign/presentation/district_landmark.gd")
+var drawing_enabled := true
 var bounds := Rect2(0, -100, 1600, 480)
 var theme: Resource
 var seed_value := 0
@@ -14,7 +15,7 @@ var pipe := preload("res://assets/decor/exposed_pipe.tres")
 var cable := preload("res://assets/decor/cable_bundle.tres")
 
 func _draw() -> void:
-	if theme == null: return
+	if not drawing_enabled or theme == null: return
 	if identity.is_empty(): identity = Identity.profile_for("district", theme.motif)
 	draw_rect(bounds, theme.background)
 	if theme.motif in ["city", "crown"]:

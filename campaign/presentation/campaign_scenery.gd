@@ -42,6 +42,9 @@ func configure_sector(data: Dictionary) -> void:
 	add_child(backdrop)
 	# Opening inhabited city views are district-owned, entirely behind gameplay.
 	if level == 1:
+		# The opaque plate owns this view; do not render the hidden old city beneath it.
+		# Keep the parent visible so sight hiding and subtree lifetime remain unchanged.
+		backdrop.drawing_enabled=false
 		atmosphere=ArcologyAtmosphere.new()
 		atmosphere.name="InhabitedArcology"
 		backdrop.add_child(atmosphere)
