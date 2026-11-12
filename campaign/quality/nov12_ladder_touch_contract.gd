@@ -11,8 +11,15 @@ class Driver extends Node:
 	var player:Node
 	var frame:Dictionary={}
 	var ticks:=0
+	var schedule:Array[Dictionary]=[]
+	var scheduled:=false
+	var trace:Array=[]
 	func _physics_process(dt:float)->void:
+		if scheduled:
+			if ticks>=schedule.size():return
+			frame=schedule[ticks]
 		player.physics_tick(dt,frame);ticks+=1
+		if scheduled:trace.append([player.position,player.velocity,player.main_action,player.grounded])
 var host:Host
 var driver:Driver
 var observer:Node
@@ -62,6 +69,19 @@ func run()->void:
 	await step({"up":1.0},ceili(hz*.2))
 	check(host.player.main_action==&"climb","normal input commits real climb")
 	check(observer.read_snapshot().get("held",false),"held flag comes from actual controller")
+	# Same-frame read boundary fixtures: restore all staged state before simulation.
+	var saved_action=host.player.main_action
+	var saved_target=host.player._climb_target
+	host.player.main_action=&"locomotion"
+	check(not observer.read_snapshot().get("held",false),"same-position detach cannot retain held flag")
+	host.player.main_action=saved_action;host.player._climb_target=null
+	check(not observer.read_snapshot().get("held",false),"changed held target cannot retain sampled held flag")
+	host.player._climb_target=saved_target
+	check(observer.read_snapshot().get("held",false),"passive read uses current legitimate held identity")
+	ladder.climb_type="vine"
+	check(observer.read_snapshot().is_empty(),"same-transform ladder-to-vine change fenced")
+	ladder.climb_type="ladder"
+
 	await step({"right":1.0,"jump":true},ceili(hz/30.0))
 	await step({"right":1.0},ceili(hz*.25))
 	check(observer.read_snapshot().is_empty(),"ordinary jump-away loses contact, no trail")
@@ -105,13 +125,17 @@ func run()->void:
 	await finish()
 	var traces:Array=[]
 	for on in [false,true]:
-		setup(on);var trace:Array=[]
-		await step({},3)
+		setup(on)
+		# Install the whole schedule before the first callback. Rendering never
+		# changes inputs or chooses which physics states are compared.
+		driver.scheduled=true
+		for i in 3:driver.schedule.append({})
 		for i in ceili(hz*1.5):
 			var frame:Dictionary={"right":1.0} if i<ceili(hz/12.0) else ({"up":1.0} if i<ceili(hz*35/60.0) else ({"right":1.0,"jump":true} if i<ceili(hz*37/60.0) else {"right":1.0}))
-			await step(frame)
-			trace.append([host.player.position,host.player.velocity,host.player.main_action,host.player.grounded])
-		traces.append(trace);await finish()
+			driver.schedule.append(frame)
+		while driver.ticks<driver.schedule.size():await physics_frame;await process_frame
+		check(driver.trace.size()==3+ceili(hz*1.5),"exact physics tick count independent of render cadence")
+		traces.append(driver.trace.duplicate(true));await finish()
 	check(traces[0]==traces[1],"contact presentation on/off preserves1.5s real-physics movement/action frames")
 	print("LADDER_TOUCH_RESULT ",JSON.stringify({"passed":failures.is_empty(),"physics_hz":Engine.physics_ticks_per_second,"checks":checks,"failures":failures,"scope":"Real actor/ladder physics with input-frame driver and explicitly seeded negatives; not screen-only play acceptance"}))
 	quit(0 if failures.is_empty() else 1)

@@ -87,8 +87,10 @@ func read_snapshot()->Dictionary:
 	if not is_instance_valid(target) or target.is_queued_for_deletion() or not host.room.is_ancestor_of(target) or target.global_transform!=sampled_transform or not host.player.global_position.is_equal_approx(sampled_position):return {}
 	if (target.collision_layer & host.player.climbable_mask)==0:return {}
 	var geometry:Dictionary=target.climb_geometry()
-	if geometry.is_empty() or Vector2(geometry.width,float(geometry.bottom_y)-float(geometry.top_y))!=sampled_size:return {}
-	return snapshot.duplicate(true)
+	if geometry.is_empty() or geometry.get("type","")!="ladder" or Vector2(geometry.width,float(geometry.bottom_y)-float(geometry.top_y))!=sampled_size:return {}
+	var current:=snapshot.duplicate(true)
+	current.held=host.player.main_action==&"climb" and is_instance_valid(host.player._climb_target) and host.player._climb_target==target
+	return current
 func _exit_tree()->void:retire()
 
 func read_visible_snapshot()->Dictionary:

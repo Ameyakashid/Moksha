@@ -1,0 +1,61 @@
+{
+  "prior_checkpoint": "ddc9e0ced7f29145420cc1ca0b709a161d19c00e",
+  "runtime_changes": "Passive read-boundary held recomputation and ladder type rejection only",
+  "test_change": "Input schedule and trace owned by exact physics ticks, not render samples",
+  "checks": [
+    {
+      "render_cadence": "fixed",
+      "physics_hz": 60,
+      "receipt": {
+        "checks": 47,
+        "failures": [],
+        "passed": true,
+        "physics_hz": 60,
+        "scope": "Real actor/ladder physics with input-frame driver and explicitly seeded negatives; not screen-only play acceptance"
+      },
+      "log_sha256": "0e26294150530c60bfca2cbf0f604bbf5e6fea1eabfbda689965803ea4c7c615"
+    },
+    {
+      "render_cadence": "fixed",
+      "physics_hz": 120,
+      "receipt": {
+        "checks": 47,
+        "failures": [],
+        "passed": true,
+        "physics_hz": 120,
+        "scope": "Real actor/ladder physics with input-frame driver and explicitly seeded negatives; not screen-only play acceptance"
+      },
+      "log_sha256": "c4f998162f1810b8a14b4f7ec5e1bb99aad40df1519b944aed6e78d5cb98dc89"
+    },
+    {
+      "render_cadence": "uncapped",
+      "physics_hz": 60,
+      "receipt": {
+        "checks": 47,
+        "failures": [],
+        "passed": true,
+        "physics_hz": 60,
+        "scope": "Real actor/ladder physics with input-frame driver and explicitly seeded negatives; not screen-only play acceptance"
+      },
+      "log_sha256": "0e26294150530c60bfca2cbf0f604bbf5e6fea1eabfbda689965803ea4c7c615"
+    },
+    {
+      "render_cadence": "uncapped",
+      "physics_hz": 120,
+      "receipt": {
+        "checks": 47,
+        "failures": [],
+        "passed": true,
+        "physics_hz": 120,
+        "scope": "Real actor/ladder physics with input-frame driver and explicitly seeded negatives; not screen-only play acceptance"
+      },
+      "log_sha256": "c4f998162f1810b8a14b4f7ec5e1bb99aad40df1519b944aed6e78d5cb98dc89"
+    }
+  ],
+  "tested_sha256": {
+    "campaign/perception/ladder_touch_observer.gd": "643670cb29633bb54baf6093084a3dde2034cf219926cdc3137ac546887cf4d9",
+    "campaign/quality/nov12_ladder_touch_contract.gd": "cae848f94b9b96ba4471c9f125d04182c1b8bea43218198a7f69b4a64c2b17dc"
+  },
+  "prior_independent_uncapped_trace_failure": "Preserved; earlier scheduler compared render-selected states and was not accepted for variable cadence",
+  "native_acceptance": false
+}
