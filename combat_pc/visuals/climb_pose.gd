@@ -72,12 +72,33 @@ static func sample(mode:String,p:float,t:Dictionary) -> Dictionary:
 			hand_on=false
 		key.hands.append(hand);key.feet.append(foot)
 		key.hands_on.append(hand_on);key.feet_on.append(foot_on)
+	# Original body-local pull-up pilot. Retain baseline feet/root and never
+	# claim rail-end reach as a planted rung or platform contact.
+	if mode=="climb_top_exit" and not low:
+		var compact:float=1.0-smoothstep(4.0,18.0,root.y-top)
+		_compact_torso(key,compact)
+		var cu:=Vector2(sin(deg_to_rad(float(key.lean))),-cos(deg_to_rad(float(key.lean))))
+		var ca:=Vector2(cos(deg_to_rad(float(key.lean))),sin(deg_to_rad(float(key.lean))))
+		for i in 2:
+			var side:float=1.0 if i==0 else -1.0
+			var shoulder:Vector2=key.pelvis+cu*float(key.torso)+ca*2.3*side
+			var rail_end:=Vector2(axis+side*hand_width,top-root.y)
+			var hand:Vector2=Vector2(key.hands[i]).lerp(rail_end,compact)
+			if shoulder.distance_to(hand)>11.6:hand=shoulder+(hand-shoulder).normalized()*11.6
+			key.hands[i]=hand
+			if compact>0.0:key.hands_on[i]=false
 	key["key_name"]=mode.trim_prefix("climb_")+("_vine" if vine else "_ladder")+("_low" if low else "")
 	if mode in ["climb_ascend","climb_descend"]:
 		key.key_name+="_near_grip" if key.hands_on[0] else "_far_grip"
 	key["floor_guard"]=true
 	key["climb_support"]=true
 	return key
+
+static func _compact_torso(key:Dictionary,weight:float)->void:
+	key.pelvis=Vector2(key.pelvis).lerp(Vector2(-1,-8),weight)
+	key.lean=lerpf(float(key.lean),39.0,weight)
+	key.torso=lerpf(float(key.torso),6.2,weight)
+	key.head_tilt=lerpf(float(key.head_tilt),-13.0,weight)
 
 static func _limb_cycle(q:float,base:float,cycle:float,swing:float) -> Dictionary:
 	var stance:float=Keys.TUNING.grip_fraction
@@ -94,6 +115,9 @@ static func _release(p:float,t:Dictionary,low:bool) -> Dictionary:
 	key.hands=[near_start.lerp(key.hands[0],weight),far_start.lerp(key.hands[1],weight)]
 	if not bool(t.get("grounded",false)):
 		key.feet=[Vector2(4,-2),Vector2(-4,-4)];key.feet_on=[false,false]
+	if bool(t.get("climb_top_release",false)) and bool(t.get("grounded",false)) and not low:
+		_compact_torso(key,1.0-weight)
+		key.hands=[Vector2(4.2,0).lerp(key.hands[0],weight),Vector2(-4.2,0).lerp(key.hands[1],weight)]
 	key["hands_on"]=[false,false];key["climb_support"]=false
 	key["key_name"]="climb_release"+("_low" if low else "")
 	return key

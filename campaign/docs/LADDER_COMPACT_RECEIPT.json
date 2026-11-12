@@ -1,0 +1,115 @@
+{
+  "base": "5ff9d965b2438ca0553665d067054ceb32f50ddb",
+  "checks": {
+    "pilot-60": {
+      "exit": 0,
+      "result": {
+        "below_top": true,
+        "completion_checks": 1086,
+        "near_top": true,
+        "passed": true,
+        "reference": false,
+        "supported_exit": true,
+        "trace_samples": 198
+      },
+      "log_sha256": "f8feb9db010f5fe4a96b3248d64371430c641555038757dd420af16e97f97b6d"
+    },
+    "pilot-120": {
+      "exit": 0,
+      "result": {
+        "below_top": true,
+        "completion_checks": 2008,
+        "near_top": true,
+        "passed": true,
+        "reference": false,
+        "supported_exit": true,
+        "trace_samples": 396
+      },
+      "log_sha256": "a83a24a7213912072a2883951fd1a706a177e5d882e8f84901afa86a4714959a"
+    },
+    "base-60": {
+      "exit": 0,
+      "result": {
+        "below_top": false,
+        "completion_checks": 162,
+        "near_top": false,
+        "passed": true,
+        "reference": true,
+        "supported_exit": true,
+        "trace_samples": 198
+      },
+      "log_sha256": "a6d7601e60214464b761875e2eebab27f5a03fa5de7a4c4fd6649db9607d6aa5"
+    },
+    "base-120": {
+      "exit": 0,
+      "result": {
+        "below_top": false,
+        "completion_checks": 162,
+        "near_top": false,
+        "passed": true,
+        "reference": true,
+        "supported_exit": true,
+        "trace_samples": 396
+      },
+      "log_sha256": "5d0c76d1830d924dfb9864d9c7dfe2c6262e1d2d3ce736ae45a1f992d5bd8833"
+    },
+    "visual": {
+      "exit": 0,
+      "result": {
+        "checks": 31761,
+        "failures": [],
+        "metrics": {
+          "arm_reach_error_px": 2.57492065447451e-06,
+          "draw_notifications": 7,
+          "leg_reach_error_px": 1.9073486328125e-06,
+          "low_body_top_px": -19.3999996185303,
+          "lowest_bone_px": 0.0,
+          "planted_frame_pairs": 2320,
+          "rung_contact_drift_px": 0.0,
+          "rung_grid_error_px": 0.0,
+          "scaled_contact_frame_pairs": 16734,
+          "scaled_grid_error_px": 6.10351567047474e-06,
+          "scaled_low_body_top_px": -19.3999996185303,
+          "scaled_lowest_bone_px": 0.0,
+          "scaled_rung_drift_px": 0.0,
+          "scaled_rung_lateral_error_px": 0.0,
+          "worst_arm": "climb_align vine 0.575 far",
+          "worst_leg": "climb_idle ladder 0.65 near",
+          "worst_low": "climb_top_exit vine 0.0 ankle_far"
+        },
+        "passed": true,
+        "scope": "Original MOKSHA ladder/vine pose geometry and travel-driven presentation contacts; no root or collision authority"
+      },
+      "log_sha256": "44f41f8232a7c830bf7ae62e7ca016b0536efc6babdecab30ef7757a99d6e8a6"
+    },
+    "transition": {
+      "exit": 0,
+      "result": {
+        "checks": 25,
+        "failures": [],
+        "passed": true,
+        "scope": "Seeded existing visual events and authoritative-action snapshots; no earned gameplay/native continuity claim"
+      },
+      "log_sha256": "f6189d7897aff799b48acce9aea89b435eb18d53d129715629405ad83829bb8d"
+    },
+    "feet": {
+      "exit": 0,
+      "result": {
+        "passed": true,
+        "staged_boot_max_delta_px": 0.0
+      },
+      "log_sha256": "4d636841dc3fd5e8b1102059463d226d7027631096b5844f88d5369d38e64e65"
+    }
+  },
+  "mechanics_trace_equal": {
+    "60": true,
+    "120": true
+  },
+  "changed_existing_files": [
+    "combat_pc/visuals/climb_pose.gd",
+    "combat_pc/visuals/wireframe.gd"
+  ],
+  "native_acceptance": "pending single actual-size/enlarged staged review; discard if not materially clearer",
+  "preserved_failed_fixture": "transition-attempt01.log used nonexistent roll pose; corrected to actual roll_start, no production adjustment",
+  "limits": "No human UX benefit, earned route or native continuity claim; traces are selected per-tick motor fields, not entire game state."
+}

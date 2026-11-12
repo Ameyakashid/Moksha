@@ -160,6 +160,8 @@ func present(dt: float,telemetry: Dictionary={}) -> void:
 	var selection:=_select(telemetry)
 	var inputs:=telemetry.duplicate(true)
 	inputs["visual_time"]=_clock
+	# Presentation-only label from the existing motor detach event.
+	inputs["climb_top_release"]=str(selection.mode)=="climb_release" and str(_events.get("climb_detached",{}).get("payload",{}).get("reason",""))=="top_exit"
 	inputs["gait_phase"]=_gait_phase
 	if _events.has("landed"):
 		inputs["preimpact_speed"]=_events.landed.payload.get("preimpact_speed",_events.landed.payload.get("speed",300.0))
