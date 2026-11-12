@@ -70,5 +70,14 @@ func run()->void:
 	check(not o.events("quarantine_intake").has("captain"),"offscreen captain cannot speak")
 	h.camera.position=Vector2(1800,180);check(o.events("quarantine_intake").has("captain"),"onscreen captain")
 	h.blind=true;check(not o.events("quarantine_intake").has("captain"),"blind cannot reveal captain")
-	h.session_generation+=1;o._process(.1);check(o.director.seen.is_empty(),"same-frame session generation clears seen")
+	h.session_generation+=1
+	o.safe=true
+	o.director.active={"id":"clinic_rescue","event":"clinic_rescue","text":"Old line"}
+	var old_seen:Dictionary=o.director.seen.duplicate(true)
+	var old_active:Dictionary=o.director.active.duplicate(true)
+	var early_snapshot={"state":"playing","notice_visible":false,"prompt":""}
+	o.decorate(early_snapshot)
+	check(not early_snapshot.notice_visible,"unobserved new generation cannot reuse old line")
+	check(o.director.seen==old_seen and o.director.active==old_active,"generation guard is pure")
+	o._process(.1);check(o.director.seen.is_empty(),"same-frame session generation clears seen")
 	h.free();print("OBSERVER_FIXTURE_RESULT ",JSON.stringify({"passed":failures.is_empty(),"checks":checks,"failures":failures}));quit(0 if failures.is_empty() else 1)

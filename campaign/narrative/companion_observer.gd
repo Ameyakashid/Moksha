@@ -99,6 +99,7 @@ func shortcut_open()->bool:
 			return door.opened and is_instance_valid(shape) and shape.disabled
 	return false
 func decorate(snapshot:Dictionary)->void:
+	if observed_session!=host.session_generation:return
 	# Pure snapshot construction: queries cannot retire, acknowledge or consume lines.
 	var blocked:bool=snapshot.get("state","")!="playing" or snapshot.get("notice_visible",false) or snapshot.get("chapter_visible",false) or not str(snapshot.get("prompt","")).is_empty()
 	if blocked or not safe or director.active.is_empty():return
