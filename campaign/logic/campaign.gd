@@ -53,6 +53,7 @@ var _focus_pause_active:=false
 var _focus_resume_state:="playing"
 var _level_transition_snapshot:Dictionary={}
 var _controller_bindings:Node
+var scent:Node
 var companion:Node
 var gamepad_navigation:Node
 func _ready()->void:
@@ -95,6 +96,8 @@ func _ready()->void:
 	get_window().focus_exited.connect(_on_window_focus_exited)
 	companion=preload("res://campaign/narrative/companion_observer.gd").new()
 	add_child(companion);companion.bind(self)
+	scent=preload("res://campaign/perception/scent_observer.gd").new()
+	add_child(scent);scent.bind(self)
 func _load_catalog()->Dictionary:
 	return CampaignData.load_catalog()
 
@@ -157,6 +160,7 @@ func _create_player_health()->Node:
 	return adapter
 
 func load_sector(index:int)->void:
+	if is_instance_valid(scent):scent.retire()
 	if not _level_transition_snapshot.is_empty():
 		if index==int(_level_transition_snapshot.to):_level_transition_snapshot.clear()
 		else:_cancel_sector_transition()
@@ -589,6 +593,7 @@ func _hud_snapshot()->Dictionary:
 		var lines:="%s · Page %d/%d\n\n"%[sectors[sector].title,journal_page+1,pages]
 		for i in range(journal_page*5,mini(rows.size(),journal_page*5+5)):lines+=rows[i]+"\n"
 		lines+="\nNext: "+_journal_next_step()+"\nBuild: "+lens+(" / "+", ".join(upgrades) if not upgrades.is_empty() else "")
+		lines+="\nScent: wisps life / split wisps blood / diamonds supplies."
 		snapshot.merge({"panel_override":true,"panel_title":"FIELD JOURNAL","panel_body":lines,"panel_footer":"A / D or arrows Pages    TAB / ESC Return"})
 	elif state=="playing":
 		if _input_gate.has_held_blocker(_raw_campaign_input()):
