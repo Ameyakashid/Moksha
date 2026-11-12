@@ -6,6 +6,27 @@ var left:=0.0
 var cooldown:=0.0
 var room_key:=""
 var enabled:=true
+var catalog:Array[Dictionary]=[]
+var catalog_errors:Array[String]=[]
+func _init(authored:Variant=null)->void:
+	var source:Variant=Lines.entries() if authored==null else authored
+	catalog_errors=validate_catalog(source)
+	if catalog_errors.is_empty():
+		for entry in source:catalog.append(entry.duplicate(true))
+static func validate_catalog(source:Variant)->Array[String]:
+	var errors:Array[String]=[]
+	if not source is Array or source.is_empty():return ["Expected nonempty authored array"]
+	var ids:Dictionary={}
+	for entry in source:
+		if not entry is Dictionary:errors.append("Expected line record");continue
+		if entry.keys().size()!=4:errors.append("Unexpected record shape")
+		for key in ["id","event","text"]:
+			if not entry.get(key) is String or str(entry.get(key,"")).strip_edges().is_empty():errors.append("Invalid "+key)
+		if not entry.get("priority") is int or int(entry.get("priority",-1))<0 or int(entry.get("priority",-1))>100:errors.append("Invalid priority")
+		var id:=str(entry.get("id",""))
+		if ids.has(id):errors.append("Duplicate line ID")
+		ids[id]=true
+	return errors
 func reset()->void:
 	seen.clear();retire();room_key="";cooldown=0
 func retire()->void:
@@ -27,7 +48,7 @@ func tick(dt:float,room:String,events:Array[String],safe:bool)->void:
 		return
 	if cooldown>0:return
 	var best:Dictionary={}
-	for entry in Lines.entries():
+	for entry in catalog:
 		if seen.has(entry.id) or not events.has(entry.event):continue
 		if best.is_empty() or entry.priority>best.priority:best=entry
 	if not best.is_empty():active=best.duplicate(true);left=5

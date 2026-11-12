@@ -4,7 +4,7 @@ class FakeHealth extends RefCounted:
 class FakeActor extends Node2D:
 	var main_action:=&"locomotion"
 	var grounded:=true
-	func is_on_floor()->bool:return grounded
+	func is_on_floor()->bool:return false # Production custom solver does not use native floor flag.
 class FakeEnemy extends Node2D:
 	var dead:=false
 	var kind:="captain_lancer"

@@ -65,7 +65,7 @@ func events(id:String)->Array[String]:
 	var p:Vector2=host.player.position
 	match id:
 		"rainline":
-			if not host.relay_on and host.player.is_on_floor():
+			if not host.relay_on and host.player.grounded:
 				if p.x>600 and p.x<1700 and p.y<225:result.append("rain_roof")
 				if no_progress>=20:result.append("rain_street")
 			if host.relay_on:result.append("rain_relay")

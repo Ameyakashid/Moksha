@@ -7,6 +7,20 @@ func check(value:bool,label:String)->void:
 	checks+=1
 	if not value:failures.append(label);push_error(label)
 func _initialize()->void:
+	var original=Lines.entries()
+	var cached=Director.new(original)
+	original[0].text="MUTATED"
+	check(cached.catalog[0].text!="MUTATED","catalog detached once")
+	var malformed=Lines.entries();malformed[0].priority="high"
+	check(not Director.validate_catalog(malformed).is_empty(),"priority type rejected")
+	malformed=Lines.entries();malformed[1].id=malformed[0].id
+	check(not Director.validate_catalog(malformed).is_empty(),"duplicate ID rejected")
+	malformed=Lines.entries();malformed[0].event=""
+	check(not Director.validate_catalog(malformed).is_empty(),"missing event rejected")
+	malformed=Lines.entries();malformed[0].text=" "
+	check(not Director.validate_catalog(malformed).is_empty(),"empty text rejected")
+	var rejected=Director.new(malformed);rejected.tick(9,"rainline",["rain_roof"],true)
+	check(rejected.text().is_empty(),"bad catalog fails closed")
 	var d=Director.new()
 	var events:Array[String]=["clinic_cell","clinic_power"]
 	d.tick(3,"clinic",events,false);check(d.text().is_empty() and d.seen.is_empty(),"hidden not consumed")
