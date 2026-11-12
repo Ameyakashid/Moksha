@@ -1,0 +1,145 @@
+{
+  "base": "ee725ef9fbbf74bd9daf3942b0ae34d744776a86",
+  "baseline_files": 4557,
+  "changed_existing_files": [
+    "campaign/layouts/level_03.gd",
+    "campaign/presentation/market_habitat.gd"
+  ],
+  "all_other_baseline_bytes_identical": true,
+  "final_source_sha256": {
+    "campaign/layouts/level_03.gd": "7ef688006d2f1484036124d646b87206649fbf4aac69e387f231cb5e66dfdf78",
+    "campaign/presentation/market_habitat.gd": "6222b4b12f7620264e96379fcde2fefc1dfc6565f428ca9fea8f51a5a4b3b36f"
+  },
+  "matrix": {
+    "60": {
+      "checks": 168,
+      "exit": 0,
+      "result_sha256": "4318c320abd0a239dfd5cd0d1e023d92c5c9d153993f46e4ebb3bd35e384b038",
+      "log_sha256": "789dd054c383cc5135bb5fa89474f38ede2318c08bb5afab454b96c1b3c4f279",
+      "rate_smoke": {
+        "actual_player_callback_dt": 0.0166666666666667,
+        "engine_physics_hz": 60,
+        "passed": true,
+        "requested_hz": 60,
+        "scope": "Separate actual campaign callback smoke check using same inherited rate setup, not telemetry from the full matrix process"
+      },
+      "rate_log_sha256": "f84395808f73b5b8d7489669192abeb127c36a1e36e94d640677730d1fc7069f"
+    },
+    "120": {
+      "checks": 168,
+      "exit": 0,
+      "result_sha256": "1fc341a14bd33835a86360962320dc2e524bc1e8d87da34d8c29d75ac43b6623",
+      "log_sha256": "7e6f71700d53aa93bb0245b38a99ecae982cfb6bdb40657aba2e334a7dde6700",
+      "rate_smoke": {
+        "actual_player_callback_dt": 0.00833333333333333,
+        "engine_physics_hz": 120,
+        "passed": true,
+        "requested_hz": 120,
+        "scope": "Separate actual campaign callback smoke check using same inherited rate setup, not telemetry from the full matrix process"
+      },
+      "rate_log_sha256": "8b595e1610ba9ec8b9fa883a523eea185a01907b74cbcee344a2f7db3a0f467a"
+    }
+  },
+  "matrix_scope": "12 combinations per rate: Neutral/Strength/Agility x sight-retained/blind x hearing-retained/traded. Explicit actor-only fixture disables host+enemy ticks; calls real player.physics_tick with input dictionaries. No combat/native/keybinding acceptance. Full matrix reports configured rate; separate smoke reports actual rate and callback dt.",
+  "checkpoint_key_descent": {
+    "retained": {
+      "exit": 0,
+      "summary": {
+        "departure_tick": -1,
+        "descent_landed_tick": 1468,
+        "ending_state": "playing",
+        "first_bias_tick": 1431,
+        "first_hazard_geometric_contact_tick": 1466,
+        "first_hazard_visible_tick": 689,
+        "key_completed": true,
+        "max_fall_bias": 96.0,
+        "replay_mode": true,
+        "run_id": "84eb243c01c9c37eee744c21c0be0638",
+        "scope": "Known-route ordinary-input mechanical schedule comparison, no actor/goal/health writes. Hazard geometry overlap is not damage attribution. Fixed60 render/120physics; not wall-time performance.",
+        "sector": 13,
+        "started": true,
+        "supported_shelf_tick": -1,
+        "ticks": 1590
+      },
+      "final_health": 75.0,
+      "deaths": 0,
+      "provenance": {
+        "checkpoint": "/workspace/scratch/fd16273ade4b/moksha-market-checkpoint-preparation-910/strength-retained-02/market-entry.json",
+        "checkpoint_sha256": "3072a7f687105b7a95e4d5c986227584b1b21fcbf67427c2a38bb6241a7ceb58",
+        "input_schedule_sha256": "e43443e63ffea128465ee1f452c99500811edaa8fca5c29e10398146be8bb816",
+        "scope": "Exact pre-existing ordinary input replay from verified genuine Market checkpoint; no dynamic private neutral steering"
+      },
+      "trace_sha256": "26967932323a770169064ffaf6787bc93b100ae1e972a08a196cff5f6b704d02",
+      "input_path": "host.input_override movement dictionaries; InputEventKey startup/modal only"
+    },
+    "traded": {
+      "exit": 0,
+      "summary": {
+        "departure_tick": -1,
+        "descent_landed_tick": 1495,
+        "ending_state": "playing",
+        "first_bias_tick": 1458,
+        "first_hazard_geometric_contact_tick": -1,
+        "first_hazard_visible_tick": 747,
+        "key_completed": true,
+        "max_fall_bias": 96.0,
+        "replay_mode": true,
+        "run_id": "42f74b4d9c322ec0ac97f0c4673dec9f",
+        "scope": "Known-route ordinary-input mechanical schedule comparison, no actor/goal/health writes. Hazard geometry overlap is not damage attribution. Fixed60 render/120physics; not wall-time performance.",
+        "sector": 13,
+        "started": true,
+        "supported_shelf_tick": -1,
+        "ticks": 1617
+      },
+      "final_health": 75.0,
+      "deaths": 0,
+      "provenance": {
+        "checkpoint": "/workspace/scratch/fd16273ade4b/moksha-market-checkpoint-preparation-910/strength-traded-02/market-entry.json",
+        "checkpoint_sha256": "4ee1d9d8bc4e4cdae8db785aeb8c1080b2f2c5631561885d9c6fdb64fbf8f739",
+        "input_schedule_sha256": "adbabeefbcc91897f77810fa8e080b71f045979f44c0b595315fe97b2dea0fb2",
+        "scope": "Exact pre-existing ordinary input replay from verified genuine Market checkpoint; no dynamic private neutral steering"
+      },
+      "trace_sha256": "16fed43616db659225ddf10011ca38dd4a62c3e27fd4725412be76ae7af993aa",
+      "input_path": "host.input_override movement dictionaries; InputEventKey startup/modal only"
+    }
+  },
+  "full_market": {
+    "passed": true,
+    "required_goals": [
+      "bridge",
+      "family",
+      "isolate",
+      "key"
+    ],
+    "active_simulated_seconds": 28.6833333333072,
+    "source_drift_during_run": [],
+    "exit": 0,
+    "result_sha256": "a6d15004834978c688ce206a4825a8c87595c39c64c42c4e977252f708c7c1c8",
+    "script_sha256": "614efcec00575de736a91babf035029ebb6356a89d550411eafd40ceb6fe6836",
+    "provenance": {
+      "checkpoint": "/workspace/scratch/fd16273ade4b/moksha-market-checkpoint-preparation-910/strength-retained-02/market-entry.json",
+      "sha256": "3072a7f687105b7a95e4d5c986227584b1b21fcbf67427c2a38bb6241a7ceb58",
+      "scope": "Genuine checkpoint; known-route observer-steered ordinary inputs, no neutral flag read; not fresh screen play"
+    },
+    "input_path": "host.input_override movement dictionaries and host key-handler proximity interactions; InputEventKey startup. Known-route state/layout planning, not OS movement replay."
+  },
+  "final_presentation": {
+    "exit": 0,
+    "checks": 2594,
+    "log_sha256": "ef512475e072e3522053deb28a73835b081ec1d889d0b4d3fb03fcea19f6a7ba"
+  },
+  "imports": {
+    "initial": "import.log contains empty-resource-path/editor-settings-save errors; initial process exit unavailable after session retirement; do not call clean",
+    "explicit_dirs_retry_exit": 0,
+    "final_exit": 0,
+    "final_log_sha256": "88a65891fcfd1b9f913a70de3df0508e5bc3ce83dca9418150bf4d7ac5d341b2",
+    "cause": "Explicit HOME/XDG dirs retry no longer reported errors; exact original cause not proven"
+  },
+  "preserved_attempts": [
+    "contract-60-attempt01.log: wrong fixture signal name; corrected to movement_event",
+    "contract-60-attempt02.log: fixture stopped host but not autonomous enemies; paused/stalled; explicit actor-only fixture corrected",
+    "full-goals/attempt01.log and attempt02.log: save-disabled setup could not Continue; isolated save-enabled startup corrected"
+  ],
+  "final_color_adjustment": "Critical plaque text e0b975, secondary CYAN; view-only change after gameplay checks, final presentation/import pass. No gameplay-matrix rerun attributed to color.",
+  "native_gate": "PENDING: native CUA capability unavailable per coordinator. No visual-release or human-UX acceptance. Actual-size sign/rail/guard decisions and fresh navigation still required."
+}

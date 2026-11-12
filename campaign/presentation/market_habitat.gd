@@ -35,6 +35,11 @@ func cluster_indices_in_view()->Array[int]:
 func _draw()->void:
 	visible_clusters = 0
 	visible_residents = 0
+	# Authored local wayfinding; this scenery parent is hidden after sight trade.
+	var foot_sign:=Rect2(1300,251,142,30)
+	if district_id==DISTRICT_ID and Rect2(camera_center-viewport_size*.5,viewport_size).grow(16).intersects(foot_sign):
+		_plaque(foot_sign,"FLOOD KEY  ↑",Color("e0b975"))
+		draw_string(FontFace,foot_sign.position+Vector2(5,23),"MENDED SAILS",HORIZONTAL_ALIGNMENT_LEFT,134,8,CYAN)
 	for index in cluster_indices_in_view():
 		visible_clusters += 1
 		match index:
