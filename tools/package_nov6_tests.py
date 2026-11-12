@@ -17,6 +17,15 @@ split_spec.loader.exec_module(split_package)
 
 
 class PackagingTests(unittest.TestCase):
+    def test_runtime_archive_allowlist_keeps_both_verified_deliveries(self):
+        self.assertEqual(package.TRUSTED_WINDOWS_ARCHIVES, {
+            "88ef3a4ea5a7379135207fb6fb308dd38e06cb0fddd086825ffdc92ba8b77541": "9e22722",
+            "c7b900b7e82d41020bd6c7e5d96dc62285dd42872ecddec67926c09d72e06126": "c73159b",
+        })
+        self.assertNotIn("0" * 64, package.TRUSTED_WINDOWS_ARCHIVES)
+        self.assertEqual(package.EXPECTED_WINDOWS_EXE_SHA256,
+                         "91724f15024a3a545e28ccd83134403d31ce2323a38e51c95e4dfa282f732ab6")
+
     def test_runtime_selection_keeps_game_and_dynamic_data(self):
         for name in ("project.godot", "campaign/logic/campaign.gd", "campaign/layouts/level_05.gd",
                      "simulation/actors/shared_actor.tscn", "campaign/assets/themes/01_rainline.tres",

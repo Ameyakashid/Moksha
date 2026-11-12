@@ -39,6 +39,14 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_WINDOWS_ZIP_SHA256 = "88ef3a4ea5a7379135207fb6fb308dd38e06cb0fddd086825ffdc92ba8b77541"
+# Both delivered archives contain the same byte-verified official runtime.
+# The November 6 archive was recovered from Library and CRC/runtime-checked
+# on November 12. Unknown archives still fail closed; executable validation
+# below remains independent of this allowlist.
+TRUSTED_WINDOWS_ARCHIVES = {
+    EXPECTED_WINDOWS_ZIP_SHA256: "9e22722",
+    "c7b900b7e82d41020bd6c7e5d96dc62285dd42872ecddec67926c09d72e06126": "c73159b",
+}
 EXPECTED_WINDOWS_EXE_SHA256 = "91724f15024a3a545e28ccd83134403d31ce2323a38e51c95e4dfa282f732ab6"
 EXPECTED_ENGINE = "4.6.3.stable.official.7d41c59c4"
 SMALL_ATTACHMENT_LIMIT = 18 * 1024 * 1024
@@ -626,7 +634,7 @@ def main() -> int:
     require(not output.exists(), "Output must be a new directory; old builds are preserved")
     require(not output.is_relative_to(ROOT), "Put build output outside the source checkout")
     prior = args.windows_archive.resolve()
-    require(prior.is_file() and sha(prior) == EXPECTED_WINDOWS_ZIP_SHA256, "Prior Windows archive does not match trusted provenance")
+    require(prior.is_file() and sha(prior) in TRUSTED_WINDOWS_ARCHIVES, "Prior Windows archive does not match trusted provenance")
     commit = subprocess.check_output(["git", "rev-parse", "--verify", args.source_commit + "^{commit}"], cwd=ROOT, text=True).strip()
     runtime_commit = subprocess.check_output(["git", "rev-parse", "--verify", (args.runtime_commit or commit) + "^{commit}"], cwd=ROOT, text=True).strip()
     changed_paths = subprocess.check_output(["git", "diff", "--name-only", "--no-renames", runtime_commit, commit, "--"], cwd=ROOT, text=True).splitlines()
