@@ -28,10 +28,18 @@ func seed_offer()->void:
 	host.metrics.append({"sector":last,"seconds":1.0,"blind":host.blind,"health":host.health.current_health})
 	host.level_receipts.append({"level":1,"active_seconds":1.0,"completed_district":host.sectors[last].id})
 	host.state="upgrade";paused=true;key(KEY_J)
+static func root_location_allowed(candidate:String,resource_root:String)->bool:
+	# Packed res:// has no filesystem root. Empty is not a parent directory.
+	return candidate.is_absolute_path() and (resource_root.is_empty() or not candidate.begins_with(resource_root))
 func run()->void:
+	check(root_location_allowed("/tmp/hearing-qa-fresh",""),"packed empty resource root permits absolute external store")
+	check(not root_location_allowed("relative-store",""),"packed store must still be absolute")
+	check(not root_location_allowed("",""),"empty store path rejected")
+	check(not root_location_allowed("/project/hearing-store","/project/"),"loose project child store rejected")
+	check(root_location_allowed("/tmp/hearing-qa-fresh","/project/"),"loose external store allowed")
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--root="):base=a.trim_prefix("--root=")
-	if not base.is_absolute_path() or base.begins_with(ProjectSettings.globalize_path("res://")) or DirAccess.dir_exists_absolute(base) or FileAccess.file_exists(base):quit(2);return
+	if not root_location_allowed(base,ProjectSettings.globalize_path("res://")) or DirAccess.dir_exists_absolute(base) or FileAccess.file_exists(base):quit(2);return
 	DirAccess.make_dir_recursive_absolute(base)
 	await make_host("trade")
 	check(host.hearing_retained and host.sense_capabilities().hearing,"New retains hearing")

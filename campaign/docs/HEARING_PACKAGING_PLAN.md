@@ -32,3 +32,11 @@ engine-based audio guard helper lacked its required output argument and did not
 run; it is not counted as a unit or packed pass. Logs are retained externally in
 moksha-hearing-packaging-qa. Actual export, packed checks and restore/hash checks
 must run only after final source acceptance and authorization.
+
+Packed host fixture correction: `res://` globalizes to an empty string when the
+project lives only in a PCK. An empty string is not a filesystem ancestor. The
+fixture now applies the project-prefix rejection only for a nonempty resource
+root; absolute-path and fresh/nonexisting-file-or-directory guards remain. Five
+location regression assertions run alongside all existing host checks. Original
+a32 packaging stopped at this guard before producing an archive; it is retained
+as failed evidence, not counted as a completed build.
