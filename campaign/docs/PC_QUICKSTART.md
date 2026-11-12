@@ -1,6 +1,13 @@
 # Play MOKSHA on a Windows PC
 
-## Fastest: the portable Windows build
+## Which version do you want?
+
+For the current experimental Market/irritant source, clone the repository and use
+Godot below. Private GitHub `main` was verified at `3d7786b`; compare your checkout.
+The previously delivered Windows package remains `23a5aa6`, not this preview.
+There is no new Windows executable for these changes yet.
+
+## Older portable Windows build
 
 Use the delivered Windows x64 ZIP, or reconstruct it from every ZIP in its
 Windows part set using the included `Assemble-MOKSHA.cmd`. Extract the complete result,
@@ -29,6 +36,7 @@ features are present. See [the current source/release distinction](CURRENT_PLAYA
    ```bat
    git clone https://github.com/Ameyakashid/Moksha.git
    cd Moksha
+   git rev-parse HEAD
    ```
 
 2. Download **Godot 4.6.3, standard Windows x86-64**, from Godot's official

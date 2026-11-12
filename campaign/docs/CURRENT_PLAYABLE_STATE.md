@@ -1,12 +1,16 @@
 # Current playable state
 
-> This inventory describes the accepted baseline. The current experimental branch also contains the [Market/irritant preview](EXPERIMENTAL_MARKET_IRRITANT_PREVIEW.md), which has not passed its native visual review. Do not read baseline acceptance as acceptance of every preview change.
+This inventory describes experimental source **`3d7786b`**, published to the private
+GitHub repository’s `main` and verified by the coordinator. It is a **five-level,
+32-district prototype**, not the entire original MOKSHA vision. Accepted earlier
+source `ee725ef` and historical milestone receipts remain preserved.
 
-This inventory describes this source checkpoint, built on accepted `7be2c80`
-with the separately verified ladder-clarity follow-up. It is a
-**five-level, 32-district prototype**, not the entire original
-MOKSHA vision. Historical milestone documents retain their original evidence.
-An unpushed source checkpoint does not change a GitHub clone or an older export.
+The current preview combines the continuous Market rail, three stationary
+dispersers and corrected sense-neutral briefs. Four native known-route clips
+show `ca7762b`; only authored teaching text/hints differ in the later gameplay
+content. Nine presentation-only cases on `3d7786b` passed actual-size visual
+review. Fresh screenshot-only AI Market navigation reached the first flood key (1/4
+objectives), with no deaths/retries; it did not complete the district. See [the evidence index](RELEASE_CANDIDATE_EVIDENCE.md).
 
 ## What is playable
 
@@ -18,6 +22,7 @@ An unpushed source checkpoint does not change a GitHub clone or an older export.
 | Hearing | Optional first-level-exit exchange, after the ordinary upgrade. Removes player pulses, sound-map and informative world/body audio. Visible unobstructed melee commitments can gain a bounded late-strike opportunity marked by white brackets. Not automatic parry, global slow motion or a damage bonus. |
 | Other perception | Capped coarse scent for life/blood/supplies; body-local ladder contact presentation; quiet contextual Intellect text. These are not complete substitute senses. |
 | World presentation | Original environment treatments for all five levels, layered neon opening and background crowds. Newer Market source adds textured stalls, a rooftop refuge and decorative residents behind the playfield. |
+| Irritants | Three finite stationary fields; 0.18-second attack/guard interruption, 1.5-second cross-source rearm, no direct HP loss or movement stun; untimed upper alternatives. No earned immunity or smell exchange. |
 | Continuity | District checkpoints, preserved legacy bytes, stable run identity, immutable completed results and read-only result review. |
 
 Normal menus currently withhold a second irreversible sight/hearing loss. The
@@ -25,7 +30,7 @@ save/domain can represent both lost without secretly restoring sonar, but full
 blind-and-deaf traversal is not validated. The temporary restriction is explained
 in the offer, not asserted as permanent game canon.
 
-## Ladder-clarity follow-up
+## Preserved earlier ladder-clarity follow-up
 
 The contextual footer now teaches both climbing directions, holding Up until
 standing on the ledge, sideways release and jumping off. Near the known ladder
@@ -60,19 +65,17 @@ This source follow-up does not change the previously delivered Windows runtime.
 
 ## Source versus downloads
 
-- Stable Windows release `23a5aa6` contains the hearing/camera milestone;
-  its runtime is identical to `a0ec584`. Its 47 packed checks passed on Linux,
-  and the source/history restoration was verified. Windows execution was not.
-- Source `7be2c80` additionally contains Market habitat and the corrected typed
-  HUD-owner path for contextual ladder teaching. It passed focused contracts,
-  retained/blind route parity and a full native Market route. These are not a
-  complete all-systems rerun for every later source change.
-- The `7be2c80` incremental source archive requires the delivered `23a5aa6` full
-  history bundle. Follow its README exactly; it is not a Windows update.
-- No claim here that these later checkpoints are on GitHub. Publication must be
-  verified separately. Compare the actual checkout/export provenance.
+- Private GitHub `main` was verified at `3d7786ba9cf253dd6eff2781a1c285d5deea4c75`.
+  Check your own checkout with `git rev-parse HEAD`; this statement is a recorded
+  publication checkpoint, not a promise that every future clone has that tip.
+- The prior Windows release remains **`23a5aa6`**, with runtime identical to
+  `a0ec584`. It does not contain this preview. Its packed tests ran on Linux;
+  native Windows execution was not verified. No new EXE/PCK is claimed here.
+- Use the [PC quickstart](PC_QUICKSTART.md) for the current editable source.
+  Old source archives, history bundles and Windows part sets remain separately
+  versioned deliveries. Never mix parts from different packages.
 
-## Evidence means different things
+## Earlier evidence remains bounded
 
 The combined hearing/camera runtime completed all 32 districts with hearing
 traded in a recovered multi-process ordinary-input automated run, zero deaths,

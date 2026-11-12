@@ -1,5 +1,9 @@
 # Play locally and measure real pacing
 
+**Current source:** `3d7786b` experimental preview. **Prior Windows download:**
+`23a5aa6`, unchanged. The packaged instructions below apply to the named existing
+package, not a newly exported preview. See [PC quickstart](PC_QUICKSTART.md).
+
 ## Windows
 
 For cloning this repository and running editable source with Godot 4.6.3, use the [PC quickstart](PC_QUICKSTART.md). The steps below are for the separately exported portable build.

@@ -1,96 +1,116 @@
 # Experimental Market and irritant preview
 
-This is an opt-in source checkpoint, not the accepted gameplay baseline or a new
-Windows executable. Its runtime is `ca7762b`, combining the independently checked
-irritant checkpoint `9974650` and Market trial `92458a4`. This documentation does
-not change their runtime. Accepted source `ee725ef` remains separately preserved.
+Current source: **`3d7786ba9cf253dd6eff2781a1c285d5deea4c75`**. The coordinator
+verified this commit on private GitHub `main`. It is not a new Windows executable.
+Accepted earlier source `ee725ef` and historical receipts remain preserved.
 
-## What changes
+## What you can try
 
-- **Market:** the two almost-aligned ladders below the flood key become one
-  continuous service rail. Holding Up reaches the upper roof without a hidden
-  second grab. A/D can still release onto the intermediate platform once the
-  player's feet clear it. Descending still stops at that one-way floor; this is
-  not automatic travel through floors. The player motor, platforms and guards
-  are unchanged. A local sign and the objective's wording identify the key above
-  Mended Sails.
-- **Three dispersers:** Refuge Terraces teaches the effect, Listening Floor adds
-  optional ground-route pressure, and Manual Governor provides a later encounter.
-  Every location has an untimed alternative. The Crown service landing was
-  deliberately widened by 40 pixels after a Strength reverse-route test fell
-  into the cloud. The original failed test was retained.
-- **Cough:** actual exposure can interrupt attacks and guard for 0.18 seconds.
-  It does not directly damage health, stun movement or secretly reduce speed.
-  Actor-wide rearm prevents overlapping sources from extending the interruption.
-  A white body-local cue indicates the brief active effect.
-- **Perception:** sighted players see the warning and cloud. Blind players do not
-  see that colored world paint; retained hearing receives temporary real acoustic
-  warnings and contour propagation. Hearing-traded players keep the visible
-  warning without receiving informative world audio or sonar.
+- **Market:** one continuous service rail reaches the flood key above Mended
+  Sails. Hold Up until standing on the upper ledge. Sideways release still works;
+  descending stops on the intermediate one-way floor, then a fresh Down continues.
+  No automatic travel through floors, motor assistance or disabled guards.
+- **Dispersers:** Refuge Terraces teaches the effect, Listening Floor adds ground
+  pressure, and Manual Governor provides a later encounter. Each has an untimed
+  upper alternative. The Crown landing was deliberately widened by 40 pixels
+  after the slower Strength reverse route failed; the failed evidence remains.
+- **Cough:** finite exposure briefly interrupts attacks and guard for 0.18 seconds,
+  with 1.5-second actor-wide rearm. It causes no direct HP loss, movement stun or
+  speed penalty. The white COUGH cue is body-local, not a world detector.
+- **Perception:** sighted play has visible warnings/clouds. Blind play hides that
+  colored world paint; retained hearing supplies transient acoustic warning
+  labels and ordinary contour propagation. Hearing-traded play remains visible
+  but receives no informative world audio or sonar. Electricity and enemies still
+  damage health normally.
 
 There is no smell-sacrifice offer, earned irritant immunity or save-schema change.
-The disperser is stationary, not the proposed pepper-bomb enemy. These encounters
-are not evidence that losing smell would already be a powerful or balanced trade.
+These are stationary dispersers, not the proposed pepper-bomb enemy. No mutable
+smell-work branch is included. Smell/Intellect trades, broad multi-sense builds,
+loop-adaptive enemies and unresolved original story variants remain unfinished.
 
-## What the evidence establishes
+## Teaching correction
 
-The separate source checkpoints have recorded contract, collision, lifecycle and
-route checks at 60/120 Hz. The Market mechanics matrix covers all starting builds
-and sight/hearing combinations, including combinations not offered by normal menus.
-Its actor-only fixture explicitly disables enemy ticking. Separate Market replays
-keep guards active and complete the key/descent or all mandatory objectives.
+Native blind review exposed an intro that relied on amber/magenta colors while
+world paint was correctly hidden. `8b94a84` replaced the three district briefs
+with sense-neutral teaching; `3d7786b` preserved the optional west-tool guidance.
+Sound-label instructions explicitly say **“With hearing retained.”** These edits
+change only district text/hints, not mechanics, geometry, saves or assets.
 
-Those Market replays use movement dictionaries through the game's input override.
-They exercise the real motor and combat, but are not keyboard-binding, manual or
-fresh-player tests. The earlier fresh screenshot-only test did use ordinary UI
-keys and exposed the stacked-ladder confusion that motivated this layout change.
+The journal still lists objectives, next step, build and scent guidance; it does
+not replay the district brief. This milestone did not add journal gas detection.
 
-On `9974650`, retained, blind and hearing-traded runs also started from genuinely
-earned Refuge checkpoints, used physical `InputEventKey` dispatch through the
-normal sampler with no movement override, completed the entire district, and
-saved Drainage entry normally. Run identities, senses and prior receipts were
-preserved, with no deaths. Each had one cough. Their later 12 HP losses occurred
-18.7–19.7 seconds after coughing ended; the source of that later damage was not
-recorded. No health loss occurred during the cough itself.
+## Evidence and its boundaries
 
-These are automated headless results, not human play, native Windows execution,
-physical-controller testing or real-time performance measurements. Local seeded
-routes and genuine checkpoint continuations are labelled separately. The combined
-checkpoint's portable preservation receipt states which integration checks were
-completed; do not infer a complete all-systems campaign rerun from component tests.
+See the [portable evidence index](RELEASE_CANDIDATE_EVIDENCE.md) and its
+[machine-readable receipt](RELEASE_CANDIDATE_EVIDENCE.json) for filenames and hashes.
 
-## What remains unaccepted
+- Independent headless component/integration checks cover finite effect ownership,
+  sensory/lifecycle boundaries, actual collision/paint agreement, catalog binding
+  and local routes at 60/120 Hz. Current authored placement clearance found no
+  overlap with spawn bodies, required-objective envelopes, ladder endpoints,
+  doors or exits. Those checks are not general human fairness proof.
+- Four continuous native Linux clips show **`ca7762b`**, not the later copy:
+  retained-sight Market and retained/blind/hearing-traded Refuge. They use
+  known-route physical `InputEventKey` automation through the normal sampler,
+  from genuine checkpoints. They are not human input, fresh navigation or a
+  complete native campaign. Original-speed engine audio is retained.
+- The later source differs from `ca7762b` in documentation and the three briefs.
+  Loaded-catalog comparison against `809e53a` confirms only those text/hint changes.
+  Nine actual-size presentation-only cases on `3d7786b` cover three districts ×
+  retained/blind/deaf; wrapping, readability and header/footer separation passed.
+  The initial oversized review window was rejected and preserved. The successful
+  review used 1280×790 with the 640×360 HUD at 2× scale.
+- Fullsize text-review audio initialization fell back to a dummy driver. That
+  fixture establishes visual text fit only. Its numeric exit status was not
+  instrumented; the reviewer observed Esc close the window and return to Terminal.
+- Native gameplay audio streams were numerically checked. The hearing-traded
+  gameplay interval is silent; menu audio outside it is not. This does not establish
+  subjective mix quality or that a new blind player can interpret the faint warning.
 
-Native actual-size sign, ladder, guard and cough-cue readability; acoustic mix and
-blind warning interpretation; fresh navigation; general balance; and a new export
-or Windows run remain unverified. The prior Windows download still contains the
-older `23a5aa6` release. No GitHub publication is claimed by this checkpoint.
+## Fresh Market navigation result
 
-This remains a five-level, 32-district prototype, not the entire original MOKSHA
-vision. Smell and Intellect trades, broad multi-sense specialization, adaptive
-loop enemies and unresolved original story variants remain unfinished.
+A fresh AI tester, without route/source/file access, used actual OS key holds from
+Title → Continue on `ca7762b`. It visibly recovered the first flood key (1/4
+objectives), with 22 gameplay inputs, 75 → 51 HP, no deaths and no retries, then
+used Pause → Title and closed normally. NEXT guidance, the FLOOD KEY / MENDED
+SAILS sign and the continuous rail supported discovery of this first objective.
 
-## Trying this source safely
+Observer verification recorded unchanged source, normal exit 0, 3,620 movie frames
+(60.33 seconds) over 272.7 wall-clock seconds, with no engine errors or ObjectDB
+warning. This was not full Market completion, human UX validation or an FPS test.
+No newly delivered video filename/hash is claimed for this result here.
 
-Use the preservation archive's exact restoration commands. Keep its accepted
-branch as the default, and create a separate worktree for this experimental branch.
-Open that worktree's `project.godot` in official Godot 4.6.3 standard and press F5.
-Do not substitute the isolated pilot's F6 scene for this campaign.
+Remaining observations: the ordinary footer omits W/S until attached to a ladder;
+a distant world E label suggests interaction before actual proximity; the tester
+first learned air jump from Pause; the cause of damage was unclear from stills.
+These are recorded prototype limitations, not silently repaired in this docs-only
+candidate. Any prompt/mechanics follow-up is separate. Earlier failed navigation
+observations remain historical. A suspected missing-glyph artifact was disproven
+by pixel comparison; no font change was made.
 
-Back up the complete game save folder before switching builds. This preview uses
-the existing v3 checkpoint and schema-2 completion formats; older builds may not
-read them. Run only one game process against a save folder. Do not hand-edit saves
-or overwrite the separately preserved genuine checkpoint inputs.
+Native Windows execution, subjective audio mix, physical-controller hardware,
+full native campaign traversal, blind first-play discovery, human balance and the
+15–20-minute-per-level target remain unverified. MovieWriter timing is not a
+real-time performance benchmark. No new export or Windows build is claimed;
+the older Windows download remains `23a5aa6`.
+
+## Clone and play safely
+
+Follow [PC quickstart](PC_QUICKSTART.md): authenticate to the private repository,
+clone it, verify `git rev-parse HEAD`, import `project.godot` into official Godot
+4.6.3 standard, and press F5. The main scene is `campaign/campaign.tscn`; do not
+substitute the isolated F6 pilot for campaign play. `Play-MOKSHA.cmd` is an
+alternative source launcher, not a bundled Windows game engine.
+
+Back up the entire save folder before switching builds, and run only one game
+against it. Current source retains envelope-v3 checkpoints and schema-2 completed
+results. Old builds need matching preserved backups; do not relabel save versions.
 
 ## Responsibility and reference trail
 
-The actor owns bounded interruption and rearm; simulation owns the finite field;
-campaign adapters own room/session binding and perception; views read state rather
-than changing combat. Market wayfinding belongs to authored content and scenery,
-not controller assistance. See the [irritant encounter notes](../quality/irritant/ENCOUNTERS.md),
-[adapter reference mapping](../quality/irritant/README.md), and
-[Market trial](MARKET_CONTINUOUS_RAIL_TRIAL.md).
-
-The documented public Cataclysm: Dark Days Ahead and SuperTux source references
-informed responsibility boundaries. No proprietary code or assets were copied,
-and this milestone is not a new binary decompilation or a new REA run.
+Actor owns interruption/rearm; simulation owns the finite field; campaign owns
+room/session binding and perception; views read state. Wayfinding belongs to
+content, not controller assistance. See [encounter notes](../quality/irritant/ENCOUNTERS.md),
+[reference mapping](../quality/irritant/README.md) and [Market trial](MARKET_CONTINUOUS_RAIL_TRIAL.md).
+Public Cataclysm: Dark Days Ahead and SuperTux references informed boundaries.
+No proprietary code/assets were copied; this is not a new REA decompilation.

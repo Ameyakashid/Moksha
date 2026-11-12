@@ -1,6 +1,6 @@
 # MOKSHA — Five Ascents
 
-> **Experimental source preview:** this branch adds the continuous Market service rail and three campaign irritant encounters. Headless checks are recorded, but new native visual/audio review and fresh navigation testing are pending. It is not a new Windows release. Read the [preview scope](campaign/docs/EXPERIMENTAL_MARKET_IRRITANT_PREVIEW.md) before switching builds.
+> **Experimental source preview (`3d7786b`):** continuous Market rail, three stationary irritant encounters and sense-neutral teaching. Four native known-route keyboard-input clips cover runtime `ca7762b`; the later teaching-only copy has a nine-case actual-size presentation review. This is a five-level/32-district prototype, not a new Windows release or full native campaign acceptance. See [current scope and evidence](campaign/docs/EXPERIMENTAL_MARKET_IRRITANT_PREVIEW.md).
 
 A side-on cyberpunk action campaign built on the preserved MOKSHA Godot movement, physical combat and sonar foundation. An older operative crosses the city and four tower floors, opens civilian routes, breaks centralized control and chooses how the districts receive the tower's records and authority.
 
