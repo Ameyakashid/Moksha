@@ -35,8 +35,8 @@ func run()->void:
 	for level in range(1,6):
 		s.configure({"id":"rainline","width":4800,"level":level})
 		check(s.get_child_count()==2,"Stable scenery host shape")
-		check(s.backdrop.drawing_enabled==(level not in [1,2,3]),"No hidden duplicate backdrop drawing")
-		check(is_instance_valid(s.atmosphere)==(level in [1,2,3]),"Only explicit rich background profiles")
+		check(s.backdrop.drawing_enabled==(level not in [1,2,3,4]),"No hidden duplicate backdrop drawing")
+		check(is_instance_valid(s.atmosphere)==(level in [1,2,3,4]),"Only explicit rich background profiles")
 		if level==1:
 			check(s.atmosphere.get_script()==Atmosphere,"Level1 retains original arcology renderer")
 			check(s.atmosphere.citizens.size()==144,"Level1 population remains144")
@@ -46,6 +46,9 @@ func run()->void:
 		if level==3:
 			check(s.atmosphere.get_script()==preload("res://campaign/presentation/cistern_atmosphere.gd"),"Level3 explicitly selects waterworks renderer")
 			check(s.atmosphere.MAX_DRIPS==6,"Level3 bounded atmospheric motion")
+		if level==4:
+			check(s.atmosphere.get_script()==preload("res://campaign/presentation/memory_atmosphere.gd"),"Level4 explicitly selects memory renderer")
+			check(not s.atmosphere.is_processing(),"Level4 static view never ticks")
 		if is_instance_valid(s.atmosphere):
 			check(s.atmosphere.get_parent()==s.backdrop,"District ownership")
 			check(s.z_index+s.backdrop.z_index+s.atmosphere.z_index<0,"Behind gameplay actors")
