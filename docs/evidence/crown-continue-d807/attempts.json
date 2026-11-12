@@ -1,0 +1,154 @@
+[
+  {
+    "attempt": "producer01",
+    "outcome": "Stopped: invalid exact JSON structure equality; no accepted receipt.",
+    "files": {
+      "crown_observer.gd": {
+        "original_sha256": "a9978a75058c890dba42a8a8b1fb162583723dc1818823f1041d54c4715265ae"
+      },
+      "workflow.py": {
+        "original_sha256": "fa29441286f552a029ebd6ad5aef2d32ce49db127984b315a8c14d0837e5bb4c"
+      },
+      "manifest.json": {
+        "original_sha256": "56afd34515cf4214c2fe0bfe2bbef7350998fed86765c6564b9b7bc698cf04d2",
+        "archived_sha256": "de4f5d2647543327c6b9fe582e3791190e39ce27df8849c194eec2468d020a1e",
+        "historical_root_redacted": true
+      }
+    }
+  },
+  {
+    "attempt": "producer02",
+    "outcome": "PASS: normal-title all32, genuine Crown checkpoint.",
+    "files": {
+      "crown_observer.gd": {
+        "original_sha256": "22f561ce5812d9121af7cf23fc6470c7cf671ff361df216a7fd974605556dd23"
+      },
+      "workflow.py": {
+        "original_sha256": "fa29441286f552a029ebd6ad5aef2d32ce49db127984b315a8c14d0837e5bb4c"
+      },
+      "receipt.json": {
+        "original_sha256": "12cd2d74f42906f0d465f0be660506ceebbff4fa319617a2423538c30aa1a1dd",
+        "archived_sha256": "7eae8aa7f2b32d9006906b3709240989a09679bd8db9c0344aafe71acc99d3e9",
+        "historical_root_redacted": true
+      },
+      "verification.json": {
+        "original_sha256": "aee796e5edb14b0fb1185911d0775f582592924c5207c8c3691e5e4ee15e33ad",
+        "archived_sha256": "aee796e5edb14b0fb1185911d0775f582592924c5207c8c3691e5e4ee15e33ad",
+        "historical_root_redacted": false
+      },
+      "crown-entry.json": {
+        "original_sha256": "d5688a816e2a26835732f1f863572693996513a466d86c16e6a9a3171f85d1ac",
+        "archived_sha256": "d5688a816e2a26835732f1f863572693996513a466d86c16e6a9a3171f85d1ac",
+        "historical_root_redacted": false
+      },
+      "checkpoint-provenance.json": {
+        "original_sha256": "a587480a37d1561c3f4e76451fddc689d4168bc4adb8813f6ccdd429616c20ce",
+        "archived_sha256": "d78a29e824661d152ec264753ddd89bf5362643abeccd2c113c415b2c188610c",
+        "historical_root_redacted": true
+      },
+      "manifest.json": {
+        "original_sha256": "def1ad1f48610be280d83d275a74759a8d49719430b761c9fc7c60a43d801188",
+        "archived_sha256": "abb87fbafc0b24493934cb2f8908287e9627a873be4aa3f79e60cbb379d1970e",
+        "historical_root_redacted": true
+      },
+      "exit.txt": {
+        "original_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    }
+  },
+  {
+    "attempt": "native01",
+    "outcome": "INCOMPLETE: receiver-lip navigation stalled; clean close exit0 is not completion; 311.7667s raw retained separately.",
+    "files": {
+      "crown_observer.gd": {
+        "original_sha256": "22f561ce5812d9121af7cf23fc6470c7cf671ff361df216a7fd974605556dd23"
+      },
+      "workflow.py": {
+        "original_sha256": "fa29441286f552a029ebd6ad5aef2d32ce49db127984b315a8c14d0837e5bb4c"
+      },
+      "manifest.json": {
+        "original_sha256": "e499afcb9b46fb0d48eaf7efd33b60db55dd35a6707a90382c7405bc43381131",
+        "archived_sha256": "2366fe254ba7a1b125019b11f306ea728256979a559887d9cbb6d955bd26a81b",
+        "historical_root_redacted": true
+      },
+      "exit.txt": {
+        "original_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    }
+  },
+  {
+    "attempt": "continue-check01",
+    "outcome": "PASS: corrected ordinary-input egress from same checkpoint, headless.",
+    "files": {
+      "crown_observer.gd": {
+        "original_sha256": "65e145eae5a0bd8abbda539267b6b2559306b2f26f62dd89bc4c2ffb9cea3502"
+      },
+      "workflow.py": {
+        "original_sha256": "4490aa1f4368ab0d7a526044b9539d15918dbb87bcdacc76a36f7024555b3bee"
+      },
+      "receipt.json": {
+        "original_sha256": "dad2219475f02ade88e5c7a0a329b7d1df0c27644921dd36496def4c81df950d",
+        "archived_sha256": "d77224b85ecfbad33d17e34a9776e274fe7ba4e3b56cefc41a38278971d7f758",
+        "historical_root_redacted": true
+      },
+      "verification.json": {
+        "original_sha256": "b7ef8a9973638214624b96abd266853d92b61dac2c57685b7f46558586e6b8bc",
+        "archived_sha256": "b7ef8a9973638214624b96abd266853d92b61dac2c57685b7f46558586e6b8bc",
+        "historical_root_redacted": false
+      },
+      "manifest.json": {
+        "original_sha256": "b89f26a82acaa26fbdc2ac845832ea260dc2cde3a1addca1f68193e97d3c548a",
+        "archived_sha256": "f9e25585d48ec16f80ecb89747e4dad6643a37765cf1fa69d7f86ca1bde9ef12",
+        "historical_root_redacted": true
+      },
+      "exit.txt": {
+        "original_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    }
+  },
+  {
+    "attempt": "native02",
+    "outcome": "PASS: fresh complete native Continue movie, seven Crown districts and public_record ending.",
+    "files": {
+      "crown_observer.gd": {
+        "original_sha256": "65e145eae5a0bd8abbda539267b6b2559306b2f26f62dd89bc4c2ffb9cea3502"
+      },
+      "workflow.py": {
+        "original_sha256": "4490aa1f4368ab0d7a526044b9539d15918dbb87bcdacc76a36f7024555b3bee"
+      },
+      "receipt.json": {
+        "original_sha256": "715973a421fd573a9a237e47cf4367a83ffe325342ec2518bba4505a0fc688f6",
+        "archived_sha256": "d59246010d256fbc1d0d1088c6f13e4af94d06d89c78bd7aa9c7fc8809834dab",
+        "historical_root_redacted": true
+      },
+      "verification.json": {
+        "original_sha256": "b7ef8a9973638214624b96abd266853d92b61dac2c57685b7f46558586e6b8bc",
+        "archived_sha256": "b7ef8a9973638214624b96abd266853d92b61dac2c57685b7f46558586e6b8bc",
+        "historical_root_redacted": false
+      },
+      "manifest.json": {
+        "original_sha256": "cc3f6980ea9e62ff94d5b7cb56a569976cfa841feab8409bcd93dd273a30c067",
+        "archived_sha256": "e6b26666adedba819c9572d8848bf39c44c72031b63f6ce35773da0f55f6b6a2",
+        "historical_root_redacted": true
+      },
+      "tools-provenance.json": {
+        "original_sha256": "c5c9ec19cdd7f2404d9d86e1394f646ae1b85aa7f6dc696ff81049424b471904",
+        "archived_sha256": "c5c9ec19cdd7f2404d9d86e1394f646ae1b85aa7f6dc696ff81049424b471904",
+        "historical_root_redacted": false
+      },
+      "media-manifest.json": {
+        "original_sha256": "d1f828867b32d771d1350b75b6c915fcc919350968ed325bff565f4c4cb7c8cf",
+        "archived_sha256": "d1f828867b32d771d1350b75b6c915fcc919350968ed325bff565f4c4cb7c8cf",
+        "historical_root_redacted": false
+      },
+      "audio-validation.json": {
+        "original_sha256": "f135ad9f7dc2d3ab4e4356dfb1420f9365491eef632c246f72d08c103d469f39",
+        "archived_sha256": "f135ad9f7dc2d3ab4e4356dfb1420f9365491eef632c246f72d08c103d469f39",
+        "historical_root_redacted": false
+      },
+      "exit.txt": {
+        "original_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    }
+  }
+]
