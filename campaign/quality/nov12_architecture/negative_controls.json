@@ -1,0 +1,20 @@
+{
+  "scope": "Temporary mutations in an isolated worktree, restored byte-for-byte after each run. Checks verify domain regressions are detected, not game acceptance.",
+  "passed": true,
+  "cases": [
+    {
+      "mutation": "build_force",
+      "exit_code": 1,
+      "reported_pass": false,
+      "failure_count": 968,
+      "caught": true
+    },
+    {
+      "mutation": "save_version",
+      "exit_code": 1,
+      "reported_pass": false,
+      "failure_count": 5,
+      "caught": true
+    }
+  ]
+}

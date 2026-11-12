@@ -1,5 +1,7 @@
 extends "res://demo/mission.gd"
 ## Campaign orchestrator. Original controller, damage pipeline and demo stay intact.
+const BuildRules=preload("res://campaign/logic/build_rules.gd")
+const CampaignCheckpoint=preload("res://campaign/logic/checkpoint_codec.gd")
 const CampaignData=preload("res://campaign/logic/campaign_data.gd")
 const ObjectiveScene=preload("res://campaign/logic/objective.tscn")
 const DoorScene=preload("res://campaign/logic/objective_door.tscn")
@@ -152,18 +154,10 @@ func _apply_build()->void:
 	if not is_instance_valid(player):return
 	# Apply from immutable base every time, never stack on a previous retry.
 	_apply_trade()
-	var speed:=1.0;var force:=1.0;var capacity:=60.0
-	if lens=="agility":speed=1.12;capacity=50
-	elif lens=="strength":speed=0.94;force=1.4;capacity=75
-	for value in rewards.values():
-		if value=="vitality":capacity+=5
-		elif value=="force":force+=0.08
-		elif value=="agility":speed+=0.03
-	for value in upgrades:
-		if value=="vitality":capacity+=15
-		elif value=="force":force+=0.25
-		elif value=="agility":speed+=0.1
-	player.profile.run_speed*=speed
+	var build:Dictionary=BuildRules.evaluate(lens,rewards,upgrades)
+	var force:float=build.force
+	var capacity:float=build.capacity
+	player.profile.run_speed*=float(build.speed)
 	# Swapping an actor's melee resource legitimately retires its live strike.
 	# Health/speed-only pickups must not cancel a combo by swapping it needlessly.
 	if _build_actor_id!=player.get_instance_id() or not is_equal_approx(_build_force,force):
@@ -348,22 +342,7 @@ func _decode_campaign_checkpoint()->Dictionary:
 	var text:=file.get_as_text();file.close()
 	# A truncated/corrupt checkpoint is an expected rejected input, not an engine error.
 	var raw=Checkpoint.parse(text)
-	if not raw is Dictionary or not Checkpoint.whole(raw.get("campaign_version")) or int(raw.campaign_version)!=1:return {"ok":false}
-	var decoded:Dictionary=Checkpoint.decode(raw.get("progress"),sectors)
-	if not decoded.ok:return decoded
-	if raw.get("lens") not in ["neutral","strength","agility"] or not raw.get("upgrades") is Array or not raw.get("rewards") is Dictionary:return {"ok":false}
-	for upgrade in raw.upgrades:
-		if upgrade not in ["force","agility","vitality"]:return {"ok":false}
-	if raw.upgrades.size()>4:return {"ok":false}
-	for reward in raw.rewards.values():
-		if reward not in ["force","agility","vitality"]:return {"ok":false}
-	if not raw.get("level_seconds",{}) is Dictionary or not raw.get("level_receipts",[]) is Array:return {"ok":false}
-	for value in raw.get("level_seconds",{}).values():
-		if not Checkpoint.number(value):return {"ok":false}
-	for receipt in raw.get("level_receipts",[]):
-		if not receipt is Dictionary or not Checkpoint.whole(receipt.get("level")) or int(receipt.level)<1 or int(receipt.level)>5 or not Checkpoint.number(receipt.get("active_seconds")):return {"ok":false}
-	decoded["campaign"]=raw
-	return decoded
+	return CampaignCheckpoint.decode(raw,sectors)
 func _save_checkpoint()->void:
 	if not save_enabled or _loading_campaign:return
 	var encoded:Dictionary=Checkpoint.encode({"metrics":metrics,"sector":sector,"blind":blind,"caches":caches,"kills":kills,"deaths":deaths,"seconds":elapsed},sectors)
@@ -372,7 +351,7 @@ func _save_checkpoint()->void:
 		return
 	if not _preserve_invalid_checkpoint():return
 	blackboard.set_value("build",{"lens":lens,"upgrades":upgrades.duplicate()})
-	var raw:Dictionary={"campaign_version":1,"progress":encoded.data,"lens":lens,"upgrades":upgrades,"rewards":rewards,"level_seconds":level_seconds,"level_receipts":level_receipts}
+	var raw:Dictionary={"campaign_version":CampaignCheckpoint.VERSION,"progress":encoded.data,"lens":lens,"upgrades":upgrades,"rewards":rewards,"level_seconds":level_seconds,"level_receipts":level_receipts}
 	var file=FileAccess.open(CAMPAIGN_SAVE+".pending",FileAccess.WRITE)
 	if not file:_report_checkpoint_write_error("The campaign checkpoint could not be written.");return
 	file.store_string(JSON.stringify(raw));file.flush();var error=file.get_error();file.close()
