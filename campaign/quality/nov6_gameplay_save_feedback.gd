@@ -52,7 +52,7 @@ func run()->void:
 	host.continue_run()
 	check(host.state=="title" and host.sector==old_sector and FileAccess.get_sha256(SAVE)==corrupt_hash,"rejected Continue is inert and leaves corrupt file untouched")
 	host.start_new(true)
-	var backup:=SAVE+".preserved-"+corrupt_hash+".json"
+	var backup:String=host.history_path.path_join("preserved/checkpoint-before-new-"+corrupt_hash+".json")
 	check(FileAccess.file_exists(backup) and FileAccess.get_sha256(backup)==corrupt_hash,"explicit New preserves exact corrupt original before replacement")
 	check(host._read_checkpoint().get("ok",false) and host._checkpoint_write_error.is_empty(),"new campaign checkpoint is valid after verified preservation")
 	write_text(SAVE,"{another invalid checkpoint "+str(Time.get_ticks_usec()))

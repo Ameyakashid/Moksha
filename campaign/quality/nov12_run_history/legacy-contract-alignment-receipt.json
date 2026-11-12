@@ -1,0 +1,43 @@
+{
+  "runtime_base": "565cf1e",
+  "scope": "Test-only adaptation to approved durable completion semantics. Isolated seeded transition/death/save/UI checks, not full gameplay.",
+  "checks": [
+    {
+      "script": "nov6_gameplay_save_feedback",
+      "hz": 60,
+      "exit": 0,
+      "log": "/tmp/lifecycle-contract-nov6_gameplay_save_feedback-60.log",
+      "sha256": "37918d4ecfcae92f7abf600cb742a8e645a97707cbecc10812a7bf22f0f08015",
+      "result": "NOV6_GAMEPLAY_SAVE_FEEDBACK_RESULT {\"checks\":16,\"failures\":[],\"hz\":60,\"passed\":true,\"scope\":\"Isolated write/backup failure fixtures and actual HUD data pipeline; not OS power-loss or disk-exhaustion simulation.\"}",
+      "pass_lines": 0
+    },
+    {
+      "script": "save_draft",
+      "hz": 60,
+      "exit": 0,
+      "log": "/tmp/lifecycle-contract-save_draft-60.log",
+      "sha256": "d0e5e78460439d645c7b6355d8cfff3505f407bc58f02afebb75704c29ff2422",
+      "result": "SAVE_FAILURES []",
+      "pass_lines": 38
+    },
+    {
+      "script": "nov6_gameplay_save_feedback",
+      "hz": 120,
+      "exit": 0,
+      "log": "/tmp/lifecycle-contract-nov6_gameplay_save_feedback-120.log",
+      "sha256": "43b1468ea123cb6bac47e4eeff6d3781933618272ac92fcf480b5f7511e08948",
+      "result": "NOV6_GAMEPLAY_SAVE_FEEDBACK_RESULT {\"checks\":16,\"failures\":[],\"hz\":120,\"passed\":true,\"scope\":\"Isolated write/backup failure fixtures and actual HUD data pipeline; not OS power-loss or disk-exhaustion simulation.\"}",
+      "pass_lines": 0
+    },
+    {
+      "script": "save_draft",
+      "hz": 120,
+      "exit": 0,
+      "log": "/tmp/lifecycle-contract-save_draft-120.log",
+      "sha256": "d0e5e78460439d645c7b6355d8cfff3505f407bc58f02afebb75704c29ff2422",
+      "result": "SAVE_FAILURES []",
+      "pass_lines": 38
+    }
+  ],
+  "unchanged": "All production/runtime files byte-identical to 565cf1e. _save_checkpoint corrupt-backup failure assertion remains on original SAVE.preserved path. Only explicit New expectation uses history preserved checkpoint-before-new SHA path."
+}
