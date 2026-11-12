@@ -1,0 +1,113 @@
+{
+  "runtime_commit": "45a6c2b2d1502f6a8d045ae33c1bcb1f6e020917",
+  "scope": "External staged Homes sign fixture, native Linux gl_compatibility with Dummy audio driver. Forced player/camera placement, not a natural gameplay run. No production changes.",
+  "observations": [
+    "Unchanged verbose fixture clean once, resource warning reproduced on second execution; both exit0.",
+    "Repeated warning identifies AudioStreamWAV res://audio/ambience.wav and AudioStreamPlaybackWAV, each reference count1.",
+    "External drain variant waits0.5seconds then5physics frames after host.free; exited0 without resource warning once."
+  ],
+  "interpretation": "Supports audio playback teardown timing as an explanation, not a proven root cause or proof that all production shutdowns are clean. Original warning remains valid; clean exit status alone does not mean warning-free.",
+  "prior_evidence": "campaign/quality/nov6_scenery/README.md already notes active audio/ambience.wav playback identity.",
+  "files": [
+    {
+      "name": "diagnostic-verbose.log",
+      "original_bytes": 17900,
+      "original_sha256": "75159b60aa7fda8ea96d43777f31a26958c09fe09101aa2c1562cfe3eae5cc77",
+      "normalized_sha256": "c3ea21ab91c20f1a1c42313e21785fe428d34027b9f3a38f2333d8d0ad60e664",
+      "normalization": "Replace workspace root with $WORKSPACE; hash of normalized full content, not the excerpts below.",
+      "diagnostic_excerpt": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "HOMES_SIGN_FRAME shelter-locked player=(2910.0, 299.98)"
+      ],
+      "resource_warning": false
+    },
+    {
+      "name": "diagnostic-verbose-repeat.log",
+      "original_bytes": 18572,
+      "original_sha256": "28ff49fe967dd17ac4cc9c90a7da05a432eb17ce58a1914f4546079339e8a618",
+      "normalized_sha256": "f41eedd2e80a40a26f066989ecd4b9b8605e0d70bf43941e396fc5bfe3465d39",
+      "normalization": "Replace workspace root with $WORKSPACE; hash of normalized full content, not the excerpts below.",
+      "diagnostic_excerpt": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "HOMES_SIGN_FRAME shelter-locked player=(2910.0, 299.98)",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details).",
+        "ERROR: 1 resources still in use at exit.",
+        "Leaked instance: AudioStreamWAV:9223372137367078745 - Reference count: 1",
+        "Leaked instance: AudioStreamPlaybackWAV:9223372137853618013 - Reference count: 1",
+        "Resource still in use: res://audio/ambience.wav (AudioStreamWAV)"
+      ],
+      "resource_warning": true
+    },
+    {
+      "name": "diagnostic-drain.log",
+      "original_bytes": 17898,
+      "original_sha256": "21f4316ffe7183d45a86534f95583d8c716101d54e913e0bcb6844366e436b2d",
+      "normalized_sha256": "7a0874b944dff61233a93d12452a6ee48130ec11dd4e8bb83856874dbff4addc",
+      "normalization": "Replace workspace root with $WORKSPACE; hash of normalized full content, not the excerpts below.",
+      "diagnostic_excerpt": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "HOMES_SIGN_FRAME shelter-locked player=(2910.0, 299.98)"
+      ],
+      "resource_warning": false
+    },
+    {
+      "name": "diagnostic-verbose-exit.txt",
+      "original_bytes": 2,
+      "original_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "normalized_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "normalization": "Replace workspace root with $WORKSPACE; hash of normalized full content, not the excerpts below.",
+      "exit_code": 0
+    },
+    {
+      "name": "diagnostic-verbose-repeat-exit.txt",
+      "original_bytes": 2,
+      "original_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "normalized_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "normalization": "Replace workspace root with $WORKSPACE; hash of normalized full content, not the excerpts below.",
+      "exit_code": 0
+    },
+    {
+      "name": "diagnostic-drain-exit.txt",
+      "original_bytes": 2,
+      "original_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "normalized_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "normalization": "Replace workspace root with $WORKSPACE; hash of normalized full content, not the excerpts below.",
+      "exit_code": 0
+    },
+    {
+      "name": "diagnostic_verbose.gd",
+      "original_bytes": 1479,
+      "original_sha256": "dc2f1fe204373719ba573c8d9a55b20af8405fda511827246dfa06e312d45474",
+      "normalized_sha256": "81d99f32f5e11e935f1b00007b4b581d9d36d0e719e41bb99ac6e991a4576983",
+      "normalization": "Replace workspace root with $WORKSPACE; hash of normalized full content, not the excerpts below."
+    },
+    {
+      "name": "diagnostic_drain.gd",
+      "original_bytes": 1577,
+      "original_sha256": "2c99da17b9a398685f053caafc50ab294fcfdae790bfecfe99c441bcfa977a61",
+      "normalized_sha256": "3a3549d5a753e91e904ffc8807c0164cb0f49dd482ef75a16afd110cb9d9bae4",
+      "normalization": "Replace workspace root with $WORKSPACE; hash of normalized full content, not the excerpts below."
+    },
+    {
+      "name": "diagnostic_verbose.sh",
+      "original_bytes": 489,
+      "original_sha256": "16bec71ee5bd888694b2cd48f5cf2bb5933acb769d573be4f0dbcc56e94059ba",
+      "normalized_sha256": "d9f355c8b710fa3d43aa549d655626155ca3d2fc720f085958ec6e467a19f7e2",
+      "normalization": "Replace workspace root with $WORKSPACE; hash of normalized full content, not the excerpts below."
+    },
+    {
+      "name": "diagnostic_repeat.sh",
+      "original_bytes": 503,
+      "original_sha256": "c90ba46b89cf4a4ff6d6e43ed8420185df1f4c8149f9803d0edde29f06c7dfbe",
+      "normalized_sha256": "3b36bba7ab87ed1740fabb0cde6d572ba3194c1f411d14c56741e4184227a090",
+      "normalization": "Replace workspace root with $WORKSPACE; hash of normalized full content, not the excerpts below."
+    },
+    {
+      "name": "diagnostic_drain.sh",
+      "original_bytes": 483,
+      "original_sha256": "729b41254dc7dbc19e492deab66df571643a093a1f83ac88555fc0d13c72c980",
+      "normalized_sha256": "0d43f67ade5f339659b91f2c3bdb1bb763be4e13a19a845fc423a567b7e6b896",
+      "normalization": "Replace workspace root with $WORKSPACE; hash of normalized full content, not the excerpts below."
+    }
+  ]
+}

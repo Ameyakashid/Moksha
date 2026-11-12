@@ -47,6 +47,14 @@ fixture screenshot by filename and hash. The filename's `7afe629` prefix is not
 its reviewed runtime revision. That fixture has a one-resource teardown warning;
 readable labels do not prove clean native shutdown or natural full-level play.
 
+The subsequent [teardown diagnostic](native/homes-teardown-diagnostic.json)
+records one clean unchanged verbose run and one repeat with retained ambience
+AudioStreamWAV/AudioStreamPlaybackWAV (reference count 1 each). An external-only
+fixture wait of 0.5 seconds plus five physics frames after freeing the host was
+clean once. This supports audio teardown timing, not universal clean production
+shutdown. All three exited 0; the original warning remains valid. No game fix
+or new acceptance run is implied.
+
 ## Reproduction and receipt provenance
 
 Keep `runner/run_full.py` and `runner/full_campaign_observer.gd` together. With
