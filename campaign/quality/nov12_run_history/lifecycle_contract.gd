@@ -29,7 +29,7 @@ func final_fixture(h:Node)->void:
 func run()->void:
  for arg in OS.get_cmdline_user_args():
   if arg.begins_with("--root="):base=arg.trim_prefix("--root=")
- if base.is_empty() or not base.is_absolute_path() or base.begins_with(ProjectSettings.globalize_path("res://")) or DirAccess.dir_exists_absolute(base) or FileAccess.file_exists(base):
+ if not valid_fixture_root(base,ProjectSettings.globalize_path("res://")) or DirAccess.dir_exists_absolute(base) or FileAccess.file_exists(base):
   push_error("Fresh external --root required");quit(2);return
  DirAccess.make_dir_recursive_absolute(base)
  var h=host_at("roundtrip")
@@ -219,4 +219,11 @@ func run()->void:
  check(not FileAccess.file_exists(h.campaign_save_path) and not DirAccess.dir_exists_absolute(h.history_path),"No-save fixtures write nothing")
  h.free();await process_frame
  print("RUN_LIFECYCLE ",checks," checks; failures=",failures)
+ print("RUN_LIFECYCLE_RESULT ",JSON.stringify({"passed":failures.is_empty(),"checks":checks,"failures":failures}))
  quit(0 if failures.is_empty() else 1)
+
+static func valid_fixture_root(path:String,source_root:String)->bool:
+ if source_root=="/":return false
+ if path.is_empty() or not path.is_absolute_path() or path.begins_with("res://") or path.begins_with("user://") or path.simplify_path()!=path:return false
+ var source:=source_root.simplify_path().trim_suffix("/")
+ return source.is_empty() or (path!=source and not path.begins_with(source+"/"))

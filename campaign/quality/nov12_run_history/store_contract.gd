@@ -22,7 +22,7 @@ func _initialize()->void:call_deferred("run")
 func run()->void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--root="):root_path=arg.trim_prefix("--root=")
-	if not root_path.begins_with("/tmp/") or DirAccess.dir_exists_absolute(root_path) or FileAccess.file_exists(root_path):
+	if not valid_fixture_root(root_path,ProjectSettings.globalize_path("res://")) or DirAccess.dir_exists_absolute(root_path) or FileAccess.file_exists(root_path):
 		push_error("Requires a fresh --root=/tmp/... directory");quit(2);return
 	var r:=fixture()
 	check(Record.valid(r),"Valid detached record")
@@ -144,4 +144,11 @@ func run()->void:
 	check(not Store.reconcile(recovery,"33333333333333333333333333333333").ok,"Pending filename identity mismatch fails closed")
 	check(FileAccess.get_file_as_string(wrong_pending)==Record.canonical(startup),"Mismatched pending preserved")
 	print("RUN_HISTORY_STORE ",checks," checks; failures=",failures," fixture_root=",root_path)
+	print("RUN_HISTORY_STORE_RESULT ",JSON.stringify({"passed":failures.is_empty(),"checks":checks,"failures":failures}))
 	quit(0 if failures.is_empty() else 1)
+
+static func valid_fixture_root(path:String,source_root:String)->bool:
+	if source_root=="/":return false
+	if not path.begins_with("/tmp/") or path.simplify_path()!=path:return false
+	var source:=source_root.simplify_path().trim_suffix("/")
+	return source.is_empty() or (path!=source and not path.begins_with(source+"/"))

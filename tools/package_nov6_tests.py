@@ -52,6 +52,24 @@ class PackagingTests(unittest.TestCase):
             self.assertEqual(public[key], raw[key])
         self.assertEqual(public["command"], 'run "$BUILD/a b.json"; --path=$BUILD')
 
+    def test_reactive_release_keeps_legacy_gates_and_adds_five(self):
+        self.assertEqual(len(package.RECEIPT_FIXTURES), 9)
+        self.assertEqual([r[0] for r in package.REACTIVE_RECEIPT_FIXTURES],
+                         ["history_store", "history_lifecycle", "companion_director", "companion_observer", "reactive_integration"])
+        self.assertEqual([r[0] for r in package.REACTIVE_RECEIPT_FIXTURES if r[3]],
+                         ["history_store", "history_lifecycle", "reactive_integration"])
+        self.assertEqual(package.PACKED_TEST_RATES, (60,120))
+        for path in ["campaign/save/run_history_store.gd", "campaign/state/completion_record.gd", "campaign/narrative/companion_director.gd"]:
+            self.assertTrue(package.included_runtime(Path(path)))
+        for path in ["campaign/quality/nov12_reactive_integration.gd", "docs/evidence/intellect-slice/acceptance.json", "moksha_run_history/completed/example.json", "moksha_five_levels_v1.json", "moksha_five_levels_results.json"]:
+            self.assertFalse(package.included_runtime(Path(path)))
+
+    def test_release_readme_warns_about_save_compatibility(self):
+        text=package.readme("Windows", "a"*40, package.EXPECTED_ENGINE)
+        for expected in ["View last result", "version-2", "exact preserved backup", "Older builds cannot read v2", "one game instance", "RUN_HISTORY_BOUNDARY.md", "a"*40]:
+            self.assertIn(expected,text)
+        self.assertNotIn("November 6 build",text)
+
     def test_runtime_archive_allowlist_keeps_both_verified_deliveries(self):
         self.assertEqual(package.TRUSTED_WINDOWS_ARCHIVES, {
             "88ef3a4ea5a7379135207fb6fb308dd38e06cb0fddd086825ffdc92ba8b77541": "9e22722",
@@ -250,7 +268,8 @@ class PackagingTests(unittest.TestCase):
             dist = base / "game"
             frozen.mkdir(); dist.mkdir()
             for name in ("README.md", "campaign/docs/LOCAL_PLAYTEST.md", "campaign/docs/NOV6_GAMEPAD.md", "campaign/docs/NOV6_CHANGES.md",
-                         "campaign/docs/PC_QUICKSTART.md", "campaign/docs/NOV12_EXTENDED_CHECKPOINT.md", "campaign/docs/NOV12_VISUAL_CHECKPOINT.md"):
+                         "campaign/docs/PC_QUICKSTART.md", "campaign/docs/NOV12_EXTENDED_CHECKPOINT.md", "campaign/docs/NOV12_VISUAL_CHECKPOINT.md", "campaign/docs/RUN_HISTORY_BOUNDARY.md",
+                         "campaign/docs/REACTIVE_RUN_MILESTONE.md", "campaign/docs/INTELLECT_SLICE.md"):
                 path = frozen / name
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text("Exact frozen guide: " + name)
@@ -267,7 +286,7 @@ class PackagingTests(unittest.TestCase):
                 "[Official documentation](https://docs.godotengine.org/en/stable/)\n")
             source_bytes = {p.relative_to(frozen).as_posix(): p.read_bytes() for p in frozen.rglob("*") if p.is_file()}
             included = package.copy_player_guides(frozen, dist)
-            self.assertEqual(len(included), 7)
+            self.assertEqual(len(included), 10)
             for name, row in included.items():
                 self.assertEqual(package.sha(dist / name), row["delivered_sha256"])
                 self.assertEqual(package.sha(frozen / row["source_path"]), row["source_sha256"])
