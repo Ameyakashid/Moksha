@@ -16,6 +16,9 @@ func run()->void:
 	check(Query.sample([{"kind":"life","offset":Vector2(421,0)}]).is_empty(),"out of range")
 	check(Query.sample([{"kind":"supply","offset":Vector2(301,0)}]).is_empty(),"supply shorter range")
 	check(Query.sample([{"kind":"life","offset":Vector2(NAN,0)},{"kind":"attack","offset":Vector2.ZERO}]).is_empty(),"invalid facts excluded")
+	check(Query.sample([{"kind":"life","offset":Vector2.ZERO}])[0].bearing==-1,"overlap has no invented east bearing")
+	check(Query.sample([{"kind":"life","offset":Vector2(-31,0)}])[0].bearing==-1,"close dead-zone is nondirectional")
+	check(Query.sample([{"kind":"life","offset":Vector2(-33,0)}])[0].bearing==4,"beyond dead-zone west is coarse west")
 	check(Query.sample(original+original).size()==1,"sources aggregate, no count")
 	var many:Array=[]
 	for i in 8:
@@ -44,6 +47,10 @@ func run()->void:
 	for goal in h.goals:
 		if goal.objective_id=="records":record=goal
 	check(record!=null and record.optional and record.kind=="recover","real optional reward identified")
+	record.required_ids.assign(["missing_fixture_prerequisite"]);record.available=true;o._process(.3)
+	check(not o.read_snapshot().any(func(m):return m.kind=="supply"),"cached availability cannot leak locked reward")
+	record.required_ids.clear();o._process(.3)
+	check(o.read_snapshot().any(func(m):return m.kind=="supply"),"real prerequisites restored")
 	record.interact();o._process(.3)
 	check(h.rewards.has("l3_inundated_market/records"),"real claim enters retained reward ledger")
 	check(not o.read_snapshot().any(func(m):return m.kind=="supply"),"claimed optional record stops smelling")
@@ -74,10 +81,11 @@ func run()->void:
 	h.state="dead";check(o.read_snapshot().is_empty(),"death presentation fence");o._process(.01)
 	h.state="playing";o._process(.3)
 	enemy=h.enemies[0]
+	var living_before:int=o.collect().filter(func(f):return f.kind=="life").size()
 	enemy.queue_free()
 	await process_frame
 	o._process(.3)
-	check(o.collect().all(func(f):return f.kind!="life" or f.offset.is_finite()),"freed source excluded without invalid access")
+	check(o.collect().filter(func(f):return f.kind=="life").size()==living_before-1,"freed emitter removed from live facts")
 	h.load_sector(index);check(o.snapshot.is_empty() and o.sources.is_empty(),"retry retires before room replacement")
 	o._process(.3);o.enabled=false;o._process(.01)
 	check(o.read_snapshot().is_empty() and o.sources.is_empty(),"disabled observer retires")
