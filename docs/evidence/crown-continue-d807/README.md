@@ -25,3 +25,6 @@ Producer01 was stopped for a QA comparator bug: JSON integer/float shape broke e
 This is automated Linux input proof, not manual play or Windows runtime proof. Sample frames from all seven districts, basin support, grounded exit and ending were visually reviewed; not every frame was human-inspected. Wide completion captions in d807 remain visible; later caption work is separate. No human difficulty/pacing or audible mix claim.
 
 Historical JSON copies replace the machine-specific workspace root with `$EVIDENCE_ROOT`; originals remain preserved separately. `attempts.json` contains original and archived digests. Scripts are exact original bytes. Raw AVIs and movie files are retained outside Git; media hashes and frame intervals are archived. Receipt history contains 32 total districts but only seven new objective receipts in Continue, correctly distinguished from producer's32 new receipts.
+
+## Import isolation
+The scoped `.gdignore` prevents Godot from scanning these archived historical QA scripts as project resources or generating UID sidecars. Reproduction remains unchanged: `workflow.py` copies the selected observer to a fresh external output directory and launches that copy explicitly. Archived script bytes and recorded hashes are unchanged.
