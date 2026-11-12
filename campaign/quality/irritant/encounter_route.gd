@@ -66,7 +66,7 @@ func tick(dt: float) -> void:
 			if actor.position.x<=settings.ladder+2:stage=2
 		elif stage==2:
 			input={"down":true}
-			if actor.position.y>=299.9 and actor.main_action!=&"climb":stage=3
+			if actor.main_action!=&"climb" and (actor.position.y>=299.9 or (district=="crown_manual_governor" and actor.position.y>settings.top+40)):stage=3
 		else:input={"left":true}
 	elif route=="bypass":
 		if stage==0:

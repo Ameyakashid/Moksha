@@ -45,3 +45,20 @@ externally; no physics or platform edits were made to turn those failures into p
 
 Current production runtime selector excludes any `quality` path component; that
 covers these fixtures. Actual PCK/export verification is required before shipping.
+
+## Crown fairness correction after a06bf2d
+The frozen a06 matrix passed81/84 local cases, not all84. Strength reverse jumps
+at both60/120Hz fell from the110-pixel gap/55-pixel rise into gas. The authored
+west service landing is now40pixels longer: Rect2(4340,80,440,18), ending4780,
+leaving a70-pixel gap. This is deliberate alternate-route fairness for the slower
+starting build, not a controller or immunity buff. Cloud, enemies, other platforms,
+objectives and motor are unchanged. Collision and scenery use the same authored
+platform rectangle. Native visual verification is still required.
+
+Separately, Crown blind120 returned down the ladder onto an enemy body at y272.
+The original route driver waited forever for y300 instead of walking off. The
+Crown-only driver now leaves descent after exiting climb below the upper landing,
+using ordinary horizontal input. The local return endpoint4515 is not a full-room
+retreat; a separate input test climbs ladder4540 and walks west above the existing
+wall to4400/80, proving a continuation path rather than a stranded endpoint.
+Both original failures and their receipts are retained outside production source.
