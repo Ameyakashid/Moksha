@@ -1,4 +1,5 @@
 extends SceneTree
+const View=preload("res://campaign/perception/scent_view.gd")
 const Query=preload("res://campaign/perception/local_scent_query.gd")
 var checks:=0
 var failures:Array[String]=[]
@@ -27,6 +28,26 @@ func run()->void:
 	check(Query.sample(many).size()==6,"bounded marks")
 	for mark in Query.sample(many):check(Query.valid_mark(mark),"schema valid")
 	check(not Query.valid_mark({"kind":"life","band":"near","bearing":0,"wounded":false,"position":Vector2.ZERO}),"presenter rejects precise extra field")
+	var north:={"kind":"supply","bearing":6,"band":"faint","wounded":false}
+	var safe:=Rect2(0,57,640,282)
+	var north_positions:=View.place_centers(north,Vector2(320,155),safe)
+	check(north_positions.size()==1 and north_positions[0].y<0,"north supply remains visible below actual57px header")
+	var reduced:=View.place_centers(north,Vector2(320,125),safe)
+	check(reduced.size()==1 and reduced[0].y<0 and reduced[0].length()<70,"inward placement preserves north bearing")
+	var impossible:=View.place_centers(north,Vector2(320,60),safe)
+	check(impossible.is_empty(),"no reversed cue when header leaves no safe north space")
+	for bearing in 8:
+		var m:={"kind":"life","bearing":bearing,"band":"faint","wounded":true}
+		for center in View.place_centers(m,Vector2(320,180),safe):
+			check(safe.encloses(Rect2(Vector2(320,180)+center-Vector2(23,23),Vector2(46,46))),"whole patch stays outside HUD")
+			check(absf(center.normalized().cross(Vector2.from_angle(bearing*PI/4)))<.001,"placement preserves coarse ray")
+	var hud_view=load("res://campaign/views/campaign_hud.gd").new();root.add_child(hud_view)
+	for data in [{"prompt":"[E] Recover supplies"},{"guidance":"Long guidance ".repeat(20)},{"notice_visible":true,"notice":"Priority notice"}]:
+		hud_view.set_snapshot(data)
+		var bounds:Rect2=hud_view.caption_safe_rect()
+		for center in View.place_centers(north,Vector2(320,180),bounds):
+			check(bounds.encloses(Rect2(Vector2(320,180)+center-Vector2(13,13),Vector2(26,26))),"actual prompt/notice safe bounds respected")
+	hud_view.free()
 	var h=load("res://campaign/campaign.tscn").instantiate();h.save_enabled=false;root.add_child(h)
 	h.start_new(true)
 	for i in 3:await process_frame

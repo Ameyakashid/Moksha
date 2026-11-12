@@ -3,6 +3,7 @@ extends Node2D
 const Query=preload("res://campaign/perception/local_scent_query.gd")
 var marks:Array[Dictionary]=[]
 var allowed:Callable
+var safe_bounds:Callable
 var arrival:Dictionary={}
 func _process(dt:float)->void:
 	for key in arrival:arrival[key]=minf(.15,float(arrival[key])+dt)
@@ -27,16 +28,30 @@ func _draw()->void:
 		var color:=Color(.48,.77,.69,(.25 if mark.band=="near" else .15)*fade)
 		if mark.kind=="supply":color=Color(.85,.73,.48,(.40 if mark.band=="near" else .24)*fade)
 		elif mark.wounded:color=Color(.85,.55,.62,color.a)
-		var centers:Array[Vector2]=[]
-		if mark.bearing==-1:
-			# Four small surrounding patches mean 'here', not an invented side.
-			centers=[Vector2(-28,-22),Vector2(28,-22),Vector2(-28,22),Vector2(28,22)]
-			color.a*=.6
-		else:
-			var angle:float=mark.bearing*PI/4.0
-			centers.append(Vector2.from_angle(angle)*(48.0 if mark.band=="near" else 70.0))
+		if mark.bearing==-1:color.a*=.6
+		var safe:Rect2=safe_bounds.call() if safe_bounds.is_valid() else Rect2()
+		for center in place_centers(mark,position,safe):draw_mark(center,mark,color)
+
+static func place_centers(mark:Dictionary,anchor:Vector2,safe:Rect2)->Array[Vector2]:
+	var result:Array[Vector2]=[]
+	if not Query.valid_mark(mark) or not anchor.is_finite() or safe.size.x<=0 or safe.size.y<=0:return result
+	# Reserve full patch/diamond extent, not merely its center. No target position.
+	var extent:=Vector2.ONE*(23.0 if mark.kind=="life" else 13.0)
+	if mark.bearing==-1:
+		var centers:Array[Vector2]=[Vector2(-28,-22),Vector2(28,-22),Vector2(-28,22),Vector2(28,22)]
 		for center in centers:
-			if Rect2(12,118,616,192).has_point(position+center):draw_mark(center,mark,color)
+			if not safe.encloses(Rect2(anchor+center-extent,extent*2)):return result
+		return centers
+	var direction:=Vector2.from_angle(mark.bearing*PI/4.0)
+	var desired:=48 if mark.band=="near" else 70
+	# Shrink toward the operator, never flip/slide a cue to a different bearing.
+	# If even the inner24px contour cannot fit, omit it rather than cover UI.
+	for radius in range(desired,23,-2):
+		var center:=direction*radius
+		if safe.encloses(Rect2(anchor+center-extent,extent*2)):
+			result.append(center);return result
+	return result
+
 func draw_mark(center:Vector2,mark:Dictionary,color:Color)->void:
 	if mark.kind=="supply":
 		for size in [8.0,12.0]:

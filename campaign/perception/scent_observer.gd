@@ -16,6 +16,7 @@ func bind(owner_host:Node)->void:
 	var layer:=CanvasLayer.new();layer.layer=22;add_child(layer)
 	view=preload("res://campaign/perception/scent_view.gd").new();layer.add_child(view)
 	view.allowed=presentation_allowed
+	view.safe_bounds=read_safe_bounds
 func retire()->void:
 	for connection in connections:
 		var node=connection.ref.get_ref()
@@ -77,3 +78,7 @@ func _exit_tree()->void:retire()
 func read_snapshot()->Array[Dictionary]:
 	if not presentation_allowed():return []
 	return snapshot.duplicate(true)
+
+func read_safe_bounds()->Rect2:
+	if not is_instance_valid(host) or not is_instance_valid(host.hud):return Rect2()
+	return host.hud.caption_safe_rect().intersection(Rect2(Vector2.ZERO,get_viewport().get_visible_rect().size))
