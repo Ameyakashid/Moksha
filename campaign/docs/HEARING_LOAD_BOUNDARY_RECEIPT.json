@@ -1,0 +1,52 @@
+{
+  "base": "b1b11542c1f910951eb6bd192cc3c26a911a4ff2",
+  "defect": "Selected hearing flags applied after inherited setup: stale disabled gates suppressed retained New geometry, while stale enabled gates transiently admitted deaf setup noise.",
+  "fix": "Apply selected capabilities after old-room audio retirement and before super.load_sector; retain final application. No other feature change.",
+  "host_sha256": "5f2d8d23c848987cd8b12eeafaad2252361ed29fab966f8272c1f5274171e2aa",
+  "fixture_sha256": "ee1a37ea5bfdb61595e924cf5926b8c0243bca1ad6a0d7823df7323ea7d50d87",
+  "results": [
+    {
+      "path": "boundary-final/log",
+      "sha256": "dec8e084ce77ca60156df8e3f6510b115b5e100e91fccf2b94b3d1e2614b0702",
+      "result": {
+        "checks": 23,
+        "deaf_load_samples": [
+          {
+            "audio_enabled": false,
+            "audio_intake": false,
+            "geometry": 0,
+            "hearing_retained": false,
+            "pulse_delta": 0,
+            "sonar_enabled": false
+          }
+        ],
+        "failures": [],
+        "initial_retained_geometry": 75,
+        "new_after_deaf_geometry": 75,
+        "passed": true,
+        "scope": "Seeded load-boundary fixture with real NoiseBus injection; not native/audio listening"
+      }
+    },
+    {
+      "path": "hearing_host_contract/log",
+      "sha256": "75e0259835dd749c8ec5281be14b87ce3413b919b68bd2f2352f1bd7f8159e52",
+      "result": {
+        "checks": 39,
+        "failures": [],
+        "passed": true,
+        "scope": "seeded host lifecycle fixtures"
+      }
+    },
+    {
+      "path": "hearing_perception_contract/log",
+      "sha256": "49ab8fb52420f2102b7e1bfa03356cc2a7034ef4e6e1cdd6d69652d4d3c21892",
+      "result": {
+        "checks": 24,
+        "failures": [],
+        "passed": true,
+        "scope": "seeded perception/audio boundaries; real physics input commits, no native/audio listening claim"
+      }
+    }
+  ],
+  "scope": "Seeded load boundaries and inherited host/perception fixtures; no native audio or pixel claim. Prior b1 evidence remains unchanged."
+}

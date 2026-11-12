@@ -189,6 +189,9 @@ func load_sector(index:int)->void:
 	_loading_campaign=true
 	goals.clear();completed_goals.clear();art=null;actor_paint=null;object_paint=null
 	if is_instance_valid(blackboard):blackboard.set_value("objectives",{})
+	# Selected capabilities must govern inherited bind/geometry/noise setup,
+	# not merely clean up stale listener state after the new room exists.
+	_apply_senses()
 	super.load_sector(index)
 	var d:Dictionary=sectors[sector]
 	for spec in d.get("captains",[]):
