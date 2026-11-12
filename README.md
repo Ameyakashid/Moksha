@@ -76,9 +76,13 @@ The original Oct23 demo is still playable at `demo/mission.tscn`; its historical
 
 Original neon arcology and background crowds, more deliberate opening routes, validated content/save boundaries and pre-activation health assembly are integrated. See [changes, evidence and remaining limits](campaign/docs/NOV12_PLAYABLE_CHECKPOINT.md). The original controller/simulation is preserved; demo assembly has a small behavior-tested hook.
 
-## November 12 early foundation checkpoint
+## November 12 verified delivery
 
-The reference-led foundation pass adds validated content loading, detached run/save data, isolated checkpoint storage, a Windows source launcher and a caption-layer fix. See [changes and verification limits](campaign/docs/NOV12_CHANGES.md) and the [REA/source responsibility map](campaign/docs/REFERENCE_FOUNDATION.txt). This is a source update; the already-delivered portable Windows build remains `c73159b`.
+The portable Windows package is exported from `fe9936a`. Its packed content passed Linux verification; native Windows execution remains unverified. Two full automated campaigns cover retained sight/public record and traded sight/local custody, each traversing all 32 districts. The six-part Level 1 movie is continuous; later-level videos are labelled checkpoint excerpts. See the [release receipts and reproduction instructions](campaign/quality/nov12_release_validation/). This does not establish human pacing or commercial completeness.
+
+## November 12 early foundation checkpoint (historical)
+
+The reference-led foundation pass adds validated content loading, detached run/save data, isolated checkpoint storage, a Windows source launcher and a caption-layer fix. See [changes and verification limits](campaign/docs/NOV12_CHANGES.md) and the [REA/source responsibility map](campaign/docs/REFERENCE_FOUNDATION.txt). At that earlier point the portable build was still `c73159b`; the later November 12 release above supersedes it.
 
 ## November 6 improvement pass
 

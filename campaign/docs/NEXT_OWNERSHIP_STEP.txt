@@ -1,5 +1,15 @@
-Next proposed ownership step: configure health before actor activation
-Status: proposal only; not implemented by this pass.
+Health-ownership step: configure health before actor activation
+Status: implemented in the November12 fe9936a runtime checkpoint.
+
+The proposal below is retained as design history. The hook is implemented; the
+live health replacement/rebinding block is removed. The combined acceptance
+record and later two full campaign runs are in quality/nov12_combined_checkpoint
+and quality/nov12_release_validation. Native controlled damage/retry worked, but
+its fixture retains one resource at shutdown, so native cleanliness is not
+claimed. The campaign facade still owns progression; full session/level
+ownership migration is a separate unfinished task.
+
+Historical proposal and acceptance criteria:
 
 Observed problem
 In demo/mission.gd load_sector, the player is instantiated and given Health,
