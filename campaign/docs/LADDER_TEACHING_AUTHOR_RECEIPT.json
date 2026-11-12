@@ -1,0 +1,28 @@
+{
+  "base": "a32f543b8912a399bfb6e46e82223c9b20778d5a",
+  "baseline_files_compared": 4527,
+  "changed_baseline_files": [
+    "campaign/logic/campaign.gd",
+    "campaign/views/campaign_hud.gd"
+  ],
+  "all_other_baseline_files_identical": true,
+  "checks": {
+    "contract-final": {
+      "checks": 57,
+      "exit": 0,
+      "sha256": "be7a31c93f4fdfbe0e291dd37593d5b7d072c7fc9112fcc080cec7d0cd94e7a5"
+    },
+    "nov6_presentation_contract": {
+      "checks": 2590,
+      "exit": 0,
+      "sha256": "1a6de66a5d4d6bea01ba9e8000aa05eb81e49f0ba2356e0ecbb063c0da60baf1"
+    },
+    "hearing_copy_contract": {
+      "checks": 13,
+      "exit": 0,
+      "sha256": "12f75fb7cac6c0a3077912f80cb4ed5b4f3718f788ebd6adf911eeb1947ac6c1"
+    }
+  },
+  "scope": "Author headless presentation/lifecycle/font bounds only; no physics, input, save, catalog or sensory behavior changes. Native actual-input visual acceptance pending.",
+  "preserved_failure": "Initial fixture assigned read-only health getter rather than backing staged value; zero-health assertion failed. Corrected staged setup, added seed-verification assertion; production health gate unchanged. Original log retained externally."
+}

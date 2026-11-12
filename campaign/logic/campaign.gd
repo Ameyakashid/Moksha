@@ -633,6 +633,18 @@ func continue_run()->void:
 	level_seconds=extra.get("level_seconds",{});level_receipts.assign(extra.get("level_receipts",[]))
 	blind=saved.blind;caches.assign(saved.caches);kills=saved.kills;deaths=saved.deaths;elapsed=saved.seconds;metrics.assign(saved.metrics)
 	load_sector(saved.sector)
+func _ladder_controls_active()->bool:
+	# Read only the current physical grip; no remote ladder or route knowledge.
+	if _loading_campaign or state!="playing" or get_tree().paused or _pending_sector>=0 or _pending_retry:return false
+	if not is_instance_valid(player) or player.is_queued_for_deletion() or not is_instance_valid(room) or room.is_queued_for_deletion():return false
+	if not is_instance_valid(health) or health.current_health<=0 or player.main_action!=&"climb":return false
+	var target=player._climb_target
+	if not is_instance_valid(target) or target.is_queued_for_deletion() or not room.is_ancestor_of(target) or not target.has_method("climb_geometry"):return false
+	if (target.collision_layer & player.climbable_mask)==0:return false
+	var geometry:Dictionary=target.climb_geometry()
+	if geometry.is_empty() or geometry.get("type","")!="ladder":return false
+	if not player._climb_signature.is_equal_approx(Vector2(geometry.width,float(geometry.bottom_y)-float(geometry.top_y))):return false
+	return absf(player.global_position.x-float(geometry.axis_x))<=(player.profile.body_width+float(geometry.width))*.5 and player.global_position.y>=float(geometry.top_y)-player.profile.floor_probe-2 and player.global_position.y<=float(geometry.bottom_y)+2
 func _hud_snapshot()->Dictionary:
 	var snapshot:Dictionary=super._hud_snapshot()
 	# Contextual presentation only: preserve authored route prose and layout data.
@@ -641,6 +653,7 @@ func _hud_snapshot()->Dictionary:
 		var exchange_hint:="Both senses traded; no sound-map." if blind else "E at station: temporary combined-loss limit."
 		snapshot.sector_text=str(snapshot.get("sector_text","")).replace("THE EXCHANGE offers sight for speed. You may refuse.",exchange_brief)
 		snapshot.sector_hint=str(snapshot.get("sector_hint","")).replace("E at station: choose sight trade.",exchange_hint)
+	snapshot["ladder_attached"]=_ladder_controls_active()
 	snapshot["hearing_retained"]=hearing_retained
 	snapshot["focus_specialization"]=str(sense_capabilities().get("specialization",""))
 	snapshot["last_result_available"]=not last_result.is_empty()

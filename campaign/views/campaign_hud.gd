@@ -219,15 +219,22 @@ func _draw_context(c:Node2D,layout:Dictionary)->void:
 	for line in layout.context:
 		_text(c,line,Vector2(layout.context_x+14,y),layout.context_size,color);y+=layout.context_size+3
 
+func control_strip()->Dictionary:
+	var controller:bool=data.get("input_device","keyboard")=="controller"
+	var left:String
+	if bool(data.get("ladder_attached",false)):
+		left="Up/down climb; hold Up to reach top. Left/right lets go. A jumps off." if controller else "W/S climb; hold W to reach top. A/D lets go. Space jumps off."
+	elif controller:
+		left="Stick / D-pad move   A jump   X strike   LB guard   RB roll   B sonar   Y use" if data.get("hearing_retained",true) else "Stick / D-pad move   A jump   X strike   LB guard   RB roll   B tap   Y use"
+	else:left="A/D move   Space jump   J strike   K guard   Shift roll   Q tap   E use"
+	return {"left":left,"right":"BACK journal   START pause" if controller else "TAB journal   ESC pause","right_x":478 if controller else 503}
+
 func _draw_controls(c:Node2D)->void:
 	c.draw_rect(Rect2(0,339,640,21),SURFACE)
 	c.draw_line(Vector2(0,339),Vector2(640,339),LINE,1)
-	if data.get("input_device","keyboard")=="controller":
-		_text(c,("Stick / D-pad move   A jump   X strike   LB guard   RB roll   B sonar   Y use" if data.get("hearing_retained",true) else "Stick / D-pad move   A jump   X strike   LB guard   RB roll   B tap   Y use"),Vector2(14,353),9,QUIET)
-		_text(c,"BACK journal   START pause",Vector2(478,353),9,ACCENT)
-	else:
-		_text(c,"A/D move   Space jump   J strike   K guard   Shift roll   Q tap   E use",Vector2(14,353),9,QUIET)
-		_text(c,"TAB journal   ESC pause",Vector2(503,353),9,ACCENT)
+	var strip:=control_strip()
+	_text(c,strip.left,Vector2(14,353),9,QUIET)
+	_text(c,strip.right,Vector2(strip.right_x,353),9,ACCENT)
 
 func _title(c:Node2D)->void:
 	c.draw_rect(Rect2(0,0,640,360),SURFACE)
