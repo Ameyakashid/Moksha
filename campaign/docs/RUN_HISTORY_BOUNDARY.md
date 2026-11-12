@@ -32,3 +32,63 @@ Narrow session API planned: run_id, run_status, completion_record (detached fact
 retry_completion_save(), view_last_result(). Companion observation should use
 run identity/lifecycle only; it must not own completion or persist chatter into
 run history without an explicit future schema. No new canonical narrative facts.
+
+## Implemented source API and file compatibility
+
+`campaign.gd` retains session authority. `run_id`, `run_status`, and `run_origin`
+(new or legacy_resume) are persisted in envelope v2. `session_generation` is a
+read-only observation counter incremented only after successful New/Continue
+setup; companion observers can detect same-frame resets without owning saves.
+Empty run_id on a fresh title means no live run has been loaded. Result review
+is a UI state, not a new active/completed gameplay session.
+
+`campaign/state/completion_record.gd` validates detached history envelopes.
+`campaign/save/run_history_store.gd` owns immutable put/get/reconcile/latest and
+raw preserve_file. Single serialized writer is assumed, not an interprocess lock.
+Result timestamps support browsing order; identity/idempotency use the random
+128-bit run ID, checked against current checkpoint and existing records.
+The record contains stable area IDs and a complete detached checkpoint snapshot;
+legacy repeated receipts retain their meaning/order, not silently deduplicated.
+
+The existing `moksha_five_levels_v1.json` filename is retained for discovery, but
+its NEW envelope is explicitly version2. V1 remains accepted, backed up before
+replacement, and migrated as legacy_resume. Old builds cannot decode v2. To use
+an older build, retain the current files and restore a separate preserved v1
+backup; never edit the version number to pretend v2 is v1. Legacy results are
+preserved under their own content hash and never guessed to belong to an active
+legacy checkpoint. Their raw source file is not modified.
+
+A new run's validated opening snapshot is committed BEFORE live reset. Failure
+leaves previous live state, generation and checkpoint intact. New does not discard
+an unsaved ending. Completion appends final metrics exactly once, freezes one
+record, then retries the same bytes. A valid final or pending record for the
+checkpoint ID is authoritative at startup; valid pending data is promoted, while
+corrupt/conflicting data fails closed with bytes retained. A completed checkpoint
+without its record also fails closed. No two-file atomicity or power-loss durability
+beyond the engine's flush/rename behavior is claimed.
+
+Title C/controller X resumes an active run or reviews the last result when no
+active run exists. Ending Enter/N/controller A/Start/Y returns to Title after
+success; while persistence failed these commands retry saving instead. No menu
+adapter input mapping, actor controller, physics, combat, geometry or story
+resolution changes were needed. HUD snapshots add only last_result_available and
+completion_save_failed. No-save fixtures bypass disk stores and checkpoint reads.
+
+## Focused acceptance before wider integration
+
+-72 isolated store/record checks: same-record retry, different-content/corrupt
+  collisions, invalid IDs/types/cycles, matching pending recovery, corrupt pending
+  preservation, invalid ancestor paths, failed destinations, raw legacy bytes.
+-36 seeded host lifecycle checks: genuine final-choice key dispatch, double
+  finalization, both close paths, Title/C read-only result, New identity/reset
+  failure, explicit retry key, record-first/checkpoint interruption, valid/corrupt
+  pending startup, district retry identity, legacy repeated prefix and no-save.
+-174 isolated save-adversarial checks including32district roundtrips. The old
+  v1-header-only relabel-to-v2 negative remains; validv2 has separate coverage.
+-8,754 domain assertions,23 content checks and2,527 presentation assertions.
+
+These are controlled persistence/scene fixtures, not a completed gameplay run,
+real crash/power-cut test, Windows acceptance or native UI approval. External
+normal-title/legacy gameplay and native review are separate gates. Early rejected
+runs exposed a StringName key emitted by the preserved codec and an unclosed
+fixture writer; both corrected without weakening schema/collision checks.

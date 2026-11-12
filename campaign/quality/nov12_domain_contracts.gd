@@ -49,6 +49,12 @@ func _initialize()->void:
 			var invalid:Dictionary=valid.duplicate(true);invalid[field]=value
 			check(not CampaignCheckpoint.decode(invalid,areas).get("ok",false),"reject malformed "+field)
 	check(not CampaignCheckpoint.decode(valid,[{"id":"unknown"}]).ok,"save identity requires the injected layout")
-	check(CampaignCheckpoint.VERSION==1,"saved campaign schema stays version 1")
+	check(CampaignCheckpoint.VERSION==2,"new campaign envelope explicitly versioned 2")
+	var v2:Dictionary=valid.duplicate(true)
+	v2.campaign_version=2;v2.run_id="0123456789abcdef0123456789abcdef";v2.run_status="active";v2.run_origin="new"
+	check(CampaignCheckpoint.decode(v2,areas).ok,"separately valid v2 identity accepted")
+	for field in ["run_id","run_status","run_origin"]:
+		var missing:Dictionary=v2.duplicate(true);missing.erase(field)
+		check(not CampaignCheckpoint.decode(missing,areas).ok,"v2 requires "+field)
 	print("NOV12_DOMAIN_CONTRACT_RESULT "+JSON.stringify({"passed":failures.is_empty(),"checks":checks,"build_combinations":builds,"failures":failures,"scope":"Scene-independent build arithmetic and save-envelope policies; not gameplay or filesystem acceptance."}))
 	quit(0 if failures.is_empty() else 1)

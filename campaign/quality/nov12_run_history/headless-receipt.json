@@ -1,0 +1,43 @@
+{
+  "base": "895a6e4",
+  "checks": [
+    {
+      "log": "/tmp/lifecycle-gates/store-final.log",
+      "sha256": "f8e26f426350a8cbbcf75e8e6ce055c40a3cf9b84cc16753d4384261550d5673",
+      "receipt": "RUN_HISTORY_STORE 72 checks; failures=[] fixture_root=/tmp/moksha-lifecycle-store-final",
+      "exit": 0
+    },
+    {
+      "log": "/tmp/lifecycle-gates/lifecycle-final.log",
+      "sha256": "73d50c060ac6923cbad34ab77bbac71b67fec2a1250af651da7451defe4e6c54",
+      "receipt": "RUN_LIFECYCLE 36 checks; failures=[]",
+      "exit": 0
+    },
+    {
+      "log": "/tmp/lifecycle-gates/domain-final.log",
+      "sha256": "1b1664a2c5c07333500e76df420a7e10d942f71d14ccc981dfead74a29e2fcaf",
+      "receipt": "NOV12_DOMAIN_CONTRACT_RESULT {\"build_combinations\":2904,\"checks\":8754,\"failures\":[],\"passed\":true,\"scope\":\"Scene-independent build arithmetic and save-envelope policies; not gameplay or filesystem acceptance.\"}",
+      "exit": 0
+    },
+    {
+      "log": "/tmp/lifecycle-gates/state_save_adversarial.log",
+      "sha256": "71f71e9a534a6c8bfb4790798ea6fd980c682d050b57004ba2ef946729df0e25",
+      "receipt": "STATE_SAVE_RESULT {\"checks\":174,\"district_roundtrips\":32,\"failures\":[],\"malformed_cases\":51,\"passed\":true,\"scope\":\"Isolated save corruption and scene fixtures; not full gameplay traversal or filesystem power-loss simulation.\"}",
+      "exit": 0
+    },
+    {
+      "log": "/tmp/lifecycle-gates/nov12_content_contracts.log",
+      "sha256": "6c008c69bb65747d06ffde6b02d03bdc5f0805f9d9b036107e408b57ecfef5ac",
+      "receipt": "NOV12_CONTENT_RESULT {\"checks\":23,\"failures\":[],\"passed\":true}",
+      "exit": 0
+    },
+    {
+      "log": "/tmp/lifecycle-gates/nov6_presentation_contract.log",
+      "sha256": "4efa645d886f828b8a8c090810d1128a5801571f3b982fe4d48cfa9d231df81c",
+      "receipt": "NOV6_PRESENTATION checks=2527 failures=[] worst_header=57.0 worst_panel_baseline=235.0",
+      "exit": 0
+    }
+  ],
+  "scope": "Seeded scene/persistence fixtures, not full campaign or native/Windows acceptance",
+  "writes": "Fresh isolated external roots; no player saves touched"
+}

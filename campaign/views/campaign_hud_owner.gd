@@ -3,7 +3,7 @@ extends "res://simulation/ui/mission_hud.gd"
 ## Campaign-only extension of the original typed HUD snapshot boundary.
 ## Unknown keys are still discarded. Invalid campaign input leaves both snapshots
 ## untouched, and the original owner remains the validator for all shared fields.
-const CAMPAIGN_FIELDS := {"guidance":"", "district_index":0, "district_count":0, "level_index":0, "lens":"", "required_done":0, "required_total":0, "gate_open":false, "input_device":""}
+const CAMPAIGN_FIELDS := {"last_result_available":false,"completion_save_failed":false,"guidance":"", "district_index":0, "district_count":0, "level_index":0, "lens":"", "required_done":0, "required_total":0, "gate_open":false, "input_device":""}
 var _campaign_snapshot:Dictionary={}
 func set_snapshot(value:Dictionary)->bool:
 	var next:Dictionary={}
