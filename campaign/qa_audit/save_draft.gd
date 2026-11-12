@@ -26,8 +26,13 @@ func run()->void:
 	for g in m.goals:g.completed=true
 	m.relay_on=true;m.room.gate_open=true
 	m.player.position=Vector2(float(m.sectors[boundary].width)-45,float(m.sectors[boundary].get("gate_y",300)))
-	m.interact();key(m,KEY_K);m._physics_process(1.0/60)
+	m.interact();key(m,KEY_K)
+	check(m.state=="hearing_choice","first cleared-level upgrade reaches separate hearing choice")
+	key(m,KEY_K)
+	check(m.hearing_retained and m.state=="transition","explicit hearing decline keeps original retained-sense save route")
+	m._physics_process(1.0/60)
 	var next:int=m.sector;var saved=m._read_checkpoint()
+	check(next==boundary+1,"declined hearing offer ascends exactly one district")
 	check(saved.get("ok",false) and saved.sector==next and saved.campaign.upgrades==["agility"],"upgrade and next district committed together after transition")
 	var speed:float=m.player.profile.run_speed;m.free()
 	m=host();check(m.continue_available,"fresh host offers Continue")
