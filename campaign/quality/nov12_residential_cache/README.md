@@ -47,16 +47,34 @@ existing campaign codec decodes the checkpoint with unchanged archive identity.
 This is codec compatibility evidence, not a new UI-driven Retry/Continue test.
 Contract was added after route runs and does not modify runtime or route fixture.
 
-Reproduce after headless editor import:
+Reproduce after headless editor import. Create a new external output directory for
+every run; the parent must exist and each report filename must be fresh. Missing,
+existing, in-project, relative, non-normalized or symlinked targets are rejected
+before gameplay. Archived receipts are never overwritten. Source drift makes
+both the report and exit fail, even if district traversal completed:
 
 ```sh
-godot --headless --path . --fixed-fps 60 --script campaign/quality/nov12_residential_cache/route.gd -- --collect
-godot --headless --path . --fixed-fps 60 --script campaign/quality/nov12_residential_cache/route.gd --
-godot --headless --path . --fixed-fps 60 --script campaign/quality/nov12_residential_cache/route.gd -- --collect --sacrifice
-godot --headless --path . --fixed-fps 60 --script campaign/quality/nov12_residential_cache/route.gd -- --sacrifice
+OUT="$(mktemp -d /tmp/moksha-residential.XXXXXX)"
+godot --headless --path . --fixed-fps 60 --script campaign/quality/nov12_residential_cache/route.gd -- --collect --report="$OUT/collect-retained.json"
+godot --headless --path . --fixed-fps 60 --script campaign/quality/nov12_residential_cache/route.gd -- --report="$OUT/skip-retained.json"
+godot --headless --path . --fixed-fps 60 --script campaign/quality/nov12_residential_cache/route.gd -- --collect --sacrifice --report="$OUT/collect-traded.json"
+godot --headless --path . --fixed-fps 60 --script campaign/quality/nov12_residential_cache/route.gd -- --sacrifice --report="$OUT/skip-traded.json"
 godot --headless --path . --script campaign/quality/nov12_residential_cache/contract.gd
+python campaign/quality/nov12_residential_cache/check_report_rejections.py
 ```
 
 Restricted environments need writable XDG directories. No native render/desktop,
 full campaign, Windows run or rebuild performed. Integrated Homes signs versus
 the separately developed waterworks-window art still need visual review.
+
+## QA-only report-safety follow-up
+
+The original four archived JSON receipts above are preserved byte-for-byte.
+The revised fixture reuses `nov12_report_sink.gd` for startup validation and a
+second validation before writing, including write/readback error handling.
+The acceptance predicate is shared by reported `passed` and process exit;
+nonempty source drift cannot pass. Contract count is now21, adding successful
+completion, source drift, ordinary failure and incomplete-route acceptance cases.
+Eight cheap subprocess rejection cases prove exit2 before gameplay and preserve
+an existing sentinel and every archived receipt. See `report-safety-receipt.json`
+for fresh external rerun results. No production code changed in this follow-up.

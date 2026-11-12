@@ -1,0 +1,97 @@
+{
+  "negative_checks": {
+    "passed": true,
+    "checks": [
+      {
+        "case": "missing",
+        "exit": 2,
+        "gameplay_started": false
+      },
+      {
+        "case": "relative",
+        "exit": 2,
+        "gameplay_started": false
+      },
+      {
+        "case": "project",
+        "exit": 2,
+        "gameplay_started": false
+      },
+      {
+        "case": "res_scheme",
+        "exit": 2,
+        "gameplay_started": false
+      },
+      {
+        "case": "existing_file",
+        "exit": 2,
+        "gameplay_started": false
+      },
+      {
+        "case": "existing_directory",
+        "exit": 2,
+        "gameplay_started": false
+      },
+      {
+        "case": "symlink_into_project",
+        "exit": 2,
+        "gameplay_started": false
+      },
+      {
+        "case": "missing_parent",
+        "exit": 2,
+        "gameplay_started": false
+      }
+    ],
+    "archived_receipts_unchanged": true
+  },
+  "contract": {
+    "checks": 21,
+    "passed": true,
+    "includes_otherwise_successful_source_drift_rejection": true
+  },
+  "external_routes": [
+    {
+      "case": "collect_retained",
+      "path": "/tmp/residential-recheck-v2/collect_retained.json",
+      "sha256": "b6b388d700b847d34561bf9300b02b38deb288400e47e2254df45fc4b0ac24e2",
+      "passed": true,
+      "exit": 0,
+      "source_drift": [],
+      "bot_active_seconds": 35.5166666666659,
+      "cache_collected": true
+    },
+    {
+      "case": "skip_retained",
+      "path": "/tmp/residential-recheck-v2/skip_retained.json",
+      "sha256": "683e1ef8eeafd3e041f7e2ed85e48f8541d032118ff6c4877173fb925e7cefc5",
+      "passed": true,
+      "exit": 0,
+      "source_drift": [],
+      "bot_active_seconds": 37.2333333333325,
+      "cache_collected": false
+    },
+    {
+      "case": "collect_traded",
+      "path": "/tmp/residential-recheck-v2/collect_traded.json",
+      "sha256": "19c4d37d62d8b97ef7a80ff919b72768ac578dace6126a31f8a1d9b90af60e19",
+      "passed": true,
+      "exit": 0,
+      "source_drift": [],
+      "bot_active_seconds": 31.4999999999995,
+      "cache_collected": true
+    },
+    {
+      "case": "skip_traded",
+      "path": "/tmp/residential-recheck-v2/skip_traded.json",
+      "sha256": "b0b64d4d2d0a6cdc9de9e7a3dbed35df5f89f81f13c8efd283acfe5a10996377",
+      "passed": true,
+      "exit": 0,
+      "source_drift": [],
+      "bot_active_seconds": 28.5666666666663,
+      "cache_collected": false
+    }
+  ],
+  "original_receipts_unchanged": true,
+  "scope": "QA-only; no native, production changes, or full campaign"
+}

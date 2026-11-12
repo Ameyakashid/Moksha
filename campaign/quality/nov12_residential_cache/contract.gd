@@ -9,6 +9,11 @@ func check(ok:bool,label:String)->void:
  checks+=1
  if not ok:failures.append(label)
 func _initialize()->void:
+ var route=load("res://campaign/quality/nov12_residential_cache/route.gd")
+ check(route.accepted(true,[],[]),"Clean completion accepted")
+ check(not route.accepted(true,[],["changed.gd"]),"Source drift rejects otherwise successful completion")
+ check(not route.accepted(true,["failure"],[]),"Gameplay failure rejected")
+ check(not route.accepted(false,[],[]),"Incomplete route rejected")
  var areas=Layout.sectors()
  var h:Dictionary=areas[3]
  var original=Original.sector()

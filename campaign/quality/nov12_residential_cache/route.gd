@@ -1,9 +1,15 @@
 extends "res://campaign/route_tests/l23_route.gd"
 ## Focused district-start fixture; all measured movement uses ordinary inputs.
 const Modal=preload("res://campaign/quality/nov6_modal_route_input.gd")
+const Sink=preload("res://campaign/quality/nov12_report_sink.gd")
+var destination:=""
 var collect_cache:=false
 var prompt_receipts:Array=[]
 func _initialize()->void:
+ for arg in OS.get_cmdline_user_args():
+  if arg.begins_with("--report="):destination=arg.trim_prefix("--report=")
+ var error:String=Sink.validate(destination)
+ if not error.is_empty():push_error(error);quit(2);return
  district_id="l3_homes"
  collect_cache="--collect" in OS.get_cmdline_user_args()
  if collect_cache:
@@ -70,11 +76,17 @@ func run() -> void:
  var drift:Array[String]=[]
  for path in checkpoint_hashes:
   if FileAccess.get_sha256(path)!=checkpoint_hashes[path]:drift.append(path)
- var report={"collect_cache":collect_cache,"cache_collected":cache_collected,"prompt_receipts":prompt_receipts,"district":district_id,"passed":reached and failures.is_empty(),"sight":sacrifice,"explicit_start_and_sight_fixture":true,"full_campaign_evidence":false,"bot_active_seconds":host.elapsed-measured_start,"human_duration_validated":false,"failures":failures,"goals_observed":goals_seen,"events":events,"trace":trace,"source_drift":drift,"source_hashes":checkpoint_hashes,"method":"Measured phase: raw ordinary buttons plus proximity E events. No teleport, damage/health/AI writes, forced goals or gate edits. Initial district and sight are explicit isolated fixtures."}
- var path="res://campaign/quality/nov12_residential_cache/"+("collect" if collect_cache else "skip")+("_traded" if sacrifice else "_retained")+".json"
- FileAccess.open(path,FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
+ var report={"collect_cache":collect_cache,"cache_collected":cache_collected,"prompt_receipts":prompt_receipts,"district":district_id,"passed":accepted(reached,failures,drift),"sight":sacrifice,"explicit_start_and_sight_fixture":true,"full_campaign_evidence":false,"bot_active_seconds":host.elapsed-measured_start,"human_duration_validated":false,"failures":failures,"goals_observed":goals_seen,"events":events,"trace":trace,"source_drift":drift,"source_hashes":checkpoint_hashes,"method":"Measured phase: raw ordinary buttons plus proximity E events. No teleport, damage/health/AI writes, forced goals or gate edits. Initial district and sight are explicit isolated fixtures."}
+ var path=destination
+ var output_error=Sink.write_report(path,report)
+ if not output_error.is_empty():
+  push_error(output_error)
+  report.passed=false
  print("L23_RESULT ",path," passed=",report.passed," bot_seconds=",report.bot_active_seconds," failures=",failures)
  var exit_code:=0 if report.passed else 1
  host.free();input_dispatch.free();await process_frame
  print("RESIDENTIAL_CLEAN_EXIT ",exit_code)
  quit(exit_code)
+
+static func accepted(reached:bool,errors:Array,drift:Array)->bool:
+ return reached and errors.is_empty() and drift.is_empty()
