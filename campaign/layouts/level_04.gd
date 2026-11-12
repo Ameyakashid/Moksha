@@ -21,7 +21,7 @@ static func _receiving() -> Dictionary:
 	"route":[Vector2(220,300),Vector2(1300,300),Vector2(1300,80),Vector2(1400,80),Vector2(2000,300),Vector2(2780,300),Vector2(3250,300),Vector2(4355,300)]}
 
 static func _baffles() -> Dictionary:
-	return {"id":"works_baffle_hall","title":"04.2 / THE LISTENING FLOOR","subtitle":"Noise court • shielded galleries • silent control","width":4800,"top":-400,"theme":"interior",
+	return {"id":"works_baffle_hall","irritants":[{"at":Vector2(1200,268)}],"title":"04.2 / THE LISTENING FLOOR","subtitle":"Noise court • shielded galleries • silent control","width":4800,"top":-400,"theme":"interior",
 	"text":"Listeners patrol the open floor. Above them, old baffles shelter a service route. Sever the surveillance feed, then engage the quiet interlock.","hint":"Strike spare props to draw listeners away. The elevated baffles bypass electrified strips without waiting.",
 	"platforms":[Rect2(440,80,520,18),Rect2(1080,80,420,18),Rect2(1640,135,340,18),Rect2(2130,80,420,18),Rect2(2700,25,440,18),Rect2(3280,80,400,18),Rect2(3840,135,430,18),Rect2(760,200,26,100),Rect2(1830,210,26,90),Rect2(3000,175,26,125),Rect2(4070,215,26,85)],
 	"ladders":[[510,300,220],[1420,300,220],[2240,300,220],[2800,300,275],[3540,300,220],[4140,300,165]],

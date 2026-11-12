@@ -18,6 +18,12 @@ static func validate(levels:Array)->Dictionary:
 			var id:Variant=entry.get("id")
 			if not id is String or id.is_empty() or ids.has(id):return _bad("Missing or duplicate district ID in level %d."%(index+1))
 			ids[id]=true
+			var irritants: Variant=entry.get("irritants",[])
+			if not irritants is Array or irritants.size()>3: return _bad("Invalid irritant list in %s."%id)
+			for spec in irritants:
+				if not spec is Dictionary or spec.size()!=1 or not spec.get("at") is Vector2: return _bad("Invalid irritant specification in %s."%id)
+				var at: Vector2=spec.at
+				if not at.is_finite() or at.x<100 or at.x>float(entry.get("width",0))-100 or at.y< float(entry.get("top",-500))+32 or at.y>268: return _bad("Out-of-bounds irritant in %s."%id)
 			var objectives:Variant=entry.get("objectives",[])
 			if not objectives is Array:return _bad("District %s has invalid objectives."%id)
 			var goal_ids:Dictionary={}

@@ -58,6 +58,7 @@ var _focus_pause_active:=false
 var _focus_resume_state:="playing"
 var _level_transition_snapshot:Dictionary={}
 var _controller_bindings:Node
+var cough_feedback:Node
 var ladder_touch:Node
 var scent:Node
 var companion:Node
@@ -108,6 +109,8 @@ func _ready()->void:
 	add_child(companion);companion.bind(self)
 	scent=preload("res://campaign/perception/scent_observer.gd").new()
 	add_child(scent);scent.bind(self)
+	cough_feedback=preload("res://campaign/presentation/cough_feedback.gd").new()
+	add_child(cough_feedback);cough_feedback.bind(self)
 	ladder_touch=preload("res://campaign/perception/ladder_touch_observer.gd").new()
 	add_child(ladder_touch);ladder_touch.bind(self)
 	focus_observer=preload("res://campaign/perception/focus_observer.gd").new()
@@ -187,6 +190,7 @@ func load_sector(index:int)->void:
 	_audio_feedback.retire_room(audio)
 	_pending_sector=-1;_pending_retry=false
 	_loading_campaign=true
+	irritant_dispersers.clear()
 	goals.clear();completed_goals.clear();art=null;actor_paint=null;object_paint=null
 	if is_instance_valid(blackboard):blackboard.set_value("objectives",{})
 	# Selected capabilities must govern inherited bind/geometry/noise setup,
@@ -227,6 +231,10 @@ func load_sector(index:int)->void:
 	_apply_build()
 	_loading_campaign=false
 	_apply_senses()
+	for spec in d.get("irritants",[]):
+		var disperser=IrritantDisperser.new()
+		disperser.position=spec.at;disperser.host=self;disperser.target=player
+		room.add_child(disperser);irritant_dispersers.append(disperser)
 	if is_instance_valid(focus_observer):focus_observer.bind_room()
 	camera.position=camera_follow.reset(player.global_position,sectors[sector])
 	_update_gate()

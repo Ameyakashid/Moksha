@@ -31,7 +31,7 @@ static func _witnesses() -> Dictionary:
 	"route":[Vector2(1190,300),Vector2(1190,190),Vector2(1330,190),Vector2(1190,300),Vector2(2780,300),Vector2(2780,80),Vector2(2900,80),Vector2(2900,-140),Vector2(3790,-250),Vector2(3900,-250),Vector2(3790,300),Vector2(4150,300),Vector2(5155,300)]}
 
 static func _governor() -> Dictionary:
-	return {"id":"crown_manual_governor","title":"05.3 / THE MANUAL GOVERNOR","subtitle":"West bypass • east governor • command isolation","width":5500,"top":-470,"theme":"interior","spawn":Vector2(2600,300),"station":Vector2(2600,300),
+	return {"id":"crown_manual_governor","irritants":[{"at":Vector2(4740,268)}],"title":"05.3 / THE MANUAL GOVERNOR","subtitle":"West bypass • east governor • command isolation","width":5500,"top":-470,"theme":"interior","spawn":Vector2(2600,300),"station":Vector2(2600,300),
 	"text":"Two feeds sustain automatic reset. One controls authority; the other supplies its power. Isolate both before opening the manual governor.","hint":"Start at the central service desk. West holds authority isolation and an optional tool, east holds the power circuit. Return to the desk to unlock the Crown's manual path.",
 	"platforms":[Rect2(430,80,420,18),Rect2(960,25,400,18),Rect2(1460,80,400,18),Rect2(1990,135,330,18),Rect2(2800,135,350,18),Rect2(3260,80,400,18),Rect2(3780,25,420,18),Rect2(4340,80,400,18),Rect2(4850,135,380,18),Rect2(1100,215,26,85),Rect2(3510,220,26,80),Rect2(4470,190,26,110)],
 	"ladders":[[550,300,220],[1150,300,275],[1640,300,220],[2140,300,165],[2930,300,165],[3440,300,220],[3950,300,275],[4540,300,220]],

@@ -2,7 +2,7 @@
 
 This checkpoint ports the independently audited 11f1160 controller/source into a
 new ee725ef campaign fork, with explicit sensory and owner lifecycle adapters.
-No authored campaign placement is present yet. No smell choice, immunity earned
+This descendant adds three experimental placements; see ENCOUNTERS.md. No smell choice, immunity earned
 through hearing loss, save/schema modification, or accepted-branch integration.
 
 ## Ownership
@@ -40,8 +40,8 @@ Repeat with `--hz=120`. Use isolated HOME and XDG directories. Fixture disables
 campaign saves and deliberately seeds positions/state; it is NOT natural play.
 26 checks cover initial proximity warning, dedicated audio identity, real sonar,
 blind/deaf gates, loading/pending/modal/session invalidation, synchronous event
-invalidation and expired labels. Natural encounter traversal, listener pursuit,
-audio audibility and native pixels remain untested in this adapter checkpoint.
+invalidation and expired labels. This README describes the adapter gate; descendant encounter checks and their
+remaining native/audio/human limits are documented separately in ENCOUNTERS.md.
 
 The current `tools/package_nov6.py` runtime selector excludes any path component
 `quality`, including this fixture and the original simulation/quality arena.
