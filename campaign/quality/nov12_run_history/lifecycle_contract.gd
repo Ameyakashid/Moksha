@@ -126,6 +126,7 @@ func run()->void:
  raw=JSON.parse_string(FileAccess.get_file_as_string(h.campaign_save_path))
  raw.campaign_version=1;raw.erase("run_id");raw.erase("run_status");raw.erase("run_origin")
  raw.level_receipts=[{"level":5,"active_seconds":7.0,"completed_district":h.sectors[-1].id},{"level":5,"active_seconds":9.0,"completed_district":h.sectors[-1].id}]
+ raw.level_receipts[0].erase("completed_district")
  raw.progress.metrics=[{"area_id":h.sectors[-1].id,"seconds":7.0},{"area_id":h.sectors[-1].id,"seconds":2.0}]
  Store.commit(h.campaign_save_path,raw)
  var legacy_file=FileAccess.open(h.legacy_results_path,FileAccess.WRITE);legacy_file.store_string("{ legacy bytes even if malformed }");legacy_file.close()
@@ -137,6 +138,50 @@ func run()->void:
  check(FileAccess.get_sha256(h.legacy_results_path)==result_hash,"Legacy result never overwritten or associated")
  check(h.last_result.is_empty(),"Legacy result not promoted to active run completion")
  check(JSON.parse_string(FileAccess.get_file_as_string(h.campaign_save_path)).campaign_version==2,"Legacy resume migrates explicitly")
+ # Missing district identity was explicitly valid in v1; completion preserves it.
+ var prefix:Dictionary=h.level_receipts[0].duplicate(true)
+ final_fixture(h)
+ check(h._completion_error.is_empty(),"Legacy receipt without district remains completable")
+ check(h.completion_record.result.levels[0]==prefix,"Legacy missing identity preserved without invention")
+ check(h._validated_terminal(h.completion_record),"Legacy completion passes full boundary validation")
+ h.free();await process_frame
+ h=host_at("history-boundary");h.start_new(true);final_fixture(h)
+ var valid:Dictionary=h.completion_record.duplicate(true)
+ check(h._validated_terminal(valid),"Valid terminal boundary accepted")
+ var malformed:Dictionary=valid.duplicate(true);malformed.snapshot.erase("progress")
+ check(not h._validated_terminal(malformed),"Minimal snapshot rejected by full content boundary")
+ for field in ["active_seconds","levels","districts","lens","upgrades","deaths","kills"]:
+  var changed:Dictionary=valid.duplicate(true)
+  match field:
+   "active_seconds","deaths","kills":changed.result[field]+=1
+   "levels","districts":changed.result[field]=[]
+   "lens":changed.result[field]="agility"
+   "upgrades":changed.result[field]=["force"]
+  check(not h._validated_terminal(changed),"Duplicated result mismatch rejected: "+field)
+ malformed=valid.duplicate(true);malformed.snapshot.progress.sector_id="foreign-area"
+ check(not h._validated_terminal(malformed),"Foreign snapshot content rejected")
+ malformed=valid.duplicate(true);malformed.origin="legacy_resume"
+ check(not h._validated_terminal(malformed),"Origin mismatch rejected")
+ h.last_result=malformed;h.state="title";h.view_last_result()
+ check(h.state=="title" and h.last_result.is_empty(),"Direct review fails closed")
+ # Store remains envelope-only; host must reject malformed stored snapshot.
+ var other:Dictionary=valid.duplicate(true)
+ other.run_id="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";other.snapshot.run_id=other.run_id
+ other.completed_at=valid.completed_at+10000
+ check(History.put(h.history_path,other).ok,"Future timestamp fixture stored")
+ h._refresh_run_history()
+ check(h.last_result.run_id==valid.run_id,"Just-completed run wins clock rollback")
+ h.completion_record.clear()
+ malformed=other.duplicate(true);malformed.run_id="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";malformed.snapshot.run_id=malformed.run_id
+ malformed.completed_at=other.completed_at+10000;malformed.snapshot.erase("progress")
+ check(History.put(h.history_path,malformed).ok,"Envelope-only malformed snapshot stored for boundary test")
+ h._refresh_run_history()
+ check(h.last_result.is_empty() and not h._history_error.is_empty(),"Latest invalid history never exposed as completion")
+ check(FileAccess.file_exists(h.history_path.path_join("completed/"+malformed.run_id+".json")),"Invalid history bytes retained")
+ var bad_checkpoint:Dictionary=valid.snapshot.duplicate(true);bad_checkpoint.run_id=malformed.run_id
+ Store.commit(h.campaign_save_path,bad_checkpoint)
+ check(not h._valid_save() and not h._checkpoint_error.is_empty(),"Malformed terminal cannot reconcile Continue")
+ check(h.last_result.is_empty(),"Failed reconciliation exposes no result")
  h.free();await process_frame
  h=host_at("nosave",false);h.start_new(true);final_fixture(h);h.show_title()
  check(not FileAccess.file_exists(h.campaign_save_path) and not DirAccess.dir_exists_absolute(h.history_path),"No-save fixtures write nothing")

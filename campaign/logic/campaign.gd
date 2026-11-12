@@ -3,6 +3,7 @@ extends "res://demo/mission.gd"
 const BuildRules=preload("res://campaign/logic/build_rules.gd")
 const CampaignCheckpoint=preload("res://campaign/logic/checkpoint_codec.gd")
 const CheckpointStore=preload("res://campaign/save/checkpoint_store.gd")
+const CompletionRecord=preload("res://campaign/state/completion_record.gd")
 const RunHistory=preload("res://campaign/save/run_history_store.gd")
 const RunSnapshot=preload("res://campaign/state/run_snapshot.gd")
 const CampaignData=preload("res://campaign/logic/campaign_data.gd")
@@ -412,16 +413,37 @@ func retry_completion_save()->bool:
 	if saved.ok:continue_available=false;_checkpoint_write_error=""
 	return saved.ok
 
+func _validated_terminal(record:Dictionary)->bool:
+	if not CompletionRecord.valid(record):return false
+	var snap:Dictionary=record.snapshot
+	var decoded:=CampaignCheckpoint.decode(snap,sectors)
+	if not decoded.get("ok",false):return false
+	if record.get("origin")!=snap.run_origin:return false
+	var expected:Dictionary={"active_seconds":decoded.seconds,"levels":snap.get("level_receipts",[]),
+		"districts":snap.progress.get("metrics",[]),"lens":snap.lens,"upgrades":snap.upgrades,
+		"deaths":decoded.deaths,"kills":decoded.kills}
+	return CompletionRecord.canonical(record.result)==CompletionRecord.canonical(expected)
+
 func _refresh_run_history()->void:
 	if not save_enabled:return
-	var found:=RunHistory.latest(history_path)
 	_history_error=""
+	# Current session completion outranks wall-clock timestamps (which can roll back).
+	if not completion_record.is_empty():
+		if _validated_terminal(completion_record):
+			last_result=completion_record.duplicate(true);return
+		last_result.clear();_history_error="Current completion is invalid; history retained.";return
+	var found:=RunHistory.latest(history_path)
+	last_result.clear()
 	if found.ok:
-		if found.get("found",false):last_result=found.record.duplicate(true)
+		if found.get("found",false):
+			if _validated_terminal(found.record):last_result=found.record.duplicate(true)
+			else:_history_error="Completion snapshot or result is invalid; history retained."
 	else:_history_error=str(found.get("error","Run history could not be read."))
 
 func view_last_result()->void:
 	if last_result.is_empty():return
+	if not _validated_terminal(last_result):
+		last_result.clear();_history_error="Completion snapshot or result is invalid; history retained.";return
 	_reviewing_result=true;state="complete";get_tree().paused=true
 	sonar.set_blind(false)
 
@@ -455,8 +477,7 @@ func _decode_campaign_checkpoint()->Dictionary:
 		var terminal:=RunHistory.reconcile(history_path,extra.run_id)
 		if not terminal.ok:return {"ok":false,"error":terminal.get("error","Run history unavailable.")}
 		if terminal.get("found",false):
-			var checked:=CampaignCheckpoint.decode(terminal.record.snapshot,sectors)
-			if not checked.get("ok",false):return {"ok":false,"error":"Completion snapshot is invalid; history retained."}
+			if not _validated_terminal(terminal.record):return {"ok":false,"error":"Completion snapshot is invalid; history retained."}
 			saved["terminal_record"]=terminal.record
 			last_result=terminal.record.duplicate(true)
 		elif extra.run_status=="completed":return {"ok":false,"error":"Completed checkpoint has no valid history record; files retained."}
@@ -542,7 +563,7 @@ func _hud_snapshot()->Dictionary:
 		var seconds:=int(result.get("active_seconds",elapsed))
 		var body:=("The records are public. No single voice can erase them." if record.get("ending",campaign_ending)=="public_record" else "The districts hold their own keys. No central lock remains.")+"\nEvacuation lights carry on below. You lower your weapon.\nThe old operative leaves the tower to its people.\n\nFive levels complete · active time %d:%02d\n%d deaths · %d defeated · %s lens"%[seconds/60,seconds%60,int(result.get("deaths",deaths)),int(result.get("kills",kills)),str(result.get("lens",lens))]
 		if record.get("origin","")=="legacy_resume":body+="\nLegacy checkpoint continued; earlier receipts retained as recorded."
-		if not _completion_error.is_empty():body+="\n\nRESULT NOT FULLY SAVED · "+_completion_error+"\nKeep the game open; check storage, then retry."
+		if not _completion_error.is_empty():body+="\n\nRESULT NOT FULLY SAVED · "+_completion_error+"\nKeep the game open. Storage/access failures can be retried. Retained conflicting or partial files need recovery first."
 		snapshot.merge({"panel_override":true,"panel_title":"MOKSHA / THE FIVE ASCENTS","panel_body":body,"panel_footer":"ENTER Retry saving result" if not _completion_error.is_empty() else "N / ENTER Title · result retained in run history"})
 	elif state=="paused":
 		snapshot.merge({"panel_override":true,"panel_title":"PAUSED","panel_body":"A/D or arrows  Move     Space / C  Jump, then air jump\nJ  Fresh-tap strike combo     K  Raise / hold shield\nShift  Roll     S + Space  Drop / dive\nW / S  Climb ladders     Q  Sound tap\nE  Interact     TAB  Field journal     M  Mute\n\nR resets this district's objectives, guards and cargo.\nYour build, sight choice and archives are kept.","panel_footer":"ESC Resume    R Reset district    N Title"})

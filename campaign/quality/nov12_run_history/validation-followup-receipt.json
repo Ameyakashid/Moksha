@@ -1,0 +1,36 @@
+{
+  "base": "86b1131763729b3c43c113fd3ed9d8f48e32e8b4",
+  "scope": "Focused seeded lifecycle/store/schema checks only; no actual-input full campaign, native, Windows or power-loss claim.",
+  "assertions": 9058,
+  "checks": [
+    {
+      "log": "/tmp/completion-validation-lifecycle-final2.log",
+      "sha256": "6c1ae4f3328a683360063f7a38e62ff5d6a69592766e4be05bf95932c842e1eb",
+      "exit": 0
+    },
+    {
+      "log": "/tmp/completion-validation-store.log",
+      "sha256": "57b750eca1efc821c338602dabcd34e976153c77b0ec6099dfd14bddfc410eaf",
+      "exit": 0
+    },
+    {
+      "log": "/tmp/completion-validation-domain.log",
+      "sha256": "1b1664a2c5c07333500e76df420a7e10d942f71d14ccc981dfead74a29e2fcaf",
+      "exit": 0
+    },
+    {
+      "log": "/tmp/completion-validation-state.log",
+      "sha256": "71f71e9a534a6c8bfb4790798ea6fd980c682d050b57004ba2ef946729df0e25",
+      "exit": 0
+    },
+    {
+      "log": "/tmp/completion-validation-import-final.log",
+      "sha256": "9572934ad4d57fbab2c09b2c82f3821584fba7ba71d7e1dec5055bc7fa531f3f",
+      "exit": 0
+    }
+  ],
+  "rejected_setup": [
+    "Initial engine launch used unwritable inherited XDG directories and crashed before tests. Preserved /tmp/completion-validation-lifecycle.log; corrected isolated XDG roots for all accepted runs."
+  ],
+  "unchanged": "No controller, geometry, simulation, demo or new metadata files."
+}

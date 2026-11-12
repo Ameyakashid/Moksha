@@ -46,7 +46,11 @@ static func valid(raw:Variant)->bool:
 	if not result.get("levels") is Array or not result.get("districts") is Array:return false
 	for row in result.levels:
 		if not row is Dictionary or not whole(row.get("level")) or int(row.level)<1 or int(row.level)>5:return false
-		if not number(row.get("active_seconds")) or not row.get("completed_district") is String or row.completed_district.is_empty():return false
+		if not number(row.get("active_seconds")):return false
+		# Legacy codec accepted receipts without district identity. Preserve, never invent it.
+		if not row.has("completed_district"):
+			if raw.get("origin")!="legacy_resume":return false
+		elif not row.completed_district is String or row.completed_district.is_empty():return false
 	for row in result.districts:
 		if not row is Dictionary or not number(row.get("seconds")):return false
 		if row.has("area_id"):

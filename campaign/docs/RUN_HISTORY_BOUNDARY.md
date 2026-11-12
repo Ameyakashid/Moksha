@@ -92,3 +92,22 @@ real crash/power-cut test, Windows acceptance or native UI approval. External
 normal-title/legacy gameplay and native review are separate gates. Early rejected
 runs exposed a StringName key emitted by the preserved codec and an unclosed
 fixture writer; both corrected without weakening schema/collision checks.
+
+## Follow-up: history presentation validation
+The history store validates only the portable record envelope. Before any history
+record is presented or used to reconcile Continue, the host additionally runs the
+full campaign codec against the current content catalog and compares every
+duplicated result field with the snapshot (time, receipts, district rows, lens,
+upgrades, deaths and kills), plus provenance. Invalid records remain on disk,
+produce a visible error and cannot become a read-only completion screen.
+No 32-district/5-receipt count is imposed: legacy repeated prefixes are factual.
+A legacy receipt with no completed_district remains absent, not synthesized;
+this exception requires legacy_resume origin. The current session's frozen
+completion takes precedence over timestamp-latest history on Title, including
+when the system clock moved backwards.
+
+Retry is not universal automatic repair: storage/access/rename failures may be
+retryable after repair, but a retained partial or conflicting pending file
+continues to fail closed. Preserve those bytes and recover them explicitly;
+the game never deletes/replaces the conflict merely because Retry was pressed.
+This change does not provide a power-loss or concurrent-writer transaction.
