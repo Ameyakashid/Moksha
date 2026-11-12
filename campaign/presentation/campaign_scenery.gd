@@ -7,6 +7,7 @@ const Themes = [
 	preload("res://campaign/assets/themes/03_residences.tres"),
 	preload("res://campaign/assets/themes/04_memory.tres"),
 	preload("res://campaign/assets/themes/05_crown.tres")]
+const CrownAtmosphere = preload("res://campaign/presentation/crown_atmosphere.gd")
 const MemoryAtmosphere = preload("res://campaign/presentation/memory_atmosphere.gd")
 const CisternAtmosphere = preload("res://campaign/presentation/cistern_atmosphere.gd")
 const FoundryAtmosphere = preload("res://campaign/presentation/foundry_atmosphere.gd")
@@ -71,6 +72,13 @@ func configure_sector(data: Dictionary) -> void:
 		backdrop.drawing_enabled=false
 		atmosphere=MemoryAtmosphere.new()
 		atmosphere.name="MemoryWorksDepth"
+		backdrop.add_child(atmosphere)
+		atmosphere.configure({"id":str(data.get("id","district"))})
+		atmosphere.set_view(view_center,view_size)
+	elif level == 5:
+		backdrop.drawing_enabled=false
+		atmosphere=CrownAtmosphere.new()
+		atmosphere.name="CrownVista"
 		backdrop.add_child(atmosphere)
 		atmosphere.configure({"id":str(data.get("id","district"))})
 		atmosphere.set_view(view_center,view_size)

@@ -9,7 +9,7 @@
   },
   "policy": "Reviewable growth guard, not target-hardware claim. Original limits retain 10% total/count/PCM headroom and 20% largest-file/pixel headroom. Only explicitly reviewed additive asset allowances below change those limits; never automatically rebase measured inventory.",
   "limits": {
-    "inventory_bytes": 21464629,
+    "inventory_bytes": 23747632,
     "file_count": 576,
     "largest_file_bytes": 2574384,
     "largest_png_pixels": 1888023,
@@ -55,6 +55,16 @@
       "previous_limit": 18890638,
       "new_limit": 21464629,
       "reason": "Original Level4 Memory Works archive painting. One shared plate. Exact additive inventory allowance only; individual-file, pixel, count and audio limits remain unchanged. Not a target-hardware performance claim."
+    },
+    {
+      "date": "2026-11-12",
+      "path": "campaign/assets/crown/crown_vista_original.png",
+      "sha256": "7f8390d3efbff4b95dad80dbbb8f1bc650154edb61a5d70214062a48243ef7ac",
+      "bytes": 2283003,
+      "limit_changed": "inventory_bytes",
+      "previous_limit": 21464629,
+      "new_limit": 23747632,
+      "reason": "Original Level5 high-arcology Crown vista. One shared plate; exact additive inventory allowance only. All unrelated limits unchanged. Not a performance claim."
     }
   ]
 }
