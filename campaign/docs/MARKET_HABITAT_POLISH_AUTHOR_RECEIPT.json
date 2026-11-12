@@ -1,0 +1,27 @@
+{
+  "base": "9d04657db9ecfabc4354cad9ecb0dd6fc6dea7b9",
+  "texture": {
+    "path": "campaign/assets/market/market_materials_original.png",
+    "sha256": "bba219d8f13d178519f0056e4cf8a90ea7845930424aa17fa0cd92a1cd5c56de",
+    "bytes": 3188709,
+    "creation": "Built-in image_gen, original 2x2 material atlas, no reference inputs; unmodified file copied into project"
+  },
+  "checks": {
+    "habitat": 104,
+    "atmosphere": 52,
+    "scenery": 2602
+  },
+  "engine": "4.6.3.stable.official.7d41c59c4",
+  "exits": [
+    0,
+    0,
+    0
+  ],
+  "preserved_failed_attempt": "Initial texture draw call had swapped texture/rect arguments: compile error, stopped with Ctrl-C exit130. Corrected and reran all three tests; original log retained externally.",
+  "pending": [
+    "Native material-cohesion review",
+    "Actual retained/blind traversal",
+    "Independent acceptance"
+  ],
+  "scope": "Author headless contracts only. Source boundaries/landmarks/gameplay unchanged; do not relabel 9d native frames as polish evidence."
+}

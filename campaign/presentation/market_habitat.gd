@@ -1,6 +1,7 @@
 extends Node2D
 ## Original, optional district paint. Never an actor, collider or objective source.
 const DISTRICT_ID := "l3_inundated_market"
+const Materials = preload("res://campaign/assets/market/market_materials_original.png")
 const FontFace = preload("res://fonts/DejaVuSansMono.ttf")
 const CLUSTERS := [Rect2(105,174,470,126), Rect2(1325,-73,310,186), Rect2(3160,56,400,124)]
 const MAX_RESIDENTS := 6
@@ -46,15 +47,26 @@ func _plaque(box:Rect2,label:String,light:Color)->void:
 	draw_line(box.position,Vector2(box.end.x,box.position.y),light,.8)
 	draw_string(FontFace,box.position+Vector2(5,10),label,HORIZONTAL_ALIGNMENT_LEFT,box.size.x-8,8,light)
 
+func material_region(quadrant:int)->Rect2:
+	# Inset avoids sampling the neighboring atlas panel at scaled boundaries.
+	var half := Vector2(Materials.get_size())*.5
+	return Rect2(Vector2(quadrant%2,quadrant/2)*half+Vector2(2,2),half-Vector2(4,4))
+
+func _material(box:Rect2,quadrant:int,tint:Color)->void:
+	draw_texture_rect_region(Materials,box,material_region(quadrant),tint)
+
+func _cloth(points:PackedVector2Array,box:Rect2,tint:Color)->void:
+	var region := material_region(2)
+	var uvs := PackedVector2Array()
+	for point in points:
+		uvs.append((region.position+(point-box.position)/box.size*region.size)/Vector2(Materials.get_size()))
+	draw_polygon(points,PackedColorArray([tint]),uvs,Materials)
+
 func _shutter(box:Rect2)->void:
-	draw_rect(box,Color("253a3d"))
-	for y in range(int(box.position.y)+4,int(box.end.y),6):
-		draw_line(Vector2(box.position.x+2,y),Vector2(box.end.x-2,y),Color("34494a"),.7)
-	# Flood staining is within the frontage, never an apparent platform edge.
-	draw_rect(Rect2(box.position.x,box.end.y-25,box.size.x,25),Color(.06,.13,.13,.47))
-	for x in range(int(box.position.x)+8,int(box.end.x),23):
-		draw_line(Vector2(x,box.end.y-26),Vector2(x+2,box.end.y-12),Color("3c514b"),1)
-	draw_line(Vector2(box.get_center().x,box.end.y-13),Vector2(box.get_center().x+7,box.end.y-13),Color("596160"),1)
+	_material(box,0,Color(.63,.72,.72,1))
+	# Wet lower staining and shadow in the reveal, not a new collision lip.
+	draw_colored_polygon(PackedVector2Array([box.position+Vector2(0,box.size.y*.70),box.position+Vector2(box.size.x,box.size.y*.77),box.end,Vector2(box.position.x,box.end.y)]),Color(.025,.07,.07,.30))
+	draw_rect(Rect2(box.position.x,box.position.y,box.size.x,3),Color(0,.025,.03,.42))
 
 func _bundle(at:Vector2,tint:Color)->void:
 	draw_colored_polygon(PackedVector2Array([at+Vector2(-9,0),at+Vector2(-10,-9),at+Vector2(-6,-13),at+Vector2(7,-12),at+Vector2(10,-7),at+Vector2(9,0)]),tint)
@@ -65,12 +77,11 @@ func _entrance_stalls()->void:
 	# Full-height closed shutters distinguish the market from portable cargo.
 	for i in 3:
 		var x := 120.0+i*150.0
-		draw_rect(Rect2(x-8,194,132,106),INK)
+		_material(Rect2(x-8,194,132,106),3,Color(.55,.66,.67,1))
 		_shutter(Rect2(x,215,116,85))
 		_plaque(Rect2(x,195,116,16),["REPAIRS / 04","NIGHT PRODUCE","TEXTILE REUSE"][i],CYAN if i%2==0 else MAGENTA)
 		# Rolled fabric is narrow and ragged, not a walkable roof silhouette.
-		draw_line(Vector2(x-4,212),Vector2(x+120,212),Color("435151"),4)
-		for j in 8:draw_line(Vector2(x+j*16,211),Vector2(x+j*16+2,216),Color("635767"),2)
+		_cloth(PackedVector2Array([Vector2(x-4,211),Vector2(x+120,211),Vector2(x+119,217),Vector2(x+44,219),Vector2(x-3,216)]),Rect2(x-4,211,124,8),Color(.60,.68,.70,1))
 		_bundle(Vector2(x+98,299),Color("475249"))
 	# Recessed entry mast; no direction arrow or interactable-looking icon.
 	draw_rect(Rect2(105,174,8,126),Color("1c3439"))
@@ -79,14 +90,11 @@ func _entrance_stalls()->void:
 func _key_awning()->void:
 	# Cloth hangs UNDER the existing platform at (1350,-90,260,18).
 	# The collision skin at y=-90 remains the only bright traversable lip.
-	draw_rect(Rect2(1352,-72,256,176),Color(.05,.10,.12,.70))
+	_material(Rect2(1352,-72,256,176),3,Color(.53,.65,.66,1))
 	_shutter(Rect2(1375,-28,105,132))
 	_shutter(Rect2(1492,-28,92,132))
 	_plaque(Rect2(1380,-51,188,16),"MENDED SAILS / 04",MAGENTA)
-	for i in 13:
-		var x := 1350.0+i*20.0
-		var hem := -54.0+float(i%3)*2.0
-		draw_colored_polygon(PackedVector2Array([Vector2(x,-72),Vector2(x+20,-72),Vector2(x+18,hem),Vector2(x+2,hem-1)]),Color("675267") if i%2==0 else Color("36565b"))
+	_cloth(PackedVector2Array([Vector2(1350,-72),Vector2(1610,-72),Vector2(1607,-56),Vector2(1530,-52),Vector2(1450,-55),Vector2(1352,-59)]),Rect2(1350,-72,260,20),Color(.69,.72,.76,1))
 	for x in [1358.0,1602.0]:
 		draw_line(Vector2(x,-70),Vector2(x,108),Color("344c50"),3)
 		draw_line(Vector2(x,-70),Vector2(x+(-22 if x>1500 else 22),-32),Color("405456"),2)
@@ -110,17 +118,16 @@ func _resident(foot:Vector2,coat:Color,small:bool,parcel:bool)->void:
 
 func _refuge()->void:
 	# Occupants are behind the rear railing; their lane is not traversable.
-	draw_rect(Rect2(3170,66,370,108),Color(.035,.08,.095,.92))
+	_material(Rect2(3170,66,370,108),3,Color(.53,.64,.65,1))
+	draw_rect(Rect2(3170,66,370,5),Color(0,.02,.03,.48))
 	for x in [3180.0,3300.0,3420.0]:
-		draw_rect(Rect2(x,88,104,80),Color("233b3f"))
-		draw_rect(Rect2(x+8,95,86,35),Color("35474a"))
-		draw_line(Vector2(x+8,130),Vector2(x+94,130),Color("455c5b"),1)
+		_material(Rect2(x,88,104,80),1,Color(.66,.73,.72,1))
 	_plaque(Rect2(3190,70,200,15),"ROOF REFUGE / RESIDENTS",CYAN)
 	# Narrow laundry rope and irregular hanging fabric, deliberately not a ledge.
 	draw_polyline(PackedVector2Array([Vector2(3170,58),Vector2(3350,64),Vector2(3540,57)]),Color("415153"),.7)
 	for i in 5:
 		var x := 3235.0+i*48
-		draw_colored_polygon(PackedVector2Array([Vector2(x,62),Vector2(x+15,62),Vector2(x+14,78+i%3),Vector2(x+2,76)]),Color("4f4b57") if i%2 else Color("455b58"))
+		_cloth(PackedVector2Array([Vector2(x,62),Vector2(x+15,62),Vector2(x+14,78+i%3),Vector2(x+2,76)]),Rect2(x,62,15,18),Color(.65,.72,.74,1) if i%2 else Color(.48,.64,.65,1))
 	var coats := [Color("4b5661"),Color("64505f"),Color("586252")]
 	for i in MAX_RESIDENTS:
 		_resident(Vector2(3202+i*53,163),coats[i%3],i==2 or i==4,i%2==0)

@@ -36,6 +36,15 @@ func run()->void:
 	var habitat=scenery.habitat
 	check(Habitat.CLUSTERS.size()==3,"Exactly3 authored landmark clusters")
 	check(Habitat.MAX_RESIDENTS==6,"Six decorative residents bounded")
+	var atlas_bounds:=Rect2(Vector2.ZERO,Vector2(Habitat.Materials.get_size()))
+	var regions:Array[Rect2]=[]
+	for quadrant in 4:
+		var region:Rect2=habitat.material_region(quadrant)
+		check(atlas_bounds.encloses(region),"Material crop inside original image")
+		check(region.size.x>0 and region.size.y>0,"Material crop nonempty")
+		for previous in regions:check(not previous.intersects(region),"Material quadrants do not bleed")
+		regions.append(region)
+
 	check(market.platforms.has(Rect2(1350,-90,260,18)),"Awning anchored below actual key platform")
 	check(market.platforms.has(Rect2(3100,180,480,18)),"Refuge above actual east platform")
 	check(market.ladders.has([1460,110,200]),"Key recovery ladder unchanged")
