@@ -1,0 +1,51 @@
+{
+  "base": "c82f09162001ae9b3d261709ca1d086c985b9dbb",
+  "baseline_files": 4542,
+  "changed_existing_files": [
+    "campaign/views/campaign_hud_owner.gd"
+  ],
+  "all_other_baseline_files_identical": true,
+  "checks": {
+    "final-60": {
+      "checks": 162,
+      "exit": 0,
+      "log_sha256": "ff6e0f56757b7025d40e78971e94b96fe75f6457a75dec9e89b360ffbf4ef457"
+    },
+    "final-120": {
+      "checks": 162,
+      "exit": 0,
+      "log_sha256": "ba00e130679d9bcd71468c8e2ed7d8f6fa8df762105457fcf7a03802bc856635"
+    },
+    "contract": {
+      "checks": 57,
+      "exit": 0,
+      "log_sha256": "be7a31c93f4fdfbe0e291dd37593d5b7d072c7fc9112fcc080cec7d0cd94e7a5"
+    },
+    "nov6_presentation_contract": {
+      "checks": 2594,
+      "exit": 0,
+      "log_sha256": "ef512475e072e3522053deb28a73835b081ec1d889d0b4d3fb03fcea19f6a7ba"
+    },
+    "hearing_copy_contract": {
+      "checks": 13,
+      "exit": 0,
+      "log_sha256": "12f75fb7cac6c0a3077912f80cb4ed5b4f3718f788ebd6adf911eeb1947ac6c1"
+    },
+    "companion": {
+      "checks": 55,
+      "exit": 0,
+      "log_sha256": "694ce215f9ea9638c4e002327940d6ccb4fbd6e1726bde8960b532ee963d3a92"
+    },
+    "notice": {
+      "checks": 259,
+      "exit": 0,
+      "log_sha256": "822f88c50bf588f97a936e9358cfde6f60f015ebb0c714d8b06a729a053e0394"
+    }
+  },
+  "scope": "Actual staged physics and host->typed campaign owner->painter regression, keyboard/controller presentation. No native/hardware or earned-route claim. Shared mission HUD, controller/input/save/sense/layout bytes unchanged.",
+  "preserved_failures": [
+    "before-fix-60:40 owner delivery/type/default failures",
+    "after-fix-120-attempt01:unbudgeted external fixture could overshoot requested input duration; final driver counts exact requested ticks."
+  ],
+  "native_pending": true
+}
