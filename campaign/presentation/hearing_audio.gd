@@ -17,3 +17,8 @@ func play_sound(key: String, db := -10.0, pitch := 1.0):
 	# Win is non-diegetic completion feedback. Intro hit and all world/body cues
 	# are diegetic, including taps: captions and tactile state remain separate.
 	if hearing_enabled or key=="win":super.play_sound(key,db,pitch)
+
+func _ready() -> void:
+	super._ready()
+	cache["irritant_warning"] = load("res://audio/irritant_warning.wav")
+	cache["irritant_hiss"] = load("res://audio/irritant_hiss.wav")

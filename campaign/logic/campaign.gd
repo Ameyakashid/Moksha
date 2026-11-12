@@ -335,7 +335,11 @@ func interact()->void:
 	if _pending_sector<0:_level_transition_snapshot.clear()
 func sense_capabilities()->Dictionary:
 	return SenseState.capabilities(SenseState.create(blind,hearing_retained))
+const IrritantDisperser = preload("res://campaign/logic/irritant_disperser.gd")
+var irritant_dispersers: Array[Node] = []
 func _apply_senses()->void:
+	for disperser in irritant_dispersers:
+		if is_instance_valid(disperser): disperser.set_sight_enabled(not blind)
 	if is_instance_valid(sonar) and sonar.has_method("set_hearing_enabled"):sonar.set_hearing_enabled(hearing_retained)
 	if is_instance_valid(audio) and audio.has_method("set_hearing_enabled"):audio.set_hearing_enabled(hearing_retained)
 func _finish_hearing_offer()->void:
@@ -538,6 +542,12 @@ func _valid_save()->bool:
 	return saved.get("ok",false) and not saved.has("terminal_record")
 
 func _on_noise(origin:Vector2,kind:StringName,loudness:float,source:Node)->void:
+	if kind in [&"irritant_warning", &"irritant_hiss"]:
+		if not is_instance_valid(source) or not source is IrritantDisperser or source.host != self or not source.accepts_notice(origin,kind): return
+		if not is_instance_valid(room) or not is_instance_valid(source) or source.is_queued_for_deletion() or not room.is_ancestor_of(source): return
+		if not is_instance_valid(player) or not origin.is_finite() or player.global_position.distance_to(origin) > 300.0: return
+		audio.play_at(String(kind), origin, -14.0, 1.0)
+		return
 	var audio_request_before:Dictionary=audio.last_spatial_sound if is_instance_valid(audio) else {}
 	var audio_children_before:=audio.get_child_count() if is_instance_valid(audio) else 0
 	super._on_noise(origin,kind,loudness,source)

@@ -62,6 +62,26 @@ const DEFAULT_WEAPON_PERMISSIONS = {
 @export var material_profile: Resource
 @export var debug_draw_collision := false
 
+class IrritantLifetimeWatch extends Node:
+	var actor_ref: WeakRef
+	func _physics_process(_dt: float) -> void:
+		var actor = actor_ref.get_ref() if actor_ref != null else null
+		if not is_instance_valid(actor): queue_free(); return
+		if get_tree().paused: return
+		if not actor.can_process() or (not actor.is_physics_processing() and Engine.get_physics_frames() - actor._irritant_last_tick > 1): actor._clear_irritant(false)
+
+const IrritantSource = preload("res://combat_pc/irritant_source.gd")
+const IRRITANT_LOCK_SECONDS := 0.18
+const IRRITANT_REARM_SECONDS := 1.5
+var _irritant_susceptible := true
+var _irritant_revision := 0
+var _irritant_lock := 0.0
+var _irritant_rearm := 0.0
+var _irritant_source: WeakRef
+var _irritant_admitting := false
+var _irritant_watch: Node
+var _irritant_last_tick := -1
+
 var facing: int = 1
 var grounded := false
 var crouched := false
@@ -380,6 +400,8 @@ func physics_tick(dt: float, frame: Variant = null) -> void:
 func _run_physics_tick(dt: float, frame: Variant) -> void:
 	if dt <= 0 or not is_inside_tree(): return
 	_prune_defeated_owner()
+	_irritant_last_tick = Engine.get_physics_frames()
+	_tick_irritant(dt)
 	_step_delta = dt
 	rigid_contact_impulse_this_tick = 0.0
 	_voluntary_ground_target = Vector2.ZERO
@@ -1636,6 +1658,7 @@ func _clear_drop_exception(reason: StringName) -> void:
 	_drop_reason = reason
 	if was_active: _emit(&"drop_clearance_restored", {"target_id": _drop_target_id, "reason": reason})
 func _exit_tree() -> void:
+	_clear_irritant(true)
 	_clear_defeated_gate(true)
 	_clear_drop_exception(&"actor_removed")
 
@@ -2440,7 +2463,7 @@ func _late_windup_admission_current() -> bool:
 		and _late_windup_admission.reset_epoch == _reset_epoch \
 		and _late_windup_admission.configuration_epoch == _melee_configuration_epoch \
 		and _owner_unchanged(_late_windup_admission.action_generation, _late_windup_admission.weapon_generation) \
-		and can_process() and is_physics_processing() and not get_tree().paused
+		and can_process() and (is_physics_processing() or Engine.get_physics_frames() - _irritant_last_tick <= 1) and not get_tree().paused
 func request_late_windup(token: Dictionary, tail_seconds: float, rate: float) -> bool:
 	if not _late_windup_admission_current() or token != _late_windup_admission or not _late_windup_lease.is_empty(): return false
 	if not is_finite(tail_seconds) or not is_finite(rate) or tail_seconds <= 0.0 or tail_seconds > 0.18 or rate < 0.5 or rate > 1.0: return false
@@ -2723,7 +2746,7 @@ func _shield_allows_cancel(next_action: StringName) -> bool:
 	if next_action in [&"damage", &"forced", &"reset", &"hard_landing", &"drop_geometry_blocked"]: return true
 	return shield_profile.can_be_held and shield_phase == &"hold" and _time_reached(_shield_elapsed, shield_profile.hold_cancel_after) and next_action in [&"roll", &"jump", &"air_jump", &"attack", &"drop", &"dive", &"climb", &"wall"]
 func _shield_gates_open() -> bool:
-	return not is_defeated() and allow_shield and bool(_capabilities.can_shield) and bool(_external_weapon_permissions.can_shield)
+	return _irritant_lock <= 0 and not is_defeated() and allow_shield and bool(_capabilities.can_shield) and bool(_external_weapon_permissions.can_shield)
 func _shield_turn_allowed() -> bool:
 	match shield_phase:
 		&"raise": return shield_profile.allow_turn_raise
@@ -3946,6 +3969,7 @@ static func _smooth(t: float) -> float:
 func _uses_inputs() -> bool:
 	return allow_input and not is_defeated() and bool(_capabilities.uses_inputs)
 func can_interrupt_with(next_action: StringName) -> bool:
+	if _irritant_lock > 0 and next_action in [&"attack", &"shield"]: return false
 	if is_defeated(): return false
 	if main_action == &"hard_land": return next_action in [&"damage", &"forced"]
 	if is_instance_valid(_drop_body) and next_action in [&"jump", &"air_jump"]: return false
@@ -4014,6 +4038,7 @@ func enter_defeated(request_owner: Node, collapse_seconds: float = 0.36) -> bool
 	_prune_defeated_owner()
 	if is_defeated(): return is_defeated_by(request_owner)
 	if _entry_assist_querying: _entry_assist_mutated = true
+	_clear_irritant(true)
 	_defeat_generation += 1
 	var generation = _defeat_generation
 	var reset_generation = _reset_epoch
@@ -4162,6 +4187,9 @@ func _refresh_weapon_permissions() -> void:
 			_weapon_permissions[key] = 0.0 if key == "move_scale" else false
 		return
 	_apply_shield_permissions()
+	if _irritant_lock > 0:
+		_weapon_permissions.can_attack = false
+		_weapon_permissions.can_shield = false
 	if _melee_reuse_lock_remaining > 0:
 		_weapon_permissions.can_attack = false
 		_weapon_permissions.can_shield = false
@@ -4361,6 +4389,7 @@ func _emit(name_: StringName, payload: Dictionary) -> void:
 func reset_actor(at: Vector2, look: int = 1) -> void:
 	if _entry_assist_querying: _entry_assist_mutated = true
 	_reset_epoch += 1
+	_clear_irritant(true)
 	_reset_fresh_start_sequence()
 	var own_reset_epoch = _reset_epoch
 	_clear_defeated_gate(false)
@@ -4575,3 +4604,98 @@ static func ensure_default_inputs() -> void:
 func _draw() -> void:
 	if debug_draw_collision:
 		draw_rect(Rect2(Vector2(-profile.body_width * 0.5, -body_height), Vector2(profile.body_width, body_height)), Color(0.4, 0.9, 1, 0.6), false, 0.6)
+
+## Original pilot cough: weapon interruption only. No movement, health or save writes.
+func set_irritant_susceptible(value: bool) -> void:
+	_irritant_revision += 1
+	_irritant_susceptible = value
+	if not value: _clear_irritant(false)
+func irritant_snapshot() -> Dictionary:
+	return {"coughing":_irritant_lock > 0,"remaining":_irritant_lock,"rearm":_irritant_rearm,"susceptible":_irritant_susceptible}
+func _clear_irritant(reset_rearm: bool) -> void:
+	var source = _irritant_source.get_ref() if _irritant_source != null else null
+	if is_instance_valid(source) and source.retired.is_connected(_on_irritant_source_retired): source.retired.disconnect(_on_irritant_source_retired)
+	_irritant_source = null
+	if is_instance_valid(_irritant_watch): _irritant_watch.queue_free()
+	_irritant_watch = null
+	_irritant_lock = 0
+	if reset_rearm: _irritant_rearm = 0
+	_refresh_weapon_permissions()
+func _on_irritant_source_retired() -> void: _clear_irritant(false)
+func _tick_irritant(dt: float) -> void:
+	_irritant_rearm = maxf(0, _irritant_rearm - dt)
+	if _irritant_lock <= 0: return
+	var source = _irritant_source.get_ref() if _irritant_source != null else null
+	# Do not call source scripts from this tick. Lifetime retirement is signalled.
+	if not is_instance_valid(source) or not source.is_inside_tree() or source.is_queued_for_deletion() or not source.can_process() or not source.is_physics_processing() or not source.exposure_live:
+		_clear_irritant(false)
+		return
+	_irritant_lock = maxf(0, _irritant_lock - dt)
+	if _irritant_lock <= 0: _clear_irritant(false)
+func _irritant_owner_valid(epoch: int, action: int, weapon: int) -> bool:
+	return is_inside_tree() and not is_queued_for_deletion() and can_process() and (is_physics_processing() or Engine.get_physics_frames() - _irritant_last_tick <= 1) and not get_tree().paused and not is_defeated() and _reset_epoch == epoch and _action_generation == action and _weapon_generation == weapon
+func _irritant_overlap(source: Node) -> bool:
+	var bounds: Variant = source.field_rect()
+	if not bounds is Rect2 or not bounds.position.is_finite() or not bounds.size.is_finite() or bounds.size.x <= 0 or bounds.size.y <= 0 or bounds.size.x > 200 or bounds.size.y > 100: return false
+	if not is_instance_valid(_shape_node) or _shape_node.disabled or not _body_shape is RectangleShape2D or not global_position.is_finite(): return false
+	if not _body_shape.size.is_finite() or _body_shape.size.x <= 0 or _body_shape.size.y <= 0: return false
+	if not _shape_node.global_transform.is_equal_approx(Transform2D(0,_shape_node.global_position)): return false
+	return bounds.intersects(Rect2(_shape_node.global_position-_body_shape.size/2,_body_shape.size),false)
+func admit_irritant(source: Node) -> Dictionary:
+	if _irritant_admitting or not source is IrritantSource or not is_instance_valid(source): return {"outcome":"invalid"}
+	if not _irritant_owner_valid(_reset_epoch,_action_generation,_weapon_generation): return {"outcome":"invalid"}
+	if not _irritant_susceptible: return {"outcome":"immune"}
+	if _irritant_rearm > 0: return {"outcome":"rearming"}
+	if is_roll_invulnerable(): return {"outcome":"evaded"}
+	_irritant_admitting = true
+	var epoch := _reset_epoch
+	var revision := _irritant_revision
+	var configuration := _melee_configuration_epoch
+	var source_epoch: int = source.exposure_epoch
+	var action := _action_generation
+	var weapon := _weapon_generation
+	var exposed: bool = source.exposure_current(self)
+	if _irritant_owner_valid(epoch,action,weapon) and is_instance_valid(source) and source.is_inside_tree() and not source.is_queued_for_deletion() and exposed:
+		exposed = _irritant_overlap(source)
+	else: exposed = false
+	if configuration != _melee_configuration_epoch or revision != _irritant_revision or not _irritant_susceptible or not exposed or not _irritant_owner_valid(epoch,action,weapon) or not is_instance_valid(source) or not source.is_inside_tree() or not source.can_process() or not source.is_physics_processing() or source.is_queued_for_deletion() or source.exposure_epoch != source_epoch or not source.exposure_live:
+		_irritant_admitting = false
+		return {"outcome":"invalid"}
+	# Install rearm before any callback; no alternate source can chain admission.
+	_irritant_rearm = IRRITANT_REARM_SECONDS
+	if not _cancel_attack(&"irritant") or _reset_epoch != epoch or _action_generation != action or not is_instance_valid(source) or not source.is_inside_tree() or not source.can_process() or not source.is_physics_processing() or source.is_queued_for_deletion() or not _irritant_susceptible or configuration != _melee_configuration_epoch or source.exposure_epoch != source_epoch or not source.exposure_live:
+		_irritant_admitting = false
+		return {"outcome":"cancelled"}
+	weapon = _weapon_generation
+	exposed = source.exposure_current(self)
+	if _irritant_owner_valid(epoch,action,weapon) and is_instance_valid(source) and not source.is_queued_for_deletion() and exposed: exposed = _irritant_overlap(source)
+	if configuration != _melee_configuration_epoch or revision != _irritant_revision or not _irritant_susceptible or not _irritant_owner_valid(epoch,action,weapon) or not is_instance_valid(source) or not source.is_inside_tree() or not source.can_process() or not source.is_physics_processing() or source.is_queued_for_deletion() or not exposed or source.exposure_epoch != source_epoch or not source.exposure_live:
+		_irritant_admitting = false
+		return {"outcome":"cancelled"}
+	_attack_buffer = 0
+	_shield_buffer = 0
+	_irritant_source = weakref(source)
+	source.retired.connect(_on_irritant_source_retired)
+	_irritant_lock = IRRITANT_LOCK_SECONDS
+	_irritant_watch = IrritantLifetimeWatch.new()
+	_irritant_watch.actor_ref = weakref(self)
+	_irritant_watch.process_mode = Node.PROCESS_MODE_ALWAYS
+	_irritant_watch.process_physics_priority = 100
+	var installed_watch := _irritant_watch
+	add_child(installed_watch)
+	# Tree-entry signals are synchronous and may reset/reconfigure this actor or
+	# retire the source. Report only the lock this call still owns after them.
+	var owns_lock: bool = is_instance_valid(installed_watch) and _irritant_watch == installed_watch and _irritant_source != null and _irritant_source.get_ref() == source
+	var source_valid: bool = is_instance_valid(source) and source.is_inside_tree() and not source.is_queued_for_deletion() and source.can_process() and source.is_physics_processing() and source.exposure_live and source.exposure_epoch == source_epoch
+	var watch_valid: bool = owns_lock and installed_watch.get_parent() == self and installed_watch.is_inside_tree() and not installed_watch.is_queued_for_deletion() and installed_watch.actor_ref != null and installed_watch.actor_ref.get_ref() == self and installed_watch.process_mode == Node.PROCESS_MODE_ALWAYS and installed_watch.is_physics_processing()
+	if not _irritant_owner_valid(epoch,action,weapon) or configuration != _melee_configuration_epoch or revision != _irritant_revision or not _irritant_susceptible or not source_valid or not watch_valid or _irritant_lock <= 0:
+		# Never retire a newer/reset owner's replacement while unwinding this call.
+		if owns_lock and _reset_epoch == epoch: _clear_irritant(false)
+		_irritant_admitting = false
+		return {"outcome":"cancelled"}
+	_refresh_weapon_permissions()
+	_irritant_admitting = false
+	return {"outcome":"cough","seconds":IRRITANT_LOCK_SECONDS}
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_DISABLED: _clear_irritant(false)

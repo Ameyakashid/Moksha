@@ -37,6 +37,7 @@ func _collect_cached_geometry() -> Array[Dictionary]:
 	return result
 
 # Listener capability, separate from blind styling and global NoiseBus emission.
+const IrritantDisperser = preload("res://campaign/logic/irritant_disperser.gd")
 var hearing_enabled := true
 func set_hearing_enabled(value: bool) -> void:
 	hearing_enabled=value
@@ -48,6 +49,9 @@ func set_hearing_enabled(value: bool) -> void:
 		for shape_id in _watched_shapes.keys():_retire_shape_watch(shape_id)
 	_redraw()
 func _on_noise_emitted(origin: Vector2, kind: StringName, loudness: float, source: Node = null) -> void:
+	if kind in [&"irritant_warning", &"irritant_hiss"]:
+		if not is_instance_valid(source) or not source is IrritantDisperser or source.target != _player or not source.accepts_notice(origin,kind): return
+		if not is_instance_valid(_player) or not origin.is_finite() or _player.global_position.distance_to(origin) > 300.0: return
 	if hearing_enabled:super._on_noise_emitted(origin,kind,loudness,source)
 func refresh_geometry() -> void:
 	if hearing_enabled:super.refresh_geometry()
@@ -61,3 +65,19 @@ func render_on(canvas: Node2D) -> void:
 	if blind:
 		canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
 		canvas.draw_rect(Rect2(Vector2.ZERO,get_viewport().get_visible_rect().size),Color.BLACK)
+
+# Temporary, real noise-origin identities. No persistent cloud contour or tracking.
+func _label(kind: StringName) -> String:
+	if kind == &"irritant_warning": return "GAS WARNING"
+	if kind == &"irritant_hiss": return "GAS HISS"
+	return super._label(kind)
+func _origin_priority(kind: StringName) -> int:
+	if kind in [&"irritant_warning", &"irritant_hiss"]: return 84
+	return super._origin_priority(kind)
+
+func origin_label_visible(pulse: Dictionary) -> bool:
+	if pulse.kind in [&"irritant_warning", &"irritant_hiss"]:
+		if not is_instance_id_valid(pulse.source_id): return false
+		var source = instance_from_id(pulse.source_id)
+		if not source is IrritantDisperser or not source.accepts_notice(pulse.origin,pulse.kind): return false
+	return super.origin_label_visible(pulse)
