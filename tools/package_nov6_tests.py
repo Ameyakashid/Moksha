@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Packaging safety/unit checks. These never build or modify the game."""
 import importlib.util
+import json
 import math
 import subprocess
 from pathlib import Path
@@ -17,6 +18,40 @@ split_spec.loader.exec_module(split_package)
 
 
 class PackagingTests(unittest.TestCase):
+    def test_public_report_normalizes_nested_paths_without_raw_mutation(self):
+        raw = {"checks": [{"command": ["/tools/godot", "--path", "/build/stage",
+                "--output=/build-receipts/test.json", "/build/frozen-source/a.gd"],
+                "passed": True, "log_sha256": "a" * 64, "exit_code": 0}],
+               "nested": {"path": "/build"}, "nullable": None}
+        before = json.dumps(raw, sort_keys=True)
+        public = package.portable_build_report(raw, build=Path("/build"),
+                source=Path("/build/frozen-source"), godot=Path("/tools/godot"),
+                receipts=Path("/build-receipts"))
+        self.assertEqual(public["checks"][0]["command"], ["$GODOT", "--path",
+                "$BUILD/stage", "--output=$RECEIPTS/test.json", "$SOURCE/a.gd"])
+        self.assertEqual(public["nested"]["path"], "$BUILD")
+        self.assertEqual(public["checks"][0]["log_sha256"], "a" * 64)
+        self.assertTrue(public["checks"][0]["passed"])
+        self.assertEqual(public["checks"][0]["exit_code"], 0)
+        self.assertIsNone(public["nullable"])
+        self.assertNotIn("/build", json.dumps(public))
+        self.assertNotIn("/tools/godot", json.dumps(public))
+        public["checks"][0]["passed"] = False
+        public["nested"]["path"] = "changed"
+        self.assertEqual(json.dumps(raw, sort_keys=True), before)
+        self.assertNotIn("path_format_note", raw)
+
+    def test_public_report_preserves_unrelated_data_and_prefix_siblings(self):
+        raw = {"message": "ordinary results remain exact", "version": 1,
+               "values": [False, 2.5, "/build-old/log", "res://level.gd"],
+               "command": 'run "/build/a b.json"; --path=/build'}
+        public = package.portable_build_report(raw, build=Path("/build"),
+                source=Path("/build/frozen-source"), godot=Path("/tools/godot"),
+                receipts=Path("/build-receipts"))
+        for key in ("message", "version", "values"):
+            self.assertEqual(public[key], raw[key])
+        self.assertEqual(public["command"], 'run "$BUILD/a b.json"; --path=$BUILD')
+
     def test_runtime_archive_allowlist_keeps_both_verified_deliveries(self):
         self.assertEqual(package.TRUSTED_WINDOWS_ARCHIVES, {
             "88ef3a4ea5a7379135207fb6fb308dd38e06cb0fddd086825ffdc92ba8b77541": "9e22722",

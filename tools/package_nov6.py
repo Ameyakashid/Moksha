@@ -205,6 +205,41 @@ def sha(path: Path) -> str:
     return digest.hexdigest()
 
 
+def portable_build_report(report: dict, *, build: Path, source: Path,
+                          godot: Path, receipts: Path) -> dict:
+    """Copy public metadata with portable paths; never change raw test receipts.
+
+    Only known local path values (including command arguments) are normalized.
+    This is presentation, not redaction of arbitrary secrets or runnable commands.
+    Longest roots win so the frozen source and sibling receipts keep their labels.
+    """
+    replacements = sorted(((str(build), "$BUILD"), (str(source), "$SOURCE"),
+                           (str(godot), "$GODOT"), (str(receipts), "$RECEIPTS")),
+                          key=lambda item: len(item[0]), reverse=True)
+
+    def copy_value(value):
+        if isinstance(value, dict):
+            return {key: copy_value(item) for key, item in value.items()}
+        if isinstance(value, list):
+            return [copy_value(item) for item in value]
+        if isinstance(value, str):
+            for local, label in replacements:
+                # Do not rewrite unrelated prefix siblings, e.g. build-old.
+                pattern = re.escape(local) + r"(?=$|[/\\\s\"'<>),;])"
+                value = re.sub(pattern, lambda _match: label, value)
+        return value
+
+    result = copy_value(report)
+    result["path_format_note"] = (
+        "Local execution paths use explanatory placeholders: $BUILD is the "
+        "packaging workspace, $SOURCE the frozen source checkout, $GODOT the "
+        "Godot executable and $RECEIPTS the external fixture receipt directory. "
+        "Test results and original log hashes are retained. Raw external reports "
+        "are unchanged; these labels are not runnable shell commands."
+    )
+    return result
+
+
 def write_json(path: Path, value: object) -> None:
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
@@ -788,7 +823,8 @@ def main() -> int:
     base_report["player_guide_sha256"] = {name: row["delivered_sha256"] for name, row in base_report["player_guides"].items()}
     (windows / "START_HERE.txt").write_text(readme("Windows", commit, version), encoding="utf-8")
     (windows / "Run-MOKSHA.cmd").write_bytes(b'@echo off\r\nsetlocal\r\ncd /d "%~dp0"\r\nif not exist "MOKSHA.pck" (\r\n  echo Extract the complete ZIP first. MOKSHA.pck is missing.\r\n  pause\r\n  exit /b 1\r\n)\r\nstart "MOKSHA" /D "%~dp0" "%~dp0MOKSHA.exe" --rendering-method gl_compatibility\r\n')
-    write_json(windows / "BUILD_REPORT.json", base_report)
+    write_json(windows / "BUILD_REPORT.json", portable_build_report(
+            base_report, build=output, source=frozen, godot=engine, receipts=external_receipts))
     shutil.copy2(stage / "BUILD_PROVENANCE.json", windows / "BUILD_PROVENANCE.json")
     checksums(windows)
     archives = {"windows": archive_tree(windows, output / f"MOKSHA-Windows-x64-{commit[:7]}.zip")}
@@ -812,7 +848,8 @@ def main() -> int:
         packed_check("relocated_linux_binary", audit, "PACK_AUDIT_PASS", pck=linux / "MOKSHA.pck", binary=linux / "MOKSHA")
         reports.append(command_check("linux_launcher", [str(linux / "Start-MOKSHA.sh"), "--headless", "--quit-after", "10"], test_root,
                                      isolated_environment(output / "isolated", "linux_launcher"), logs))
-        write_json(linux / "BUILD_REPORT.json", base_report)
+        write_json(linux / "BUILD_REPORT.json", portable_build_report(
+            base_report, build=output, source=frozen, godot=engine, receipts=external_receipts))
         shutil.copy2(stage / "BUILD_PROVENANCE.json", linux / "BUILD_PROVENANCE.json")
         checksums(linux)
         archives["linux"] = archive_tree(linux, output / f"MOKSHA-Linux-x64-{commit[:7]}.zip")
