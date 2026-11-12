@@ -1,0 +1,57 @@
+{
+  "base": "fe9936a2ecfde8a727ac2131801f3b9b22929d61",
+  "cases": [
+    {
+      "case": "neutral-exposed",
+      "passed": true,
+      "thermal_seconds": 56.483333333282,
+      "observer_sha256": "a4e0caf535a5d3d5a04401974b30195b45f9b9a414a1b4282c7d1edae347da87",
+      "production_layout_sha256": "419d570b4c733aac2040e4ac36e31aa8ede07c9b7f67de7d341b232b47071c50"
+    },
+    {
+      "case": "neutral-service",
+      "passed": true,
+      "thermal_seconds": 58.3833333332802,
+      "observer_sha256": "a4e0caf535a5d3d5a04401974b30195b45f9b9a414a1b4282c7d1edae347da87",
+      "production_layout_sha256": "419d570b4c733aac2040e4ac36e31aa8ede07c9b7f67de7d341b232b47071c50"
+    },
+    {
+      "case": "strength-service",
+      "passed": true,
+      "thermal_seconds": 35.7333333333008,
+      "observer_sha256": "a4e0caf535a5d3d5a04401974b30195b45f9b9a414a1b4282c7d1edae347da87",
+      "production_layout_sha256": "419d570b4c733aac2040e4ac36e31aa8ede07c9b7f67de7d341b232b47071c50"
+    },
+    {
+      "case": "strength-exposed",
+      "passed": true,
+      "thermal_seconds": 34.4166666666354,
+      "observer_sha256": "cf92e9d2fdd8996d58d40ce371e797d604c5070b92950541fbc65766aa9502c3",
+      "production_layout_sha256": "419d570b4c733aac2040e4ac36e31aa8ede07c9b7f67de7d341b232b47071c50"
+    }
+  ],
+  "observer_revision_note": "First3 cases use prior observer; final Strength/exposed uses authored-ladder recovery when beloweast gallery. All cases share identical production layout. Not represented as one unchanged observer matrix.",
+  "failed_attempts": [
+    {
+      "cases": [
+        "neutral-exposed-01",
+        "strength-service-01"
+      ],
+      "reason": "Observer typed-array assignment and missing target on transition; not gameplay acceptance."
+    },
+    {
+      "cases": [
+        "neutral-exposed-02",
+        "strength-service-02"
+      ],
+      "reason": "Gameplay assertions passed but3 missing up-field engine errors; strict validation rejected."
+    },
+    {
+      "cases": [
+        "final-strength-exposed"
+      ],
+      "reason": "Timed out on repeated jump beneath existing east gallery afterFEED; replaced observer strategy with ordinary existing-ladder inputs, no production edit."
+    }
+  ],
+  "scope": "Normal-title automated paths through Thermal; no human pacing/allcombat/optionalrefuge/native/Windows claim."
+}

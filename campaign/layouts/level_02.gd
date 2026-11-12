@@ -35,6 +35,11 @@ static func sectors() -> Array[Dictionary]:
 					objective["label"] = "Break welded coolant restraint"
 					objective["text"] = "The restraint breaks under real strikes, releasing the coolant return."
 			district.objective_doors[-1]["requires"] = [gate_id]
+		if district.id == "l2_thermal_foundry":
+			# Feed restoration changes the return route; floor and high service route stay usable.
+			district.platforms.append(Rect2(3240,120,160,18))
+			district.objective_doors.append({"at":Vector2(3340,90),"size":Vector2(24,180),"requires":["feed"]})
+			district["signs"]=[[Vector2(3090,235),"EXPOSED AISLE >"],[Vector2(3070,-125),"SERVICE ROUTE >"],[Vector2(3430,95),"FEED OPENS RETURN <"]]
 		if district.id == "l2_union_dispatch":
 			district["captains"] = [{"kind":"captain_keeper", "at":Vector2(3320,300)}]
 			district["captain_required"] = true
