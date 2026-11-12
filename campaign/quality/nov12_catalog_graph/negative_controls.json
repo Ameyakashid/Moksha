@@ -1,0 +1,18 @@
+[
+  {
+    "mutation": "cycle_check",
+    "caught": true,
+    "exit_code": 1,
+    "results": [
+      "NOV12_CONTENT_RESULT {\"checks\":23,\"failures\":[\"cyclic/self objective dependencies rejected\",\"cyclic/self objective dependencies rejected\",\"cyclic/self objective dependencies rejected\"],\"passed\":false}"
+    ]
+  },
+  {
+    "mutation": "district_count",
+    "caught": true,
+    "exit_code": 1,
+    "results": [
+      "NOV12_CONTENT_RESULT {\"checks\":23,\"failures\":[\"missing district rejected\",\"extra district requires explicit manifest change\"],\"passed\":false}"
+    ]
+  }
+]

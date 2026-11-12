@@ -1,0 +1,44 @@
+Next proposed ownership step: configure health before actor activation
+Status: proposal only; not implemented by this pass.
+
+Observed problem
+In demo/mission.gd load_sector, the player is instantiated and given Health,
+DefeatResponse and contact adapters before room.add_child(player). Campaign
+load_sector then frees that already-active Health, creates BuildHealth and
+manually rebinds defeat plus incoming/physical/boundary/projectile receivers.
+Correctness currently depends on every health consumer being remembered.
+
+Smallest useful change
+Add one default health-construction hook to the existing player assembly path.
+The demo implementation returns its current health scene with60HP. Campaign's
+implementation returns BuildHealth with the same initial60HP and its existing
+defeat callback connection before the player enters the tree. All other actor,
+controller and contact assembly stays in the same order. Remove only the
+campaign's post-activation health swap/rebind block once evidence permits.
+Do not extract the whole player factory or level loader in this step.
+
+Inspected reference mapping
+shapez GameCore.initializeRoot assembles services before postLoadHook marks the
+game initialized; Entity owns components and EntityManager.registerEntity indexes
+them and publishes entityAdded only after registration. We borrow the explicit
+construction/activation boundary, NOT shapez's component implementation or ECS.
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/core.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/entity_manager.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/entity.js
+Godot supplies child ownership and _ready activation. Game-layer composition must
+select the authority before children bind. This is not a recovered Dead Cells
+factory or a reason to alter its reported physics cadence.
+
+Required gates before removing compatibility code
+- Inspect all adapter _ready/bind methods and defeat callback ordering first.
+- Demo health remains original type; campaign has exactly one BuildHealth.
+- Every contact adapter points to that same live authority after _ready,
+  repeated district load, retry and Continue; no stale/freed authority.
+- Incoming, projectile, physical and boundary damage debit once; lethal damage
+  emits one defeat transition. Include callback-order and repeated-binding tests.
+- Preserve capacity/refill rules for every lens/upgrade combination; run the
+  existing live build, incoming-health and adversarial save fixtures60/120Hz.
+- Original controller source hashes unchanged; full32-district smoke passes;
+  recorded manual combat/death/retry sample checks the visible behavior.
+If binding order or defeat timing changes, keep the existing implementation and
+report the failing gate rather than hiding it with a larger refactor.

@@ -1,0 +1,91 @@
+{
+  "scope": "Pure domain contracts plus inherited live-build/save fixtures and district smoke; not a full playthrough or platform acceptance.",
+  "source_sha256": {
+    "campaign/content/campaign_catalog.gd": "a15cf5a9d85bdc773569a3cef7160b4aa0d249daa03af67829459a1cf23fbc4d",
+    "campaign/quality/nov12_content_contracts.gd": "aa7ed1907529acbbdf4511c4b18658dcdabc9d524a6f688c3acf2cce8602734b"
+  },
+  "source_drift": [],
+  "stages": [
+    {
+      "name": "import",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 10.295
+    },
+    {
+      "name": "content_contract",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 1.394
+    },
+    {
+      "name": "pure_domain",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 0.278
+    },
+    {
+      "name": "district_smoke",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 5.581
+    },
+    {
+      "name": "live_build_60",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 2.712
+    },
+    {
+      "name": "save_feedback_60",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 2.042
+    },
+    {
+      "name": "adversarial_save_60",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 4.743
+    },
+    {
+      "name": "live_build_120",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 3.564
+    },
+    {
+      "name": "save_feedback_120",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 2.144
+    },
+    {
+      "name": "adversarial_save_120",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 4.187
+    }
+  ],
+  "passed": true
+}

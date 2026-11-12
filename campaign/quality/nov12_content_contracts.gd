@@ -38,6 +38,15 @@ func _initialize()->void:
 	check(not Catalog.validate(duplicate).ok,"duplicate stable ID rejected")
 	var bad:Array=originals.duplicate(true);bad[0][0].objectives=[{"id":"a","requires":["unknown"]}]
 	check(not Catalog.validate(bad).ok,"unknown objective dependency rejected")
+	var short:Array=originals.duplicate(true);short[0].pop_back()
+	check(not Catalog.validate(short).ok,"missing district rejected")
+	var extra:Array=originals.duplicate(true);var added:Dictionary=extra[0][0].duplicate(true);added.id="unexpected_district";extra[0].append(added)
+	check(not Catalog.validate(extra).ok,"extra district requires explicit manifest change")
+	for graph in [[{"id":"a","requires":["a"]}],[{"id":"a","requires":["b"]},{"id":"b","requires":["a"]}],[{"id":"open"},{"id":"a","requires":["b"]},{"id":"b","requires":["a"]}]]:
+		var cyclic:Array=originals.duplicate(true);cyclic[0][0].objectives=graph
+		check(not Catalog.validate(cyclic).ok,"cyclic/self objective dependencies rejected")
+	var dag:Array=originals.duplicate(true);dag[0][0].objectives=[{"id":"last","requires":["left","right"]},{"id":"left","requires":["first"]},{"id":"right","requires":["first"]},{"id":"first"}]
+	check(Catalog.validate(dag).ok,"out-of-order branching acyclic dependencies accepted")
 	var state:={"lens":"neutral","upgrades":["force"],"rewards":{"x":"agility"},"level_seconds":{"1":2.0},"level_receipts":[{"level":1,"active_seconds":2.0}]}
 	var snapshot:=Snapshot.capture(state);snapshot.level_receipts[0].active_seconds=99
 	check(state.level_receipts[0].active_seconds==2.0,"run snapshot nested values detached")
