@@ -7,6 +7,7 @@ const Themes = [
 	preload("res://campaign/assets/themes/03_residences.tres"),
 	preload("res://campaign/assets/themes/04_memory.tres"),
 	preload("res://campaign/assets/themes/05_crown.tres")]
+const CisternAtmosphere = preload("res://campaign/presentation/cistern_atmosphere.gd")
 const FoundryAtmosphere = preload("res://campaign/presentation/foundry_atmosphere.gd")
 const ArcologyAtmosphere = preload("res://campaign/presentation/arcology_atmosphere.gd")
 const Backdrop = preload("res://campaign/presentation/scenery_backdrop.gd")
@@ -55,6 +56,13 @@ func configure_sector(data: Dictionary) -> void:
 		backdrop.drawing_enabled=false
 		atmosphere=FoundryAtmosphere.new()
 		atmosphere.name="FoundryDepth"
+		backdrop.add_child(atmosphere)
+		atmosphere.configure({"id":str(data.get("id","district"))})
+		atmosphere.set_view(view_center,view_size)
+	elif level == 3:
+		backdrop.drawing_enabled=false
+		atmosphere=CisternAtmosphere.new()
+		atmosphere.name="CisternDepth"
 		backdrop.add_child(atmosphere)
 		atmosphere.configure({"id":str(data.get("id","district"))})
 		atmosphere.set_view(view_center,view_size)
