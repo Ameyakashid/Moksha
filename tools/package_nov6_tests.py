@@ -52,6 +52,32 @@ class PackagingTests(unittest.TestCase):
             self.assertEqual(public[key], raw[key])
         self.assertEqual(public["command"], 'run "$BUILD/a b.json"; --path=$BUILD')
 
+    def test_public_report_owned_reactive_root_arguments(self):
+        args = [f"--root=/tmp/moksha-packed-reactive-a_b-123/{name}_{hz}"
+                for name in ("history_store", "history_lifecycle", "reactive_integration")
+                for hz in (60, 120)]
+        raw = {"checks": [{"command": args, "passed": True, "log_sha256": "b" * 64}]}
+        before = json.dumps(raw, sort_keys=True)
+        public = package.portable_build_report(raw, build=Path("/build"), source=Path("/source"),
+                godot=Path("/godot"), receipts=Path("/receipts"))
+        self.assertEqual(public["checks"][0]["command"],
+                         ["--root=$FIXTURE_ROOT/" + arg.rsplit("/", 1)[1] for arg in args])
+        self.assertEqual(json.dumps(raw, sort_keys=True), before)
+        self.assertEqual(public["checks"][0]["log_sha256"], "b" * 64)
+        self.assertTrue(public["checks"][0]["passed"])
+
+    def test_public_report_does_not_rewrite_other_tmp_values(self):
+        known = "--root=/tmp/moksha-packed-reactive-abc/history_store_60"
+        args = ["--root=/tmp/other/history_store_60", known + "/child", known + "-old",
+                known.replace("history_store", "other"), known.replace("_60", "_90"),
+                known.replace("--root=", "--output="), "prefix " + known,
+                known.replace("-abc/", "-/"), known.replace("-abc/", "-abc/../")]
+        raw = {"command": args, "note": known, "nested": {"command": "run " + known}}
+        public = package.portable_build_report(raw, build=Path("/build"), source=Path("/source"),
+                godot=Path("/godot"), receipts=Path("/receipts"))
+        for key in raw:
+            self.assertEqual(public[key], raw[key])
+
     def test_reactive_release_keeps_legacy_gates_and_adds_five(self):
         self.assertEqual(len(package.RECEIPT_FIXTURES), 9)
         self.assertEqual([r[0] for r in package.REACTIVE_RECEIPT_FIXTURES],

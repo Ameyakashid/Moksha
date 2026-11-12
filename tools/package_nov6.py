@@ -228,12 +228,21 @@ def portable_build_report(report: dict, *, build: Path, source: Path,
                            (str(godot), "$GODOT"), (str(receipts), "$RECEIPTS")),
                           key=lambda item: len(item[0]), reverse=True)
 
-    def copy_value(value):
+    def copy_value(value, command_argument=False):
         if isinstance(value, dict):
-            return {key: copy_value(item) for key, item in value.items()}
+            return {key: copy_value(item, key == "command" and isinstance(item, list))
+                    for key, item in value.items()}
         if isinstance(value, list):
-            return [copy_value(item) for item in value]
+            return [copy_value(item, command_argument) for item in value]
         if isinstance(value, str):
+            if command_argument:
+                # Only our owned temporary fixture-root argument; not arbitrary
+                # /tmp paths, prose, command strings or unrelated root options.
+                match = re.fullmatch(
+                    r"--root=/tmp/moksha-packed-reactive-[A-Za-z0-9_-]+/"
+                    r"((?:history_store|history_lifecycle|reactive_integration)_(?:60|120))", value)
+                if match:
+                    return "--root=$FIXTURE_ROOT/" + match.group(1)
             for local, label in replacements:
                 # Do not rewrite unrelated prefix siblings, e.g. build-old.
                 pattern = re.escape(local) + r"(?=$|[/\\\s\"'<>),;])"
@@ -244,7 +253,8 @@ def portable_build_report(report: dict, *, build: Path, source: Path,
     result["path_format_note"] = (
         "Local execution paths use explanatory placeholders: $BUILD is the "
         "packaging workspace, $SOURCE the frozen source checkout, $GODOT the "
-        "Godot executable and $RECEIPTS the external fixture receipt directory. "
+        "Godot executable, $RECEIPTS the external fixture receipt directory, and "
+        "$FIXTURE_ROOT an owned temporary reactive-fixture directory. "
         "Test results and original log hashes are retained. Raw external reports "
         "are unchanged; these labels are not runnable shell commands."
     )
