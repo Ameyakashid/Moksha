@@ -1,0 +1,20 @@
+[
+  {
+    "case": "missing",
+    "exit": 2,
+    "rejected": true,
+    "log": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nERROR: --report is required\n   at: push_error (core/variant/variant_utility.cpp:1024)\n   GDScript backtrace (most recent call first):\n       [0] _initialize (res://campaign/quality/nov12_opening_route.gd:11)\n"
+  },
+  {
+    "case": "source",
+    "exit": 2,
+    "rejected": true,
+    "log": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nERROR: Report must be outside source tree\n   at: push_error (core/variant/variant_utility.cpp:1024)\n   GDScript backtrace (most recent call first):\n       [0] _initialize (res://campaign/quality/nov12_opening_route.gd:11)\n"
+  },
+  {
+    "case": "symlink",
+    "exit": 2,
+    "rejected": true,
+    "log": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nERROR: Symlink report paths are forbidden\n   at: push_error (core/variant/variant_utility.cpp:1024)\n   GDScript backtrace (most recent call first):\n       [0] _initialize (res://campaign/quality/nov12_opening_route.gd:11)\n"
+  }
+]

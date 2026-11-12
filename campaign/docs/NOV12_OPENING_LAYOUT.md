@@ -73,3 +73,26 @@ Native screenshots explicitly place the actor and stop enemies: they verify
 headroom, roof layout, closed shutter and readable hint, not human play. An
 open-state fixture did not update before capture and was discarded; the actual
 closed-to-open transition is verified by both continuous input-route receipts.
+
+### Fresh report destinations
+
+The runner now requires a fresh output directory outside the project. Its default
+is a uniquely time-stamped temporary directory. Direct route invocation requires
+`--report=/absolute/existing-parent/new-receipt.json` after `--`; `user://` is also
+supported. Existing files, source-tree locations, relative/unnormalized paths and
+symlink ancestors are rejected before gameplay. Output open/write/flush/readback
+failures fail the run. Historical committed receipts remain unchanged.
+The runner parses the receipt and checks success, frequency, zero deaths/errors,
+source drift, all four shortcut observations, exact objective IDs/completion and
+the Rainline relay, rather than accepting a printed marker alone.
+Run `python3 campaign/quality/nov12_opening_checks_test.py` for malformed/missing
+and falsified-receipt negative controls. The Godot `nov12_report_sink_test.gd`
+requires an isolated fresh HOME/XDG so its write-once fixture can be repeated.
+
+The bounded opening runner now owns its loop and exits only after that coroutine
+has completed, instead of quitting inside the inherited full-campaign loop.
+The original gameplay receipts passed their assertions but their raw engine logs
+also contained a shutdown resource-leak error. They are not clean-engine-exit
+acceptance. Fresh 120 Hz evidence in `nov12_opening_report_safety/` passes both
+parsed gameplay assertions and the strict error-free engine/runner gate. It is
+not a new full-campaign or manual playthrough claim.
