@@ -7,12 +7,24 @@
     "largest_png_pixels": 1573352,
     "wav_pcm_bytes": 611446
   },
-  "policy": "Reviewable growth guard, not target-hardware claim. Total bytes/count/PCM permit 10% growth; largest file and PNG pixels permit 20%. Rounded upward to whole units. Changes require explicit review of this file, never automatic rebasing.",
+  "policy": "Reviewable growth guard, not target-hardware claim. Original limits retain 10% total/count/PCM headroom and 20% largest-file/pixel headroom. Only explicitly reviewed additive asset allowances below change those limits; never automatically rebase measured inventory.",
   "limits": {
-    "inventory_bytes": 11725770,
+    "inventory_bytes": 14239074,
     "file_count": 576,
     "largest_file_bytes": 2574384,
     "largest_png_pixels": 1888023,
     "wav_pcm_bytes": 672591
-  }
+  },
+  "reviewed_additions": [
+    {
+      "date": "2026-11-12",
+      "path": "campaign/assets/arcology/populous_arcology_original.png",
+      "sha256": "44c0ea3169b2a8e0932719086f30c005c20b659b7e0e991bc28e7f28cb51229d",
+      "bytes": 2513304,
+      "limit_changed": "inventory_bytes",
+      "previous_limit": 11725770,
+      "new_limit": 14239074,
+      "reason": "User-requested original dense neon arcology background. One reused Level1 plate; no duplicate per-district textures. All other limits stay unchanged. File/pixel/count/audio checks pass. This byte allowance is not FPS, GPU-memory, or Windows acceptance."
+    }
+  ]
 }
