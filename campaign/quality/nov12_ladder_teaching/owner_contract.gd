@@ -38,7 +38,7 @@ func deliver(device:String,expected:bool)->void:
  var strip:Dictionary=view.control_strip()
  check(strip.left.contains("lets go")==expected,"visible control-strip selection matches actual grip")
  if expected:
-  check(strip.left.contains("hold Up") if device=="controller" else strip.left.contains("hold W"),"real chain delivers device-specific teaching")
+  check(strip.left.contains("Up/down climb. Hold Up until standing on the ledge") if device=="controller" else strip.left.contains("W/S climb. Hold W until standing on the ledge"),"real chain delivers device-specific teaching")
   check(ThemeDB.fallback_font.get_string_size(strip.left,HORIZONTAL_ALIGNMENT_LEFT,-1,9).x+14<=strip.right_x-12,"delivered text fits original footer")
  check(strip.right==("BACK journal   START pause" if device=="controller" else "TAB journal   ESC pause"),"journal/pause unchanged through owner")
  var after:Array=[host.player.position,host.player.velocity,host.player.main_action,host.player._climb_target,host.run_id,host.metrics.duplicate(true),host.completed_goals.duplicate(true)]

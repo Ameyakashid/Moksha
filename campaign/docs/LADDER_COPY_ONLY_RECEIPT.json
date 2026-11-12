@@ -1,0 +1,54 @@
+{
+  "base": "7be2c80eb689e17dae74722195266ebbbe8de9d3",
+  "checks": {
+    "owner-60": {
+      "exit": 0,
+      "result": {
+        "checks": 162,
+        "failures": [],
+        "passed": true,
+        "physics_hz": 60,
+        "scope": "Real player physics and ordinary held-Up inputs in staged campaign Mill; actual host snapshot -> typed owner -> painter; selected device presentation, not native or hardware gameplay."
+      },
+      "log_sha256": "ff6e0f56757b7025d40e78971e94b96fe75f6457a75dec9e89b360ffbf4ef457"
+    },
+    "owner-120": {
+      "exit": 0,
+      "result": {
+        "checks": 162,
+        "failures": [],
+        "passed": true,
+        "physics_hz": 120,
+        "scope": "Real player physics and ordinary held-Up inputs in staged campaign Mill; actual host snapshot -> typed owner -> painter; selected device presentation, not native or hardware gameplay."
+      },
+      "log_sha256": "ba00e130679d9bcd71468c8e2ed7d8f6fa8df762105457fcf7a03802bc856635"
+    },
+    "lifecycle": {
+      "exit": 0,
+      "result": {
+        "checks": 57,
+        "failures": [],
+        "passed": true,
+        "scope": "Seeded read-only HUD facts, actual font bounds and lifecycle; not native pixels or gameplay acceptance"
+      },
+      "log_sha256": "be7a31c93f4fdfbe0e291dd37593d5b7d072c7fc9112fcc080cec7d0cd94e7a5"
+    }
+  },
+  "widths": [
+    {
+      "text": "W/S climb. Hold W until standing on the ledge. A/D lets go. Space jumps off.",
+      "width_px": 326.0
+    },
+    {
+      "text": "Up/down climb. Hold Up until standing on the ledge. Left/right lets go. A jumps off.",
+      "width_px": 358.0
+    }
+  ],
+  "changed_existing_files": [
+    "campaign/quality/nov12_ladder_teaching/contract.gd",
+    "campaign/quality/nov12_ladder_teaching/owner_contract.gd",
+    "campaign/views/campaign_hud.gd"
+  ],
+  "pose_unchanged_from_7be": true,
+  "scope": "Direct child of accepted7be, copy only. Actual host/owner/painter checks and staged real physics; no native or human UX acceptance claim."
+}

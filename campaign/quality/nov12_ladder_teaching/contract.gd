@@ -27,7 +27,7 @@ func run()->void:
   for device in ["keyboard","controller"]:
    var snapshot:Dictionary=host._hud_snapshot();snapshot.input_device=device;view.data=snapshot
    var strip:Dictionary=view.control_strip()
-   check(strip.left.contains("hold Up to reach top") if device=="controller" else strip.left.contains("hold W to reach top"),"device-correct continued ascent teaching")
+   check(strip.left.contains("Up/down climb. Hold Up until standing on the ledge") if device=="controller" else strip.left.contains("W/S climb. Hold W until standing on the ledge"),"device-correct continued ascent teaching")
    check(strip.left.contains("Left/right lets go") if device=="controller" else strip.left.contains("A/D lets go"),"horizontal release honestly described")
    check(strip.left.contains("A jumps off") if device=="controller" else strip.left.contains("Space jumps off"),"unchanged jump mapping")
    check(ThemeDB.fallback_font.get_string_size(strip.left,HORIZONTAL_ALIGNMENT_LEFT,-1,9).x+14<=strip.right_x-12,"teaching fits before unchanged journal/pause prompts")
