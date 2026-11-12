@@ -2,8 +2,8 @@
 
 ## Fastest: the portable Windows build
 
-Use the delivered Windows x64 ZIP, or reconstruct it from all three Windows part
-ZIPs using their included `Assemble-MOKSHA.cmd`. Extract the complete result,
+Use the delivered Windows x64 ZIP, or reconstruct it from every ZIP in its
+Windows part set using the included `Assemble-MOKSHA.cmd`. Extract the complete result,
 open `MOKSHA-Windows`, and run `MOKSHA.exe`. Keep `MOKSHA.pck` beside it. You do
 not need Git, Python, an editor, an installer, or administrator access for this
 portable build. Do not try to run the game inside a ZIP.

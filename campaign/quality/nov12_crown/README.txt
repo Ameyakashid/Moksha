@@ -26,4 +26,4 @@ frame1127, upper intake ladder climbed,0deaths, no source drift. NOT district
 completion, full-level, manual-play, controller or Windows acceptance.
 Full MP4 decode passed;15/28second frames visually inspected. No clean matched
 performance comparison in this pass; captured movie timing is not target FPS.
-Video3,674,575bytes; Library libfile_fde3_f-f112acf8bedc8191aa55b7e7f1d88351_589c955ab7c0819185cbffed88f3eb53.
+Video: MOKSHA-Crown-7fa6206-automated.mp4, 3,674,575 bytes; SHA256 in receipt.json.
