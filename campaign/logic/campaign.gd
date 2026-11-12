@@ -38,6 +38,7 @@ var _focus_pause_active:=false
 var _focus_resume_state:="playing"
 var _level_transition_snapshot:Dictionary={}
 var _controller_bindings:Node
+var session_generation:=0 # Read-only session observation; lifecycle integration owns increments.
 var companion:Node
 var gamepad_navigation:Node
 func _ready()->void:
@@ -94,6 +95,7 @@ func start_new(skip_intro:=false)->void:
 	rewards.clear();upgrades.clear();level_seconds.clear();level_receipts.clear();campaign_ending=""
 	_completed_snapshot.clear()
 	super.start_new(skip_intro)
+	if state in ["intro","playing"]:session_generation+=1
 func _create_player_health()->Node:
 	# Bind the campaign depletion policy before DefeatResponse's _ready binding,
 	# preserving the existing policy order without replacing a live authority.
@@ -386,6 +388,7 @@ func continue_run()->void:
 	level_seconds=extra.get("level_seconds",{});level_receipts.assign(extra.get("level_receipts",[]))
 	blind=saved.blind;caches.assign(saved.caches);kills=saved.kills;deaths=saved.deaths;elapsed=saved.seconds;metrics.assign(saved.metrics)
 	load_sector(saved.sector)
+	session_generation+=1
 func _hud_snapshot()->Dictionary:
 	var snapshot:Dictionary=super._hud_snapshot()
 	var required:=goals.filter(func(goal):return is_instance_valid(goal) and not goal.optional)

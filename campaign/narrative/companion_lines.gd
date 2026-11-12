@@ -2,8 +2,8 @@ extends RefCounted
 ## Original prose. Fixed semantic events, never executable content or effects.
 static func entries()->Array[Dictionary]:
 	return [
-		{"id":"rain_roof","event":"rain_roof","priority":1,"text":"Intellect: Above the traffic. For once, a sound decision."},
-		{"id":"rain_street","event":"rain_street","priority":1,"text":"Intellect: Street level. Keep a way out, old man."},
+		{"id":"rain_roof","event":"rain_roof","priority":1,"text":"Intellect: Above the traffic. Keep climbing toward the badge relay."},
+		{"id":"rain_street","event":"rain_street","priority":1,"text":"Intellect: The badge relay is above the hillside homes. We need height."},
 		{"id":"rain_relay","event":"rain_relay","priority":3,"text":"Intellect: The badge still works. Try not to look surprised."},
 		{"id":"clinic_cell","event":"clinic_cell","priority":2,"text":"Intellect: Charged. Back to the clinic generator."},
 		{"id":"clinic_power","event":"clinic_power","priority":4,"text":"Intellect: Lights first. The street shortcut is open now."},

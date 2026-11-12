@@ -3,7 +3,8 @@ extends "res://simulation/ui/mission_hud.gd"
 ## Campaign-only extension of the original typed HUD snapshot boundary.
 ## Unknown keys are still discarded. Invalid campaign input leaves both snapshots
 ## untouched, and the original owner remains the validator for all shared fields.
-const CAMPAIGN_FIELDS := {"guidance":"", "district_index":0, "district_count":0, "level_index":0, "lens":"", "required_done":0, "required_total":0, "gate_open":false, "input_device":""}
+signal companion_presentation_accepted(id:String,blocked:bool)
+const CAMPAIGN_FIELDS := {"companion_line_id":"", "guidance":"", "district_index":0, "district_count":0, "level_index":0, "lens":"", "required_done":0, "required_total":0, "gate_open":false, "input_device":""}
 var _campaign_snapshot:Dictionary={}
 func set_snapshot(value:Dictionary)->bool:
 	var next:Dictionary={}
@@ -18,6 +19,10 @@ func set_snapshot(value:Dictionary)->bool:
 	if not super.set_snapshot(value):
 		_campaign_snapshot=previous
 		return false
+	var line_id:=str(next.get("companion_line_id",""))
+	if not value.get("notice_visible",false) or str(value.get("notice","")).is_empty():line_id=""
+	var blocked:bool=value.get("state","")!="playing" or value.get("chapter_visible",false) or not str(value.get("prompt","")).is_empty() or (value.get("notice_visible",false) and line_id.is_empty())
+	if get_node_or_null("View")!=null:companion_presentation_accepted.emit(line_id,blocked)
 	return true
 func _sync_view()->void:
 	_snapshot.merge(_campaign_snapshot,true)
