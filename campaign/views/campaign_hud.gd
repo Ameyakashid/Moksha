@@ -273,7 +273,7 @@ static func device_text(text:String,controller:bool)->String:
 
 func controller_footer(state:String,fallback:String)->String:
 	match state:
-		"title":return "A / START New campaign"+("   X Continue" if bool(data.get("continue_available",false)) else "")
+		"title":return "A / START New campaign"+("   X Continue" if bool(data.get("continue_available",false)) else "   X View last result" if bool(data.get("last_result_available",false)) else "")
 		"intro":return "A / START Skip opening"
 		"journal":return "D-pad left / right Pages · BACK / B Return"
 		"choice":return "X Trade sight · B Keep sight"
@@ -281,7 +281,7 @@ func controller_footer(state:String,fallback:String)->String:
 		"upgrade":return "X Force · Y Agility · B Vitality"
 		"final_choice":return "X Public record · Y Local custody"
 		"dead":return "A Retry checkpoint · Y Title"
-		"complete":return "A / START / Y Title · new run keeps this result"
+		"complete":return "A / START / Y Retry saving result" if bool(data.get("completion_save_failed",false)) else "A / START / Y Title · result kept in history"
 	return device_text(fallback,true)
 
 func _text(c:Node2D,text:String,p:Vector2,size:=10,color:=INK)->void:

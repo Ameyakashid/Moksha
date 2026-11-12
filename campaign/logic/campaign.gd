@@ -3,6 +3,8 @@ extends "res://demo/mission.gd"
 const BuildRules=preload("res://campaign/logic/build_rules.gd")
 const CampaignCheckpoint=preload("res://campaign/logic/checkpoint_codec.gd")
 const CheckpointStore=preload("res://campaign/save/checkpoint_store.gd")
+const CompletionRecord=preload("res://campaign/state/completion_record.gd")
+const RunHistory=preload("res://campaign/save/run_history_store.gd")
 const RunSnapshot=preload("res://campaign/state/run_snapshot.gd")
 const CampaignData=preload("res://campaign/logic/campaign_data.gd")
 const ObjectiveScene=preload("res://campaign/logic/objective.tscn")
@@ -10,6 +12,19 @@ const DoorScene=preload("res://campaign/logic/objective_door.tscn")
 const HazardScene=preload("res://campaign/logic/hazard.tscn")
 const CampaignInputGate=preload("res://campaign/logic/campaign_input_gate.gd")
 const CAMPAIGN_SAVE="user://moksha_five_levels_v1.json"
+# Paths are injectable for isolated fixtures; default legacy bytes are preserved.
+var campaign_save_path:=CAMPAIGN_SAVE
+var history_path:="user://moksha_run_history"
+var legacy_results_path:="user://moksha_five_levels_results.json"
+var run_id:=""
+var run_status:="active"
+var run_origin:="new"
+var session_generation:=0
+var completion_record:Dictionary={}
+var last_result:Dictionary={}
+var _completion_error:=""
+var _reviewing_result:=false
+var _history_error:=""
 var goals:Array[Node]=[]
 var blackboard:Node
 var completed_goals:Dictionary={}
@@ -38,7 +53,6 @@ var _focus_pause_active:=false
 var _focus_resume_state:="playing"
 var _level_transition_snapshot:Dictionary={}
 var _controller_bindings:Node
-var session_generation:=0 # Read-only session observation; lifecycle integration owns increments.
 var companion:Node
 var gamepad_navigation:Node
 func _ready()->void:
@@ -74,6 +88,7 @@ func _ready()->void:
 	hud.set_script(preload("res://campaign/views/campaign_hud_owner.gd"))
 	hud.appearance=appearance
 	hud.get_node("View").set_script(preload("res://campaign/views/campaign_hud.gd"))
+	_refresh_run_history()
 	hud.set_snapshot(_hud_snapshot())
 	get_window().focus_exited.connect(_on_window_focus_exited)
 	companion=preload("res://campaign/narrative/companion_observer.gd").new()
@@ -89,13 +104,48 @@ func _show_content_error(message:String)->void:
 	var label:=Label.new();label.text="CAMPAIGN CONTENT ERROR\n\n"+message+"\n\nNo campaign was started and no save was changed.\nRestore the complete game files, then restart."
 	label.position=Vector2(24,32);label.size=Vector2(590,280);label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;panel.add_child(label)
 
+func _allocate_run_id()->Dictionary:
+	var previous_id:=run_id
+	if save_enabled:
+		var previous:=CheckpointStore.read(campaign_save_path,sectors)
+		if previous.get("ok",false):previous_id=str(previous.campaign.get("run_id",previous_id))
+	for attempt in 8:
+		var candidate:=Crypto.new().generate_random_bytes(16).hex_encode()
+		if not CampaignCheckpoint.valid_run_id(candidate) or candidate==previous_id:continue
+		if save_enabled:
+			var existing:=RunHistory.reconcile(history_path,candidate)
+			if not existing.ok:return existing
+			if existing.get("found",false):continue
+		return {"ok":true,"id":candidate}
+	return {"ok":false,"error":"Could not allocate a unique run identity; previous run retained."}
+
 func start_new(skip_intro:=false)->void:
+	# Stage and persist identity BEFORE replacing live state. Failure leaves the
+	# previous run and resume bytes intact; preserved copies are never removed.
+	if not completion_record.is_empty() and not _completion_error.is_empty():
+		if not retry_completion_save():return
+	var allocated:=_allocate_run_id()
+	if not allocated.ok:_report_checkpoint_write_error(str(allocated.error));return
+	var next_id:String=allocated.id
+	if save_enabled:
+		var preserved:=RunHistory.preserve_file(history_path,campaign_save_path,"checkpoint-before-new")
+		if preserved.ok:preserved=RunHistory.preserve_file(history_path,legacy_results_path,"legacy-result")
+		if not preserved.ok:_report_checkpoint_write_error(str(preserved.error));return
+		var progress:=Checkpoint.encode({"sector":0,"metrics":[],"caches":[],"blind":false,"kills":0,"deaths":0,"seconds":0.0},sectors)
+		var staged:Dictionary={"campaign_version":2,"run_id":next_id,"run_status":"active","run_origin":"new","progress":progress.data,
+			"lens":lens,"upgrades":[],"rewards":{},"level_seconds":{},"level_receipts":[]}
+		if not CampaignCheckpoint.decode(staged,sectors).get("ok",false):
+			_report_checkpoint_write_error("New campaign could not be validated; previous run retained.");return
+		var committed:=CheckpointStore.commit(campaign_save_path,staged)
+		if not committed.ok:_report_checkpoint_write_error(str(committed.error));return
+	session_generation+=1;run_id=next_id;run_origin="new"
+	run_status="active";completion_record.clear();_completion_error="";_reviewing_result=false
+	_checkpoint_write_error="";_checkpoint_error=""
 	_level_transition_snapshot.clear()
 	_focus_pause_active=false
 	rewards.clear();upgrades.clear();level_seconds.clear();level_receipts.clear();campaign_ending=""
 	_completed_snapshot.clear()
 	super.start_new(skip_intro)
-	if state in ["intro","playing"]:session_generation+=1
 func _create_player_health()->Node:
 	# Bind the campaign depletion policy before DefeatResponse's _ready binding,
 	# preserving the existing policy order without replacing a live authority.
@@ -309,11 +359,13 @@ func _handle_campaign_key(event:InputEvent)->void:
 			upgrades.append({KEY_J:"force",KEY_K:"agility",KEY_L:"vitality"}[key])
 			_pending_sector=sector+1;state="transition";get_tree().paused=false
 		return
+	if state=="title" and key==KEY_C and not continue_available and not last_result.is_empty():
+		view_last_result();return
+	if state=="complete" and not _completion_error.is_empty() and key in [KEY_ENTER,KEY_N,KEY_R]:
+		retry_completion_save();return
 	if state=="final_choice":
 		if key in [KEY_J,KEY_K]:
 			campaign_ending="public_record" if key==KEY_J else "local_custody"
-			metrics.append({"sector":sector,"seconds":sector_elapsed,"blind":blind,"health":health.current_health})
-			level_receipts.append({"level":5,"active_seconds":level_seconds.get("5",0),"completed_district":sectors[sector].id})
 			complete_run()
 		return
 	if event.physical_keycode==0:
@@ -330,14 +382,79 @@ func _cancel_sector_transition()->void:
 func show_title()->void:
 	_cancel_sector_transition()
 	_pending_sector=-1;_pending_retry=false;_focus_pause_active=false
-	super.show_title()
+	if not _reviewing_result and run_status!="completed" and is_instance_valid(room):_save_checkpoint()
+	state="title";get_tree().paused=true;sonar.set_blind(false)
+	_reviewing_result=false
+	_refresh_run_history()
+	continue_available=_valid_save()
+
 func complete_run()->void:
-	state="complete";get_tree().paused=true;sonar.set_blind(false)
-	if is_instance_valid(art):art.set_sight_enabled(true)
-	audio.play_sound("win",-8,1)
-	if save_enabled:
-		var file=FileAccess.open("user://moksha_five_levels_results.json",FileAccess.WRITE)
-		if file:file.store_string(JSON.stringify({"ending":campaign_ending,"active_seconds":elapsed,"levels":level_receipts,"districts":metrics,"lens":lens,"upgrades":upgrades,"deaths":deaths,"kills":kills},"\t"))
+	if completion_record.is_empty():
+		if run_id.is_empty():run_id=Crypto.new().generate_random_bytes(16).hex_encode()
+		metrics.append({"sector":sector,"seconds":sector_elapsed,"blind":blind,"health":health.current_health})
+		level_receipts.append({"level":5,"active_seconds":level_seconds.get("5",0),"completed_district":sectors[sector].id})
+		run_status="completed"
+		var payload:=_checkpoint_payload()
+		completion_record={"schema_version":1,"run_id":run_id,"ending":campaign_ending,
+			"completed_at":Time.get_unix_time_from_system(),"origin":run_origin,"snapshot":payload,
+			"result":{"active_seconds":elapsed,"levels":level_receipts.duplicate(true),"districts":payload.progress.metrics.duplicate(true),
+			"lens":lens,"upgrades":upgrades.duplicate(),"deaths":deaths,"kills":kills}}
+		last_result=completion_record.duplicate(true)
+		state="complete";get_tree().paused=true;sonar.set_blind(false)
+		if is_instance_valid(art):art.set_sight_enabled(true)
+		audio.play_sound("win",-8,1)
+	_reviewing_result=false
+	retry_completion_save()
+
+func retry_completion_save()->bool:
+	if completion_record.is_empty():return true
+	if not save_enabled:_completion_error="";return true
+	var saved:=RunHistory.preserve_file(history_path,legacy_results_path,"legacy-result")
+	if saved.ok:saved=RunHistory.put(history_path,completion_record)
+	# Record-first, checkpoint-second is recoverable, NOT an atomic transaction.
+	if saved.ok:saved=CheckpointStore.commit(campaign_save_path,completion_record.snapshot)
+	_completion_error="" if saved.ok else str(saved.get("error","Completion could not be saved."))
+	if saved.ok:continue_available=false;_checkpoint_write_error=""
+	return saved.ok
+
+func _validated_terminal(record:Dictionary)->bool:
+	if not CompletionRecord.valid(record):return false
+	var snap:Dictionary=record.snapshot
+	var decoded:=CampaignCheckpoint.decode(snap,sectors)
+	if not decoded.get("ok",false):return false
+	if record.get("origin")!=snap.run_origin:return false
+	var expected:Dictionary={"active_seconds":decoded.seconds,"levels":snap.get("level_receipts",[]),
+		"districts":snap.progress.get("metrics",[]),"lens":snap.lens,"upgrades":snap.upgrades,
+		"deaths":decoded.deaths,"kills":decoded.kills}
+	return CompletionRecord.canonical(record.result)==CompletionRecord.canonical(expected)
+
+func _refresh_run_history()->void:
+	if not save_enabled:return
+	_history_error=""
+	# Current session completion outranks wall-clock timestamps (which can roll back).
+	if not completion_record.is_empty():
+		if _validated_terminal(completion_record):
+			last_result=completion_record.duplicate(true);return
+		last_result.clear();_history_error="Current completion is invalid; history retained.";return
+	var found:=RunHistory.latest(history_path)
+	last_result.clear()
+	if found.ok:
+		if found.get("found",false):
+			if _validated_terminal(found.record):last_result=found.record.duplicate(true)
+			else:_history_error="Completion snapshot or result is invalid; history retained."
+	else:_history_error=str(found.get("error","Run history could not be read."))
+
+func view_last_result()->void:
+	if last_result.is_empty():return
+	if not _validated_terminal(last_result):
+		last_result.clear();_history_error="Completion snapshot or result is invalid; history retained.";return
+	_reviewing_result=true;state="complete";get_tree().paused=true
+	sonar.set_blind(false)
+
+func _valid_save()->bool:
+	var saved:=_read_checkpoint()
+	return saved.get("ok",false) and not saved.has("terminal_record")
+
 func _on_noise(origin:Vector2,kind:StringName,loudness:float,source:Node)->void:
 	var audio_request_before:Dictionary=audio.last_spatial_sound if is_instance_valid(audio) else {}
 	var audio_children_before:=audio.get_child_count() if is_instance_valid(audio) else 0
@@ -349,38 +466,78 @@ func _on_defeat()->void:
 	super._on_defeat()
 	if was_playing and state=="dead":_audio_feedback.finish_damage()
 func _read_checkpoint()->Dictionary:
+	if not save_enabled:return {"ok":false}
 	var result:=_decode_campaign_checkpoint()
 	_checkpoint_error=""
-	if not result.get("ok",false) and FileAccess.file_exists(CAMPAIGN_SAVE):
+	if not result.get("ok",false) and FileAccess.file_exists(campaign_save_path):
 		_checkpoint_error=str(result.get("error","The campaign checkpoint contains incomplete or invalid progress."))
 	return result
 func _decode_campaign_checkpoint()->Dictionary:
-	return CheckpointStore.read(CAMPAIGN_SAVE,sectors)
-func _save_checkpoint()->void:
-	if not save_enabled or _loading_campaign:return
+	if not save_enabled:return {"ok":false}
+	var saved:=CheckpointStore.read(campaign_save_path,sectors)
+	if not saved.get("ok",false):return saved
+	var extra:Dictionary=saved.campaign
+	if int(extra.campaign_version)==2:
+		var terminal:=RunHistory.reconcile(history_path,extra.run_id)
+		if not terminal.ok:return {"ok":false,"error":terminal.get("error","Run history unavailable.")}
+		if terminal.get("found",false):
+			if not _validated_terminal(terminal.record):return {"ok":false,"error":"Completion snapshot is invalid; history retained."}
+			saved["terminal_record"]=terminal.record
+			last_result=terminal.record.duplicate(true)
+		elif extra.run_status=="completed":return {"ok":false,"error":"Completed checkpoint has no valid history record; files retained."}
+	return saved
+
+func _checkpoint_payload()->Dictionary:
 	var encoded:Dictionary=Checkpoint.encode({"metrics":metrics,"sector":sector,"blind":blind,"caches":caches,"kills":kills,"deaths":deaths,"seconds":elapsed},sectors)
-	if not encoded.ok:
-		_report_checkpoint_write_error("Campaign progress could not be encoded: "+str(encoded.get("error","invalid progress")))
-		return
-	if not _preserve_invalid_checkpoint():return
-	blackboard.set_value("build",{"lens":lens,"upgrades":upgrades.duplicate()})
-	var raw:Dictionary={"campaign_version":CampaignCheckpoint.VERSION,"progress":encoded.data}
+	if not encoded.ok:return {}
+	var raw:Dictionary={"campaign_version":CampaignCheckpoint.VERSION,"progress":encoded.data,"run_id":run_id,"run_status":run_status,"run_origin":run_origin}
 	raw.merge(RunSnapshot.capture({"lens":lens,"upgrades":upgrades,"rewards":rewards,"level_seconds":level_seconds,"level_receipts":level_receipts}))
-	var result:=CheckpointStore.commit(CAMPAIGN_SAVE,raw)
-	if not result.ok:
-		_report_checkpoint_write_error(str(result.error));return
+	return raw
+
+func _save_checkpoint()->void:
+	if not save_enabled or _loading_campaign or run_status=="completed" or _reviewing_result:return
+	if run_id.is_empty():run_id=Crypto.new().generate_random_bytes(16).hex_encode()
+	var raw:=_checkpoint_payload()
+	if not CampaignCheckpoint.decode(raw,sectors).get("ok",false):
+		_report_checkpoint_write_error("Campaign progress could not be encoded.");return
+	if not _preserve_invalid_checkpoint():return
+	var previous:=CheckpointStore.read(campaign_save_path,sectors)
+	if previous.get("ok",false) and int(previous.campaign.campaign_version)==1:
+		var preserved:=RunHistory.preserve_file(history_path,campaign_save_path,"legacy-checkpoint")
+		if not preserved.ok:_report_checkpoint_write_error(str(preserved.error));return
+	blackboard.set_value("build",{"lens":lens,"upgrades":upgrades.duplicate()})
+	var result:=CheckpointStore.commit(campaign_save_path,raw)
+	if not result.ok:_report_checkpoint_write_error(str(result.error));return
 	continue_available=true;_checkpoint_write_error="";_checkpoint_error=""
 func _report_checkpoint_write_error(message:String)->void:
 	_checkpoint_write_error=message
-	continue_available=_decode_campaign_checkpoint().get("ok",false)
+	continue_available=_valid_save()
 	announce("CHECKPOINT NOT SAVED · Keep the game open; check disk space and folder access.",8)
 func _preserve_invalid_checkpoint()->bool:
-	var result:=CheckpointStore.preserve_invalid(CAMPAIGN_SAVE,sectors)
+	var result:=CheckpointStore.preserve_invalid(campaign_save_path,sectors)
 	if not result.ok:_report_checkpoint_write_error(str(result.error))
 	return result.ok
 func continue_run()->void:
 	var saved:=_read_checkpoint()
 	if not saved.get("ok",false):continue_available=false;return
+	if saved.has("terminal_record"):
+		last_result=saved.terminal_record.duplicate(true);continue_available=false;view_last_result();return
+	var old:Dictionary=saved.campaign
+	var resume_id:=str(old.get("run_id",""))
+	if int(old.campaign_version)==1:
+		var allocated:=_allocate_run_id()
+		if not allocated.ok:_report_checkpoint_write_error(str(allocated.error));return
+		resume_id=allocated.id
+	if int(old.campaign_version)==1 and save_enabled:
+		var preserved:=RunHistory.preserve_file(history_path,campaign_save_path,"legacy-checkpoint")
+		if preserved.ok:preserved=RunHistory.preserve_file(history_path,legacy_results_path,"legacy-result")
+		if not preserved.ok:_report_checkpoint_write_error(str(preserved.error));return
+		var migrated:Dictionary=old.duplicate(true)
+		migrated.campaign_version=2;migrated.run_id=resume_id;migrated.run_status="active";migrated.run_origin="legacy_resume"
+		var committed:=CheckpointStore.commit(campaign_save_path,migrated)
+		if not committed.ok:_report_checkpoint_write_error(str(committed.error));return
+	session_generation+=1;run_id=resume_id;run_origin=str(old.get("run_origin","legacy_resume"))
+	run_status="active";completion_record.clear();_completion_error="";_reviewing_result=false
 	_level_transition_snapshot.clear()
 	_focus_pause_active=false
 	var extra:Dictionary=saved.campaign
@@ -388,9 +545,10 @@ func continue_run()->void:
 	level_seconds=extra.get("level_seconds",{});level_receipts.assign(extra.get("level_receipts",[]))
 	blind=saved.blind;caches.assign(saved.caches);kills=saved.kills;deaths=saved.deaths;elapsed=saved.seconds;metrics.assign(saved.metrics)
 	load_sector(saved.sector)
-	session_generation+=1
 func _hud_snapshot()->Dictionary:
 	var snapshot:Dictionary=super._hud_snapshot()
+	snapshot["last_result_available"]=not last_result.is_empty()
+	snapshot["completion_save_failed"]=not _completion_error.is_empty()
 	var required:=goals.filter(func(goal):return is_instance_valid(goal) and not goal.optional)
 	snapshot.merge({"district_index":sector+1,"district_count":sectors.size(),
 		"level_index":int(sectors[sector].get("level",1)),"lens":lens,"input_device":gamepad_navigation.input_device if is_instance_valid(gamepad_navigation) else "keyboard",
@@ -398,13 +556,19 @@ func _hud_snapshot()->Dictionary:
 		"required_total":required.size(),"gate_open":is_instance_valid(room) and room.gate_open,
 		"guidance":_journal_next_step() if is_instance_valid(room) else "Begin the ascent."})
 	if state=="title":
-		snapshot.merge({"panel_override":true,"panel_title":"MOKSHA / FIVE ASCENTS","panel_body":"A city and four floors. One old operative.\n\nChoose a starting lens: 1 Neutral / 2 Strength / 3 Agility\nCURRENT: "+lens.to_upper()+"\nStrength: +40% strikes,75 health,-6% run\nAgility: +12% run,50 health. Neutral:60 health.\n\nOpen civilian routes. Reach the Crown. Decide who holds its keys.","panel_footer":"ENTER New campaign"+("   C Continue" if continue_available else "")})
+		snapshot.merge({"panel_override":true,"panel_title":"MOKSHA / FIVE ASCENTS","panel_body":"A city and four floors. One old operative.\n\nChoose a starting lens: 1 Neutral / 2 Strength / 3 Agility\nCURRENT: "+lens.to_upper()+"\nStrength: +40% strikes,75 health,-6% run\nAgility: +12% run,50 health. Neutral:60 health.\n\nOpen civilian routes. Reach the Crown. Decide who holds its keys.","panel_footer":"ENTER New campaign"+("   C Continue" if continue_available else "   C View last result" if not last_result.is_empty() else "")})
 	elif state=="upgrade":
 		snapshot.merge({"panel_override":true,"panel_title":"LEVEL SECURED / SPECIALIZE","panel_body":"The onward elevator is yours. Choose a persistent upgrade.\n\nJ  FORCE: +25% base strike damage\nK  AGILITY: +10% base run speed\nL  VITALITY: +15 maximum health\n\nUpgrades stack additively and survive checkpoints.","panel_footer":"J / K / L  Choose and ascend"})
 	elif state=="final_choice":
 		snapshot.merge({"panel_override":true,"panel_title":"THE COMMAND NETWORK IS YOURS","panel_body":"The Warden is down. Evacuation channels remain live.\nThe monopoly has lost its command of the tower.\n\nJ  Publish its records to every district.\nK  Transfer control to the district custodians.\n\nNeither choice deletes your progress or sacrifices civilians.","panel_footer":"J  PUBLIC RECORD    K  LOCAL CUSTODY"})
 	elif state=="complete":
-		snapshot.merge({"panel_override":true,"panel_title":"MOKSHA / THE FIVE ASCENTS","panel_body":("The records are public. No single voice can erase them." if campaign_ending=="public_record" else "The districts hold their own keys. No central lock remains.")+"\nEvacuation lights carry on below. You lower your weapon.\nThe old operative leaves the tower to its people.\n\nFive levels complete · active time %d:%02d\n%d deaths · %d defeated · %s lens"%[int(elapsed)/60,int(elapsed)%60,deaths,kills,lens],"panel_footer":"N / ENTER  Title · new run keeps this result"})
+		var record:Dictionary=last_result if _reviewing_result else completion_record
+		var result:Dictionary=record.get("result",{})
+		var seconds:=int(result.get("active_seconds",elapsed))
+		var body:=("The records are public. No single voice can erase them." if record.get("ending",campaign_ending)=="public_record" else "The districts hold their own keys. No central lock remains.")+"\nEvacuation lights carry on below. You lower your weapon.\nThe old operative leaves the tower to its people.\n\nFive levels complete · active time %d:%02d\n%d deaths · %d defeated · %s lens"%[seconds/60,seconds%60,int(result.get("deaths",deaths)),int(result.get("kills",kills)),str(result.get("lens",lens))]
+		if record.get("origin","")=="legacy_resume":body+="\nLegacy checkpoint continued; earlier receipts retained as recorded."
+		if not _completion_error.is_empty():body+="\n\nRESULT NOT FULLY SAVED · "+_completion_error+"\nKeep the game open. Storage/access failures can be retried. Retained conflicting or partial files need recovery first."
+		snapshot.merge({"panel_override":true,"panel_title":"MOKSHA / THE FIVE ASCENTS","panel_body":body,"panel_footer":"ENTER Retry saving result" if not _completion_error.is_empty() else "N / ENTER Title · result retained in run history"})
 	elif state=="paused":
 		snapshot.merge({"panel_override":true,"panel_title":"PAUSED","panel_body":"A/D or arrows  Move     Space / C  Jump, then air jump\nJ  Fresh-tap strike combo     K  Raise / hold shield\nShift  Roll     S + Space  Drop / dive\nW / S  Climb ladders     Q  Sound tap\nE  Interact     TAB  Field journal     M  Mute\n\nR resets this district's objectives, guards and cargo.\nYour build, sight choice and archives are kept.","panel_footer":"ESC Resume    R Reset district    N Title"})
 	elif state=="journal":
@@ -431,6 +595,9 @@ func _hud_snapshot()->Dictionary:
 			if nearby.completed and nearby.kind!="route":snapshot.prompt="COMPLETE · "+nearby.label
 			elif not missing.is_empty():snapshot.prompt="Requires: "+", ".join(missing)
 			else:snapshot.prompt=("[J] "+nearby.label) if nearby.kind=="breaker" else ("[E] "+nearby.label) if nearby.kind!="plate" else "Move a cargo onto the marked plate"
+	if state=="title" and not _history_error.is_empty():
+		snapshot.panel_title="RUN HISTORY UNAVAILABLE"
+		snapshot.panel_body+="\n\n"+_history_error+" Files have been retained."
 	if state=="title" and not _checkpoint_write_error.is_empty():
 		var retained:="Continue uses the previous successfully saved district." if continue_available else "No new checkpoint was saved."
 		snapshot.merge({"panel_override":true,"panel_title":"CHECKPOINT NOT UPDATED",

@@ -19,9 +19,13 @@ func run()->void:
 	var original:Variant=FileAccess.get_file_as_bytes(SAVE) if FileAccess.file_exists(SAVE) else null
 	var pending_original:Variant=FileAccess.get_file_as_bytes(SAVE+".pending") if FileAccess.file_exists(SAVE+".pending") else null
 	var m=load("res://campaign/campaign.tscn").instantiate();m.save_enabled=false;root.add_child(m)
-	m.start_new(true);paused=true;m.save_enabled=true;m._save_checkpoint();m.save_enabled=false
+	m.start_new(true);paused=true;m.save_enabled=true;m._save_checkpoint()
 	var valid=JSON.parse_string(FileAccess.get_file_as_string(SAVE))
-	check(m._read_checkpoint().get("ok",false),"baseline checkpoint decodes")
+	check(m._read_checkpoint().get("ok",false),"valid v2 checkpoint decodes")
+	# Keep original malformed-header mutation: v1 relabelled v2 lacks identity.
+	valid.campaign_version=1;valid.erase("run_id");valid.erase("run_status");valid.erase("run_origin")
+	write_raw(valid)
+	check(m._read_checkpoint().get("ok",false),"legacy v1 checkpoint still decodes")
 	var cases:Array=[]
 	for value in [null,[],"not an object",false]:cases.append({"label":"root "+str(value),"value":value})
 	for field in ["campaign_version","progress","lens","upgrades","rewards"]:
@@ -46,11 +50,11 @@ func run()->void:
 	write_raw(valid)
 	var pending:=FileAccess.open(SAVE+".pending",FileAccess.WRITE);pending.store_string("{interrupted write");pending.close()
 	check(m._read_checkpoint().get("ok",false),"orphan partial pending file cannot shadow committed checkpoint")
-	m.save_enabled=true;m._save_checkpoint();m.save_enabled=false
+	m.save_enabled=true;m._save_checkpoint()
 	check(m._read_checkpoint().get("ok",false) and not FileAccess.file_exists(SAVE+".pending"),"new atomic save replaces orphan pending and decodes")
 	# Every authored district ID survives save/Continue; retry creates clean local goals.
 	for i in m.sectors.size():
-		m.load_sector(i);m.save_enabled=true;m._save_checkpoint();m.save_enabled=false
+		m.load_sector(i);m.save_enabled=true;m._save_checkpoint()
 		check(m._read_checkpoint().get("sector",-1)==i,"stable district ID roundtrip "+m.sectors[i].id)
 		# Dirty the live local state AFTER saving, then exercise real Continue.
 		for goal in m.goals:goal.completed=true;m.completed_goals[goal.objective_id]=true
