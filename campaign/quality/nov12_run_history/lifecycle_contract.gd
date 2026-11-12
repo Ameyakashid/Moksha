@@ -183,6 +183,38 @@ func run()->void:
  check(not h._valid_save() and not h._checkpoint_error.is_empty(),"Malformed terminal cannot reconcile Continue")
  check(h.last_result.is_empty(),"Failed reconciliation exposes no result")
  h.free();await process_frame
+ # Every JSON-shaped optional receipt value accepted by v1 remains factual.
+ for optional_value in [null,"",42,{"old":"metadata"},["old"]]:
+  h=host_at("legacy-value-"+str(checks));h.start_new(true)
+  raw=JSON.parse_string(FileAccess.get_file_as_string(h.campaign_save_path))
+  raw.campaign_version=1;raw.erase("run_id");raw.erase("run_status");raw.erase("run_origin")
+  raw.level_receipts=[{"level":1,"active_seconds":3,"completed_district":optional_value}]
+  var legacy_prefix:Dictionary=raw.level_receipts[0].duplicate(true)
+  check(Store.commit(h.campaign_save_path,raw).ok,"Legacy optional value fixture saved")
+  h.continue_run();final_fixture(h)
+  check(h._completion_error.is_empty() and h._validated_terminal(h.completion_record),"Legacy optional value remains completable")
+  check(JSON.stringify(h.completion_record.result.levels[0],"",true,true)==JSON.stringify(JSON.parse_string(JSON.stringify(legacy_prefix)),"",true,true),"Legacy optional value remains exact")
+  var strict:Dictionary=h.completion_record.duplicate(true)
+  strict.origin="new";strict.snapshot.run_origin="new"
+  check(not h._validated_terminal(strict),"New origin rejects malformed historical receipt identity")
+  h.free();await process_frame
+ h=host_at("terminal-proof");h.start_new(true);final_fixture(h)
+ valid=h.completion_record.duplicate(true)
+ check(h._validated_terminal(valid),"Authored final suffix accepted")
+ malformed=valid.duplicate(true);malformed.snapshot.progress.sector_id=h.sectors[0].id
+ check(not h._validated_terminal(malformed),"Initial district tagged completed rejected")
+ for remove_kind in ["receipts","metrics","receipt_id","receipt_level","metric_id"]:
+  malformed=valid.duplicate(true)
+  match remove_kind:
+   "receipts":malformed.snapshot.level_receipts=[]
+   "metrics":malformed.snapshot.progress.metrics=[]
+   "receipt_id":malformed.snapshot.level_receipts[-1].completed_district=h.sectors[0].id
+   "receipt_level":malformed.snapshot.level_receipts[-1].level=1
+   "metric_id":malformed.snapshot.progress.metrics[-1].area_id=h.sectors[0].id
+  malformed.result.levels=malformed.snapshot.level_receipts.duplicate(true)
+  malformed.result.districts=malformed.snapshot.progress.metrics.duplicate(true)
+  check(not h._validated_terminal(malformed),"Missing final proof rejected: "+remove_kind)
+ h.free();await process_frame
  h=host_at("nosave",false);h.start_new(true);final_fixture(h);h.show_title()
  check(not FileAccess.file_exists(h.campaign_save_path) and not DirAccess.dir_exists_absolute(h.history_path),"No-save fixtures write nothing")
  h.free();await process_frame

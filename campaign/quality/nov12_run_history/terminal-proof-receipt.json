@@ -1,0 +1,23 @@
+{
+  "base": "cde69ea1f5bf82b70383cdbbf29a369b5788b910",
+  "assertions": 157,
+  "checks": [
+    {
+      "log": "/tmp/terminal-proof-import.log",
+      "sha256": "e4d26ab4e60d73af50db3728a6f053ee9c7d2ff7e7aa8b0723e39fe8930497b9",
+      "exit": 0
+    },
+    {
+      "log": "/tmp/terminal-proof-lifecycle-final.log",
+      "sha256": "3730baaa171fbcbb9a9906c92ddcfbeac58d281173d92eb094f10044948938c9",
+      "exit": 0
+    },
+    {
+      "log": "/tmp/terminal-proof-store.log",
+      "sha256": "6f8cbccf0ca68668253c77cbc28155e97dad7c08ac860fe4bd568cb6ada9b4dc",
+      "exit": 0
+    }
+  ],
+  "rejected_fixture_log": "/tmp/terminal-proof-lifecycle.log",
+  "scope": "Seeded host/store checks only, not full gameplay or native validation."
+}

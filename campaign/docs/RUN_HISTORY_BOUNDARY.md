@@ -101,7 +101,8 @@ duplicated result field with the snapshot (time, receipts, district rows, lens,
 upgrades, deaths and kills), plus provenance. Invalid records remain on disk,
 produce a visible error and cannot become a read-only completion screen.
 No 32-district/5-receipt count is imposed: legacy repeated prefixes are factual.
-A legacy receipt with no completed_district remains absent, not synthesized;
+A legacy receipt preserves any JSON-shaped completed_district metadata accepted
+by v1, including absent/null/empty/non-string values, without synthesis or coercion;
 this exception requires legacy_resume origin. The current session's frozen
 completion takes precedence over timestamp-latest history on Title, including
 when the system clock moved backwards.
@@ -111,3 +112,20 @@ retryable after repair, but a retained partial or conflicting pending file
 continues to fail closed. Preserve those bytes and recover them explicitly;
 the game never deletes/replaces the conflict merely because Retry was pressed.
 This change does not provide a power-loss or concurrent-writer transaction.
+
+### Terminal suffix proof
+Full codec validity alone does not mean a run finished. Before presentation or
+reconciliation, the snapshot must point at the final authored district, its last
+metric must name that district, and its last level receipt must name level 5 and
+that district. Legacy prefixes remain untouched and may be repeated or sparse.
+This is structural terminal evidence, not cryptographic proof of gameplay; a
+deliberately fabricated save with a complete matching suffix is not detectable.
+The current producer always appends this suffix once on finalization.
+
+Follow-up focused checks: 85 lifecycle assertions and 72 store assertions passed
+under isolated XDG roots. Five v1 metadata variants (null, empty string, integer,
+object and array) were actually saved, imported, completed and compared in their
+JSON representation; new-origin controls reject each. Initial-district completion,
+missing suffixes and wrong final metric/receipt identities are rejected. No native
+or actual-input full campaign claim. The first run exposed only a fixture's
+int-versus-parsed-float dictionary comparison; its log is retained separately.

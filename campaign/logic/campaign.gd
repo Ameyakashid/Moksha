@@ -423,6 +423,15 @@ func _validated_terminal(record:Dictionary)->bool:
 	var decoded:=CampaignCheckpoint.decode(snap,sectors)
 	if not decoded.get("ok",false):return false
 	if record.get("origin")!=snap.run_origin:return false
+	# Terminal proof is the authored final suffix, not a fabricated total count.
+	# Legacy history may contain repeated or sparse receipts before this suffix.
+	if sectors.is_empty() or int(decoded.sector)!=sectors.size()-1:return false
+	var receipts:Array=snap.get("level_receipts",[])
+	var rows:Array=snap.progress.get("metrics",[])
+	if receipts.is_empty() or rows.is_empty():return false
+	var final_id:String=sectors[-1].id
+	if receipts[-1].get("level")!=5 or receipts[-1].get("completed_district")!=final_id:return false
+	if rows[-1].get("area_id")!=final_id:return false
 	var expected:Dictionary={"active_seconds":decoded.seconds,"levels":snap.get("level_receipts",[]),
 		"districts":snap.progress.get("metrics",[]),"lens":snap.lens,"upgrades":snap.upgrades,
 		"deaths":decoded.deaths,"kills":decoded.kills}
