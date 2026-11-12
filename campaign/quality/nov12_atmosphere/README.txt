@@ -19,7 +19,7 @@ additional distant population. No foreground collision geometry was altered.
 Verification commands (Godot 4.6.3; isolated HOME and XDG dirs):
 godot --headless --path . --script res://campaign/quality/nov12_atmosphere/contract.gd
 godot --headless --path . --script res://campaign/quality/nov6_scenery/scenery_contract.gd
-Results: 21 focused checks and 2,575 existing scenery checks passed.
+Results: 26 focused checks and 2,575 existing scenery checks passed.
 
 capture.gd is a DIRECT POSITIONED VISUAL FIXTURE for opening/street/upper/clinic
 and sight-traded darkness; these stills are not evidence of traversing a route.
@@ -55,3 +55,21 @@ rails and animated people are stylized overlays, not depth-aware world simulatio
 Painting seams use structural joints. Foreground navy terrain fill remains the
 existing game art. Native frames are visually reviewed; hardware PC validation
 and full integration regression belong to the release owner.
+
+Check-count accounting: initial Level1+Level3 implementation ran2,581 existing
+scenery checks. Scope correction f1b5fd2 removes one InhabitedArcology node from
+each of the six Level3 districts. reject_simulation_children() asserts once per
+node instance, so its traversal contributes six fewer checks:2,575. The existing
+test source is unchanged from c73159b; all32district/collider/identity/objective/
+blind assertions remain. Draw-suppression optimization6980ba9 does not change
+that count; its new focused checks increase the atmosphere contract to26.
+
+OPTIMIZATION FOLLOW-UP (6980ba9): the old procedural Backdrop was still drawing
+behind the opaque plate. A drawing_enabled flag suppresses only that covered
+paint in Level1, keeping the parent visible, ownership intact and other levels
+unchanged. The same matched30-second capture now measures CPU13.28ms/GPU13.86ms,
+encoding4.95ms and108seconds wall; exited0. Compared with baseline12.79/13.46ms,
+this is +3.8% CPU/+3.0% GPU in one shared-host pass, not a parity or WindowsFPS
+claim. At20seconds the decoded native image is pixel-identical to the unoptimized
+version. Camera-driven full-view redraw remains; further caching is deferred
+because the measured duplicate-paint fix removed most of the observed regression.
