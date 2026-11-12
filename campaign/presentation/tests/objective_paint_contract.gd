@@ -36,6 +36,10 @@ func run() -> void:
 				check(result.draw==expected,"real anchor culling with camera/zoom")
 				if result.draw:check(result.screen_box.position.x>=7.99 and result.screen_box.end.x<=632.01,"visible edge text clamps within viewport")
 	check(view.get_node("Caption").z_index+view.z_index>0,"caption above door/actor while machine stays behind")
+	var crate:Node2D=load("res://scenes/props/crate.tscn").instantiate()
+	check(view.get_node("Caption").z_index+view.z_index>crate.z_index,"caption clears real foreground crate layer")
+	check(view.get_node("Caption").z_as_relative,"caption stays relative to blind-hidden presentation owner")
+	crate.free()
 	view.visible=false;await process_frame
 	check(not view.is_visible_in_tree() and not view.get_node("Caption").is_visible_in_tree(),"whole view/caption obeys authoritative blind hide")
 	fixture.queue_free();await process_frame

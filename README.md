@@ -6,6 +6,8 @@ A side-on cyberpunk action campaign built on the preserved MOKSHA Godot movement
 
 ## Play
 
+**Windows PC:** see the [clone-to-play and portable-build quickstart](campaign/docs/PC_QUICKSTART.md). The source launcher is `Play-MOKSHA.cmd`; the portable export remains a separate EXE + PCK download.
+
 Open `project.godot` in **Godot 4.6.3** and press **F5**. The default scene is `campaign/campaign.tscn` (not the old demo).
 
 On the title, **1** Neutral, **2** Strength, **3** Agility selects a starting lens. **Enter** starts; **C** resumes your last district checkpoint. The opening can be skipped with Enter/Space. Each district starts at full health.

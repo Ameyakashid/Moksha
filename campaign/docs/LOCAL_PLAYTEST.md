@@ -2,6 +2,8 @@
 
 ## Windows
 
+For cloning this repository and running editable source with Godot 4.6.3, use the [PC quickstart](PC_QUICKSTART.md). The steps below are for the separately exported portable build.
+
 1. Extract **all** files from the Windows x64 archive supplied with this November 6 build. `CHECKSUMS.sha256` inside the package lists its extracted files; the package's `BUILD_REPORT.json` describes the tested content. If you received split ZIP parts, read the parts’ `START_HERE.txt` first and verify the reconstructed archive before extracting.
 2. Open its `MOKSHA-Windows` folder.
 3. Run **`Run-MOKSHA.cmd`** or **`MOKSHA.exe`**. Keep `MOKSHA.pck` beside the EXE. No Godot editor installation is needed for this export.

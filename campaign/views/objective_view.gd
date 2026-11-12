@@ -2,9 +2,10 @@ extends Node2D
 const Caption=preload("res://campaign/views/objective_caption.gd")
 const Cabinet=preload("res://assets/props/utility_cabinet.tres")
 func _ready() -> void:
-	# Machine and caption paint must never cover actor/combat silhouettes.
+	# Machine paint stays behind actors. Caption paint must clear foreground props.
+	# Keep the caption parented here so blind-mode hiding remains authoritative.
 	z_index=-1
-	var caption:=Node2D.new();caption.name="Caption";caption.set_script(Caption);caption.z_index=4;add_child(caption)
+	var caption:=Node2D.new();caption.name="Caption";caption.set_script(Caption);caption.z_index=7;add_child(caption)
 func _process(_dt: float) -> void: queue_redraw()
 func _draw() -> void:
 	var o = get_parent()
