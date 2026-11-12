@@ -417,7 +417,10 @@ def copy_player_guides(frozen: Path, package: Path) -> dict[str, dict]:
     guides = {"README.md": "PROJECT_README.md",
               "campaign/docs/LOCAL_PLAYTEST.md": "LOCAL_PLAYTEST.md",
               "campaign/docs/NOV6_GAMEPAD.md": "NOV6_GAMEPAD.md",
-              "campaign/docs/NOV6_CHANGES.md": "NOV6_CHANGES.md"}
+              "campaign/docs/NOV6_CHANGES.md": "NOV6_CHANGES.md",
+              "campaign/docs/PC_QUICKSTART.md": "PC_QUICKSTART.md",
+              "campaign/docs/NOV12_EXTENDED_CHECKPOINT.md": "NOV12_EXTENDED_CHECKPOINT.md",
+              "campaign/docs/NOV12_VISUAL_CHECKPOINT.md": "NOV12_VISUAL_CHECKPOINT.md"}
     destination = package / "docs"
     destination.mkdir()
     included = {}

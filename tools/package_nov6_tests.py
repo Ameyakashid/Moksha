@@ -249,7 +249,8 @@ class PackagingTests(unittest.TestCase):
             frozen = base / "frozen"
             dist = base / "game"
             frozen.mkdir(); dist.mkdir()
-            for name in ("README.md", "campaign/docs/LOCAL_PLAYTEST.md", "campaign/docs/NOV6_GAMEPAD.md", "campaign/docs/NOV6_CHANGES.md"):
+            for name in ("README.md", "campaign/docs/LOCAL_PLAYTEST.md", "campaign/docs/NOV6_GAMEPAD.md", "campaign/docs/NOV6_CHANGES.md",
+                         "campaign/docs/PC_QUICKSTART.md", "campaign/docs/NOV12_EXTENDED_CHECKPOINT.md", "campaign/docs/NOV12_VISUAL_CHECKPOINT.md"):
                 path = frozen / name
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text("Exact frozen guide: " + name)
@@ -257,6 +258,8 @@ class PackagingTests(unittest.TestCase):
                 "# Source README\nOpen `project.godot`.\n"
                 "[`campaign/docs/NOV6_GAMEPAD.md`](campaign/docs/NOV6_GAMEPAD.md)\n"
                 "[`campaign/docs/NOV6_CHANGES.md`](campaign/docs/NOV6_CHANGES.md)\n"
+                "[Current visual changes](campaign/docs/NOV12_VISUAL_CHECKPOINT.md)\n"
+                "[PC startup](campaign/docs/PC_QUICKSTART.md)\n"
                 "[`campaign/quality/README.md`](campaign/quality/README.md)\n"
                 "See `campaign/docs/LOCAL_PLAYTEST.md`.\n")
             (frozen / "campaign/docs/LOCAL_PLAYTEST.md").write_text(
@@ -264,7 +267,7 @@ class PackagingTests(unittest.TestCase):
                 "[Official documentation](https://docs.godotengine.org/en/stable/)\n")
             source_bytes = {p.relative_to(frozen).as_posix(): p.read_bytes() for p in frozen.rglob("*") if p.is_file()}
             included = package.copy_player_guides(frozen, dist)
-            self.assertEqual(len(included), 4)
+            self.assertEqual(len(included), 7)
             for name, row in included.items():
                 self.assertEqual(package.sha(dist / name), row["delivered_sha256"])
                 self.assertEqual(package.sha(frozen / row["source_path"]), row["source_sha256"])
@@ -273,6 +276,8 @@ class PackagingTests(unittest.TestCase):
             self.assertIn("[\u0060NOV6_GAMEPAD.md\u0060](NOV6_GAMEPAD.md)", delivered)
             self.assertIn("[\u0060NOV6_CHANGES.md\u0060](NOV6_CHANGES.md)", delivered)
             self.assertIn("`LOCAL_PLAYTEST.md`", delivered)
+            self.assertIn("[Current visual changes](NOV12_VISUAL_CHECKPOINT.md)", delivered)
+            self.assertIn("[PC startup](PC_QUICKSTART.md)", delivered)
             self.assertIn("`campaign/quality/README.md` (source reference; requires the editable-source download)", delivered)
             self.assertNotIn("](campaign/", delivered)
             self.assertTrue(included["docs/PROJECT_README.md"]["adapted"])

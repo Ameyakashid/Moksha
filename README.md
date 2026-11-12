@@ -72,7 +72,11 @@ See `campaign/docs/EDITOR_WORKFLOW.md` and `campaign/docs/LAYOUT_CONTRACT.md`.
 
 The original Oct23 demo is still playable at `demo/mission.tscn`; its historical README is `docs/OCT23_BASELINE_README.md`. Original approved player/controller and simulation source remain preserved.
 
-## November 12 extended source checkpoint
+## November 12 five-environment visual checkpoint
+
+Original Memory Works and high-city Crown environments complete the distinct background treatments across all five levels. HUD-aware objective captions and clearer Governor branch signs improve readability without changing gameplay geometry or saves. See [changes, exact evidence scopes and remaining limits](campaign/docs/NOV12_VISUAL_CHECKPOINT.md). Older downloaded builds remain unchanged.
+
+## November 12 extended source checkpoint (historical)
 
 Distinct original Foundry and Cistern depth, an opened-return route in Thermal Foundry, clearly separated Residential supplies/shelter, detached player assembly and clean editor metadata extend the earlier release. See the [extended changes and exact evidence scopes](campaign/docs/NOV12_EXTENDED_CHECKPOINT.md). Check each download’s `BUILD_PROVENANCE.json` for its actual runtime; later source work does not update an older portable build automatically.
 
