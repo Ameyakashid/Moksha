@@ -9,7 +9,7 @@
   },
   "policy": "Reviewable growth guard, not target-hardware claim. Original limits retain 10% total/count/PCM headroom and 20% largest-file/pixel headroom. Only explicitly reviewed additive asset allowances below change those limits; never automatically rebase measured inventory.",
   "limits": {
-    "inventory_bytes": 14239074,
+    "inventory_bytes": 16460637,
     "file_count": 576,
     "largest_file_bytes": 2574384,
     "largest_png_pixels": 1888023,
@@ -25,6 +25,16 @@
       "previous_limit": 11725770,
       "new_limit": 14239074,
       "reason": "User-requested original dense neon arcology background. One reused Level1 plate; no duplicate per-district textures. All other limits stay unchanged. File/pixel/count/audio checks pass. This byte allowance is not FPS, GPU-memory, or Windows acceptance."
+    },
+    {
+      "date": "2026-11-12",
+      "path": "campaign/assets/foundry/foundry_depth_original.png",
+      "sha256": "34b03f1b3b2a4eef5c7093ad45bf55c6cf7ca1da13c8416b34e9792586a0b1df",
+      "bytes": 2221563,
+      "limit_changed": "inventory_bytes",
+      "previous_limit": 14239074,
+      "new_limit": 16460637,
+      "reason": "Original user-requested foundry/freight depth painting; one shared Level2 plate, replacing covered procedural paint. Additive inventory allowance only; unchanged file/count/pixel/audio limits. This allowance does not imply target hardware performance."
     }
   ]
 }

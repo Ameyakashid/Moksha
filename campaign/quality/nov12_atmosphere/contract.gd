@@ -35,8 +35,14 @@ func run()->void:
 	for level in range(1,6):
 		s.configure({"id":"rainline","width":4800,"level":level})
 		check(s.get_child_count()==2,"Stable scenery host shape")
-		check(s.backdrop.drawing_enabled==(level!=1),"No hidden duplicate backdrop drawing")
-		check(is_instance_valid(s.atmosphere)==(level == 1),"Only inhabited visual profiles")
+		check(s.backdrop.drawing_enabled==(level not in [1,2]),"No hidden duplicate backdrop drawing")
+		check(is_instance_valid(s.atmosphere)==(level in [1,2]),"Only explicit rich background profiles")
+		if level==1:
+			check(s.atmosphere.get_script()==Atmosphere,"Level1 retains original arcology renderer")
+			check(s.atmosphere.citizens.size()==144,"Level1 population remains144")
+		if level==2:
+			check(s.atmosphere.get_script()==preload("res://campaign/presentation/foundry_atmosphere.gd"),"Level2 explicitly selects foundry renderer")
+			check(s.atmosphere.MAX_VISIBLE_WORKERS==9,"Level2 exact sparse worker bound")
 		if is_instance_valid(s.atmosphere):
 			check(s.atmosphere.get_parent()==s.backdrop,"District ownership")
 			check(s.z_index+s.backdrop.z_index+s.atmosphere.z_index<0,"Behind gameplay actors")

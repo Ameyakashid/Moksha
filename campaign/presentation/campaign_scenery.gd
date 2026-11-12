@@ -7,6 +7,7 @@ const Themes = [
 	preload("res://campaign/assets/themes/03_residences.tres"),
 	preload("res://campaign/assets/themes/04_memory.tres"),
 	preload("res://campaign/assets/themes/05_crown.tres")]
+const FoundryAtmosphere = preload("res://campaign/presentation/foundry_atmosphere.gd")
 const ArcologyAtmosphere = preload("res://campaign/presentation/arcology_atmosphere.gd")
 const Backdrop = preload("res://campaign/presentation/scenery_backdrop.gd")
 const DistrictIdentity = preload("res://campaign/presentation/district_identity.gd")
@@ -49,6 +50,13 @@ func configure_sector(data: Dictionary) -> void:
 		atmosphere.name="InhabitedArcology"
 		backdrop.add_child(atmosphere)
 		atmosphere.configure({"id":str(data.get("id","district")),"width":width})
+		atmosphere.set_view(view_center,view_size)
+	elif level == 2:
+		backdrop.drawing_enabled=false
+		atmosphere=FoundryAtmosphere.new()
+		atmosphere.name="FoundryDepth"
+		backdrop.add_child(atmosphere)
+		atmosphere.configure({"id":str(data.get("id","district"))})
 		atmosphere.set_view(view_center,view_size)
 	terrain_paint = Node2D.new()
 	terrain_paint.set_script(SurfaceSkin)
