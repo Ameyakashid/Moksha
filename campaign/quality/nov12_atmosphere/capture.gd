@@ -11,14 +11,17 @@ func run()->void:
 	host.save_enabled=false
 	root.add_child(host)
 	host.start_new(true);host.input_override={};host.chapter_left=0
-	for item in [[0,Vector2(180,300),"opening"],[0,Vector2(550,300),"street"],[0,Vector2(2500,-160),"upper"],[1,Vector2(710,180),"clinic"]]:
+	var cases=[[0,Vector2(180,300),"opening"],[0,Vector2(550,300),"street"],[0,Vector2(2500,-160),"upper"],[1,Vector2(710,180),"clinic"]]
+	for i in host.sectors.size():
+		if host.sectors[i].get("id","")=="l3_cistern":cases.append([i,Vector2(710,180),"cistern"])
+	for item in cases:
 		host.load_sector(item[0]);host.chapter_left=0
 		host.player.position=item[1];host.player.velocity=Vector2.ZERO
 		host.camera.position=host.camera_follow.reset(item[1],host.sectors[item[0]])
 		for i in 12:await physics_frame
 		await RenderingServer.frame_post_draw
 		get_root().get_texture().get_image().save_png(output_dir+"/"+item[2]+".png")
-		print("ATMOSPHERE_FRAME ",item[2]," civilians=",host.art.atmosphere.visible_citizens)
+		print("ATMOSPHERE_FRAME ",item[2]," civilians=",host.art.atmosphere.visible_citizens if is_instance_valid(host.art.atmosphere) else 0)
 	host.state="choice";host.choose_sight(true)
 	for i in 6:await physics_frame
 	await RenderingServer.frame_post_draw

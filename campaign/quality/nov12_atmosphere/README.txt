@@ -4,8 +4,9 @@ Boundary: CampaignScenery owns Architecture, which owns InhabitedArcology.
 The presentation consumes only district id/width and camera center/viewport size.
 It owns no physics bodies, goals, saves, input, actors, global RNG or gameplay state.
 The entire subtree is hidden with the established sight trade and destroyed with
-its district. Existing scenery host shape remains two children. Level 1 and 3
-inhabited profiles opt in; other districts retain their authored presentation.
+its district. Existing scenery host shape remains two children. Level 1 opening
+profiles opt in; other districts retain their authored presentation. Cistern
+was inspected with the plate; it diluted water identity, so Level3 was excluded.
 
 Presentation: original parallax industrial city painting, tiny gallery service
 signs and bounded civilian silhouettes, all at world z=-8 behind terrain (-5)
@@ -18,7 +19,7 @@ additional distant population. No foreground collision geometry was altered.
 Verification commands (Godot 4.6.3; isolated HOME and XDG dirs):
 godot --headless --path . --script res://campaign/quality/nov12_atmosphere/contract.gd
 godot --headless --path . --script res://campaign/quality/nov6_scenery/scenery_contract.gd
-Results: 25 focused checks and 2,581 existing scenery checks passed.
+Results: 21 focused checks and 2,581 existing scenery checks passed.
 
 capture.gd is a DIRECT POSITIONED VISUAL FIXTURE for opening/street/upper/clinic
 and sight-traded darkness; these stills are not evidence of traversing a route.

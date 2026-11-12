@@ -40,8 +40,8 @@ func configure_sector(data: Dictionary) -> void:
 	backdrop.landmark_origin = Vector2(clampf(float(data.get("spawn",Vector2(75,300)).x)+65.0+float(posmod(backdrop.seed_value,130)),24.0,maxf(24.0,width-170.0)),96.0+float(posmod(backdrop.seed_value/137,32)))
 	backdrop.z_index = -3
 	add_child(backdrop)
-	# Inhabited city/residential views are district-owned, entirely behind gameplay.
-	if level in [1,3]:
+	# Opening inhabited city views are district-owned, entirely behind gameplay.
+	if level == 1:
 		atmosphere=ArcologyAtmosphere.new()
 		atmosphere.name="InhabitedArcology"
 		backdrop.add_child(atmosphere)
