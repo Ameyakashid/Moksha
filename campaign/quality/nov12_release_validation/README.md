@@ -44,6 +44,9 @@ in-play position, health, objective or completion state. It may take more than
 20 minutes on the original shared Linux environment. Do not run these while
 playing in the same data directory; runners isolate their user-data folders.
 
+A separate [native input review](NATIVE_INPUT_REVIEW.md) covers a short
+agent-directed opening traversal and menu/reset check, not a full playthrough.
+
 ## Limits
 
 A successful scripted route does not certify every optional branch or novice
