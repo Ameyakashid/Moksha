@@ -26,8 +26,9 @@ See [preview scope](EXPERIMENTAL_MARKET_IRRITANT_PREVIEW.md) and
 
 Fresh screenshot-only AI Market testing on `ca7762b` recovered the flood key
 (1/4 objectives) from Title → Continue using OS key holds, without route/source
-access: 22 gameplay inputs, 75 → 51 HP, no deaths/retries, normal Pause → Title →
-close. Observer recorded exit 0, unchanged source and 3,620 movie frames. This is
+access: 22 tester-reported actions, 26 observed in-game key presses (29 including
+menus), 75 → 51 HP, no deaths/retries, normal Pause → Title →
+close. Combined actions can press multiple keys. Observer recorded exit 0, unchanged source and 3,620 movie frames. This is
 partial fresh AI navigation, not full Market or human UX/FPS validation. No new
 Library video identity/hash is assigned here. See preview notes for unresolved
 ladder-footer, distant E-prompt, air-jump teaching and damage-readability findings.

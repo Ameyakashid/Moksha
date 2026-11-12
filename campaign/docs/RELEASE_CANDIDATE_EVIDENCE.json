@@ -63,7 +63,6 @@
     "runtime": "ca7762ba2021710c405b3ce5ad1ef97e4d45aa1b",
     "access": "Fresh tester without route, source or file access; CUA OS key holds from Title Continue",
     "result": "Flood key visibly complete, 1 of 4 objectives; not full district",
-    "gameplay_inputs": 22,
     "hp_start": 75,
     "hp_end": 51,
     "deaths": 0,
@@ -91,7 +90,20 @@
       "Partial fresh AI navigation, not human UX or FPS validation",
       "No new Library artifact filename/hash claimed",
       "Follow-up prompt changes not part of this docs-only candidate"
-    ]
+    ],
+    "tester_reported_gameplay_actions": 22,
+    "observer_gameplay_key_presses": 26,
+    "observer_key_presses_including_menus": 29,
+    "observer_key_press_counts": {
+      "C": 1,
+      "D": 13,
+      "W": 7,
+      "Space": 4,
+      "E": 2,
+      "Esc": 1,
+      "N": 1
+    },
+    "input_count_scope": "Reported actions/CUA commands are not individual key presses; combined actions can press multiple keys. Counts describe the same run, not a performance comparison."
   },
   "limits": [
     "Not human/fresh navigation or real-time performance validation.",

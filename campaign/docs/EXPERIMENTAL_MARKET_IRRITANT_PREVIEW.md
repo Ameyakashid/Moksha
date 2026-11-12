@@ -71,8 +71,10 @@ See the [portable evidence index](RELEASE_CANDIDATE_EVIDENCE.md) and its
 
 A fresh AI tester, without route/source/file access, used actual OS key holds from
 Title → Continue on `ca7762b`. It visibly recovered the first flood key (1/4
-objectives), with 22 gameplay inputs, 75 → 51 HP, no deaths and no retries, then
-used Pause → Title and closed normally. NEXT guidance, the FLOOD KEY / MENDED
+objectives), with 22 tester-reported actions, 75 → 51 HP, no deaths and no retries, then
+used Pause → Title and closed normally. The observer counted 26 in-game key
+presses, or 29 including menus; combined actions can press more than one key.
+NEXT guidance, the FLOOD KEY / MENDED
 SAILS sign and the continuous rail supported discovery of this first objective.
 
 Observer verification recorded unchanged source, normal exit 0, 3,620 movie frames
