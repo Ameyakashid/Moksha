@@ -49,7 +49,7 @@ func _initialize()->void:
 			var invalid:Dictionary=valid.duplicate(true);invalid[field]=value
 			check(not CampaignCheckpoint.decode(invalid,areas).get("ok",false),"reject malformed "+field)
 	check(not CampaignCheckpoint.decode(valid,[{"id":"unknown"}]).ok,"save identity requires the injected layout")
-	check(CampaignCheckpoint.VERSION==2,"new campaign envelope explicitly versioned 2")
+	check(CampaignCheckpoint.VERSION==3,"new sensory campaign envelope explicitly versioned 3")
 	var v2:Dictionary=valid.duplicate(true)
 	v2.campaign_version=2;v2.run_id="0123456789abcdef0123456789abcdef";v2.run_status="active";v2.run_origin="new"
 	check(CampaignCheckpoint.decode(v2,areas).ok,"separately valid v2 identity accepted")
