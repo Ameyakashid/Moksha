@@ -4,21 +4,24 @@ func _process(_dt: float) -> void:queue_redraw()
 static func placement(at: Vector2,width: float,font_size: int,canvas: Transform2D,viewport: Rect2) -> Dictionary:
 	return place_block(at,Vector2(width+6,font_size+4),font_size,canvas,viewport)
 
-static func place_block(at:Vector2,size:Vector2,font_size:int,canvas:Transform2D,viewport:Rect2)->Dictionary:
+static func place_block(at:Vector2,size:Vector2,font_size:int,canvas:Transform2D,viewport:Rect2,safe_rect:Variant=null)->Dictionary:
 	if viewport.size.x<=16 or absf(canvas.determinant())<.00001:return {"draw":false}
 	# Cull the actual object BEFORE moving its caption. Never drag distant labels
 	# into view, and move all caption lines together so edge clamping cannot stack them.
 	if not viewport.grow(16).has_point(canvas*Vector2.ZERO):return {"draw":false}
+	var bounds:Rect2=viewport if safe_rect==null else viewport.intersection(safe_rect)
+	if bounds.size.x<=16 or bounds.size.y<=16:return {"draw":false}
 	var local_box:=Rect2(at+Vector2(-3,-font_size),size)
 	var screen_box:Rect2=canvas*local_box
-	var left:=viewport.position.x+8.0
-	var right:=viewport.end.x-8.0
+	var left:=bounds.position.x+8.0
+	var right:=bounds.end.x-8.0
+	if safe_rect!=null and (screen_box.size.x>bounds.size.x-16 or screen_box.size.y>bounds.size.y-16):return {"draw":false}
 	var shift:=Vector2.ZERO
 	if screen_box.size.x>right-left:shift.x=left-screen_box.position.x
 	elif screen_box.position.x<left:shift.x=left-screen_box.position.x
 	elif screen_box.end.x>right:shift.x=right-screen_box.end.x
-	if screen_box.position.y<viewport.position.y+8:shift.y=viewport.position.y+8-screen_box.position.y
-	elif screen_box.end.y>viewport.end.y-8:shift.y=viewport.end.y-8-screen_box.end.y
+	if screen_box.position.y<bounds.position.y+8:shift.y=bounds.position.y+8-screen_box.position.y
+	elif screen_box.end.y>bounds.end.y-8:shift.y=bounds.end.y-8-screen_box.end.y
 	var baseline:Vector2=canvas.affine_inverse()*(canvas*at+shift)
 	return {"draw":true,"at":baseline,"screen_box":Rect2(screen_box.position+shift,screen_box.size)}
 static func describe(kind:String,label:String,completed:bool,available:bool,setting:int,target:int,optional:=false,controller:=false)->Dictionary:
@@ -56,7 +59,10 @@ func _draw() -> void:
 	var actual_width:=0.0
 	for line in lines:actual_width=maxf(actual_width,ThemeDB.fallback_font.get_string_size(line,HORIZONTAL_ALIGNMENT_LEFT,-1,size).x)
 	for line in detail_lines:actual_width=maxf(actual_width,ThemeDB.fallback_font.get_string_size(line,HORIZONTAL_ALIGNMENT_LEFT,-1,detail_size).x)
-	var placed:=place_block(at,Vector2(actual_width+6,total_height+4),size,get_global_transform_with_canvas(),get_viewport_rect())
+	var safe:Variant=null
+	var hud:Variant=host.get("hud") if is_instance_valid(host) else null
+	if is_instance_valid(hud) and hud.has_method("caption_safe_rect"):safe=hud.caption_safe_rect()
+	var placed:=place_block(at,Vector2(actual_width+6,total_height+4),size,get_global_transform_with_canvas(),get_viewport_rect(),safe)
 	if not placed.draw:return
 	at=placed.at
 	for line in lines:

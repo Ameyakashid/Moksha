@@ -22,3 +22,7 @@ func set_snapshot(value:Dictionary)->bool:
 func _sync_view()->void:
 	_snapshot.merge(_campaign_snapshot,true)
 	super._sync_view()
+
+func caption_safe_rect()->Rect2:
+	var view:=get_node_or_null("View")
+	return view.caption_safe_rect() if view!=null and view.has_method("caption_safe_rect") else get_viewport_rect()

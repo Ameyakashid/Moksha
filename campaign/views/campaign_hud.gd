@@ -288,3 +288,11 @@ func _text(c:Node2D,text:String,p:Vector2,size:=10,color:=INK)->void:
 	for line in text.split("\n"):
 		c.draw_string(ThemeDB.fallback_font,p,line,HORIZONTAL_ALIGNMENT_LEFT,-1,size,color)
 		p.y+=size+5
+
+func caption_safe_rect()->Rect2:
+	# Read the same snapshot/layout used by HUD paint; never query gameplay here.
+	var layout:=playing_layout(data)
+	var bottom:=339.0
+	if not layout.context_notice and layout.context_height>0:bottom=minf(bottom,layout.context_top)
+	var local:=Rect2(0,layout.header_height,640,maxf(0,bottom-layout.header_height))
+	return get_global_transform_with_canvas()*local
