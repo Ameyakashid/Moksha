@@ -21,9 +21,9 @@ func run()->void:
 	var m=load("res://campaign/campaign.tscn").instantiate();m.save_enabled=false;root.add_child(m)
 	m.start_new(true);paused=true;m.save_enabled=true;m._save_checkpoint()
 	var valid=JSON.parse_string(FileAccess.get_file_as_string(SAVE))
-	check(m._read_checkpoint().get("ok",false),"valid v2 checkpoint decodes")
+	check(m._read_checkpoint().get("ok",false),"valid v3 checkpoint decodes")
 	# Keep original malformed-header mutation: v1 relabelled v2 lacks identity.
-	valid.campaign_version=1;valid.erase("run_id");valid.erase("run_status");valid.erase("run_origin")
+	valid.campaign_version=1;valid.erase("senses");valid.erase("run_id");valid.erase("run_status");valid.erase("run_origin")
 	write_raw(valid)
 	check(m._read_checkpoint().get("ok",false),"legacy v1 checkpoint still decodes")
 	var cases:Array=[]

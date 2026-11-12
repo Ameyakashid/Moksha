@@ -36,7 +36,7 @@ func run()->void:
  h.start_new(true);var id:String=h.run_id
  check(id.length()==32 and h.run_status=="active","New owns durable identity")
  var raw=JSON.parse_string(FileAccess.get_file_as_string(h.campaign_save_path))
- check(raw.run_id==id and raw.campaign_version==2,"New checkpoint v2")
+ check(raw.run_id==id and raw.campaign_version==3,"New checkpoint v3")
  h.load_sector(2);h.load_sector(2)
  check(h.run_id==id,"District retry preserves run identity")
  final_fixture(h)
@@ -124,7 +124,7 @@ func run()->void:
  # Legacy repeated final receipts are preserved as factual prefix, not normalized.
  h=host_at("legacy");h.start_new(true)
  raw=JSON.parse_string(FileAccess.get_file_as_string(h.campaign_save_path))
- raw.campaign_version=1;raw.erase("run_id");raw.erase("run_status");raw.erase("run_origin")
+ raw.campaign_version=1;raw.erase("senses");raw.erase("run_id");raw.erase("run_status");raw.erase("run_origin")
  raw.level_receipts=[{"level":5,"active_seconds":7.0,"completed_district":h.sectors[-1].id},{"level":5,"active_seconds":9.0,"completed_district":h.sectors[-1].id}]
  raw.level_receipts[0].erase("completed_district")
  raw.progress.metrics=[{"area_id":h.sectors[-1].id,"seconds":7.0},{"area_id":h.sectors[-1].id,"seconds":2.0}]
@@ -137,7 +137,7 @@ func run()->void:
  check(FileAccess.file_exists(h.history_path.path_join("preserved/legacy-checkpoint-"+legacy_hash+".json")),"Exact legacy checkpoint archived")
  check(FileAccess.get_sha256(h.legacy_results_path)==result_hash,"Legacy result never overwritten or associated")
  check(h.last_result.is_empty(),"Legacy result not promoted to active run completion")
- check(JSON.parse_string(FileAccess.get_file_as_string(h.campaign_save_path)).campaign_version==2,"Legacy resume migrates explicitly")
+ check(JSON.parse_string(FileAccess.get_file_as_string(h.campaign_save_path)).campaign_version==3,"Legacy resume migrates explicitly")
  # Missing district identity was explicitly valid in v1; completion preserves it.
  var prefix:Dictionary=h.level_receipts[0].duplicate(true)
  final_fixture(h)
@@ -173,7 +173,7 @@ func run()->void:
  check(h.last_result.run_id==valid.run_id,"Just-completed run wins clock rollback")
  h.completion_record.clear()
  malformed=other.duplicate(true);malformed.run_id="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";malformed.snapshot.run_id=malformed.run_id
- malformed.completed_at=other.completed_at+10000;malformed.snapshot.erase("progress")
+ malformed.completed_at=other.completed_at+10000;malformed.snapshot.progress.sector_id="foreign-area"
  check(History.put(h.history_path,malformed).ok,"Envelope-only malformed snapshot stored for boundary test")
  h._refresh_run_history()
  check(h.last_result.is_empty() and not h._history_error.is_empty(),"Latest invalid history never exposed as completion")
@@ -187,7 +187,7 @@ func run()->void:
  for optional_value in [null,"",42,{"old":"metadata"},["old"]]:
   h=host_at("legacy-value-"+str(checks));h.start_new(true)
   raw=JSON.parse_string(FileAccess.get_file_as_string(h.campaign_save_path))
-  raw.campaign_version=1;raw.erase("run_id");raw.erase("run_status");raw.erase("run_origin")
+  raw.campaign_version=1;raw.erase("senses");raw.erase("run_id");raw.erase("run_status");raw.erase("run_origin")
   raw.level_receipts=[{"level":1,"active_seconds":3,"completed_district":optional_value}]
   var legacy_prefix:Dictionary=raw.level_receipts[0].duplicate(true)
   check(Store.commit(h.campaign_save_path,raw).ok,"Legacy optional value fixture saved")
