@@ -2,6 +2,7 @@ extends "res://demo/mission.gd"
 ## Campaign orchestrator. Original controller, damage pipeline and demo stay intact.
 const BuildRules=preload("res://campaign/logic/build_rules.gd")
 const CampaignCheckpoint=preload("res://campaign/logic/checkpoint_codec.gd")
+const CheckpointStore=preload("res://campaign/save/checkpoint_store.gd")
 const RunSnapshot=preload("res://campaign/state/run_snapshot.gd")
 const CampaignData=preload("res://campaign/logic/campaign_data.gd")
 const ObjectiveScene=preload("res://campaign/logic/objective.tscn")
@@ -352,13 +353,7 @@ func _read_checkpoint()->Dictionary:
 		_checkpoint_error=str(result.get("error","The campaign checkpoint contains incomplete or invalid progress."))
 	return result
 func _decode_campaign_checkpoint()->Dictionary:
-	if not FileAccess.file_exists(CAMPAIGN_SAVE):return {"ok":false}
-	var file:=FileAccess.open(CAMPAIGN_SAVE,FileAccess.READ)
-	if file==null:return {"ok":false,"error":"The campaign checkpoint could not be opened. Check folder access."}
-	var text:=file.get_as_text();file.close()
-	# A truncated/corrupt checkpoint is an expected rejected input, not an engine error.
-	var raw=Checkpoint.parse(text)
-	return CampaignCheckpoint.decode(raw,sectors)
+	return CheckpointStore.read(CAMPAIGN_SAVE,sectors)
 func _save_checkpoint()->void:
 	if not save_enabled or _loading_campaign:return
 	var encoded:Dictionary=Checkpoint.encode({"metrics":metrics,"sector":sector,"blind":blind,"caches":caches,"kills":kills,"deaths":deaths,"seconds":elapsed},sectors)
@@ -369,30 +364,18 @@ func _save_checkpoint()->void:
 	blackboard.set_value("build",{"lens":lens,"upgrades":upgrades.duplicate()})
 	var raw:Dictionary={"campaign_version":CampaignCheckpoint.VERSION,"progress":encoded.data}
 	raw.merge(RunSnapshot.capture({"lens":lens,"upgrades":upgrades,"rewards":rewards,"level_seconds":level_seconds,"level_receipts":level_receipts}))
-	var file=FileAccess.open(CAMPAIGN_SAVE+".pending",FileAccess.WRITE)
-	if not file:_report_checkpoint_write_error("The campaign checkpoint could not be written.");return
-	file.store_string(JSON.stringify(raw));file.flush();var error=file.get_error();file.close()
-	if error!=OK or DirAccess.rename_absolute(ProjectSettings.globalize_path(CAMPAIGN_SAVE+".pending"),ProjectSettings.globalize_path(CAMPAIGN_SAVE))!=OK:
-		_report_checkpoint_write_error("The campaign checkpoint could not be committed.");return
+	var result:=CheckpointStore.commit(CAMPAIGN_SAVE,raw)
+	if not result.ok:
+		_report_checkpoint_write_error(str(result.error));return
 	continue_available=true;_checkpoint_write_error="";_checkpoint_error=""
 func _report_checkpoint_write_error(message:String)->void:
 	_checkpoint_write_error=message
 	continue_available=_decode_campaign_checkpoint().get("ok",false)
 	announce("CHECKPOINT NOT SAVED · Keep the game open; check disk space and folder access.",8)
 func _preserve_invalid_checkpoint()->bool:
-	if not FileAccess.file_exists(CAMPAIGN_SAVE) or _decode_campaign_checkpoint().get("ok",false):return true
-	var digest:=FileAccess.get_sha256(CAMPAIGN_SAVE)
-	var backup:=CAMPAIGN_SAVE+".preserved-"+digest+".json"
-	if digest.is_empty():
-		_report_checkpoint_write_error("The existing checkpoint could not be read; it has not been replaced.")
-		return false
-	if not FileAccess.file_exists(backup) and DirAccess.copy_absolute(ProjectSettings.globalize_path(CAMPAIGN_SAVE),ProjectSettings.globalize_path(backup))!=OK:
-		_report_checkpoint_write_error("The previous checkpoint could not be preserved; it has not been replaced.")
-		return false
-	if FileAccess.get_sha256(backup)!=digest or FileAccess.get_sha256(CAMPAIGN_SAVE)!=digest:
-		_report_checkpoint_write_error("The previous checkpoint backup could not be verified; it has not been replaced.")
-		return false
-	return true
+	var result:=CheckpointStore.preserve_invalid(CAMPAIGN_SAVE,sectors)
+	if not result.ok:_report_checkpoint_write_error(str(result.error))
+	return result.ok
 func continue_run()->void:
 	var saved:=_read_checkpoint()
 	if not saved.get("ok",false):continue_available=false;return

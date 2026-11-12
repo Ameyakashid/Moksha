@@ -1,0 +1,94 @@
+{
+  "scope": "Checkpoint disk-ownership extraction plus Phase1a contracts; no full ownership migration, platform acceptance or manual playthrough.",
+  "source_sha256": {
+    "campaign/logic/campaign.gd": "d46232a5f0b2cf35e4cd0f7c2a4b942294f50cee8f11e19dc1820042db569b8a",
+    "campaign/save/checkpoint_store.gd": "5a7e564ef25fdbd4e936a9c98bc11241bac30dbd45c1f187797b69305763fad6",
+    "campaign/logic/checkpoint_codec.gd": "9222cde05c8ff257cf5aba1f50e2bf7a96a873c6d8eff7887cd5275af2c5e43f",
+    "campaign/state/run_snapshot.gd": "88d8dc22d5d86af983bd4fbd78c3123b5f26834d83560d0bfa573e70ce422248",
+    "campaign/quality/nov12_domain_checks.py": "84c98f6dee8bcb705e5ce0ed12abb81fba56adb742d2c6a451c2e2c91763e6f7"
+  },
+  "source_drift": [],
+  "stages": [
+    {
+      "name": "import",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 10.013
+    },
+    {
+      "name": "content_contract",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 1.591
+    },
+    {
+      "name": "pure_domain",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 0.268
+    },
+    {
+      "name": "district_smoke",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 5.396
+    },
+    {
+      "name": "live_build_60",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 3.111
+    },
+    {
+      "name": "save_feedback_60",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 2.229
+    },
+    {
+      "name": "adversarial_save_60",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 4.093
+    },
+    {
+      "name": "live_build_120",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 3.628
+    },
+    {
+      "name": "save_feedback_120",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 2.155
+    },
+    {
+      "name": "adversarial_save_120",
+      "exit_code": 0,
+      "errors": [],
+      "marker_found": true,
+      "passed": true,
+      "wall_seconds": 4.741
+    }
+  ],
+  "passed": true
+}
