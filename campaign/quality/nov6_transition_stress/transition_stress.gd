@@ -197,6 +197,24 @@ func completed_exit_fixture(index: int) -> void:
 	check(host.room.gate_open, "initialized completed district opens authored exit")
 	trace.clear(); key(KEY_E)
 	check(host.state == "upgrade" and paused, "real E at authored exit opens upgrade")
+func decline_hearing_offer(modelled := false) -> void:
+	if host.state != "hearing_choice": return
+	check(int(host.sectors[host.sector].level) == 1, "hearing offer follows first-level exit")
+	check(paused and host._pending_sector == -1, "hearing offer keeps world paused before ascent")
+	check(host.upgrades.size() == 1 and host.metrics.size() == 1 and host.level_receipts.size() == 1, "hearing offer retains one staged upgrade and exit receipt")
+	var before := observation()
+	var checkpoint_digest := FileAccess.get_sha256(host.CAMPAIGN_SAVE)
+	trace.append("explicit hearing decline K")
+	if modelled:
+		check(model.state == "hearing_choice", "independent model predicts hearing offer")
+		tx_key(KEY_K)
+	key(KEY_K)
+	check(host.hearing_retained, "normal K decline retains hearing")
+	check(host.state == "transition" and not paused and host._pending_sector == host.sector + 1, "decline queues ordinary onward ascent")
+	check(host.upgrades == before.upgrades and host.metrics.size() == before.metrics and host.level_receipts.size() == before.receipts, "decline does not duplicate staged progression")
+	check(FileAccess.get_sha256(host.CAMPAIGN_SAVE) == checkpoint_digest, "decline does not commit before onward load")
+	event_count += 1
+
 func upgrade_sequences() -> void:
 	var exits: Array[int] = []
 	for i in host.sectors.size() - 1:
@@ -234,6 +252,7 @@ func upgrade_sequences() -> void:
 					"joyB": joy(JOY_BUTTON_B)
 					"disconnect": Input.joy_connection_changed.emit(0, false)
 					"tick": await tick(3)
+				decline_hearing_offer()
 				check(host.upgrades.size() <= 1, "bounded upgrade granted at most once")
 				check(host.level_receipts.size() <= 1 and host.metrics.size() <= 1, "bounded transition receipt recorded at most once")
 				if host.state in ["upgrade", "paused", "journal", "title"]: check(paused, "transaction modal cannot unpause world")
@@ -287,6 +306,7 @@ func close_modal(kind: String) -> void:
 		"archive": key(KEY_E)
 		"upgrade":
 			if host.state == "upgrade": key(KEY_L)
+			decline_hearing_offer()
 func held_boundaries() -> void:
 	for boundary in ["intro", "journal", "pause", "title", "focus", "disconnect", "retry", "choice", "archive", "upgrade"]:
 		for held in [KEY_D, KEY_A, KEY_W, KEY_S, KEY_J, KEY_K, KEY_SPACE, KEY_SHIFT]:
@@ -475,6 +495,13 @@ func tx_key(code: int, keyboard := true) -> void:
 	if model.state == "upgrade":
 		if code in [KEY_J, KEY_K, KEY_L]:
 			model.choice = {KEY_J:"force",KEY_K:"agility",KEY_L:"vitality"}[code]
+			if int(host.sectors[model.sector].level) == 1:
+				model.state = "hearing_choice"; model.paused = true
+			else:
+				model.pending = model.sector + 1; model.state = "transition"; model.paused = false
+		return
+	if model.state == "hearing_choice":
+		if code in [KEY_K, KEY_ESCAPE]:
 			model.pending = model.sector + 1; model.state = "transition"; model.paused = false
 		return
 	var prior: String = model.state
@@ -536,6 +563,7 @@ func upgrade_fuzz() -> void:
 				trace.append("disconnect")
 				if model.controller == 0: model_focus(); model.controller = -1
 				Input.joy_connection_changed.emit(0, false)
+			decline_hearing_offer(true)
 			for field in ["state","sector","lens"]: check(host.get(field) == model[field], "transaction model " + field)
 			check(paused == model.paused and host._focus_pause_active == model.focus, "transaction pause/focus matches model")
 			check(host._pending_sector == model.pending and host._pending_retry == model.retry, "transaction queue matches model")
