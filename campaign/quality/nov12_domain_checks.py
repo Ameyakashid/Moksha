@@ -26,6 +26,8 @@ def main():
             env[key] = str(path)
         stages = [
             ('import', [godot, '--headless', '--editor', '--import', '--path', str(ROOT)], None),
+            ('player_recipe', [godot, '--headless', '--path', str(ROOT), '--script', 'res://campaign/quality/nov12_player_recipe.gd'], 'PLAYER_RECIPE_RESULT '),
+            ('detached_player', [godot, '--headless', '--path', str(ROOT), '--script', 'res://campaign/quality/nov12_detached_player.gd'], 'DETACHED_PLAYER_RESULT '),
             ('content_contract', [godot, '--headless', '--path', str(ROOT), '--script', 'res://campaign/quality/nov12_content_contracts.gd'], 'NOV12_CONTENT_RESULT '),
             ('pure_domain', [godot, '--headless', '--path', str(ROOT), '--script', 'res://campaign/quality/nov12_domain_contracts.gd'], 'NOV12_DOMAIN_CONTRACT_RESULT '),
             ('district_smoke', [godot, '--headless', '--path', str(ROOT), '--script', 'res://campaign/tests/campaign_smoke.gd'], 'SMOKE_DISTRICTS=32'),
@@ -50,7 +52,7 @@ def main():
                 break
     after = hashes()
     drift = sorted(p for p in before.keys() | after.keys() if before.get(p) != after.get(p))
-    report = {'scope': 'Pure domain contracts plus inherited live-build/save fixtures and district smoke; not a full playthrough or platform acceptance.', 'source_sha256': before, 'source_drift': drift, 'stages': rows, 'passed': len(rows) == 14 and not drift and all(r['passed'] for r in rows)}
+    report = {'scope': 'Pure domain contracts plus inherited live-build/save fixtures and district smoke; not a full playthrough or platform acceptance.', 'source_sha256': before, 'source_drift': drift, 'stages': rows, 'passed': len(rows) == 16 and not drift and all(r['passed'] for r in rows)}
     (output / 'summary.json').write_text(json.dumps(report, indent=2) + '\n')
     print('Report:', output / 'summary.json')
     return 0 if report['passed'] else 1

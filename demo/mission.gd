@@ -5,8 +5,7 @@ const Data = preload("res://demo/mission_data.gd")
 const PlayerScene = preload("res://combat_pc/player.tscn")
 const RoomScript = preload("res://demo/components/mission_room.gd")
 const HealthScene = preload("res://combat_pc/components/health_component.tscn")
-const DefeatScene = preload("res://combat_pc/components/defeat_response.tscn")
-const RelayScene = preload("res://combat_pc/components/noise_relay.tscn")
+const PlayerAssembler = preload("res://demo/assembly/player_assembler.gd")
 const Checkpoint = preload("res://demo/components/checkpoint_codec.gd")
 const SAVE := "user://first_ascent_expanded_checkpoint.json"
 var sectors: Array[Dictionary] = Data.sectors()
@@ -118,43 +117,12 @@ func load_sector(index: int) -> void:
 	room.build(sectors[sector])
 	room.set_cache_found(caches.has(sector))
 	player = PlayerScene.instantiate()
-	player.name = "Player"
-	player.automatic_physics = false
-	player.profile = preload("res://combat_pc/resources/air_response_agile.tres").duplicate(true)
-	player.combat_profile = preload("res://combat_pc/resources/combat_profile.tres").duplicate(true)
-	player.melee_chain = preload("res://combat_pc/resources/responsive_chain.tres")
-	# View remains optional and can be swapped without affecting any contact.
-	var lithe = load("res://combat_pc/visuals/lithe_wireframe.gd") if ResourceLoader.exists("res://combat_pc/visuals/lithe_wireframe.gd") else null
-	if lithe != null: player.get_node("Visual").set_script(lithe)
-	player.get_node("Visual").ground_presentation = preload("res://combat_pc/resources/ground_presentation_agile.tres")
+	PlayerAssembler.configure_actor(player)
 	health = _create_player_health()
-	health.name = "Health"
-	health.maximum_health = 60.0
-	player.add_child(health)
-	var defeat = DefeatScene.instantiate()
-	defeat.name = "DefeatResponse"
-	player.add_child(defeat)
-	var relay = RelayScene.instantiate()
-	relay.name = "NoiseRelay"
-	relay.set_script(preload("res://demo/components/mission_noise_relay.gd"))
-	player.add_child(relay)
-	var incoming = preload("res://simulation/components/incoming_strike_receiver.tscn").instantiate()
-	incoming.counterable = true
-	player.get_node("BodyShape").add_child(incoming)
-	var contact_config := Node.new()
-	contact_config.name = "ContactConfig"
-	contact_config.set_script(preload("res://simulation/components/actor_contact_config.gd"))
-	contact_config.profile = preload("res://demo/resources/player_contact.tres")
-	player.add_child(contact_config)
-	var impact = preload("res://simulation/components/physical_impact_receiver.tscn").instantiate()
-	player.add_child(impact)
-	player.add_child(preload("res://simulation/components/boundary_receiver.tscn").instantiate())
-	var projectile_receiver := Node.new()
-	projectile_receiver.name = "ProjectileReceiver"
-	projectile_receiver.set_script(preload("res://simulation/components/projectile_receiver.gd"))
-	projectile_receiver.accepted_source_layers = 32
-	player.add_child(projectile_receiver)
+	PlayerAssembler.attach_components(player, health)
 	room.add_child(player)
+	var relay = player.get_node("NoiseRelay")
+	var defeat = player.get_node("DefeatResponse")
 	relay.bind(player,bus)
 	player.reset_actor(sectors[sector].get("spawn",Vector2(75,300)),1)
 	_base_speed = player.profile.run_speed

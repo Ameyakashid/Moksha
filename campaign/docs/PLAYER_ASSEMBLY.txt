@@ -1,0 +1,93 @@
+Next ownership step: detached player assembly
+Baseline: fe9936a. Implemented as a bounded two-phase helper.
+
+Decision
+Extract one reusable original-code helper, demo/assembly/player_assembler.gd,
+with two explicit static operations:
+  configure_actor(player: CharacterBody2D) -> void
+  attach_components(player: CharacterBody2D, health: Node) -> void
+The mission retains PlayerScene.instantiate(), assignment to its player field,
+the virtual health-construction hook, and the sole activation point. A two-phase
+helper is deliberate: health selection currently happens AFTER profile/visual
+configuration, while the host's player field is already assigned. A one-call
+factory returning the player would change that observable hook contract or need
+a callback/service locator. Avoid both. No factory holds the campaign host,
+SceneTree, NoiseBus, room, save store, district definition or runtime state.
+
+Existing sequence and proposed ownership (same sequence)
+1. Host retires room, clears enemy/noise state, chooses district and builds room.
+2. Host instantiates and assigns preserved PlayerScene.
+3. Helper configure_actor sets Player name, manual physics, duplicated movement
+   and combat profiles, shared chain, optional wireframe script and presentation.
+4. Host calls _create_player_health(): demo original scene or campaign BuildHealth
+   with the campaign depletion listener connected before DefeatResponse binds.
+5. Helper attach_components names/configures Health and appends it, DefeatResponse,
+   mission NoiseRelay, BodyShape/IncomingStrikeReceiver, ContactConfig,
+   PhysicalImpactReceiver, BoundaryReceiver and ProjectileReceiver in EXACTLY
+   current construction order and parent paths. Health maximum stays 60 initially.
+6. Host room.add_child(player) activates the complete graph. Host resolves relay
+   and defeat by their stable child names, binds bus, resets spawn/facing, captures
+   base movement, applies trade, then connects its weak-reference defeat listener.
+7. Host creates enemies/props and binds sonar, camera, gate and checkpoint. Campaign
+   still adds objectives, captains and presentation and applies build afterward.
+
+Why this is meaningful rather than directory parity
+Player component selection and dependencies become inspectable/reusable without
+constructing a room or run. The game-layer assembly recipe no longer hides among
+level progression and saving. The existing demo remains the lifecycle facade;
+the actor/controller and simulation components still own all behavior. This does
+NOT complete district assembly or remove the host's remaining responsibilities.
+No new generic ECS, global registry, new activation API or packed-scene inheritance.
+A static helper is preferable to a new PackedScene here: health is selected by the
+host, visuals are optional, and child readiness/connection order must be explicit.
+
+Inspected reference mapping
+shapez GameCore.initializeRoot constructs domain services; postLoadHook announces
+post-load and then sets gameInitialized. EntityManager.registerEntity indexes
+already-present components and sets registered before dispatching entityAdded.
+Borrow the construction-before-publication responsibility, not implementation,
+component model or factory-game systems. Godot already supplies instantiated
+scenes, parent-owned lifetime, resource loading, child readiness and tree entry.
+Our helper maps to game-specific composition; room.add_child maps to publication.
+These are analogous responsibilities, NOT equivalent engine execution semantics.
+Pinned source inspected:
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/core.js
+https://github.com/tobspr-games/shapez.io/blob/8a79de5255fb6756f3a1d26579b1e9bc36e0c811/src/js/game/entity_manager.js
+Actual REA source analysis previously recorded in REFERENCE_FOUNDATION.txt is
+partial static evidence; this proposal is checked against source. shapez is a
+modern factory game, not a side-scroller or recovered Dead Cells source. No GPL
+implementation or assets are copied. Dead Cells notes do not establish a player
+factory implementation and are not claimed as evidence for this particular step.
+
+Risks and preservation gates
+- Child construction order is NOT readiness order: BodyShape already exists;
+  its incoming receiver readies before later player siblings. Incoming/projectile
+  receivers wait for actor.ready; ContactConfig also defers its application.
+  Health and DefeatResponse bind during child readiness. Preserve all paths and
+  original _ready ordering rather than moving binds into the assembler.
+- Movement/combat resources must remain duplicated per actor. Shared read-only
+  chain/presentation resources must retain their current sharing semantics.
+- Hook call must see the assigned, configured but detached actor, and adding the
+  complete actor must happen once. No component bind/reset or signal publication
+  in the helper; no hidden game services or live-tree mutation.
+- Test detached recipe directly: not inside tree, exact child topology/order and
+  resource identities; mutate one actor profile and prove second actor unaffected.
+  Trace hook state and activation callbacks in demo and campaign hosts.
+- Compare a baseline/new topology and activation-order trace; confirm all health
+  consumers bind same authority, exactly one damage/death delivery and unchanged
+  campaign depletion callback order. A deliberate child-order/resource-sharing
+  mutation must fail a focused assertion before reporting the test meaningful.
+- Run existing health assembly, incoming real-contact, live build, save-feedback
+  and adversarial save fixtures at 60/120 Hz with isolated HOME/XDG directories;
+  retain 32-district smoke and content/domain contracts. No native desktop while
+  ongoing video owns it; native verification is a later separately stated gate.
+- Diff combat_pc/ and simulation/ bytes against frozen commit: zero. No content,
+  stable IDs, save schema, spawn/reset, contact or defeat semantics changes.
+- Keep readable Godot declarations and one operation per line in the new helper.
+  Do not reformat unrelated host/controller files. If focused gates expose a
+  semantic dependency, stop and report rather than widen this extraction.
+
+Observed baseline details
+Campaign adds CampaignOperativeSkin after actor.ready and duplicates its melee
+chain during build application. Tests preserve both; initial detached assembly
+shares the chain, while movement/combat profiles are duplicated per actor.
