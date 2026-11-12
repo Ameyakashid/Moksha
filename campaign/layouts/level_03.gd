@@ -17,6 +17,13 @@ static func sectors() -> Array[Dictionary]:
 	homes["text"] = "Recover the refuge register from the west homes, release the courtyard shelter, then unlock the eastern roof passage. The lower-court supply cache remains optional."
 	homes["hint"] = "E recovers the register and releases shelter controls. Fixed ladders recover the terraces; ordinary guards need not be defeated."
 	homes["objectives"] = [{"id": "list", "label": "Recover the building refuge register", "kind": "recover", "at": Vector2(1850, -30), "requires": []}, {"id": "shelter", "label": "Release the courtyard shelter", "kind": "rescue", "at": Vector2(2940, 300), "requires": ["list"]}, {"id": "roofs", "label": "Unlock the refuge roof passage", "kind": "terminal", "at": Vector2(4450, -30), "requires": ["shelter"]}]
+	# Optional supplies occupy their own side landing, not the mandatory shelter prompt.
+	homes["cache"] = Vector2(2840, 190)
+	homes["platforms"].append(Rect2(2770, 190, 150, 18))
+	for sign in homes["signs"]:
+		if sign[1] == "OPTIONAL SUPPLIES": sign[1] = "COURTYARD SHELTER"
+	homes["signs"].append([Vector2(2790, 155), "OPTIONAL SUPPLIES"])
+	homes["signs"].append([Vector2(3100, 265), "EAST ROOFS > ^"])
 	homes["objective_doors"] = [{"at": Vector2(4780, 100), "size": Vector2(28, 400), "requires": ["roofs"]}]
 	homes["route"] = [Vector2(75, 300), Vector2(550, 135), Vector2(1300, 25), Vector2(1850, -30), Vector2(2730, 25), Vector2(2940, 300), Vector2(3370, -30), Vector2(4100, -85), Vector2(4450, -30), Vector2(5050, -85), Vector2(5155, -85)]
 	result.append(homes)
