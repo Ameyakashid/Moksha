@@ -1,0 +1,24 @@
+{
+  "commit": "d807d68ed6e4288bf45fbc320b420b12cfb7ae69",
+  "after_commit": "d807d68ed6e4288bf45fbc320b420b12cfb7ae69",
+  "tracked_diff": "",
+  "exit": 0,
+  "scope": "Staged visual fixtures,1280x720; synthetic wrapped HUD; enemies paused. Not traversal, combat, performance, Windows or campaign acceptance.",
+  "images": {
+    "thermal-lower.png": "530a21d42a74462942c14c8caad16a4633f68addc3e8aff4de4e011e1544d305",
+    "crown-warden.png": "89c89cd860c5b44ebcdc700f7af8cf4081ed2669748e6805d4dee83c9d4b6b27",
+    "memory-loom.png": "ac2343193a240d6cb136ff84909b03775449b9f17f6184682601c864f153de7a",
+    "governor-west.png": "5421a7da0a800f924cc7522ea6e6ea7d33f44b3ff8def9a13d32eeea3109ba96",
+    "governor-hub.png": "9f6aa59e58a590fe3a5d5baf09b624485b81dbfd06d5b3af4c95ba2ce7d98ac3",
+    "crown-blind.png": "8759038d66e58a3583c8d224e2f4aba14942add3e7e553bc0515a6c0ee23c254",
+    "thermal-wrapped.png": "ad7526f10508a0af5bb899f9d32b57086eb5769f1e84b14d15bb31b2fc2e0393"
+  },
+  "observations": [
+    "Thermal harness avoids header/own icon/service-route sign in normal and wrapped HUD. Existing coolant caption still overlays player upper body; not a new regression.",
+    "Governor hub authority/supply sign clear of THE EXCHANGE, terminal/player and locked governor caption. West authority/strike sign clear above player/terrain.",
+    "Memory account icon/player/foreground platform and caption distinct against archive.",
+    "Crown Warden/player/terrain silhouettes distinct; backdrop/staff fully absent in traded-sight fixture.",
+    "One unsupported VSync driver warning; no script errors, resource retention or ObjectDB warnings."
+  ],
+  "archive_omitted_fields": {}
+}

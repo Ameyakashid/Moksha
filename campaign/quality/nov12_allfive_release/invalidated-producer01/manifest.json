@@ -1,0 +1,38 @@
+{
+  "mode": "producer",
+  "source": "$WORKSPACE/moksha-github-nov12-recovery/crown-producer-d807d68",
+  "commit": "d807d68ed6e4288bf45fbc320b420b12cfb7ae69",
+  "observer_sha256": "a9978a75058c890dba42a8a8b1fb162583723dc1818823f1041d54c4715265ae",
+  "lens": "neutral",
+  "sight": "retained",
+  "ending": "public_record",
+  "producer": null,
+  "checkpoint_sha256": null,
+  "command": [
+    "godot",
+    "--path",
+    "$WORKSPACE/moksha-github-nov12-recovery/crown-producer-d807d68",
+    "--fixed-fps",
+    "60",
+    "--headless",
+    "--script",
+    "$WORKSPACE/moksha-crown-producer-d807d68-01/crown_observer.gd",
+    "--",
+    "--hz=60",
+    "--district-timeout=480",
+    "--lens=neutral",
+    "--ending=public_record",
+    "--report=$WORKSPACE/moksha-crown-producer-d807d68-01/receipt.json",
+    "--checkpoint=$WORKSPACE/moksha-crown-producer-d807d68-01/crown-entry.json",
+    "--provenance=$WORKSPACE/moksha-crown-producer-d807d68-01/checkpoint-provenance.json"
+  ],
+  "env": {
+    "HOME": "$WORKSPACE/moksha-crown-producer-d807d68-01/HOME",
+    "XDG_DATA_HOME": "$WORKSPACE/moksha-crown-producer-d807d68-01/XDG_DATA_HOME",
+    "XDG_CONFIG_HOME": "$WORKSPACE/moksha-crown-producer-d807d68-01/XDG_CONFIG_HOME",
+    "XDG_CACHE_HOME": "$WORKSPACE/moksha-crown-producer-d807d68-01/XDG_CACHE_HOME"
+  },
+  "archive_omitted_fields": {
+    "tracked_sha256": 4360
+  }
+}
