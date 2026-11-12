@@ -1,0 +1,157 @@
+{
+  "baseline": "c9772b07ce44de94be94e25b48ee250197566162",
+  "runtime_changed_files": [
+    "combat_pc/player.gd"
+  ],
+  "runtime_sha256": "43f223132b011be3fdb880127bf6ffffcd966e7047a83c57fb8e81001aeac4f1",
+  "script_hashes": {
+    "combat_pc/tests/late_windup_contract.gd": "25902a5ff126cd47a4980671cd17c11be5189a037e782d8d49e39af9bbe46a55",
+    "combat_pc/tests/late_windup_input_trace.gd": "fc68e96a0452772864a0099733f7ce6dd461d7061f6f560744bd4f5ad1cb77e1",
+    "combat_pc/tests/late_windup_contact.gd": "877a0ea4e0a17bf5490e42b9cc6c14bfec47cabeb3344c97bea5e6e21f8d36d1"
+  },
+  "evidence": [
+    {
+      "path": "unit03/60/log",
+      "sha256": "36bc0a598354663e7160b2e78eca5e84c89f28e73f84bbb10f9bf18b24160a3c",
+      "result": {
+        "checks": 114,
+        "failures": [],
+        "physics_hz": 60,
+        "scope": "seeded timing contracts"
+      }
+    },
+    {
+      "path": "regression01/combat-60/log",
+      "sha256": "a495e8a4bea34d30e556d97a6d03aa1c596f32a908b0bbdb5dac3983f8b5fd80",
+      "result": {
+        "checks": 135,
+        "failures": [],
+        "physics_hz": 60,
+        "suite": "combat"
+      }
+    },
+    {
+      "path": "regression01/held-60/log",
+      "sha256": "05bceb76732b3b20be29edb57ae1e2751230ad9e46dfabde169033e1af765e4e",
+      "result": {
+        "checks": 90,
+        "failures": [],
+        "physics_hz": 60,
+        "suite": "held charge/callback/pause/contact"
+      }
+    },
+    {
+      "path": "regression02/admitted-contact-60/log",
+      "sha256": "e5d65ec76fcfbfecfa2a9de5c68cf39a631aa14f2f1621e32b0ee6e1e41d7adc",
+      "result": {
+        "checks": 10,
+        "failures": [],
+        "first_hit_ticks": [
+          34,
+          45
+        ],
+        "physics_hz": 60,
+        "suite": "opt-in real contact"
+      }
+    },
+    {
+      "physics_hz": 60,
+      "strict_neutral_trace_equality": true,
+      "traces": [
+        {
+          "label": "baseline",
+          "sha256": "6555fbd24b1b6cc81642d10b457720811779b9ba360fc3374a72169f376b9fc5",
+          "path": "trace02/baseline-60/trace.json",
+          "admissions": 0
+        },
+        {
+          "label": "neutral",
+          "sha256": "6555fbd24b1b6cc81642d10b457720811779b9ba360fc3374a72169f376b9fc5",
+          "path": "trace02/neutral-60/trace.json",
+          "admissions": 0
+        },
+        {
+          "label": "admitted",
+          "sha256": "4ae630c5dd3aa7e160c4498dbfb20cab72462ced93236c4776365dcdc2667487",
+          "path": "trace02/admitted-60/trace.json",
+          "admissions": 24
+        }
+      ]
+    },
+    {
+      "path": "unit03/120/log",
+      "sha256": "d3044b02765d83f59a254646505f8111d30173d65d7cdfa92ca254014acf3f1c",
+      "result": {
+        "checks": 114,
+        "failures": [],
+        "physics_hz": 120,
+        "scope": "seeded timing contracts"
+      }
+    },
+    {
+      "path": "regression01/combat-120/log",
+      "sha256": "3849d45de3673521cf8896f9fc2ba22bfeb6a3a5ba8fe7aadaa46e179ddfa8e4",
+      "result": {
+        "checks": 135,
+        "failures": [],
+        "physics_hz": 120,
+        "suite": "combat"
+      }
+    },
+    {
+      "path": "regression01/held-120/log",
+      "sha256": "a4435a354dce35e53af9727968d7adbcdb59c0f1f9b5f78bcf6653ac4947abbc",
+      "result": {
+        "checks": 90,
+        "failures": [],
+        "physics_hz": 120,
+        "suite": "held charge/callback/pause/contact"
+      }
+    },
+    {
+      "path": "regression02/admitted-contact-120/log",
+      "sha256": "a4733fdcbc7d1b8bb78c7905a039e4542fc9fd7feccb9dd3844da839fd5c21cd",
+      "result": {
+        "checks": 10,
+        "failures": [],
+        "first_hit_ticks": [
+          68,
+          89
+        ],
+        "physics_hz": 120,
+        "suite": "opt-in real contact"
+      }
+    },
+    {
+      "physics_hz": 120,
+      "strict_neutral_trace_equality": true,
+      "traces": [
+        {
+          "label": "baseline",
+          "sha256": "59600e945efb17181d936c1e2301bc3ce0fd5a21a149645078c267a29e4c78f3",
+          "path": "trace02/baseline-120/trace.json",
+          "admissions": 0
+        },
+        {
+          "label": "neutral",
+          "sha256": "59600e945efb17181d936c1e2301bc3ce0fd5a21a149645078c267a29e4c78f3",
+          "path": "trace02/neutral-120/trace.json",
+          "admissions": 0
+        },
+        {
+          "label": "admitted",
+          "sha256": "db4578ee66a674f14f8adaba7dd5fea540c915065ffcc42d0669c419d65fbb37",
+          "path": "trace02/admitted-120/trace.json",
+          "admissions": 24
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Foundation only; no campaign hearing/ranged/save/audio integration or native/balance claim.",
+    "Seeded contracts are not natural gameplay. Ordinary-input traces use actual physics callbacks.",
+    "Original contact QA attempt regression01/admitted-contact-* failed due wrong test property hit_count; preserved, not accepted. Corrected regression02 uses hits.",
+    "trace01 included a nonexistent chain_step_index field; trace02 corrects to attack_step_index and explicitly verifies no null fields. Earlier traces are supplementary only."
+  ],
+  "protected_scope": "Only combat_pc/player.gd production bytes changed; all simulation, campaign runtime/layout/save/audio files remain baseline."
+}

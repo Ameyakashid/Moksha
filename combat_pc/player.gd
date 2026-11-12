@@ -118,6 +118,10 @@ var _chain_step_index := -1
 var _chain_next_step := -1
 var _chain_retention_remaining := 0.0
 var _chain_pending: Dictionary = {}
+# Optional attack-local timing; no campaign/sense dependencies.
+var _late_windup_admission: Dictionary = {}
+var _late_windup_lease: Dictionary = {}
+var _late_windup_admission_sequence := 0
 var _attack_step_elapsed := 0.0
 var _attack_active_sampled := false
 var _attack_input_sequence := 0
@@ -2426,7 +2430,55 @@ func _try_chain_attack() -> bool:
 	_melee_reuse_lock_remaining = maxf(_melee_reuse_lock_remaining, _active_melee_step.reuse_lock_seconds)
 	_start_attack_instance(int(request.serial) == 0 and _attack_request_kind == &"fresh")
 	return true
+## Admission is synchronous with attack_started, not a writable clock.
+func late_windup_admission_snapshot() -> Dictionary:
+	return _late_windup_admission.duplicate(true) if _late_windup_admission_current() else {}
+func _late_windup_admission_current() -> bool:
+	return not _late_windup_admission.is_empty() and _committed_attack_plan_current() \
+		and weapon_phase == &"windup" and _weapon_elapsed == 0.0 \
+		and _late_windup_admission.serial == attack_serial \
+		and _late_windup_admission.reset_epoch == _reset_epoch \
+		and _late_windup_admission.configuration_epoch == _melee_configuration_epoch \
+		and _owner_unchanged(_late_windup_admission.action_generation, _late_windup_admission.weapon_generation) \
+		and can_process() and is_physics_processing() and not get_tree().paused
+func request_late_windup(token: Dictionary, tail_seconds: float, rate: float) -> bool:
+	if not _late_windup_admission_current() or token != _late_windup_admission or not _late_windup_lease.is_empty(): return false
+	if not is_finite(tail_seconds) or not is_finite(rate) or tail_seconds <= 0.0 or tail_seconds > 0.18 or rate < 0.5 or rate > 1.0: return false
+	var duration := maxf(_weapon_duration(), 0.001)
+	var tail := minf(tail_seconds, duration * 0.5)
+	_late_windup_lease = token.duplicate(true)
+	_late_windup_lease.merge({"duration": duration, "tail": tail, "rate": rate, "extra_elapsed": 0.0})
+	return true
+func _late_windup_current() -> bool:
+	return not _late_windup_lease.is_empty() and _committed_attack_plan_current() \
+		and _late_windup_lease.serial == attack_serial and _late_windup_lease.reset_epoch == _reset_epoch \
+		and _late_windup_lease.configuration_epoch == _melee_configuration_epoch \
+		and _late_windup_lease.weapon_generation == _weapon_generation
+func late_windup_snapshot() -> Dictionary:
+	if not _late_windup_current(): return {}
+	return {"serial": attack_serial, "tail_seconds": _late_windup_lease.tail, "rate": _late_windup_lease.rate,
+		"extra_elapsed": _late_windup_lease.extra_elapsed,
+		"active": weapon_phase == &"windup" and _weapon_elapsed >= _late_windup_lease.duration - _late_windup_lease.tail}
+func _retire_late_windup() -> void:
+	_late_windup_admission.clear()
+	_late_windup_lease.clear()
+## Returns attack time, consuming real delta across both tail boundaries.
+func _late_windup_delta(dt: float) -> float:
+	if not _late_windup_current():
+		_late_windup_lease.clear()
+		return dt
+	if weapon_phase != &"windup": return dt
+	var duration: float = _late_windup_lease.duration
+	var tail_start: float = duration - _late_windup_lease.tail
+	var normal := minf(dt, maxf(0.0, tail_start - _weapon_elapsed))
+	var remaining := dt - normal
+	var tail_remaining := maxf(0.0, duration - maxf(tail_start, _weapon_elapsed))
+	var slowed_real := minf(remaining, tail_remaining / float(_late_windup_lease.rate))
+	var lost := slowed_real * (1.0 - float(_late_windup_lease.rate))
+	_late_windup_lease.extra_elapsed += lost
+	return dt - lost
 func _start_attack_instance(initial_fresh := false) -> void:
+	_retire_late_windup()
 	_attack_initial_fresh_admission = initial_fresh
 	# The physical hold may change when a later request is queued. A live
 	# strike keeps the admitted request's origin throughout all its callbacks.
@@ -2456,10 +2508,18 @@ func _start_attack_instance(initial_fresh := false) -> void:
 	var expected_weapon = _weapon_generation
 	_try_attack_entry_assist()
 	if not _owner_unchanged(expected_action, expected_weapon) or weapon_phase != &"windup" or not _attack_configuration_is_current(): return
+	_late_windup_admission_sequence += 1
+	var admission_id := _late_windup_admission_sequence
+	_late_windup_admission = {"serial": attack_serial, "reset_epoch": _reset_epoch,
+		"configuration_epoch": _melee_configuration_epoch, "action_generation": expected_action,
+		"weapon_generation": expected_weapon, "admission_id": admission_id}
 	_attack_event(&"attack_started", {"phase": weapon_phase})
+	# Nested replacement owns its own scope; never clear a newer admission.
+	if _late_windup_admission.get("admission_id", -1) == admission_id: _late_windup_admission.clear()
 	if not _owner_unchanged(expected_action, expected_weapon) or weapon_phase != &"windup" or not _attack_configuration_is_current(): return
 	_attack_event(&"attack_phase_changed", {"phase": weapon_phase})
 func _finish_melee_step(early := false) -> bool:
+	_retire_late_windup()
 	var payload = _attack_metadata()
 	payload["early_chain"] = early
 	var expected_action = _action_generation
@@ -2495,8 +2555,10 @@ func _advance_melee(dt: float) -> void:
 		return
 	var expected_action = _action_generation
 	var expected_weapon = _weapon_generation
-	_weapon_elapsed += dt
-	_attack_step_elapsed += dt
+	# Keep the absent/default path numerically identical. Other timers use dt.
+	var attack_dt := dt if _late_windup_lease.is_empty() else _late_windup_delta(dt)
+	_weapon_elapsed += attack_dt
+	_attack_step_elapsed += attack_dt
 	# A phase-entry feedback callback may start pause before sampling. Keep
 	# that finite active phase live on resume until one sample is admitted.
 	if _active_melee_step != null and weapon_phase == &"active" and not _attack_active_sampled: return
@@ -2557,6 +2619,7 @@ func _try_attack() -> bool:
 	_start_attack_instance(_attack_request_kind == &"fresh")
 	return true
 func _cancel_attack(reason: StringName) -> bool:
+	_retire_late_windup()
 	var expected_action = _action_generation
 	if reason in [&"damage", &"reset"]: _melee_reuse_lock_remaining = 0
 	if not _cancel_shield(reason): return false
