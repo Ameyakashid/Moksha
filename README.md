@@ -72,7 +72,11 @@ See `campaign/docs/EDITOR_WORKFLOW.md` and `campaign/docs/LAYOUT_CONTRACT.md`.
 
 The original Oct23 demo is still playable at `demo/mission.tscn`; its historical README is `docs/OCT23_BASELINE_README.md`. Original approved player/controller and simulation source remain preserved.
 
-## November 12 foundation checkpoint
+## November 12 playable-source checkpoint
+
+Original neon arcology and background crowds, more deliberate opening routes, validated content/save boundaries and pre-activation health assembly are integrated. See [changes, evidence and remaining limits](campaign/docs/NOV12_PLAYABLE_CHECKPOINT.md). The original controller/simulation is preserved; demo assembly has a small behavior-tested hook.
+
+## November 12 early foundation checkpoint
 
 The reference-led foundation pass adds validated content loading, detached run/save data, isolated checkpoint storage, a Windows source launcher and a caption-layer fix. See [changes and verification limits](campaign/docs/NOV12_CHANGES.md) and the [REA/source responsibility map](campaign/docs/REFERENCE_FOUNDATION.txt). This is a source update; the already-delivered portable Windows build remains `c73159b`.
 
@@ -86,6 +90,6 @@ See [`campaign/quality/README.md`](campaign/quality/README.md) for the reproduci
 
 ## Evidence and limits
 
-See `campaign/docs/NOV12_CHANGES.md` for current source tests and limits; `campaign/docs/NOV6_CHANGES.md` records the earlier build evidence; `campaign/docs/VERIFICATION.md` preserves the historical October 29 report. Headless contracts, isolated chapter input routes, complete input campaigns and native visuals are different evidence categories. Actual native Godot screenshots and bounded manual-input review cover representative areas in all five levels, panels, combat telegraphs and blind concealment; visual defects were fixed and re-rendered. Direct scene fixtures are labelled separately from complete input runs. Full native campaign traversal, audible mix, Windows hardware behavior and first-play human timing remain unverified.
+See `campaign/docs/NOV12_PLAYABLE_CHECKPOINT.md` for current source tests and limits; `campaign/docs/NOV6_CHANGES.md` records the earlier build evidence; `campaign/docs/VERIFICATION.md` preserves the historical October 29 report. Headless contracts, isolated chapter input routes, complete input campaigns and native visuals are different evidence categories. Actual native Godot screenshots and bounded manual-input review cover representative areas in all five levels, panels, combat telegraphs and blind concealment; visual defects were fixed and re-rendered. Direct scene fixtures are labelled separately from complete input runs. Full native campaign traversal, audible mix, Windows hardware behavior and first-play human timing remain unverified.
 
 Original MOKSHA assets are reused separately from gameplay. Actual MIT Beehave blackboard code is wired into campaign objective/build context with its license and pinned source recorded in `campaign/vendor/beehave/`. No proprietary game/decompiled commercial art or code is included; REA is tooling, not a license to copy a commercial game. See `campaign/docs/REUSE.md`.
