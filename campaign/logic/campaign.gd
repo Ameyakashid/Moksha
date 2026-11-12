@@ -634,6 +634,12 @@ func continue_run()->void:
 	load_sector(saved.sector)
 func _hud_snapshot()->Dictionary:
 	var snapshot:Dictionary=super._hud_snapshot()
+	# Contextual presentation only: preserve authored route prose and layout data.
+	if not hearing_retained and not sectors.is_empty() and str(sectors[sector].id)=="l2_exchange":
+		var exchange_brief:="Both sight and hearing are traded; no sound-map remains." if blind else "Sight stays intact: combined loss is not yet validated in this prototype."
+		var exchange_hint:="Both senses traded; no sound-map." if blind else "E at station: temporary combined-loss limit."
+		snapshot.sector_text=str(snapshot.get("sector_text","")).replace("THE EXCHANGE offers sight for speed. You may refuse.",exchange_brief)
+		snapshot.sector_hint=str(snapshot.get("sector_hint","")).replace("E at station: choose sight trade.",exchange_hint)
 	snapshot["hearing_retained"]=hearing_retained
 	snapshot["focus_specialization"]=str(sense_capabilities().get("specialization",""))
 	snapshot["last_result_available"]=not last_result.is_empty()
@@ -649,7 +655,7 @@ func _hud_snapshot()->Dictionary:
 	elif state=="upgrade":
 		snapshot.merge({"panel_override":true,"panel_title":"LEVEL SECURED / SPECIALIZE","panel_body":"The onward elevator is yours. Choose a persistent upgrade.\n\nJ  FORCE: +25% base strike damage\nK  AGILITY: +10% base run speed\nL  VITALITY: +15 maximum health\n\nUpgrades stack additively and survive checkpoints.","panel_footer":"J / K / L  Choose and ascend"})
 	elif state=="hearing_choice":
-		var body:="Keep hearing, or exchange it for FOCUS. This choice lasts for this run.\n\nFOCUS: visible, unobstructed melee attacks slow briefly just before striking. White brackets mark that opportunity, not a guaranteed parry.\n\nCost: no auditory pulses, sound-map or world sounds. Non-diegetic completion feedback remains. No healing or damage bonus."
+		var body:="Keep hearing, or exchange it for FOCUS. This choice lasts for this run.\nPrototype limit: this choice keeps sight intact; combined sight/hearing loss is not yet validated.\n\nFOCUS: visible, unobstructed melee attacks slow briefly just before striking. White brackets mark that opportunity, not a guaranteed parry.\n\nCost: no auditory pulses, sound-map or world sounds. Non-diegetic completion feedback remains. No healing or damage bonus."
 		if blind:body="PROTOTYPE LIMIT\n\nCombined sight and hearing loss is not yet validated. This is a temporary limitation, not a permanent rule.\n\nYour sight choice stays intact. Keep hearing and ascend."
 		if not _hearing_choice_error.is_empty():body+="\n\nNOT SAVED: "+_hearing_choice_error
 		snapshot.merge({"panel_override":true,"panel_title":"OPTIONAL EXCHANGE / HEARING → FOCUS","panel_body":body,"panel_footer":"K / ESC Keep hearing and ascend" if blind else "J Accept hearing loss / FOCUS    K Keep hearing"})
