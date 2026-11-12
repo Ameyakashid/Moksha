@@ -22,7 +22,7 @@ static func _receiving() -> Dictionary:
 
 static func _baffles() -> Dictionary:
 	return {"id":"works_baffle_hall","irritants":[{"at":Vector2(1200,268)}],"title":"04.2 / THE LISTENING FLOOR","subtitle":"Noise court • shielded galleries • silent control","width":4800,"top":-400,"theme":"interior",
-	"text":"Listeners patrol the open floor. Above them, old baffles shelter a service route. Sever the surveillance feed, then engage the quiet interlock.","hint":"Strike spare props to draw listeners away. The elevated baffles bypass electrified strips without waiting.",
+	"text":"Listeners patrol the open floor beside a gas disperser. Its warning precedes a short release that briefly interrupts attacks and guard. The upper baffles bypass the gas. Sever the surveillance feed, then engage the quiet interlock.","hint":"Gas does no direct health damage and leaves movement free; electricity still hurts. With hearing retained, GAS WARNING precedes GAS HISS. Strike spare props to draw listeners away.",
 	"platforms":[Rect2(440,80,520,18),Rect2(1080,80,420,18),Rect2(1640,135,340,18),Rect2(2130,80,420,18),Rect2(2700,25,440,18),Rect2(3280,80,400,18),Rect2(3840,135,430,18),Rect2(760,200,26,100),Rect2(1830,210,26,90),Rect2(3000,175,26,125),Rect2(4070,215,26,85)],
 	"ladders":[[510,300,220],[1420,300,220],[2240,300,220],[2800,300,275],[3540,300,220],[4140,300,165]],
 	"enemies":[[880,"listener",300],[1260,"listener",300],[1750,"sentinel",135],[2460,"listener",300],[2930,"sentry",25],[3400,"listener",300],[3960,"sentinel",135]],"props":[[340,300],[690,80],[1150,300],[2180,80],[3160,300],[4000,135]],
