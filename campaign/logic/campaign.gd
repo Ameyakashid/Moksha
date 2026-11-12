@@ -286,9 +286,10 @@ func _physics_process(dt:float)->void:
 	input_override=_input_tick_source
 	_input_tick_source=null
 	_input_tick_active=false
-	if state=="playing":camera.position=camera_follow.follow(player.global_position,player.velocity,sectors[sector],dt)
 	var level:int=int(sectors[sector].get("level",1)) if not sectors.is_empty() else 1
 	var active_delta:=elapsed-before_elapsed
+	if state=="playing" and active_delta>0:
+		camera.position=camera_follow.follow(player.global_position,player.velocity,sectors[sector],active_delta,player.grounded)
 	if active_delta>0:level_seconds[str(level)]=float(level_seconds.get(str(level),0))+active_delta
 	if is_instance_valid(art):
 		art.set_sight_enabled(not blind)
