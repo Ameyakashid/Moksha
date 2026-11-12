@@ -1,5 +1,7 @@
 # Current playable state
 
+> This inventory describes the accepted baseline. The current experimental branch also contains the [Market/irritant preview](EXPERIMENTAL_MARKET_IRRITANT_PREVIEW.md), which has not passed its native visual review. Do not read baseline acceptance as acceptance of every preview change.
+
 This inventory describes this source checkpoint, built on accepted `7be2c80`
 with the separately verified ladder-clarity follow-up. It is a
 **five-level, 32-district prototype**, not the entire original
