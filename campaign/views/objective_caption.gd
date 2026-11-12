@@ -4,7 +4,7 @@ func _process(_dt: float) -> void:queue_redraw()
 static func placement(at: Vector2,width: float,font_size: int,canvas: Transform2D,viewport: Rect2) -> Dictionary:
 	return place_block(at,Vector2(width+6,font_size+4),font_size,canvas,viewport)
 
-static func place_block(at:Vector2,size:Vector2,font_size:int,canvas:Transform2D,viewport:Rect2,safe_rect:Variant=null)->Dictionary:
+static func place_block(at:Vector2,size:Vector2,font_size:int,canvas:Transform2D,viewport:Rect2,safe_rect:Variant=null,painted_rect:Variant=null)->Dictionary:
 	if viewport.size.x<=16 or absf(canvas.determinant())<.00001:return {"draw":false}
 	# Cull the actual object BEFORE moving its caption. Never drag distant labels
 	# into view, and move all caption lines together so edge clamping cannot stack them.
@@ -22,6 +22,24 @@ static func place_block(at:Vector2,size:Vector2,font_size:int,canvas:Transform2D
 	elif screen_box.end.x>right:shift.x=right-screen_box.end.x
 	if screen_box.position.y<bounds.position.y+8:shift.y=bounds.position.y+8-screen_box.position.y
 	elif screen_box.end.y>bounds.end.y-8:shift.y=bounds.end.y-8-screen_box.end.y
+	# First preserve the preferred above-object placement, unless HUD clamping
+	# puts it over its own paint. Try whole-block alternatives, never line shifts.
+	var placed_box:=Rect2(screen_box.position+shift,screen_box.size)
+	if painted_rect!=null:
+		var exclusion:Rect2=painted_rect.grow(4.0)
+		if placed_box.intersects(exclusion):
+			var inner:=bounds.grow(-8.0)
+			var options:Array[Vector2]=[
+				Vector2(placed_box.position.x,exclusion.position.y-placed_box.size.y),
+				Vector2(exclusion.end.x,placed_box.position.y),
+				Vector2(exclusion.position.x-placed_box.size.x,placed_box.position.y),
+				Vector2(placed_box.position.x,exclusion.end.y)]
+			var found:=false
+			for position in options:
+				var candidate:=Rect2(position,placed_box.size)
+				if inner.encloses(candidate) and not candidate.intersects(exclusion):
+					shift=candidate.position-screen_box.position;found=true;break
+			if not found:return {"draw":false}
 	var baseline:Vector2=canvas.affine_inverse()*(canvas*at+shift)
 	return {"draw":true,"at":baseline,"screen_box":Rect2(screen_box.position+shift,screen_box.size)}
 static func describe(kind:String,label:String,completed:bool,available:bool,setting:int,target:int,optional:=false,controller:=false)->Dictionary:
@@ -62,7 +80,7 @@ func _draw() -> void:
 	var safe:Variant=null
 	var hud:Variant=host.get("hud") if is_instance_valid(host) else null
 	if is_instance_valid(hud) and hud.has_method("caption_safe_rect"):safe=hud.caption_safe_rect()
-	var placed:=place_block(at,Vector2(actual_width+6,total_height+4),size,get_global_transform_with_canvas(),get_viewport_rect(),safe)
+	var placed:=place_block(at,Vector2(actual_width+6,total_height+4),size,get_global_transform_with_canvas(),get_viewport_rect(),safe,get_parent().caption_exclusion_rect())
 	if not placed.draw:return
 	at=placed.at
 	for line in lines:

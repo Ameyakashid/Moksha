@@ -40,3 +40,15 @@ func _draw() -> void:
 func _panel(c:Color)->StyleBoxFlat:
 	var p:=StyleBoxFlat.new();p.bg_color=Color("122632");p.border_color=c;p.set_border_width_all(2);p.set_corner_radius_all(3);return p
 
+
+static func painted_bounds(kind:String)->Rect2:
+	# Conservative local bounds of this view's machine paint, including strokes.
+	# Caption avoidance consumes these; gameplay collision/radii do not.
+	match kind:
+		"recover":return Rect2(-14,-34,28,28)
+		"rescue":return Rect2(-19,-62,38,62)
+		"plate":return Rect2(-38,-9,76,9)
+		_:return Rect2(-18,-42,36,42)
+
+func caption_exclusion_rect()->Rect2:
+	return get_global_transform_with_canvas()*painted_bounds(str(get_parent().kind))

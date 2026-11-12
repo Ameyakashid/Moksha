@@ -54,3 +54,27 @@ XDG data/config/cache directories. The new script UID is tracked.
 Native comparison is separately requested, not implied by headless success.
 No full-campaign replay, Windows run, new build or push for this iteration.
 The delivered45a6c2b checkpoint and artifacts are untouched.
+
+## Own-icon regression correction
+
+Native review rejected the first0f52083 candidate: moving the harness caption
+below the HUD put it over the recovery ring. Original before/after frames remain
+preserved externally; the first successful header-only test was not final visual
+acceptance.
+
+`objective_view.gd` now owns conservative local painted bounds for each machine
+kind, including strokes. Its optional caption-exclusion API transforms these to
+screen space. These are presentation geometry, not interaction/collision bounds.
+After preferred placement and HUD clamping, a caption intersecting its own paint
+tries whole-block positions above, right, left, then below, with4px separation.
+Only candidates wholly inside the8px-inset HUD-safe region are accepted. If none
+fit, the caption is culled instead of covering HUD or its own machine. Existing
+full-viewport object culling and blind-hidden parenting are unchanged.
+
+Second focused run:611 safe-area assertions (including the rejected0f52083
+positions as negative controls, seven objective kinds, viewport edges, three
+world scales and translated/scaled HUD bounds), plus2,519 presentation,151
+objective paint and19 object-skin checks. All exited0 without warnings/errors.
+See `headless-own-icon-receipt.json`; this does not claim native acceptance.
+This remains a local own-object/HUD fix, not universal actor, other-object or
+caption-to-caption occlusion avoidance. Full campaigns were not rerun.

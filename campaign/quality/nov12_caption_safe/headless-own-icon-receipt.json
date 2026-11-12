@@ -1,0 +1,30 @@
+{
+  "checks": [
+    {
+      "log": "/tmp/caption-safe-v2/contract.log",
+      "sha256": "4b3098ab32179a9624da2e32b0781f870fd7020c7d4cfac6709bdbae5ec6c3ac",
+      "receipt": "CAPTION_SAFE_CONTRACT 611 checks; failures=[]",
+      "exit": 0
+    },
+    {
+      "log": "/tmp/caption-safe-v2/nov6_presentation_contract.log",
+      "sha256": "d58edf031b6c0506e376c163a799d639746a70c424a7b8494ac69dcb048d834b",
+      "receipt": "NOV6_PRESENTATION checks=2519 failures=[] worst_header=57.0 worst_panel_baseline=235.0",
+      "exit": 0
+    },
+    {
+      "log": "/tmp/caption-safe-v2/object_skin_contract.log",
+      "sha256": "9049e2ba9304c5c51a958f84696201f1aa4b74180f80192557b4bee81e729e91",
+      "receipt": "OBJECT_SKIN_CONTRACT_PASS: 19 checks",
+      "exit": 0
+    },
+    {
+      "log": "/tmp/caption-safe-v2/objective_paint_contract.log",
+      "sha256": "7eaaf7e48563746c78a92a53dfa29b7772f2c2dc15b3f0a075e65aedf1c6eeec",
+      "receipt": "OBJECTIVE_PAINT_CONTRACT_PASS: 151 draw/state/layer checks",
+      "exit": 0
+    }
+  ],
+  "native_validation": "pending repeated comparison",
+  "full_campaign": "not rerun"
+}
