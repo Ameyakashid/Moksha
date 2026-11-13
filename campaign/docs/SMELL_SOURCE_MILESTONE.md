@@ -54,8 +54,15 @@ checked independently of the disabled scent observer. No gameplay-state writes.
 The reviewed retained film is
 `MOKSHA-Experimental-Smell-Retained-891f781-Scripted-H264-AAC.mp4`, SHA256
 `497729f9dbcc8482affdb3b8ab0301aaf0a241171dbf05cafc66871a40b8d004`.
-The accepted raw capture and pixel review passed; its final encoded artifact hash
-is pending and is not invented here. The captures are separate scripted runs,
+The reviewed traded film is
+`MOKSHA-Experimental-Smell-Traded-891f781-Scripted-H264-AAC.mp4`, SHA256
+`3c4880d84062c62222c615ef5674634e944ba7ea13ae2316d20734d81a0b7483`.
+Retained/traded files are 19,977,682/19,972,941 bytes; each has 5371 frames and
+89.516667 seconds. Full raw and compressed-film decode and compressed pixel
+review passed. No cuts, speed changes or mix changes were introduced. The native
+input schedules differ only in the ordinary K/J decision. Eligible life sources
+were present in both cases; actual scent appeared only with smell retained.
+The captures are separate scripted runs,
 not a continuous campaign, fresh discovery, human balance, Windows execution or
 real-time performance evidence. MovieWriter V-Sync/disk warnings are preserved
 in the raw verification records; they did not prevent normal capture closure.
