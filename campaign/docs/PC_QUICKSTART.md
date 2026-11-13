@@ -2,10 +2,15 @@
 
 ## Which version do you want?
 
-For the current experimental Market/irritant source, clone the repository and use
-Godot below. Private GitHub `main` was verified at `3d7786b`; compare your checkout.
+For editable source, clone the repository and use Godot below. Published
+readiness source was verified at `d529502`; the local smell integration is
+`891f781` and is not yet claimed published. Compare your checkout before assuming
+smell exchange or newer prompts are present.
 The new package is `MOKSHA-Windows-x64-ead13af.zip` (runtime `3d7786b`).
-The older `23a5aa6` download remains historical. See [build evidence](WINDOWS_EAD13AF_RELEASE.md)
+The existing Windows package has neither the smell exchange nor later readiness
+prompts and cannot load new v4 saves. Close the game and back up the entire save
+folder before switching builds; restore a matching old backup for older builds,
+never relabel a save version. The older `23a5aa6` download remains historical. See [build evidence](WINDOWS_EAD13AF_RELEASE.md)
 for hashes and validation limits; native Windows execution is still unverified.
 
 ## Portable Windows build

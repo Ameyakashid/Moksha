@@ -1,21 +1,21 @@
 # Current playable state
 
-This inventory describes the local readiness integration candidate: published
-`7f950e3` documentation plus the unchanged `dc1f951` presentation implementation.
-The existing Windows package remains source `ead13af`, runtime `3d7786b`. It is a **five-level,
-32-district prototype**, not the entire original MOKSHA vision. Accepted earlier
-source `ee725ef` and historical milestone receipts remain preserved.
+This inventory describes local experimental source `891f781`: published readiness
+source `d529502` plus the frozen smell implementation from `9f965ac`. Publication
+of this integration is not yet claimed. It remains a five-level/32-district
+prototype, not the complete original vision.
 
-The current source combines the continuous Market rail, three stationary
-dispersers and corrected sense-neutral briefs, plus selected-objective action
-prompts and a local ladder-contact clue. These last two changes are not in the
-existing Windows download. Their scripted native key-ladder UI gate passed
-full-size pixel review, not fresh-user or full-district acceptance. See
-[source readiness scope and film](SOURCE_READINESS_MILESTONE.md). Four native known-route clips
-show `ca7762b`; the later `3d7786b` milestone changed only authored teaching text/hints.
-The subsequent readiness source changes presentation APIs as described above. Nine presentation-only cases on `3d7786b` passed actual-size visual
-review. Fresh screenshot-only AI Market navigation reached the first flood key (1/4
-objectives), with no deaths/retries; it did not complete the district. See [the evidence index](RELEASE_CANDIDATE_EVIDENCE.md).
+Smell can now be traded after the ordinary Level 3 upgrade. Retain it for coarse
+life, wounded-enemy and supply cues, or lose those cues for immunity only to the
+existing irritant cough that interrupts attacks/guard. Other damage and movement
+rules are unchanged. Keeping smell remains valid. The temporary combined
+sight/hearing-loss menu restriction is unchanged.
+
+The existing Windows package is still source `ead13af`, runtime `3d7786b`:
+it contains neither this exchange nor the later readiness prompts. The original
+Market/irritant videos and text review keep their original source scope. See
+[smell milestone evidence](SMELL_SOURCE_MILESTONE.md) and
+[source readiness evidence](SOURCE_READINESS_MILESTONE.md).
 
 ## What is playable
 
@@ -27,7 +27,7 @@ objectives), with no deaths/retries; it did not complete the district. See [the 
 | Hearing | Optional first-level-exit exchange, after the ordinary upgrade. Removes player pulses, sound-map and informative world/body audio. Visible unobstructed melee commitments can gain a bounded late-strike opportunity marked by white brackets. Not automatic parry, global slow motion or a damage bonus. |
 | Other perception | Capped coarse scent for life/blood/supplies; body-local ladder contact presentation; quiet contextual Intellect text. These are not complete substitute senses. |
 | World presentation | Original environment treatments for all five levels, layered neon opening and background crowds. Newer Market source adds textured stalls, a rooftop refuge and decorative residents behind the playfield. |
-| Irritants | Three finite stationary fields; 0.18-second attack/guard interruption, 1.5-second cross-source rearm, no direct HP loss or movement stun; untimed upper alternatives. No earned immunity or smell exchange. |
+| Irritants | Three finite stationary fields; 0.18-second attack/guard interruption, 1.5-second cross-source rearm, no direct HP loss or movement stun; untimed upper alternatives. Optional source-only smell exchange grants cough immunity at the cost of all scent cues. |
 | Continuity | District checkpoints, preserved legacy bytes, stable run identity, immutable completed results and read-only result review. |
 
 Normal menus currently withhold a second irreversible sight/hearing loss. The
@@ -59,8 +59,9 @@ This source follow-up does not change the previously delivered Windows runtime.
 
 ## Still incomplete
 
-- Smell and Intellect sacrifices, pepper/gas immunity tradeoff, broad multi-sense
-  specialization and the proposed stronger two/three-sacrifice builds.
+- Intellect sacrifice, pepper-bomb enemies, broad multi-sense specialization and
+  the proposed stronger two/three-sacrifice builds. The implemented smell exchange
+  is a narrow experimental trade, not proof of an overpowered or balanced build.
 - A full companion dialogue/voice system, adaptive enemy preparations across
   remembered loops, and the full original protagonist/crew story.
 - The original unresolved time-reset/immortality and ending variants. The local
@@ -101,12 +102,15 @@ uses a fixed simulation timeline; its video duration is not wall-clock speed.
 
 ## Save safety
 
-New checkpoints use **envelope v3** and explicit sight/hearing facts. New completed
-records use **schema 2**. Valid older v1/v2 checkpoints and historical completion
-records remain supported, with original bytes preserved before migration.
+New checkpoints use **envelope v4**, sense schema 2 and explicit sight/hearing/smell
+facts. New completed records use **schema 3**. Valid checkpoint v1/v2/v3 and
+historical completion schemas 1/2 remain supported. Original checkpoint bytes
+are preserved before migration; completed history is not rewritten. Legacy v3
+retains its sight/hearing facts and defaults smell to retained.
 Before switching builds, close the game and back up the entire save folder.
 Use one running writer. Restore a matching old backup for an old build; never
-hand-edit the version or point an older build at a new v3 checkpoint.
+hand-edit the version or point an older build at a new v4 checkpoint. Existing
+Windows runtime `3d7786b` supports v3, not v4; use its matching preserved backup.
 
 See [local play instructions](LOCAL_PLAYTEST.md),
 [hearing semantics and save compatibility](HEARING_FOCUS_SLICE.md),

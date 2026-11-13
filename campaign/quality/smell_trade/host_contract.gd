@@ -27,10 +27,13 @@ func seed_offer()->void:
 	host.metrics.append({"sector":last,"seconds":1.0,"blind":host.blind,"health":host.health.current_health})
 	host.level_receipts.append({"level":3,"active_seconds":1.0,"completed_district":host.sectors[last].id})
 	host.state="upgrade";paused=true;key(KEY_J)
+static func root_location_allowed(candidate:String,resource_root:String)->bool:
+	# Packed res:// may have no filesystem root. Empty is not a parent directory.
+	return candidate.is_absolute_path() and (resource_root.is_empty() or not candidate.begins_with(resource_root))
 func run()->void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--root="):base=a.trim_prefix("--root=")
-	if not base.is_absolute_path() or base.begins_with(ProjectSettings.globalize_path("res://")) or DirAccess.dir_exists_absolute(base) or FileAccess.file_exists(base):quit(2);return
+	if not root_location_allowed(base,ProjectSettings.globalize_path("res://")) or DirAccess.dir_exists_absolute(base) or FileAccess.file_exists(base):quit(2);return
 	DirAccess.make_dir_recursive_absolute(base)
 	await make_host("trade")
 	check(host.smell_retained and host.scent.enabled and host.player.irritant_snapshot().susceptible,"New retains scent and susceptibility")

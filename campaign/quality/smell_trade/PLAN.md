@@ -1,3 +1,19 @@
+# Smell trade: latest integration status
+
+Frozen implementation `9f965ac` is integrated locally with readiness and
+sense-neutral briefs as `891f781`. Independent combined validation passed 18
+serial headless cases, including host 59, fresh Continue, legacy schema/history,
+hearing/scent and readiness/contact/caption regressions. Original earned guard
+comparison and recovered same-run ending evidence belong to `9f965ac`, not a
+native or combined-source full-route run. Native combined-source evidence is
+pending final receipts. No package, Windows or publication acceptance is claimed.
+
+The chronological notes below are preserved verbatim. Their earlier pending
+statements describe the time of each step, not the latest headless status.
+See [current scope and evidence](../../docs/SMELL_SOURCE_MILESTONE.md).
+
+---
+
 # Earned smell trade: experimental candidate, bounded seeded contracts passed; earned/native pending
 
 Canon source: docs/MOKSHA-source.md. Loss removes existing coarse life, wound and
@@ -113,3 +129,10 @@ Production behavior was not changed to make these fixture assertions pass.
 No native smell offer/cost film, independent frozen reexecution, full package gate
 or multi-build/multi-rate earned route matrix is claimed. Candidate remains a
 separate809-descended experiment; later teaching/readiness changes are not merged.
+
+## Combined native follow-up
+
+Runtime891 now has reviewed bounded sighted offer/cost/guard native evidence.
+See ../../docs/SMELL_SOURCE_MILESTONE.md for exact scope and available film hash.
+This does not replace historical9f earned-ending evidence or establish a new
+Windows/package gate. This descendant only changes QA packed-root handling and docs.
