@@ -18,6 +18,8 @@ LAYOUT = "campaign/layouts/level_04.gd"
 HABITAT = "campaign/presentation/memory_loom_habitat.gd"
 SCENERY = "campaign/presentation/campaign_scenery.gd"
 ALLOWED = {LAYOUT, HABITAT, SCENERY, "campaign/quality/irritant/encounter_contract.gd",
+           "README.md", "campaign/docs/CURRENT_PLAYABLE_STATE.md",
+           "campaign/docs/PC_QUICKSTART.md",
            "campaign/docs/MEMORY_LOOM_COMMONS_CANDIDATE.md",
            "campaign/docs/MEMORY_LOOM_FRONTAGE_ATLAS.md",
            "campaign/docs/MEMORY_LOOM_NOV13_ACCEPTANCE.md",

@@ -5,8 +5,9 @@
 Current Windows: `MOKSHA-Windows-x64-596b884.zip`, runtime `891f781`, includes
 smell exchange and readiness prompts. Its four matching part ZIPs are a delivery
 form of that same complete ZIP. See [release hashes and 62-stage scope](WINDOWS_596B884_RELEASE.md).
-For editable source, clone and use Godot below. Source596 was verified published;
-check your own checkout because later source changes do not update old downloads.
+For editable development source, clone and use Godot below. Source now includes
+the [Memory Loom redesign](MEMORY_LOOM_NOV13_ACCEPTANCE.md); Windows 596 does not.
+Check your own checkout because later source changes do not update old downloads.
 
 Close the game and back up the entire save folder before changing builds. This
 release supports checkpoint v4; old ead13af/3d and 23a downloads are historical and

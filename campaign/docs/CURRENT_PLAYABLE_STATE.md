@@ -1,9 +1,10 @@
 # Current playable state
 
-This inventory describes gameplay runtime `891f781`, published in source `596b884`
-and now delivered in Windows 596. It combines readiness from `d529502` with smell
-implementation `9f965ac`. It remains a five-level/32-district prototype, not the
-complete original vision.
+This inventory describes current development source: the filmed Memory Loom
+runtime `6a65ac5`, built on readiness/smell runtime `891f781`. It remains a
+five-level/32-district prototype, not the complete original vision. The delivered
+Windows 596 download still contains `891f781`, not the Memory Loom redesign.
+See [Memory source checks and limits](MEMORY_LOOM_NOV13_ACCEPTANCE.md).
 
 Smell can now be traded after the ordinary Level 3 upgrade. Retain it for coarse
 life, wounded-enemy and supply cues, or lose those cues for immunity only to the
@@ -24,8 +25,8 @@ ead13af/3d is a separate historical download. See [current Windows verification]
 | Sight | Optional sacrifice removes ordinary world paint and improves movement/sound traces. Genuine nearby sound geometry, not a painted replacement map. |
 | Hearing | Optional first-level-exit exchange, after the ordinary upgrade. Removes player pulses, sound-map and informative world/body audio. Visible unobstructed melee commitments can gain a bounded late-strike opportunity marked by white brackets. Not automatic parry, global slow motion or a damage bonus. |
 | Other perception | Capped coarse scent for life/blood/supplies; body-local ladder contact presentation; quiet contextual Intellect text. These are not complete substitute senses. |
-| World presentation | Original environment treatments for all five levels, layered neon opening and background crowds. Newer Market source adds textured stalls, a rooftop refuge and decorative residents behind the playfield. |
-| Irritants | Three finite stationary fields; 0.18-second attack/guard interruption, 1.5-second cross-source rearm, no direct HP loss or movement stun; untimed upper alternatives. Optional smell exchange grants cough immunity at the cost of all scent cues. |
+| World presentation | Original environment treatments for all five levels, layered neon opening and background crowds. Textured Market stalls/refuge and new Memory record drawers, populated counter and rewriting machinery remain behind the playfield. |
+| Irritants | Four finite stationary fields in current source, including the Memory Loom lower aisle; Windows 596 has the earlier three. 0.18-second attack/guard interruption, 1.5-second cross-source rearm, no direct HP loss or movement stun; untimed upper alternatives. Optional smell exchange grants cough immunity at the cost of all scent cues. |
 | Continuity | District checkpoints, preserved legacy bytes, stable run identity, immutable completed results and read-only result review. |
 
 Normal menus currently withhold a second irreversible sight/hearing loss. The

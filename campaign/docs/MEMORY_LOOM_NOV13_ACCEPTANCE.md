@@ -1,6 +1,6 @@
 # Memory Loom: November 13 development checkpoint
 
-Status: local integration candidate, not a new Windows release. Tested runtime
+Status: development source milestone, not a new Windows release. Tested runtime
 is `6a65ac56edf9f3d7be50c891576cc3a842a2efb1`. The published Windows 596 build
 does not contain this district redesign. This is still the five-level,
 32-district prototype, not completion of the original game's full story.
@@ -41,6 +41,13 @@ atlas documents for original-art provenance and architectural reference mapping.
   replaced the actor, reset local goals and closed doors with its normal full
   refill. A separate process continued the exact game-written checkpoint with
   reward, identity, senses and the 21-metric prefix intact.
+- Hearing-traded local coverage passed in an explicitly seeded diagnostic:
+  normal Continue of a historical Thermal checkpoint, one initial Loom placement,
+  then 272 actual key events recovered only the witness and crossed its opened
+  east ground return. The sound-map stayed off despite 42 real Q emissions;
+  sight stayed on, ten prior metrics stayed unchanged and no death occurred.
+  Historical movement used input override and Loom placement was seeded, so this
+  is not earned Loom arrival or eligible evidence for a later earned run.
 - Eight explicitly seeded stopped Strength cover diagnostics passed: two posts,
   two directions, 60/120 Hz. Ordinary automatic ledge assistance was used, so
   these are not pure ballistic-jump or earned-progression claims.
@@ -76,10 +83,11 @@ passed. The unrelated Market contract exposed a stale assertion for its former
 floating key ladder. The real continuous street-to-key rail was already published
 at `ca7762b`; only that assertion is corrected, with an explicit guard against
 restoring the retired ladder. No Market layout changed in this integration.
+The corrected Market composition contract passed all 105 checks.
 
 ## Still pending at this checkpoint
 
-Hearing-traded local coverage, final integration regressions and release
-packaging. Blind native readability remains unverified. Earlier failed fixture
+New release packaging and its packed executions. Blind native readability
+remains unverified. Earlier failed fixture
 attempts and the rejected before-film remain
 historical evidence; they were not overwritten or counted as passes.

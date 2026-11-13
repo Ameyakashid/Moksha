@@ -1,6 +1,8 @@
 # MOKSHA — Five Ascents
 
-> **Current experimental Windows/source release:** Windows `596b884` contains gameplay runtime `891f781`, including readiness prompts, local ladder-contact help and the optional smell exchange after the Level 3 upgrade. The trade removes coarse scent cues for immunity only to irritant cough interruption. This remains a five-level/32-district prototype. See [Windows release checks, installation and save warnings](campaign/docs/WINDOWS_596B884_RELEASE.md) and [current playable state](campaign/docs/CURRENT_PLAYABLE_STATE.md). Older downloads do not update themselves.
+> **Development source:** includes the redesigned Memory Loom, original archive frontage, populated records commons and shorter east-dispatch finish. The filmed gameplay runtime is `6a65ac5`; see [scoped Memory Loom checks and remaining limits](campaign/docs/MEMORY_LOOM_NOV13_ACCEPTANCE.md). This remains a five-level/32-district prototype, not the complete original game vision.
+
+> **Current experimental Windows download:** `596b884` still contains runtime `891f781`, including readiness prompts and the optional smell exchange. It does **not** contain the newer Memory Loom redesign. See [Windows release checks, installation and save warnings](campaign/docs/WINDOWS_596B884_RELEASE.md) and [current playable state](campaign/docs/CURRENT_PLAYABLE_STATE.md). Older downloads do not update themselves.
 
 A side-on cyberpunk action campaign built on the preserved MOKSHA Godot movement, physical combat and sonar foundation. An older operative crosses the city and four tower floors, opens civilian routes, breaks centralized control and chooses how the districts receive the tower's records and authority.
 
