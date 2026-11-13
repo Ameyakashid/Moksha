@@ -47,7 +47,10 @@ func run()->void:
 
 	check(market.platforms.has(Rect2(1350,-90,260,18)),"Awning anchored below actual key platform")
 	check(market.platforms.has(Rect2(3100,180,480,18)),"Refuge above actual east platform")
-	check(market.ladders.has([1460,110,200]),"Key recovery ladder unchanged")
+	# The continuous street-to-key rail was published at ca7762b. The older
+	# floating-ladder assertion predates that real traversal correction.
+	check(market.ladders.has([1470,300,390]),"Published continuous key recovery ladder unchanged")
+	check(not market.ladders.has([1460,110,200]),"Retired floating key ladder not restored")
 	for index in Habitat.CLUSTERS.size():
 		var bounds:Rect2=Habitat.CLUSTERS[index]
 		check(bounds.position.x>=0 and bounds.end.x<=market.width,"Cluster within district width")

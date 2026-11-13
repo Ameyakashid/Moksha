@@ -29,6 +29,7 @@ ALLOWED = {LAYOUT, HABITAT, SCENERY, "campaign/quality/irritant/encounter_contra
            "campaign/quality/assets_budgets.json",
            "campaign/quality/assets_audit.py",
            "campaign/quality/assets_audit_test.py",
+           "campaign/quality/nov12_market_habitat/contract.gd",
            "tools/package_nov6.py", "tools/package_nov6_tests.py"}
 PREFIX = "campaign/quality/memory_loom_candidate/"
 ATLAS = "campaign/assets/memory/archive_frontage_original.png"

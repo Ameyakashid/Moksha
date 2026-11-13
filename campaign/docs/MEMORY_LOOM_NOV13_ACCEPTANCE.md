@@ -71,6 +71,11 @@ Its generated player guide now correctly warns about checkpoint v4 and migration
 from v1/v2/v3. The previous v3-only wording is not used for future packages.
 Twenty-five package unit tests pass, including the source-gate ordering and
 external Memory fixture wiring; these are not substitute packed executions.
+Integration import and the 113-check Memory and 47-check irritant contracts
+passed. The unrelated Market contract exposed a stale assertion for its former
+floating key ladder. The real continuous street-to-key rail was already published
+at `ca7762b`; only that assertion is corrected, with an explicit guard against
+restoring the retired ladder. No Market layout changed in this integration.
 
 ## Still pending at this checkpoint
 
