@@ -1,7 +1,9 @@
 # Experimental Market and irritant preview
 
 Current source: **`3d7786ba9cf253dd6eff2781a1c285d5deea4c75`**. The coordinator
-verified this commit on private GitHub `main`. It is not a new Windows executable.
+verified this commit on private GitHub `main`. The new `ead13af` Windows package
+contains this runtime; [post-build notes](WINDOWS_EAD13AF_RELEASE.md) give its hashes
+and limits. This docs follow-up does not change the frozen package.
 Accepted earlier source `ee725ef` and historical receipts remain preserved.
 
 ## What you can try
@@ -80,7 +82,8 @@ SAILS sign and the continuous rail supported discovery of this first objective.
 Observer verification recorded unchanged source, normal exit 0, 3,620 movie frames
 (60.33 seconds) over 272.7 wall-clock seconds, with no engine errors or ObjectDB
 warning. This was not full Market completion, human UX validation or an FPS test.
-No newly delivered video filename/hash is claimed for this result here.
+The finalized full-length derivative is indexed by filename/hash in the portable
+evidence index; its encoding does not add new gameplay evidence.
 
 Remaining observations: the ordinary footer omits W/S until attached to a ladder;
 a distant world E label suggests interaction before actual proximity; the tester
@@ -93,8 +96,8 @@ by pixel comparison; no font change was made.
 Native Windows execution, subjective audio mix, physical-controller hardware,
 full native campaign traversal, blind first-play discovery, human balance and the
 15–20-minute-per-level target remain unverified. MovieWriter timing is not a
-real-time performance benchmark. No new export or Windows build is claimed;
-the older Windows download remains `23a5aa6`.
+real-time performance benchmark. The new `ead13af` Windows package was built and
+packed-tested on Linux; the older `23a5aa6` download remains historical.
 
 ## Clone and play safely
 

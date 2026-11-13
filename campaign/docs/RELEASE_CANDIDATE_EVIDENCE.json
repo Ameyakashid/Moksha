@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "docs-only release-candidate evidence; bounded prototype acceptance",
+  "status": "post-build documentation; 47 builder and 7 composed supplemental checks passed",
   "source_commit": "3d7786ba9cf253dd6eff2781a1c285d5deea4c75",
   "publication": {
     "repository": "https://github.com/Ameyakashid/Moksha",
@@ -58,7 +58,7 @@
     "audio": "ALSA initialization failure with dummy fallback in text-review fixture; no audio acceptance"
   },
   "old_windows_release": "23a5aa6",
-  "new_windows_build": false,
+  "new_windows_build": true,
   "fresh_market_ai_test": {
     "runtime": "ca7762ba2021710c405b3ce5ad1ef97e4d45aa1b",
     "access": "Fresh tester without route, source or file access; CUA OS key holds from Title Continue",
@@ -88,7 +88,6 @@
     ],
     "limits": [
       "Partial fresh AI navigation, not human UX or FPS validation",
-      "No new Library artifact filename/hash claimed",
       "Follow-up prompt changes not part of this docs-only candidate"
     ],
     "tester_reported_gameplay_actions": 22,
@@ -116,5 +115,17 @@
     "Raw report inherited headless/InputEventAction scope strings are corrected in external native receipts; originals untouched.",
     "Later text correction is absent from the four ca7762b videos.",
     "No full native campaign, native Windows, subjective mix, human balance, or smell/Intellect exchange acceptance."
-  ]
+  ],
+  "windows_release_source": "ead13aff036b1686a5f04e7e93c933995e8914a6",
+  "windows_runtime": "3d7786ba9cf253dd6eff2781a1c285d5deea4c75",
+  "fresh_market_film": {
+    "filename": "MOKSHA-Fresh-Screen-Only-AI-ca7762b-H264-AAC-HQ.mp4",
+    "bytes": 11095454,
+    "sha256": "fc61169e3fbbb699b6d00d7112bacaa34b076cc7b1a2e433cc8cd422066ce494",
+    "frames": 3620,
+    "seconds": 60.333,
+    "scope": "Full-length derivative of the already observed partial fresh AI run, not new gameplay evidence.",
+    "delivery": "Saved in Library, as confirmed by coordinator; no private Library ID included."
+  },
+  "windows_verification_receipt": "WINDOWS_EAD13AF_RELEASE.json"
 }

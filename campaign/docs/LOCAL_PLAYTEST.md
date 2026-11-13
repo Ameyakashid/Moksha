@@ -1,8 +1,9 @@
 # Play locally and measure real pacing
 
-**Current source:** `3d7786b` experimental preview. **Prior Windows download:**
-`23a5aa6`, unchanged. The packaged instructions below apply to the named existing
-package, not a newly exported preview. See [PC quickstart](PC_QUICKSTART.md).
+**Current runtime:** `3d7786b`. **New package source:** `ead13af`, a docs-only
+successor with the same runtime. The prior `23a5aa6` Windows package is historical.
+See [build evidence](WINDOWS_EAD13AF_RELEASE.md) and [PC quickstart](PC_QUICKSTART.md).
+These post-build notes do not retroactively alter documents inside the frozen ZIP.
 
 ## Windows
 

@@ -68,9 +68,10 @@ This source follow-up does not change the previously delivered Windows runtime.
 - Private GitHub `main` was verified at `3d7786ba9cf253dd6eff2781a1c285d5deea4c75`.
   Check your own checkout with `git rev-parse HEAD`; this statement is a recorded
   publication checkpoint, not a promise that every future clone has that tip.
-- The prior Windows release remains **`23a5aa6`**, with runtime identical to
-  `a0ec584`. It does not contain this preview. Its packed tests ran on Linux;
-  native Windows execution was not verified. No new EXE/PCK is claimed here.
+- New Windows package **`ead13af`** contains runtime `3d7786b`; its builder
+  passed 47/47 checks (import/export plus 45 packed executions) on Linux.
+  See [post-build evidence](WINDOWS_EAD13AF_RELEASE.md). Native Windows execution
+  remains unverified. Older `23a5aa6` remains a separate historical download.
 - Use the [PC quickstart](PC_QUICKSTART.md) for the current editable source.
   Old source archives, history bundles and Windows part sets remain separately
   versioned deliveries. Never mix parts from different packages.

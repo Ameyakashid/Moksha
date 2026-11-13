@@ -19,7 +19,8 @@ uses Neutral, 60 HP, so they are not a controlled balance comparison.
 The blind clip retains the old color-dependent intro. Corrected current text was
 subsequently checked in nine actual-size presentation cases, not recaptured as
 earned campaign footage. The faint blind GAS WARNING and subjective audio mix
-remain usability questions. No new Windows export accompanies this evidence.
+remain usability questions. The new `ead13af` package is documented in
+[post-build evidence](WINDOWS_EAD13AF_RELEASE.md), without native Windows acceptance.
 
 See [preview scope](EXPERIMENTAL_MARKET_IRRITANT_PREVIEW.md) and
 [structured receipt](RELEASE_CANDIDATE_EVIDENCE.json) for exact acceptance limits.
@@ -29,6 +30,15 @@ Fresh screenshot-only AI Market testing on `ca7762b` recovered the flood key
 access: 22 tester-reported actions, 26 observed in-game key presses (29 including
 menus), 75 → 51 HP, no deaths/retries, normal Pause → Title →
 close. Combined actions can press multiple keys. Observer recorded exit 0, unchanged source and 3,620 movie frames. This is
-partial fresh AI navigation, not full Market or human UX/FPS validation. No new
-Library video identity/hash is assigned here. See preview notes for unresolved
+partial fresh AI navigation, not full Market or human UX/FPS validation. The finalized fresh-test film is indexed below without a Library identifier. See preview notes for unresolved
 ladder-footer, distant E-prompt, air-jump teaching and damage-readability findings.
+
+## Finalized fresh-test film
+
+`MOKSHA-Fresh-Screen-Only-AI-ca7762b-H264-AAC-HQ.mp4`
+
+- 11,095,454 bytes; 3,620 frames; 60.333 seconds.
+- SHA-256: `fc61169e3fbbb699b6d00d7112bacaa34b076cc7b1a2e433cc8cd422066ce494`.
+- Full raw and final decodes passed with no duplicated/dropped frames.
+- This is the same partial first-key fresh AI test, not new gameplay or human UX evidence.
+- Saved in Library, confirmed by the coordinator; no private Library ID is included.

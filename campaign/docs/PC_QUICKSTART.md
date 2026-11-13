@@ -4,10 +4,11 @@
 
 For the current experimental Market/irritant source, clone the repository and use
 Godot below. Private GitHub `main` was verified at `3d7786b`; compare your checkout.
-The previously delivered Windows package remains `23a5aa6`, not this preview.
-There is no new Windows executable for these changes yet.
+The new package is `MOKSHA-Windows-x64-ead13af.zip` (runtime `3d7786b`).
+The older `23a5aa6` download remains historical. See [build evidence](WINDOWS_EAD13AF_RELEASE.md)
+for hashes and validation limits; native Windows execution is still unverified.
 
-## Older portable Windows build
+## Portable Windows build
 
 Use the delivered Windows x64 ZIP, or reconstruct it from every ZIP in its
 Windows part set using the included `Assemble-MOKSHA.cmd`. Extract the complete result,
