@@ -75,7 +75,24 @@ def inventory(root):
 
 def audit(root, budgets):
     report = inventory(root)
+    # Exceptions require the exact reviewed inventory row, including presence.
+    # Never exempt by filename alone or raise the ordinary cap for other assets.
+    rows = {row['path']: row for row in report['files']}
+    exceptions = {}
+    for exception in budgets.get('largest_file_exceptions', []):
+        path = exception['path']
+        row = rows.get(path)
+        if path in exceptions or row is None or any(
+                row[key] != exception[key] for key in ('bytes', 'sha256')):
+            report['errors'].append(f'Invalid/missing largest-file exception: {path}')
+            continue
+        exceptions[path] = exception
+    for row in report['files']:
+        if row['bytes'] > budgets['limits']['largest_file_bytes'] and row['path'] not in exceptions:
+            report['errors'].append(f"Budget largest_file_bytes: {row['path']}: {row['bytes']} > {budgets['limits']['largest_file_bytes']}")
     for name, limit in budgets['limits'].items():
+        if name == 'largest_file_bytes':
+            continue
         measured = report['metrics'][name]
         if measured > limit:
             report['errors'].append(f'Budget {name}: {measured} > {limit}')

@@ -12,6 +12,7 @@ const MemoryAtmosphere = preload("res://campaign/presentation/memory_atmosphere.
 const CisternAtmosphere = preload("res://campaign/presentation/cistern_atmosphere.gd")
 const FoundryAtmosphere = preload("res://campaign/presentation/foundry_atmosphere.gd")
 const ArcologyAtmosphere = preload("res://campaign/presentation/arcology_atmosphere.gd")
+const MemoryLoomHabitat = preload("res://campaign/presentation/memory_loom_habitat.gd")
 const MarketHabitat = preload("res://campaign/presentation/market_habitat.gd")
 const Backdrop = preload("res://campaign/presentation/scenery_backdrop.gd")
 const DistrictIdentity = preload("res://campaign/presentation/district_identity.gd")
@@ -20,6 +21,7 @@ var backdrop: Node2D
 var terrain_paint: Node2D
 var atmosphere: Node2D
 var habitat: Node2D
+var memory_loom_habitat: Node2D
 var configured := false
 var sight_enabled := true
 var view_center := Vector2(320,180)
@@ -33,6 +35,7 @@ func configure_sector(data: Dictionary) -> void:
 		child.queue_free()
 	atmosphere = null
 	habitat = null
+	memory_loom_habitat = null
 	var width: float = maxf(1.0,float(data.get("width",640)))
 	var top: float = minf(240.0,float(data.get("top",-100)))
 	var level: int = clampi(int(data.get("level",1)),1,5)
@@ -92,6 +95,13 @@ func configure_sector(data: Dictionary) -> void:
 		backdrop.add_child(habitat)
 		habitat.configure({"id":str(data.id)})
 		habitat.set_view(view_center,view_size)
+	if level == 4 and str(data.get("id","")) == MemoryLoomHabitat.DISTRICT_ID:
+		memory_loom_habitat = MemoryLoomHabitat.new()
+		memory_loom_habitat.name = "MemoryLoomHabitat"
+		memory_loom_habitat.z_index = 1
+		backdrop.add_child(memory_loom_habitat)
+		memory_loom_habitat.configure({"id":str(data.id)})
+		memory_loom_habitat.set_view(view_center,view_size)
 	terrain_paint = Node2D.new()
 	terrain_paint.set_script(SurfaceSkin)
 	terrain_paint.name = "ExactSurfaceSkins"
@@ -121,3 +131,4 @@ func update_view(camera_center: Vector2, viewport_size: Vector2) -> void:
 	view_size = viewport_size
 	if is_instance_valid(atmosphere):atmosphere.set_view(camera_center,viewport_size)
 	if is_instance_valid(habitat):habitat.set_view(camera_center,viewport_size)
+	if is_instance_valid(memory_loom_habitat):memory_loom_habitat.set_view(camera_center,viewport_size)

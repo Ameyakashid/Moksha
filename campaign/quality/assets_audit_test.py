@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Mutation tests prove the gates reject their intended regressions."""
 import json
+import hashlib
 from pathlib import Path
 import struct
 import tempfile
@@ -65,6 +66,37 @@ class AssetGuards(unittest.TestCase):
         self.assertFalse(self.result()['passed'])
     def test_unsafe_resource_path(self):
         (self.root/'code.gd').write_text('var a = preload("res://../outside.tres")')
+        self.assertFalse(self.result()['passed'])
+
+class ExactLargeAssetException(AssetGuards):
+    def setUp(self):
+        super().setUp()
+        self.asset = self.root / 'reviewed.tres'
+        self.asset.write_bytes(b'a' * 100)
+        self.budgets['limits']['largest_file_bytes'] = 90
+        self.budgets['largest_file_exceptions'] = [{
+            'path': 'reviewed.tres', 'bytes': 100,
+            'sha256': hashlib.sha256(self.asset.read_bytes()).hexdigest()}]
+    def test_valid_exception(self):
+        self.assertTrue(self.result()['passed'])
+        self.assertEqual(self.result()['metrics']['largest_file_bytes'], 100)
+    def test_changed_hash(self):
+        self.asset.write_bytes(b'b' * 100)
+        self.assertFalse(self.result()['passed'])
+    def test_changed_size(self):
+        self.asset.write_bytes(b'a' * 99)
+        self.assertFalse(self.result()['passed'])
+    def test_changed_path(self):
+        self.asset.rename(self.root / 'renamed.tres')
+        self.assertFalse(self.result()['passed'])
+    def test_missing_exception_asset(self):
+        self.asset.unlink()
+        self.assertFalse(self.result()['passed'])
+    def test_unlisted_oversize(self):
+        (self.root / 'unlisted.tres').write_bytes(b'b' * 101)
+        self.assertFalse(self.result()['passed'])
+    def test_duplicate_exception(self):
+        self.budgets['largest_file_exceptions'] *= 2
         self.assertFalse(self.result()['passed'])
 
 if __name__ == '__main__':

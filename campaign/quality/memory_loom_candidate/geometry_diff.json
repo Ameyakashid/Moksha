@@ -1,0 +1,855 @@
+{
+  "scope": "Authored data diff, not verified actor passage or a game screenshot",
+  "base_commit": "891f781894e33b66ab1f9935e2acab5030393777",
+  "candidate_layout_sha256": "6c8e3d69fd276992596d2d8fd2abed266eb8d85c76962dc8e781908ec71b03bf",
+  "district_id": "works_memory_loom",
+  "stable_objective_ids": [
+    "first_account",
+    "other_account",
+    "preserve",
+    "index"
+  ],
+  "changes": {
+    "enemies": {
+      "before": [
+        [
+          680,
+          "listener",
+          135
+        ],
+        [
+          1580,
+          "sentry",
+          -140
+        ],
+        [
+          2300,
+          "sentinel",
+          -250
+        ],
+        [
+          2820,
+          "listener",
+          300
+        ],
+        [
+          3280,
+          "sentinel",
+          80
+        ],
+        [
+          4090,
+          "sentry",
+          -250
+        ],
+        [
+          4920,
+          "listener",
+          80
+        ]
+      ],
+      "candidate": [
+        [
+          850,
+          "listener",
+          300
+        ],
+        [
+          1050,
+          "listener",
+          300
+        ],
+        [
+          760,
+          "listener",
+          80
+        ],
+        [
+          1280,
+          "sentinel",
+          80
+        ],
+        [
+          2810,
+          "sentry",
+          80
+        ],
+        [
+          3110,
+          "sentry",
+          80
+        ],
+        [
+          2920,
+          "sentinel",
+          300
+        ]
+      ]
+    },
+    "hint": {
+      "before": "Two independent stacks feed the comparison desk. Climb fixed ladders; the moving lift is only a shortcut.",
+      "candidate": "Either archive first. West: ladder up, cross the bridge, descend to the first account. East: the upper gallery avoids gas; its low cover can be jumped. Optional service index: separate west ladder. With both originals, descend the far east ladder to dispatch."
+    },
+    "irritants": {
+      "before": null,
+      "candidate": [
+        {
+          "at": [
+            2880,
+            268
+          ]
+        }
+      ]
+    },
+    "ladders": {
+      "before": [
+        [
+          510,
+          300,
+          165
+        ],
+        [
+          1400,
+          300,
+          220
+        ],
+        [
+          1510,
+          80,
+          220
+        ],
+        [
+          2200,
+          300,
+          550
+        ],
+        [
+          3110,
+          300,
+          220
+        ],
+        [
+          3220,
+          80,
+          220
+        ],
+        [
+          4020,
+          300,
+          550
+        ],
+        [
+          4840,
+          300,
+          220
+        ]
+      ],
+      "candidate": [
+        [
+          460,
+          300,
+          220
+        ],
+        [
+          1160,
+          300,
+          220
+        ],
+        [
+          1640,
+          300,
+          220
+        ],
+        [
+          2160,
+          300,
+          220
+        ],
+        [
+          2560,
+          300,
+          220
+        ],
+        [
+          3440,
+          300,
+          220
+        ]
+      ]
+    },
+    "lifts": {
+      "before": [
+        [
+          [
+            2640,
+            250
+          ],
+          [
+            0,
+            -440
+          ],
+          6.5
+        ]
+      ],
+      "candidate": null
+    },
+    "objective_doors": {
+      "before": [
+        {
+          "at": [
+            5230,
+            160
+          ],
+          "size": [
+            28,
+            280
+          ],
+          "requires": [
+            "preserve"
+          ]
+        }
+      ],
+      "candidate": [
+        {
+          "at": [
+            1440,
+            205
+          ],
+          "size": [
+            28,
+            190
+          ],
+          "requires": [
+            "first_account"
+          ]
+        },
+        {
+          "at": [
+            2360,
+            205
+          ],
+          "size": [
+            28,
+            190
+          ],
+          "requires": [
+            "other_account"
+          ]
+        },
+        {
+          "at": [
+            3690,
+            160
+          ],
+          "size": [
+            28,
+            280
+          ],
+          "requires": [
+            "preserve"
+          ]
+        }
+      ]
+    },
+    "objectives": {
+      "before": [
+        {
+          "id": "first_account",
+          "label": "FIRST-PERSON ACCOUNT",
+          "kind": "recover",
+          "at": [
+            2320,
+            -250
+          ],
+          "text": "The operative remembers giving the order. The date is absent."
+        },
+        {
+          "id": "other_account",
+          "label": "SECOND WITNESS ACCOUNT",
+          "kind": "recover",
+          "at": [
+            4110,
+            -250
+          ],
+          "text": "A witness remembers refusing the order. The recorder is damaged."
+        },
+        {
+          "id": "preserve",
+          "label": "ISOLATE BOTH ORIGINALS",
+          "kind": "install",
+          "at": [
+            4570,
+            300
+          ],
+          "requires": [
+            "first_account",
+            "other_account"
+          ],
+          "text": "The originals leave the rewriting bus. Their disagreement remains evidence."
+        },
+        {
+          "id": "index",
+          "label": "LOOM SERVICE INDEX",
+          "kind": "recover",
+          "at": [
+            4900,
+            80
+          ],
+          "optional": true,
+          "reward": "vitality"
+        }
+      ],
+      "candidate": [
+        {
+          "id": "first_account",
+          "label": "FIRST-PERSON ACCOUNT",
+          "kind": "recover",
+          "at": [
+            620,
+            300
+          ],
+          "text": "The operative remembers giving the order. The date is absent. The west return shutter releases."
+        },
+        {
+          "id": "other_account",
+          "label": "SECOND WITNESS ACCOUNT",
+          "kind": "recover",
+          "at": [
+            3360,
+            80
+          ],
+          "text": "A witness remembers refusing the order. The recorder is damaged. The east return shutter releases."
+        },
+        {
+          "id": "preserve",
+          "label": "ISOLATE BOTH ORIGINALS",
+          "kind": "install",
+          "at": [
+            3550,
+            300
+          ],
+          "requires": [
+            "first_account",
+            "other_account"
+          ],
+          "text": "The originals leave the rewriting bus. Their disagreement remains evidence."
+        },
+        {
+          "id": "index",
+          "label": "LOOM SERVICE INDEX",
+          "kind": "recover",
+          "at": [
+            560,
+            80
+          ],
+          "optional": true,
+          "reward": "vitality"
+        }
+      ]
+    },
+    "platforms": {
+      "before": [
+        [
+          420,
+          135,
+          380,
+          18
+        ],
+        [
+          940,
+          80,
+          300,
+          18
+        ],
+        [
+          1300,
+          80,
+          400,
+          18
+        ],
+        [
+          1300,
+          -140,
+          400,
+          18
+        ],
+        [
+          1730,
+          -195,
+          220,
+          18
+        ],
+        [
+          2000,
+          -250,
+          460,
+          18
+        ],
+        [
+          2530,
+          -195,
+          280,
+          18
+        ],
+        [
+          3000,
+          80,
+          420,
+          18
+        ],
+        [
+          3000,
+          -140,
+          420,
+          18
+        ],
+        [
+          3500,
+          -195,
+          250,
+          18
+        ],
+        [
+          3820,
+          -250,
+          420,
+          18
+        ],
+        [
+          4370,
+          -195,
+          300,
+          18
+        ],
+        [
+          4720,
+          80,
+          450,
+          18
+        ],
+        [
+          2750,
+          220,
+          25,
+          80
+        ]
+      ],
+      "candidate": [
+        [
+          380,
+          80,
+          500,
+          18
+        ],
+        [
+          1080,
+          80,
+          240,
+          18
+        ],
+        [
+          1320,
+          80,
+          240,
+          30
+        ],
+        [
+          1560,
+          80,
+          220,
+          18
+        ],
+        [
+          2040,
+          80,
+          200,
+          18
+        ],
+        [
+          2240,
+          80,
+          240,
+          30
+        ],
+        [
+          2480,
+          80,
+          1020,
+          18
+        ],
+        [
+          2650,
+          35,
+          28,
+          45
+        ],
+        [
+          3260,
+          35,
+          28,
+          45
+        ]
+      ]
+    },
+    "props": {
+      "before": [
+        [
+          600,
+          300
+        ],
+        [
+          1420,
+          80
+        ],
+        [
+          2110,
+          -250
+        ],
+        [
+          3040,
+          300
+        ],
+        [
+          3130,
+          -140
+        ],
+        [
+          4410,
+          -195
+        ]
+      ],
+      "candidate": [
+        [
+          700,
+          300
+        ],
+        [
+          970,
+          300
+        ],
+        [
+          660,
+          80
+        ],
+        [
+          2710,
+          300
+        ],
+        [
+          3120,
+          300
+        ],
+        [
+          2990,
+          80
+        ]
+      ]
+    },
+    "route": {
+      "before": [
+        [
+          1400,
+          300
+        ],
+        [
+          1400,
+          80
+        ],
+        [
+          1510,
+          80
+        ],
+        [
+          1510,
+          -140
+        ],
+        [
+          2200,
+          -250
+        ],
+        [
+          2320,
+          -250
+        ],
+        [
+          2200,
+          300
+        ],
+        [
+          3110,
+          300
+        ],
+        [
+          3110,
+          80
+        ],
+        [
+          3220,
+          80
+        ],
+        [
+          3220,
+          -140
+        ],
+        [
+          4020,
+          -250
+        ],
+        [
+          4110,
+          -250
+        ],
+        [
+          4020,
+          300
+        ],
+        [
+          4570,
+          300
+        ],
+        [
+          5555,
+          300
+        ]
+      ],
+      "candidate": [
+        [
+          1900,
+          300
+        ],
+        [
+          1640,
+          300
+        ],
+        [
+          1640,
+          80
+        ],
+        [
+          1440,
+          80
+        ],
+        [
+          1160,
+          80
+        ],
+        [
+          1160,
+          300
+        ],
+        [
+          620,
+          300
+        ],
+        [
+          1440,
+          300
+        ],
+        [
+          1960,
+          300
+        ],
+        [
+          2160,
+          300
+        ],
+        [
+          2160,
+          80
+        ],
+        [
+          2360,
+          80
+        ],
+        [
+          2560,
+          80
+        ],
+        [
+          2664,
+          35
+        ],
+        [
+          2800,
+          80
+        ],
+        [
+          3200,
+          80
+        ],
+        [
+          3274,
+          35
+        ],
+        [
+          3360,
+          80
+        ],
+        [
+          3440,
+          80
+        ],
+        [
+          3440,
+          300
+        ],
+        [
+          3550,
+          300
+        ],
+        [
+          3690,
+          300
+        ],
+        [
+          3855,
+          300
+        ]
+      ]
+    },
+    "signs": {
+      "before": [
+        [
+          [
+            1200,
+            255
+          ],
+          "FIRST ACCOUNT ^"
+        ],
+        [
+          [
+            2340,
+            255
+          ],
+          "REST / SECOND ACCOUNT >"
+        ],
+        [
+          [
+            3040,
+            255
+          ],
+          "SECOND ACCOUNT ^"
+        ],
+        [
+          [
+            4300,
+            255
+          ],
+          "PRESERVE BOTH / COMPARISON >"
+        ]
+      ],
+      "candidate": [
+        [
+          [
+            1540,
+            255
+          ],
+          "FIRST ACCOUNT ^ / WEST BRIDGE"
+        ],
+        [
+          [
+            1100,
+            45
+          ],
+          "FIRST ACCOUNT BELOW / <"
+        ],
+        [
+          [
+            1270,
+            255
+          ],
+          "GROUND RETURN > / FIRST ACCOUNT"
+        ],
+        [
+          [
+            390,
+            255
+          ],
+          "OPTIONAL SERVICE INDEX ^"
+        ],
+        [
+          [
+            1740,
+            235
+          ],
+          "COMMONS / PUBLIC COPIES"
+        ],
+        [
+          [
+            2040,
+            255
+          ],
+          "SECOND ACCOUNT ^ / EAST BRIDGE"
+        ],
+        [
+          [
+            2500,
+            45
+          ],
+          "UPPER GALLERY > / GAS-FREE"
+        ],
+        [
+          [
+            2540,
+            255
+          ],
+          "STERILIZATION > / GAS BELOW"
+        ],
+        [
+          [
+            2470,
+            220
+          ],
+          "< GROUND RETURN / SECOND ACCOUNT"
+        ],
+        [
+          [
+            3310,
+            45
+          ],
+          "WITNESS / DISPATCH BELOW >"
+        ],
+        [
+          [
+            3540,
+            255
+          ],
+          "ISOLATE ORIGINALS / REFUGE >"
+        ]
+      ]
+    },
+    "spawn": {
+      "before": null,
+      "candidate": [
+        1900,
+        300
+      ]
+    },
+    "station": {
+      "before": [
+        2400,
+        300
+      ],
+      "candidate": [
+        1800,
+        300
+      ]
+    },
+    "subtitle": {
+      "before": "Stacked records \u2022 return bridges \u2022 disputed testimony",
+      "candidate": "Archive commons \u2022 listening stacks \u2022 rewriting gallery"
+    },
+    "text": {
+      "before": "The machine stores contradictory accounts in separate shelves. No single record explains the loop. Keep both intact rather than choosing the machine's preferred history.",
+      "candidate": "The records commons serves two archives. One remembers giving the order; the other remembers refusing it. Carry both originals to the isolation desk at east dispatch. Each recovered account releases its own ground return."
+    },
+    "top": {
+      "before": -620,
+      "candidate": -320
+    },
+    "width": {
+      "before": 5600,
+      "candidate": 3900
+    }
+  }
+}

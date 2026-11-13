@@ -9,7 +9,7 @@
   },
   "policy": "Reviewable growth guard, not target-hardware claim. Original limits retain 10% total/count/PCM headroom and 20% largest-file/pixel headroom. Only explicitly reviewed additive asset allowances below change those limits; never automatically rebase measured inventory.",
   "limits": {
-    "inventory_bytes": 23747632,
+    "inventory_bytes": 29105140,
     "file_count": 576,
     "largest_file_bytes": 2574384,
     "largest_png_pixels": 1888023,
@@ -65,6 +65,37 @@
       "previous_limit": 21464629,
       "new_limit": 23747632,
       "reason": "Original Level5 high-arcology Crown vista. One shared plate; exact additive inventory allowance only. All unrelated limits unchanged. Not a performance claim."
+    },
+    {
+      "date": "2026-11-13",
+      "path": "campaign/assets/memory/archive_frontage_original.png",
+      "sha256": "549e2293fd3e1be5aaad49ad3544a93fe0a7ee968b22036586da8760075b0c18",
+      "bytes": 2168799,
+      "width": 1774,
+      "height": 887,
+      "limit_changed": "inventory_bytes",
+      "previous_limit": 23747632,
+      "new_limit": 25916431,
+      "reason": "One original district-local front-elevation archive atlas replacing panorama-crop collage. Exact additive asset allowance only; individual-file/pixel/count/audio limits unchanged. Not target-hardware performance proof."
+    },
+    {
+      "date": "2026-11-13",
+      "path": "campaign/assets/market/market_materials_original.png",
+      "sha256": "bba219d8f13d178519f0056e4cf8a90ea7845930424aa17fa0cd92a1cd5c56de",
+      "bytes": 3188709,
+      "limit_changed": "inventory_bytes",
+      "previous_limit": 25916431,
+      "new_limit": 29105140,
+      "reason": "Retrospective explicit allowance for original Market material introduced at fb996cdaacabe323683d1aa24dbe1c18c2f9674f; provenance and exact bytes reviewed. Previous release packed checks did not run the source budget audit. Baseline and unrelated headroom remain unchanged."
+    }
+  ],
+  "largest_file_exceptions": [
+    {
+      "date": "2026-11-13",
+      "path": "campaign/assets/market/market_materials_original.png",
+      "sha256": "bba219d8f13d178519f0056e4cf8a90ea7845930424aa17fa0cd92a1cd5c56de",
+      "bytes": 3188709,
+      "reason": "Only this exact reviewed original Market asset may exceed the ordinary individual-file cap; any path, size or hash change requires review."
     }
   ]
 }

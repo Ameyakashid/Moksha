@@ -15,7 +15,7 @@ func run()->void:
 	var catalog:Dictionary=Data.load_catalog()
 	check(catalog.ok and catalog.sectors.size()==32,"catalog remains five levels and32districts")
 	var placed:Array=catalog.sectors.filter(func(d):return not d.get("irritants",[]).is_empty())
-	check(placed.size()==3,"exact three authored encounter rooms")
+	check(placed.map(func(d):return str(d.id))==["l3_refuge_terraces","works_baffle_hall","works_memory_loom","crown_manual_governor"],"exact four authored encounter rooms, including Memory Loom candidate")
 	var levels:Array=[]
 	for i in range(1,6):levels.append(load("res://campaign/layouts/level_%02d.gd"%i).sectors())
 	for bad in [[{"at":Vector2(NAN,268)}],[{"at":Vector2(0,268)}],[{"at":Vector2(1150,268),"immune":true}],[{"at":"1150"}],42]:

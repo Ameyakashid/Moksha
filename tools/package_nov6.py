@@ -31,6 +31,7 @@ import re
 import shlex
 import shutil
 import stat
+import sys
 import subprocess
 import tarfile
 import tempfile
@@ -784,6 +785,16 @@ def main() -> int:
     audit = output / "pack_audit.gd"
     audit.write_text(PACK_AUDIT.replace("@PROVENANCE_SHA@", sha(stage / "BUILD_PROVENANCE.json")).replace("@SOURCE_COMMIT@", commit), encoding="utf-8")
     reports = []
+    # Separate source budget/provenance inventory gate, not a packed resource test.
+    # Run the frozen script against the frozen source and its frozen policy.
+    source_budget_report = logs / "source_asset_budget.json"
+    reports.append(command_check("source_asset_budget", [sys.executable, "-B",
+        str(frozen / "campaign/quality/assets_audit.py"), "--root", str(frozen),
+        "--budgets", str(frozen / "campaign/quality/assets_budgets.json"),
+        "--output", str(source_budget_report)], output, env, logs))
+    source_budget = json.loads(source_budget_report.read_text())
+    require(source_budget.get("passed") is True and source_budget.get("errors") == [],
+            "Frozen source asset budget audit failed")
     reports.append(command_check("import", [str(engine), "--headless", "--editor", "--import", "--path", str(stage)], output, env, logs))
     pack = output / "MOKSHA.pck"
     reports.append(command_check("export_pack", [str(engine), "--headless", "--path", str(stage), "--export-pack", "Portable PCK", str(pack)], output, env, logs))
