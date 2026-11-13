@@ -224,6 +224,8 @@ func control_strip()->Dictionary:
 	var left:String
 	if bool(data.get("ladder_attached",false)):
 		left="Up/down climb. Hold Up until standing on the ledge. Left/right lets go. A jumps off." if controller else "W/S climb. Hold W until standing on the ledge. A/D lets go. Space jumps off."
+	elif bool(data.get("ladder_contact",false)):
+		left="Ladder contact · Up/down climbs. Hold Up until standing on the ledge." if controller else "Ladder contact · W/S climbs. Hold W until standing on the ledge."
 	elif controller:
 		left="Stick / D-pad move   A jump   X strike   LB guard   RB roll   B sonar   Y use" if data.get("hearing_retained",true) else "Stick / D-pad move   A jump   X strike   LB guard   RB roll   B tap   Y use"
 	else:left="A/D move   Space jump   J strike   K guard   Shift roll   Q tap   E use"

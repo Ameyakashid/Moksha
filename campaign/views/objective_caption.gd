@@ -86,16 +86,16 @@ static func _clear_box(box:Rect2,inner:Rect2,occupied:Array[Rect2])->bool:
 		if box.intersects(rect):return false
 	return true
 
-static func describe(kind:String,label:String,completed:bool,available:bool,setting:int,target:int,optional:=false,controller:=false)->Dictionary:
+static func describe(kind:String,label:String,completed:bool,available:bool,setting:int,target:int,optional:=false,controller:=false,actionable:=true)->Dictionary:
 	var detail:=""
 	var color:=Color("67e0be") if completed else Color("ffc278") if available else Color("bac7cd")
 	if completed:
-		detail="COMPLETE" if kind!="route" else "MATCHED %d · "%setting+("E CHANGES ROUTE" if available else "INPUT LOCKED")
+		detail="COMPLETE" if kind!="route" else "MATCHED %d · "%setting+(("E CHANGES ROUTE" if actionable else "APPROACH TO CHANGE") if available else "INPUT LOCKED")
 	elif not available:detail="LOCKED · COMPLETE PREREQUISITES"
 	elif kind=="breaker":detail="J · STRIKE THE HOUSING"
 	elif kind=="plate":detail="CARGO · SETTLE ON THE PLATE"
-	elif kind=="route":detail=("UNROUTED" if setting<0 else "CIRCUIT %d"%setting)+" · E → %d · TARGET %d"%[(setting+1)%3,target]
-	else:detail="E · "+{"rescue":"RELEASE","recover":"RECOVER","install":"INSTALL"}.get(kind,"ACTIVATE")
+	elif kind=="route":detail=("UNROUTED" if setting<0 else "CIRCUIT %d"%setting)+(" · E → %d · TARGET %d"%[(setting+1)%3,target] if actionable else " · TARGET %d · APPROACH TO USE"%target)
+	else:detail=("E · " if actionable else "APPROACH · ")+{"rescue":"RELEASE","recover":"RECOVER","install":"INSTALL"}.get(kind,"ACTIVATE")
 	if optional:detail="OPTIONAL · "+detail
 	if controller:
 		detail=detail.replace("E CHANGES","Y CHANGES").replace("E →","Y →").replace("E ·","Y ·").replace("J ·","X ·")
@@ -107,7 +107,8 @@ func _draw() -> void:
 	var host:Variant=o.get("host")
 	var navigation:Variant=host.get("gamepad_navigation") if is_instance_valid(host) else null
 	var controller:bool=is_instance_valid(navigation) and navigation.get("input_device")=="controller"
-	var description:=describe(o.kind,o.label,o.completed,o.available,o.setting,o.target,o.get("optional")==true,controller)
+	var facts:Dictionary=host.objective_caption_facts(o) if is_instance_valid(host) and host.has_method("objective_caption_facts") else {"available":o.available,"actionable":false}
+	var description:=describe(o.kind,o.label,o.completed,bool(facts.available),o.setting,o.target,o.get("optional")==true,controller,bool(facts.actionable))
 	var zoom:=maxf(.1,get_global_transform_with_canvas().x.length())
 	# Keep text legible at gameplay zoom and bound captions in narrow viewports.
 	var size:=clampi(roundi(10.0/zoom),7,18)

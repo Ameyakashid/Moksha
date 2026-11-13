@@ -663,6 +663,20 @@ func _ladder_controls_active()->bool:
 	if geometry.is_empty() or geometry.get("type","")!="ladder":return false
 	if not player._climb_signature.is_equal_approx(Vector2(geometry.width,float(geometry.bottom_y)-float(geometry.top_y))):return false
 	return absf(player.global_position.x-float(geometry.axis_x))<=(player.profile.body_width+float(geometry.width))*.5 and player.global_position.y>=float(geometry.top_y)-player.profile.floor_probe-2 and player.global_position.y<=float(geometry.bottom_y)+2
+func objective_caption_facts(goal:Node)->Dictionary:
+	# Presentation reads the SAME selector used by interact(), never a second radius.
+	var available:bool=is_instance_valid(goal) and goal.required_ids.all(func(id):return goal_done(id))
+	var active:bool=state=="playing" and not _loading_campaign and not get_tree().paused and _pending_sector<0 and not _pending_retry
+	var actionable:bool=active and available and is_instance_valid(goal) and goals.has(goal) and _nearby_objective()==goal and goal.kind not in ["plate","breaker"] and (not goal.completed or goal.kind=="route")
+	return {"available":available,"actionable":actionable}
+
+func _ladder_contact_hint()->bool:
+	# Existing local touch observer owns physical reach/occlusion and freshness.
+	# This identifies contact, not a guarantee that a combat action can cancel.
+	if _loading_campaign or state!="playing" or get_tree().paused or _pending_sector>=0 or _pending_retry:return false
+	if not is_instance_valid(health) or health.current_health<=0 or not is_instance_valid(ladder_touch):return false
+	return not ladder_touch.read_snapshot().is_empty()
+
 func _hud_snapshot()->Dictionary:
 	var snapshot:Dictionary=super._hud_snapshot()
 	# Contextual presentation only: preserve authored route prose and layout data.
@@ -672,6 +686,7 @@ func _hud_snapshot()->Dictionary:
 		snapshot.sector_text=str(snapshot.get("sector_text","")).replace("THE EXCHANGE offers sight for speed. You may refuse.",exchange_brief)
 		snapshot.sector_hint=str(snapshot.get("sector_hint","")).replace("E at station: choose sight trade.",exchange_hint)
 	snapshot["ladder_attached"]=_ladder_controls_active()
+	snapshot["ladder_contact"]=_ladder_contact_hint()
 	snapshot["hearing_retained"]=hearing_retained
 	snapshot["focus_specialization"]=str(sense_capabilities().get("specialization",""))
 	snapshot["last_result_available"]=not last_result.is_empty()
