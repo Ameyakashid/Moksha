@@ -74,7 +74,7 @@ func run()->void:
 	habitat.set_view(Vector2(1900,220),Vector2(640,360))
 	check(habitat.cluster_indices_in_view().is_empty(),"non-Loom profile paints nothing")
 	scenery.configure(loom)
-	var old_child := weakref(scenery.memory_loom_habitat)
+	var old_child:WeakRef = weakref(scenery.memory_loom_habitat)
 	scenery.configure(sectors[0])
 	await process_frame
 	check(not is_instance_valid(old_child.get_ref()),"room reconfiguration retires local habitat")
