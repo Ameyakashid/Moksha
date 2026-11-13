@@ -48,6 +48,9 @@ func run()->void:
 		return
 	check(loom.objectives.map(func(g):return str(g.id))==["first_account","other_account","preserve","index"],"stable objective and receipt IDs")
 	check(loom.objectives[2].requires==["first_account","other_account"],"preservation still requires both originals")
+	check(loom.objectives[2].at==Vector2(3550,300),"isolation desk belongs to east dispatch")
+	check(loom.spawn==Vector2(1900,300) and loom.station==Vector2(1800,300),"commons keeps entry and public-copy station")
+	check(loom.objective_doors.map(func(d):return d.at)==[Vector2(1440,205),Vector2(2360,205),Vector2(3690,160)],"both returns and final seal keep their positions")
 	check(loom.objectives[3].optional and loom.objectives[3].reward=="vitality","optional index keeps same reward")
 	check(loom.enemies.size()==7,"seven ordinary enemies, no added waves")
 	check(loom.irritants==[{"at":Vector2(2880,268)}],"existing default disperser only")

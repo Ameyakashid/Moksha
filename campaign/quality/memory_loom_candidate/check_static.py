@@ -99,6 +99,8 @@ def validate(data, original):
         # Sample the fixed ground corridor with only the return blocker removed.
         check(not any(intersects(body([sample,300]),r) for sample in range(x-140,x+141,4) for r in data["platforms"] if r[3] > 18), f"open return represented as unobstructed 34px standing-body corridor {index}")
     check(all(not goals[key].get("requires",[]) for key in ("first_account","other_account")), "either branch objective available first")
+    check(goals["preserve"]["at"] == [3550,300], "isolation desk at east dispatch, before unchanged final seal")
+    check(data["route"][-6:] == [[3360,80],[3440,80],[3440,300],[3550,300],[3690,300],[3855,300]], "west-first authored finish does not force a commons detour")
     check(goals["index"].get("optional") and goals["index"]["kind"] == "recover" and goals["index"].get("reward") == "vitality", "index matches actual existing scent supply eligibility")
     check([460,300,220] in data["ladders"] and goals["index"]["at"] == [560,80], "nonsmell index access has permanent fixed ladder")
     check(any("OPTIONAL SERVICE INDEX" in sign[1] for sign in data["signs"]), "nonsmell index sign")
@@ -149,6 +151,7 @@ def main():
     negative("dependent_second_branch", lambda d: d["objectives"][1].update(requires=["first_account"]))
     negative("preopened_west_return", lambda d: d["objective_doors"][0].update(requires=[]))
     negative("fake_open_return_solid", lambda d: d["platforms"].append([1390,230,100,70]))
+    negative("old_commons_isolation_position", lambda d: d["objectives"][2].update(at=[1960,300]))
     negative("unsupported_witness", lambda d: d["objectives"][1].update(at=[3600,80]))
     negative("extra_enemy", lambda d: d["enemies"].append([1900,"listener",300]))
     negative("upper_gas_leak", lambda d: d["irritants"][0].update(at=[2880,60]))

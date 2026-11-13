@@ -236,7 +236,7 @@
           300
         ]
       ],
-      "observe": "actual east ground crossing with other_account complete; no exposure on upper return"
+      "observe": "East-first: actual opened east ground crossing toward commons while first_account is incomplete; upper return avoids exposure at the cost of repeating cover. Not required after a west-first witness."
     },
     "east_lower_return": {
       "waypoints": [
@@ -269,22 +269,43 @@
           300
         ]
       ],
-      "observe": "shorter ground return really crosses active field and newly opened door"
+      "observe": "East-first optional ground return crosses the gas aisle and opened east door. It trades exposure/sentinel risk for fewer cover jumps; no measured distance/time advantage is claimed."
     },
     "preserve": {
       "waypoints": [
         [
-          1960,
+          3550,
           300
         ]
       ],
       "interact": "preserve",
-      "observe": "fails before both accounts; succeeds after both; final door and onward marker authorize departure, index not required"
+      "observe": "At east dispatch: refuses before both accounts, succeeds after both; final door and onward marker authorize departure, index not required."
     },
-    "depart_upper": {
+    "witness_to_dispatch": {
       "waypoints": [
         [
-          1960,
+          3360,
+          80
+        ],
+        [
+          3440,
+          80
+        ],
+        [
+          3440,
+          300
+        ],
+        [
+          3550,
+          300
+        ]
+      ],
+      "observe": "West-first finish uses far fixed ladder, without crossing the gas field or forcing an east ground return to commons."
+    },
+    "dispatch_upper": {
+      "waypoints": [
+        [
+          1900,
           300
         ],
         [
@@ -328,21 +349,16 @@
           300
         ],
         [
-          3690,
-          300
-        ],
-        [
-          3855,
+          3550,
           300
         ]
       ],
-      "interact": "exit",
-      "observe": "gas-free fallback remains available; next district is works_service_refuge"
+      "observe": "After an east-first west return: gas-free approach to dispatch; repeated gallery is an available safety-cost choice, not a required final lap after preserve."
     },
-    "depart_ground": {
+    "dispatch_ground": {
       "waypoints": [
         [
-          1960,
+          1900,
           300
         ],
         [
@@ -358,6 +374,19 @@
           300
         ],
         [
+          3550,
+          300
+        ]
+      ],
+      "observe": "After an east-first west return: already-open east shutter, real sterilization aisle and live sentinel; no forced wait/all-kill requirement."
+    },
+    "depart": {
+      "waypoints": [
+        [
+          3550,
+          300
+        ],
+        [
           3690,
           300
         ],
@@ -367,7 +396,7 @@
         ]
       ],
       "interact": "exit",
-      "observe": "opened ground route; no wait or all-enemy kill requirement"
+      "observe": "Cross unchanged final physical door only after preserve, then normal E departure to works_service_refuge."
     }
   },
   "runs": [
@@ -380,9 +409,9 @@
         "west_optional",
         "west_return",
         "east_upper_outbound",
-        "east_upper_return",
+        "witness_to_dispatch",
         "preserve",
-        "depart_upper"
+        "depart"
       ]
     },
     {
@@ -394,8 +423,9 @@
         "east_lower_return",
         "west_outbound",
         "west_return",
+        "dispatch_ground",
         "preserve",
-        "depart_ground"
+        "depart"
       ]
     },
     {
@@ -407,9 +437,9 @@
         "west_optional",
         "west_return",
         "east_upper_outbound",
-        "east_upper_return",
+        "witness_to_dispatch",
         "preserve",
-        "depart_upper"
+        "depart"
       ]
     },
     {
@@ -421,8 +451,9 @@
         "east_upper_return",
         "west_outbound",
         "west_return",
+        "dispatch_upper",
         "preserve",
-        "depart_upper"
+        "depart"
       ]
     }
   ],
@@ -441,7 +472,7 @@
       "retained",
       "earned traded"
     ],
-    "coverage": "18 starting-lens/sense combinations in labelled diagnostic route fixtures at 60 and120Hz; slow Strength/no speed augments and high-speed Agility/sight trade endpoints. These do not replace the earned-sense runs."
+    "coverage": "Risk-based external plan: earned retained west/collect and earned traded east/omit, four seeded stopped Strength cover clips, four seeded supported-sense clips. No automatic exponential matrix; each engine run needs a separate coordinator lease. Seeded coverage is not earned-choice evidence."
   },
   "unapproved_combined_loss": "Sight+hearing both traded is blocked by the existing normal UI. Do not seed it and claim supported navigation.",
   "repeat_and_native": [
@@ -450,5 +481,11 @@
     "index already earned does not pay/heal twice; skip does not block exit",
     "read actual native motion at both 640x360 and1280x720 output; sign/HUD overlap, cover silhouettes, climbs, drops, crowd depth",
     "retain source hashes, real input transcript/route receipts, unedited logs and actual camera footage; no pacing inference from bot time"
-  ]
+  ],
+  "required_return_evidence": {
+    "west_first": "Closed upper crossing at each branch; actual open west return while other_account is incomplete. Observe east door really opening after other_account without requiring a pointless westward crossing.",
+    "east_first": "Closed upper crossing at each branch; actual open east return toward commons while first_account is incomplete, and actual open west return after first_account.",
+    "both": "Both door opening/collision states observed, preserve dependency/order and location verified, final x3690 physical crossing observed open only with preserve complete. No save, goal, health, enemy or actor-position writes."
+  },
+  "proposal_status": "DISPATCH_RELOCATION_APPLIED_RUNTIME_PENDING; historical 81fbcd0 evidence does not certify this route."
 }

@@ -32,7 +32,7 @@ def rect(x,y,w,h,fill,extra=''):
 text(25,28,'Memory Loom: same-scale authored geometry comparison','title')
 text(25,49,'DATA SCHEMATIC ONLY. No engine run, physics certification, native screenshot or game-art preview.')
 text(25,69,'0.2 drawing px / world unit. Blue: fixed ladders. Gold: closed goal doors. Grey: actual supports.')
-for data, top, title in [(before,110,'BEFORE / 891f781 / width 5600'),(after,340,'CANDIDATE / width 3900 / central commons; independent records')]:
+for data, top, title in [(before,110,'BEFORE / 891f781 / width 5600'),(after,340,'CANDIDATE / width 3900 / public commons; east isolation desk')]:
     text(25,top-16,title,'title')
     X=lambda value:25+value*.2
     Y=lambda value:top+(value+300)*.2
@@ -61,7 +61,7 @@ for data, top, title in [(before,110,'BEFORE / 891f781 / width 5600'),(after,340
     text(X(0),Y(300)+52,'0','small');text(X(data['width'])-32,Y(300)+52,data['width'],'small')
 text(25,543,'Candidate: no floor gaps, no electric damage, no moving-lift reliance. Same seven enemies and six physical props.')
 text(25,563,'West door = first_account. East door = other_account. Exit = preserve after both. Index remains optional vitality.')
-text(25,583,'All passage, jumping, live combat, earned senses, Continue and native readability gates remain pending.')
+text(25,583,'Desk relocation APPLIED / RUNTIME PENDING. Prior 81fbcd0 receipts do not certify this changed route.')
 svg.append('</svg>')
 (OUT/'geometry_review.svg').write_text('\n'.join(svg)+'\n')
 print('Wrote geometry_diff.json and geometry_review.svg (data only).')

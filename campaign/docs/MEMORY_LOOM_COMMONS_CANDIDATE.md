@@ -1,9 +1,11 @@
 # Memory Loom commons: quarantined candidate
 
 Base: `891f781894e33b66ab1f9935e2acab5030393777`. One district only.
-This is an implementation candidate, **not engine-, route- or native-accepted**.
-The author did not launch Godot while the smell/native reviewers owned it.
-Do not merge, package or infer playability from the static receipt alone.
+This dispatch relocation is **applied, with runtime acceptance pending**. Historical
+81fbcd0 passed its 97-check catalog/presentation contract and one earned retained
+west-first/index route. Those receipts remain untouched and cover the old central
+isolation desk, not this proposed placement. Native taste review may reject the
+change before release integration. No merge, package or new traversal acceptance is implied.
 
 ## Player-visible change and stable meaning
 
@@ -11,15 +13,16 @@ Do not merge, package or infer playability from the static receipt alone.
 `works_service_refuge`. Five levels / 32 districts are unchanged. The old pair of
 similar very tall record stacks becomes a central public records commons, a low
 listening archive to the west and an exposed rewriting gallery to the east.
-Either record may be recovered first. Its own shutter then opens a different,
-shorter ground return to the commons. Both records still preserve contradictory
+Either record may be recovered first. Its own shutter then opens a different
+ground return to the commons. The east ground aisle trades gas/sentinel exposure
+for fewer cover jumps; its distance/time advantage has not been measured. Both records still preserve contradictory
 testimony rather than resolve the original story's loop/immortality ambiguity.
 
 | Stable objective | New position | Unchanged meaning/dependency |
 |---|---|---|
 | `first_account` | (620,300) | Independent recover, operative's account |
 | `other_account` | (3360,80) | Independent recover, witness's account |
-| `preserve` | (1960,300) | Install, requires both accounts, unlocks exit |
+| `preserve` | (3550,300) | Install at east dispatch, requires both accounts, unlocks exit |
 | `index` | (560,80) | Optional recover, vitality reward |
 
 The reward/receipt key remains `works_memory_loom/index`. Labels, kinds, ordering,
@@ -35,14 +38,22 @@ Footprint: 5600 -> 3900 pixels; highest required support: -250 -> 80. Spawn is n
 two sentinels, two sentries. Six physical props remain. No pits, electrical floor
 strips, moving lift dependence, additional objective, all-kill/wave/time gate,
 health inflation or changed motor. A smaller footprint does NOT certify a shorter
-complete walking route: central comparison deliberately revisits the commons,
-then the final eastward departure reuses the opened ground route. If that final
-reuse feels like busywork in live review, simplify this candidate before acceptance.
+complete walking route. The commons remains an orientation/public-copy hub; the
+isolation desk is now at east dispatch. West-first can finish beside
+the witness without returning to commons just to leave east again. East-first
+still uses an opened east return to visit the west archive, then heads to dispatch.
+
+The earlier route took 52.55 simulated seconds in Loom, with 54.8% of measured
+travel labelled returns plus departure. Neither number proves bad human pacing.
+That retained-smell script intentionally chose the gas-free upper gallery twice
+instead of the hazardous lower aisle. This proposal is a taste option against
+empty repetition, not a correction demanded by a percentage. Its reduction in
+west-first travel is only a geometric prediction until a fresh input route runs.
 
 ## Concrete spatial/encounter beats
 
-1. **Commons, x1680..2140.** Entry, existing station and comparison desk are
-   separated physically. Recessed public-copy counters, restrained archive neon
+1. **Commons, x1680..2140.** Entry and the existing station orient both branches.
+   The inhabited public-copy counter is not the isolation objective. Recessed public-copy counters, restrained archive neon
    and eight additional decorative residents identify a place, not a diagram.
    Residents never collide, rescue, react to goals or emit life/supply scent.
    No enemy is authored in the entry pocket, but surviving ordinary guards are
@@ -74,8 +85,16 @@ reuse feels like busywork in live review, simplify this candidate before accepta
    before their own record and leave the y80 outbound bridge usable. After that
    record, the standing-body ground corridor has no remaining authored solid.
    The west return goes directly to commons. East can return upstairs to x2560
-   before descending, avoiding gas, or take the shorter lower aisle. Final
-   preserve opens (3690,160), 28x280, before exit (3855,300).
+   before descending, avoiding gas, or take the lower aisle with exposure risk.
+   East-first uses this return while the west record is still incomplete; west-first
+   need not cross it merely to satisfy a test.
+7. **Isolation/dispatch, (3550,300).** With both records, descend the fixed far
+   ladder x3440 and isolate them before the existing final door. That door stays
+   (3690,160), 28x280, requiring preserve; exit stays (3855,300). West-first goes
+   witness -> far ladder -> dispatch -> exit. East-first goes witness -> east
+   return -> west account -> west return -> upper or lower dispatch approach ->
+   isolate -> exit. Account order, dependencies, optional reward and meanings do
+   not change. No new exit API or shortcut teleporter is introduced.
 
 No guard is authored within 100px horizontally of a same-height ladder endpoint.
 This is a spawn-placement constraint, not proof enemies will stay there. Closed
@@ -86,7 +105,7 @@ independent door graph and clear rectangles are not verified actor passage**.
 
 Ordinary world signs identify both commons ladders, the first-account descent,
 optional index ladder, gas-free upper gallery, lower sterilization aisle, ground
-return conditions and comparison/exit. The HUD hint describes either branch
+return conditions and east isolation/dispatch. The HUD hint describes either branch
 first and the separate optional ladder. Existing physical objective contours,
 ladder contact feedback, sonar and objective HUD remain authoritative. Decorative
 frontage adds identity, never the only clue or an invisible navigation permission.
@@ -168,13 +187,14 @@ python3 campaign/quality/memory_loom_candidate/check_static.py --report /fresh/p
 The literal parser executes no GDScript. It protects unaffected district text and
 authority modules, stable signatures, same enemy mix, supports/ladder clearance,
 return-door/ceiling geometry, exposure separation, actual scent eligibility and
-view ownership. Nine negative controls include a fake blocked return, upper gas,
+view ownership. Ten negative controls include the old desk position, a fake blocked return, upper gas,
 renamed ID, dependency coupling and endpoint ambush. It is not a Godot parser.
 `geometry_diff.json` and `geometry_review.svg` are generated blockout review aids,
 **not engine screenshots**. The SVG shares a scale for the before/after geometry.
 
-Prepared but **not run**: `memory_loom_candidate/contract.gd` checks the actual
-catalog and presentation lifetime/culling/sight boundary. Existing irritant
+The proposed `memory_loom_candidate/contract.gd` adds dispatch-position and
+unchanged commons/door checks to the prior 97-check actual-catalog/presentation
+fixture. The changed fixture has **not run**. Existing irritant
 `encounter_contract.gd` now names the four exact districts rather than asserting
 three: the three previous placements are unchanged; Memory Loom is the fourth.
 Old three-encounter historical reports remain untouched and do not cover this one.
@@ -184,10 +204,14 @@ existing layout support/prose/catalog tests, Market habitat and irritant contrac
 Then use `acceptance_routes.json` for **ordinary-input** west-first/east-first,
 upper/lower, optional-collect/skip runs. The detailed waypoints and observation
 points distinguish closed bridge crossing, record interaction and actual open
-return crossing. Test 60/120Hz, live enemies, retry after either record, Continue
-from the stable district checkpoint, no repeated index reward/heal, and departure
-to Service Refuge. A seeded diagnostics matrix covers three lenses x three normal
-vision/hearing states x two smell states; it is NOT earned-choice evidence.
+return crossing. Require the west return in both orders; require the east return
+in east-first while the west record is incomplete, not a gratuitous west-first
+loop. Both orders must observe both doors opening and the final x3690 crossing
+after preserve. Rebind fresh external QA hashes to the accepted new source; never
+rewrite the frozen 81fbcd0 preparation or receipts. The risk-based plan uses the
+earned pair plus four stopped Strength cover clips and four supported-sense clips,
+not an automatic exponential matrix. Seeded diagnostics are NOT earned evidence.
+Separately authorize rate/retry/Continue/duplicate-reward lifecycle gates.
 The listed acceptance runs require actual sense choices and a real committed
 checkpoint, not a directly set immunity flag.
 
