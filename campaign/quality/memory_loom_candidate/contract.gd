@@ -1,6 +1,6 @@
 extends SceneTree
-## Prepared, NOT run by the author while engine ownership is reserved elsewhere.
 ## Catalog and presentation composition only. This is not an input-route fixture.
+## Source and packed executions are distinct receipts; neither proves native pixels.
 const Data = preload("res://campaign/logic/campaign_data.gd")
 const Scenery = preload("res://campaign/presentation/campaign_scenery.gd")
 const Habitat = preload("res://campaign/presentation/memory_loom_habitat.gd")

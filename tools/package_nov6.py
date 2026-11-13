@@ -702,10 +702,10 @@ docs/LOCAL_PLAYTEST.md for the play guide, and docs/NOV6_CHANGES.md for changes.
 
 SAVE COMPATIBILITY: back up the entire existing user-data folder before switching builds.
 The checkpoint is still named moksha_five_levels_v1.json, but this build writes
-version-3 envelopes. Valid v1/v2 saves migrate only after an exact preserved backup.
+version-4 envelopes. Valid v1/v2/v3 saves migrate only after an exact preserved backup.
 New runs preserve the prior checkpoint; completed records are immutable in
 moksha_run_history/completed, with backups in moksha_run_history/preserved.
-Older builds cannot read v3. Keep current files safe and restore a separate
+Older builds cannot read v4. Keep current files safe and restore a separate
 backup compatible with the older build; never edit the version number. See docs/LOCAL_PLAYTEST.md
 for the save-folder location and docs/RUN_HISTORY_BOUNDARY.md for exact guarantees.
 Run only one game instance against a save folder. No concurrent-writer or
@@ -716,6 +716,8 @@ Optional HEARING -> FOCUS is offered after the first floor: accept or decline.
 Hearing loss removes informative world/body sound, ambience and the sound-map;
 visible melee can receive a brief late-windup opportunity, not automatic defense.
 Combined sight/hearing loss is temporarily unavailable through normal choice UI.
+Optional SMELL sacrifice after the third ascent removes coarse scent assistance
+and prevents irritant cough interruptions, not damage or other hazards.
 This is a prototype limit, not a permanent design ban. See docs/HEARING_FOCUS_SLICE.md.
 Fall framing changes camera presentation only, not actor movement or collision.
 Neither the original whole-game vision nor combat balance is claimed complete.
@@ -902,6 +904,11 @@ def main() -> int:
                  result_prefix="FALL_FRAMING_RESULT ")
     focus_prefix = "NOV6_INDEPENDENT_FOCUS_UPGRADE "
     packed_check("packed_focus_upgrade", frozen_fixture("campaign/quality/nov6_independent_focus_upgrade.gd"), focus_prefix, result_prefix=focus_prefix)
+    # Composition/resource/lifetime gate for the original Memory Loom district.
+    # It is not a route, native-pixel or Windows-hardware acceptance claim.
+    memory_prefix = "MEMORY_LOOM_CONTRACT "
+    packed_check("packed_memory_loom", frozen_fixture("campaign/quality/memory_loom_candidate/contract.gd"),
+                 memory_prefix, result_prefix=memory_prefix)
     require(all(sha(frozen / name) == digest for name, digest in source_hashes.items()), "Frozen source drift during verification")
     prior_extracted = output / "prior-runtime"
     extract_zip(prior, prior_extracted)

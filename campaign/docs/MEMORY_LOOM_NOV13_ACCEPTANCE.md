@@ -30,6 +30,17 @@ atlas documents for original-art provenance and architectural reference mapping.
   final seal were crossed after their real prerequisites. No reward was added.
 - Both earned routes preserved the prior metric prefix, identity, senses and
   level receipts. Neither used position, health, goal or input-override writes.
+- A real sight trade from the earned no-smell Loom checkpoint then completed
+  west/index/upper/dispatch in 34.90 simulated seconds, departing at 63/80 HP.
+  Actual Q taps produced in-view live sonar fragments for the separate index
+  ladder, objectives and both covers while habitat and scent stayed hidden.
+  The pilot knew coordinates and enemy state, so this is mechanical reachability
+  and live contour evidence, not blind discovery or native-pixel acceptance.
+- Reward lifecycle passed with real sentinel damage and ordinary R/Title/C.
+  Both duplicate index pickups stayed 68 to 68 HP and 80 to 80 capacity. Retry
+  replaced the actor, reset local goals and closed doors with its normal full
+  refill. A separate process continued the exact game-written checkpoint with
+  reward, identity, senses and the 21-metric prefix intact.
 - Eight explicitly seeded stopped Strength cover diagnostics passed: two posts,
   two directions, 60/120 Hz. Ordinary automatic ledge assistance was used, so
   these are not pure ballistic-jump or earned-progression claims.
@@ -53,10 +64,17 @@ and explicit integration ownership: 145 checks and 15 negative controls pass.
 The separate source asset audit now passes, with 31 regression tests and an exact
 reviewed Market exception, not a blanket budget increase. See
 [SOURCE_ASSET_BUDGET_CORRECTION.md](SOURCE_ASSET_BUDGET_CORRECTION.md).
+The package builder now includes this district's frozen external composition
+contract as a separate packed gate. That newly configured packed execution has
+not run at this checkpoint; it must not be counted in historical build totals.
+Its generated player guide now correctly warns about checkpoint v4 and migration
+from v1/v2/v3. The previous v3-only wording is not used for future packages.
+Twenty-five package unit tests pass, including the source-gate ordering and
+external Memory fixture wiring; these are not substitute packed executions.
 
 ## Still pending at this checkpoint
 
-Real sight-trade/no-smell index access, hearing-traded local coverage,
-Retry/Continue reward preservation, final integration regressions and release
-packaging. Earlier failed fixture attempts and the rejected before-film remain
+Hearing-traded local coverage, final integration regressions and release
+packaging. Blind native readability remains unverified. Earlier failed fixture
+attempts and the rejected before-film remain
 historical evidence; they were not overwritten or counted as passes.

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Packaging safety/unit checks. These never build or modify the game."""
 import importlib.util
+import ast
+import inspect
 import json
 import math
 import subprocess
@@ -92,9 +94,38 @@ class PackagingTests(unittest.TestCase):
 
     def test_release_readme_warns_about_save_compatibility(self):
         text=package.readme("Windows", "a"*40, package.EXPECTED_ENGINE)
-        for expected in ["View last result", "version-3", "exact preserved backup", "Older builds cannot read v3", "one game instance", "RUN_HISTORY_BOUNDARY.md", "a"*40]:
+        for expected in ["View last result", "version-4", "v1/v2/v3", "exact preserved backup", "Older builds cannot read v4", "one game instance", "RUN_HISTORY_BOUNDARY.md", "SMELL", "a"*40]:
             self.assertIn(expected,text)
         self.assertNotIn("November 6 build",text)
+
+    def test_frozen_source_budget_gate_precedes_import(self):
+        tree = ast.parse(inspect.getsource(package.main))
+        calls = {node.args[0].value: node for node in ast.walk(tree)
+                 if isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+                 and node.func.id == "command_check" and node.args
+                 and isinstance(node.args[0], ast.Constant)}
+        budget = calls["source_asset_budget"]
+        self.assertLess(budget.lineno, calls["import"].lineno)
+        command = ast.unparse(budget.args[1])
+        for expected in ("sys.executable", "frozen / 'campaign/quality/assets_audit.py'",
+                         "frozen / 'campaign/quality/assets_budgets.json'", "'--root', str(frozen)"):
+            self.assertIn(expected, command)
+
+    def test_memory_composition_gate_uses_external_frozen_fixture(self):
+        tree = ast.parse(inspect.getsource(package.main))
+        calls = [node for node in ast.walk(tree)
+                 if isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+                 and node.func.id == "packed_check" and node.args
+                 and isinstance(node.args[0], ast.Constant)
+                 and node.args[0].value == "packed_memory_loom"]
+        self.assertEqual(len(calls), 1)
+        call = calls[0]
+        self.assertEqual(call.args[1].func.id, "frozen_fixture")
+        relative = "campaign/quality/memory_loom_candidate/contract.gd"
+        self.assertEqual(call.args[1].args[0].value, relative)
+        self.assertEqual(next(k.value.id for k in call.keywords if k.arg == "result_prefix"), "memory_prefix")
+        self.assertFalse(package.included_runtime(Path(relative)))
+        self.assertTrue(package.included_runtime(Path("campaign/assets/memory/archive_frontage_original.png")))
 
     def test_runtime_archive_allowlist_keeps_both_verified_deliveries(self):
         self.assertEqual(package.TRUSTED_WINDOWS_ARCHIVES, {
