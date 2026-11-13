@@ -2,8 +2,9 @@
 
 Candidate `891f781` combines frozen smell source `9f965ac` with published readiness
 `d529502`. It preserves the sense-neutral district briefs, readiness prompts,
-actor physics, field timings/bounds and district geometry. No new Windows build
-is claimed. Existing `ead13af` Windows remains gameplay runtime `3d7786b`.
+actor physics, field timings/bounds and district geometry. At this source milestone no new Windows build existed. The subsequent
+[Windows 596 release](WINDOWS_596B884_RELEASE.md) now packages this runtime; earlier
+ead13af remains runtime 3d.
 
 The optional offer follows the Level 3 upgrade. Accepting removes all coarse
 life, wound and supply scent cues for this run and prevents only security-irritant
@@ -41,7 +42,7 @@ editing version numbers; returning to an old backup also returns to its progress
 
 ## Bounded native evidence
 
-Two independent known-route physical-key captures on unchanged runtime891f781
+Two independent known-route physical-key captures on unchanged runtime 891f781
 started from the same genuinely earned Drainage entry. Both reached the ordinary
 upgrade/offer, held a real Receiving life-source opportunity, then held guard for
 five seconds in Listening Floor's active cloud. Both closed normally with exit0.
@@ -74,4 +75,5 @@ The packed-root guard now accepts an absolute isolated store when packed res://
 has no filesystem root, matching the existing hearing fixture. Fresh-process
 receipt adds explicit identity/sector/upgrades/checkpoint hash for strict external
 verification. These edits do not themselves establish a packed release. The
-existing Windows download remains runtime3d; no new Windows build is claimed.
+then-existing Windows download remained runtime 3d. See the subsequent Windows 596
+release record for the completed package gate.

@@ -1,9 +1,9 @@
 # Current playable state
 
-This inventory describes local experimental source `891f781`: published readiness
-source `d529502` plus the frozen smell implementation from `9f965ac`. Publication
-of this integration is not yet claimed. It remains a five-level/32-district
-prototype, not the complete original vision.
+This inventory describes gameplay runtime `891f781`, published in source `596b884`
+and now delivered in Windows 596. It combines readiness from `d529502` with smell
+implementation `9f965ac`. It remains a five-level/32-district prototype, not the
+complete original vision.
 
 Smell can now be traded after the ordinary Level 3 upgrade. Retain it for coarse
 life, wounded-enemy and supply cues, or lose those cues for immunity only to the
@@ -11,11 +11,9 @@ existing irritant cough that interrupts attacks/guard. Other damage and movement
 rules are unchanged. Keeping smell remains valid. The temporary combined
 sight/hearing-loss menu restriction is unchanged.
 
-The existing Windows package is still source `ead13af`, runtime `3d7786b`:
-it contains neither this exchange nor the later readiness prompts. The original
-Market/irritant videos and text review keep their original source scope. See
-[smell milestone evidence](SMELL_SOURCE_MILESTONE.md) and
-[source readiness evidence](SOURCE_READINESS_MILESTONE.md).
+Current Windows 596 includes this exchange and readiness prompts. Earlier
+ead13af/3d is a separate historical download. See [current Windows verification](WINDOWS_596B884_RELEASE.md),
+[smell evidence](SMELL_SOURCE_MILESTONE.md) and [historical readiness evidence](SOURCE_READINESS_MILESTONE.md).
 
 ## What is playable
 
@@ -27,7 +25,7 @@ Market/irritant videos and text review keep their original source scope. See
 | Hearing | Optional first-level-exit exchange, after the ordinary upgrade. Removes player pulses, sound-map and informative world/body audio. Visible unobstructed melee commitments can gain a bounded late-strike opportunity marked by white brackets. Not automatic parry, global slow motion or a damage bonus. |
 | Other perception | Capped coarse scent for life/blood/supplies; body-local ladder contact presentation; quiet contextual Intellect text. These are not complete substitute senses. |
 | World presentation | Original environment treatments for all five levels, layered neon opening and background crowds. Newer Market source adds textured stalls, a rooftop refuge and decorative residents behind the playfield. |
-| Irritants | Three finite stationary fields; 0.18-second attack/guard interruption, 1.5-second cross-source rearm, no direct HP loss or movement stun; untimed upper alternatives. Optional source-only smell exchange grants cough immunity at the cost of all scent cues. |
+| Irritants | Three finite stationary fields; 0.18-second attack/guard interruption, 1.5-second cross-source rearm, no direct HP loss or movement stun; untimed upper alternatives. Optional smell exchange grants cough immunity at the cost of all scent cues. |
 | Continuity | District checkpoints, preserved legacy bytes, stable run identity, immutable completed results and read-only result review. |
 
 Normal menus currently withhold a second irreversible sight/hearing loss. The
@@ -55,7 +53,8 @@ The compact pose reads more distinctly in those captures, but fresh human
 usability remains untested. A suspected missing-letter artifact during full-frame
 inspection was rechecked: the source header pixels exactly matched the older
 baseline and enlarged inspection showed complete text. No font fix was made.
-This source follow-up does not change the previously delivered Windows runtime.
+That historical source follow-up did not change its then-delivered Windows runtime.
+Current Windows 596 includes the later combined runtime 891.
 
 ## Still incomplete
 
@@ -71,13 +70,12 @@ This source follow-up does not change the previously delivered Windows runtime.
 
 ## Source versus downloads
 
-- Private GitHub `main` was verified at `3d7786ba9cf253dd6eff2781a1c285d5deea4c75`.
-  Check your own checkout with `git rev-parse HEAD`; this statement is a recorded
-  publication checkpoint, not a promise that every future clone has that tip.
-- New Windows package **`ead13af`** contains runtime `3d7786b`; its builder
-  passed 47/47 checks (import/export plus 45 packed executions) on Linux.
-  See [post-build evidence](WINDOWS_EAD13AF_RELEASE.md). Native Windows execution
-  remains unverified. Older `23a5aa6` remains a separate historical download.
+- Private GitHub main was verified at source `596b884156a02ceb9dc8d37e769f70309cb4b059`.
+  Check your checkout; this records publication, not every future tip.
+- Current Windows 596 contains runtime 891. All 62 stages passed on Linux: 47 builder
+  stages (import/export plus 45 packed executions) and 15 supplements. These are not
+  Windows executions. See [post-build record](WINDOWS_596B884_RELEASE.md).
+- Earlier [ead13af evidence](WINDOWS_EAD13AF_RELEASE.md) remains historical.
 - Use the [PC quickstart](PC_QUICKSTART.md) for the current editable source.
   Old source archives, history bundles and Windows part sets remain separately
   versioned deliveries. Never mix parts from different packages.
@@ -109,7 +107,7 @@ are preserved before migration; completed history is not rewritten. Legacy v3
 retains its sight/hearing facts and defaults smell to retained.
 Before switching builds, close the game and back up the entire save folder.
 Use one running writer. Restore a matching old backup for an old build; never
-hand-edit the version or point an older build at a new v4 checkpoint. Existing
+hand-edit the version or point an older build at a new v4 checkpoint. Historical
 Windows runtime `3d7786b` supports v3, not v4; use its matching preserved backup.
 
 See [local play instructions](LOCAL_PLAYTEST.md),
