@@ -63,6 +63,7 @@ var _controller_bindings:Node
 var cough_feedback:Node
 var ladder_touch:Node
 var scent:Node
+var tactical_companion:Node
 var companion:Node
 var gamepad_navigation:Node
 func _ready()->void:
@@ -109,6 +110,8 @@ func _ready()->void:
 	get_window().focus_exited.connect(_on_window_focus_exited)
 	companion=preload("res://campaign/narrative/companion_observer.gd").new()
 	add_child(companion);companion.bind(self)
+	tactical_companion=preload("res://campaign/narrative/tactical_companion_observer.gd").new()
+	add_child(tactical_companion);tactical_companion.bind(self)
 	scent=preload("res://campaign/perception/scent_observer.gd").new()
 	add_child(scent);scent.bind(self)
 	cough_feedback=preload("res://campaign/presentation/cough_feedback.gd").new()
@@ -180,6 +183,7 @@ func _create_player_health()->Node:
 	return adapter
 
 func load_sector(index:int)->void:
+	if is_instance_valid(tactical_companion):tactical_companion.retire()
 	if _committed_sense_sector>=0:index=_committed_sense_sector
 	_committed_sense_sector=-1
 	if is_instance_valid(focus_observer):focus_observer.retire()
@@ -238,6 +242,7 @@ func load_sector(index:int)->void:
 		disperser.position=spec.at;disperser.host=self;disperser.target=player
 		room.add_child(disperser);irritant_dispersers.append(disperser)
 	if is_instance_valid(focus_observer):focus_observer.bind_room()
+	if is_instance_valid(tactical_companion):tactical_companion.bind_room()
 	camera.position=camera_follow.reset(player.global_position,sectors[sector])
 	_update_gate()
 	_save_checkpoint()
@@ -804,6 +809,7 @@ func _hud_snapshot()->Dictionary:
 		snapshot.merge({"panel_override":true,"panel_title":"CHECKPOINT UNAVAILABLE",
 			"panel_body":_checkpoint_error+"\n\nThe existing checkpoint has not been changed.\nStarting a new campaign preserves a separate copy before replacing it.",
 			"panel_footer":"ENTER New campaign"},true)
+	if is_instance_valid(tactical_companion):tactical_companion.decorate(snapshot)
 	if is_instance_valid(companion):companion.decorate(snapshot)
 	return snapshot
 

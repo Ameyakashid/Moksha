@@ -102,7 +102,7 @@ func decorate(snapshot:Dictionary)->void:
 	if observed_session!=host.session_generation:return
 	# Pure snapshot construction: queries cannot retire, acknowledge or consume lines.
 	var blocked:bool=snapshot.get("state","")!="playing" or snapshot.get("notice_visible",false) or snapshot.get("chapter_visible",false) or not str(snapshot.get("prompt","")).is_empty()
-	if blocked or not safe or director.active.is_empty():return
+	if blocked or not str(snapshot.get("tactical_line_id","")).is_empty() or not safe or director.active.is_empty():return
 	if not events(str(host.sectors[host.sector].id)).has(director.active.event):return
 	var line:=director.text()
 	if line.is_empty():return

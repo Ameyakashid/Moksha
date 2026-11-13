@@ -216,6 +216,8 @@ func _draw_context(c:Node2D,layout:Dictionary)->void:
 	var color:=ACCENT if layout.context_notice and "COMPLETE" in str(data.get("notice","")) else GOLD
 	c.draw_rect(Rect2(layout.context_x,layout.context_top,layout.context_width,layout.context_height),SURFACE)
 	c.draw_rect(Rect2(layout.context_x,layout.context_top,3,layout.context_height),color)
+	if not str(data.get("tactical_line_id","")).is_empty():
+		_text(c,"INTELLECT",Vector2(layout.context_x+layout.context_width-68,layout.context_top+15),8,GOLD)
 	var y:float=layout.context_top+(15 if layout.context_notice else 12)
 	for line in layout.context:
 		_text(c,line,Vector2(layout.context_x+14,y),layout.context_size,color);y+=layout.context_size+3
