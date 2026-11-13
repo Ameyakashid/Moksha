@@ -60,6 +60,16 @@ func run()->void:
 	check(Habitat.CLUSTERS.size()==3 and Habitat.MAX_RESIDENTS==8,"bounded original frontage/commons/gallery")
 	var texture_bounds := Rect2(Vector2.ZERO,Vector2(Habitat.Materials.get_size()))
 	for index in 3:check(texture_bounds.encloses(habitat.material_region(index)),"material crop within existing original texture")
+	check(Habitat.Materials.get_size()==Vector2(1774,887),"original atlas dimensions")
+	for index in 3:
+		var source:Rect2=habitat.material_region(index)
+		var destination:Rect2=habitat.frontage_rect(index)
+		check(is_equal_approx(source.size.x/source.size.y,destination.size.x/destination.size.y),"no atlas aspect distortion")
+		check(Habitat.CLUSTERS[index].encloses(destination),"frontage stays inside reserved cluster")
+		for other in range(index+1,3):check(not source.intersects(habitat.material_region(other)),"separate guarded atlas strips")
+	check(habitat.material_region(1).encloses(habitat.commons_counter_region()),"counter samples only commons pixels")
+	check(habitat.frontage_rect(1).encloses(habitat.commons_counter_rect()),"counter maps inside bay")
+	check(habitat.commons_counter_rect().position.y>248 and habitat.commons_counter_rect().position.y<269,"counter leaves resident heads/torso visible and covers feet")
 	for index in Habitat.CLUSTERS.size():
 		var bounds:Rect2 = Habitat.CLUSTERS[index]
 		check(bounds.position.x>=0 and bounds.end.x<=loom.width,"cluster inside district")

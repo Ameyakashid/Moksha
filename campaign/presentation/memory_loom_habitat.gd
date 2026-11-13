@@ -2,7 +2,7 @@ extends Node2D
 ## Original district-local archive frontage. Decorative residents are not actors.
 ## No simulation, objective, scent, input or save ownership; no process callback.
 const DISTRICT_ID := "works_memory_loom"
-const Materials = preload("res://campaign/assets/memory/memory_works_original.png")
+const Materials = preload("res://campaign/assets/memory/archive_frontage_original.png")
 const FontFace = preload("res://fonts/DejaVuSansMono.ttf")
 const CLUSTERS := [Rect2(390,104,880,196), Rect2(1680,138,460,162), Rect2(2510,-90,970,170)]
 const MAX_RESIDENTS := 8
@@ -51,27 +51,34 @@ func _plaque(box:Rect2,label:String,light:Color)->void:
 	draw_string(FontFace,box.position+Vector2(6,12),label,HORIZONTAL_ALIGNMENT_LEFT,box.size.x-10,9,light)
 
 func material_region(index:int)->Rect2:
-	# Existing original archive painting, inspected at native resolution.
-	# Storage ceramic, inhabited glazing, dark machinery; no new asset bytes.
-	return [Rect2(802,152,126,170),Rect2(1880,205,270,105),Rect2(1518,240,156,225)][clampi(index,0,2)]
+	# Dedicated original front-elevation atlas; guarded separate non-tiled strips.
+	return [Rect2(36,26,1699,275),Rect2(37,342,966,232),Rect2(34,615,1704,243)][clampi(index,0,2)]
 
-func _material(box:Rect2,index:int,tint:Color)->void:
-	draw_texture_rect_region(Materials,box,material_region(index),tint)
+func frontage_rect(index:int)->Rect2:
+	var width:float=[880.0,460.0,970.0][clampi(index,0,2)]
+	var region:=material_region(index)
+	var height:=width*region.size.y/region.size.x
+	var left:float=[390.0,1680.0,2510.0][clampi(index,0,2)]
+	var bottom:float=[294.0,292.0,74.0][clampi(index,0,2)]
+	return Rect2(left,bottom-height,width,height)
+
+func commons_counter_region()->Rect2:
+	# Same original pixels replayed over residents, no added opaque glazing.
+	return Rect2(37,513,966,61)
+
+func commons_counter_rect()->Rect2:
+	var full:=material_region(1)
+	var band:=commons_counter_region()
+	var box:=frontage_rect(1)
+	var pixel_scale:=box.size.x/full.size.x
+	return Rect2(box.position+(band.position-full.position)*pixel_scale,band.size*pixel_scale)
+
+func _frontage(index:int)->void:
+	draw_texture_rect_region(Materials,frontage_rect(index),material_region(index),Color(.82,.86,.94,1),false,true)
 
 func _listening_stacks()->void:
-	# Rear-wall storage begins BELOW the optional platform's true y=80 lip.
+	_frontage(0)
 	_plaque(Rect2(410,113,220,20),"ORIGINALS / STACK A",AMBER)
-	for i in 6:
-		var x := 405.0+i*143.0
-		_material(Rect2(x,147,116,147),0,Color(.48,.50,.58,1))
-		for row in 5:
-			var y := 159.0+row*25.0
-			for column in 5:
-				var spine := Color(.23,.25,.28,.32) if (row+column+i)%3 else Color(.33,.29,.28,.32)
-				draw_rect(Rect2(x+12+column*18,y,12,18),spine)
-				draw_line(Vector2(x+14+column*18,y+4),Vector2(x+21+column*18,y+4),AMBER.darkened(.48),.7)
-		# Inset cabinet seams stay subdued behind physical props and actors.
-		draw_line(Vector2(x+4,150),Vector2(x+4,291),Color("35434a"),1)
 	_plaque(Rect2(910,114,230,20),"UNALTERED / LOCAL COPIES",AMBER)
 
 func _resident(foot:Vector2,coat:Color,parcel:bool)->void:
@@ -87,37 +94,18 @@ func _resident(foot:Vector2,coat:Color,parcel:bool)->void:
 	visible_residents += 1
 
 func _commons()->void:
-	# Recessed public counter: people are behind glazing and a rear balustrade.
-	# None suggests another rescue target, interact prompt or collidable NPC.
-	_material(Rect2(1686,161,448,132),1,Color(.48,.53,.59,1))
-	_plaque(Rect2(1700,141,300,20),"RECORDS / COMMONS",CYAN)
-	for i in 4:
-		var x := 1700.0+i*105.0
-		draw_rect(Rect2(x,174,95,106),Color(.06,.12,.16,.28))
-		draw_line(Vector2(x,174),Vector2(x,280),Color("3e5360"),2)
-		draw_line(Vector2(x+5,177),Vector2(x+28,177),CYAN.darkened(.18),1)
+	# Rear bay -> eight separate decorative residents -> matching counter pixels.
+	_frontage(1)
 	var coats := [Color("586272"),Color("6b5369"),Color("667060"),Color("776754")]
+	var positions := [1756.0,1780.0,1815.0,1880.0,1906.0,2012.0,2039.0,2070.0]
 	for i in MAX_RESIDENTS:
-		_resident(Vector2(1717+i*53,269),coats[i%4],i%3==0)
-	# Transparent-looking rear counter separates scenery from the real walkway.
-	draw_rect(Rect2(1698,251,422,35),Color(.09,.16,.20,.55))
-	for x in range(1700,2121,28):draw_line(Vector2(x,251),Vector2(x,286),Color("31434d"),1)
-	draw_line(Vector2(1698,251),Vector2(2120,251),Color("536672"),1)
+		_resident(Vector2(positions[i],269),coats[i%4],i%3==0)
+	draw_texture_rect_region(Materials,commons_counter_rect(),commons_counter_region(),Color(.82,.86,.94,1),false,true)
+	_plaque(Rect2(1700,141,300,20),"RECORDS / COMMONS",CYAN)
 	_plaque(Rect2(1860,181,136,18),"PUBLIC COPIES",MAGENTA)
 	_plaque(Rect2(2010,141,112,20),"NO ERASURE",AMBER)
 
 func _rewriting_gallery()->void:
-	# Reels occupy the BACK wall. No false platform extends through real cover.
+	_frontage(2)
 	_plaque(Rect2(2518,-84,266,22),"REWRITING / STACK B",MAGENTA)
-	for i in 7:
-		var x := 2530.0+i*133.0
-		_material(Rect2(x,-49,108,123),2,Color(.44,.43,.55,1))
-		draw_circle(Vector2(x+52,-15),20,Color("353448"))
-		draw_arc(Vector2(x+52,-15),17,.2,TAU-.3,24,MAGENTA.darkened(.35),1)
-		draw_circle(Vector2(x+52,-15),5,Color("61546a"))
-		# Uneven narrow receipt ribbons, not a repeated navigable catwalk.
-		draw_rect(Rect2(x+45,6,12,54-(i%3)*9),Color("655f68"))
-		for line_index in 5:
-			draw_line(Vector2(x+47,10+line_index*7),Vector2(x+54,10+line_index*7),Color("373a44"),.7)
-		draw_line(Vector2(x+4,-43),Vector2(x+4,69),Color("37434f"),1)
 	_plaque(Rect2(3200,-84,260,22),"WITNESS / DO NOT REWRITE",CYAN)
