@@ -19,6 +19,14 @@ var _bus_ref: WeakRef
 var _binding := 0
 var _operation := 0
 var _callback: Callable
+# Active frames are not cleared during callback reset/removal/queued deletion.
+var _forwarding: Array[Dictionary] = []
+
+func is_forwarding_receipt(receipt: Dictionary) -> bool:
+	if _forwarding.is_empty(): return false
+	var frame: Dictionary = _forwarding.back()
+	var actor := _actor()
+	return is_same(frame.receipt, receipt) and frame.binding == _binding and frame.operation == _operation and enabled and _live(self) and _live(actor) and _live(_bus()) and frame.actor == actor.get_instance_id() and frame.bus == _bus().get_instance_id() and receipt.generation == actor.noise_generation()
 
 func _ready() -> void:
 	if not actor_path.is_empty() and not event_bus_path.is_empty(): bind(get_node_or_null(actor_path),get_node_or_null(event_bus_path))
@@ -91,4 +99,9 @@ func _on_noise(event: Dictionary, binding: int) -> void:
 	event_bus.emit_noise(receipt.origin,StringName(receipt.kind),loudness,actor)
 	if operation != _operation or binding != _binding or not enabled or not _live(self) or not _live(actor) or not _live(event_bus): return
 	if _actor() != actor or _bus() != event_bus or receipt.generation != actor.noise_generation(): return
+	var frames := _forwarding
+	frames.append({"receipt": receipt, "binding": binding, "operation": operation, "actor": actor.get_instance_id(), "bus": event_bus.get_instance_id()})
 	forwarded.emit(receipt)
+	# Unwind locally after callback removal/queue_free; direct free while emitting
+	# is rejected by Godot and is not a supported lifecycle operation.
+	frames.pop_back()

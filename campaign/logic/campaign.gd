@@ -353,6 +353,7 @@ func sense_capabilities()->Dictionary:
 const IrritantDisperser = preload("res://campaign/logic/irritant_disperser.gd")
 var irritant_dispersers: Array[Node] = []
 func _apply_senses()->void:
+	if is_instance_valid(tactical_companion):tactical_companion.senses_changed()
 	var capabilities:=sense_capabilities()
 	if is_instance_valid(scent):
 		scent.enabled=capabilities.scent
