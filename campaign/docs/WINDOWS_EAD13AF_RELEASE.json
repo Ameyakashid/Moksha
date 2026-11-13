@@ -104,32 +104,32 @@
     "parts": [
       {
         "filename": "MOKSHA-Market-Irritant-ead13af-Windows-Part1-of4.zip",
-        "bytes": 17831050,
-        "sha256": "71552a9ffd19cd54508332c5a6f4b0dca8d58030427f62251bae437792348862",
+        "bytes": 17831149,
+        "sha256": "53895759aeb322c10ae580e3143530cabe8fe7d50b32b6a3a62ed2203e19222b",
         "piece": "MOKSHA-6eeaa9deb8d2.part01",
         "piece_bytes": 17825792,
         "piece_sha256": "149045d7c7b20e187169f1d949b11c745f83068770e2dab536046c5ed9ea40e7"
       },
       {
         "filename": "MOKSHA-Market-Irritant-ead13af-Windows-Part2-of4.zip",
-        "bytes": 17829464,
-        "sha256": "1242d6d2882ac37108c46df981e2478fab82b62788292ab002f094747291d8f7",
+        "bytes": 17829563,
+        "sha256": "46a33d20ac9eaba73bbaa9abadc8429a53429447f559370b90cb9bd6c7597770",
         "piece": "MOKSHA-6eeaa9deb8d2.part02",
         "piece_bytes": 17825792,
         "piece_sha256": "c935c2c93f03928f1d5793d3f07b01e18a29b94bfcb3f77e1fee3b8effa0c322"
       },
       {
         "filename": "MOKSHA-Market-Irritant-ead13af-Windows-Part3-of4.zip",
-        "bytes": 17829464,
-        "sha256": "59c72332d5a829080436b0cd6fd402060cd0668658d1d0b8b576aeaac65d2405",
+        "bytes": 17829563,
+        "sha256": "dff3d8259d4de5042f61b8d211f52d018988a869359c16dc08f43f6ee0098b8c",
         "piece": "MOKSHA-6eeaa9deb8d2.part03",
         "piece_bytes": 17825792,
         "piece_sha256": "58bc7f2e0e3e4b31eed44d780e1691e0d1dc8292d2bb918844dbd96034e656c8"
       },
       {
         "filename": "MOKSHA-Market-Irritant-ead13af-Windows-Part4-of4.zip",
-        "bytes": 1279646,
-        "sha256": "30f26113491dee6159253c487b3fd536cf589310d19fd0ed162d7585edc28fc1",
+        "bytes": 1279745,
+        "sha256": "bb2aa1fb735e30209cd3e4b339e55a11fcccc04d50a0e7f3cf470c07be8c4550",
         "piece": "MOKSHA-6eeaa9deb8d2.part04",
         "piece_bytes": 1275974,
         "piece_sha256": "c5e2e6ebc1e2226bc87ca227477524405ef906369c04a5c8661fbbaaa921198f"
@@ -138,7 +138,18 @@
     "reassembly_verified": true,
     "builder_zip_unchanged": true,
     "windows_helper_executed": false,
-    "current_release_note": "CURRENT_RELEASE_START_HERE.txt"
+    "current_release_note": "CURRENT_RELEASE_START_HERE.txt",
+    "wrapper_only_correction": true,
+    "superseded_wrapper_hashes_preserved": {
+      "MOKSHA-Market-Irritant-ead13af-Windows-Part1-of4.zip": "71552a9ffd19cd54508332c5a6f4b0dca8d58030427f62251bae437792348862",
+      "MOKSHA-Market-Irritant-ead13af-Windows-Part2-of4.zip": "1242d6d2882ac37108c46df981e2478fab82b62788292ab002f094747291d8f7",
+      "MOKSHA-Market-Irritant-ead13af-Windows-Part3-of4.zip": "59c72332d5a829080436b0cd6fd402060cd0668658d1d0b8b576aeaac65d2405",
+      "MOKSHA-Market-Irritant-ead13af-Windows-Part4-of4.zip": "30f26113491dee6159253c487b3fd536cf589310d19fd0ed162d7585edc28fc1"
+    },
+    "corrections": [
+      "Only builds predating v3 cannot read v3 saves; previous23a5aa6 supports v3.",
+      "900-second retry cap; actual successful retry612.339seconds."
+    ]
   },
   "native_windows_execution": false,
   "historical_package": "23a5aa6",

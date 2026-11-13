@@ -109,7 +109,8 @@ alternative source launcher, not a bundled Windows game engine.
 
 Back up the entire save folder before switching builds, and run only one game
 against it. Current source retains envelope-v3 checkpoints and schema-2 completed
-results. Old builds need matching preserved backups; do not relabel save versions.
+results. Builds predating v3 need matching preserved backups; the previous `23a5aa6`
+supports v3. Do not relabel save versions.
 
 ## Responsibility and reference trail
 

@@ -34,7 +34,8 @@ ZIP or mix parts from different builds. See [PC quickstart](PC_QUICKSTART.md).
 The previous `23a5aa6` package remains historical, not silently upgraded.
 
 Back up the whole save folder before switching builds. This runtime still uses
-checkpoint envelope v3 and completion schema 2; no experimental smell-trade schema
+checkpoint envelope v3 and completion schema 2. Only builds predating v3 cannot
+read v3 saves; the previous `23a5aa6` release supports v3. No experimental smell-trade schema
 or reward is included. Do not disable antivirus or security controls for an
 unsigned executable. Native Windows execution and subjective audio mix remain
 unverified; the full original MOKSHA vision is not complete.
@@ -52,12 +53,17 @@ verify the complete archive hash. The helper has not been executed on Windows.
 
 | Part ZIP | Bytes | SHA-256 |
 |---|---:|---|
-| `MOKSHA-Market-Irritant-ead13af-Windows-Part1-of4.zip` | 17831050 | `71552a9ffd19cd54508332c5a6f4b0dca8d58030427f62251bae437792348862` |
-| `MOKSHA-Market-Irritant-ead13af-Windows-Part2-of4.zip` | 17829464 | `1242d6d2882ac37108c46df981e2478fab82b62788292ab002f094747291d8f7` |
-| `MOKSHA-Market-Irritant-ead13af-Windows-Part3-of4.zip` | 17829464 | `59c72332d5a829080436b0cd6fd402060cd0668658d1d0b8b576aeaac65d2405` |
-| `MOKSHA-Market-Irritant-ead13af-Windows-Part4-of4.zip` | 1279646 | `30f26113491dee6159253c487b3fd536cf589310d19fd0ed162d7585edc28fc1` |
+| `MOKSHA-Market-Irritant-ead13af-Windows-Part1-of4.zip` | 17831149 | `53895759aeb322c10ae580e3143530cabe8fe7d50b32b6a3a62ed2203e19222b` |
+| `MOKSHA-Market-Irritant-ead13af-Windows-Part2-of4.zip` | 17829563 | `46a33d20ac9eaba73bbaa9abadc8429a53429447f559370b90cb9bd6c7597770` |
+| `MOKSHA-Market-Irritant-ead13af-Windows-Part3-of4.zip` | 17829563 | `dff3d8259d4de5042f61b8d211f52d018988a869359c16dc08f43f6ee0098b8c` |
+| `MOKSHA-Market-Irritant-ead13af-Windows-Part4-of4.zip` | 1279745 | `bb2aa1fb735e30209cd3e4b339e55a11fcccc04d50a0e7f3cf470c07be8c4550` |
 
 Reassembly and full ZIP CRC/member verification passed. The original builder ZIP
 is unchanged. Its embedded pre-build source docs may still say no new Windows
 build existed; use the supplied current release note and BUILD_PROVENANCE.json
 for this artifact. These post-build docs do not retroactively replace those bytes.
+
+These corrected wrappers change release-note wording only. Their names are unchanged,
+but the hashes above replace the preserved initial wrapper hashes. The original
+builder ZIP, digest-named pieces and assembly helper are unchanged. The retry
+cap was 900 seconds; actual successful runtime was 612.339 seconds.
