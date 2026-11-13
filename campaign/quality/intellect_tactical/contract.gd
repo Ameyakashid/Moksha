@@ -88,6 +88,12 @@ func run()->void:
 	host.hud.companion_presentation_accepted.connect(func(_id:String,_blocked:bool):host.hud.set_snapshot({"state":"playing","notice_visible":true,"notice":"Priority replacement"}),CONNECT_ONE_SHOT)
 	host.hud.set_snapshot(data)
 	check(not observer._warning_seen and host.hud._snapshot.notice=="Priority replacement","reentrant HUD replacement does not acknowledge superseded cue")
+	for replacement in [{"chapter_visible":true},{"panel_override":true},{"prompt":"Use"},{"state":"journal"}]:
+		stage();await tick();await tick(attack);data=snapshot()
+		var nested:Dictionary=data.duplicate(true);nested.merge(replacement,true)
+		host.hud.companion_presentation_accepted.connect(func(_id:String,_blocked:bool):host.hud.set_snapshot(nested),CONNECT_ONE_SHOT)
+		host.hud.set_snapshot(data)
+		check(not observer._warning_seen,"same ID/text nested priority cannot acknowledge "+str(replacement))
 	stage();await tick();await tick(attack);host.load_sector(0);check(observer._actor==null and observer._candidate.is_empty(),"room teardown unbinds")
 	host.free();driver.free();await process_frame;await process_frame
 	print("INTELLECT_CONTRACT "+JSON.stringify({"passed":failures.is_empty(),"checks":checks,"failures":failures,"hz":hz}));quit(0 if failures.is_empty() else 1)

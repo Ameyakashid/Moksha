@@ -62,9 +62,9 @@ adapter is deferred rather than inferring hidden phases from coarse scent/noise.
 
 ## Validation and limits
 
-Focused seeded actual-actor contracts pass50checks each at60/120Hz, including
+Focused seeded actual-actor contracts pass54checks each at60/120Hz, including
 real phase entry, suppression/retirement, typed rejection/omission, quiet-dialogue
-priority and a reentrant HUD replacement. Initial49-check contracts passed before
+priority and reentrant HUD replacements, including same-ID/text nested priority changes. Initial49-check contracts passed before
 that extra acknowledgment adversary was added; earlier receipts remain preserved.
 
 Four deterministic enabled/disabled comparison pairs cover60/120Hz and normal/
