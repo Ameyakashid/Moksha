@@ -49,10 +49,14 @@ func _initialize()->void:
 			var invalid:Dictionary=valid.duplicate(true);invalid[field]=value
 			check(not CampaignCheckpoint.decode(invalid,areas).get("ok",false),"reject malformed "+field)
 	check(not CampaignCheckpoint.decode(valid,[{"id":"unknown"}]).ok,"save identity requires the injected layout")
-	check(CampaignCheckpoint.VERSION==3,"new sensory campaign envelope explicitly versioned 3")
+	check(CampaignCheckpoint.VERSION==4,"current sensory campaign envelope explicitly versioned 4")
 	var v2:Dictionary=valid.duplicate(true)
 	v2.campaign_version=2;v2.run_id="0123456789abcdef0123456789abcdef";v2.run_status="active";v2.run_origin="new"
 	check(CampaignCheckpoint.decode(v2,areas).ok,"separately valid v2 identity accepted")
+	var v3:Dictionary=v2.duplicate(true);v3.campaign_version=3;v3.senses={"version":1,"sight":"retained","hearing":"traded"}
+	check(CampaignCheckpoint.decode(v3,areas).ok,"explicit legacy v3/sense1 accepted")
+	var v4:Dictionary=v2.duplicate(true);v4.campaign_version=4;v4.senses={"version":2,"sight":"retained","hearing":"traded","smell":"traded"}
+	check(CampaignCheckpoint.decode(v4,areas).ok,"explicit current v4/sense2 accepted")
 	for field in ["run_id","run_status","run_origin"]:
 		var missing:Dictionary=v2.duplicate(true);missing.erase(field)
 		check(not CampaignCheckpoint.decode(missing,areas).ok,"v2 requires "+field)

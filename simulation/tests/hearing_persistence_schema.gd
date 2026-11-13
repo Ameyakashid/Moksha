@@ -1,5 +1,5 @@
 extends SceneTree
-## Pure v3/schema2 boundary tests. No host, disk migration, or gameplay claims.
+## Explicit legacy v3/schema2 plus current v4/schema3 boundary tests. No host, disk migration, or gameplay claims.
 const Codec=preload("res://campaign/logic/checkpoint_codec.gd")
 const Record=preload("res://campaign/state/completion_record.gd")
 const Store=preload("res://campaign/save/checkpoint_store.gd")
@@ -10,24 +10,28 @@ var failures:Array[String]=[]
 func check(ok:bool,label:String):
  checks+=1
  if not ok:failures.append(label)
+func legacy_senses(blind:=false,hearing_retained:=false)->Dictionary:
+ return {"version":1,"sight":"traded" if blind else "retained","hearing":"retained" if hearing_retained else "traded"}
 func fixture(version:int,blind:=false)->Dictionary:
  var raw={"campaign_version":version,"lens":"neutral","upgrades":[],"rewards":{},"level_seconds":{"1":3.5},"level_receipts":[{"level":1,"active_seconds":3.5,"custom":{"legacy":[1,"untouched"]}}],"progress":{"version":4,"sector_id":"room","cache_ids":[],"metrics":[{"area_id":"room","seconds":1.0,"metadata":{"legacy":[1,2]}}],"blind":blind,"seconds":3.5,"kills":0,"deaths":0}}
  if version>=2:raw.merge({"run_id":"0123456789abcdef0123456789abcdef","run_status":"active","run_origin":"legacy_resume"})
- if version>=3:raw.senses=Senses.create(blind,false)
+ if version==3:raw.senses=legacy_senses(blind,false)
+ elif version>=4:raw.senses=Senses.create(blind,false)
  return raw
 func completion(schema:int)->Dictionary:
- var snapshot=fixture(2 if schema==1 else 3)
+ var snapshot=fixture({1:2,2:3,3:4}.get(schema,4))
  snapshot.run_status="completed"
  var result={"active_seconds":3.5,"lens":"neutral","deaths":0,"kills":0,"upgrades":[],"levels":snapshot.level_receipts.duplicate(true),"districts":snapshot.progress.metrics.duplicate(true)}
- if schema==2:result.senses=snapshot.senses.duplicate(true)
+ if schema>=2:result.senses=snapshot.senses.duplicate(true)
  return {"schema_version":schema,"run_id":snapshot.run_id,"ending":"public_record","completed_at":1.0,"origin":"legacy_resume","snapshot":snapshot,"result":result}
 func _initialize():
  var areas=[{"id":"room"}]
- for version in [1,2,3]:
+ for version in [1,2,3,4]:
   for blind in [false,true]:
    var raw=fixture(version,blind);var bytes=JSON.stringify(raw)
    var decoded=Codec.decode(raw,areas)
    check(decoded.ok,"valid envelope v%d sight %s"%[version,blind])
+   if not decoded.ok:continue
    check(JSON.stringify(raw)==bytes,"decode never mutates caller")
    check(decoded.campaign==raw,"raw envelope and old metric prefixes preserved")
    check(Codec.decode(JSON.parse_string(bytes),areas).ok,"JSON roundtrip")
@@ -35,11 +39,11 @@ func _initialize():
    decoded.metrics[0].metadata.legacy.append(98)
    decoded.campaign.level_receipts[0].custom.legacy.append(97)
    check(JSON.stringify(raw)==bytes,"decoded dictionaries deeply detached")
- for version in [2,3]:
+ for version in [2,3,4]:
   for field in ["run_id","run_status","run_origin"]:
    var raw=fixture(version);raw.erase(field)
    check(not Codec.decode(raw,areas).ok,"v2+ identity field required")
- for version in [null,"3",true,0,1.5,4]:
+ for version in [null,"3",true,0,1.5,5]:
   var raw=fixture(3);raw.campaign_version=version
   check(not Codec.decode(raw,areas).ok,"invalid envelope version")
  var invalid_senses=[null,{},[],{"version":1,"sight":"retained","hearing":"missing"},{"version":2,"sight":"retained","hearing":"traded"},{"version":true,"sight":"retained","hearing":"traded"},{"version":1.5,"sight":"retained","hearing":"traded"},{"version":1,"sight":"traded","hearing":"traded"},{"version":1,"sight":"retained","hearing":"traded","cache":1}]
@@ -53,12 +57,12 @@ func _initialize():
   var legacy=fixture(version)
   check(not Codec.decode(legacy,areas).campaign.has("senses"),"legacy decoding does not invent new fields")
  for version in [1,2]:
-  var downgraded=fixture(version);downgraded.senses=Senses.create(false,false)
+  var downgraded=fixture(version);downgraded.senses=legacy_senses(false,false)
   check(not Codec.decode(downgraded,areas).ok,"reserved senses require v3, never silently restore hearing")
  for field in ["result","snapshot"]:
-  var downgraded=completion(1);downgraded[field].senses=Senses.create(false,false)
+  var downgraded=completion(1);downgraded[field].senses=legacy_senses(false,false)
   check(not Record.valid(downgraded),"reserved completion senses require schema2")
- for schema in [1,2]:
+ for schema in [1,2,3]:
   var record=completion(schema);var before=JSON.stringify(record)
   check(Record.valid(record),"valid completion schema%d"%schema)
   check(Record.valid(JSON.parse_string(before)),"completion JSON roundtrip")
@@ -75,11 +79,18 @@ func _initialize():
   check(not Record.valid(bad),"schema2 requires senses in "+field)
  var mismatched=record.duplicate(true);mismatched.result.senses.hearing="retained"
  check(not Record.valid(mismatched),"result must match snapshot sensory facts")
- var dual=completion(2);dual.snapshot.progress.blind=true;dual.snapshot.senses=Senses.create(true,false);dual.result.senses=dual.snapshot.senses.duplicate(true)
+ var dual=completion(2);dual.snapshot.progress.blind=true;dual.snapshot.senses=legacy_senses(true,false);dual.result.senses=dual.snapshot.senses.duplicate(true)
  check(Record.valid(dual),"dual loss is representable, not silently restored")
- for version in [null,"2",true,0,1.5,3]:
+ for version in [null,"2",true,0,1.5,4]:
   var bad=record.duplicate(true);bad.schema_version=version
   check(not Record.valid(bad),"invalid completion schema")
+ for pair in [[3,2],[4,1]]:
+  var crossed=fixture(pair[0]);crossed.senses=Senses.create(false,false) if pair[1]==2 else legacy_senses(false,false)
+  check(not Codec.decode(crossed,areas).ok,"known envelope rejects mismatched known sense schema")
+ var current=completion(3)
+ check(Record.valid(current) and current.result.senses.version==2,"current completion pair explicitly valid")
+ var current_bad=current.duplicate(true);current_bad.snapshot.senses.erase("smell")
+ check(not Record.valid(current_bad),"current completion cannot omit smell")
  # Existing disk boundaries retain exact old bytes through failed replacement.
  var path="user://schema-test.json"
  var old_bytes=JSON.stringify(fixture(2),"  ")+"\n"
@@ -92,7 +103,7 @@ func _initialize():
  check(Store.read(path,areas).ok,"v2 checkpoint remains readable after failure")
  DirAccess.remove_absolute(ProjectSettings.globalize_path(path+".pending"))
  check(Store.commit(path,fixture(3)).ok and Store.read(path,areas).ok,"v3 checkpoint store roundtrip")
- for schema in [1,2]:
+ for schema in [1,2,3]:
   var historic=completion(schema);var history_root="user://completion-%d"%schema
   var stored=History.put(history_root,historic)
   check(stored.ok,"store completion schema%d"%schema)

@@ -4,7 +4,7 @@ extends RefCounted
 const Checkpoint=preload("res://demo/components/checkpoint_codec.gd")
 const BuildRules=preload("res://campaign/logic/build_rules.gd")
 const SenseState=preload("res://campaign/state/sense_state.gd")
-const VERSION := 3
+const VERSION := 4
 
 static func valid_run_id(value:Variant)->bool:
 	if not value is String or value.length()!=32:return false
@@ -13,14 +13,14 @@ static func valid_run_id(value:Variant)->bool:
 	return true
 
 static func decode(raw:Variant,sectors:Array)->Dictionary:
-	if not raw is Dictionary or not Checkpoint.whole(raw.get("campaign_version")) or int(raw.campaign_version) not in [1,2,VERSION]:return {"ok":false}
+	if not raw is Dictionary or not Checkpoint.whole(raw.get("campaign_version")) or int(raw.campaign_version) not in [1,2,3,VERSION]:return {"ok":false}
 	# Sensory facts require an explicit envelope version; never downgrade away a loss.
 	if int(raw.campaign_version)<3 and raw.has("senses"):return {"ok":false,"error":"Sensory state requires campaign version 3."}
 	if int(raw.campaign_version)>=2:
 		if not valid_run_id(raw.get("run_id")) or raw.get("run_status") not in ["active","completed"] or raw.get("run_origin") not in ["new","legacy_resume"]:return {"ok":false,"error":"Invalid run identity or lifecycle."}
 	var decoded:Dictionary=Checkpoint.decode(raw.get("progress"),sectors)
 	if not decoded.ok:return decoded
-	if int(raw.campaign_version)==3 and not SenseState.decode(raw.get("senses"),decoded.blind).ok:
+	if int(raw.campaign_version)>=3 and not SenseState.decode(raw.get("senses"),decoded.blind,1 if int(raw.campaign_version)==3 else 2).ok:
 		return {"ok":false,"error":"Invalid or inconsistent sensory state."}
 	if raw.get("lens") not in BuildRules.LENSES or not raw.get("upgrades") is Array or not raw.get("rewards") is Dictionary:return {"ok":false}
 	for upgrade in raw.upgrades:

@@ -85,7 +85,7 @@ func _panel_eyebrow()->String:
 		"journal":return "FIELD RECORDS / TIME PAUSED"
 		"paused":return "TAKE A BREATH / TIME PAUSED"
 		"upgrade":return "BUILD YOUR ASCENT / CHOICE PERSISTS"
-		"choice", "hearing_choice":return "OPTIONAL EXCHANGE / TIME PAUSED"
+		"choice", "hearing_choice", "smell_choice":return "OPTIONAL EXCHANGE / TIME PAUSED"
 		"final_choice":return "THE CROWN / YOUR DECISION"
 		"dead":return "CHECKPOINT READY"
 		"complete":return "CAMPAIGN COMPLETE"
@@ -181,6 +181,7 @@ func _draw_header(c:Node2D,layout:Dictionary)->void:
 	_text(c,fit_text(str(data.get("sector_title","")),11,398),Vector2(14,16),11,GOLD)
 	var detail:=("SIGHT TRADED · B TAP" if data.get("input_device","")=="controller" else "SIGHT TRADED · Q TAP") if bool(data.get("blind",false)) else "SIGHT INTACT"
 	if not data.get("hearing_retained",true):detail="SIGHT + HEARING TRADED" if data.get("blind",false) else "HEARING TRADED"
+	if not data.get("smell_retained",true):detail+=" · SMELL TRADED"
 	if data.has("lens"):detail+=" · "+str(data.lens).to_upper()
 	if not str(data.get("focus_specialization","")).is_empty():detail+=" / FOCUS"
 	if data.has("district_index"):detail+=" · DISTRICT %d/%d"%[int(data.district_index),int(data.get("district_count",32))]
@@ -288,6 +289,7 @@ func controller_footer(state:String,fallback:String)->String:
 		"intro":return "A / START Skip opening"
 		"journal":return "D-pad left / right Pages · BACK / B Return"
 		"choice":return "X Trade sight · B Keep sight" if data.get("hearing_retained",true) else "B Keep sight"
+		"smell_choice":return "X Trade smell · B Keep smell"
 		"hearing_choice":return "B Keep hearing and ascend" if data.get("blind",false) else "X Hearing → FOCUS · B Keep hearing"
 		"archive":return "Y / A / B Return to the mission"
 		"upgrade":return "X Force · Y Agility · B Vitality"

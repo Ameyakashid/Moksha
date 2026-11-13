@@ -1,7 +1,7 @@
 extends RefCounted
 ## Pure immutable completion-envelope validation. No filesystem/live-node access.
 const SenseState=preload("res://campaign/state/sense_state.gd")
-const VERSION:=2
+const VERSION:=3
 const LENSES:=["neutral","strength","agility"]
 const AUGMENTS:=["force","agility","vitality"]
 
@@ -34,7 +34,7 @@ static func json_value(value:Variant,depth:=0)->bool:
 
 static func valid(raw:Variant)->bool:
 	if not raw is Dictionary or not json_value(raw):return false
-	if not whole(raw.get("schema_version")) or int(raw.schema_version) not in [1,VERSION]:return false
+	if not whole(raw.get("schema_version")) or int(raw.schema_version) not in [1,2,VERSION]:return false
 	if not valid_id(raw.get("run_id")) or raw.get("ending") not in ["public_record","local_custody"]:return false
 	if not number(raw.get("completed_at")):return false
 	var result:Variant=raw.get("result")
@@ -60,14 +60,14 @@ static func valid(raw:Variant)->bool:
 		if row.has("blind") and not row.blind is bool:return false
 		if row.has("health") and not number(row.health):return false
 	var snapshot:Variant=raw.get("snapshot")
-	if not snapshot is Dictionary or not whole(snapshot.get("campaign_version")) or int(snapshot.campaign_version)!=(2 if int(raw.schema_version)==1 else 3):return false
+	if not snapshot is Dictionary or not whole(snapshot.get("campaign_version")) or int(snapshot.campaign_version)!=({1:2,2:3,3:4}[int(raw.schema_version)]):return false
 	if snapshot.get("run_id")!=raw.run_id or snapshot.get("run_status")!="completed":return false
 	if int(raw.schema_version)==1 and (snapshot.has("senses") or result.has("senses")):return false
-	if int(raw.schema_version)==2:
+	if int(raw.schema_version)>=2:
 		var progress:Variant=snapshot.get("progress")
 		if not progress is Dictionary or not progress.get("blind",false) is bool:return false
-		if not SenseState.decode(snapshot.get("senses"),progress.get("blind",false)).ok:return false
-		if not SenseState.decode(result.get("senses"),progress.get("blind",false)).ok:return false
+		if not SenseState.decode(snapshot.get("senses"),progress.get("blind",false),1 if int(raw.schema_version)==2 else 2).ok:return false
+		if not SenseState.decode(result.get("senses"),progress.get("blind",false),1 if int(raw.schema_version)==2 else 2).ok:return false
 		if result.senses!=snapshot.senses:return false
 	# Complete checkpoint schema/content validation remains the checkpoint codec's job.
 	return true

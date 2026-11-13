@@ -34,7 +34,9 @@ var lens:="neutral"
 var hearing_retained:=true
 var focus_observer:Node
 var _hearing_choice_error:=""
-var _committed_hearing_sector:=-1
+var smell_retained:=true
+var _smell_choice_error:=""
+var _committed_sense_sector:=-1
 var upgrades:Array[String]=[]
 var journal_page:=0
 var level_seconds:Dictionary={}
@@ -154,13 +156,13 @@ func start_new(skip_intro:=false)->void:
 		if preserved.ok:preserved=RunHistory.preserve_file(history_path,legacy_results_path,"legacy-result")
 		if not preserved.ok:_report_checkpoint_write_error(str(preserved.error));return
 		var progress:=Checkpoint.encode({"sector":0,"metrics":[],"caches":[],"blind":false,"kills":0,"deaths":0,"seconds":0.0},sectors)
-		var staged:Dictionary={"campaign_version":3,"senses":SenseState.create(),"run_id":next_id,"run_status":"active","run_origin":"new","progress":progress.data,
+		var staged:Dictionary={"campaign_version":4,"senses":SenseState.create(),"run_id":next_id,"run_status":"active","run_origin":"new","progress":progress.data,
 			"lens":lens,"upgrades":[],"rewards":{},"level_seconds":{},"level_receipts":[]}
 		if not CampaignCheckpoint.decode(staged,sectors).get("ok",false):
 			_report_checkpoint_write_error("New campaign could not be validated; previous run retained.");return
 		var committed:=CheckpointStore.commit(campaign_save_path,staged)
 		if not committed.ok:_report_checkpoint_write_error(str(committed.error));return
-	hearing_retained=true;_hearing_choice_error="";_committed_hearing_sector=-1
+	hearing_retained=true;smell_retained=true;_smell_choice_error="";_hearing_choice_error="";_committed_sense_sector=-1
 	session_generation+=1;run_id=next_id;run_origin="new"
 	run_status="active";completion_record.clear();_completion_error="";_reviewing_result=false
 	_checkpoint_write_error="";_checkpoint_error=""
@@ -178,8 +180,8 @@ func _create_player_health()->Node:
 	return adapter
 
 func load_sector(index:int)->void:
-	if _committed_hearing_sector>=0:index=_committed_hearing_sector
-	_committed_hearing_sector=-1
+	if _committed_sense_sector>=0:index=_committed_sense_sector
+	_committed_sense_sector=-1
 	if is_instance_valid(focus_observer):focus_observer.retire()
 	if is_instance_valid(ladder_touch):ladder_touch.retire()
 	if is_instance_valid(scent):scent.retire()
@@ -342,35 +344,60 @@ func interact()->void:
 	if state=="archive":_audio_feedback.finish_modal_since(audio,audio_children_before,"tap")
 	if _pending_sector<0:_level_transition_snapshot.clear()
 func sense_capabilities()->Dictionary:
-	return SenseState.capabilities(SenseState.create(blind,hearing_retained))
+	return SenseState.capabilities(SenseState.create(blind,hearing_retained,smell_retained))
 const IrritantDisperser = preload("res://campaign/logic/irritant_disperser.gd")
 var irritant_dispersers: Array[Node] = []
 func _apply_senses()->void:
+	var capabilities:=sense_capabilities()
+	if is_instance_valid(scent):
+		scent.enabled=capabilities.scent
+		if not capabilities.scent:scent.retire()
+	if is_instance_valid(player) and player.irritant_snapshot().susceptible!=capabilities.irritant_susceptible:
+		player.set_irritant_susceptible(capabilities.irritant_susceptible)
 	for disperser in irritant_dispersers:
 		if is_instance_valid(disperser): disperser.set_sight_enabled(not blind)
 	if is_instance_valid(sonar) and sonar.has_method("set_hearing_enabled"):sonar.set_hearing_enabled(hearing_retained)
 	if is_instance_valid(audio) and audio.has_method("set_hearing_enabled"):audio.set_hearing_enabled(hearing_retained)
-func _finish_hearing_offer()->void:
+func _finish_sense_offer()->void:
 	_pending_sector=sector+1;state="transition";get_tree().paused=false
 func choose_hearing(accept:bool)->bool:
 	if state!="hearing_choice" or _level_transition_snapshot.is_empty():return false
-	if not accept:_finish_hearing_offer();return true
+	if not accept:_finish_sense_offer();return true
 	if blind or not hearing_retained:
 		_hearing_choice_error="Combined loss is not yet validated in this prototype.";return false
 	var staged:=_checkpoint_payload()
 	var progress:=Checkpoint.encode({"metrics":metrics,"sector":sector+1,"blind":blind,"caches":caches,"kills":kills,"deaths":deaths,"seconds":elapsed},sectors)
 	if not progress.get("ok",false):_hearing_choice_error="Could not stage onward checkpoint.";return false
-	staged.progress=progress.data;staged.senses=SenseState.create(blind,false)
+	staged.progress=progress.data;staged.senses=SenseState.create(blind,false,smell_retained)
 	if not CampaignCheckpoint.decode(staged,sectors).get("ok",false):_hearing_choice_error="Could not validate sensory choice.";return false
 	if save_enabled:
 		var preserved:=RunHistory.preserve_file(history_path,campaign_save_path,"before-hearing-trade")
 		if not preserved.ok:_hearing_choice_error=str(preserved.error);return false
 		var committed:=CheckpointStore.commit(campaign_save_path,staged)
 		if not committed.ok:_hearing_choice_error=str(committed.error);return false
-	_committed_hearing_sector=sector+1
+	_committed_sense_sector=sector+1
 	_level_transition_snapshot.clear()
 	hearing_retained=false;_hearing_choice_error="";_apply_senses()
-	_finish_hearing_offer()
+	_finish_sense_offer()
+	return true
+func choose_smell(accept:bool)->bool:
+	if state!="smell_choice" or _level_transition_snapshot.is_empty() or not smell_retained:return false
+	if int(sectors[sector].level)!=3 or sector+1>=sectors.size() or int(sectors[sector+1].level)!=4 or int(_level_transition_snapshot.get("to",-1))!=sector+1:return false
+	if not accept:_finish_sense_offer();return true
+	var staged:=_checkpoint_payload()
+	var progress:=Checkpoint.encode({"metrics":metrics,"sector":sector+1,"blind":blind,"caches":caches,"kills":kills,"deaths":deaths,"seconds":elapsed},sectors)
+	if not progress.get("ok",false):_smell_choice_error="Could not stage onward checkpoint.";return false
+	staged.progress=progress.data;staged.senses=SenseState.create(blind,hearing_retained,false)
+	if not CampaignCheckpoint.decode(staged,sectors).get("ok",false):_smell_choice_error="Could not validate smell choice.";return false
+	if save_enabled:
+		var preserved:=RunHistory.preserve_file(history_path,campaign_save_path,"before-smell-trade")
+		if not preserved.ok:_smell_choice_error=str(preserved.error);return false
+		var committed:=CheckpointStore.commit(campaign_save_path,staged)
+		if not committed.ok:_smell_choice_error=str(committed.error);return false
+	_committed_sense_sector=sector+1
+	_level_transition_snapshot.clear()
+	smell_retained=false;_smell_choice_error="";_apply_senses()
+	_finish_sense_offer()
 	return true
 func choose_sight(accept:bool)->void:
 	if state!="choice":return
@@ -409,8 +436,8 @@ func _handle_campaign_key(event:InputEvent)->void:
 			state="transition" if _pending_sector>=0 else _focus_resume_state
 			get_tree().paused=state=="intro";return
 		if key==KEY_R:
-			if _committed_hearing_sector>=0:
-				_pending_sector=_committed_hearing_sector;_pending_retry=false;_focus_pause_active=false
+			if _committed_sense_sector>=0:
+				_pending_sector=_committed_sense_sector;_pending_retry=false;_focus_pause_active=false
 				state="transition";get_tree().paused=false;return
 			_cancel_sector_transition()
 			_pending_sector=-1;_pending_retry=true;return
@@ -437,7 +464,13 @@ func _handle_campaign_key(event:InputEvent)->void:
 			upgrades.append({KEY_J:"force",KEY_K:"agility",KEY_L:"vitality"}[key])
 			if int(sectors[sector].level)==1 and hearing_retained and not _level_transition_snapshot.is_empty():
 				state="hearing_choice";_hearing_choice_error="";get_tree().paused=true
-			else:_finish_hearing_offer()
+			elif int(sectors[sector].level)==3 and smell_retained and not _level_transition_snapshot.is_empty():
+				state="smell_choice";_smell_choice_error="";get_tree().paused=true
+			else:_finish_sense_offer()
+		return
+	if state=="smell_choice":
+		if key==KEY_J:choose_smell(true)
+		elif key in [KEY_K,KEY_ESCAPE]:choose_smell(false)
 		return
 	if state=="hearing_choice":
 		if key==KEY_J:choose_hearing(true)
@@ -479,7 +512,7 @@ func complete_run()->void:
 		level_receipts.append({"level":5,"active_seconds":level_seconds.get("5",0),"completed_district":sectors[sector].id})
 		run_status="completed"
 		var payload:=_checkpoint_payload()
-		completion_record={"schema_version":2,"run_id":run_id,"ending":campaign_ending,
+		completion_record={"schema_version":3,"run_id":run_id,"ending":campaign_ending,
 			"completed_at":Time.get_unix_time_from_system(),"origin":run_origin,"snapshot":payload,
 			"result":{"active_seconds":elapsed,"levels":level_receipts.duplicate(true),"districts":payload.progress.metrics.duplicate(true),
 			"lens":lens,"upgrades":upgrades.duplicate(),"deaths":deaths,"kills":kills,"senses":payload.senses.duplicate(true)}}
@@ -588,11 +621,11 @@ func _decode_campaign_checkpoint()->Dictionary:
 	return saved
 
 func _checkpoint_payload()->Dictionary:
-	var checkpoint_sector:=_committed_hearing_sector if _committed_hearing_sector>=0 else sector
+	var checkpoint_sector:=_committed_sense_sector if _committed_sense_sector>=0 else sector
 	var encoded:Dictionary=Checkpoint.encode({"metrics":metrics,"sector":checkpoint_sector,"blind":blind,"caches":caches,"kills":kills,"deaths":deaths,"seconds":elapsed},sectors)
 	if not encoded.ok:return {}
 	var raw:Dictionary={"campaign_version":CampaignCheckpoint.VERSION,"progress":encoded.data,"run_id":run_id,"run_status":run_status,"run_origin":run_origin}
-	raw.merge(RunSnapshot.capture({"lens":lens,"upgrades":upgrades,"rewards":rewards,"level_seconds":level_seconds,"level_receipts":level_receipts,"senses":SenseState.create(blind,hearing_retained)}))
+	raw.merge(RunSnapshot.capture({"lens":lens,"upgrades":upgrades,"rewards":rewards,"level_seconds":level_seconds,"level_receipts":level_receipts,"senses":SenseState.create(blind,hearing_retained,smell_retained)}))
 	return raw
 
 func _save_checkpoint()->void:
@@ -603,7 +636,7 @@ func _save_checkpoint()->void:
 		_report_checkpoint_write_error("Campaign progress could not be encoded.");return
 	if not _preserve_invalid_checkpoint():return
 	var previous:=CheckpointStore.read(campaign_save_path,sectors)
-	if previous.get("ok",false) and int(previous.campaign.campaign_version)<3:
+	if previous.get("ok",false) and int(previous.campaign.campaign_version)<4:
 		var preserved:=RunHistory.preserve_file(history_path,campaign_save_path,"legacy-checkpoint")
 		if not preserved.ok:_report_checkpoint_write_error(str(preserved.error));return
 	blackboard.set_value("build",{"lens":lens,"upgrades":upgrades.duplicate()})
@@ -629,24 +662,30 @@ func continue_run()->void:
 		var allocated:=_allocate_run_id()
 		if not allocated.ok:_report_checkpoint_write_error(str(allocated.error));return
 		resume_id=allocated.id
-	if int(old.campaign_version)<3 and save_enabled:
+	if int(old.campaign_version)<4 and save_enabled:
 		var preserved:=RunHistory.preserve_file(history_path,campaign_save_path,"legacy-checkpoint")
 		if preserved.ok:preserved=RunHistory.preserve_file(history_path,legacy_results_path,"legacy-result")
 		if not preserved.ok:_report_checkpoint_write_error(str(preserved.error));return
 		var migrated:Dictionary=old.duplicate(true)
-		migrated.campaign_version=3;migrated.run_id=resume_id;migrated.run_status="active"
+		migrated.campaign_version=4;migrated.run_id=resume_id;migrated.run_status="active"
 		migrated.run_origin=str(old.get("run_origin","legacy_resume"))
-		migrated.senses=SenseState.create(bool(saved.blind),true)
+		if int(old.campaign_version)==3:
+			var upgraded:=SenseState.upgrade_legacy(old.senses,bool(saved.blind))
+			if not upgraded.ok:_report_checkpoint_write_error("Legacy smell migration could not be validated.");return
+			migrated.senses=upgraded.state
+		else:migrated.senses=SenseState.create(bool(saved.blind),true,true)
 		if not CampaignCheckpoint.decode(migrated,sectors).get("ok",false):_report_checkpoint_write_error("Legacy sensory migration could not be validated.");return
 		var committed:=CheckpointStore.commit(campaign_save_path,migrated)
 		if not committed.ok:_report_checkpoint_write_error(str(committed.error));return
-	_committed_hearing_sector=-1
+	_committed_sense_sector=-1
 	session_generation+=1;run_id=resume_id;run_origin=str(old.get("run_origin","legacy_resume"))
 	run_status="active";completion_record.clear();_completion_error="";_reviewing_result=false
 	_level_transition_snapshot.clear()
 	_focus_pause_active=false
 	var extra:Dictionary=saved.campaign
 	hearing_retained=extra.get("senses",SenseState.create(bool(saved.blind),true)).hearing=="retained"
+	smell_retained=extra.get("senses",{}).get("smell","retained")=="retained"
+	_smell_choice_error=""
 	lens=extra.lens;upgrades.assign(extra.upgrades);rewards=extra.rewards
 	level_seconds=extra.get("level_seconds",{});level_receipts.assign(extra.get("level_receipts",[]))
 	blind=saved.blind;caches.assign(saved.caches);kills=saved.kills;deaths=saved.deaths;elapsed=saved.seconds;metrics.assign(saved.metrics)
@@ -688,6 +727,7 @@ func _hud_snapshot()->Dictionary:
 	snapshot["ladder_attached"]=_ladder_controls_active()
 	snapshot["ladder_contact"]=_ladder_contact_hint()
 	snapshot["hearing_retained"]=hearing_retained
+	snapshot["smell_retained"]=smell_retained
 	snapshot["focus_specialization"]=str(sense_capabilities().get("specialization",""))
 	snapshot["last_result_available"]=not last_result.is_empty()
 	snapshot["completion_save_failed"]=not _completion_error.is_empty()
@@ -701,6 +741,10 @@ func _hud_snapshot()->Dictionary:
 		snapshot.merge({"panel_override":true,"panel_title":"MOKSHA / FIVE ASCENTS","panel_body":"A city and four floors. One old operative.\n\nChoose a starting lens: 1 Neutral / 2 Strength / 3 Agility\nCURRENT: "+lens.to_upper()+"\nStrength: +40% strikes,75 health,-6% run\nAgility: +12% run,50 health. Neutral:60 health.\n\nOpen civilian routes. Reach the Crown. Decide who holds its keys.","panel_footer":"ENTER New campaign"+("   C Continue" if continue_available else "   C View last result" if not last_result.is_empty() else "")})
 	elif state=="upgrade":
 		snapshot.merge({"panel_override":true,"panel_title":"LEVEL SECURED / SPECIALIZE","panel_body":"The onward elevator is yours. Choose a persistent upgrade.\n\nJ  FORCE: +25% base strike damage\nK  AGILITY: +10% base run speed\nL  VITALITY: +15 maximum health\n\nUpgrades stack additively and survive checkpoints.","panel_footer":"J / K / L  Choose and ascend"})
+	elif state=="smell_choice":
+		var body:="EXPERIMENTAL SMELL TRADE / THIS RUN\n\nLose all coarse life, wounded-enemy and supply scent cues.\nGain immunity to security irritant coughs that interrupt strikes and guard.\nNo damage, movement or general stun immunity. No pepper-bomb enemy yet.\n\nYour other senses remain unchanged. Keeping smell is a valid choice."
+		if not _smell_choice_error.is_empty():body+="\n\nNOT SAVED: "+_smell_choice_error
+		snapshot.merge({"panel_override":true,"panel_title":"OPTIONAL / TRADE SMELL","panel_body":body,"panel_footer":"J Trade smell this run    K / ESC Keep smell"})
 	elif state=="hearing_choice":
 		var body:="Keep hearing, or exchange it for FOCUS. This choice lasts for this run.\nPrototype limit: this choice keeps sight intact; combined sight/hearing loss is not yet validated.\n\nFOCUS: visible, unobstructed melee attacks slow briefly just before striking. White brackets mark that opportunity, not a guaranteed parry.\n\nCost: no auditory pulses, sound-map or world sounds. Non-diegetic completion feedback remains. No healing or damage bonus."
 		if blind:body="PROTOTYPE LIMIT\n\nCombined sight and hearing loss is not yet validated. This is a temporary limitation, not a permanent rule.\n\nYour sight choice stays intact. Keep hearing and ascend."
@@ -716,6 +760,7 @@ func _hud_snapshot()->Dictionary:
 		var seconds:=int(result.get("active_seconds",elapsed))
 		var body:=("The records are public. No single voice can erase them." if record.get("ending",campaign_ending)=="public_record" else "The districts hold their own keys. No central lock remains.")+"\nEvacuation lights carry on below. You lower your weapon.\nThe old operative leaves the tower to its people.\n\nFive levels complete · active time %d:%02d\n%d deaths · %d defeated · %s lens"%[seconds/60,seconds%60,int(result.get("deaths",deaths)),int(result.get("kills",kills)),str(result.get("lens",lens))]
 		if int(record.get("schema_version",1))>=2 and result.get("senses",{}).get("hearing")=="traded":body+="\n"+("Hearing traded · FOCUS specialization" if result.senses.get("sight")=="retained" else "Sight and hearing traded · no sound-map")
+		if result.get("senses",{}).get("smell")=="traded":body+="\nSmell traded · irritant cough immunity (experimental)"
 		if record.get("origin","")=="legacy_resume":body+="\nLegacy checkpoint continued; earlier receipts retained as recorded."
 		if not _completion_error.is_empty():body+="\n\nRESULT NOT FULLY SAVED · "+_completion_error+"\nKeep the game open. Storage/access failures can be retried. Retained conflicting or partial files need recovery first."
 		snapshot.merge({"panel_override":true,"panel_title":"MOKSHA / THE FIVE ASCENTS","panel_body":body,"panel_footer":"ENTER Retry saving result" if not _completion_error.is_empty() else "N / ENTER Title · result retained in run history"})
@@ -727,8 +772,9 @@ func _hud_snapshot()->Dictionary:
 		journal_page=clampi(journal_page,0,pages-1)
 		var lines:="%s · Page %d/%d\n\n"%[sectors[sector].title,journal_page+1,pages]
 		for i in range(journal_page*5,mini(rows.size(),journal_page*5+5)):lines+=rows[i]+"\n"
+		if not smell_retained:lines+="\nSmell traded / irritant cough immunity"
 		lines+="\nNext: "+_journal_next_step()+"\nBuild: "+lens+(" / "+("FOCUS" if not blind else "sight + hearing traded")+" (no sound-map)" if not hearing_retained else "")+(" / "+", ".join(upgrades) if not upgrades.is_empty() else "")
-		lines+="\nScent: wisps life / split wisps blood / diamonds supplies."
+		if smell_retained:lines+="\nScent: wisps life / split wisps blood / diamonds supplies."
 		snapshot.merge({"panel_override":true,"panel_title":"FIELD JOURNAL","panel_body":lines,"panel_footer":"A / D or arrows Pages    TAB / ESC Return"})
 	elif state=="playing":
 		if _input_gate.has_held_blocker(_raw_campaign_input()):

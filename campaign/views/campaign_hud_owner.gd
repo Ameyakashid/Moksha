@@ -4,11 +4,11 @@ extends "res://simulation/ui/mission_hud.gd"
 ## Unknown keys are still discarded. Invalid campaign input leaves both snapshots
 ## untouched, and the original owner remains the validator for all shared fields.
 signal companion_presentation_accepted(id:String,blocked:bool)
-const CAMPAIGN_FIELDS := {"ladder_attached":false,"ladder_contact":false,"hearing_retained":true,"focus_specialization":"","last_result_available":false,"completion_save_failed":false,"companion_line_id":"", "guidance":"", "district_index":0, "district_count":0, "level_index":0, "lens":"", "required_done":0, "required_total":0, "gate_open":false, "input_device":""}
+const CAMPAIGN_FIELDS := {"ladder_attached":false,"ladder_contact":false,"hearing_retained":true,"smell_retained":true,"focus_specialization":"","last_result_available":false,"completion_save_failed":false,"companion_line_id":"", "guidance":"", "district_index":0, "district_count":0, "level_index":0, "lens":"", "required_done":0, "required_total":0, "gate_open":false, "input_device":""}
 var _campaign_snapshot:Dictionary={}
 func set_snapshot(value:Dictionary)->bool:
 	# Omitted grip must retire a previous true hint, without extending shared HUD state.
-	var next:Dictionary={"ladder_attached":false,"ladder_contact":false}
+	var next:Dictionary={"ladder_attached":false,"ladder_contact":false,"smell_retained":true}
 	for key in CAMPAIGN_FIELDS:
 		if not value.has(key):continue
 		if typeof(value[key])!=typeof(CAMPAIGN_FIELDS[key]):return false

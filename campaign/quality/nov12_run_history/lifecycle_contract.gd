@@ -36,7 +36,7 @@ func run()->void:
  h.start_new(true);var id:String=h.run_id
  check(id.length()==32 and h.run_status=="active","New owns durable identity")
  var raw=JSON.parse_string(FileAccess.get_file_as_string(h.campaign_save_path))
- check(raw.run_id==id and raw.campaign_version==3,"New checkpoint v3")
+ check(raw.run_id==id and raw.campaign_version==4,"New checkpoint v4")
  h.load_sector(2);h.load_sector(2)
  check(h.run_id==id,"District retry preserves run identity")
  final_fixture(h)
@@ -137,7 +137,7 @@ func run()->void:
  check(FileAccess.file_exists(h.history_path.path_join("preserved/legacy-checkpoint-"+legacy_hash+".json")),"Exact legacy checkpoint archived")
  check(FileAccess.get_sha256(h.legacy_results_path)==result_hash,"Legacy result never overwritten or associated")
  check(h.last_result.is_empty(),"Legacy result not promoted to active run completion")
- check(JSON.parse_string(FileAccess.get_file_as_string(h.campaign_save_path)).campaign_version==3,"Legacy resume migrates explicitly")
+ check(JSON.parse_string(FileAccess.get_file_as_string(h.campaign_save_path)).campaign_version==4,"Legacy resume migrates explicitly")
  # Missing district identity was explicitly valid in v1; completion preserves it.
  var prefix:Dictionary=h.level_receipts[0].duplicate(true)
  final_fixture(h)

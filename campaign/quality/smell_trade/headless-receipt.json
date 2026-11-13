@@ -1,0 +1,88 @@
+{
+  "guard_accept": {
+    "route_passed": true,
+    "failures": [],
+    "source_drift": [],
+    "driver_unchanged": true,
+    "original_entry_unchanged": true,
+    "same_run_id": true,
+    "prefix_preserved": true,
+    "no_new_deaths": true,
+    "override_null": true,
+    "offer_count": 1,
+    "accepted": true,
+    "guard_probe_complete": true,
+    "cough_episodes": [],
+    "active_overlap_samples": 77,
+    "overlap_guard_phases": {
+      "idle": 12,
+      "raise": 2,
+      "parry": 8,
+      "hold": 55
+    },
+    "scope": "Known-route headless actual physical InputEventKey. Deliberate five-second K hold in field; live enemies, no actor/state/health/sense/goal writes; not human discovery or native readability."
+  },
+  "guard_decline": {
+    "route_passed": true,
+    "failures": [],
+    "source_drift": [],
+    "driver_unchanged": true,
+    "original_entry_unchanged": true,
+    "same_run_id": true,
+    "prefix_preserved": true,
+    "no_new_deaths": true,
+    "override_null": true,
+    "offer_count": 1,
+    "accepted": false,
+    "guard_probe_complete": true,
+    "cough_episodes": [
+      {
+        "tick": 4313,
+        "prior_guard": "idle",
+        "guard": "idle",
+        "held": 0
+      },
+      {
+        "tick": 4569,
+        "prior_guard": "hold",
+        "guard": "idle",
+        "held": 1.0
+      }
+    ],
+    "active_overlap_samples": 77,
+    "overlap_guard_phases": {
+      "idle": 51,
+      "raise": 2,
+      "parry": 8,
+      "hold": 16
+    },
+    "scope": "Known-route headless actual physical InputEventKey. Deliberate five-second K hold in field; live enemies, no actor/state/health/sense/goal writes; not human discovery or native readability."
+  },
+  "earned_completion": {
+    "passed": true,
+    "method": "Actual physical InputEventKey continuation; attempt01 interrupted then new isolated copy of naturally committed Service Refuge checkpoint. No gameplay writes. Known route, not human discovery.",
+    "same_run_id": true,
+    "original20_metric_prefix": true,
+    "resumed22_metric_prefix": true,
+    "final_metrics": 32,
+    "final_levels": 5,
+    "ending": "public_record",
+    "smell": "traded",
+    "schema": 3,
+    "no_new_deaths": true,
+    "source_drift": [],
+    "driver_unchanged": true,
+    "fresh_process_roundtrip": {
+      "failures": [],
+      "passed": true,
+      "scope": "Fresh-process physical-key Last result/New roundtrip from exact copied earned completion"
+    },
+    "files": {
+      "report.json": "582cef776116a39fd400bed98ae9880e67aad28c997adff46c86b5b672127048",
+      "completed-record.json": "2bb09d96ed0642d68f78175089860ac27b12324b0c372d3153757f647dd1dea0",
+      "completed-checkpoint.json": "1b7231e5008c0d85510222ad3dc2561000a5b00e10afd10bb957a4fd8523832b",
+      "inputs.jsonl": "dd371fb7407d9fb5ef5b3b7ffba21c473984190630c8c6e525c33e8fb0e344af",
+      "producer.gd": "185d9c4985614fbcab9edad22499d211f0e9763459bbb6e375331f1a34547bcc"
+    }
+  }
+}
