@@ -1,14 +1,19 @@
 # Current playable state
 
-This inventory describes experimental source **`3d7786b`**, published to the private
-GitHub repository’s `main` and verified by the coordinator. It is a **five-level,
+This inventory describes the local readiness integration candidate: published
+`7f950e3` documentation plus the unchanged `dc1f951` presentation implementation.
+The existing Windows package remains source `ead13af`, runtime `3d7786b`. It is a **five-level,
 32-district prototype**, not the entire original MOKSHA vision. Accepted earlier
 source `ee725ef` and historical milestone receipts remain preserved.
 
-The current preview combines the continuous Market rail, three stationary
-dispersers and corrected sense-neutral briefs. Four native known-route clips
-show `ca7762b`; only authored teaching text/hints differ in the later gameplay
-content. Nine presentation-only cases on `3d7786b` passed actual-size visual
+The current source combines the continuous Market rail, three stationary
+dispersers and corrected sense-neutral briefs, plus selected-objective action
+prompts and a local ladder-contact clue. These last two changes are not in the
+existing Windows download. Their scripted native key-ladder UI gate passed
+full-size pixel review, not fresh-user or full-district acceptance. See
+[source readiness scope and film](SOURCE_READINESS_MILESTONE.md). Four native known-route clips
+show `ca7762b`; the later `3d7786b` milestone changed only authored teaching text/hints.
+The subsequent readiness source changes presentation APIs as described above. Nine presentation-only cases on `3d7786b` passed actual-size visual
 review. Fresh screenshot-only AI Market navigation reached the first flood key (1/4
 objectives), with no deaths/retries; it did not complete the district. See [the evidence index](RELEASE_CANDIDATE_EVIDENCE.md).
 
