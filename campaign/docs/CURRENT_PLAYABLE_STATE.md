@@ -1,10 +1,12 @@
 # Current playable state
 
-This inventory describes current development source: the filmed Memory Loom
-runtime `6a65ac5`, built on readiness/smell runtime `891f781`. It remains a
-five-level/32-district prototype, not the complete original vision. The delivered
-Windows 596 download still contains `891f781`, not the Memory Loom redesign.
-See [Memory source checks and limits](MEMORY_LOOM_NOV13_ACCEPTANCE.md).
+This inventory describes current development runtime `d3385ed`: Memory Loom
+runtime `6a65ac5` plus the bounded Intellect coaching slice, built on
+readiness/smell runtime `891f781`. It remains a five-level/32-district prototype,
+not the complete original vision. The delivered Windows 596 download still
+contains `891f781`, not the Memory Loom redesign or tactical coaching.
+See [Memory checks](MEMORY_LOOM_NOV13_ACCEPTANCE.md) and
+[Intellect ownership, validation and limits](INTELLECT_TACTICAL_SLICE.md).
 
 Smell can now be traded after the ordinary Level 3 upgrade. Retain it for coarse
 life, wounded-enemy and supply cues, or lose those cues for immunity only to the
@@ -24,7 +26,7 @@ ead13af/3d is a separate historical download. See [current Windows verification]
 | Builds | Neutral/Strength/Agility starting lenses, four level-exit upgrades and optional field augments. |
 | Sight | Optional sacrifice removes ordinary world paint and improves movement/sound traces. Genuine nearby sound geometry, not a painted replacement map. |
 | Hearing | Optional first-level-exit exchange, after the ordinary upgrade. Removes player pulses, sound-map and informative world/body audio. Visible unobstructed melee commitments can gain a bounded late-strike opportunity marked by white brackets. Not automatic parry, global slow motion or a damage bonus. |
-| Other perception | Capped coarse scent for life/blood/supplies; body-local ladder contact presentation; quiet contextual Intellect text. These are not complete substitute senses. |
+| Other perception | Capped coarse scent for life/blood/supplies; body-local ladder contact presentation; quiet contextual Intellect text and two short sight-gated Quarantine lancer cues. These are not complete substitute senses; blind tactical advice is deferred. |
 | World presentation | Original environment treatments for all five levels, layered neon opening and background crowds. Textured Market stalls/refuge and new Memory record drawers, populated counter and rewriting machinery remain behind the playfield. |
 | Irritants | Four finite stationary fields in current source, including the Memory Loom lower aisle; Windows 596 has the earlier three. 0.18-second attack/guard interruption, 1.5-second cross-source rearm, no direct HP loss or movement stun; untimed upper alternatives. Optional smell exchange grants cough immunity at the cost of all scent cues. |
 | Continuity | District checkpoints, preserved legacy bytes, stable run identity, immutable completed results and read-only result review. |
@@ -71,8 +73,9 @@ Current Windows 596 includes the later combined runtime 891.
 
 ## Source versus downloads
 
-- Private GitHub main was verified at source `596b884156a02ceb9dc8d37e769f70309cb4b059`.
-  Check your checkout; this records publication, not every future tip.
+- The Memory source milestone was published at `6d7e86d`; the Intellect gameplay
+  successor is `d3385ed`. Check your checkout's actual commit, rather than treating
+  a historical download or film as the current source revision.
 - Current Windows 596 contains runtime 891. All 62 stages passed on Linux: 47 builder
   stages (import/export plus 45 packed executions) and 15 supplements. These are not
   Windows executions. See [post-build record](WINDOWS_596B884_RELEASE.md).
